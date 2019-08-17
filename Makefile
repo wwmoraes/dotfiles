@@ -1,15 +1,19 @@
 SHELL = /bin/sh
-DIRECTORIES = $(sort $(wildcard */))
 TOOLS = stow fish tmux vim powerline
 
 define stow
 	$(info stowing $(subst /,,$(1))...)
-	@stow $(1)
+	@stow -t ~ -R $(1)
 endef
 
 define unstow
 	$(info unstowing $(subst /,,$(1))...)
-	@stow -D $(1)
+	@stow -t ~ -D $(1)
+endef
+
+define drystow
+	$(info restowing $(subst /,,$(1))...)
+	@stow -t ~ -n $(1)
 endef
 
 define isInstalled
@@ -23,6 +27,10 @@ install: check
 .PHONY: remove
 remove: check
 	$(foreach dir,${DIRECTORIES},$(call unstow,${dir}))
+
+.PHONY: test
+test: check
+	$(foreach dir,${DIRECTORIES},$(call drystow,${dir}))
 
 .PHONY: check
 check:
