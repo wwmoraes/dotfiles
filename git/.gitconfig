@@ -1,0 +1,8 @@
+[user]
+	name = William Wagner Moraes Artero
+[pull]
+	rebase = true
+[includeIf "gitdir:/home/william.artero/"]
+	path = .gitconfig-work
+[includeIf "!gitdir:/home/william.artero/"]
+	path = .gitconfig-personal
