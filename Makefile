@@ -1,4 +1,5 @@
 SHELL = /bin/sh
+DIRECTORIES = $(sort $(wildcard */))
 TOOLS = stow fish tmux vim powerline
 
 define stow
