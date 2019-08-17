@@ -2,6 +2,19 @@
 	name = William Wagner Moraes Artero
 [pull]
 	rebase = true
+[commit]
+	gpgSign = false
+[gui]
+	pruneduringfetch = true
+[smartgit "submodule"]
+	fetchalways = false
+	update = true
+	initializenew = true
+[push]
+	recurseSubmodules = check
+[difftool]
+	prompt = false
+
 [includeIf "gitdir:/home/william.artero/"]
 	path = .gitconfig-work
 [includeIf "!gitdir:/home/william.artero/"]
