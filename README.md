@@ -5,5 +5,7 @@ My personal dotfiles
 ## Install
 
 ```sh
-curl -o- https://raw.githubusercontent.com/wwmoraes/dotfiles/master/install.sh | sh
+git clone git@github.com:wwmoraes/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+make install
 ```
