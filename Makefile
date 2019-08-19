@@ -18,7 +18,7 @@ define drystow
 endef
 
 define isInstalled
-	$(if $(shell which $(1)),,$(error $(1) isn't installed))
+	$(if $(shell which $(1)),,$(warning $(1) isn't installed))
 endef
 
 .PHONY: install
