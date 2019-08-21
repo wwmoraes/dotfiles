@@ -1,5 +1,6 @@
 [user]
 	name = William Wagner Moraes Artero
+	email = williamwmoraes@gmail.com
 [pull]
 	rebase = true
 [commit]
@@ -17,5 +18,3 @@
 
 [includeIf "gitdir:/home/william.artero/"]
 	path = .gitconfig-work
-[includeIf "!gitdir:/home/william.artero/"]
-	path = .gitconfig-personal
