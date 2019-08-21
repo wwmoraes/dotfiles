@@ -1,5 +1,9 @@
 # Abbreviations available only in interactive shells
 if status --is-interactive
+    # kubectl abbreviations
+    abbr -a -g k kubectl
+    abbr -a -g kgp kubectl get pods
+
     # work abbreviations
     if test (whoami) = "william.artero"
         abbr -a -g klocal kubectl config use-context kubernetes-admin@kind
