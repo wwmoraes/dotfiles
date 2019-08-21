@@ -1,5 +1,8 @@
 # Abbreviations available only in interactive shells
 if status --is-interactive
+    # git abbreviations
+    abbr -a -g gco git checkout
+
     # kubectl abbreviations
     abbr -a -g k kubectl
     abbr -a -g kgp kubectl get pods
