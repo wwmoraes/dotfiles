@@ -1,11 +1,15 @@
 # Abbreviations available only in interactive shells
 if status --is-interactive
     # git abbreviations
-    abbr -a -g gco git checkout
+    if test command -qs git
+        abbr -a -g gco git checkout
+    end
 
     # kubectl abbreviations
-    abbr -a -g k kubectl
-    abbr -a -g kgp kubectl get pods
+    if test command -qs kubectl
+        abbr -a -g k kubectl
+        abbr -a -g kgp kubectl get pods
+    end
 
     # work abbreviations
     if test (whoami) = "william.artero"
