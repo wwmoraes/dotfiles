@@ -1,0 +1,23 @@
+[Desktop Entry]
+DefaultProfile=Tmux.profile
+
+[Favorite Profiles]
+Favorites=Tmux.profile
+
+[KonsoleWindow]
+ShowAppNameOnTitleBar=false
+ShowMenuBarByDefault=false
+
+[MainWindow]
+Height 1920=1891
+Height 768=329
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAAAABDgAAAdjAAAABAAAAAQAAAAIAAAACPwAAAAA
+ToolBarsMovable=Disabled
+Width 1080=1358
+Width 1366=1358
+Window-Maximized 1920x1080=true
+Window-Maximized 768x1366=true
+
+[TabBar]
+TabBarVisibility=ShowTabBarWhenNeeded
