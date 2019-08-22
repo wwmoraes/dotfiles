@@ -1,0 +1,14 @@
+{
+	"Storybook stories": {
+		"prefix": "stories",
+		"body": [
+			"import React from 'react';",
+			"import {storiesOf} from '@storybook/react';",
+			"",
+			"import ${1:component} from '.';",
+			"",
+			"storiesOf('${1:component}', module).add('Default', () => <${1:component} $0/>);"
+		],
+		"description": "Create a Storybook storiesOf call (with imports)"
+	}
+}
