@@ -1,5 +1,6 @@
 [Appearance]
-Font=Hack,14,-1,0,50,0,0,0,0,0,Regular
+ColorScheme=Linux
+Font=Source Code Pro for Powerline,14,-1,0,50,0,0,0,0,0,Regular
 
 [General]
 Command=/usr/bin/tmux new -A -s main
