@@ -19,11 +19,11 @@ display=Display\tMeta+P,Display\tMeta+P,Switch Display
 
 [khotkeys]
 _k_friendly_name=KDE Daemon
-{23947c17-c964-4836-86aa-0cb016f6ae30}=Meta+Print,none,Capturar a imagem da janela ativa
-{33619a41-72b4-41ba-ab9f-4d0e93401d94}=Meta+Shift+Print,none,Capturar a imagem de uma região retangular
-{7566d7ee-db35-404a-8bec-da297ce1ef4f}=Print,none,Iniciar a ferramenta de captura de tela
-{ba070b67-dd5d-4ed5-b6c6-b90b1c7757ee}=Shift+Print,none,Capturar a tela inteira
+{6af5a73a-077a-45df-bba8-88e23c9bd1ff}=none,none,Capturar a imagem de uma região retangular
+{8edaa1ba-594f-431a-8381-f69f37b86edf}=Shift+Print,none,Capturar a tela inteira
+{a4328749-2b23-477f-94ca-cdeffcf03bbf}=none,none,Capturar a imagem da janela ativa
 {d03619b6-9b3c-48cc-9d9c-a2aadb485550}=,none,Pesquisar
+{f8ac6525-fb88-45cb-b0c2-52f14613f758}=none,none,Iniciar a ferramenta de captura de tela
 
 [kmix]
 _k_friendly_name=Audio Volume
@@ -41,7 +41,7 @@ run command on clipboard contents=Alt+Shift+F2,Alt+Shift+F2,Run Command on clipb
 
 [ksmserver]
 Halt Without Confirmation=Ctrl+Alt+Shift+PgDown,none,Halt Without Confirmation
-Lock Session=Ctrl+Alt+L,Ctrl+Alt+L\tScreensaver,Lock Session
+Lock Session=Ctrl+Alt+L\tScreensaver,Ctrl+Alt+L\tScreensaver,Lock Session
 Log Out=Ctrl+Alt+Del,none,Log Out
 Log Out Without Confirmation=Ctrl+Alt+Shift+Del,none,Log Out Without Confirmation
 Reboot Without Confirmation=Ctrl+Alt+Shift+PgUp,none,Reboot Without Confirmation
@@ -50,22 +50,24 @@ _k_friendly_name=ksmserver
 [kwin]
 Activate Window Demanding Attention=Ctrl+Alt+A,Ctrl+Alt+A,Activate Window Demanding Attention
 Decrease Opacity=none,none,Decrease Opacity of Active Window by 5 %
-Expose=Ctrl+F9,Ctrl+F9,Alternar as janelas presentes (área de trabalho atual)
-ExposeAll=Ctrl+F10\tLaunch (C),Ctrl+F10\tLaunch (C),Alternar as janelas presentes (todas as áreas de trabalho)
-ExposeClass=Ctrl+F7,Ctrl+F7,Alternar as janelas presentes (classe de janelas)
+Expose=Ctrl+F9,Ctrl+F9,Toggle Present Windows (Current desktop)
+ExposeAll=Ctrl+F10\tLaunch (C),Ctrl+F10\tLaunch (C),Toggle Present Windows (All desktops)
+ExposeClass=Ctrl+F7,Ctrl+F7,Toggle Present Windows (Window class)
+FlipSwitchAll=none,none,Toggle Flip Switch (All desktops)
+FlipSwitchCurrent=none,none,Toggle Flip Switch (Current desktop)
 Increase Opacity=none,none,Increase Opacity of Active Window by 5 %
 Invert Screen Colors=none,none,Invert Screen Colors
 Kill Window=Ctrl+Alt+Esc,Ctrl+Alt+Esc,Kill Window
-MoveMouseToCenter=Meta+F6,Meta+F6,Mover o mouse para o centro
-MoveMouseToFocus=Meta+F5,Meta+F5,Mover o mouse para o foco
-MoveZoomDown=Meta+Ctrl+Down,Meta+Ctrl+Down,Mover a área ampliada para baixo
-MoveZoomLeft=Meta+Ctrl+Left,Meta+Ctrl+Left,Mover a área ampliada para a esquerda
-MoveZoomRight=Meta+Ctrl+Right,Meta+Ctrl+Right,Mover a área ampliada para a direita
-MoveZoomUp=Meta+Ctrl+Up,Meta+Ctrl+Up,Mover a área ampliada para cima
+MoveMouseToCenter=Meta+F6,Meta+F6,Move Mouse to Center
+MoveMouseToFocus=Meta+F5,Meta+F5,Move Mouse to Focus
+MoveZoomDown=Meta+Ctrl+Down,Meta+Ctrl+Down,Move Zoomed Area Downwards
+MoveZoomLeft=Meta+Ctrl+Left,Meta+Ctrl+Left,Move Zoomed Area to Left
+MoveZoomRight=Meta+Ctrl+Right,Meta+Ctrl+Right,Move Zoomed Area to Right
+MoveZoomUp=Meta+Ctrl+Up,Meta+Ctrl+Up,Move Zoomed Area Upwards
 Remove Window From Group=none,none,Remove Window From Group
 Setup Window Shortcut=none,none,Setup Window Shortcut
 Show Desktop=none,none,Show Desktop
-ShowDesktopGrid=Ctrl+F8,Ctrl+F8,Mostrar a grade da área de trabalho
+ShowDesktopGrid=Ctrl+F8,Ctrl+F8,Show Desktop Grid
 Suspend Compositing=Alt+Shift+F12,Alt+Shift+F12,Suspend Compositing
 Switch One Desktop Down=none,none,Switch One Desktop Down
 Switch One Desktop Up=none,none,Switch One Desktop Up
@@ -118,7 +120,7 @@ Walk Through Windows=Alt+Tab,none,Walk Through Windows
 Walk Through Windows (Reverse)=Alt+Shift+Backtab,none,Walk Through Windows (Reverse)
 Walk Through Windows Alternative=none,none,Walk Through Windows Alternative
 Walk Through Windows Alternative (Reverse)=none,none,Walk Through Windows Alternative (Reverse)
-Walk Through Windows of Current Application=Alt+',none,Walk Through Windows of Current Application
+Walk Through Windows of Current Application=Alt+`,none,Walk Through Windows of Current Application
 Walk Through Windows of Current Application (Reverse)=Alt+~,none,Walk Through Windows of Current Application (Reverse)
 Walk Through Windows of Current Application Alternative=none,none,Walk Through Windows of Current Application Alternative
 Walk Through Windows of Current Application Alternative (Reverse)=none,none,Walk Through Windows of Current Application Alternative (Reverse)
@@ -179,9 +181,9 @@ Window to Desktop 7=none,none,Window to Desktop 7
 Window to Desktop 8=none,none,Window to Desktop 8
 Window to Desktop 9=none,none,Window to Desktop 9
 Window to Next Desktop=none,none,Window to Next Desktop
-Window to Next Screen=Meta+Shift+Right,none,Window to Next Screen
+Window to Next Screen=none,none,Window to Next Screen
 Window to Previous Desktop=none,none,Window to Previous Desktop
-Window to Previous Screen=Meta+Shift+Left,none,Window to Previous Screen
+Window to Previous Screen=none,none,Window to Previous Screen
 Window to Screen 0=none,none,Window to Screen 0
 Window to Screen 1=none,none,Window to Screen 1
 Window to Screen 2=none,none,Window to Screen 2
@@ -191,9 +193,9 @@ Window to Screen 5=none,none,Window to Screen 5
 Window to Screen 6=none,none,Window to Screen 6
 Window to Screen 7=none,none,Window to Screen 7
 _k_friendly_name=KWin
-view_actual_size=,Meta+0,Tamanho real
-view_zoom_in=Meta+=,Meta+=,Ampliar
-view_zoom_out=Meta+-,Meta+-,Reduzir
+view_actual_size=,Meta+0,Actual Size
+view_zoom_in=Meta+=,Meta+=,Zoom In
+view_zoom_out=Meta+-,Meta+-,Zoom Out
 
 [mediacontrol]
 _k_friendly_name=Media Controller
@@ -203,10 +205,10 @@ previousmedia=Media Previous,Media Previous,Media playback previous
 stopmedia=Media Stop,Media Stop,Stop media playback
 
 [org.kde.konsole.desktop]
-NewTab=,none,Open a New Tab
-NewWindow=none,none,Open a New Window
-_k_friendly_name=Launch Konsole
-_launch=\tCtrl+Alt+T,none,Launch Konsole
+NewTab=,none,Abre uma nova aba
+NewWindow=none,none,Abre uma nova janela
+_k_friendly_name=Iniciar Konsole
+_launch=\tCtrl+Alt+T,none,Iniciar Konsole
 
 [org_kde_powerdevil]
 Decrease Keyboard Brightness=Keyboard Brightness Down,Keyboard Brightness Down,Decrease Keyboard Brightness
@@ -232,6 +234,7 @@ activate task manager entry 7=Meta+7,Meta+7,Activate Task Manager Entry 7
 activate task manager entry 8=Meta+8,Meta+8,Activate Task Manager Entry 8
 activate task manager entry 9=Meta+9,Meta+9,Activate Task Manager Entry 9
 activate widget 3=Alt+F1,none,Activate Application Launcher Widget
+activate widget 4=,none,Activate Application Launcher Widget
 clear-history=none,none,Clear Clipboard History
 clipboard_action=Ctrl+Alt+X,Ctrl+Alt+X,Enable Clipboard Actions
 cycleNextAction=none,none,Next History Item
