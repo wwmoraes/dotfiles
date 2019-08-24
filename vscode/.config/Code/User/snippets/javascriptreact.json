@@ -1,2 +1,17 @@
 {
+  "Component": {
+    "prefix": "component",
+    "body": [
+      "import styled from 'styled-components';",
+      "",
+      "const ${1:component} = styled.div``;",
+      "",
+      "${1:component}.propTypes = {};",
+      "",
+      "${1:component}.displayName = '${1:component}';",
+      "",
+      "export default ${1:component};"
+    ],
+    "description": "Create a React Component"
+  }
 }
