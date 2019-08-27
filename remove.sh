@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 SOURCE=$1
 DESTINATION=~/${1#*/}
