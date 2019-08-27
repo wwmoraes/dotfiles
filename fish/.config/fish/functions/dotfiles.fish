@@ -2,8 +2,10 @@ function dotfiles -a cmd -d "Setup dotfiles"
   switch "$cmd"
     case install
       _dotfiles_install
-    case update
-      _dotfiles_update
+    case push
+      _dotfiles_push
+    case pull
+      _dotfiles_pull
     case status
       _dotfiles_status
     case "" "*"
@@ -19,12 +21,19 @@ function _dotfiles_install
 end
 complete -xc dotfiles -n __fish_use_subcommand -a install -d "[re]install dotfiles"
 
-function _dotfiles_update
+function _dotfiles_push
+  pushd ~/.dotfiles > /dev/null
+  git push
+  popd > /dev/null
+end
+complete -xc dotfiles -n __fish_use_subcommand -a push -d "push dotfiles"
+
+function _dotfiles_pull
   pushd ~/.dotfiles > /dev/null
   git pull
   popd > /dev/null
 end
-complete -xc dotfiles -n __fish_use_subcommand -a update -d "update dotfiles"
+complete -xc dotfiles -n __fish_use_subcommand -a pull -d "pull dotfiles"
 
 function _dotfiles_status
   git -C ~/.dotfiles status -s
