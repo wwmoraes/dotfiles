@@ -1,10 +1,33 @@
 [alias]
-	diff = diff --word-diff
+# Needed for piping
+	git = !exec git
+
+# Shorter versions and true aliases
+	s = status
+	co = checkout
+	cherrypick = cherry-pick
+	cherry = cherry-pick
+	cp = cherry-pick
 
 # Human Aliases
 	unstage = reset -q HEAD --
 	discard = checkout --
 	uncommit = reset --mixed HEAD~
+	amend = commit --amend --all
+# almost-human aliases
+	hreset = reset --hard
+	fpush = push --force
+
+# Goodies
+  c = commit -am
+	sclone = clone --depth=1
+	df = diff --color --color-words --abbrev
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	diff = diff --word-diff
+	reup = rebase-update # depot_tools specific
+
+# Show the diff between the latest commit and the current state
+	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
 # Fixup staged changes to specified commit
 	fixup = !sh -c 'REV=$(git rev-parse $1) && git commit --fixup $@ && git rebase -i --autosquash $REV^' -

@@ -1,25 +1,70 @@
 [core]
-	excludesfile = .gitignore_global
+	excludesfile = ~/.gitignore
+	attributesfile = ~/.gitattributes
+	precomposeUnicode = true
+
+# Include files to keep this one lean
 [include]
-	path = .gitaliases
-[user]
-	name = William Wagner Moraes Artero
-	email = williamwmoraes@gmail.com
+	path = ~/.gitaliases
+	path = ~/.gitcolors
+
+[protocol]
+	# faster git server communication.
+	# like a LOT faster. https://opensource.googleblog.com/2018/05/introducing-git-protocol-version-2.html
+	version = 2
+
+[fetch]
+	prune = true
+
 [pull]
 	rebase = true
+
 [commit]
 	gpgSign = false
+
+# push easily. http://stackoverflow.com/a/23918418/89484
+[push]
+	recurseSubmodules = check
+	default = current
+	followTags = true
+
+[stash]
+	showPatch = true
+
+[diff]
+	# Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
+	# https://blog.github.com/2018-04-05-git-217-released/
+	colorMoved = zebra
+
+[log]
+	date = relative
+
 [gui]
 	pruneduringfetch = true
+
+[difftool]
+	prompt = false
+
+[help]
+	# correct typos
+	autocorrect = 1
+
+[remote "origin"]
+	fetch = +refs/heads/*:refs/remotes/origin/*
+
+[url "git://gist.github.com/"]
+	insteadOf = "gist:"
+
 [smartgit "submodule"]
 	fetchalways = false
 	update = true
 	initializenew = true
-[push]
-	recurseSubmodules = check
-[difftool]
-	prompt = false
 
+# Default user
+[user]
+	name = William Wagner Moraes Artero
+	email = williamwmoraes@gmail.com
 
+# Work overrides
 [includeIf "gitdir:/home/william.artero/"]
 	path = .gitconfig-work

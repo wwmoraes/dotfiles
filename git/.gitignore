@@ -1,0 +1,26 @@
+# backup files
+*~
+
+### Folder view configuration
+# MacOS
+.DS_Store
+# Windows
+Desktop.ini
+
+### Thumbnail cache
+# MacOS
+._*
+# Windows
+Thumbs.db
+
+### Search indexes
+# MacOS
+.Spotlight-V100
+
+### Trash bin
+# MacOS
+.Trashes
+
+### Language/framework-specific
+# NodeJS
+node_modules
