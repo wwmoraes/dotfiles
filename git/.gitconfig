@@ -1,3 +1,7 @@
+[core]
+	excludesfile = .gitignore_global
+[include]
+	path = .gitaliases
 [user]
 	name = William Wagner Moraes Artero
 	email = williamwmoraes@gmail.com
@@ -15,6 +19,7 @@
 	recurseSubmodules = check
 [difftool]
 	prompt = false
+
 
 [includeIf "gitdir:/home/william.artero/"]
 	path = .gitconfig-work
