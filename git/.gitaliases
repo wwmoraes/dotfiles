@@ -2,21 +2,22 @@
 # Needed for piping
 	git = !exec git
 
+# Human Aliases
+	unstage = reset -q HEAD --
+	discard = checkout --
+	uncommit = reset --mixed HEAD~
+	amend = commit --amend --all
+
+# almost-human aliases
+	hreset = reset --hard
+	fpush = push --force
+
 # Shorter versions and true aliases
 	s = status
 	co = checkout
 	cherrypick = cherry-pick
 	cherry = cherry-pick
 	cp = cherry-pick
-
-# Human Aliases
-	unstage = reset -q HEAD --
-	discard = checkout --
-	uncommit = reset --mixed HEAD~
-	amend = commit --amend --all
-# almost-human aliases
-	hreset = reset --hard
-	fpush = push --force
 
 # Goodies
   c = commit -am
