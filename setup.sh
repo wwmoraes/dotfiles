@@ -2,7 +2,7 @@
 
 # Tools wanted
 SYSTEM_PACKAGES=(fish git vim stow tmux pip)
-SYSTEM_PLUS_PACKAGES=(fzf)
+HOMEBREW_PACKAGES=(fzf)
 PYTHON_PACKAGES=(powerline-status)
 
 # empty manager
@@ -16,7 +16,7 @@ osInfo[/etc/redhat-release]=yum
 osInfo[/etc/gentoo-release]=emerge
 osInfo[/etc/SuSE-release]=zypp
 
-echo -n "Checking package manager..."
+echo "Checking package manager..."
 # Get manager
 for f in ${!osInfo[@]}
 do
@@ -29,22 +29,21 @@ done
 if [ "${MANAGER}" = "" ]; then
   echo -e "ERROR\nUnable to detect the OS package manager"
   exit 1
-else
-  echo -e " OK"
 fi
 
-# additional package manager detector
-PLUS_MANAGER=
+# homebrew package manager detector
+echo "Checking homebrew package manager..."
+HOMEBREW_MANAGER=
 case "$(uname -s)" in
   "Darwin")
-    PLUS_MANAGER="brew install"
+    HOMEBREW_MANAGER="brew install"
     type -p brew &> /dev/null
     if [ $? -ne 0 ]; then
       /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     fi
     ;;
   "Linux")
-    PLUS_MANAGER="/home/linuxbrew/.linuxbrew/bin/brew install"
+    HOMEBREW_MANAGER="/home/linuxbrew/.linuxbrew/bin/brew install"
     type -p brew &> /dev/null
     if [ $? -ne 0 ]; then
       sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
@@ -52,7 +51,7 @@ case "$(uname -s)" in
     eval $(SHELL=bash /home/linuxbrew/.linuxbrew/bin/brew shellenv)
     ;;
   ""|*)
-    echo "Unable to detect the OS type to select an additional package manager"
+    echo "Unable to detect the OS type to install homebrew"
     exit 1
 esac
 
@@ -63,6 +62,7 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 for PACKAGE in ${SYSTEM_PACKAGES[@]}; do
+  echo "Checking package $PACKAGE..."
   type -p $PACKAGE &> /dev/null && continue
   
   echo "Installing system package $PACKAGE..."
@@ -70,15 +70,29 @@ for PACKAGE in ${SYSTEM_PACKAGES[@]}; do
 done
 
 for PACKAGE in ${PYTHON_PACKAGES[@]}; do
+  echo "Checking python package $PACKAGE..."
   pip show $PACKAGE &>/dev/null && continue
 
   echo "Installing python package $PACKAGE..."
   sudo pip install $PACKAGE
 done
 
-for PACKAGE in ${SYSTEM_PLUS_PACKAGES[@]}; do
+for PACKAGE in ${HOMEBREW_PACKAGES[@]}; do
+  echo "Checking brew package $PACKAGE..."
   type -p $PACKAGE &> /dev/null && continue
 
   echo "Installing brew package $PACKAGE..."
-  ${PLUS_MANAGER} $PACKAGE
+  ${HOMEBREW_MANAGER} $PACKAGE
 done
+
+### Set variables
+# Homebrew
+echo "Evaluing Homebrew shell environments..."
+eval $(SHELL=bash /home/linuxbrew/.linuxbrew/bin/brew shellenv)
+# home binaries
+echo "Adding local bin to path..."
+export PATH=$HOME/.local/bin:$PATH
+
+### Fish-specific configurations
+echo "Setting up fish shell variables..."
+fish -c ./variables.fish $PATH
