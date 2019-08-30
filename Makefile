@@ -13,7 +13,7 @@ define unstow
 endef
 
 define drystow
-	$(info restowing $(subst /,,$(1))...)
+	$(info dry-stowing $(subst /,,$(1))...)
 	@stow -t ~ -n $(1)
 endef
 
