@@ -19,10 +19,10 @@ display=Display\tMeta+P,Display\tMeta+P,Switch Display
 
 [khotkeys]
 _k_friendly_name=KDE Daemon
-{23947c17-c964-4836-86aa-0cb016f6ae30}=Meta+Print,none,Capturar a imagem da janela ativa
-{33619a41-72b4-41ba-ab9f-4d0e93401d94}=Meta+Shift+Print,none,Capturar a imagem de uma região retangular
-{7566d7ee-db35-404a-8bec-da297ce1ef4f}=Print,none,Iniciar a ferramenta de captura de tela
-{ba070b67-dd5d-4ed5-b6c6-b90b1c7757ee}=,none,Capturar a tela inteira
+{a4328749-2b23-477f-94ca-cdeffcf03bbf}=Meta+Print,none,Capturar a imagem da janela ativa
+{6af5a73a-077a-45df-bba8-88e23c9bd1ff}=Meta+Shift+Print,none,Capturar a imagem de uma região retangular
+{f8ac6525-fb88-45cb-b0c2-52f14613f758}=Print,none,Iniciar a ferramenta de captura de tela
+{8edaa1ba-594f-431a-8381-f69f37b86edf}=,none,Capturar a tela inteira
 {d03619b6-9b3c-48cc-9d9c-a2aadb485550}=,none,Pesquisar
 
 [kmix]
@@ -120,8 +120,8 @@ Walk Through Windows=Alt+Tab,none,Walk Through Windows
 Walk Through Windows (Reverse)=Alt+Shift+Backtab,none,Walk Through Windows (Reverse)
 Walk Through Windows Alternative=none,none,Walk Through Windows Alternative
 Walk Through Windows Alternative (Reverse)=none,none,Walk Through Windows Alternative (Reverse)
-Walk Through Windows of Current Application=Alt+',none,Walk Through Windows of Current Application
-Walk Through Windows of Current Application (Reverse)=Alt+",none,Walk Through Windows of Current Application (Reverse)
+Walk Through Windows of Current Application=Alt+`,none,Walk Through Windows of Current Application
+Walk Through Windows of Current Application (Reverse)=Alt+~,none,Walk Through Windows of Current Application (Reverse)
 Walk Through Windows of Current Application Alternative=none,none,Walk Through Windows of Current Application Alternative
 Walk Through Windows of Current Application Alternative (Reverse)=none,none,Walk Through Windows of Current Application Alternative (Reverse)
 Window Above Other Windows=none,none,Keep Window Above Others
