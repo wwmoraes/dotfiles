@@ -1,0 +1,38 @@
+{
+  "terminal.integrated.shell.linux": "/usr/bin/fish",
+  "editor.tabSize": 2,
+  "editor.minimap.enabled": false,
+  "editor.rulers": [
+    80,
+    100
+  ],
+  "window.zoomLevel": 0,
+  "terminal.integrated.rendererType": "dom",
+  "editor.wordWrap": "on",
+  "editor.wrappingIndent": "indent",
+  "editor.suggestSelection": "first",
+  "window.titleBarStyle": "custom",
+  "bookmarks.saveBookmarksInProject": true,
+  "types-autoinstaller.saveAsDevDependency": true,
+  "prettier.eslintIntegration": true,
+  "eslint.autoFixOnSave": true,
+  "gitlens.hovers.currentLine.over": "line",
+  "workbench.editor.enablePreview": false,
+  "python.jediEnabled": false,
+  "bookmarks.useWorkaroundForFormatters": true,
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "workbench.startupEditor": "newUntitledFile",
+  "breadcrumbs.enabled": true,
+  "bookmarks.backgroundLineColor": "rgba(21, 126, 251, 0.1)",
+  "go.useLanguageServer": true,
+  "phpcs.standard": "PSR2",
+  "go.alternateTools": {
+    "go": "~/.go/bin/go"
+  },
+  "terminal.integrated.fontFamily": "Source Code Pro for Powerline",
+  "git.autofetch": true,
+  "vsicons.dontShowNewVersionMessage": true,
+  "explorer.confirmDelete": false,
+  "git-graph.maxDepthOfRepoSearch": 2
+}
