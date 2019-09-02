@@ -106,12 +106,24 @@ complete -xc dotfiles -n __fish_use_subcommand -a setup -d "setup environment fo
 
 # code subcommand
 function _dotfiles_code
+  # Check the presence of needed tools
+  if not type -q code
+    echo "Error: please install VSCode to use this function"
+    return 1
+  end
+
   code ~/.dotfiles
 end
 complete -xc dotfiles -n __fish_use_subcommand -a code -d "open VSCode on dotfiles' repository"
 
 # lg subcommand
 function _dotfiles_lg
+  # Check the presence of needed tools
+  if not type -q lazygit
+    echo "Error: please install lazygit to use this function"
+    return 1
+  end
+
   pushd ~/.dotfiles > /dev/null
   lazygit
   popd > /dev/null
