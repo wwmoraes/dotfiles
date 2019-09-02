@@ -1,4 +1,9 @@
 function lg -a path -d "Launch lazygit on current (or given) directory"
+  if not type -q lazygit
+    echo "please install lazygit to use this function"
+    return 1
+  end
+
   if test "$path" != ""; emit lg_open $path; end
   lazygit
   if test "$path" != ""; emit lg_close; end
