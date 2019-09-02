@@ -19,11 +19,11 @@ display=Display\tMeta+P,Display\tMeta+P,Switch Display
 
 [khotkeys]
 _k_friendly_name=KDE Daemon
-{a4328749-2b23-477f-94ca-cdeffcf03bbf}=Meta+Print,none,Capturar a imagem da janela ativa
 {6af5a73a-077a-45df-bba8-88e23c9bd1ff}=Meta+Shift+Print,none,Capturar a imagem de uma região retangular
-{f8ac6525-fb88-45cb-b0c2-52f14613f758}=Print,none,Iniciar a ferramenta de captura de tela
 {8edaa1ba-594f-431a-8381-f69f37b86edf}=,none,Capturar a tela inteira
+{a4328749-2b23-477f-94ca-cdeffcf03bbf}=Meta+Print,none,Capturar a imagem da janela ativa
 {d03619b6-9b3c-48cc-9d9c-a2aadb485550}=,none,Pesquisar
+{f8ac6525-fb88-45cb-b0c2-52f14613f758}=Print,none,Iniciar a ferramenta de captura de tela
 
 [kmix]
 _k_friendly_name=Audio Volume
@@ -233,8 +233,8 @@ activate task manager entry 6=Meta+6,Meta+6,Activate Task Manager Entry 6
 activate task manager entry 7=Meta+7,Meta+7,Activate Task Manager Entry 7
 activate task manager entry 8=Meta+8,Meta+8,Activate Task Manager Entry 8
 activate task manager entry 9=Meta+9,Meta+9,Activate Task Manager Entry 9
-activate widget 3=Alt+F1,none,Activate Application Launcher Widget
-activate widget 4=,none,Activate Application Launcher Widget
+activate widget 3=,none,Activate Application Launcher Widget
+activate widget 4=Alt+F1,none,Activate Application Launcher Widget
 clear-history=none,none,Clear Clipboard History
 clipboard_action=Ctrl+Alt+X,Ctrl+Alt+X,Enable Clipboard Actions
 cycleNextAction=none,none,Next History Item
