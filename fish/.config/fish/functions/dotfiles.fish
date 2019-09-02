@@ -1,10 +1,6 @@
 # dotfiles main command
 function dotfiles -a cmd -d "Setup dotfiles"
   switch "$cmd"
-    case install
-      _dotfiles_install
-    case setup
-      _dotfiles_setup
     case add
       if not isatty
         while read -l arg
@@ -15,8 +11,12 @@ function dotfiles -a cmd -d "Setup dotfiles"
       _dotfiles_add $argv
     case code
       _dotfiles_code
+    case install
+      _dotfiles_install
     case lg
       _dotfiles_lg
+    case setup
+      _dotfiles_setup
     case "" "*"
       echo "Unknown option $cmd"
   end
