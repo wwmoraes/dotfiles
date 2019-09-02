@@ -5,14 +5,10 @@ function dotfiles -a cmd -d "Setup dotfiles"
       _dotfiles_install
     case setup
       _dotfiles_setup
-    case update
-      _dotfiles_update
     case code
       _dotfiles_code
     case lg
       _dotfiles_lg
-    case status
-      _dotfiles_status
     case "" "*"
       echo "Unknown option $cmd"
   end
@@ -35,14 +31,6 @@ function _dotfiles_setup
 end
 complete -xc dotfiles -n __fish_use_subcommand -a setup -d "setup environment for dotfiles"
 
-# update subcommand
-function _dotfiles_update
-  pushd ~/.dotfiles > /dev/null
-  git pull
-  popd > /dev/null
-end
-complete -xc dotfiles -n __fish_use_subcommand -a update -d "get latest version of dotfiles"
-
 # code subcommand
 function _dotfiles_code
   code ~/.dotfiles
@@ -56,9 +44,3 @@ function _dotfiles_lg
   popd > /dev/null
 end
 complete -xc dotfiles -n __fish_use_subcommand -a lg -d "open lazygit at dotfiles repository"
-
-# status subcommand
-function _dotfiles_status
-  git -C ~/.dotfiles status -s
-end
-complete -xc dotfiles -n __fish_use_subcommand -a status -d "check dotfiles repository status"
