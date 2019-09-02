@@ -4,10 +4,50 @@
 
 	// List of extensions which should be recommended for users of this workspace.
 	"recommendations": [
-		"ms-vscode-remote.remote-ssh-edit"
+		"ms-vscode-remote.remote-ssh-edit",
+		"alfnielsen.vsc-scaffolding",
+		"gamunu.vscode-yarn",
+		"jpoissonnier.vscode-styled-components",
+		"vscode-icons-team.vscode-icons",
+		"visualstudioexptteam.vscodeintellicode",
+		"jvitor83.types-autoinstaller",
+		"gruntfuggly.todo-tree",
+		"qrti.funclist",
+		"rust-lang.rust",
+		"ofhumanbondage.react-proptypes-intellisense",
+		"wallabyjs.quokka-vscode",
+		"mohsen1.prettify-json",
+		"esbenp.prettier-vscode",
+		"leizongmin.node-module-intellisense",
+		"hangxingliu.vscode-nginx-conf-hint",
+		"davidanson.vscode-markdownlint",
+		"wix.vscode-import-cost",
+		"kumar-harsh.graphql-for-vscode",
+		"ms-vscode.go",
+		"eamodio.gitlens",
+		"mhutchie.git-graph",
+		"skyapps.fish-vscode",
+		"dbaeumer.vscode-eslint",
+		"mikestead.dotenv",
+		"ms-azuretools.vscode-docker",
+		"msjsdiag.debugger-for-chrome",
+		"kisstkondoros.vscode-codemetrics",
+		"alefragnani.bookmarks",
+		"bungcip.better-toml",
+		"aaron-bond.better-comments",
+		"wmaurer.change-case",
+		"streetsidesoftware.code-spell-checker",
+		"editorconfig.editorconfig",
+		"sleistner.vscode-fileutils"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
-		
+		"vscode.csharp",
+		"vscode.clojure",
+		"vscode.coffeescript",
+		"vscode.fsharp",
+		"vscode.groovy",
+		"vscode.java",
+		"vscode.vb",
 	]
 }
