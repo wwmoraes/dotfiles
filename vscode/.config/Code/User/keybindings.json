@@ -1,1 +1,27 @@
-// Empty
+[
+  {
+      "key": "d",
+      "command": "fileutils.duplicateFile",
+      "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+      "key": "r",
+      "command": "fileutils.moveFile",
+      "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+      "key": "n",
+      "command": "fileutils.newFile",
+      "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+      "key": "a",
+      "command": "fileutils.newFile",
+      "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+      "key": "shift+n",
+      "command": "fileutils.newFolder",
+      "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  }
+]
