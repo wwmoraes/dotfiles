@@ -38,7 +38,9 @@
 		"wmaurer.change-case",
 		"streetsidesoftware.code-spell-checker",
 		"editorconfig.editorconfig",
-		"sleistner.vscode-fileutils"
+		"sleistner.vscode-fileutils",
+		"xabikos.javascriptsnippets",
+		"darthyody.node-modules-context-menu"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
