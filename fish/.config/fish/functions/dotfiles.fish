@@ -37,17 +37,20 @@ function _dotfiles_add
     echo "Error: please pass a directory to add"
     return 1
   end
+
+  set file $argv[1]
+
+  # Check if file isn't a symbolic link already
+  if test -L $file
+    echo "Error: $file is a symbolic link already"
+    return 1
+  end
+
   set file (realpath $argv[1])
 
   # Check if file is under the home directory
   if not string match -q -- "$HOME/*" $file
     echo "Error: can't add files outside of your home"
-    return 1
-  end
-
-  # Check if file isn't a symbolic link already
-  if test -L $file
-    echo "Error: $file is a symbolic link already"
     return 1
   end
 
@@ -100,6 +103,8 @@ complete -xc dotfiles -n __fish_use_subcommand -a install -d "[re]install dotfil
 function _dotfiles_setup
   pushd ~/.dotfiles > /dev/null
   bash ./setup.sh
+  echo "Updating font cache..."
+  fc-cache -f
   popd > /dev/null
 end
 complete -xc dotfiles -n __fish_use_subcommand -a setup -d "setup environment for dotfiles"
