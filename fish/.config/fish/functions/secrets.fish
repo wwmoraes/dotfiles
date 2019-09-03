@@ -3,14 +3,10 @@ function secrets -a cmd -d "Setup secrets"
   switch "$cmd"
     case install
       _secrets_install
-    case update
-      _secrets_update
     case code
       _secrets_code
     case lg
       _secrets_lg
-    case status
-      _secrets_status
     case "" "*"
       echo "Unknown option $cmd"
   end
@@ -25,14 +21,6 @@ function _secrets_install
 end
 complete -xc secrets -n __fish_use_subcommand -a install -d "[re]install secrets"
 
-# update subcommand
-function _secrets_update
-  pushd ~/.secrets > /dev/null
-  git pull
-  popd > /dev/null
-end
-complete -xc secrets -n __fish_use_subcommand -a update -d "get latest version of secrets"
-
 # code subcommand
 function _secrets_code
   code ~/.secrets
@@ -46,9 +34,3 @@ function _secrets_lg
   popd > /dev/null
 end
 complete -xc secrets -n __fish_use_subcommand -a lg -d "open lazygit at secrets repository"
-
-# status subcommand
-function _secrets_status
-  git -C ~/.secrets status -s
-end
-complete -xc secrets -n __fish_use_subcommand -a status -d "check secrets repository status"
