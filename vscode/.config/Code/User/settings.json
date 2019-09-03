@@ -34,5 +34,9 @@
   "git.autofetch": true,
   "vsicons.dontShowNewVersionMessage": true,
   "explorer.confirmDelete": false,
-  "git-graph.maxDepthOfRepoSearch": 2
+  "git-graph.maxDepthOfRepoSearch": 2,
+  "editor.fontFamily": "'Fira Code','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+  "editor.fontLigatures": true,
+  "editor.fontWeight": "500",
+  "editor.fontSize": 16
 }
