@@ -26,9 +26,11 @@
     },
     "output": {
         "blacklist": [
-            "WebRTC",
+            "WebRTC VoiceEngine",
             "Zoom",
-            "browserx"
+            "browserx",
+            "Chromium",
+            "Chrome"
         ],
         "plugins_order": [
             "equalizer",
