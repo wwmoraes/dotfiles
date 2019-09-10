@@ -10,6 +10,7 @@ GOPATH=${GOPATH:-$HOME/go}
 # System paths
 PREPATHS=(
   $HOME/bin
+  $HOME/.local/bin
   $GOPATH/bin
   $GOROOT/bin
   $HOME/.cargo/bin
