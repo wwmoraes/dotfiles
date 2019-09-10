@@ -1,3 +1,6 @@
+# Remove the global version, as it shadows the universal one
+set -eg fish_user_paths
+
 # fzf
 set -U FZF_LEGACY_KEYBINDINGS 0
 set -U FZF_COMPLETE 1

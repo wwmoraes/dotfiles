@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set +m # disable job control in order to allow lastpipe
+shopt -s lastpipe
+
 ### Paths
 GOROOT=${GOROOT:-$HOME/.go}
 GOPATH=${GOPATH:-$HOME/go}
@@ -44,6 +47,6 @@ echo -e "Updating font cache..."
 fc-cache -f &
 ### Set fish path
 echo -e "Updating fish path variable..."
-fish -c ./variables.fish $PATH
+fish ./variables.fish $PATH
 
 echo -e "\e[1;32mDone!\e[0m"
