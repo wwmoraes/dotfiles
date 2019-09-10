@@ -1,5 +1,31 @@
 #!/bin/bash
 
+### Paths
+GOROOT=${GOROOT:-$HOME/.go}
+GOPATH=${GOPATH:-$HOME/go}
+
+# System paths
+PREPATHS=(
+  $HOME/bin
+  $GOPATH/bin
+  $GOROOT/bin
+  $HOME/.cargo/bin
+  $HOME/.krew/bin
+)
+
+# Only add the paths that are needed
+PATHS=($(echo $PATH | tr ':' '\n'))
+for PREPATH in ${PREPATHS[@]}; do
+  if [ ! $(printf '%s\n' ${PATHS[@]} | grep -P "^$PREPATH$") ]; then
+    PATH=$PREPATH:$PATH
+  fi
+done
+export PATH
+echo -e "Working with PATH containing:"
+echo $PATH | tr ':' '\n'
+echo
+sleep 2
+
 # Tools wanted
 SYSTEM_PACKAGES=(
   fish
