@@ -103,8 +103,6 @@ complete -xc dotfiles -n __fish_use_subcommand -a install -d "[re]install dotfil
 function _dotfiles_setup
   pushd ~/.dotfiles > /dev/null
   bash ./setup.sh
-  echo "Updating font cache..."
-  fc-cache -f
   popd > /dev/null
 end
 complete -xc dotfiles -n __fish_use_subcommand -a setup -d "setup environment for dotfiles"

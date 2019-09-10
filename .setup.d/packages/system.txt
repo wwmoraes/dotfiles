@@ -1,0 +1,10 @@
+fish
+git
+vim
+stow
+tmux
+pip
+gawk
+mawk
+jq
+moreutils:sponge

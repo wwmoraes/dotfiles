@@ -1,0 +1,2 @@
+github.com/jesseduffield/lazygit
+gopkg.in/mikefarah/yq.v2
