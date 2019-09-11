@@ -34,7 +34,7 @@
   "terminal.integrated.fontFamily": "Source Code Pro for Powerline",
   "git.autofetch": true,
   "vsicons.dontShowNewVersionMessage": true,
-  "explorer.confirmDelete": false,
+  "explorer.confirmDelete": true,
   "git-graph.maxDepthOfRepoSearch": 2,
   "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "editor.fontLigatures": true,
