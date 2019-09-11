@@ -1,5 +1,5 @@
 {
-  "terminal.integrated.shell.linux": "/usr/bin/fish",
+  "terminal.integrated.shell.linux": "fish",
   "terminal.integrated.automationShell.linux": "bash",
   "editor.tabSize": 2,
   "editor.minimap.enabled": false,
