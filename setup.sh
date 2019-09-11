@@ -20,6 +20,7 @@ PREPATHS=(
 # Only add the paths that are needed
 PATHS=($(echo $PATH | tr ':' '\n'))
 for PREPATH in ${PREPATHS[@]}; do
+  mkdir -p $PREPATHS
   if [ ! $(printf '%s\n' ${PATHS[@]} | grep -P "^$PREPATH$") ]; then
     PATH=$PREPATH:$PATH
   fi
