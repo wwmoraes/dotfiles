@@ -41,4 +41,5 @@
   "editor.fontSize": 16,
   "workbench.list.automaticKeyboardNavigation": false,
   "workbench.activityBar.visible": true,
+  "editor.cursorSurroundingLines": 5
 }
