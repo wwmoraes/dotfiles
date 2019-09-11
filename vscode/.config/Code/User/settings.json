@@ -15,7 +15,6 @@
   "window.titleBarStyle": "custom",
   "bookmarks.saveBookmarksInProject": true,
   "types-autoinstaller.saveAsDevDependency": true,
-  "prettier-eslint.eslintIntegration": true,
   "eslint.autoFixOnSave": true,
   "gitlens.hovers.currentLine.over": "line",
   "workbench.editor.enablePreview": false,
