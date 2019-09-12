@@ -15,6 +15,8 @@ PREPATHS=(
   $GOROOT/bin
   $HOME/.cargo/bin
   $HOME/.krew/bin
+  /home/linuxbrew/.linuxbrew/bin
+  /home/linuxbrew/.linuxbrew/sbin
 )
 
 # Only add the paths that are needed
