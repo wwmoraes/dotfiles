@@ -19,9 +19,9 @@ display=Display\tMeta+P,Display\tMeta+P,Switch Display
 
 [khotkeys]
 _k_friendly_name=KDE Daemon
-{7566d7ee-db35-404a-8bec-da297ce1ef4f}=Print,none,Iniciar a ferramenta de captura de tela
-{33619a41-72b4-41ba-ab9f-4d0e93401d94}=Shift+Print,none,Capturar a imagem de uma região retangular
 {23947c17-c964-4836-86aa-0cb016f6ae30}=Ctrl+Print,none,Capturar a imagem da janela ativa
+{33619a41-72b4-41ba-ab9f-4d0e93401d94}=Shift+Print,none,Capturar a imagem de uma região retangular
+{7566d7ee-db35-404a-8bec-da297ce1ef4f}=Print,none,Iniciar a ferramenta de captura de tela
 {ba070b67-dd5d-4ed5-b6c6-b90b1c7757ee}=none,none,Capturar a tela inteira
 {d03619b6-9b3c-48cc-9d9c-a2aadb485550}=none,none,Pesquisar
 
