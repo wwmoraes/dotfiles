@@ -51,4 +51,7 @@ fc-cache -f &
 echo -e "Updating fish path variable..."
 fish ./variables.fish $PATH
 
+echo -e "Updating KDE globals..."
+kquitapp5 kglobalaccel && sleep 2s && kglobalaccel5 &
+
 echo -e "\e[1;32mDone!\e[0m"
