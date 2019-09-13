@@ -13,6 +13,8 @@ function dotfiles -a cmd -d "Setup dotfiles"
       _dotfiles_code
     case install
       _dotfiles_install
+    case update
+      _dotfiles_update
     case lg
       _dotfiles_lg
     case setup
@@ -98,6 +100,15 @@ function _dotfiles_install
   popd > /dev/null
 end
 complete -xc dotfiles -n __fish_use_subcommand -a install -d "[re]install dotfiles"
+
+# update subcommand
+function _dotfiles_update
+  pushd ~/.dotfiles > /dev/null
+  git pull
+  make install
+  popd > /dev/null
+end
+complete -xc dotfiles -n __fish_use_subcommand -a update -d "update dotfiles"
 
 # setup subcommand
 function _dotfiles_setup

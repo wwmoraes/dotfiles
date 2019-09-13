@@ -3,6 +3,8 @@ function dotsecrets -a cmd -d "Setup dotsecrets"
   switch "$cmd"
     case install
       _dotsecrets_install
+    case update
+      _dotsecrets_update
     case code
       _dotsecrets_code
     case lg
@@ -20,6 +22,15 @@ function _dotsecrets_install
   popd > /dev/null
 end
 complete -xc dotsecrets -n __fish_use_subcommand -a install -d "[re]install dotsecrets"
+
+# update subcommand
+function _dotsecrets_update
+  pushd ~/.dotsecrets > /dev/null
+  git pull
+  make install
+  popd > /dev/null
+end
+complete -xc dotsecrets -n __fish_use_subcommand -a update -d "update dotsecrets"
 
 # code subcommand
 function _dotsecrets_code
