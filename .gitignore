@@ -1,7 +1,3 @@
-# SSH control files
-ssh/.ssh/control/*
-!ssh/.ssh/control/.gitkeep
-
 # Vim local directories
 vim/.vim/backups/*
 !vim/.vim/backups/.gitkeep
