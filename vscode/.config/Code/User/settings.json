@@ -18,7 +18,6 @@
   "eslint.autoFixOnSave": true,
   "gitlens.hovers.currentLine.over": "line",
   "workbench.editor.enablePreview": false,
-  "python.jediEnabled": false,
   "bookmarks.useWorkaroundForFormatters": true,
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "javascript.updateImportsOnFileMove.enabled": "always",
