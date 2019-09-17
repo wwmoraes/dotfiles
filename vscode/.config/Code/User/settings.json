@@ -41,7 +41,10 @@
   "editor.fontSize": 16,
   "workbench.list.automaticKeyboardNavigation": false,
   "workbench.activityBar.visible": true,
-  "editor.cursorSurroundingLines": 5
+  "editor.cursorSurroundingLines": 5,
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
   "projectManager.any.maxDepthRecursion": 1,
   "projectManager.removeCurrentProjectFromList": true,
   "projectManager.git.baseFolders": [
