@@ -42,4 +42,22 @@
   "workbench.list.automaticKeyboardNavigation": false,
   "workbench.activityBar.visible": true,
   "editor.cursorSurroundingLines": 5
+  "projectManager.any.maxDepthRecursion": 1,
+  "projectManager.removeCurrentProjectFromList": true,
+  "projectManager.git.baseFolders": [
+    "$home/workspace/",
+    "$home/dev/",
+  ],
+  "projectManager.vscode.baseFolders": [
+    "$home/workspace/",
+    "$home/dev/",
+  ],
+  "projectManager.git.ignoredFolders": [
+    "node_modules",
+    "vendor"
+  ],
+  "projectManager.vscode.ignoredFolders": [
+    "node_modules",
+    "vendor"
+  ]
 }
