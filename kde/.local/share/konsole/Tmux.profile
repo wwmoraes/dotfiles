@@ -10,6 +10,9 @@ Parent=FALLBACK/
 [Interaction Options]
 AutoCopySelectedText=true
 
+[Keyboard]
+KeyBindings=default
+
 [Scrolling]
 HistoryMode=2
 ScrollBarPosition=2
