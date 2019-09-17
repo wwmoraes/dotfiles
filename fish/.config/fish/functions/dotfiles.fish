@@ -36,7 +36,7 @@ function _dotfiles_add
   # Check and get file path
   set -e argv[1]
   if test (count $argv) != 1
-    echo "Error: please pass a directory to add"
+    echo "Error: please pass a file/directory to add"
     return 1
   end
 
@@ -64,6 +64,14 @@ function _dotfiles_add
 
   # Gets the tool folder
   set tool (find ~/.dotfiles/ -maxdepth 1 -not -name '.*' -type d -printf '%f\n' | fzf --prompt="Choose project to add the file ")
+
+  if test (string length $tool || echo 0) -eq 0
+    read -P 'New tool folder: ' tool
+    if test -d $HOME/.dotfiles/$tool
+      echo "Folder for tool $tool already exists"
+      return 1
+    end
+  end
 
   set destination (string replace $HOME $HOME/.dotfiles/$tool $file)
 
