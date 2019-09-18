@@ -49,10 +49,12 @@
   "projectManager.git.baseFolders": [
     "$home/workspace/",
     "$home/dev/",
+    "$home/../shared/dev/"
   ],
   "projectManager.vscode.baseFolders": [
     "$home/workspace/",
     "$home/dev/",
+    "$home/../shared/dev/"
   ],
   "projectManager.git.ignoredFolders": [
     "node_modules",
