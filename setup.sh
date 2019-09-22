@@ -36,29 +36,27 @@ for entry in $(cat .env | grep -v '^#' | grep -v '^$'); do
 done
 unset IFS
 
-# System paths
+# System paths (FIFO)
 PREPATHS=(
-  $HOME/bin
-  $HOME/.local/bin
-  $HOME/go/bin
-  $HOME/.go/bin
-  $HOME/.cargo/bin
-  $HOME/.krew/bin
-  $HOME/.yarn/bin
-  $HOME/.config/yarn/global/node_modules/.bin
-  /home/linuxbrew/.linuxbrew/bin
   /home/linuxbrew/.linuxbrew/sbin
+  /home/linuxbrew/.linuxbrew/bin
+  $HOME/.config/yarn/global/node_modules/.bin
+  $HOME/.yarn/bin
+  $HOME/.krew/bin
+  $HOME/.cargo/bin
+  $HOME/.go/bin
+  $HOME/go/bin
+  $HOME/.local/bin
+  $HOME/bin
 )
 
-# Only add the paths that are needed
-PATHS=($(echo $PATH | tr ':' '\n' | sed 's|/$||g'))
 for PREPATH in ${PREPATHS[@]}; do
-  mkdir -p $PREPATHS
-  if [ $(printf '%s\n' ${PATHS[@]} | grep -P "^$PREPATH$" | wc -l) -eq 0 ]; then
     PATH=$PREPATH:$PATH
-  fi
 done
-export PATH
+
+# Dedup paths
+export PATH=$(echo -n $PATH | awk -v RS=: '{gsub(/\/$/,"")} !($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
+PATHS=$PATH
 
 # Ask for the administrator password upfront
 sudo -v
@@ -77,7 +75,7 @@ echo -e "Updating font cache..."
 fc-cache -f &
 ### Set fish paths
 echo -e "Setting fish universal variables..."
-fish ./variables.fish $PATH
+fish ./variables.fish $PATHS
 
 echo -e "Updating KDE globals..."
 kquitapp5 kglobalaccel && sleep 2s && kglobalaccel5 &
