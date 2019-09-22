@@ -71,11 +71,6 @@ for setupd in .setup.d/*.sh; do
   . $setupd
 done
 
-
-echo -e "\e[1;34mStowing configurations...\e[0m"
-# install config files
-make install
-
 echo -e "\e[1;34mMiscellaneous\e[0m"
 # Update system font cache
 echo -e "Updating font cache..."
