@@ -44,6 +44,8 @@ PREPATHS=(
   $HOME/.go/bin
   $HOME/.cargo/bin
   $HOME/.krew/bin
+  $HOME/.yarn/bin
+  $HOME/.config/yarn/global/node_modules/.bin
   /home/linuxbrew/.linuxbrew/bin
   /home/linuxbrew/.linuxbrew/sbin
 )
