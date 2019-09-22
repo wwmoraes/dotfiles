@@ -10,3 +10,4 @@ jq
 moreutils:sponge
 man-db:apropos
 gcc
+xsel
