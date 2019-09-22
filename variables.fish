@@ -19,10 +19,11 @@ end
 set -l argv[1] (echo -n $argv[1] | awk '{gsub(/\/$/,"")} !($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
 
 ### Add user paths to fish
+echo "Setting fish user paths..."
 for user_path in (string split ':' $argv[1] | sed 's|/$||g')[-1..1]
   if test -d "$user_path" \
     && string match -q "/home/*" $user_path
-    echo adding (set_color brmagenta)$user_path(set_color normal) to fish user paths
+    echo adding/keeping (set_color brmagenta)$user_path(set_color normal)
     set -U fish_user_paths $user_path $fish_user_paths
   end
 end
