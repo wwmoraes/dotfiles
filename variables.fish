@@ -17,7 +17,7 @@ end
 ### Add user paths to fish if they're not set already
 for user_path in (string split ':' $argv[1])
   if not contains $user_path $fish_user_paths && string match -q "/home/*" $user_path
-    echo "adding $user_path to fish user paths..."
+    echo adding (set_color brmagenta)$user_path(set_color normal) to fish user paths
     set -U fish_user_paths $user_path $fish_user_paths
   end
 end

@@ -25,9 +25,9 @@ fi
 
 ### Install packages
 for PACKAGE in ${PACKAGES[@]}; do
-  echo "Checking ${PACKAGE}..."
+  echo -e "Checking \e[96m${PACKAGE}\e[0m..."
   pip show $PACKAGE &>/dev/null && continue
 
-  echo "Installing ${PACKAGE}..."
+  echo -e "Installing \e[96m${PACKAGE}\e[0m..."
   sudo pip install $PACKAGE
 done

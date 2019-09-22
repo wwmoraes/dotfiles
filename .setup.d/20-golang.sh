@@ -38,9 +38,9 @@ fi
 
 ### Install packages
 for PACKAGE in ${PACKAGES[@]}; do
-  echo "Checking go package ${PACKAGE%%:*}..."
-  test -d $GOPATH/src/${PACKAGE%%:*} && continue
+  echo -e "Checking go package \e[96m${PACKAGE}\e[0m..."
+  test -d $GOPATH/src/$PACKAGE && continue
 
-  echo "Installing go package ${PACKAGE%%:*}..."
-  go get ${PACKAGE%%:*}
+  echo -e "Installing go package \e[96m${PACKAGE}\e[0m..."
+  go get ${PACKAGE}
 done
