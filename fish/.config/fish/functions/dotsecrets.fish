@@ -9,6 +9,8 @@ function dotsecrets -a cmd -d "Setup dotsecrets"
       _dotsecrets_code
     case lg
       _dotsecrets_lg
+    case setup
+      _dotsecrets_setup
     case "" "*"
       echo "Unknown option $cmd"
   end
@@ -31,6 +33,14 @@ function _dotsecrets_update
   popd > /dev/null
 end
 complete -xc dotsecrets -n __fish_use_subcommand -a update -d "update dotsecrets"
+
+# setup subcommand
+function _dotsecrets_setup
+  pushd ~/.dotsecrets > /dev/null
+  bash ./setup.sh
+  popd > /dev/null
+end
+complete -xc dotsecrets -n __fish_use_subcommand -a setup -d "setup environment for dotsecrets"
 
 # code subcommand
 function _dotsecrets_code
