@@ -3,22 +3,16 @@
 # Source the config
 test -f ~/.config/fish/config.fish; and source ~/.config/fish/config.fish
 
-# fzf
-set -U FZF_LEGACY_KEYBINDINGS 0
-set -U FZF_COMPLETE 1
-set -U FZF_REVERSE_ISEARCH_OPTS '--preview-window=up:10 --preview="echo {}" --height 100%'
+for entry in (cat .env | grep -v '^#' | grep -v '^$')
+  set entry = (string split \= -- $entry)
+  set key $entry[2]
+  set value (echo $entry[3..-1])
 
-# golang
-set -U GOROOT $HOME/.go
-set -U GOPATH $HOME/go
+  echo Setting (set_color brcyan)$key(set_color normal)
 
-# homebrew
-# eval (env SHELL=/usr/bin/fish /home/linuxbrew/.linuxbrew/bin/brew shellenv)
-set -U HOMEBREW_PREFIX "/home/linuxbrew/.linuxbrew";
-set -U HOMEBREW_CELLAR "/home/linuxbrew/.linuxbrew/Cellar";
-set -U HOMEBREW_REPOSITORY "/home/linuxbrew/.linuxbrew/Homebrew";
-set -q MANPATH; or set MANPATH ''; set -U MANPATH "/home/linuxbrew/.linuxbrew/share/man" $MANPATH;
-set -q INFOPATH; or set INFOPATH ''; set -U INFOPATH "/home/linuxbrew/.linuxbrew/share/info" $INFOPATH;
+  set -U $key $value
+  set -eg $key
+end
 
 ### Add user paths to fish if they're not set already
 for user_path in (string split ':' $argv[1])
@@ -28,10 +22,5 @@ for user_path in (string split ':' $argv[1])
   end
 end
 
-# Remove the global versions, as they shadows the universal ones
+# Remove the global version, as it shadows the universal one
 set -eg fish_user_paths
-set -eg HOMEBREW_PREFIX
-set -eg HOMEBREW_CELLAR
-set -eg HOMEBREW_REPOSITORY
-set -eg MANPATH
-set -eg INFOPATH

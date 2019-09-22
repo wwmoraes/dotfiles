@@ -3,16 +3,45 @@
 set +m # disable job control in order to allow lastpipe
 shopt -s lastpipe
 
-### Paths
-GOROOT=${GOROOT:-$HOME/.go}
-GOPATH=${GOPATH:-$HOME/go}
+echo -e "\e[1;34mProfile-like variable exports\e[0m"
+
+profileFilesList=(
+  $HOME/.profile
+  $HOME/.bash_profile
+)
+
+# Removes non-existent profile files
+for profilePath in ${profileFilesList[@]}; do
+  if [ ! -f "$profilePath" ]; then
+    profileFilesList=( "${profileFilesList[@]/$profilePath}" )
+  fi
+done
+
+### Set environment variables
+IFS=$'\n'
+for entry in $(cat .env | grep -v '^#' | grep -v '^$'); do
+  IFS='=' read key value <<< $entry
+  value=$(echo $value)
+
+  for profilePath in $profileFilesList; do
+    grep "export ${key}" $profilePath > /dev/null
+    if [ $? -eq 0 ]; then
+      echo -e "Updating \e[96m${key}\e[0m on \e[95m$profilePath\e[0m"
+      sed -Ei "s|(export ${key})=.*|export ${key}=${value}|" $profilePath
+    else
+      echo -e "Adding \e[96m${key}\e[0m to \e[95m$profilePath\e[0m"
+      echo "export ${key}=${value}" >> $profilePath
+    fi
+  done
+done
+unset IFS
 
 # System paths
 PREPATHS=(
   $HOME/bin
   $HOME/.local/bin
-  $GOPATH/bin
-  $GOROOT/bin
+  $HOME/go/bin
+  $HOME/.go/bin
   $HOME/.cargo/bin
   $HOME/.krew/bin
   /home/linuxbrew/.linuxbrew/bin
@@ -49,8 +78,8 @@ echo -e "\e[1;34mFinishing setup...\e[0m"
 # Update system font cache
 echo -e "Updating font cache..."
 fc-cache -f &
-### Set fish path
-echo -e "Updating fish path variable..."
+### Set fish paths
+echo -e "Setting fish universal variables..."
 fish ./variables.fish $PATH
 
 echo -e "Updating KDE globals..."
