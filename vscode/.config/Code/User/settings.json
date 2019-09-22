@@ -65,5 +65,18 @@
   "projectManager.vscode.ignoredFolders": [
     "node_modules",
     "vendor"
-  ]
+  ],
+  "cSpell.userWords": [
+    "nohoist",
+    "wwmoraes"
+  ],
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
