@@ -36,6 +36,13 @@ for entry in $(cat .env | grep -v '^#' | grep -v '^$'); do
 done
 unset IFS
 
+# Source them to update context
+for profilePath in ${profileFilesList[@]}; do
+  if [ ! -f "$profilePath" ]; then
+    . profilePath
+  fi
+done
+
 # System paths (FIFO)
 PREPATHS=(
   /home/linuxbrew/.linuxbrew/sbin
