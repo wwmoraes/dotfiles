@@ -1,4 +1,5 @@
 [core]
+  editor = vim
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 	precomposeUnicode = true
