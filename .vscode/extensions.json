@@ -41,7 +41,17 @@
 		"sleistner.vscode-fileutils",
 		"xabikos.javascriptsnippets",
 		"darthyody.node-modules-context-menu",
-		"alefragnani.project-manager"
+		"alefragnani.project-manager",
+		"codezombiech.gitignore",
+		"dunstontc.viml",
+		"redhat.vscode-yaml",
+		"mattlott.copy-github-url",
+		"eg2.vscode-npm-script",
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"mgmcdermott.vscode-language-babel",
+		"perkovec.emoji",
+		"vilicvane.sensitive-replace",
+		"malmaud.tmux"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
@@ -52,5 +62,9 @@
 		"vscode.groovy",
 		"vscode.java",
 		"vscode.vb",
+		"dbaeumer.jshint",
+		"felipecaputo.git-project-manager",
+		"ms-vscode.vscode-typescript-tslint-plugin",
+		"hookyqr.beautify"
 	]
 }
