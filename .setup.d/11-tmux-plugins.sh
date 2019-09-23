@@ -8,4 +8,5 @@ if [ ! -d ~/.tmux/plugins/tpm ]; then
 fi
 
 echo -e "Installing tpm plugins..."
+tmux source-file ~/.tmux.conf
 ~/.tmux/plugins/tpm/bin/install_plugins
