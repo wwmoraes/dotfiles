@@ -15,6 +15,11 @@ readarray PACKAGES < $PACKAGES_FILE_PATH
 
 echo -e "\e[1;33mHomebrew packages\e[0m"
 
+if [ -f /etc/arch-release ]; then
+  echo "Arch Linux detected. Ignoring homebrew..."
+  return
+fi
+
 ### Check package tool
 echo "Checking homebrew manager..."
 HOMEBREW_MANAGER=

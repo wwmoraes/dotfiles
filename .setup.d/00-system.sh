@@ -22,7 +22,7 @@ MANAGER=
 # Manager options
 declare -A osInfo;
 osInfo[/etc/debian_version]="apt-get install --no-install-recommends --no-install-suggests"
-osInfo[/etc/arch-release]=pacman
+osInfo[/etc/arch-release]="pacman -S"
 osInfo[/etc/redhat-release]=yum
 osInfo[/etc/gentoo-release]=emerge
 osInfo[/etc/SuSE-release]=zypp

@@ -20,7 +20,7 @@ echo "Checking pip manager..."
 type -p pip &> /dev/null
 if [ $? -ne 0 ]; then
   echo "python pip is not installed or in path"
-  exit 1
+  return
 fi
 
 ### Install packages
