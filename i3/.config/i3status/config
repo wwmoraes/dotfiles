@@ -1,0 +1,49 @@
+general {
+  interval = 5
+  output_format = "i3bar"
+  colors = true
+  color_good = "#50FA7B"
+  color_degraded = "#F1FA8C"
+  color_bad = "#FF5555"
+}
+
+#order += "ipv6"
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "battery all"
+order += "disk /"
+order += "load"
+order += "memory"
+order += "tztime local"
+
+wireless _first_ {
+        format_up = "W: %quality"
+        format_down = "W: down"
+}
+
+ethernet _first_ {
+        format_up = "E: %speed"
+        format_down = "E: down"
+}
+
+battery all {
+        format = "%status %percentage %remaining"
+}
+
+disk "/" {
+        format = "df %avail"
+}
+
+load {
+        format = "CPU %1min"
+}
+
+memory {
+        format = "mu %used|mf %available"
+        threshold_degraded = "1G"
+        format_degraded = "MEMORY < %available"
+}
+
+tztime local {
+        format = "%H:%M:%S %d/%m/%Y"
+}
