@@ -5,3 +5,24 @@ vim/.vim/swaps/*
 !vim/.vim/swaps/.gitkeep
 vim/.vim/undo/*
 !vim/.vim/undo/.gitkeep
+
+# Vim files
+vim/.vim/viminfo
+
+### fisher
+fish/.config/fish/functions/fisher.fish
+# FabioAntunes/fish-nvm
+fish/.config/fish/completions/nvm.fish
+fish/.config/fish/functions/__nvm_run.fish
+fish/.config/fish/functions/node.fish
+fish/.config/fish/functions/npm.fish
+fish/.config/fish/functions/npx.fish
+fish/.config/fish/functions/nvm_alias_command.fish
+fish/.config/fish/functions/nvm_alias_function.fish
+fish/.config/fish/functions/nvm.fish
+fish/.config/fish/functions/yarn.fish
+# edc/bass
+fish/.config/fish/functions/__bass.py
+fish/.config/fish/functions/bass.fish
+# evanlucas/fish-kubectl-completions
+fish/.config/fish/completions/kubectl.fish
