@@ -57,6 +57,9 @@ PREPATHS=(
   $HOME/bin
 )
 
+mkdir -p $HOME/.local/bin
+mkdir -p $HOME/bin
+
 for PREPATH in ${PREPATHS[@]}; do
     PATH=$PREPATH:$PATH
 done
