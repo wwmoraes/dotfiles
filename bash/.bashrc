@@ -110,3 +110,38 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# fzf & bashfu sorcery
+#   lists tmux sessions to attach to
+#   allows creating sessions by using the fzf query
+#   falls back to main session if something goes wrong (e.g. no fzf installed)
+launchTmux() {
+  tmuxSessionList() {
+    tmux list-sessions -F '#S' 2>/dev/null | cat <(echo $DEFAULT_TMUX) - | uniq | awk NF
+  }
+
+  # returns if already on a tmux session
+  [ ! -z "$TMUX" ] && return
+
+  # returns if there's no tmux bin
+  command -v tmux > /dev/null
+  [ ! $? -eq 0 ] && return
+
+  DEFAULT_TMUX=main
+
+  command -v fzf > /dev/null
+  if [ $? -eq 0 ]; then
+    session=$(tmuxSessionList | \
+    /home/linuxbrew/.linuxbrew/bin/fzf --print-query --reverse -0 | \
+    tail -n1)
+  else
+    echo "tmux sessions: $(tmuxSessionList | xargs)"
+    echo -n "tmux session name (default: $DEFAULT_TMUX): "
+    read session
+  fi
+
+  exec tmux new -A -s ${session:-$DEFAULT_TMUX} && \
+  exit
+}
+
+launchTmux

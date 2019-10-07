@@ -1,8 +1,8 @@
 [Desktop Entry]
-DefaultProfile=Tmux.profile
+DefaultProfile=Default.profile
 
 [Favorite Profiles]
-Favorites=Tmux.profile
+Favorites=Tmux.profile,Default.profile
 
 [KonsoleWindow]
 ShowAppNameOnTitleBar=false
