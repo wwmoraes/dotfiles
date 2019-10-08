@@ -49,5 +49,13 @@ for user_path in $fish_user_paths
   end
 end
 
+# Remove old environment variables
+for entry in (cat .env-remove | grep -v '^#' | grep -v '^$')
+  if set -q $entry
+    echo Unsetting (set_color brcyan)$entry(set_color normal)
+    eval "set -e $entry"
+  end
+end
+
 # Remove the global version, as it shadows the universal one
 set -eg fish_user_paths

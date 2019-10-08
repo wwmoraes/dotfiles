@@ -45,8 +45,6 @@ done
 
 # System paths (FIFO)
 PREPATHS=(
-  /home/linuxbrew/.linuxbrew/sbin
-  /home/linuxbrew/.linuxbrew/bin
   $HOME/.config/yarn/global/node_modules/.bin
   $HOME/.yarn/bin
   $HOME/.krew/bin
@@ -92,5 +90,19 @@ if [ $? -eq 0 ]; then
   echo -e "Updating KDE globals..."
   kquitapp5 kglobalaccel && sleep 2s && kglobalaccel5 &
 fi
+
+readarray VARIABLES < .env-remove
+
+echo -e "\e[1;34mCleanup\e[0m"
+# removes unused variables
+for variableName in ${VARIABLES[@]}; do
+  for profilePath in ${profileFilesList[@]}; do
+    grep "export ${variableName}" $profilePath > /dev/null
+    if [ $? -eq 0 ]; then
+      echo -e "Removing \e[96m${variableName}\e[0m from \e[95m$profilePath\e[0m"
+      sed -Ei "s|(export ${variableName}=.*)||" $profilePath
+    fi
+  done
+done
 
 echo -e "\e[1;32mDone!\e[0m"

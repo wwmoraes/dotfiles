@@ -132,7 +132,7 @@ launchTmux() {
   command -v fzf > /dev/null
   if [ $? -eq 0 ]; then
     session=$(tmuxSessionList | \
-    /home/linuxbrew/.linuxbrew/bin/fzf --print-query --reverse -0 | \
+    fzf --print-query --reverse -0 | \
     tail -n1)
   else
     echo "tmux sessions: $(tmuxSessionList | xargs)"
