@@ -14,7 +14,7 @@ profileFilesList=(
 # Removes non-existent profile files
 for profilePath in ${profileFilesList[@]}; do
   if [ ! -f "$profilePath" ]; then
-    profileFilesList=( "${profileFilesList[@]/$profilePath}" )
+    profileFilesList=( ${profileFilesList[@]/$profilePath} )
   fi
 done
 
@@ -24,7 +24,7 @@ for entry in $(cat .env | grep -v '^#' | grep -v '^$'); do
   IFS='=' read key value <<< $entry
   value=$(echo $value)
 
-  for profilePath in $profileFilesList; do
+  for profilePath in ${profileFilesList[@]}; do
     grep "export ${key}" $profilePath > /dev/null
     if [ $? -eq 0 ]; then
       echo -e "Updating \e[96m${key}\e[0m on \e[95m$profilePath\e[0m"
