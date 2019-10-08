@@ -111,6 +111,21 @@ if ! shopt -oq posix; then
   fi
 fi
 
+
+export PATH=/home/william.artero/bin:/home/william.artero/.local/bin:/home/william.artero/go/bin:/home/william.artero/.go/bin:/home/william.artero/.cargo/bin:/home/william.artero/.krew/bin:/home/william.artero/.yarn/bin:/home/william.artero/.config/yarn/global/node_modules/.bin:/home/william.artero/.nvm/versions/node/v11.6.0/bin:/home/william.artero/.fzf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/texlive/2018/bin/x86_64-linux:/snap/bin
+
+export TERM=xterm-256color
+export EDITOR=vim
+export VISUAL=vim
+export SHELL=/usr/bin/fish
+export LANG=en_US.UTF-8
+export FZF_LEGACY_KEYBINDINGS=0
+export FZF_COMPLETE=1
+export FZF_REVERSE_ISEARCH_OPTS='--preview-window=up:10 --preview="echo {}" --height 100%'
+export GOROOT=~/.go
+export GOPATH=~/go
+export TMUX_PLUGIN_MANAGER_PATH=~/.config/tmux/plugins/
+
 # fzf & bashfu sorcery
 #   lists tmux sessions to attach to
 #   allows creating sessions by using the fzf query
