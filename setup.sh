@@ -65,6 +65,17 @@ done
 
 # Dedup paths
 export PATH=$(echo -n $PATH | awk -v RS=: '{gsub(/\/$/,"")} !($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
+for profilePath in ${profileFilesList[@]}; do
+  grep "export PATH" $profilePath > /dev/null
+  if [ $? -eq 0 ]; then
+    echo -e "Updating \e[96mPATH\e[0m on \e[95m$profilePath\e[0m"
+    sed -Ei "s|(export PATH)=.*|export PATH=$PATH|" $profilePath
+  else
+    echo -e "Adding \e[96mPATH\e[0m to \e[95m$profilePath\e[0m"
+    echo "export PATH=$PATH" >> $profilePath
+  fi
+done
+# used to pass to the fish script
 PATHS=$PATH
 
 # Ask for the administrator password upfront
