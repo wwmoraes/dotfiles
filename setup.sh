@@ -8,6 +8,7 @@ echo -e "\e[1;34mProfile-like variable exports\e[0m"
 profileFilesList=(
   $HOME/.profile
   $HOME/.bash_profile
+  $HOME/.bashrc
 )
 
 # Removes non-existent profile files
