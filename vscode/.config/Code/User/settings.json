@@ -1,6 +1,6 @@
 {
   "terminal.integrated.shell.linux": "fish",
-  "terminal.integrated.automationShell.linux": "bash",
+  "terminal.integrated.automationShell.linux": "fish",
   "editor.tabSize": 2,
   "editor.minimap.enabled": false,
   "editor.rulers": [
