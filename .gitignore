@@ -26,3 +26,9 @@ fish/.config/fish/functions/__bass.py
 fish/.config/fish/functions/bass.fish
 # evanlucas/fish-kubectl-completions
 fish/.config/fish/completions/kubectl.fish
+
+# VSCode
+vscode/.config/Code
+!vscode/.config/Code/User/snippets
+!vscode/.config/Code/User/keybindings.json
+!vscode/.config/Code/User/settings.json
