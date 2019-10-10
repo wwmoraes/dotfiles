@@ -7,9 +7,6 @@ general {
   color_bad = "#FF5555"
 }
 
-#order += "ipv6"
-order += "wireless _first_"
-order += "ethernet _first_"
 order += "battery all"
 order += "disk /"
 order += "load"
