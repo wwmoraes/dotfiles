@@ -15,7 +15,7 @@ Xft.hintstyle:              hintslight
 URxvt.depth:                32
 URxvt.geometry:             90x30
 URxvt.loginShell:           true
-URxvt.internalBorder:       3
+URxvt.internalBorder:       0
 URxvt.lineSpace:            0
 URxvt.borderColor:          #000030
 
