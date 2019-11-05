@@ -19,7 +19,7 @@ complete -ec dotsecrets
 
 # install subcommand
 function _dotsecrets_install
-  pushd ~/.dotsecrets > /dev/null
+  pushd ~/.secrets > /dev/null
   make install
   popd > /dev/null
 end
@@ -27,7 +27,7 @@ complete -xc dotsecrets -n __fish_use_subcommand -a install -d "[re]install dots
 
 # update subcommand
 function _dotsecrets_update
-  pushd ~/.dotsecrets > /dev/null
+  pushd ~/.secrets > /dev/null
   git pull
   make install
   popd > /dev/null
@@ -36,7 +36,7 @@ complete -xc dotsecrets -n __fish_use_subcommand -a update -d "update dotsecrets
 
 # setup subcommand
 function _dotsecrets_setup
-  pushd ~/.dotsecrets > /dev/null
+  pushd ~/.secrets > /dev/null
   bash ./setup.sh
   popd > /dev/null
 end
@@ -44,13 +44,13 @@ complete -xc dotsecrets -n __fish_use_subcommand -a setup -d "setup environment 
 
 # code subcommand
 function _dotsecrets_code
-  code ~/.dotsecrets
+  code ~/.secrets
 end
 complete -xc dotsecrets -n __fish_use_subcommand -a code -d "open VSCode on dotsecrets' repository"
 
 # lg subcommand
 function _dotsecrets_lg
-  pushd ~/.dotsecrets > /dev/null
+  pushd ~/.secrets > /dev/null
   lazygit
   popd > /dev/null
 end

@@ -63,17 +63,17 @@ function _dotfiles_add
   end
 
   # Gets the tool folder
-  set tool (find ~/.dotfiles/ -maxdepth 1 -not -name '.*' -type d -printf '%f\n' | fzf --prompt="Choose project to add the file ")
+  set tool (find ~/.files/ -maxdepth 1 -not -name '.*' -type d -printf '%f\n' | fzf --prompt="Choose project to add the file ")
 
   if test (string length $tool || echo 0) -eq 0
     read -P 'New tool folder: ' tool
-    if test -d $HOME/.dotfiles/$tool
+    if test -d $HOME/.files/$tool
       echo "Folder for tool $tool already exists"
       return 1
     end
   end
 
-  set destination (string replace $HOME $HOME/.dotfiles/$tool $file)
+  set destination (string replace $HOME $HOME/.files/$tool $file)
 
   echo "Tool: $tool"
   printf "Source: %s\n" (string replace $HOME "~" $file)
@@ -95,7 +95,7 @@ function _dotfiles_add
   rm "$file"
 
   echo "stowing back file..."
-  pushd ~/.dotfiles > /dev/null
+  pushd ~/.files > /dev/null
   stow -t ~ -R "$tool"
   popd > /dev/null
 end
@@ -103,7 +103,7 @@ complete -xc dotfiles -n __fish_use_subcommand -a add -d "add and stow new file 
 
 # install subcommand
 function _dotfiles_install
-  pushd ~/.dotfiles > /dev/null
+  pushd ~/.files > /dev/null
   make install
   popd > /dev/null
 end
@@ -111,7 +111,7 @@ complete -xc dotfiles -n __fish_use_subcommand -a install -d "[re]install dotfil
 
 # update subcommand
 function _dotfiles_update
-  pushd ~/.dotfiles > /dev/null
+  pushd ~/.files > /dev/null
   git pull
   make install
   popd > /dev/null
@@ -120,7 +120,7 @@ complete -xc dotfiles -n __fish_use_subcommand -a update -d "update dotfiles"
 
 # setup subcommand
 function _dotfiles_setup
-  pushd ~/.dotfiles > /dev/null
+  pushd ~/.files > /dev/null
   bash ./setup.sh
   popd > /dev/null
 end
@@ -134,7 +134,7 @@ function _dotfiles_code
     return 1
   end
 
-  code ~/.dotfiles
+  code ~/.files
 end
 complete -xc dotfiles -n __fish_use_subcommand -a code -d "open VSCode on dotfiles' repository"
 
@@ -146,7 +146,7 @@ function _dotfiles_lg
     return 1
   end
 
-  pushd ~/.dotfiles > /dev/null
+  pushd ~/.files > /dev/null
   lazygit
   popd > /dev/null
 end
