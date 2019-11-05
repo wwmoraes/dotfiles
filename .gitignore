@@ -32,3 +32,5 @@ vscode/.config/Code
 !vscode/.config/Code/User/snippets
 !vscode/.config/Code/User/keybindings.json
 !vscode/.config/Code/User/settings.json
+
+fish/.config/fish/fish_variables
