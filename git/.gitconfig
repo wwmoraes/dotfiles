@@ -67,5 +67,5 @@
 	email = williamwmoraes@gmail.com
 
 # Work overrides
-[includeIf "gitdir:/home/william.artero/"]
+[includeIf "gitdir:/Users/william/workspace/**/"]
 	path = .gitconfig-work
