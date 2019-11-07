@@ -112,7 +112,7 @@ if ! shopt -oq posix; then
 fi
 
 
-export PATH=/home/william.artero/bin:/home/william.artero/.local/bin:/home/william.artero/go/bin:/home/william.artero/.go/bin:/home/william.artero/.cargo/bin:/home/william.artero/.krew/bin:/home/william.artero/.yarn/bin:/home/william.artero/.config/yarn/global/node_modules/.bin:/home/william.artero/.nvm/versions/node/v11.6.0/bin:/home/william.artero/.fzf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/texlive/2018/bin/x86_64-linux:/snap/bin
+export PATH=/home/william.artero/bin:/home/william.artero/.local/bin:/home/william.artero/go/bin:/home/william.artero/.go/bin:/home/william.artero/.cargo/bin:/home/william.artero/.krew/bin:/home/william.artero/.yarn/bin:/home/william.artero/.config/yarn/global/node_modules/.bin:/home/william.artero/.nvm/versions/node/v13.0.1/bin:/home/william.artero/.fzf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/texlive/2018/bin/x86_64-linux:/snap/bin
 
 export TERM=xterm-256color
 export EDITOR=vim
@@ -125,6 +125,7 @@ export FZF_REVERSE_ISEARCH_OPTS='--preview-window=up:10 --preview="echo {}" --he
 export GOROOT=~/.go
 export GOPATH=~/go
 export TMUX_PLUGIN_MANAGER_PATH=~/.config/tmux/plugins/
+export NPM_TOKEN=4e07e0c4-eb1a-4723-a42e-30ad0350469b
 
 # fzf & bashfu sorcery
 #   lists tmux sessions to attach to
