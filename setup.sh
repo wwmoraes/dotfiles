@@ -3,7 +3,7 @@
 set +m # disable job control in order to allow lastpipe
 shopt -s lastpipe
 
-echo -e "\e[1;34mProfile-like variable exports\e[0m"
+printf "\e[1;34mProfile-like variable exports\e[0m\n"
 
 profileFilesList=(
   $HOME/.profile
@@ -27,10 +27,10 @@ for entry in $(cat .env | grep -v '^#' | grep -v '^$'); do
   for profilePath in ${profileFilesList[@]}; do
     grep "export ${key}" $profilePath > /dev/null
     if [ $? -eq 0 ]; then
-      echo -e "Updating \e[96m${key}\e[0m on \e[95m$profilePath\e[0m"
+      printf "Updating \e[96m${key}\e[0m on \e[95m$profilePath\e[0m\n"
       sed -Ei "s|(export ${key})=.*|export ${key}=${value}|" $profilePath
     else
-      echo -e "Adding \e[96m${key}\e[0m to \e[95m$profilePath\e[0m"
+      printf "Adding \e[96m${key}\e[0m to \e[95m$profilePath\e[0m\n"
       echo "export ${key}=${value}" >> $profilePath
     fi
   done
@@ -68,10 +68,10 @@ export PATH=$(echo -n $PATH | awk -v RS=: '{gsub(/\/$/,"")} !($0 in a) {a[$0]; p
 for profilePath in ${profileFilesList[@]}; do
   grep "export PATH" $profilePath > /dev/null
   if [ $? -eq 0 ]; then
-    echo -e "Updating \e[96mPATH\e[0m on \e[95m$profilePath\e[0m"
+    printf "Updating \e[96mPATH\e[0m on \e[95m$profilePath\e[0m\n"
     sed -Ei "s|(export PATH)=.*|export PATH=$PATH|" $profilePath
   else
-    echo -e "Adding \e[96mPATH\e[0m to \e[95m$profilePath\e[0m"
+    printf "Adding \e[96mPATH\e[0m to \e[95m$profilePath\e[0m\n"
     echo "export PATH=$PATH" >> $profilePath
   fi
 done
@@ -89,32 +89,32 @@ for setupd in .setup.d/*.sh; do
   . $setupd
 done
 
-echo -e "\e[1;34mMiscellaneous\e[0m"
+printf "\e[1;34mMiscellaneous\e[0m\n"
 # Update system font cache
-echo -e "Updating font cache..."
+printf "Updating font cache...\n"
 fc-cache -f &
 ### Set fish paths
-echo -e "Setting fish universal variables..."
+printf "Setting fish universal variables...\n"
 fish ./variables.fish $PATHS
 
 type -p kquitapp5 > /dev/null
 if [ $? -eq 0 ]; then
-  echo -e "Updating KDE globals..."
+  printf "Updating KDE globals...\n"
   kquitapp5 kglobalaccel && sleep 2s && kglobalaccel5 &
 fi
 
 readarray VARIABLES < .env-remove
 
-echo -e "\e[1;34mCleanup\e[0m"
+printf "\e[1;34mCleanup\e[0m\n"
 # removes unused variables
 for variableName in ${VARIABLES[@]}; do
   for profilePath in ${profileFilesList[@]}; do
     grep "export ${variableName}" $profilePath > /dev/null
     if [ $? -eq 0 ]; then
-      echo -e "Removing \e[96m${variableName}\e[0m from \e[95m$profilePath\e[0m"
+      printf "Removing \e[96m${variableName}\e[0m from \e[95m$profilePath\e[0m\n"
       sed -Ei "s|(export ${variableName}=.*)||" $profilePath
     fi
   done
 done
 
-echo -e "\e[1;32mDone!\e[0m"
+printf "\e[1;32mDone!\e[0m\n"

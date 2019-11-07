@@ -12,7 +12,7 @@ else
   EXTENSIONS_FILE_NAME=$(realpath $DIRNAME/${BASH_SOURCE%%/*}/../$EXTENSIONS_FILE_NAME)
 fi
 
-echo -e "\e[1;33mVSCode extensions\e[0m"
+printf "\e[1;33mVSCode extensions\e[0m\n"
 
 ### Check vscode
 echo "Checking vscode..."
@@ -32,7 +32,7 @@ mknod $TMP/vscode-extensions-list p
 cat $EXTENSIONS_FILE_NAME | grep -vE "[ \t]*//.*" | jq .recommendations[] | tr -d '"' | sort > $TMP/vscode-extensions-list &
 
 comm -13 $TMP/vscode-installed $TMP/vscode-extensions-list | uniq -u | while read EXTENSION; do
-  echo -e "Installing \e[96m${EXTENSION}\e[0m..."
+  printf "Installing \e[96m${EXTENSION}\e[0m...\n"
   code --install-extension $EXTENSION
 done
 

@@ -13,7 +13,7 @@ else
 fi
 readarray PACKAGES < $PACKAGES_FILE_PATH
 
-echo -e "\e[1;33mSystem packages\e[0m"
+printf "\e[1;33mSystem packages\e[0m\n"
 
 ### Check package tool
 # empty manager
@@ -37,15 +37,15 @@ for f in ${!osInfo[@]}; do
 done
 
 if [ "${MANAGER}" = "" ]; then
-  echo -e "ERROR\nUnable to detect the OS package manager"
+  printf "ERROR\nUnable to detect the OS package manager\n"
   exit 1
 fi
 
 ### Install packages
 for PACKAGE in ${PACKAGES[@]}; do
-  echo -e "Checking \e[96m${PACKAGE%%:*}\e[0m..."
+  printf "Checking \e[96m${PACKAGE%%:*}\e[0m...\n"
   type -p ${PACKAGE##*:} &> /dev/null && continue
 
-  echo -e "Installing \e[96m${PACKAGE%%:*}\e[0m..."
+  printf "Installing \e[96m${PACKAGE%%:*}\e[0m...\n"
   sudo ${MANAGER} ${PACKAGE%%:*}
 done

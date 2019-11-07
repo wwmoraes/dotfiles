@@ -44,7 +44,7 @@ for user_path in $fish_user_paths
 
   # non-existent
   if test ! -d "$user_path"
-    echo -e "path (set_color brmagenta)$user_path(set_color normal) does not exist. Removing from user paths..."
+    printf "path (set_color brmagenta)$user_path(set_color normal) does not exist. Removing from user paths...\n"
     set -eU fish_user_paths[(contains -i $user_path $fish_user_paths)]
   end
 end

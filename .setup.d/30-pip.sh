@@ -13,7 +13,7 @@ else
 fi
 readarray PACKAGES < $PACKAGES_FILE_PATH
 
-echo -e "\e[1;33mPython pip packages\e[0m"
+printf "\e[1;33mPython pip packages\e[0m\n"
 
 ### Check package tool
 echo "Checking pip manager..."
@@ -25,9 +25,9 @@ fi
 
 ### Install packages
 for PACKAGE in ${PACKAGES[@]}; do
-  echo -e "Checking \e[96m${PACKAGE}\e[0m..."
+  printf "Checking \e[96m${PACKAGE}\e[0m...\n"
   pip show $PACKAGE &>/dev/null && continue
 
-  echo -e "Installing \e[96m${PACKAGE}\e[0m..."
+  printf "Installing \e[96m${PACKAGE}\e[0m...\n"
   sudo pip install $PACKAGE
 done

@@ -13,7 +13,7 @@ else
 fi
 readarray PACKAGES < $PACKAGES_FILE_PATH
 
-echo -e "\e[1;33mGolang packages\e[0m"
+printf "\e[1;33mGolang packages\e[0m\n"
 
 ### Check package tool
 echo "Checking golang..."
@@ -38,9 +38,9 @@ fi
 
 ### Install packages
 for PACKAGE in ${PACKAGES[@]}; do
-  echo -e "Checking go package \e[96m${PACKAGE}\e[0m..."
+  printf "Checking go package \e[96m${PACKAGE}\e[0m...\n"
   test -d $GOPATH/src/$PACKAGE && continue
 
-  echo -e "Installing go package \e[96m${PACKAGE}\e[0m..."
+  printf "Installing go package \e[96m${PACKAGE}\e[0m...\n"
   go get ${PACKAGE}
 done

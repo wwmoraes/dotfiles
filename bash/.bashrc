@@ -66,9 +66,9 @@ parse_git_branch() {
 
 parse_last_retcode() {
     if [ "$1" = "colored" ]; then
-        [[ $? -eq 0 ]] && echo -e "\e[32m\u2714\e[39m" || echo -e "\e[31m\u2716\e[39m"
+        [[ $? -eq 0 ]] && printf "\e[32m\u2714\e[39m" || printf "\e[31m\u2716\e[39m"
     else
-        [[ $? -eq 0 ]] && echo -e "\u2714" || echo -e "\u2716"
+        [[ $? -eq 0 ]] && printf "\u2714" || printf "\u2716"
     fi
 }
 
