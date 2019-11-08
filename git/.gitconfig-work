@@ -2,4 +2,4 @@
   email = william.moraesartero@messagebird.com
 
 [url "git@git.messagebird.io:"]
-  insteadOf = https://gitlab.messagebird.io/
+	insteadOf = https://gitlab.messagebird.io/
