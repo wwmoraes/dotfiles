@@ -112,7 +112,7 @@ if ! shopt -oq posix; then
 fi
 
 
-export PATH=/home/william.artero/bin:/home/william.artero/.local/bin:/home/william.artero/go/bin:/home/william.artero/.go/bin:/home/william.artero/.cargo/bin:/home/william.artero/.krew/bin:/home/william.artero/.yarn/bin:/home/william.artero/.config/yarn/global/node_modules/.bin:/home/william.artero/.nvm/versions/node/v13.0.1/bin:/home/william.artero/.fzf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/texlive/2018/bin/x86_64-linux:/snap/bin
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.go/bin:$HOME/.cargo/bin:$HOME/.krew/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.nvm/versions/node/v13.0.1/bin:$HOME/.fzf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/texlive/2018/bin/x86_64-linux
 
 export TERM=xterm-256color
 export EDITOR=vim

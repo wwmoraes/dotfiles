@@ -22,7 +22,7 @@ set -l argv[1] (echo -n $argv[1] | awk '{gsub(/\/$/,"")} !($0 in a) {a[$0]; prin
 echo "Setting fish user paths..."
 for user_path in (string split ':' $argv[1] | sed 's|/$||g')[-1..1]
   if test -d "$user_path" \
-    && string match -q "/home/*" $user_path
+    && string match -q (string replace "/$USER" "/*" $HOME) $user_path
     echo adding/keeping (set_color brmagenta)$user_path(set_color normal)
     set -U fish_user_paths $user_path $fish_user_paths
   end
