@@ -123,7 +123,6 @@ export FZF_LEGACY_KEYBINDINGS=0
 export FZF_COMPLETE=1
 export FZF_REVERSE_ISEARCH_OPTS='--preview-window=up:10 --preview="echo {}" --height 100%'
 export TMUX_PLUGIN_MANAGER_PATH=~/.config/tmux/plugins/
-export NPM_TOKEN=4e07e0c4-eb1a-4723-a42e-30ad0350469b
 
 # fzf & bashfu sorcery
 #   lists tmux sessions to attach to
