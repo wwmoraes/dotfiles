@@ -1,12 +1,12 @@
 # Abbreviations available only in interactive shells
 if status --is-interactive
   # git abbreviations
-  if test (type -q git)
+  if type -q git
     abbr -a -g gco git checkout
   end
 
   # kubectl abbreviations
-  if test (type -q kubectl)
+  if type -q kubectl
     abbr -a -g k kubectl
     abbr -a -g kgpo kubectl get pods
     abbr -a -g kging kubectl get ingress
