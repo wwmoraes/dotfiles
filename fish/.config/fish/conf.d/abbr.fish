@@ -13,8 +13,5 @@ if status --is-interactive
 
   # work abbreviations
   if test (hostname) = "Williams-MacBook-Pro.local"
-    abbr -a -g klh kubectl config use-context kubernetes-admin@kind
-    abbr -a -g kt1 kubectl config use-context gke_mb-k8s-tst_us-west1_uswe1
-    abbr -a -g kt4 kubectl config use-context gke_mb-k8s-tst_europe-west4_euwe4
   end
 end

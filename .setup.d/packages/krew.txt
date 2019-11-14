@@ -1,4 +1,3 @@
-change-ns
 konfig
 iexec
 neat
@@ -10,3 +9,5 @@ rbac-view
 rbac-lookup
 kubesec-scan
 grep
+ctx
+ns
