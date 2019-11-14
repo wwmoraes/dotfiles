@@ -91,8 +91,11 @@ done
 
 printf "\e[1;34mMiscellaneous\e[0m\n"
 # Update system font cache
-printf "Updating font cache...\n"
-fc-cache -f &
+type -p fc-cache > /dev/null
+if [ $? -eq 0 ]; then
+  printf "Updating font cache...\n"
+  fc-cache -f &
+fi
 ### Set fish paths
 printf "Setting fish universal variables...\n"
 fish ./variables.fish $PATHS
