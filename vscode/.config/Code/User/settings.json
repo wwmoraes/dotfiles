@@ -66,6 +66,10 @@
     "node_modules",
     "vendor"
   ],
+  "todo-tree.filtering.excludeGlobs": [
+    "**/vendor/**/*.*",
+    "**/node_modules/**/*.*",
+  ],
   "cSpell.userWords": [
     "nohoist",
     "wwmoraes"
