@@ -88,5 +88,10 @@
     "**/i3/config": "i3",
     "Dockerfile_*": "dockerfile"
   },
+  "vs-kubernetes": {
+    "vs-kubernetes.helm-path": "=helm",
+    "vs-kubernetes.kubectl-path": "kubectl",
+    "vs-kubernetes.draft-path": "draft",
+    "vs-kubernetes.minikube-path": "minikube"
   }
 }
