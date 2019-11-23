@@ -1,6 +1,6 @@
 {
-  "terminal.integrated.shell.linux": "fish",
-  "terminal.integrated.automationShell.linux": "fish",
+  "terminal.integrated.shell.linux": "/usr/bin/fish",
+  "terminal.integrated.automationShell.linux": "/usr/bin/fish",
   "editor.tabSize": 2,
   "editor.minimap.enabled": false,
   "editor.rulers": [
@@ -32,7 +32,7 @@
   "terminal.integrated.fontFamily": "Source Code Pro for Powerline",
   "git.autofetch": true,
   "vsicons.dontShowNewVersionMessage": true,
-  "explorer.confirmDelete": true,
+  "explorer.confirmDelete": false,
   "git-graph.maxDepthOfRepoSearch": 2,
   "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "editor.fontLigatures": true,
@@ -73,6 +73,14 @@
   "cSpell.userWords": [
     "nohoist",
     "wwmoraes"
+  ],
+  "cSpell.ignorePaths": [
+    "/usr/**",
+    "**/package-lock.json",
+    "**/node_modules/**",
+    "**/vscode-extension/**",
+    "**/.git/objects/**",
+    ".vscode"
   ],
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
