@@ -34,3 +34,4 @@ vscode/.config/Code
 !vscode/.config/Code/User/settings.json
 
 fish/.config/fish/fish_variables
+vim/.vim/.netrwhist
