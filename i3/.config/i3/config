@@ -82,6 +82,7 @@ bindsym $mod+Shift+q kill
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -p 'desktop%'" --no-generic
+bindsym $mod+Shift+l exec dmenu-lpass-nu
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
