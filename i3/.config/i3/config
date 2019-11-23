@@ -229,6 +229,7 @@ client.background       #F8F8F2
 bar {
   # output eDP1
   #font pango:Inconsolata for Powerline 10
+  output primary
   position top
   status_command bumblebee-status -m \
     git \
@@ -262,6 +263,20 @@ bar {
     deezer \
     -t iceberg-dark-powerline
 }
+
+# Secondary screen bar
+bar {
+  output HDMI1
+  position top
+  tray_output HDMI1
+  status_command bumblebee-status -m \
+    battery \
+    time \
+    date \
+    -t iceberg-dark-powerline
+}
+
+bindsym $mod+Shift+p move workspace to output right
 
 bindsym $mod+Shift+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
 
