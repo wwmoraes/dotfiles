@@ -94,7 +94,8 @@
   "workbench.iconTheme": "vscode-icons",
   "files.associations": {
     "**/i3/config": "i3",
-    "Dockerfile_*": "dockerfile"
+    "Dockerfile_*": "dockerfile",
+    ".env*": "dotenv"
   },
   "vs-kubernetes": {
     "vs-kubernetes.helm-path": "=helm",
