@@ -115,18 +115,21 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-export PATH=$HOME/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.go/bin:$HOME/.cargo/bin:$HOME/.krew/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.nvm/versions/node/v13.0.1/bin:$HOME/.fzf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/texlive/2018/bin/x86_64-linux
-
-export TERM=xterm-256color
-export EDITOR=vim
-export VISUAL=vim
-export SHELL=/usr/bin/fish
-export LANG=en_US.UTF-8
-export FZF_LEGACY_KEYBINDINGS=0
-export FZF_COMPLETE=1
-export FZF_REVERSE_ISEARCH_OPTS='--preview-window=up:10 --preview="echo {}" --height 100%'
-export TMUX_PLUGIN_MANAGER_PATH=~/.config/tmux/plugins/
+HOST=$(hostname -s)
+set -o allexport
+[[ -f .env_path ]] && source .env_path
+[[ -f .env ]] && source .env
+[[ -f .env_secrets ]] && source .env_secrets
+[[ "$HOST" == "arch-linux" ]] && {
+  [[ -f .env_personal ]] && source .env_personal
+  [[ -f .env_personal_secrets ]] && source .env_personal_secrets
+}
+[[ "$HOST" == "Williams-MacBook-Pro" ]] && {
+  [[ -f .env_work ]] && source .env_work
+  [[ -f .env_work_secrets ]] && source .env_work_secrets
+}
+[[ -f ".env-$HOST" ]] && source .env-$HOST
+set +o allexport
 
 # fzf & bashfu sorcery
 #   lists tmux sessions to attach to

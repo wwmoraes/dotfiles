@@ -1,5 +1,4 @@
-set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim
-set rtp+=/usr/lib/python3.7/site-packages/powerline/bindings/vim
+set rtp+=$PYTHON_PATH/site-packages/powerline/bindings/vim
 
 " Settings -------------------------------------------------------------
 

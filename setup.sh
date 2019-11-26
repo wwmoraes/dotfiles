@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash --noprofile --norc
 
 set +m # disable job control in order to allow lastpipe
 if [ $(shopt | grep lastpipe | wc -l) = 1 ]; then
@@ -13,36 +13,17 @@ profileFilesList=(
   $HOME/.bashrc
 )
 
-# Removes non-existent profile files
+# Ignores non-existent profile files
 for profilePath in ${profileFilesList[@]}; do
   if [ ! -f "$profilePath" ]; then
     profileFilesList=( ${profileFilesList[@]/$profilePath} )
   fi
 done
 
-### Set environment variables
-IFS=$'\n'
-for entry in $(cat .env | grep -v '^#' | grep -v '^$'); do
-  IFS='=' read key value <<< $entry
-  value=$(echo $value)
-
-  for profilePath in ${profileFilesList[@]}; do
-    grep "export ${key}" $profilePath > /dev/null
-    if [ $? -eq 0 ]; then
-      printf "Updating \e[96m${key}\e[0m on \e[95m$profilePath\e[0m\n"
-      sed -Ei "s|(export ${key})=.*|export ${key}=${value}|" $profilePath
-    else
-      printf "Adding \e[96m${key}\e[0m to \e[95m$profilePath\e[0m\n"
-      echo "export ${key}=${value}" >> $profilePath
-    fi
-  done
-done
-unset IFS
-
 # Source them to update context
 for profilePath in ${profileFilesList[@]}; do
-  if [ ! -f "$profilePath" ]; then
-    . profilePath
+  if [ -f "$profilePath" ]; then
+    . $profilePath
   fi
 done
 
@@ -66,17 +47,11 @@ for PREPATH in ${PREPATHS[@]}; do
 done
 
 # Dedup paths
+echo "dedupping and exporting PATH"
 export PATH=$(echo -n $PATH | awk -v RS=: '{gsub(/\/$/,"")} !($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
-for profilePath in ${profileFilesList[@]}; do
-  grep "export PATH" $profilePath > /dev/null
-  if [ $? -eq 0 ]; then
-    printf "Updating \e[96mPATH\e[0m on \e[95m$profilePath\e[0m\n"
-    sed -Ei "s|(export PATH)=.*|export PATH=$PATH|" $profilePath
-  else
-    printf "Adding \e[96mPATH\e[0m to \e[95m$profilePath\e[0m\n"
-    echo "export PATH=$PATH" >> $profilePath
-  fi
-done
+echo "persisting PATH"
+echo "PATH=${PATH}" > $HOME/.env_path
+
 # used to pass to the fish script
 PATHS=$PATH
 

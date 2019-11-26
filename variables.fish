@@ -1,18 +1,19 @@
 #!/usr/bin/env fish
 
+## Main
 # Source the config
 test -f ~/.config/fish/config.fish; and source ~/.config/fish/config.fish
 
 # Set environment variables
-for entry in (cat .env | grep -v '^#' | grep -v '^$')
-  set entry = (string split \= -- $entry)
-  set key $entry[2]
-  set value (echo $entry[3..-1])
-
-  echo Setting (set_color brcyan)$key(set_color normal)
-
-  set -U $key $value
-  set -eg $key
+dotenv "~/.env"
+dotenv "~/.env_secrets"
+isPersonal; and begin
+  dotenv "~/.env_personal"
+  dotenv "~/.env_personal_secrets"
+end
+isWork; and begin
+  dotenv "~/.env_work"
+  dotenv "~/.env_work_secrets"
 end
 
 # dedup args
