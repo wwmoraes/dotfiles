@@ -36,3 +36,7 @@ test: check
 .PHONY: check
 check:
 	$(foreach tool,$(TOOLS),$(call isInstalled,$(tool)))
+
+.PHONY: setup
+setup:
+	@bash setup.sh

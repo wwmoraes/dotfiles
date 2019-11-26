@@ -37,7 +37,7 @@ complete -xc dotsecrets -n __fish_use_subcommand -a update -d "update dotsecrets
 # setup subcommand
 function _dotsecrets_setup
   pushd ~/.secrets > /dev/null
-  bash ./setup.sh
+  make setup
   popd > /dev/null
 end
 complete -xc dotsecrets -n __fish_use_subcommand -a setup -d "setup environment for dotsecrets"

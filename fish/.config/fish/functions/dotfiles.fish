@@ -121,7 +121,7 @@ complete -xc dotfiles -n __fish_use_subcommand -a update -d "update dotfiles"
 # setup subcommand
 function _dotfiles_setup
   pushd ~/.files > /dev/null
-  bash ./setup.sh
+  make setup
   popd > /dev/null
 end
 complete -xc dotfiles -n __fish_use_subcommand -a setup -d "setup environment for dotfiles"
