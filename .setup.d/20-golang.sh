@@ -40,6 +40,10 @@ if [ $? -ne 0 ]; then
   curl -fsSL https://raw.githubusercontent.com/wwmoraes/golang-tools-install-script/master/goinstall.sh | bash -s - $GOINSTALL
 fi
 
+[[ -z "$GOPATH" ]] && GOPATH=$HOME/go
+
+echo "Checking for Go packages on $GOPATH..."
+
 ### Install packages
 for PACKAGE in ${PACKAGES[@]}; do
   printf "Checking go package \e[96m${PACKAGE}\e[0m...\n"
