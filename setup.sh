@@ -1,7 +1,9 @@
 #!/bin/bash
 
 set +m # disable job control in order to allow lastpipe
-shopt -s lastpipe
+if [ $(shopt | grep lastpipe | wc -l) = 1 ]; then
+  shopt -s lastpipe
+fi
 
 printf "\e[1;34mProfile-like variable exports\e[0m\n"
 
@@ -106,7 +108,10 @@ if [ $? -eq 0 ]; then
   kquitapp5 kglobalaccel && sleep 2s && kglobalaccel5 &
 fi
 
-readarray VARIABLES < .env-remove
+VARIABLES=()
+while IFS= read -r line; do
+   PACKAGES+=("$line")
+done <.env-remove
 
 printf "\e[1;34mCleanup\e[0m\n"
 # removes unused variables

@@ -56,6 +56,10 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+CHECKMARK=$(printf "\xE2\x9C\x94")
+CROSSMARK=$(printf "\xE2\x9C\x96")
+RIGHTWARDS_ARROW=$(printf "\xE2\x9E\xBE")
+
 parse_git_branch() {
     if [ ! $(git status -s 2> /dev/null | wc -l) -eq 0 ]; then
         HASCHANGES="*"
@@ -66,16 +70,16 @@ parse_git_branch() {
 
 parse_last_retcode() {
     if [ "$1" = "colored" ]; then
-        [[ $? -eq 0 ]] && printf "\e[32m\u2714\e[39m" || printf "\e[31m\u2716\e[39m"
+        [[ $? -eq 0 ]] && printf "\e[32m${CHECKMARK}\e[39m" || printf "\e[31m${CROSSMARK}\e[39m"
     else
-        [[ $? -eq 0 ]] && printf "\u2714" || printf "\u2716"
+        [[ $? -eq 0 ]] && printf "${CHECKMARK}" || printf "${CROSSMARK}"
     fi
 }
 
 if [ "$color_prompt" = yes ]; then
-	PS1=$'\[$(parse_last_retcode colored)\] ${debian_chroot:+($debian_chroot)}\[\e[1;34m\]\W\[\e[33m\]$(parse_git_branch)\[\e[m\] \[\e[1;39m\]\$\[\e[m\] \u27be '
+	PS1=$'\[$(parse_last_retcode colored)\] ${debian_chroot:+($debian_chroot)}\[\e[1;34m\]\W\[\e[33m\]$(parse_git_branch)\[\e[m\] \[\e[1;39m\]\$\[\e[m\] ${RIGHTWARDS_ARROW} '
 else
-	PS1=$'$(parse_last_retcode) ${debian_chroot:+($debian_chroot)}\W$(parse_git_branch) \$ \u27be '
+	PS1=$'$(parse_last_retcode) ${debian_chroot:+($debian_chroot)}\W$(parse_git_branch) \$ ${RIGHTWARDS_ARROW} '
 fi
 unset color_prompt force_color_prompt
 

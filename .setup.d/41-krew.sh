@@ -4,14 +4,18 @@
 PACKAGES_FILE_NAME=packages/krew.txt
 
 ### magic block :D
-DIRNAME=$(realpath $0 | xargs dirname)
+DIRNAME=$(perl -MCwd -e 'print Cwd::abs_path shift' $0 | xargs dirname)
 # Checks and sets the file path corretly if running directly or sourced
 if [ "$0" == "$BASH_SOURCE" ]; then
   PACKAGES_FILE_PATH=$DIRNAME/$PACKAGES_FILE_NAME
 else
   PACKAGES_FILE_PATH=$DIRNAME/${BASH_SOURCE%%/*}/$PACKAGES_FILE_NAME
 fi
-readarray PACKAGES < $PACKAGES_FILE_PATH
+
+PACKAGES=()
+while IFS= read -r line; do
+   PACKAGES+=("$line")
+done <$PACKAGES_FILE_PATH
 
 printf "\e[1;33mKrew plugins\e[0m\n"
 
