@@ -42,7 +42,7 @@ if [ ! "${MANAGER}" = "" ]; then
     type -p ${PACKAGE##*:} &> /dev/null && continue
 
     printf "Installing \e[96m${PACKAGE%%:*}\e[0m...\n"
-    ${MANAGER} ${PACKAGE%%:*}
+    ${MANAGER} ${PACKAGE%%:*} 2> /dev/null
   done
 else
   printf "ERROR\nUnable to detect the OS package manager\n"
