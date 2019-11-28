@@ -16,14 +16,15 @@ printf "\e[1;33mVSCode extensions\e[0m\n"
 
 ### Check vscode
 echo "Checking vscode..."
-type -p code &> /dev/null
-if [ $? -eq 0 ]; then
+VSCODE=$(command -v code-oss)
+[ "$VSCODE" = "" ] && $(command -v code)
+if [ ! "$VSCODE" = "" ]; then
   ### Install packages
   echo "Checking extensions..."
   TMP=$(mktemp -d)
   # mknod $TMP/vscode-installed p
   mkfifo $TMP/vscode-installed
-  code --list-extensions | tr '[:upper:]' '[:lower:]' | sort > $TMP/vscode-installed &
+  $VSCODE --list-extensions | tr '[:upper:]' '[:lower:]' | sort > $TMP/vscode-installed &
 
   # mknod $TMP/vscode-extensions-list p
   mkfifo $TMP/vscode-extensions-list
@@ -31,7 +32,7 @@ if [ $? -eq 0 ]; then
 
   comm -13 $TMP/vscode-installed $TMP/vscode-extensions-list | uniq -u | while read EXTENSION; do
     printf "Installing \e[96m${EXTENSION}\e[0m...\n"
-    code --install-extension $EXTENSION
+    $VSCODE --install-extension $EXTENSION
   done
 
   rm -r $TMP
