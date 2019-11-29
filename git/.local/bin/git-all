@@ -1,0 +1,26 @@
+#!/usr/bin/env fish
+
+function run
+  for d in (find * -type d -maxdepth 0)
+    pushd $d > /dev/null; or continue
+    set_color -o yellow; echo $d; set_color normal
+    git $argv
+    echo
+    popd > /dev/null
+  end
+end
+
+set -l FLAG_C_INDEX (contains -i -- -C $argv)
+
+if test -z "$FLAG_C_INDEX"
+  run $argv
+  exit
+end
+
+set -l FLAG_C_CONTENT_INDEX (math $FLAG_C_INDEX + 1)
+set -l CONTEXT $argv[$FLAG_C_CONTENT_INDEX]
+set -e argv[$FLAG_C_INDEX..$FLAG_C_CONTENT_INDEX]
+
+pushd $CONTEXT > /dev/null; or exit 1
+run $argv
+popd > /dev/null
