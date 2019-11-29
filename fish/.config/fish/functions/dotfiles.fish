@@ -63,7 +63,7 @@ function _dotfiles_add
   end
 
   # Gets the tool folder
-  set tool (find ~/.files/ -maxdepth 1 -not -name '.*' -type d -printf '%f\n' | fzf --prompt="Choose project to add the file ")
+  set tool (find ~/.files/ -maxdepth 1 -type d -not -name '.*' -exec basename {} \; | fzf --prompt="Choose project to add the file ")
 
   if test (string length $tool || echo 0) -eq 0
     read -P 'New tool folder: ' tool
