@@ -51,7 +51,12 @@
 		"mgmcdermott.vscode-language-babel",
 		"perkovec.emoji",
 		"vilicvane.sensitive-replace",
-		"malmaud.tmux"
+		"malmaud.tmux",
+		"lunaryorn.fish-ide",
+		"ymotongpoo.licenser",
+		"jock.svg",
+		"cssho.vscode-svgviewer",
+		"zxh404.vscode-proto3"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
