@@ -98,9 +98,9 @@
     ".env*": "dotenv"
   },
   "vs-kubernetes": {
-    "vs-kubernetes.helm-path": "=helm",
-    "vs-kubernetes.kubectl-path": "kubectl",
-    "vs-kubernetes.draft-path": "draft",
-    "vs-kubernetes.minikube-path": "minikube"
   }
+    "vs-kubernetes.helm-path": "/usr/local/bin/helm",
+    "vs-kubernetes.kubectl-path": "/usr/local/bin/kubectl",
+    "vs-kubernetes.draft-path": "/usr/local/bin/draft",
+    "vs-kubernetes.minikube-path": "/usr/local/bin/minikube"
 }
