@@ -12,3 +12,4 @@ man-db:apropos
 gcc
 xsel
 fzf
+hub
