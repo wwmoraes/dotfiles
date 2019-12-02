@@ -16,7 +16,7 @@ isWork; and begin
   dotenv "~/.env_work_secrets"
 end
 
-if test -f ~/.env-(hostname -s); and dotenv ~/.env-(hostname -s)
+test -f ~/.env-(hostname -s); and dotenv ~/.env-(hostname -s)
 
 # dedup args
 set -l argv[1] (echo -n $argv[1] | awk '{gsub(/\/$/,"")} !($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
