@@ -98,9 +98,14 @@
     ".env*": "dotenv"
   },
   "vs-kubernetes": {
-  }
     "vs-kubernetes.helm-path": "/usr/local/bin/helm",
     "vs-kubernetes.kubectl-path": "/usr/local/bin/kubectl",
     "vs-kubernetes.draft-path": "/usr/local/bin/draft",
     "vs-kubernetes.minikube-path": "/usr/local/bin/minikube"
+  },
+  "git-graph.dialog.merge.noFastForward": false,
+  "git-graph.dialog.merge.squashCommits": true,
+  "git-graph.fetchAndPrune": true,
+  "licenser.author": "William Wagner Moraes Artero",
+  "licenser.disableAutoHeaderInsertion": true
 }
