@@ -5,15 +5,15 @@
 test -f ~/.config/fish/config.fish; and source ~/.config/fish/config.fish
 
 # Set environment variables
-dotenv "~/.env"
-dotenv "~/.env_secrets"
+dotenv ~/.env
+dotenv ~/.env_secrets
 isPersonal; and begin
-  dotenv "~/.env_personal"
-  dotenv "~/.env_personal_secrets"
+  dotenv ~/.env_personal
+  dotenv ~/.env_personal_secrets
 end
 isWork; and begin
-  dotenv "~/.env_work"
-  dotenv "~/.env_work_secrets"
+  dotenv ~/.env_work
+  dotenv ~/.env_work_secrets
 end
 
 test -f ~/.env-(hostname -s); and dotenv ~/.env-(hostname -s)

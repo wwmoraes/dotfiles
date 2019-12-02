@@ -1,5 +1,8 @@
 function dotenv -a filePath -d '"Sources" (set universal and exports) variables from given dotenv file, if it exists'
-  test -f $filePath; or return
+  if not test -f $filePath
+    echo Error: file $filePath does not exist or can not be read
+    return
+  end
 
   echo Parsing dotenv file $filePath
 
