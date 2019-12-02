@@ -19,6 +19,8 @@ function dotfiles -a cmd -d "Setup dotfiles"
       _dotfiles_lg
     case setup
       _dotfiles_setup
+    case config
+      _dotfiles_config $argv[2..-1]
     case "" "*"
       echo "Unknown option $cmd"
   end
@@ -151,3 +153,35 @@ function _dotfiles_lg
   popd > /dev/null
 end
 complete -xc dotfiles -n __fish_use_subcommand -a lg -d "open lazygit at dotfiles repository"
+
+function _dotfiles_config -a opt
+
+  switch "$opt"
+    case gcloud
+      set -l yellow (tput setaf 3 || true)
+      set -l normal (tput sgr0 || true)
+
+      # Get active account
+      set -l ACTIVE_ACCOUNT (gcloud auth list --filter=status:ACTIVE --format="value(account)")
+      # Get current accounts
+      set -l ACCOUNTS (gcloud auth list --format="value(account)" | sed "s/$ACTIVE_ACCOUNT/$yellow$ACTIVE_ACCOUNT$normal/")
+
+      if not test -z $ACCOUNTS
+        # Offer to activate an already-authenticated account
+        set -l SELECTED_ACCOUNT (echo $ACCOUNTS | fzf --ansi --prompt="Select account to activate ")
+        if test (string length $SELECTED_ACCOUNT || echo 0) -ne 0
+          gcloud config set account $SELECTED_ACCOUNT
+          return
+        end
+      end
+
+      # Authenticate a new account
+      gcloud auth login --brief
+      gcloud config config-helper
+
+    case "" "*"
+      echo "valid options: gcloud"
+  end
+
+end
+complete -xc dotfiles -n __fish_use_subcommand -a config -d "configures other tools"
