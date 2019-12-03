@@ -30,6 +30,7 @@ done
 # System paths (FIFO)
 PREPATHS=(
   $HOME/.config/yarn/global/node_modules/.bin
+  $HOME/.local/google-cloud-sdk/bin
   $HOME/.yarn/bin
   $HOME/.krew/bin
   $HOME/.cargo/bin
