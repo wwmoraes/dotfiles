@@ -4,17 +4,26 @@ TOOLS = stow fish tmux vim powerline
 
 define stow
 	$(info stowing $(subst /,,$(1))...)
-	@stow -t ~ -R $(1)
+	@stow -t ~ -R $(1) 2>&1 \
+		| grep -v 'BUG in find_stowed_path?' \
+		| grep -v 'WARNING: skipping target which was current stow directory .files' \
+		|| true
 endef
 
 define unstow
 	$(info unstowing $(subst /,,$(1))...)
-	@stow -t ~ -D $(1)
+	@stow -t ~ -D $(1) 2>&1 \
+		| grep -v 'BUG in find_stowed_path?' \
+		| grep -v 'WARNING: skipping target which was current stow directory .files' \
+		|| true
 endef
 
 define drystow
 	$(info dry-stowing $(subst /,,$(1))...)
-	@stow -t ~ -n $(1)
+	@stow -t ~ -n $(1) 2>&1 \
+		| grep -v 'BUG in find_stowed_path?' \
+		| grep -v 'WARNING: skipping target which was current stow directory .files' \
+		|| true
 endef
 
 define isInstalled
