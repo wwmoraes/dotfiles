@@ -91,7 +91,8 @@
   "files.associations": {
     "**/i3/config": "i3",
     "Dockerfile_*": "dockerfile",
-    ".env*": "dotenv"
+    ".env*": "dotenv",
+    ".terraformignore": "gitignore"
   },
   "vs-kubernetes": {
     "vs-kubernetes.helm-path": "/usr/local/bin/helm",
