@@ -57,7 +57,10 @@
 		"jock.svg",
 		"cssho.vscode-svgviewer",
 		"zxh404.vscode-proto3",
-		"sidneys1.gitconfig"
+		"sidneys1.gitconfig",
+		"naumovs.color-highlight",
+		"dcasella.i3",
+		"4ops.terraform"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
