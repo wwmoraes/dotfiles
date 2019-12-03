@@ -103,5 +103,6 @@
   "git-graph.dialog.merge.squashCommits": true,
   "git-graph.fetchAndPrune": true,
   "licenser.author": "William Wagner Moraes Artero",
-  "licenser.disableAutoHeaderInsertion": true
+  "licenser.disableAutoHeaderInsertion": true,
+  "projectManager.groupList": true
 }
