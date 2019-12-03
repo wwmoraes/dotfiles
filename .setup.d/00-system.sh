@@ -22,13 +22,13 @@ printf "\e[1;33mSystem packages\e[0m\n"
 ### Check package tool
 echo "Checking system manager..."
 # Manager options
-if [ -x "$(which apt-get)" ]; then
+if [ -x "$(which apt-get 2> /dev/null)" ]; then
   MANAGER="sudo apt-get install --no-install-recommends --no-install-suggests"
-elif [ -x "$(which yay)" ]; then
+elif [ -x "$(which yay 2> /dev/null)" ]; then
   MANAGER="sudo yay -S"
-elif [ -x "$(which pacman)" ]; then
+elif [ -x "$(which pacman 2> /dev/null)" ]; then
   MANAGER="sudo pacman -S"
-elif [ -x "$(which brew)" ]; then
+elif [ -x "$(which brew 2> /dev/null)" ]; then
   MANAGER="brew install"
 else
   # empty manager
