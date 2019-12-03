@@ -56,7 +56,8 @@
 		"ymotongpoo.licenser",
 		"jock.svg",
 		"cssho.vscode-svgviewer",
-		"zxh404.vscode-proto3"
+		"zxh404.vscode-proto3",
+		"sidneys1.gitconfig"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
