@@ -13,3 +13,4 @@ gcc
 xsel
 fzf
 hub
+htop
