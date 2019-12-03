@@ -20,11 +20,13 @@ done <$PACKAGES_FILE_PATH
 printf "\e[1;33mPython pip packages\e[0m\n"
 
 ### Check package tool
-echo "Checking pip manager..."
+printf "Checking \e[96mpip\e[0m manager...\n"
 type -p pip &> /dev/null
 if [ $? -ne 0 ]; then
-  echo "python pip is not installed or in path"
-  return
+  TMP=$(mktemp -t get-pip.py)
+  curl https://bootstrap.pypa.io/get-pip.py -o $TMP 2> /dev/null
+  sudo python $TMP
+  rm $TMP
 fi
 
 ### Install packages
