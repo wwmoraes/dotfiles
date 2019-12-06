@@ -5,7 +5,7 @@ printf "\e[1;34mInfrastructure tools\e[0m\n"
 printf "Checking \e[96mterraform\e[0m...\n"
 type -p terraform &> /dev/null
 if [ $? -ne 0 ]; then
-  VERSION=0.12.16
+  VERSION=$(curl -sf https://releases.hashicorp.com/terraform/ | grep terraform_ | head -n1 | sed -E 's/.*terraform_([0-9.]+).*/\1/')
 
   PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
 
