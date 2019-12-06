@@ -15,4 +15,4 @@ fzf
 hub
 htop
 unzip
-gnupg
+gnupg:gpg
