@@ -56,6 +56,12 @@
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
 
+[url "git@github.com:"]
+  insteadOf = git://github
+
+[url "git@gist.github.com:"]
+  insteadOf = https://gist.github.com/
+
 [smartgit "submodule"]
 	fetchalways = false
 	update = true
