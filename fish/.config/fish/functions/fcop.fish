@@ -14,5 +14,5 @@ function fcop -d "Git checkout w/preview"
     fzf-tmux --no-hscroll --no-multi --delimiter="\t" -n 2 \
         --ansi --preview="git log -200 --pretty=format:%s (echo {+2..} | sed 's/\$/../' )" )
   
-  git checkout (echo "$target" | awk '{print $2}')
+  test (string length $target || echo 0) -ne 0; and git checkout (echo "$target" | awk '{print $2}')
 end
