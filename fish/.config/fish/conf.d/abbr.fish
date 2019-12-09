@@ -113,8 +113,4 @@ if status --is-interactive
     abbr -a -g kdcrbf "kubectl get clusterrolebindings | fzf-tmux --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl describe clusterrolebinding {}"
     abbr -a -g kdscf "kubectl get storageclasses | fzf-tmux --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl describe storageclass {}"
   end
-
-  # work abbreviations
-  if test (hostname) = "Williams-MacBook-Pro.local"
-  end
 end
