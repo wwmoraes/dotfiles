@@ -1,0 +1,36 @@
+function gcp -a cmd -d "gloud CLI wrapper with extra commands"
+  type -q gcloud; or echo "gcloud is not installed" && return
+  type -q awk; or echo "awk is not installed" && return
+  type -q sed; or echo "sed is not installed" && return
+  type -q tail; or echo "tail is not installed" && return
+  type -q fzf-tmux; or echo "fzf is not installed" && return
+  type -q xargs; or echo "xargs is not installed" && return
+
+  switch "$cmd"
+  case reauth
+    echo "authenticating user..."
+    gcloud -q --no-user-output-enabled auth login --brief
+    echo "authenticating application-default..."
+    gcloud -q --no-user-output-enabled auth application-default login 2> /dev/null
+  case setup
+    echo "configuring docker..."
+    gcloud -q --no-user-output-enabled auth configure-docker 2> /dev/null
+    echo "setting up config-helper..."
+    gcloud -q --no-user-output-enabled config config-helper 2> /dev/null
+  case project
+    set -l active (gcloud config get-value core/project | tail -n 1)
+    set -l selected (gcloud projects list | \
+      sed -E "s/(^$active .*)/"(set_color yellow)"\1"(set_color normal)"/" | \
+      fzf-tmux --ansi --header-lines=1 | \
+      awk '{print $1}')
+    test -z "$selected"; or gcloud config set project $selected
+  case "*"
+    gcloud $argv
+  end
+end
+
+complete -ec gcp
+complete -c gcp -w gcloud
+complete -xc gcp -n __fish_use_subcommand -a reauth -d "reauthenticate everything"
+complete -xc gcp -n __fish_use_subcommand -a setup -d "setup docker auth and the config-helper agent"
+complete -xc gcp -n __fish_use_subcommand -a project -d "fuzzy set project"
