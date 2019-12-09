@@ -11,7 +11,7 @@ function fcop -d "Git checkout w/preview"
     read -z branches
 
   set target (printf '%s%s' $tags $branches | \
-    fzf --no-hscroll --no-multi --delimiter="\t" -n 2 \
+    fzf-tmux --no-hscroll --no-multi --delimiter="\t" -n 2 \
         --ansi --preview="git log -200 --pretty=format:%s (echo {+2..} | sed 's/\$/../' )" )
   
   git checkout (echo "$target" | awk '{print $2}')

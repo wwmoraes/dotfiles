@@ -30,7 +30,7 @@ complete -ec dotfiles
 # add subcommand
 function _dotfiles_add
   # Check the presence of needed tools
-  if not type -q fzf
+  if not type -q fzf-tmux
     echo "Error: please install fzf to use this function"
     return 1
   end
@@ -65,7 +65,7 @@ function _dotfiles_add
   end
 
   # Gets the tool folder
-  set tool (find ~/.files/ -maxdepth 1 -type d -not -name '.*' -exec basename {} \; | fzf --prompt="Choose project to add the file ")
+  set tool (find ~/.files/ -maxdepth 1 -type d -not -name '.*' -exec basename {} \; | fzf-tmux --prompt="Choose project to add the file ")
 
   if test (string length $tool || echo 0) -eq 0
     read -P 'New tool folder: ' tool
@@ -168,7 +168,7 @@ function _dotfiles_config -a opt
 
       if not test -z $ACCOUNTS
         # Offer to activate an already-authenticated account
-        set -l SELECTED_ACCOUNT (echo $ACCOUNTS | fzf --ansi --prompt="Select account to activate ")
+        set -l SELECTED_ACCOUNT (echo $ACCOUNTS | fzf-tmux --ansi --prompt="Select account to activate ")
         if test (string length $SELECTED_ACCOUNT || echo 0) -ne 0
           gcloud config set account $SELECTED_ACCOUNT
           return
