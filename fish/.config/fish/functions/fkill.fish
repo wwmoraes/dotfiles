@@ -3,5 +3,5 @@ function fkill -d "Fuzzy kill"
 
     if test -n "$pid"
         echo $pid | xargs kill -9
-    end 
+    end
 end

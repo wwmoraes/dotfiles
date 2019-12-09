@@ -3,7 +3,7 @@ function fcop -d "Git checkout w/preview"
   git tag | \
     awk '{print "\x1b[31;1mtag\x1b[m\t" $1}' | \
     read -z tags
-  
+
   git branch --all | \
     grep -v HEAD | sed "s/.* //" | sed "s#remotes/[^/]*/##" | \
     sort -u | \
@@ -13,6 +13,6 @@ function fcop -d "Git checkout w/preview"
   set target (printf '%s%s' $tags $branches | \
     fzf-tmux --no-hscroll --no-multi --delimiter="\t" -n 2 \
         --ansi --preview="git log -200 --pretty=format:%s (echo {+2..} | sed 's/\$/../' )" )
-  
+
   test (string length $target || echo 0) -ne 0; and git checkout (echo "$target" | awk '{print $2}')
 end
