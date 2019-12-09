@@ -24,6 +24,12 @@ function gcp -a cmd -d "gloud CLI wrapper with extra commands"
       fzf-tmux --ansi --header-lines=1 | \
       awk '{print $1}')
     test -z "$selected"; or gcloud config set project $selected
+  case dashboard
+    test (count $argv) -eq 2;
+      and set -l project $argv[2];
+      or set -l project (gcloud config get-value core/project | tail -n 1)
+
+    ext-open "https://console.cloud.google.com/home/dashboard?project=$project"
   case "*"
     gcloud $argv
   end
@@ -34,3 +40,4 @@ complete -c gcp -w gcloud
 complete -xc gcp -n __fish_use_subcommand -a reauth -d "reauthenticate everything"
 complete -xc gcp -n __fish_use_subcommand -a setup -d "setup docker auth and the config-helper agent"
 complete -xc gcp -n __fish_use_subcommand -a project -d "fuzzy set project"
+complete -xc gcp -n __fish_use_subcommand -a dashboard -d "open the current/passed project dashboard"
