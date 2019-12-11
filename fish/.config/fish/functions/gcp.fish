@@ -24,6 +24,15 @@ function gcp -a cmd -d "gloud CLI wrapper with extra commands"
       fzf-tmux --ansi --header-lines=1 | \
       awk '{print $1}')
     test -z "$selected"; or gcloud config set project $selected
+  case region zone
+    set -l selected (gcloud compute zones list | fzf-tmux --ansi --header-lines=1)
+    test -z "$selected"; and return
+
+    set -l zone (echo $selected | awk '{print $1}')
+    set -l region (echo $selected | awk '{print $2}')
+
+    gcloud config set compute/zone $zone
+    gcloud config set compute/region $region
   case dashboard
     test (count $argv) -eq 2;
       and set -l project $argv[2];
@@ -40,4 +49,5 @@ complete -c gcp -w gcloud
 complete -xc gcp -n __fish_use_subcommand -a reauth -d "reauthenticate everything"
 complete -xc gcp -n __fish_use_subcommand -a setup -d "setup docker auth and the config-helper agent"
 complete -xc gcp -n __fish_use_subcommand -a project -d "fuzzy set project"
+complete -xc gcp -n __fish_use_subcommand -a "region zone" -d "fuzzy set region and zone"
 complete -xc gcp -n __fish_use_subcommand -a dashboard -d "open the current/passed project dashboard"
