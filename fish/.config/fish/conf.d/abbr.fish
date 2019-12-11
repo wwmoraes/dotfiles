@@ -2,15 +2,16 @@
 if status --is-interactive
   # git abbreviations
   if type -q git
-    abbr -a -g gco git checkout
+    abbr -a -g gco "git checkout"
   end
 
   # kubectl abbreviations
   if type -q kubectl
     # base kubectl
-    abbr -a -g k kubectl
-    abbr -a -g kl kubectl logs
-    abbr -a -g kpf kubectl port-forward
+    abbr -a -g k "kubectl"
+    abbr -a -g kga "kubectl get all"
+    abbr -a -g kl "kubectl logs"
+    abbr -a -g kpf "kubectl port-forward"
     # base kubectl (fuzzy)
     abbr -a -g klf "kubectl get pods | fzf-tmux --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl logs {}"
     abbr -a -g kpfpo "kubectl get pods | fzf-tmux --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl port-forward pod/{} 8080:80"
