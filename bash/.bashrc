@@ -136,11 +136,9 @@ set +o allexport
 #   allows creating sessions by using the fzf query
 #   falls back to main session if something goes wrong (e.g. no fzf installed)
 
-DEFAULT_SESSIONS=main
-
 launchTmux() {
   tmuxSessionList() {
-    tmux list-sessions -F '#S' 2>/dev/null | cat <(echo $DEFAULT_SESSIONS) - | sort | uniq | awk NF
+    tmux list-sessions -F '#S' 2>/dev/null | cat <(echo ${TMUX_DEFAULT_SESSIONS:-main}) - | sort | uniq | awk NF
   }
 
   # returns if already on a tmux session
@@ -154,8 +152,8 @@ launchTmux() {
   command -v fzf > /dev/null
   if [ $? -eq 0 ]; then
     session=$(tmuxSessionList | \
-    fzf --print-query --reverse -0 | \
-    tail -n1)
+      fzf --print-query --reverse -0 | \
+      tail -n1)
   else
     echo "tmux sessions: $(tmuxSessionList | xargs)"
     echo -n "tmux session name: "
