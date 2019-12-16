@@ -13,6 +13,7 @@ if status --is-interactive
     abbr -a -g kl "kubectl logs"
     abbr -a -g kpf "kubectl port-forward"
     abbr -a -g ksh "kubectl iexec (kubectl get pods | fzf-tmux --header-lines=1 | awk '{print $1}')"
+    abbr -a -g kosvc "kubectl get services | fzf-tmux --header-lines=1 | awk '{print $1}' | xargs kubectl open-svc"
     # base kubectl (fuzzy)
     abbr -a -g klf "kubectl get pods | fzf-tmux --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl logs {}"
     abbr -a -g kpfpo "kubectl get pods | fzf-tmux --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl port-forward pod/{} 8080:80"
