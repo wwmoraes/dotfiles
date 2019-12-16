@@ -137,16 +137,26 @@ set +o allexport
 #   falls back to main session if something goes wrong (e.g. no fzf installed)
 
 launchTmux() {
-  tmuxSessionList() {
-    tmux list-sessions -F '#S' 2>/dev/null | cat <(echo ${TMUX_DEFAULT_SESSIONS:-main}) - | sort | uniq | awk NF
-  }
+  # not a tty session
+  tty -s || return
+  [ -t 0 ] || return
+
+  # non-interactive session
+  [[ $- == *i* ]] || return
 
   # returns if already on a tmux session
-  [ ! -z "$TMUX" ] && return
+  [[ "$TERM" =~ "screen" ]] && return
+  [[ -z "$TMUX" ]] || return
 
   # returns if there's no tmux bin
   command -v tmux > /dev/null
   [ ! $? -eq 0 ] && return
+
+
+  tmuxSessionList() {
+    sessions=(${TMUX_DEFAULT_SESSION:-main} $(tmux list-sessions -F '#S' 2>/dev/null))
+    printf '%s\n' "${sessions[@]}" | sort | uniq | awk NF
+  }
 
   # check if fzf exists only once
   command -v fzf > /dev/null
