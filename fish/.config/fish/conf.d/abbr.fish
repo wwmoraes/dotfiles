@@ -12,6 +12,8 @@ if status --is-interactive
     abbr -a -g kga "kubectl get all"
     abbr -a -g kl "kubectl logs"
     abbr -a -g kpf "kubectl port-forward"
+    abbr -a -g kctx "kubectl ctx"
+    abbr -a -g kns "kubectl ns"
     abbr -a -g ksh "kubectl iexec (kubectl get pods | fzf --ansi --header-lines=1 | awk '{print $1}')"
     abbr -a -g kosvc "kubectl get services | fzf --ansi --header-lines=1 | awk '{print $1}' | xargs kubectl open-svc"
     # base kubectl (fuzzy)
