@@ -28,7 +28,7 @@
   "go.alternateTools": {
     "go": "~/.go/bin/go"
   },
-  "terminal.integrated.fontFamily": "Source Code Pro for Powerline",
+  "terminal.integrated.fontFamily": "Fira Code",
   "git.autofetch": true,
   "vsicons.dontShowNewVersionMessage": true,
   "explorer.confirmDelete": false,
