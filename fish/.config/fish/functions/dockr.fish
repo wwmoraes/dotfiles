@@ -2,7 +2,7 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
   type -q docker; or echo "docker is not installed" && return
   type -q awk; or echo "awk is not installed" && return
   type -q tail; or echo "tail is not installed" && return
-  type -q fzf-tmux; or echo "fzf is not installed" && return
+  type -q fzf; or echo "fzf is not installed" && return
   type -q xargs; or echo "xargs is not installed" && return
 
   switch "$cmd"
@@ -14,11 +14,11 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
       echo "there's no <none>:<none> images to remove"
     end
   case rmc
-    docker container ls -a | tail +2 | fzf-tmux -m | awk '{print $1}' | xargs docker container rm
+    docker container ls -a | tail +2 | fzf -m | awk '{print $1}' | xargs docker container rm
   case rmi
-    docker image ls | tail +2 | fzf-tmux -m | awk '{print $3}' | xargs docker image rm
+    docker image ls | tail +2 | fzf -m | awk '{print $3}' | xargs docker image rm
   case rmv
-    docker volume ls | tail +2 | fzf-tmux -m | awk '{print $2}' | xargs docker volume rm
+    docker volume ls | tail +2 | fzf -m | awk '{print $2}' | xargs docker volume rm
   # case ""
   #   __fish_print_help dockr
   case "*"

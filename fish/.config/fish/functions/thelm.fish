@@ -6,7 +6,7 @@ function thelm -a cmd -d "tillerless helm 🖤" -w helm
     _helm_stop
   case "fdelete"
     _helm_start
-    helm list | fzf-tmux -m --ansi --header-lines=1 | awk '{print $1}' | xargs helm delete
+    helm list | fzf -m --ansi --header-lines=1 | awk '{print $1}' | xargs helm delete
     _helm_stop
   case "" "*"
     helm $argv
