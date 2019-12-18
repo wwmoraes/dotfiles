@@ -16,6 +16,8 @@ if status --is-interactive
     abbr -a -g kns "kubectl ns"
     abbr -a -g ksh "kubectl iexec (kubectl get pods | fzf --ansi --header-lines=1 | awk '{print $1}')"
     abbr -a -g kosvc "kubectl get services | fzf --ansi --header-lines=1 | awk '{print $1}' | xargs kubectl open-svc"
+    abbr -a -g kgextsvc "kubectl get services | awk '\$5 !~ /<none>/ {print \$0}'"
+    abbr -a -g kgaextsvc "kubectl get services -A | awk '\$5 !~ /<none>/ {print \$0}'"
     # base kubectl (fuzzy)
     abbr -a -g klf "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl logs {}"
     abbr -a -g kpfpo "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl port-forward pod/{} 8080:80"
