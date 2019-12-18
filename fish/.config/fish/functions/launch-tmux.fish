@@ -28,9 +28,6 @@ function launch-tmux
     read session
   end
 
-  # kthxbye
-  test -z $session; and exec exit
-
   # finally, execute tmux :D
   test -z $session; or exec tmux -u new -A -s $session > /dev/null
 end
