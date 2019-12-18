@@ -2,7 +2,10 @@
 	"segments": {
 		"right": [
 			{
-				"function": "powerline.segments.common.bat.battery"
+        "function": "powerline.segments.common.bat.battery",
+        "args": {
+          "online": "⚡️"
+        }
 			},
 			{
 				"function": "powerline.segments.common.sys.system_load",
