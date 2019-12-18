@@ -32,5 +32,5 @@ function launch-tmux
   test -z $session; and exec exit
 
   # finally, execute tmux :D
-  exec tmux new -A -s $session > /dev/null
+  test -z $session; or exec tmux -u new -A -s $session > /dev/null
 end

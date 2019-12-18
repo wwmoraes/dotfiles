@@ -172,7 +172,7 @@ launchTmux() {
 
     test -z ${session} && exit
 
-    exec tmux new -A -s ${session} > /dev/null
+    exec tmux -u new -A -s ${session} > /dev/null
 }
 
 launchTmux
