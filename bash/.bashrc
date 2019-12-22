@@ -117,18 +117,17 @@ fi
 
 HOST=$(hostname -s)
 set -o allexport
-[[ -f .env_path ]] && source .env_path
-[[ -f .env ]] && source .env
-[[ -f .env_secrets ]] && source .env_secrets
+[[ -f "$HOME/.env" ]] && source "$HOME/.env"
+[[ -f "$HOME/.env_secrets" ]] && source "$HOME/.env_secrets"
 [[ "$HOST" == "arch-linux" ]] && {
-  [[ -f .env_personal ]] && source .env_personal
-  [[ -f .env_personal_secrets ]] && source .env_personal_secrets
+  [[ -f "$HOME/.env_personal" ]] && source "$HOME/.env_personal"
+  [[ -f "$HOME/.env_personal_secrets" ]] && source "$HOME/.env_personal_secrets"
 }
 [[ "$HOST" == "Williams-MacBook-Pro" ]] && {
-  [[ -f .env_work ]] && source .env_work
-  [[ -f .env_work_secrets ]] && source .env_work_secrets
+  [[ -f "$HOME/.env_work" ]] && source "$HOME/.env_work"
+  [[ -f "$HOME/.env_work_secrets" ]] && source "$HOME/.env_work_secrets"
 }
-[[ -f ".env-$HOST" ]] && source .env-$HOST
+[[ -f "$HOME/.env-$HOST" ]] && source "$HOME/.env-$HOST"
 set +o allexport
 
 # fzf & bashfu sorcery
