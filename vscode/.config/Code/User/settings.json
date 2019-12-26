@@ -1,6 +1,8 @@
 {
   "terminal.integrated.shell.linux": "/usr/bin/fish",
   "terminal.integrated.automationShell.linux": "/usr/bin/fish",
+  "terminal.integrated.shell.osx": "/usr/local/bin/fish",
+  "terminal.integrated.automationShell.osx": "/usr/local/bin/fish",
   "editor.tabSize": 2,
   "editor.minimap.enabled": false,
   "editor.rulers": [
