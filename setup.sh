@@ -67,6 +67,11 @@ for setupd in .setup.d/*.sh; do
   . $setupd
 done
 
+ARCH=$(uname -s | tr '[:upper:]' '[:lower:]')
+for setupd in .setup.d/$ARCH/*.sh; do
+  . $setupd
+done
+
 printf "\e[1;34mMiscellaneous\e[0m\n"
 # Update system font cache
 type -p fc-cache > /dev/null
