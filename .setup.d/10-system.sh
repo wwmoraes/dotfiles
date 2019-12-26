@@ -1,21 +1,29 @@
 #!/bin/bash
 
 ### setup
-PACKAGES_FILE_NAME=packages/system.txt
+PACKAGES_FILE_DIR=packages
+PACKAGES_FILE_NAME=system.txt
 
 ### magic block :D
 DIRNAME=$(perl -MCwd -e 'print Cwd::abs_path shift' $0 | xargs dirname)
 # Checks and sets the file path corretly if running directly or sourced
 if [ "$0" == "$BASH_SOURCE" ]; then
-  PACKAGES_FILE_PATH=$DIRNAME/$PACKAGES_FILE_NAME
+  BASE_FILE_PATH=$DIRNAME
 else
-  PACKAGES_FILE_PATH=$DIRNAME/${BASH_SOURCE%%/*}/$PACKAGES_FILE_NAME
+  BASE_FILE_PATH=$DIRNAME/${BASH_SOURCE%%/*}
 fi
 
 PACKAGES=()
 while IFS= read -r line; do
-   PACKAGES+=("$line")
-done <$PACKAGES_FILE_PATH
+  PACKAGES+=("$line")
+done <$BASE_FILE_PATH/$PACKAGES_FILE_DIR/$PACKAGES_FILE_NAME
+
+ARCH=$(uname -s | tr '[:upper:]' '[:lower:]')
+if [ -f $BASE_FILE_PATH/$PACKAGES_FILE_DIR/$ARCH/$PACKAGES_FILE_NAME ]; then
+  while IFS= read -r line; do
+    PACKAGES+=("$line")
+  done <$BASE_FILE_PATH/$PACKAGES_FILE_DIR/$ARCH/$PACKAGES_FILE_NAME
+fi
 
 printf "\e[1;33mSystem packages\e[0m\n"
 

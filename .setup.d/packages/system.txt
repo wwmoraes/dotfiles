@@ -10,7 +10,6 @@ jq
 moreutils:sponge
 man-db:apropos
 gcc
-xsel
 fzf
 hub
 htop
