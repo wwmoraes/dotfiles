@@ -36,11 +36,14 @@ PREPATHS=(
   $HOME/.cargo/bin
   $HOME/.go/bin
   $HOME/go/bin
+  $HOME/.local/opt/bin
+  $HOME/.local/opt/sbin
   $HOME/.local/bin
   $HOME/bin
 )
 
 mkdir -p $HOME/.local/bin
+mkdir -p $HOME/.local/opt/{bin,sbin}
 mkdir -p $HOME/bin
 
 for PREPATH in ${PREPATHS[@]}; do
