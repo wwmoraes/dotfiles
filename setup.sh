@@ -84,21 +84,15 @@ if [ $? -eq 0 ]; then
   kquitapp5 kglobalaccel && sleep 2s && kglobalaccel5 &
 fi
 
+printf "Reloading tmux configuration...\n"
+tmux source-file $HOME/.tmux.conf
+
+printf "\e[1;34mCleanup\e[0m\n"
+
+printf "Removing old variables...\n"
 VARIABLES=()
 while IFS= read -r line; do
    PACKAGES+=("$line")
 done <.env-remove
-
-printf "\e[1;34mCleanup\e[0m\n"
-# removes unused variables
-for variableName in ${VARIABLES[@]}; do
-  for profilePath in ${profileFilesList[@]}; do
-    grep "export ${variableName}" $profilePath > /dev/null
-    if [ $? -eq 0 ]; then
-      printf "Removing \e[96m${variableName}\e[0m from \e[95m$profilePath\e[0m\n"
-      sed -Ei "s|(export ${variableName}=.*)||" $profilePath
-    fi
-  done
-done
 
 printf "\e[1;32mDone!\e[0m\n"
