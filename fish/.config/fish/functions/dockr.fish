@@ -14,11 +14,11 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
       echo "there's no <none>:<none> images to remove"
     end
   case rmc
-    docker container ls -a | tail +2 | fzf -m | awk '{print $1}' | xargs docker container rm
+    docker container ls -a | tail +2 | fzf -m -0 | awk '{print $1}' | xargs docker container rm
   case rmi
-    docker image ls | tail +2 | fzf -m | awk '{print $3}' | xargs docker image rm
+    docker image ls | tail +2 | fzf -m -0 | awk '{print $3}' | xargs docker image rm $argv[2..-1]
   case rmv
-    docker volume ls | tail +2 | fzf -m | awk '{print $2}' | xargs docker volume rm
+    docker volume ls | tail +2 | fzf -m -0 | awk '{print $2}' | xargs docker volume rm
   # case ""
   #   __fish_print_help dockr
   case "*"
