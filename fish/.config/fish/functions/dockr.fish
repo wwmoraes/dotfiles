@@ -13,6 +13,8 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
     else
       echo "there's no <none>:<none> images to remove"
     end
+  case fstop
+    docker ps | fzf -m --header-lines=1 -0 | awk 'ORS=" " {print $1}' | xargs docker stop
   case rmc
     docker container ls -a | tail +2 | fzf -m -0 | awk '{print $1}' | xargs docker container rm
   case rmi
