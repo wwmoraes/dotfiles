@@ -13,7 +13,7 @@ INSTALLED_PLUGINS=($(helm plugin list | awk 'NR != 1 {print $1}'))
 
 for PLUGIN in ${WANTED_PLUGINS[@]}; do
   printf "Checking \e[96m${PLUGIN}\e[0m...\n"
-  printf "%s\n" ${PLUGINS[@]} | grep $PLUGIN || {
+  printf "%s\n" ${PLUGINS[@]} | grep -q $PLUGIN || {
     printf "Installing \e[96m${PLUGIN}\e[0m...\n"
     helm plugin install ${REPOS[$PLUGIN]}
   }
