@@ -25,15 +25,3 @@ if [ $? -ne 0 ]; then
   chmod +x terraform && \
   popd > /dev/null
 fi
-
-printf "Checking \e[96mgitlab-cli\e[0m...\n"
-type -p gitlab-cli &> /dev/null
-if [ $? -ne 0 ]; then
-  printf "Downloading \e[96mgitlab-cli\e[0m...\n"
-  curl -Lo ~/.local/bin/gitlab-cli https://github.com/clns/gitlab-cli/releases/download/0.3.2/gitlab-cli-`uname -s`-`uname -m`
-
-  printf "Installing \e[96mgitlab-cli\e[0m...\n"
-  pushd ~/.local/bin > /dev/null && \
-  chmod +x gitlab-cli && \
-  popd > /dev/null
-fi
