@@ -23,3 +23,32 @@ if [ $? -ne 0 ]; then
 
   [ -f ~/bin/kubebox ] && chmod +x ~/bin/kubebox
 fi
+
+printf "Checking \e[96mhelm\e[0m...\n"
+type -p helm &> /dev/null
+if [ $? -ne 0 ]; then
+  VERSION=$(curl -fsSL https://api.github.com/repos/helm/helm/tags | jq -r '.[0].name')
+  SYSTEM=$(uname -s | tr '[:upper:]' '[:lower:]')
+
+  ARCH=
+  case "$(uname -m | tr '[:upper:]' '[:lower:]')" in
+    armv8)
+      ARCH=arm64
+      ;;
+    x86|386)
+      ARCH=386
+      ;;
+    arm*)
+      ARCH=arm
+      ;;
+    x86_64|amd64|""|*)
+      ARCH=amd64
+      ;;
+  esac
+
+  TMP=$(mktemp -d)
+  curl -fsSL https://get.helm.sh/helm-$VERSION-$SYSTEM-$ARCH.tar.gz | tar -C $TMP -xvzf - $SYSTEM-$ARCH/helm
+  mv $TMP/$SYSTEM-$ARCH/helm ~/.local/bin/helm
+  chmod +x ~/.local/bin/helm
+  rm -rf $TMP
+fi
