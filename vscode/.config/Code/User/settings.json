@@ -17,7 +17,10 @@
   "window.titleBarStyle": "custom",
   "bookmarks.saveBookmarksInProject": true,
   "types-autoinstaller.saveAsDevDependency": true,
-  "eslint.autoFixOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  },
   "gitlens.hovers.currentLine.over": "line",
   "workbench.editor.enablePreview": false,
   "bookmarks.useWorkaroundForFormatters": true,
@@ -107,5 +110,6 @@
   "git-graph.fetchAndPrune": true,
   "licenser.author": "William Wagner Moraes Artero",
   "licenser.disableAutoHeaderInsertion": true,
-  "projectManager.groupList": true
+  "projectManager.groupList": true,
+  "rust-client.rustupPath": "~/.cargo/bin/rustup"
 }
