@@ -6,8 +6,8 @@ function g -a cmd -d "shorter go with useful commands that Google forgot" -w go
     echo go: removing $argv[2]
 
     # thank you go-import-redirector for the brilliant idea of having a HTTP meta header redirection
-    set -l package (curl -fsSL $argv[2] | awk 'match($0, /go-import content=.* git https:\/\/(.*)"/, m) {print m[1]}')
-    test $package = ""; and set -l package $argv[2]
+    set -l package (curl -sSL $argv[2] | awk 'match($0, /go-import content=.* git https:\/\/(.*)"/, m) {print m[1]}')
+    test "$package" = ""; and set -l package $argv[2]
 
     # better safe than sorry
     set -q GOPATH; or set -l GOPATH (go env GOPATH)
@@ -19,6 +19,12 @@ function g -a cmd -d "shorter go with useful commands that Google forgot" -w go
     test -f $GOPATH/bin/$splitPackage[3]; and rm -rf $GOPATH/bin/$splitPackage[3]
     # remove cache
     test -d $GOPATH/pkg/mod/cache/download/$argv[2]; and rm -rf $GOPATH/pkg/mod/cache/download/$argv[2]
+
+    # remove go.mod dependency
+    if test -f go.mod
+      sed -i -e '/'(echo $argv[2] | sed -E 's/([./])/\\\\\1/g')'/d' go.mod
+      go mod tidy
+    end
   case "" "*"
     go $argv
   end
