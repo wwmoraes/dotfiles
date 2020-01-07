@@ -48,6 +48,7 @@ if type -q kubectl
   abbr -a -g kgcr "kubectl get clusterroles"
   abbr -a -g kgcrb "kubectl get clusterrolebindings"
   abbr -a -g kgsc "kubectl get storageclasses"
+  abbr -a -g kgrs "kubectl get replicasets"
   # k get ... (yaml)
   abbr -a -g kgpoy "kubectl get pods -o yaml"
   abbr -a -g kgingy "kubectl get ingresses -o yaml"
@@ -72,6 +73,7 @@ if type -q kubectl
   abbr -a -g kgcry "kubectl get clusterroles -o yaml"
   abbr -a -g kgcrby "kubectl get clusterrolebindings -o yaml"
   abbr -a -g kgscy "kubectl get storageclasses -o yaml"
+  abbr -a -g kgrsy "kubectl get replicasets -o yaml"
   # k get ... (yaml, fuzzy, neat)
   abbr -a -g kgpof "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl neat pod {} -o yaml"
   abbr -a -g kgingf "kubectl get ingress | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl neat ingress {} -o yaml"
@@ -96,6 +98,7 @@ if type -q kubectl
   abbr -a -g kgcrf "kubectl get clusterroles | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl neat clusterrole {} -o yaml"
   abbr -a -g kgcrbf "kubectl get clusterrolebindings | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl neat clusterrolebinding {} -o yaml"
   abbr -a -g kgscf "kubectl get storageclasses | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl neat storageclass {} -o yaml"
+  abbr -a -g kgrsf "kubectl get replicasets | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl neat replicaset {} -o yaml"
   # k describe ... (non-fuzzy)
   abbr -a -g kdpo "kubectl describe pods"
   abbr -a -g kding "kubectl describe ingresses"
@@ -120,6 +123,7 @@ if type -q kubectl
   abbr -a -g kdcr "kubectl describe clusterroles"
   abbr -a -g kdcrb "kubectl describe clusterrolebindings"
   abbr -a -g kdsc "kubectl describe storageclasses"
+  abbr -a -g kdrs "kubectl describe replicasets"
   # k describe ... (fuzzy)
   abbr -a -g kdpof "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl describe pod {}"
   abbr -a -g kdingf "kubectl get ingress | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl describe ingress {}"
@@ -144,4 +148,5 @@ if type -q kubectl
   abbr -a -g kdcrf "kubectl get clusterroles | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl describe clusterrole {}"
   abbr -a -g kdcrbf "kubectl get clusterrolebindings | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl describe clusterrolebinding {}"
   abbr -a -g kdscf "kubectl get storageclasses | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl describe storageclass {}"
+  abbr -a -g kdrsf "kubectl get replicasets | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl describe replicaset {}"
 end
