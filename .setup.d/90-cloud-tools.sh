@@ -42,6 +42,36 @@ if [ $? -ne 0 ]; then
   [ -f ~/bin/kubebox ] && chmod +x ~/bin/kubebox
 fi
 
+printf "Checking \e[96mkubeval\e[0m...\n"
+type -p kubeval &> /dev/null
+if [ $? -ne 0 ]; then
+  VERSION=$(curl -fsSL https://api.github.com/repos/instrumenta/kubeval/tags | jq -r '.[0].name')
+  SYSTEM=$(uname -s | tr '[:upper:]' '[:lower:]')
+
+  ARCH=
+  case "$(uname -m | tr '[:upper:]' '[:lower:]')" in
+    x86|386)
+      ARCH=386
+      ;;
+    x86_64|amd64)
+      ARCH=amd64
+      ;;
+    ""|*)
+      printf "Unsupported arch\n"
+      ;;
+  esac
+
+  if [ "${ARCH}" != "" ]; then
+    TMP=$(mktemp -d)
+    printf "Downloading \e[96mkubeval\e[0m...\n"
+    curl -fsSL https://github.com/instrumenta/kubeval/releases/download/$VERSION/kubeval-$SYSTEM-$ARCH.tar.gz |\
+    printf "Installing \e[96mkubeval\e[0m...\n"
+      tar -C $TMP -xzf -
+    install $TMP/kubeval ~/.local/bin/kubeval
+    rm -rf $TMP
+  fi
+fi
+
 printf "Checking \e[96mhelm\e[0m...\n"
 type -p helm &> /dev/null
 if [ $? -ne 0 ]; then
