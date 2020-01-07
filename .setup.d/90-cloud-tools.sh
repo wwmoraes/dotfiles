@@ -70,3 +70,29 @@ if [ $? -ne 0 ]; then
   chmod +x ~/.local/bin/helm
   rm -rf $TMP
 fi
+
+printf "Checking \e[96mkustomize\e[0m...\n"
+type -p kustomize &> /dev/null
+if [ $? -ne 0 ]; then
+
+  VERSION=$(curl -fsSL https://api.github.com/repos/helm/helm/tags | jq -r '.[0].name')
+  SYSTEM=windows
+  if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    SYSTEM=linux
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    SYSTEM=darwin
+  fi
+
+  TMP=$(mktemp -d)
+  curl -s https://api.github.com/repos/kubernetes-sigs/kustomize/releases |\
+    grep browser_download |\
+    grep $SYSTEM |\
+    cut -d '"' -f 4 |\
+    grep /kustomize/v |\
+    sort | tail -n 1 |\
+    xargs curl -fsSL |\
+    tar -C $TMP -xvzf -
+  mv $TMP/kustomize ~/.local/bin/kustomize
+  chmod +x ~/.local/bin/kustomize
+  rm -rf $TMP
+fi
