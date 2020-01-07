@@ -33,3 +33,17 @@ if [ $? -ne 0 ]; then
   rm pet.tar.gz
   popd > /dev/null
 fi
+
+printf "Checking \e[96mminikube\e[0m...\n"
+type -p minikube > /dev/null
+if [ $? -ne 0 ]; then
+  PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
+
+  TMP=$(mktemp -d)
+  pushd $TMP >& /dev/null
+  printf "Downloading \e[96mminikube\e[0m...\n"
+  curl -fsSLO https://storage.googleapis.com/minikube/releases/latest/minikube-${PLATFORM}-amd64
+  printf "Extracting \e[96mminikube\e[0m...\n"
+  install minikube-${PLATFORM}-amd64 ~/.local/bin/minikube
+  popd >& /dev/null
+fi
