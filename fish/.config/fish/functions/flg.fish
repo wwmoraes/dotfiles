@@ -4,6 +4,16 @@ function flg -d "Fuzzy launches lazygit on all git-enabled subfolders"
     return 1
   end
 
+  # get paths from env or use defaults
+  set -q GIT_PROJECT_PATHS; or set -l GIT_PROJECT_PATHS .
+
+  # remove duplicate paths
+  set -l PROJECT_PATHS
+  for path in $GIT_PROJECT_PATHS
+    set -l path (realpath $path)
+    contains $path $PROJECT_PATHS; or set -a PROJECT_PATHS "$path"
+  end
+
   # tmp folder & fifo setup
   set -l tmpDir (mktemp -d)
   set -l fifoFD $tmpDir/flg
@@ -12,9 +22,8 @@ function flg -d "Fuzzy launches lazygit on all git-enabled subfolders"
 
   # runs find in bg
   find \
-    . \
-    ~/dev/ \
-    ~/workspace/ \
+    $PROJECT_PATHS \
+    -maxdepth 2 \
     -name .git \
     -type d \
     -exec sh -c '\
