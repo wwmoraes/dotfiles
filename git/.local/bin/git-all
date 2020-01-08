@@ -2,6 +2,7 @@
 
 function run
   for d in (find * -type d -maxdepth 0)
+    test -d $d/.git; or continue
     pushd $d > /dev/null; or continue
     set_color -o yellow; echo $d; set_color normal
     git $argv
