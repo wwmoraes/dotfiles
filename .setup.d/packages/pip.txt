@@ -1,3 +1,4 @@
 powerline-status
 ansible
 yq
+asciinema
