@@ -60,7 +60,12 @@
     "naumovs.color-highlight",
     "dcasella.i3",
     "4ops.terraform",
-    "ipedrazas.kubernetes-snippets"
+    "ipedrazas.kubernetes-snippets",
+    "thomascsd.vscode-readme-pattern",
+    "tomashubelbauer.vscode-markdown-table-format",
+    "formulahendry.code-runner",
+    "labocho.chmod-command",
+    "vadimcn.vscode-lldb"
   ],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
