@@ -51,8 +51,6 @@
   "projectManager.any.maxDepthRecursion": 1,
   "projectManager.removeCurrentProjectFromList": true,
   "projectManager.git.baseFolders": [
-    "$home/.dotfiles",
-    "$home/.dotsecrets",
     "$home/workspace/",
     "$home/dev/",
     "$home/../shared/dev/"
