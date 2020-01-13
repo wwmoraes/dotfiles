@@ -18,25 +18,25 @@ function gcp -a cmd -d "gloud CLI wrapper with extra commands"
     echo "setting up config-helper..."
     gcloud -q --no-user-output-enabled config config-helper 2> /dev/null
   case project
-    set -l active (gcloud config get-value core/project | tail -n 1)
-    set -l selected (gcloud projects list | \
+    set active (gcloud config get-value core/project | tail -n 1)
+    set selected (gcloud projects list | \
       sed -E "s/(^$active .*)/"(set_color yellow)"\1"(set_color normal)"/" | \
       fzf --ansi --header-lines=1 | \
       awk '{print $1}')
     test -z "$selected"; or gcloud config set project $selected
   case region zone
-    set -l selected (gcloud compute zones list | fzf --ansi --header-lines=1)
+    set selected (gcloud compute zones list | fzf --ansi --header-lines=1)
     test -z "$selected"; and return
 
-    set -l zone (echo $selected | awk '{print $1}')
-    set -l region (echo $selected | awk '{print $2}')
+    set zone (echo $selected | awk '{print $1}')
+    set region (echo $selected | awk '{print $2}')
 
     gcloud config set compute/zone $zone
     gcloud config set compute/region $region
   case dashboard
     test (count $argv) -eq 2;
-      and set -l project $argv[2];
-      or set -l project (gcloud config get-value core/project | tail -n 1)
+      and set project $argv[2];
+      or set project (gcloud config get-value core/project | tail -n 1)
 
     ext-open "https://console.cloud.google.com/home/dashboard?project=$project"
   case "*"
