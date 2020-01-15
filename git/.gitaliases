@@ -105,7 +105,7 @@
 	fza = "!git ls-files -m -o --exclude-standard | fzf --print0 -m --preview 'git diff {}' --preview-window=top:10:wrap | xargs -0 -t -o git add --all"
 
 # fuzzy switch branch...  /fish/functions/fco.fish seems better
-	fco = "!git short-recent | fzf --print0 | xargs -0 -t git checkout"
+	fco = "!git branch -a | awk '$1 == \"*\" {system(\"tput setaf 3\");print $2;system(\"tput sgr0\");next};{print $1}' | fzf --ansi | sed 's|^remotes/|--track |' | xargs -t git checkout"
 
 # fuzzy fix staged changes into existing commit
 	ffix = !HASH=`git log --pretty=oneline | head -n 100 | fzf` && git fixit `echo ${HASH} | awk '{ print $1 }'`
