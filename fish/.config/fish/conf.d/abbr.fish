@@ -11,6 +11,7 @@ if type -q kubectl
   # base kubectl
   abbr -a -g k "kubectl"
   abbr -a -g kga "kubectl get all"
+  abbr -a -g kgra "kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found"
   abbr -a -g kl "kubectl logs"
   abbr -a -g kpf "kubectl port-forward"
   abbr -a -g kctx "kubectl ctx"
