@@ -36,7 +36,7 @@
   "terminal.integrated.fontFamily": "Fira Code",
   "git.autofetch": true,
   "vsicons.dontShowNewVersionMessage": true,
-  "explorer.confirmDelete": false,
+  "explorer.confirmDelete": true,
   "git-graph.maxDepthOfRepoSearch": 2,
   "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "editor.fontLigatures": true,
@@ -136,6 +136,10 @@
   "atlascode.bitbucket.enabled": false,
   "atlascode.jira.statusbar.enabled": false,
   "yaml.schemas": {
-    "file:///Users/william/.vscode/extensions/atlassian.atlascode-2.2.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
-  }
+    "file:///Users/william/.vscode/extensions/atlassian.atlascode-2.3.2/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+  },
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": [
+    "--fast"
+  ]
 }
