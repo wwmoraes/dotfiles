@@ -69,16 +69,18 @@
   ],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
-		"vscode.csharp",
-		"vscode.clojure",
-		"vscode.coffeescript",
-		"vscode.fsharp",
-		"vscode.groovy",
-		"vscode.java",
-		"vscode.vb",
-		"dbaeumer.jshint",
-		"felipecaputo.git-project-manager",
-		"ms-vscode.vscode-typescript-tslint-plugin",
-		"hookyqr.beautify"
-	]
+    "vscode.csharp",
+    "vscode.clojure",
+    "vscode.coffeescript",
+    "vscode.fsharp",
+    "vscode.groovy",
+    "vscode.java",
+    "vscode.vb",
+    "dbaeumer.jshint",
+    "felipecaputo.git-project-manager",
+    "ms-vscode.vscode-typescript-tslint-plugin",
+    "hookyqr.beautify",
+    "donjayamanne.githistory",
+    "googlecloudtools.cloudcode"
+  ]
 }
