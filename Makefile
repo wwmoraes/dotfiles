@@ -1,6 +1,14 @@
 SHELL = /bin/sh
 DIRECTORIES = $(sort $(wildcard */))
 TOOLS = stow fish tmux vim powerline
+OS_DIRECTORIES = $(sort $(patsubst .$(OS)/%,%,$(wildcard .$(OS)/*/)))
+
+# Detect OS
+ifeq ($(OS),Windows_NT)
+    OS := windows
+else
+    OS := $(shell sh -c 'uname 2>/dev/null | tr '[:upper:]' '[:lower:]' || echo unknown')
+endif
 
 define stow
 	$(info stowing $(subst /,,$(1))...)
@@ -18,6 +26,22 @@ define unstow
 		|| true
 endef
 
+define osstow
+	$(info stowing $(OS)/$(subst /,,$(1))...)
+	@cd .$(OS) && stow -t ~ -R $(1) 2>&1 \
+		| grep -v 'BUG in find_stowed_path?' \
+		| grep -v 'WARNING: skipping target which was current stow directory .files' \
+		|| true
+endef
+
+define osusstow
+	$(info unstowing $(OS)/$(subst /,,$(1))...)
+	@cd .$(OS) && stow -t ~ -D $(1) 2>&1 \
+		| grep -v 'BUG in find_stowed_path?' \
+		| grep -v 'WARNING: skipping target which was current stow directory .files' \
+		|| true
+endef
+
 define isInstalled
 	$(if $(shell which $(1)),,$(warning $(1) isn't installed))
 endef
@@ -25,10 +49,12 @@ endef
 .PHONY: install
 install: check
 	$(foreach dir,${DIRECTORIES},$(call stow,${dir}))
+	$(foreach dir,${OS_DIRECTORIES},$(call osstow,${dir}))
 
 .PHONY: remove
 remove: check
 	$(foreach dir,${DIRECTORIES},$(call unstow,${dir}))
+	$(foreach dir,${OS_DIRECTORIES},$(call osunstow,${dir}))
 
 .PHONY: check
 check:
