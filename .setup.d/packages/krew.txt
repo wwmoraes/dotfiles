@@ -11,3 +11,4 @@ kubesec-scan
 grep
 ctx
 ns
+ingress-nginx
