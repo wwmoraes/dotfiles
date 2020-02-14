@@ -137,3 +137,34 @@ if [ $? -ne 0 ]; then
   curl -so ~/.local/bin/kapp https://github.com/k14s/kapp/releases/download/${VERSION}/kapp-${SYSTEM}-amd64
   chmod +x ~/.local/bin/kapp
 fi
+
+printf "Checking \e[96mlab\e[0m...\n"
+type -p lab &> /dev/null
+if [ $? -ne 0 ]; then
+
+  VERSION=$(curl -fsSL https://api.github.com/repos/zaquestion/lab/tags | jq -r '.[0].name')
+  SYSTEM=$(uname -s | tr '[:upper:]' '[:lower:]')
+
+  ARCH=
+  case "$(uname -m | tr '[:upper:]' '[:lower:]')" in
+    armv8)
+      ARCH=arm64
+      ;;
+    x86|386)
+      ARCH=386
+      ;;
+    arm*)
+      ARCH=arm
+      ;;
+    x86_64|amd64|""|*)
+      ARCH=amd64
+      ;;
+  esac
+
+  TMP=$(mktemp -d)
+  curl -fsSL https://github.com/zaquestion/lab/releases/download/${VERSION}/lab_$(echo ${VERSION} | tr -d 'v')_${SYSTEM}_${ARCH}.tar.gz |\
+    tar -C $TMP -xzf -
+  mv $TMP/lab ~/.local/bin/lab
+  chmod +x ~/.local/bin/lab
+  rm -rf $TMP
+fi
