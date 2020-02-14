@@ -49,7 +49,7 @@ echo "Checking for rust packages..."
 ### Install packages
 for PACKAGE in ${PACKAGES[@]}; do
   printf "Checking \e[96m${PACKAGE%%:*}\e[0m...\n"
-  type -p ${PACKAGE##*:} &> /dev/null && type -p $HOME/.cargo/bin/${PACKAGE##*:} && continue
+  type -p ${PACKAGE##*:} &> /dev/null && type -p $HOME/.cargo/bin/${PACKAGE##*:} &> /dev/null && continue
 
   printf "Installing \e[96m${PACKAGE%%:*}\e[0m on background...\n"
   cargo -q install ${PACKAGE%%:*} > /dev/null &
