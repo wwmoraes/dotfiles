@@ -30,7 +30,7 @@ fi
 printf "Checking \e[96mkubebox\e[0m...\n"
 type -p kubebox &> /dev/null
 if [ $? -ne 0 ]; then
-  case "$(uname | tr '[:upper:]' '[:lower:]')" in
+  case "${SYSTEM}" in
     "linux")
       curl -Lo ~/bin/kubebox https://github.com/astefanutti/kubebox/releases/download/v0.6.0/kubebox-linux;;
     "darwin")
@@ -46,20 +46,6 @@ printf "Checking \e[96mkubeval\e[0m...\n"
 type -p kubeval &> /dev/null
 if [ $? -ne 0 ]; then
   VERSION=$(curl -fsSL https://api.github.com/repos/instrumenta/kubeval/tags | jq -r '.[0].name')
-  SYSTEM=$(uname -s | tr '[:upper:]' '[:lower:]')
-
-  ARCH=
-  case "$(uname -m | tr '[:upper:]' '[:lower:]')" in
-    x86|386)
-      ARCH=386
-      ;;
-    x86_64|amd64)
-      ARCH=amd64
-      ;;
-    ""|*)
-      printf "Unsupported arch\n"
-      ;;
-  esac
 
   if [ "${ARCH}" != "" ]; then
     TMP=$(mktemp -d)
@@ -76,23 +62,6 @@ printf "Checking \e[96mhelm\e[0m...\n"
 type -p helm &> /dev/null
 if [ $? -ne 0 ]; then
   VERSION=$(curl -fsSL https://api.github.com/repos/helm/helm/tags | jq -r '.[0].name')
-  SYSTEM=$(uname -s | tr '[:upper:]' '[:lower:]')
-
-  ARCH=
-  case "$(uname -m | tr '[:upper:]' '[:lower:]')" in
-    armv8)
-      ARCH=arm64
-      ;;
-    x86|386)
-      ARCH=386
-      ;;
-    arm*)
-      ARCH=arm
-      ;;
-    x86_64|amd64|""|*)
-      ARCH=amd64
-      ;;
-  esac
 
   TMP=$(mktemp -d)
   curl -fsSL https://get.helm.sh/helm-$VERSION-$SYSTEM-$ARCH.tar.gz | tar -C $TMP -xvzf - $SYSTEM-$ARCH/helm
@@ -105,12 +74,6 @@ printf "Checking \e[96mkustomize\e[0m...\n"
 type -p kustomize &> /dev/null
 if [ $? -ne 0 ]; then
 
-  SYSTEM=windows
-  if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    SYSTEM=linux
-  elif [[ "$OSTYPE" == "darwin"* ]]; then
-    SYSTEM=darwin
-  fi
   VERSION=$(curl -fsSL https://api.github.com/repos/kubernetes-sigs/kustomize/tags | jq -r '.[0].name')
 
   TMP=$(mktemp -d)
@@ -132,7 +95,6 @@ type -p kapp &> /dev/null
 if [ $? -ne 0 ]; then
 
   VERSION=$(curl -fsSL https://api.github.com/repos/k14s/kapp/tags | jq -r '.[0].name')
-  SYSTEM=$(uname -s | tr '[:upper:]' '[:lower:]')
 
   curl -so ~/.local/bin/kapp https://github.com/k14s/kapp/releases/download/${VERSION}/kapp-${SYSTEM}-amd64
   chmod +x ~/.local/bin/kapp
@@ -143,23 +105,6 @@ type -p lab &> /dev/null
 if [ $? -ne 0 ]; then
 
   VERSION=$(curl -fsSL https://api.github.com/repos/zaquestion/lab/tags | jq -r '.[0].name')
-  SYSTEM=$(uname -s | tr '[:upper:]' '[:lower:]')
-
-  ARCH=
-  case "$(uname -m | tr '[:upper:]' '[:lower:]')" in
-    armv8)
-      ARCH=arm64
-      ;;
-    x86|386)
-      ARCH=386
-      ;;
-    arm*)
-      ARCH=arm
-      ;;
-    x86_64|amd64|""|*)
-      ARCH=amd64
-      ;;
-  esac
 
   TMP=$(mktemp -d)
   curl -fsSL https://github.com/zaquestion/lab/releases/download/${VERSION}/lab_$(echo ${VERSION} | tr -d 'v')_${SYSTEM}_${ARCH}.tar.gz |\

@@ -25,12 +25,12 @@ echo "Checking golang..."
 type -p go &> /dev/null
 if [ $? -ne 0 ]; then
   GOINSTALL=
-  case "$(uname -s)" in
-    "Darwin")
+  case "${SYSTEM}" in
+    "darwin")
       GOINSTALL=--darwin
       ;;
-    "Linux")
-      if [ "$(uname -m)" == "x86_64" ]; then
+    "linux")
+      if [ "${ARCH}" == "amd64" ]; then
         GOINSTALL=--64
       else
         GOINSTALL=--32

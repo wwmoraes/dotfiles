@@ -7,16 +7,8 @@ type -p terraform &> /dev/null
 if [ $? -ne 0 ]; then
   VERSION=$(curl -sf https://releases.hashicorp.com/terraform/ | grep terraform_ | head -n1 | sed -E 's/.*terraform_([0-9.]+).*/\1/')
 
-  PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
-
-  case "$(uname -m | tr '[:upper:]' '[:lower:]')" in
-    x86|386) HARDWARE=386;;
-    arm*) HARDWARE=arm;;
-    x86_64|amd64|""|*) HARDWARE=amd64;;
-  esac
-
   printf "Downloading \e[96mterraform\e[0m...\n"
-  curl -Lo ~/.local/bin/terraform.zip https://releases.hashicorp.com/terraform/${VERSION}/terraform_${VERSION}_${PLATFORM}_${HARDWARE}.zip > /dev/null
+  curl -Lo ~/.local/bin/terraform.zip https://releases.hashicorp.com/terraform/${VERSION}/terraform_${VERSION}_${SYSTEM}_${ARCH}.zip > /dev/null
 
   printf "Installing \e[96mterraform\e[0m...\n"
   pushd ~/.local/bin > /dev/null && \

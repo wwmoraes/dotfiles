@@ -5,6 +5,9 @@ if [ $(shopt | grep lastpipe | wc -l) = 1 ]; then
   shopt -s lastpipe
 fi
 
+# import common functions
+. functions.sh
+
 printf "\e[1;34mProfile-like variable exports\e[0m\n"
 
 profileFilesList=(
@@ -70,7 +73,8 @@ for setupd in .setup.d/*.sh; do
   . $setupd
 done
 
-ARCH=$(uname -s | tr '[:upper:]' '[:lower:]')
+SYSTEM=$(getOS)
+ARCH=$(getArch)
 for setupd in .setup.d/$ARCH/*.sh; do
   . $setupd
 done
@@ -92,7 +96,7 @@ if [ $? -eq 0 ]; then
   kquitapp5 kglobalaccel && sleep 2s && kglobalaccel5 &
 fi
 
-if [ "$(uname -s)" == "Darwin" ]; then
+if [ "${SYSTEM}" == "darwin" ]; then
   if [ -d /System/Library/CoreServices/PowerChime.app ]; then
     printf "Disabling MacOS power chime...\n"
     defaults write com.apple.PowerChime ChimeOnAllHardware -bool false

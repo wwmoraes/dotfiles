@@ -9,21 +9,7 @@ if [ $? -ne 0 ]; then
 
   VERSION="$(curl -sI ${BASE_URL}/releases/latest | sed -En 's/^Location: .*\/v([0-9.]+).*/\1/p')"
 
-  PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
-
-  case "$(uname -m | tr '[:upper:]' '[:lower:]')" in
-    x86|386)
-      HARDWARE=386
-      ;;
-    arm*)
-      HARDWARE=arm
-      ;;
-    x86_64|amd64|""|*)
-      HARDWARE=amd64
-      ;;
-  esac
-
-  DOWNLOAD_URL=${BASE_URL}/releases/download/v${VERSION}/pet_${VERSION}_${PLATFORM}_${HARDWARE}.tar.gz
+  DOWNLOAD_URL=${BASE_URL}/releases/download/v${VERSION}/pet_${VERSION}_${SYSTEM}_${ARCH}.tar.gz
 
   pushd ~/.local/bin > /dev/null
   printf "Downloading \e[96mpet\e[0m...\n"
@@ -37,13 +23,11 @@ fi
 printf "Checking \e[96mminikube\e[0m...\n"
 type -p minikube > /dev/null
 if [ $? -ne 0 ]; then
-  PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
-
   TMP=$(mktemp -d)
   pushd $TMP >& /dev/null
   printf "Downloading \e[96mminikube\e[0m...\n"
-  curl -fsSLO https://storage.googleapis.com/minikube/releases/latest/minikube-${PLATFORM}-amd64
+  curl -fsSLO https://storage.googleapis.com/minikube/releases/latest/minikube-${SYSTEM}-amd64
   printf "Extracting \e[96mminikube\e[0m...\n"
-  install minikube-${PLATFORM}-amd64 ~/.local/bin/minikube
+  install minikube-${SYSTEM}-amd64 ~/.local/bin/minikube
   popd >& /dev/null
 fi

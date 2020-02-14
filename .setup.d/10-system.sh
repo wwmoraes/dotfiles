@@ -18,7 +18,6 @@ while IFS= read -r line; do
   PACKAGES+=("$line")
 done <$BASE_FILE_PATH/$PACKAGES_FILE_DIR/$PACKAGES_FILE_NAME
 
-ARCH=$(uname -s | tr '[:upper:]' '[:lower:]')
 if [ -f $BASE_FILE_PATH/$PACKAGES_FILE_DIR/$ARCH/$PACKAGES_FILE_NAME ]; then
   while IFS= read -r line; do
     PACKAGES+=("$line")
