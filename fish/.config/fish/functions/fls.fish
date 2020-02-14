@@ -6,8 +6,8 @@ function fls -d "Fuzzy lists git-enabled folders"
 
   # remove duplicate paths
   set -l PROJECT_PATHS
-  for path in $GIT_PROJECT_PATHS
-    set -l path (realpath $path)
+  for path in (string split '\0' $GIT_PROJECT_PATHS)
+    set -l path (realpath (string replace "~" $HOME $path))
     contains $path $PROJECT_PATHS; or set -a PROJECT_PATHS "$path"
   end
 
