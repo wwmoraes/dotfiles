@@ -25,7 +25,7 @@ kubectl plugin list 2> /dev/null | grep kubectl-krew > /dev/null
 if [ $? -ne 0 ]; then
   pushd "$(mktemp -d)" > /dev/null
   curl -fsSLO "https://storage.googleapis.com/krew/v0.2.1/krew.{tar.gz,yaml}"
-  tar zxvf krew.tar.gz
+  tar xzf krew.tar.gz
   ./krew-"${SYSTEM}_amd64" install \
     --manifest=krew.yaml --archive=krew.tar.gz
   popd > /dev/null

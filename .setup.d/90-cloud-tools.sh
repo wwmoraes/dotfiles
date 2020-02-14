@@ -64,7 +64,7 @@ if [ $? -ne 0 ]; then
   VERSION=$(curl -fsSL https://api.github.com/repos/helm/helm/tags | jq -r '.[0].name')
 
   TMP=$(mktemp -d)
-  curl -fsSL https://get.helm.sh/helm-$VERSION-$SYSTEM-$ARCH.tar.gz | tar -C $TMP -xvzf - $SYSTEM-$ARCH/helm
+  curl -fsSL https://get.helm.sh/helm-$VERSION-$SYSTEM-$ARCH.tar.gz | tar -C $TMP -xzf - $SYSTEM-$ARCH/helm
   mv $TMP/$SYSTEM-$ARCH/helm ~/.local/bin/helm
   chmod +x ~/.local/bin/helm
   rm -rf $TMP
@@ -84,7 +84,7 @@ if [ $? -ne 0 ]; then
     grep /kustomize/v |\
     sort | tail -n 1 |\
     xargs curl -fsSL |\
-    tar -C $TMP -xvzf -
+    tar -C $TMP -xzf -
   mv $TMP/kustomize ~/.local/bin/kustomize
   chmod +x ~/.local/bin/kustomize
   rm -rf $TMP
