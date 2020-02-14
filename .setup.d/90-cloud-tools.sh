@@ -126,3 +126,14 @@ if [ $? -ne 0 ]; then
   chmod +x ~/.local/bin/kustomize
   rm -rf $TMP
 fi
+
+printf "Checking \e[96mkapp\e[0m...\n"
+type -p kapp &> /dev/null
+if [ $? -ne 0 ]; then
+
+  VERSION=$(curl -fsSL https://api.github.com/repos/k14s/kapp/tags | jq -r '.[0].name')
+  SYSTEM=$(uname -s | tr '[:upper:]' '[:lower:]')
+
+  curl -so ~/.local/bin/kapp https://github.com/k14s/kapp/releases/download/${VERSION}/kapp-${SYSTEM}-amd64
+  chmod +x ~/.local/bin/kapp
+fi
