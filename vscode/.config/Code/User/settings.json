@@ -136,10 +136,12 @@
   "atlascode.bitbucket.enabled": false,
   "atlascode.jira.statusbar.enabled": false,
   "yaml.schemas": {
-    "file:///Users/william/.vscode/extensions/atlassian.atlascode-2.3.2/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    "file:///Users/william/.vscode/extensions/atlassian.atlascode-2.4.2/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
   },
   "go.lintTool": "golangci-lint",
   "go.lintFlags": [
     "--fast"
-  ]
+  ],
+  "window.nativeTabs": true,
+  "editor.acceptSuggestionOnEnter": "smart"
 }
