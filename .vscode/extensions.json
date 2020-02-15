@@ -59,13 +59,14 @@
     "sidneys1.gitconfig",
     "naumovs.color-highlight",
     "dcasella.i3",
-    "4ops.terraform",
     "ipedrazas.kubernetes-snippets",
     "thomascsd.vscode-readme-pattern",
     "tomashubelbauer.vscode-markdown-table-format",
     "formulahendry.code-runner",
     "labocho.chmod-command",
-    "vadimcn.vscode-lldb"
+    "vadimcn.vscode-lldb",
+    "christian-kohler.npm-intellisense",
+    "mauve.terraform"
   ],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
@@ -81,6 +82,7 @@
     "ms-vscode.vscode-typescript-tslint-plugin",
     "hookyqr.beautify",
     "donjayamanne.githistory",
-    "googlecloudtools.cloudcode"
+    "googlecloudtools.cloudcode",
+    "4ops.terraform"
   ]
 }
