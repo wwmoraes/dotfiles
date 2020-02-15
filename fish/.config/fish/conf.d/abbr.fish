@@ -12,6 +12,7 @@ if type -q kubectl
   abbr -a -g k "kubectl"
   abbr -a -g kga "kubectl get all"
   abbr -a -g kgra "kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found"
+  abbr -a -g krt "kubectl run toolbox -i --tty --rm --restart=Never --image=wwmoraes/toolbox"
   abbr -a -g kl "kubectl logs"
   abbr -a -g kpf "kubectl port-forward"
   abbr -a -g kctx "kubectl ctx"
