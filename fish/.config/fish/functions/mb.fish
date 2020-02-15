@@ -6,6 +6,10 @@ function mb -a cmd -d "MessageBird toolbox"
       _mb_gpg-decrypt $argv[2..-1]
     case gpg-encrypt
       _mb_gpg-encrypt $argv[2..-1]
+    case gcp-config-ssh
+      _mb-gcp-config-ssh
+    case gcp-ssh
+      _mb_gcp-ssh
     case "" "*"
       echo "Unknown option $cmd"
   end
@@ -55,3 +59,28 @@ function _mb_gpg-encrypt
   rm $argv
 end
 complete -xc mb -n __fish_use_subcommand -a gpg-encrypt -d "encrypts files using the gpg recipient on environment"
+
+# gcp-config-ssh subcommand
+function _mb_gcp-config-ssh
+  gcloud projects list | \
+    grep --line-buffered -vE "^(sys-|mb-t-)" | \
+    awk 'NR==1{next};{print $1}' | \
+    xargs -I% gcloud compute config-ssh --ssh-config-file=~/.ssh/config.d/profiles/messagebird/% --project=%
+end
+complete -xc mb -n __fish_use_subcommand -a gcp-config-ssh -d "configures ssh hosts using gcloud tool"
+
+# gcp-ssh subcommand
+function _mb_gcp-ssh
+  set -l project (gcloud projects list | \
+    grep -vE "^(sys-|mb-t-)" | fzf --header-lines=1 | awk '{print $1}')
+  test -z $project; and return 2
+
+  set -l host (gcloud compute instances list --project=$project | \
+    fzf --header-lines=1 | \
+    awk '{print "zones/"$2"/instances/"$1}')
+  test -z $host; and return 2
+
+  printf "connecting to projects/$project/$host...\n"
+  gcloud compute ssh --project $project projects/$project/$host
+end
+complete -xc mb -n __fish_use_subcommand -a gcp-ssh -d "ssh into gcp hosts"
