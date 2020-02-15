@@ -175,4 +175,34 @@ if type -q kubectl
   abbr -a -g kdelcrbf "kubectl get clusterrolebindings | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete clusterrolebinding {}"
   abbr -a -g kdelscf "kubectl get storageclasses | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete storageclass {}"
   abbr -a -g kdelrsf "kubectl get replicasets | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete replicaset {}"
+  # work-only abbreviations
+  if isWork
+    abbr -a -g kinpr-backends "kubectl ingress-nginx -n nginx-private backends --deployment nginx-private-nginx-ingress-controller"
+    abbr -a -g kinpu-backends "kubectl ingress-nginx -n nginx-public backends --deployment nginx-public-nginx-ingress-controller"
+
+    abbr -a -g kinpr-certs "kubectl get ingresses -A | awk '{print $1,$2,$3}' | column -t | fzf --header-lines=1 | awk '{print $3}' | tr ',' '\n' | fzf --header='HOST' -1 -0 | xargs kubectl ingress-nginx -n nginx-private certs --deployment nginx-private-nginx-ingress-controller --host"
+    abbr -a -g kinpu-certs "kubectl get ingresses -A | awk '{print $1,$2,$3}' | column -t | fzf --header-lines=1 | awk '{print $3}' | tr ',' '\n' | fzf --header='HOST' -1 -0 | xargs kubectl ingress-nginx -n nginx-public certs --deployment nginx-public-nginx-ingress-controller --host"
+
+    abbr -a -g kinpr-conf "kubectl ingress-nginx -n nginx-private conf --deployment nginx-private-nginx-ingress-controller"
+    abbr -a -g kinpu-conf "kubectl ingress-nginx -n nginx-public conf --deployment nginx-public-nginx-ingress-controller"
+
+    abbr -a -g "kinpr-exec" "kubectl ingress-nginx -n nginx-private exec --deployment nginx-private-nginx-ingress-controller"
+    abbr -a -g "kinpu-exec" "kubectl ingress-nginx -n nginx-public exec --deployment nginx-public-nginx-ingress-controller"
+
+    abbr -a -g kinpr-general "kubectl ingress-nginx -n nginx-private general --deployment nginx-private-nginx-ingress-controller"
+    abbr -a -g kinpu-general "kubectl ingress-nginx -n nginx-public general --deployment nginx-public-nginx-ingress-controller"
+
+    abbr -a -g kinpr-info "kubectl ingress-nginx -n nginx-private info --service nginx-private-nginx-ingress-controller"
+    abbr -a -g kinpu-info "kubectl ingress-nginx -n nginx-public info --service nginx-public-nginx-ingress-controller"
+
+    # TODO ingresses
+
+    # TODO lint
+
+    abbr -a -g kinprl "kubectl ingress-nginx -n nginx-private logs --deployment nginx-private-nginx-ingress-controller"
+    abbr -a -g kinpul "kubectl ingress-nginx -n nginx-public logs --deployment nginx-public-nginx-ingress-controller"
+
+    abbr -a -g kinprs "kubectl ingress-nginx -n nginx-private ssh --deployment nginx-private-nginx-ingress-controller"
+    abbr -a -g kinpus "kubectl ingress-nginx -n nginx-public ssh --deployment nginx-public-nginx-ingress-controller"
+  end
 end
