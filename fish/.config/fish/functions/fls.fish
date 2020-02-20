@@ -34,7 +34,7 @@ function fls -d "Fuzzy lists git-enabled folders"
   trap 'kill $PID' EXIT
 
   # fuzzy find and launch lazygit
-  set -l selection (fzf --header-lines=1 < $fifoFD); or return $status
+  set -l selection (fzf --header-lines=1 -q "$argv" < $fifoFD); or return $status
   set -l path (echo $selection | awk '{print $2}')
 
   test (string length $path || echo 0) -ne 0; and echo $path
