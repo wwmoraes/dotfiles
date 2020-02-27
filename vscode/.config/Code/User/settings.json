@@ -19,7 +19,7 @@
   "types-autoinstaller.saveAsDevDependency": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports": true
+    "source.organizeImports": false
   },
   "gitlens.hovers.currentLine.over": "line",
   "workbench.editor.enablePreview": false,
@@ -73,8 +73,19 @@
     "**/node_modules/**/*.*",
   ],
   "cSpell.userWords": [
-    "nohoist",
+    "artero",
+    "moraes",
     "wwmoraes"
+  ],
+  "cSpell.ignoreWords": [
+    "editorconfig",
+    "flexbox",
+    "ismap",
+    "linebreak",
+    "longdesc",
+    "nohoist",
+    "operator",
+    "prestart"
   ],
   "cSpell.ignorePaths": [
     "/usr/**",
@@ -143,5 +154,9 @@
     "--fast"
   ],
   "window.nativeTabs": true,
-  "editor.acceptSuggestionOnEnter": "smart"
+  "editor.acceptSuggestionOnEnter": "smart",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "files.trimFinalNewlines": true,
+  "editor.renderFinalNewline": false,
+  "todo-tree.tree.showScanModeButton": false
 }
