@@ -1,0 +1,13 @@
+#!/usr/bin/env expect -f
+
+set email [lindex $argv 0];
+set password [lindex $argv 1];
+
+spawn gcloud -q --no-user-output-enabled auth login --brief $email --update-adc --activate
+
+expect "Please enter your password:"
+
+send -- "$password\r"
+
+interact
+exit

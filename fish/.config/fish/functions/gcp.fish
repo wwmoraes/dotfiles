@@ -29,30 +29,30 @@ complete -c gcp -w gcloud
 
 # reauth subcommand
 function _gcp_reauth
-  # if not type -q op
-  #   echo "error: op tool not found - please install 1password CLI"
-  #   echo "https://1password.com/downloads/command-line/"
-  #   return 1
-  # end
-  # if not type -q jq
-  #   echo "error: jq tool not found - please install or add to path"
-  #   echo "https://stedolan.github.io/jq/"
-  #   return 1
-  # end
-  # echo "checking 1Password..."
-  # op list items > /dev/null ^&1; or eval (op signin messagebird)
-  # set status 0
-  # echo "fetching user email..."
-  # set -l email (dscl . -read ~/ | grep @messagebird.com | sed -E 's/.*>(.*)<.*/\1/')
-  # echo "fetching password..."
-  # set -l password (op get item google | jq -er ".details.fields[] | select(.designation==\"password\") | .value")
+  if not type -q op
+    echo "error: op tool not found - please install 1password CLI"
+    echo "https://1password.com/downloads/command-line/"
+    return 1
+  end
+  if not type -q jq
+    echo "error: jq tool not found - please install or add to path"
+    echo "https://stedolan.github.io/jq/"
+    return 1
+  end
   set -q EMAIL; or echo "EMAIL is not set" && return 1
 
-  echo "authenticating user..."
-  gcloud -q --no-user-output-enabled auth login --brief $EMAIL 2> /dev/null
+  echo "checking 1Password..."
+  op list items > /dev/null ^&1; or eval (op signin messagebird)
 
-  echo "authenticating application-default..."
-  gcloud -q --no-user-output-enabled auth application-default login 2> /dev/null
+  echo "fetching password..."
+  set -l password (op get item google | jq -er ".details.fields[] | select(.designation==\"password\") | .value")
+
+  echo "authenticating user..."
+  expect ~/.config/expect/gcp-auth-login.expect $EMAIL $password
+  # gcloud -q --no-user-output-enabled auth login --brief $EMAIL --update-adc 2> /dev/null
+
+  # echo "authenticating application-default..."
+  # gcloud -q --no-user-output-enabled auth application-default login 2> /dev/null
 end
 complete -xc gcp -n __fish_use_subcommand -a reauth -d "reauthenticate everything"
 complete -xc gcp -n '__fish_seen_subcommand_from reauth'
