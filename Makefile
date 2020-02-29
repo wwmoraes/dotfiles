@@ -1,8 +1,9 @@
 SHELL = /bin/sh
-DIRECTORIES = $(sort $(wildcard */))
 TOOLS = stow fish tmux vim powerline
-OS_DIRECTORIES = $(sort $(patsubst .$(OS)/%,%,$(wildcard .$(OS)/*/)))
+
 HOSTNAME := $(shell hostname -s)
+DIRECTORIES = $(sort $(wildcard */))
+OS_DIRECTORIES = $(sort $(patsubst .systems/$(OS)/%,%,$(wildcard .systems/$(OS)/*/)))
 HOST_DIRECTORIES = $(sort $(patsubst .hostnames/$(HOSTNAME)/%,%,$(wildcard .hostnames/$(HOSTNAME)/*/)))
 
 # Detect OS
@@ -30,15 +31,20 @@ endef
 
 define osstow
 	$(info stowing $(OS)/$(subst /,,$(1))...)
-	@cd .$(OS) && stow -t ~ -R $(1) 2>&1 \
+	@cd .systems/$(OS) && stow -t ~ -R $(1) 2>&1 \
 		| grep -v 'BUG in find_stowed_path?' \
 		| grep -v 'WARNING: skipping target which was current stow directory .files' \
 		|| true
 endef
 
-define osusstow
+define osunstow
 	$(info unstowing $(OS)/$(subst /,,$(1))...)
-	@cd .$(OS) && stow -t ~ -D $(1) 2>&1 \
+	@cd .systems/$(OS) && stow -t ~ -D $(1) 2>&1 \
+		| grep -v 'BUG in find_stowed_path?' \
+		| grep -v 'WARNING: skipping target which was current stow directory .files' \
+		|| true
+endef
+
 define hostnamestow
 	$(info stowing $(HOSTNAME)/$(subst /,,$(1))...)
 	@cd .hostnames/$(HOSTNAME) && stow -t ~ -R $(1) 2>&1 \
