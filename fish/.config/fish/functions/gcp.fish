@@ -95,9 +95,18 @@ complete -xc gcp -n '__fish_seen_subcommand_from region zone'
 
 # dashboard subcommand
 function _gcp_dashboard
-  test (count $argv) -gt 0;
-    and set project $argv[1];
-    or set project (gcloud config get-value core/project | tail -n 1)
+  set interactive (not contains -- -i $argv; echo $status)
+  set -l index (contains -i -- -i $argv); and set -e argv[$index]
+
+  if test $interactive -eq 0
+    test (count $argv) -gt 0;
+      and set project $argv[1];
+      or set project (gcloud config get-value core/project | tail -n 1)
+  else
+    set project (gcloud projects list | \
+      grep -vE "^(sys-|mb-t-)" | fzf --header-lines=1 --prompt="GCP Project: " -q "$argv" | awk '{print $1}')
+    test -z $project; and return 2
+  end
 
   ext-open "https://console.cloud.google.com/home/dashboard?project=$project"
 end
