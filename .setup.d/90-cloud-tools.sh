@@ -51,8 +51,8 @@ if [ $? -ne 0 ]; then
     TMP=$(mktemp -d)
     printf "Downloading \e[96mkubeval\e[0m...\n"
     curl -fsSL https://github.com/instrumenta/kubeval/releases/download/$VERSION/kubeval-$SYSTEM-$ARCH.tar.gz |\
-    printf "Installing \e[96mkubeval\e[0m...\n"
       tar -C $TMP -xzf -
+    printf "Installing \e[96mkubeval\e[0m...\n"
     install $TMP/kubeval ~/.local/bin/kubeval
     rm -rf $TMP
   fi
