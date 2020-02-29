@@ -80,9 +80,11 @@ for setupd in .setup.d/*.sh; do
 done
 
 ### platform-specitic setup scripts
-for setupd in .setup.d/$SYSTEM/*.sh; do
-  . $setupd
-done
+if [ -d .setup.d/$SYSTEM ]; then
+  for setupd in .setup.d/$SYSTEM/*.sh; do
+    . $setupd
+  done
+fi
 
 printf "\e[1;34mMiscellaneous\e[0m\n"
 # Update system font cache
