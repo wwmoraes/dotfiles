@@ -68,14 +68,19 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until the parent has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+### variables used across the setup files
+SYSTEM=$(getOS)
+echo "System: ${SYSTEM}"
+ARCH=$(getArch)
+echo "Architecture: ${ARCH}"
+
 ### setup scripts
 for setupd in .setup.d/*.sh; do
   . $setupd
 done
 
-SYSTEM=$(getOS)
-ARCH=$(getArch)
-for setupd in .setup.d/$ARCH/*.sh; do
+### platform-specitic setup scripts
+for setupd in .setup.d/$SYSTEM/*.sh; do
   . $setupd
 done
 
