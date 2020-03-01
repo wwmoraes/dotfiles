@@ -27,7 +27,7 @@ default_floating_border normal 0
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 # set $lockCmd loginctl lock-session $XDG_SESSION_ID
-set $lockCmd i3lock --fuzzy
+set $lockCmd i3lock --fuzzy -r 15 -s 15
 exec --no-startup-id xss-lock --transfer-sleep-lock -- $lockCmd
 # xautolock
 exec --no-startup-id xautolock -time 2 -corners +0-0 -cornerdelay 0 -cornerredelay 3 -locker $lockCmd
