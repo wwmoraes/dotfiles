@@ -67,6 +67,11 @@ complete -xc gcp -n '__fish_seen_subcommand_from setup'
 
 # project subcommand
 function _gcp_project
+  # gcloud services list | grep compute.googleapis.com
+  # or begin
+  #   echo "API [compute.googleapis.com] not enabled on project "(gcloud config get-value project)
+  #   return 1
+  # end
   set active (gcloud config get-value core/project | tail -n 1)
   set selected (gcloud projects list | \
     sed -E "s/(^$active .*)/"(set_color yellow)"\1"(set_color normal)"/" | \
@@ -79,6 +84,11 @@ complete -xc gcp -n '__fish_seen_subcommand_from project'
 
 # region/zone subcommand
 function _gcp_regionzone
+  gcloud services list | grep compute.googleapis.com
+  or begin
+    echo "API [compute.googleapis.com] not enabled on project "(gcloud config get-value project)
+    return 1
+  end
   set selected (gcloud compute zones list | fzf --ansi --header-lines=1)
   test -z "$selected"; and return
 
