@@ -4,7 +4,10 @@ function dns -d "Compact DNS results"
         return 1
     end
 
-    dig +nocmd (domain $argv[1]) any +multiline +noall +answer
+    set -q $argv[2]; and set entryType ANY; or set entryType $argv[2]
+
+    echo dig +nocmd (domain $argv[1]) $entryType +multiline +noall +answer
+    dig +nocmd (domain $argv[1]) $entryType +multiline +noall +answer
 end
 
 function domain -d "extract domain from a given URL"
