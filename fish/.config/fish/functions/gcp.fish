@@ -7,6 +7,8 @@ function gcp -a cmd -d "gloud CLI wrapper with extra commands"
   type -q xargs; or echo "xargs is not installed" && return
 
   switch "$cmd"
+  case account
+    _gcp_account
   case reauth
     _gcp_reauth
   case setup
@@ -26,6 +28,19 @@ end
 
 complete -ec gcp
 complete -c gcp -w gcloud
+
+# account subcommand
+function _gcp_account
+  set active (gcloud config get-value account | tail -n 1)
+  set selected (gcloud auth list 2> /dev/null | tail +2 | \
+    awk 'NR==1||$1=="*"{print $2;next};{print $1}' | \
+    sed -E "s/($active)/"(set_color yellow)"\1"(set_color normal)"/" | \
+    fzf --ansi --header-lines=1 | \
+    awk '{print $1}')
+  test -z "$selected"; or gcloud config set account $selected
+end
+complete -xc gcp -n __fish_use_subcommand -a account -d "switch active account"
+complete -xc gcp -n '__fish_seen_subcommand_from account'
 
 # reauth subcommand
 function _gcp_reauth
