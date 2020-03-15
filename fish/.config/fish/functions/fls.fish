@@ -25,8 +25,8 @@ function fls -d "Fuzzy lists git-enabled folders"
     -type d \
     -exec sh -c '\
       printf "%-80s %s\n" \
-        "`echo $(git -C "{}" remote get-url origin 2> /dev/null || echo "<none>") | sed -E "s#^https://[^/]+/(.*)\.git#\1#;s/^[^:]+:(.*)\.git/\1/"`" "`dirname "{}" | xargs -I% realpath "%"`"' \; |\
-    awk 'BEGIN{printf "%-80s%s%s%s","ORIGIN",FS,"PATH",RS};{print $0;system("")}' > $fifoFD 2> /dev/null &
+        "`echo $(git -C "{}" remote get-url origin 2> /dev/null || echo "<none>") | sed -E "s#^https://[^/]+/(.*)\.git#\1#;s/^[^:]+:(.*)\.git/\1/"`" "`dirname "{}" | xargs -I% realpath "%"`"' \; 2> /dev/null |\
+    awk 'BEGIN{printf "%-80s%s%s%s","ORIGIN",FS,"PATH",RS};{print $0;system("")}' > $fifoFD &
 
   # save pid and disown
   set PID (jobs -lp | tail +1)
