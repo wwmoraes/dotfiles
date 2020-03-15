@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Allow root to create X windows on this user
+exec xhost +si:localuser:root
+
 # Merge Xresources
 exec xrdb -merge ~/.Xresources
 
