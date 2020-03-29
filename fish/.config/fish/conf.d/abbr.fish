@@ -22,10 +22,11 @@ if type -q kubectl
   abbr -a -g kgextsvc "kubectl get services | awk '\$5 !~ /<none>/ {\$7=\"\";print}' | column -t"
   abbr -a -g kgaextsvc "kubectl get services -A | awk '\$5 !~ /<none>/ {\$7=\"\";print}' | column -t"
   # base kubectl (fuzzy)
-  abbr -a -g klf "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl logs {}"
+  abbr -a -g klpof "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl logs {}"
+  abbr -a -g kldf "kubectl get deployments | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl logs deployment/{}"
   abbr -a -g kpfpo "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl port-forward pod/{} 8080:80"
   abbr -a -g kpfsvc "kubectl get services | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl port-forward service/{} 8080:80"
-  abbr -a -g kpfing "kubectl get ingresses | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl port-forward ingress/{} 8080:80"
+  abbr -a -g kpfing "kubectl get ingresses | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl port-forward ingress.extensions/{} 8080:80"
   # k get ...
   abbr -a -g kgpo "kubectl get pods"
   abbr -a -g kging "kubectl get ingresses"
