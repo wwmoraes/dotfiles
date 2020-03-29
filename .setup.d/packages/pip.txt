@@ -2,3 +2,4 @@ powerline-status
 ansible
 yq
 asciinema
+doge
