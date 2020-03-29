@@ -16,8 +16,8 @@ end
 function _helm_start
   set -lx HELM_TILLER_PORT 44134
   set -lx HELM_TILLER_PROBE_PORT 44135
-  set -lx HELM_TILLER_STORAGE secret
-  set -lx HELM_TILLER_LOGS false
+  set -lx HELM_TILLER_STORAGE configmap
+  set -lx HELM_TILLER_LOGS true
   set -lx HELM_TILLER_LOGS_DIR /dev/null
   set -lx HELM_TILLER_HISTORY_MAX 20
   set -lx PROBE_LISTEN_FLAG "--probe-listen=127.0.0.1:$HELM_TILLER_PROBE_PORT"
