@@ -72,9 +72,17 @@
     "**/vendor/**/*.*",
     "**/node_modules/**/*.*",
   ],
+  "cSpell.language": "en,fullstack",
+  "cSpell.languageSettings": [{ "languageId": "*", "dictionaries": ["Fullstack"]}],
   "cSpell.userWords": [
     "artero",
+    "entrypoint",
+    "entrypoints",
+    "linkedin",
+    "maxdepth",
     "moraes",
+    "operator",
+    "runtimes",
     "wwmoraes"
   ],
   "cSpell.ignoreWords": [
@@ -84,8 +92,8 @@
     "linebreak",
     "longdesc",
     "nohoist",
-    "operator",
-    "prestart"
+    "prestart",
+    "maxdepth"
   ],
   "cSpell.ignorePaths": [
     "/usr/**",
@@ -147,7 +155,7 @@
   "atlascode.bitbucket.enabled": false,
   "atlascode.jira.statusbar.enabled": false,
   "yaml.schemas": {
-    "file:///Users/william/.vscode/extensions/atlassian.atlascode-2.4.2/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    "file:///Users/william/.vscode/extensions/atlassian.atlascode-2.4.11/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
   },
   "go.lintTool": "golangci-lint",
   "go.lintFlags": [
@@ -158,5 +166,6 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "files.trimFinalNewlines": true,
   "editor.renderFinalNewline": false,
-  "todo-tree.tree.showScanModeButton": false
+  "todo-tree.tree.showScanModeButton": false,
+  "prettier.tabWidth": 2
 }
