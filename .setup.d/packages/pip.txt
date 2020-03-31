@@ -1,4 +1,5 @@
 powerline-status
+powerline-kubernetes
 ansible
 yq
 asciinema

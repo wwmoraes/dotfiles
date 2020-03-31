@@ -1,0 +1,9 @@
+{
+  "groups": {
+    "kubernetes_cluster":         { "fg": "gray10", "bg": "darkestblue", "attrs": [] },
+    "kubernetes_cluster:alert":   { "fg": "gray10", "bg": "darkestred",  "attrs": [] },
+    "kubernetes_namespace":       { "fg": "gray10", "bg": "darkblue",    "attrs": [] },
+    "kubernetes_namespace:alert": { "fg": "gray10", "bg": "darkred",     "attrs": [] },
+    "kubernetes:divider":         { "fg": "gray4",  "bg": "darkestblue", "attrs": [] }
+  }
+}

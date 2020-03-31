@@ -1,40 +1,57 @@
 {
-	"segments": {
-		"right": [
-			{
+  "segments": {
+    "right": [
+      {
+        "function": "powerline_kubernetes.kubernetes",
+        "priority": 30,
+        "args": {
+          "show_kube_logo": true,
+          "show_cluster": true,
+          "show_namespace": true,
+          "show_default_namespace": true,
+          "alerts": [
+            "live-production",
+            "live-staging",
+            "prod-asse1",
+            "prod-euwe1",
+            "prod-euwe2",
+            "prod-euwe4",
+            "prod-usea4"
+          ]
+        }
+      },
+      {
         "function": "powerline.segments.common.bat.battery",
         "args": {
           "online": "⚡️"
         }
-			},
-			{
-				"function": "powerline.segments.common.sys.system_load",
-				"priority": 50
-			},
-			{
-				"function": "powerline.segments.common.time.date",
-				"args": {
-					"format": "%d/%m/%Y"
-				}
-			},
-			{
-				"function": "powerline.segments.common.time.date",
-				"name": "time",
-				"args": {
-					"format": "%H:%M",
-					"istime": true
-				}
-			},
-			{
-				"function": "powerline.segments.common.net.hostname",
-				"args": {
-					"only_if_ssh": true,
-					"exclude_domain": true
-				}
-			}
-		]
-	},
-	"segment_data": {
-
-	}
+      },
+      {
+        "function": "powerline.segments.common.sys.system_load",
+        "priority": 50
+      },
+      {
+        "function": "powerline.segments.common.time.date",
+        "args": {
+          "format": "%d/%m/%Y"
+        }
+      },
+      {
+        "function": "powerline.segments.common.time.date",
+        "name": "time",
+        "args": {
+          "format": "%H:%M",
+          "istime": true
+        }
+      },
+      {
+        "function": "powerline.segments.common.net.hostname",
+        "args": {
+          "only_if_ssh": true,
+          "exclude_domain": true
+        }
+      }
+    ]
+  },
+  "segment_data": {}
 }
