@@ -4,3 +4,4 @@ ansible
 yq
 asciinema
 doge
+thefuck
