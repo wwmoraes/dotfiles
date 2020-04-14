@@ -1,9 +1,12 @@
 # Abbreviations available only in interactive shells
 status --is-interactive; or exit
 
+abbr -a -g wttr "curl v2.wttr.in"
+
 # git abbreviations
 if type -q git
   abbr -a -g gco "git checkout"
+  abbr -a -g gg "git push --force"
 end
 
 # kubectl abbreviations
@@ -21,12 +24,14 @@ if type -q kubectl
   abbr -a -g kosvc "kubectl get services | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs kubectl open-svc"
   abbr -a -g kgextsvc "kubectl get services | awk '\$5 !~ /<none>/ {\$7=\"\";print}' | column -t"
   abbr -a -g kgaextsvc "kubectl get services -A | awk '\$5 !~ /<none>/ {\$7=\"\";print}' | column -t"
+
   # base kubectl (fuzzy)
   abbr -a -g klpof "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl logs {}"
   abbr -a -g kldf "kubectl get deployments | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl logs deployment/{}"
   abbr -a -g kpfpo "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl port-forward pod/{} 8080:80"
   abbr -a -g kpfsvc "kubectl get services | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl port-forward service/{} 8080:80"
   abbr -a -g kpfing "kubectl get ingresses | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl port-forward ingress.extensions/{} 8080:80"
+
   # k get ...
   abbr -a -g kgpo "kubectl get pods"
   abbr -a -g kging "kubectl get ingresses"
@@ -99,7 +104,7 @@ if type -q kubectl
   abbr -a -g kgrf "kubectl get roles | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl neat role {} -o yaml"
   abbr -a -g kgrbf "kubectl get rolebindings | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl neat rolebinding {} -o yaml"
   abbr -a -g kgcrf "kubectl get clusterroles | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl get clusterrole {} -o yaml"
-  abbr -a -g kgcrbf "kubectl get clusterrolebindings | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl neat clusterrolebinding {} -o yaml"
+  abbr -a -g kgcrbf "kubectl get clusterrolebindings | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl get clusterrolebinding {} -o yaml"
   abbr -a -g kgscf "kubectl get storageclasses | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl neat storageclass {} -o yaml"
   abbr -a -g kgrsf "kubectl get replicasets | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl neat replicaset {} -o yaml"
   # k describe ... (non-fuzzy)
@@ -177,34 +182,49 @@ if type -q kubectl
   abbr -a -g kdelcrbf "kubectl get clusterrolebindings | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete clusterrolebinding {}"
   abbr -a -g kdelscf "kubectl get storageclasses | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete storageclass {}"
   abbr -a -g kdelrsf "kubectl get replicasets | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete replicaset {}"
+
+  # k config ... (fuzzy)
+  abbr -a -g kdelctx "kubectl config get-contexts | awk 'NR == 1 || \$1 == \"*\" {\$1=\"\";print;next};1' | column -t | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl config delete-context {}"
+  abbr -a -g kdelclu "kubectl config get-clusters | fzf -m --ansi --header-lines=1 | xargs -I{} kubectl config delete-cluster {}"
+
   # work-only abbreviations
   if isWork
-    abbr -a -g kinpr-backends "kubectl ingress-nginx -n nginx-private backends --deployment nginx-private-nginx-ingress-controller"
-    abbr -a -g kinpu-backends "kubectl ingress-nginx -n nginx-public backends --deployment nginx-public-nginx-ingress-controller"
+    abbr -a -g kdip "kubectl get secrets | awk 'NR==1{print;next};\$2 ~ /kubernetes.io\/dockerconfigjson/ {print}' | fzf --ansi --header-lines=1 -1 | awk '{print \$1}' | xargs -I{} kubectl get secret {} -o yaml | yq -r '.data[\".dockerconfigjson\"]' | base64 -D | jq -r '.auths | keys[] as \$key | .[\$key].auth' | base64 -D"
 
-    abbr -a -g kinpr-certs "kubectl get ingresses -A | awk '{print $1,$2,$3}' | column -t | fzf --header-lines=1 | awk '{print $3}' | tr ',' '\n' | fzf --header='HOST' -1 -0 | xargs kubectl ingress-nginx -n nginx-private certs --deployment nginx-private-nginx-ingress-controller --host"
-    abbr -a -g kinpu-certs "kubectl get ingresses -A | awk '{print $1,$2,$3}' | column -t | fzf --header-lines=1 | awk '{print $3}' | tr ',' '\n' | fzf --header='HOST' -1 -0 | xargs kubectl ingress-nginx -n nginx-public certs --deployment nginx-public-nginx-ingress-controller --host"
+    abbr -a -g kinpri-backends "kubectl ingress-nginx -n nginx-private backends --deployment nginx-private-nginx-ingress-controller"
+    abbr -a -g kinpub-backends "kubectl ingress-nginx -n nginx-public backends --deployment nginx-public-nginx-ingress-controller"
+    abbr -a -g kinint-backends "kubectl ingress-nginx -n nginx-internal backends --deployment nginx-internal-nginx-ingress-controller"
 
-    abbr -a -g kinpr-conf "kubectl ingress-nginx -n nginx-private conf --deployment nginx-private-nginx-ingress-controller"
-    abbr -a -g kinpu-conf "kubectl ingress-nginx -n nginx-public conf --deployment nginx-public-nginx-ingress-controller"
+    abbr -a -g kinpri-certs "kubectl get ingresses -A | awk '{print $1,$2,$3}' | column -t | fzf --header-lines=1 | awk '{print $3}' | tr ',' '\n' | fzf --header='HOST' -1 -0 | xargs kubectl ingress-nginx -n nginx-private certs --deployment nginx-private-nginx-ingress-controller --host"
+    abbr -a -g kinpub-certs "kubectl get ingresses -A | awk '{print $1,$2,$3}' | column -t | fzf --header-lines=1 | awk '{print $3}' | tr ',' '\n' | fzf --header='HOST' -1 -0 | xargs kubectl ingress-nginx -n nginx-public certs --deployment nginx-public-nginx-ingress-controller --host"
+    abbr -a -g kinint-certs "kubectl get ingresses -A | awk '{print $1,$2,$3}' | column -t | fzf --header-lines=1 | awk '{print $3}' | tr ',' '\n' | fzf --header='HOST' -1 -0 | xargs kubectl ingress-nginx -n nginx-internal certs --deployment nginx-internal-nginx-ingress-controller --host"
 
-    abbr -a -g "kinpr-exec" "kubectl ingress-nginx -n nginx-private exec --deployment nginx-private-nginx-ingress-controller"
-    abbr -a -g "kinpu-exec" "kubectl ingress-nginx -n nginx-public exec --deployment nginx-public-nginx-ingress-controller"
+    abbr -a -g kinpri-conf "kubectl ingress-nginx -n nginx-private conf --deployment nginx-private-nginx-ingress-controller"
+    abbr -a -g kinpub-conf "kubectl ingress-nginx -n nginx-public conf --deployment nginx-public-nginx-ingress-controller"
+    abbr -a -g kinint-conf "kubectl ingress-nginx -n nginx-internal conf --deployment nginx-internal-nginx-ingress-controller"
 
-    abbr -a -g kinpr-general "kubectl ingress-nginx -n nginx-private general --deployment nginx-private-nginx-ingress-controller"
-    abbr -a -g kinpu-general "kubectl ingress-nginx -n nginx-public general --deployment nginx-public-nginx-ingress-controller"
+    abbr -a -g "kinpri-exec" "kubectl ingress-nginx -n nginx-private exec --deployment nginx-private-nginx-ingress-controller"
+    abbr -a -g "kinpub-exec" "kubectl ingress-nginx -n nginx-public exec --deployment nginx-public-nginx-ingress-controller"
+    abbr -a -g "kinint-exec" "kubectl ingress-nginx -n nginx-internal exec --deployment nginx-internal-nginx-ingress-controller"
 
-    abbr -a -g kinpr-info "kubectl ingress-nginx -n nginx-private info --service nginx-private-nginx-ingress-controller"
-    abbr -a -g kinpu-info "kubectl ingress-nginx -n nginx-public info --service nginx-public-nginx-ingress-controller"
+    abbr -a -g kinpri-general "kubectl ingress-nginx -n nginx-private general --deployment nginx-private-nginx-ingress-controller"
+    abbr -a -g kinpub-general "kubectl ingress-nginx -n nginx-public general --deployment nginx-public-nginx-ingress-controller"
+    abbr -a -g kinint-general "kubectl ingress-nginx -n nginx-internal general --deployment nginx-internal-nginx-ingress-controller"
+
+    abbr -a -g kinpri-info "kubectl ingress-nginx -n nginx-private info --service nginx-private-nginx-ingress-controller"
+    abbr -a -g kinpub-info "kubectl ingress-nginx -n nginx-public info --service nginx-public-nginx-ingress-controller"
+    abbr -a -g kinint-info "kubectl ingress-nginx -n nginx-internal info --service nginx-internal-nginx-ingress-controller"
 
     # TODO ingresses
 
     # TODO lint
 
-    abbr -a -g kinprl "kubectl ingress-nginx -n nginx-private logs --deployment nginx-private-nginx-ingress-controller"
-    abbr -a -g kinpul "kubectl ingress-nginx -n nginx-public logs --deployment nginx-public-nginx-ingress-controller"
+    abbr -a -g kinpri-logs "kubectl ingress-nginx -n nginx-private logs --deployment nginx-private-nginx-ingress-controller"
+    abbr -a -g kinpub-logs "kubectl ingress-nginx -n nginx-public logs --deployment nginx-public-nginx-ingress-controller"
+    abbr -a -g kinint-logs "kubectl ingress-nginx -n nginx-internal logs --deployment nginx-internal-nginx-ingress-controller"
 
-    abbr -a -g kinprs "kubectl ingress-nginx -n nginx-private ssh --deployment nginx-private-nginx-ingress-controller"
-    abbr -a -g kinpus "kubectl ingress-nginx -n nginx-public ssh --deployment nginx-public-nginx-ingress-controller"
+    abbr -a -g kinpri-ssh "kubectl ingress-nginx -n nginx-private ssh --deployment nginx-private-nginx-ingress-controller"
+    abbr -a -g kinpub-ssh "kubectl ingress-nginx -n nginx-public ssh --deployment nginx-public-nginx-ingress-controller"
+    abbr -a -g kinint-ssh "kubectl ingress-nginx -n nginx-internal ssh --deployment nginx-internal-nginx-ingress-controller"
   end
 end

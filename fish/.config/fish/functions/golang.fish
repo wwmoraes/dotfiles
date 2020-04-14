@@ -1,4 +1,4 @@
-function gg -a cmd -d "go wrapper with commands that Google forgot" -w go
+function golang -a cmd -d "go wrapper with commands that Google forgot" -w go
   switch "$cmd"
   case unget
     test (count $argv) -lt 2; and echo "usage: g $argv[1] [packages]" && return 1
@@ -30,4 +30,4 @@ function gg -a cmd -d "go wrapper with commands that Google forgot" -w go
   end
 end
 
-complete -xc gg -n __fish_use_subcommand -a unget -d "removes dependencies and its build artifacts"
+complete -xc golang -n __fish_use_subcommand -a unget -d "removes dependencies and its build artifacts"
