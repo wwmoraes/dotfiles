@@ -66,7 +66,17 @@
     "labocho.chmod-command",
     "vadimcn.vscode-lldb",
     "christian-kohler.npm-intellisense",
-    "4ops.terraform"
+    "4ops.terraform",
+    "blairleduc.touch-bar-display",
+    "davraamides.todotxt-mode",
+    "emilast.logfilehighlighter",
+    "efanzh.graphviz-preview",
+    "rbalet.code-spell-checker-fullstack",
+    "jasonnutter.vscode-codeowners",
+    "wolfmah.ansible-vault-inline",
+    "sysninja.vscode-ansible-mod",
+    "chrislajoie.vscode-modelines",
+    "samuelcolvin.jinjahtml"
   ],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [

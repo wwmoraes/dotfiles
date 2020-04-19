@@ -62,15 +62,17 @@
   ],
   "projectManager.git.ignoredFolders": [
     "node_modules",
-    "vendor"
+    "vendor",
+    ".terraform"
   ],
   "projectManager.vscode.ignoredFolders": [
     "node_modules",
-    "vendor"
+    "vendor",
+    ".terraform"
   ],
   "todo-tree.filtering.excludeGlobs": [
     "**/vendor/**/*.*",
-    "**/node_modules/**/*.*",
+    "**/node_modules/**/*.*"
   ],
   "cSpell.language": "en,fullstack",
   "cSpell.languageSettings": [{ "languageId": "*", "dictionaries": ["Fullstack"]}],
@@ -155,7 +157,7 @@
   "atlascode.bitbucket.enabled": false,
   "atlascode.jira.statusbar.enabled": false,
   "yaml.schemas": {
-    "file:///Users/william/.vscode/extensions/atlassian.atlascode-2.4.11/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    "file:///Users/william/.vscode/extensions/atlassian.atlascode-2.5.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
   },
   "go.lintTool": "golangci-lint",
   "go.lintFlags": [
@@ -167,5 +169,6 @@
   "files.trimFinalNewlines": true,
   "editor.renderFinalNewline": false,
   "todo-tree.tree.showScanModeButton": false,
-  "prettier.tabWidth": 2
+  "prettier.tabWidth": 2,
+  "git.autoStash": true
 }

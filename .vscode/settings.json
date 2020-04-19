@@ -1,4 +1,7 @@
 {
+  "files.associations": {
+    "**/.gitaliases": "gitconfig"
+  },
   "cSpell.words": [
     "fileutils"
   ]
