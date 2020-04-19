@@ -19,6 +19,10 @@ shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 
+# -a: Append to history after each command, not only after session close
+# -n: re-read the history file i.e. share history between terminals
+PROMPT_COMMAND='history -a; history -n'
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
