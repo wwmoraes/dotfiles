@@ -130,3 +130,6 @@
 
 # fuzzy reset back to prior commit
 	freset = !HASH=`git log --pretty=oneline | head -n 50 | fzf` && git reset --soft `echo ${HASH} | awk '{ print $1 }'`^
+
+# purge a file from history (BEWARE: this option REWRITES all commits)
+  purge = "!f() { git filter-branch --force --index-filter \"git rm --cached --ignore-unmatch "$1"\" --prune-empty --tag-name-filter cat -- --all; }; f"
