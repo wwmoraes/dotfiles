@@ -102,7 +102,7 @@
 	short-recent = "for-each-ref --count=25 --sort=committerdate refs/heads/ --format='%(refname:short)'"
 
 # fuzzy add using fzf
-	fza = "!git ls-files -m -o --exclude-standard | fzf --print0 -m --preview 'git diff {}' --preview-window=top:10:wrap | xargs -0 -t -o git add --all"
+	fadd = "!git ls-files -m -o --exclude-standard | fzf --print0 -0 -m --preview 'git diff --color=always {}' --preview-window=down:10:wrap | xargs -0 -t -o git add --all"
 
 # fuzzy switch branch...  /fish/functions/fco.fish seems better
 	fco = "!git branch -a | awk '$1 == \"*\" {system(\"tput setaf 3\");print $2;system(\"tput sgr0\");next};{print $1}' | fzf --ansi | sed 's|^remotes/|--track |' | xargs -t git checkout"
