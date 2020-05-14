@@ -14,6 +14,7 @@ if type -q kubectl
   # base kubectl
   abbr -a -g k "kubectl"
   abbr -a -g kga "kubectl get all"
+  abbr -a -g kgaa "kubectl get cm,ep,pvc,po,svc,sa,ds,deploy,rs,sts,hpa,vpa,cj,jobs,ing"
   abbr -a -g kgra "kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found"
   abbr -a -g krt "kubectl run toolbox -i --tty --rm --restart=Never --image=wwmoraes/toolbox"
   abbr -a -g kl "kubectl logs"
