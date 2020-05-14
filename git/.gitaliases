@@ -27,6 +27,9 @@
 	diff = diff --word-diff
 	reup = rebase-update # depot_tools specific
 
+# Amend and force push :D
+  yolo = !"git commit --amend --all --no-edit && git push --force"
+
 # Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
