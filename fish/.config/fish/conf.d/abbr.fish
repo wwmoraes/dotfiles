@@ -169,7 +169,7 @@ if type -q kubectl
   abbr -a -g kdelpvf "kubectl get persistentvolumes | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete persistentvolume {}"
   abbr -a -g kdelpvcf "kubectl get persistentvolumeclaims | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete persistentvolumeclaim {}"
   abbr -a -g kdelsaf "kubectl get serviceaccounts | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete serviceaccount {}"
-  abbr -a -g kdelnsf "kubectl get namespaces | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete namespace {}"
+  abbr -a -g kdelnsf "kubectl get namespaces | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete namespace {} --wait=false --now=true"
   abbr -a -g kdelnof "kubectl get nodes | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete node {}"
   abbr -a -g kdelcrdf "kubectl get customresourcedefinitions | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete customresourcedefinition {}"
   abbr -a -g kdelstsf "kubectl get statefulsets | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete statefulset {}"
