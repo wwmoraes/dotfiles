@@ -13,9 +13,8 @@ function fls -d "Fuzzy lists git-enabled folders"
 
   # tmp folder & fifo setup
   set -l tmpDir (mktemp -d)
-  set -l fifoFD $tmpDir/flg
+  set -l fifoFD $tmpDir/fls
   mkfifo $fifoFD
-  trap 'rm -rf $tmpDir' EXIT
 
   # runs find in bg
   find \
@@ -31,7 +30,12 @@ function fls -d "Fuzzy lists git-enabled folders"
   # save pid and disown
   set PID (jobs -lp | tail +1)
   disown $PID
-  trap 'kill $PID' EXIT
+  # fish's trap cmd EXIT
+  function _fls_cleanup -V PID -V tmpDir --on-event fish_postexec
+    functions -e _fls_cleanup
+    kill $PID > /dev/null ^&1
+    rm -rf $tmpDir
+  end
 
   # fuzzy find and launch lazygit
   set -l selection (fzf --header-lines=1 -q "$argv" < $fifoFD); or return $status
