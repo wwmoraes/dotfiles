@@ -30,6 +30,9 @@
 # Amend and force push :D
   yolo = !"git commit --amend --all --no-edit && git push --force"
 
+# show last commit - gotta yolo thinking with your HEAD ;)
+  head = log --pretty=oneline HEAD^..HEAD
+
 # Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
