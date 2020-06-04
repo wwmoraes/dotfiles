@@ -1,0 +1,32 @@
+[
+  { "type": "escape", "width": 64, "align": "left" },
+  {
+    "type": "group", "align": "left", "title": "Fn",
+    "items": [
+      { "type": "close", "bordered": false, "width": 32, "align": "left" },
+      { "width": 64, "align": "left", "type": "staticButton", "title": "F1", "action": "keyPress", "keycode": 122 },
+      { "width": 64, "align": "left", "type": "staticButton", "title": "F2", "action": "keyPress", "keycode": 120 },
+      { "width": 64, "align": "left", "type": "staticButton", "title": "F3", "action": "keyPress", "keycode": 99 },
+      { "width": 64, "align": "left", "type": "staticButton", "title": "F4", "action": "keyPress", "keycode": 118 },
+      { "width": 64, "align": "left", "type": "staticButton", "title": "F5", "action": "keyPress", "keycode": 96 },
+      { "width": 64, "align": "left", "type": "staticButton", "title": "F6", "action": "keyPress", "keycode": 97 },
+      { "width": 64, "align": "left", "type": "staticButton", "title": "F7", "action": "keyPress", "keycode": 98 },
+      { "width": 64, "align": "left", "type": "staticButton", "title": "F8", "action": "keyPress", "keycode": 100 },
+      { "width": 64, "align": "left", "type": "staticButton", "title": "F9", "action": "keyPress", "keycode": 101 },
+      { "width": 64, "align": "left", "type": "staticButton", "title": "F10", "action": "keyPress", "keycode": 109 },
+      { "width": 64, "align": "left", "type": "staticButton", "title": "F11", "action": "keyPress", "keycode": 103 },
+      { "width": 64, "align": "left", "type": "staticButton", "title": "F12", "action": "keyPress", "keycode": 111 }
+    ]
+  },
+  {
+	  "type": "shellScriptTitledButton",
+    "width": 690,
+    "refreshInterval": 3600,
+	  "source": {
+	    "inline": "printf \"\\e[33m\\e[1m%s\\e[0m\" \"$(curl -fs --max-time 0.3 http://whatthecommit.com/index.txt)\""
+	  },
+	  "bordered": false,
+	  "align": "center"
+  },
+  { "type": "weather", "align": "right", "icon_type": "images", "api_key": "ca93a0bb8cdb428552660d83249e4bc9", "bordered": false }
+]
