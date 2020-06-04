@@ -33,6 +33,10 @@
 # show last commit - gotta yolo thinking with your HEAD ;)
   head = log --pretty=oneline HEAD^..HEAD
 
+# rebase goodies
+  rc = rebase --continue
+  ra = rebase --abort
+
 # Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
