@@ -206,5 +206,10 @@
   "editor.renderFinalNewline": false,
   "todo-tree.tree.showScanModeButton": false,
   "prettier.tabWidth": 2,
-  "git.autoStash": true
+  "git.autoStash": true,
+  "npm.packageManager": "yarn",
+  "eslint.packageManager": "yarn",
+  "prettier.packageManager": "yarn",
+  "typings.bin": "yarn",
+  "npm.bin": "yarn"
 }
