@@ -13,8 +13,11 @@ end
 if type -q kubectl
   # base kubectl
   abbr -a -g k "kubectl"
+  abbr -a -g kg "kubectl get"
   abbr -a -g kga "kubectl get all"
-  abbr -a -g kgaa "kubectl get cm,ep,pvc,po,svc,sa,ds,deploy,rs,sts,hpa,vpa,cj,jobs,ing"
+  abbr -a -g kge "kubectl get events"
+  abbr -a -g kgaa "kubectl get cm,ep,pvc,po,svc,sa,ds,deploy,rs,sts,hpa,vpa,cj,jobs,ing,secret"
+  abbr -a -g kdelf "kubectl get cm,ep,pvc,po,svc,sa,ds,deploy,rs,sts,hpa,vpa,cj,jobs,ing,secret | awk 'NF > 0 && \$1 != \"NAME\" {print \$1}' | fzf -m --ansi | xargs -I{} kubectl delete {} --wait=false --now=true"
   abbr -a -g kgra "kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found"
   abbr -a -g krt "kubectl run toolbox -i --tty --rm --restart=Never --image=wwmoraes/toolbox"
   abbr -a -g kl "kubectl logs"
@@ -183,6 +186,10 @@ if type -q kubectl
   abbr -a -g kdelcrbf "kubectl get clusterrolebindings | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete clusterrolebinding {}"
   abbr -a -g kdelscf "kubectl get storageclasses | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete storageclass {}"
   abbr -a -g kdelrsf "kubectl get replicasets | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl delete replicaset {}"
+
+  # k get event -w  ... (fuzzy)
+  abbr -a -g kgpoef "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl get event -w --field-selector involvedObject.name={}"
+  abbr -a -g kgsvcef "kubectl get services | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl get event -w --field-selector involvedObject.name={}"
 
   # k config ... (fuzzy)
   abbr -a -g kdelctx "kubectl config get-contexts | awk 'NR == 1 || \$1 == \"*\" {\$1=\"\";print;next};1' | column -t | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} kubectl config delete-context {}"
