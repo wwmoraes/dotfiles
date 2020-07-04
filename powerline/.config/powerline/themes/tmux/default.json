@@ -10,13 +10,13 @@
           "show_namespace": true,
           "show_default_namespace": true,
           "alerts": [
-            "live-production",
-            "live-staging",
-            "prod-asse1",
-            "prod-euwe1",
-            "prod-euwe2",
-            "prod-euwe4",
-            "prod-usea4"
+            "old-production",
+            "old-staging",
+            "k8s-prod-asse1",
+            "k8s-prod-euwe1",
+            "k8s-prod-euwe2",
+            "k8s-prod-euwe4",
+            "k8s-prod-usea4"
           ]
         }
       },
