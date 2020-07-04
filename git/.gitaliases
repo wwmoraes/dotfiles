@@ -28,7 +28,7 @@
 	reup = rebase-update # depot_tools specific
 
 # Amend and force push :D
-  yolo = !"git commit --amend --all --no-edit && git push --force"
+  yolo = !git commit --amend --all --no-edit && git push --force
 
 # show last commit - gotta yolo thinking with your HEAD ;)
   head = log --pretty=oneline HEAD^..HEAD
