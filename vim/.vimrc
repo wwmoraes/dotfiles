@@ -1,5 +1,7 @@
 set rtp+=$PYTHON_PATH/site-packages/powerline/bindings/vim
 
+filetype plugin indent on
+
 " Settings -------------------------------------------------------------
 
 " Make vim more useful
