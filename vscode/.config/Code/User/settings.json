@@ -28,7 +28,9 @@
   "javascript.updateImportsOnFileMove.enabled": "always",
   "workbench.startupEditor": "newUntitledFile",
   "breadcrumbs.enabled": true,
-  "bookmarks.backgroundLineColor": "rgba(21, 126, 251, 0.1)",
+  "workbench.colorCustomizations": {
+    "bookmarks.lineBackground": "#157EFB22"
+  },
   "go.useLanguageServer": true,
   "go.alternateTools": {
     "go": "~/.go/bin/go"
