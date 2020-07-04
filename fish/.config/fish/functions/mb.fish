@@ -51,6 +51,9 @@ complete -c mb -n '__fish_seen_subcommand_from gpg-decrypt'
 # gpg-encrypt subcommand
 complete -ec _mb_gpg-encrypt
 function _mb_gpg-encrypt
+  argparse --name=encrypt 'k/keep' -- $argv
+  or return
+
   set -q GPG_RECIPIENT; or echo "Error: set GPG_RECIPIENT environment variable with the GPG recipient to use" && return 1
   test (count $argv) -gt 0; or set argv (fd --hidden -E .git | fzf -m --prompt="select files to encrypt")
   test (count $argv) -gt 0; or return
@@ -67,7 +70,7 @@ function _mb_gpg-encrypt
   gpg --batch --encrypt-files --yes -r $GPG_RECIPIENT "$filePath"
 
   printf "%-"(tput cols)"s\r" "[removing] "(set_color cyan)$filePath(set_color normal)
-  rm $filePath
+  string length -q -- $_flag_keep; or rm $filePath
   printf "%-"(tput cols)"s\n" "[done] "(set_color cyan)$filePath".gpg"(set_color normal)
   end
 end
