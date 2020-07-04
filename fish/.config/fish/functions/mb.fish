@@ -1,3 +1,4 @@
+complete -ec mb
 function mb -a cmd -d "MessageBird toolbox"
   switch "$cmd"
     case gpg-trust
@@ -16,9 +17,9 @@ function mb -a cmd -d "MessageBird toolbox"
       echo "Unknown option $cmd"
   end
 end
-complete -ec mb
 
 # gpg-trust subcommand
+complete -ec _mb_gpg-trust
 function _mb_gpg-trust
   echo -e "5\ny\n" | gpg --command-fd 0 --expert --edit-key $GPG_RECIPIENT trust
   and printf "\n"(set_color -o green)"TL;DR"(set_color normal)" key trusted successfully!"
@@ -27,6 +28,7 @@ complete -xc mb -n __fish_use_subcommand -a gpg-trust -d "trusts the GPG recipie
 complete -xc mb -n '__fish_seen_subcommand_from gpg-trust'
 
 # gpg-decrypt subcommand
+complete -ec _mb_gpg-decrypt
 function _mb_gpg-decrypt
   # use the current directory per default
   test (count $argv) = 0; and set -l argv (pwd)
@@ -44,9 +46,10 @@ function _mb_gpg-decrypt
   end
 end
 complete -xc mb -n __fish_use_subcommand -a gpg-decrypt -d "recursively decrypts all gpg files on given (or current) directory"
-complete -xc mb -n '__fish_seen_subcommand_from gpg-decrypt'
+complete -c mb -n '__fish_seen_subcommand_from gpg-decrypt'
 
 # gpg-encrypt subcommand
+complete -ec _mb_gpg-encrypt
 function _mb_gpg-encrypt
   set -q GPG_RECIPIENT; or echo "Error: set GPG_RECIPIENT environment variable with the GPG recipient to use" && return 1
   test (count $argv) -gt 0; or set argv (fd --hidden -E .git | fzf -m --prompt="select files to encrypt")
@@ -68,9 +71,11 @@ function _mb_gpg-encrypt
   printf "%-"(tput cols)"s\n" "[done] "(set_color cyan)$filePath".gpg"(set_color normal)
   end
 end
-complete -xc mb -n __fish_use_subcommand -a gpg-encrypt -d "encrypts files using the gpg recipient on environment"
+complete -c mb -n __fish_use_subcommand -a gpg-encrypt -d "encrypts files using the gpg recipient on environment"
+complete -c mb -n '__fish_seen_subcommand_from gpg-encrypt'
 
 # gcp-config-ssh subcommand
+complete -ec _mb_gcp-config-ssh
 function _mb_gcp-config-ssh
   gcloud projects list | \
     grep --line-buffered -vE "^(sys-|mb-t-)" | \
@@ -80,6 +85,7 @@ end
 complete -xc mb -n __fish_use_subcommand -a gcp-config-ssh -d "configures ssh hosts using gcloud tool"
 
 # gcp-ssh subcommand
+complete -ec _mb_gcp-ssh
 function _mb_gcp-ssh
   set interactive (not contains -- -i $argv; echo $status)
 
@@ -114,6 +120,7 @@ function _mb_gcp-ssh
   gcloud compute ssh $argv --project=$project --zone=$zone $host
 end
 complete -xc mb -n __fish_use_subcommand -a gcp-ssh -d "ssh into gcp hosts"
+
 # helm subcommand
 complete -ec _mb_helm
 function _mb_helm -w helm
