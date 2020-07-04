@@ -16,3 +16,4 @@ htop
 unzip
 gnupg:gpg
 expect
+tmate
