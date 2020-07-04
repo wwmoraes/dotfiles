@@ -161,40 +161,6 @@
   "licenser.disableAutoHeaderInsertion": true,
   "projectManager.groupList": true,
   "rust-client.rustupPath": "~/.cargo/bin/rustup",
-  "atlascode.jira.jqlList": [
-    {
-      "enabled": true,
-      "id": "f7458dd1-ae1a-4d4d-b170-1ddeb0d286c9",
-      "monitor": true,
-      "name": "MB: All my issues",
-      "query": "assignee = currentUser() ORDER BY lastViewed DESC",
-      "siteId": "56956b05-11d9-4d8a-ac41-ab69e8d9de21"
-    },
-    {
-      "enabled": true,
-      "id": "17d1e6ed-053b-4cfa-9e5a-1fd4cf5986a3",
-      "monitor": true,
-      "name": "My unresolved issues",
-      "query": "assignee = currentUser() AND resolution not in (Declined, Duplicate, Done) order by updated DESC",
-      "siteId": "56956b05-11d9-4d8a-ac41-ab69e8d9de21"
-    },
-    {
-      "enabled": true,
-      "id": "acbf2492-cf43-4b88-b898-adb8dcc5273c",
-      "monitor": true,
-      "name": "My open issues",
-      "query": "assignee = currentUser() AND resolution = Unresolved order by updated DESC",
-      "siteId": "56956b05-11d9-4d8a-ac41-ab69e8d9de21"
-    }
-  ],
-  "atlascode.jira.statusbar.showUser": false,
-  "atlascode.jira.statusbar.showLogin": false,
-  "atlascode.jira.statusbar.showProduct": false,
-  "atlascode.bitbucket.enabled": false,
-  "atlascode.jira.statusbar.enabled": false,
-  "yaml.schemas": {
-    "file:///Users/william/.vscode/extensions/atlassian.atlascode-2.5.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
-  },
   "go.lintTool": "golangci-lint",
   "go.lintFlags": [
     "--fast"
