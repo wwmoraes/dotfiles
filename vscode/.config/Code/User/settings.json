@@ -178,6 +178,9 @@
   "npm.packageManager": "yarn",
   "eslint.packageManager": "yarn",
   "prettier.packageManager": "yarn",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "typings.bin": "yarn",
   "npm.bin": "yarn"
 }
