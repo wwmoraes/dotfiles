@@ -7,6 +7,8 @@ abbr -a -g wttr "curl v2.wttr.in"
 if type -q git
   abbr -a -g gco "git checkout"
   abbr -a -g gg "git push --force"
+  abbr -a -g gss "git s -s"
+  abbr -a -g gra "git rebase --autosquash"
 end
 
 # kubectl abbreviations
