@@ -44,7 +44,9 @@ complete -xc gcp -n '__fish_seen_subcommand_from account'
 
 # reauth subcommand
 function _gcp_reauth
-  set -q EMAIL; or echo "EMAIL is not set" && return 1
+  goyq d -i ~/.kube/config 'users.*.user.auth-provider.config'
+  goyq d -i ~/.kube/config-home 'users.*.user.auth-provider.config'
+  goyq d -i ~/.kube/config-work 'users.*.user.auth-provider.config'
 
   echo "authenticating user..."
   gcloud -q --no-user-output-enabled auth login --brief --update-adc 2> /dev/null
