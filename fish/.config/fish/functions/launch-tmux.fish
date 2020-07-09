@@ -6,8 +6,11 @@ function launch-tmux
   # non-interactive session
   status --is-interactive; or return
 
+  # VSCode terminal
+  string match -q "vscode" $TERM_PROGRAM; and return
+
   # already inside a tmux session
-  string match "screen*" $TERM > /dev/null; and return
+  string match -q "screen*" $TERM; and return
 
   # tmux not found
   command -v tmux > /dev/null; or return
