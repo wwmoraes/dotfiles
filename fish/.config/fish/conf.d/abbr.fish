@@ -12,6 +12,15 @@ if type -q git
   abbr -a -g gra "git rebase --autosquash -i origin"
 end
 
+# terraform abbreviations
+if type -q terraform
+  abbr -a -g tf "terraform"
+  abbr -a -g tfi "rm -rf .terraform && terraform init"
+  abbr -a -g tfp "terraform plan -out=plan.tfplan"
+  abbr -a -g tfa "terraform apply plan.tfplan"
+  abbr -a -g tfip "rm -rf .terraform && terraform init && terraform plan -out=plan.tfplan"
+end
+
 # kubectl abbreviations
 if type -q kubectl
   # base kubectl
