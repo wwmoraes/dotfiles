@@ -87,6 +87,8 @@ if [ -d .setup.d/$SYSTEM ]; then
 fi
 
 printf "\e[1;34mMiscellaneous\e[0m\n"
+# creates the control path folder for SSH
+mkdir -p ~/.ssh/control
 # Update system font cache
 type -p fc-cache > /dev/null
 if [ $? -eq 0 ]; then
