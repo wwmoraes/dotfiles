@@ -21,6 +21,16 @@ if type -q terraform
   abbr -a -g tfip "rm -rf .terraform && terraform init && terraform plan -out=plan.tfplan"
 end
 
+# lab abbreviations
+if type -q lab
+  abbr -a -g glcv "gl ci view"
+  abbr -a -g glcc "gl ci create"
+  abbr -a -g glmc "gl mr create -d -s"
+  abbr -a -g glma "gl mr approve"
+  abbr -a -g glmm "gl mr merge"
+  abbr -a -g glml "gl mr list"
+end
+
 # kubectl abbreviations
 if type -q kubectl
   # base kubectl
@@ -31,7 +41,7 @@ if type -q kubectl
   abbr -a -g kgaa "kubectl get cm,ep,pvc,po,svc,sa,ds,deploy,rs,sts,hpa,vpa,cj,jobs,ing,secret"
   abbr -a -g kdelf "kubectl get cm,ep,pvc,po,svc,sa,ds,deploy,rs,sts,hpa,vpa,cj,jobs,ing,secret | awk 'NF > 0 && \$1 != \"NAME\" {print \$1}' | fzf -m --ansi | xargs -I{} kubectl delete {} --wait=false --now=true"
   abbr -a -g kgra "kubectl api-resources --verbs=list --namespaced -o name | xargs -n 1 kubectl get --show-kind --ignore-not-found"
-  abbr -a -g krt "kubectl run toolbox -i --tty --rm --restart=Never --image=wwmoraes/toolbox"
+  abbr -a -g krt "kubectl run toolbox -i --tty --rm --restart=Never --image=wwmoraes/toolbox --limits='cpu=100m,memory=128Mi'"
   abbr -a -g kl "kubectl logs"
   abbr -a -g kpf "kubectl port-forward"
   abbr -a -g kctx "kubectl ctx"
