@@ -160,7 +160,6 @@
   "git-graph.dialog.merge.squashCommits": true,
   "git-graph.fetchAndPrune": true,
   "licenser.author": "William Wagner Moraes Artero",
-  "licenser.disableAutoHeaderInsertion": true,
   "projectManager.groupList": true,
   "rust-client.rustupPath": "~/.cargo/bin/rustup",
   "go.lintTool": "golangci-lint",
@@ -183,4 +182,6 @@
   },
   "typings.bin": "yarn",
   "npm.bin": "yarn"
+  "npm.bin": "yarn",
+  "licenser.license": "MIT"
 }
