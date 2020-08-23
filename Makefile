@@ -18,6 +18,7 @@ define stow
 	@stow -t ~ -R $(1) 2>&1 \
 		| grep -v 'BUG in find_stowed_path?' \
 		| grep -v 'WARNING: skipping target which was current stow directory .files' \
+		| grep -v 'stow: ERROR: stow_contents() called with non-directory path:' \
 		|| true
 endef
 
@@ -34,6 +35,7 @@ define osstow
 	@cd .systems/$(OS) && stow -t ~ -R $(1) 2>&1 \
 		| grep -v 'BUG in find_stowed_path?' \
 		| grep -v 'WARNING: skipping target which was current stow directory .files' \
+		| grep -v 'stow: ERROR: stow_contents() called with non-directory path:' \
 		|| true
 endef
 
@@ -50,6 +52,7 @@ define hostnamestow
 	@cd .hostnames/$(HOSTNAME) && stow -t ~ -R $(1) 2>&1 \
 		| grep -v 'BUG in find_stowed_path?' \
 		| grep -v 'WARNING: skipping target which was current stow directory .files' \
+		| grep -v 'stow: ERROR: stow_contents() called with non-directory path:' \
 		|| true
 endef
 
