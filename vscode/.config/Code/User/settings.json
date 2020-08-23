@@ -102,6 +102,7 @@
     "iife",
     "jsdoc",
     "kubectl",
+    "kubernetes",
     "kustomize",
     "lcov",
     "linkedin",
