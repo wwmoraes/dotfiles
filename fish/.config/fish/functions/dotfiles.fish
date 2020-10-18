@@ -23,11 +23,14 @@ function dotfiles -a cmd -d "Setup dotfiles"
       _dotfiles_setup
     case config
       _dotfiles_config $argv[2..-1]
+    case cd
+      cd $DOTFILES_DIR
     case "" "*"
       echo "Unknown option $cmd"
   end
 end
 complete -ec dotfiles
+complete -xc dotfiles -n __fish_use_subcommand -a cd -d "navigate to the dotfiles folder"
 
 # add subcommand
 function _dotfiles_add
