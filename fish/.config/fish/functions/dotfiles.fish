@@ -1,3 +1,5 @@
+set -q DOTFILES_DIR; or set -U DOTFILES_DIR $HOME/.files
+
 # dotfiles main command
 function dotfiles -a cmd -d "Setup dotfiles"
   switch "$cmd"
@@ -65,17 +67,17 @@ function _dotfiles_add
   end
 
   # Gets the tool folder
-  set tool (find ~/.files/ -maxdepth 1 -type d -not -name '.*' -exec basename {} \; | fzf --prompt="Choose project to add the file ")
+  set tool (find $DOTFILES_DIR/ -maxdepth 1 -type d -not -name '.*' -exec basename {} \; | fzf --prompt="Choose project to add the file ")
 
   if test (string length $tool || echo 0) -eq 0
     read -P 'New tool folder: ' tool
-    if test -d $HOME/.files/$tool
+    if test -d $DOTFILES_DIR/$tool
       echo "Folder for tool $tool already exists"
       return 1
     end
   end
 
-  set destination (string replace $HOME $HOME/.files/$tool $file)
+  set destination (string replace $HOME $DOTFILES_DIR/$tool $file)
 
   echo "Tool: $tool"
   printf "Source: %s\n" (string replace $HOME "~" $file)
@@ -97,7 +99,7 @@ function _dotfiles_add
   rm "$file"
 
   echo "stowing back file..."
-  pushd ~/.files > /dev/null
+  pushd $DOTFILES_DIR > /dev/null
   stow -t ~ -R "$tool"
   popd > /dev/null
 end
@@ -105,7 +107,7 @@ complete -xc dotfiles -n __fish_use_subcommand -a add -d "add and stow new file 
 
 # install subcommand
 function _dotfiles_install
-  pushd ~/.files > /dev/null
+  pushd $DOTFILES_DIR > /dev/null
   make install
   popd > /dev/null
 end
@@ -113,7 +115,7 @@ complete -xc dotfiles -n __fish_use_subcommand -a install -d "[re]install dotfil
 
 # update subcommand
 function _dotfiles_update
-  pushd ~/.files > /dev/null
+  pushd $DOTFILES_DIR > /dev/null
   git pull
   make install
   popd > /dev/null
@@ -122,7 +124,7 @@ complete -xc dotfiles -n __fish_use_subcommand -a update -d "update dotfiles"
 
 # setup subcommand
 function _dotfiles_setup
-  pushd ~/.files > /dev/null
+  pushd $DOTFILES_DIR > /dev/null
   make setup
   popd > /dev/null
 end
@@ -136,7 +138,7 @@ function _dotfiles_code
     return 1
   end
 
-  code ~/.files
+  code $DOTFILES_DIR
 end
 complete -xc dotfiles -n __fish_use_subcommand -a code -d "open VSCode on dotfiles' repository"
 
@@ -148,7 +150,7 @@ function _dotfiles_lg
     return 1
   end
 
-  pushd ~/.files > /dev/null
+  pushd $DOTFILES_DIR > /dev/null
   lazygit
   popd > /dev/null
 end
