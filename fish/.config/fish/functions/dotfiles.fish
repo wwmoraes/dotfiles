@@ -104,7 +104,7 @@ function _dotfiles_add
   echo "stowing back file..."
   pushd $DOTFILES_DIR > /dev/null
   stow -t ~ -R "$tool"
-  popd > /dev/null
+  popd > /dev/null 2>&1
 end
 complete -xc dotfiles -n __fish_use_subcommand -a add -d "add and stow new file to dotfiles"
 
@@ -112,7 +112,7 @@ complete -xc dotfiles -n __fish_use_subcommand -a add -d "add and stow new file 
 function _dotfiles_install
   pushd $DOTFILES_DIR > /dev/null
   make install
-  popd > /dev/null
+  popd > /dev/null 2>&1
 end
 complete -xc dotfiles -n __fish_use_subcommand -a install -d "[re]install dotfiles"
 
@@ -121,7 +121,7 @@ function _dotfiles_update
   pushd $DOTFILES_DIR > /dev/null
   git pull
   make install
-  popd > /dev/null
+  popd > /dev/null 2>&1
 end
 complete -xc dotfiles -n __fish_use_subcommand -a update -d "update dotfiles"
 
@@ -129,7 +129,7 @@ complete -xc dotfiles -n __fish_use_subcommand -a update -d "update dotfiles"
 function _dotfiles_setup
   pushd $DOTFILES_DIR > /dev/null
   make setup
-  popd > /dev/null
+  popd > /dev/null 2>&1
 end
 complete -xc dotfiles -n __fish_use_subcommand -a setup -d "setup environment for dotfiles"
 
@@ -155,7 +155,7 @@ function _dotfiles_lg
 
   pushd $DOTFILES_DIR > /dev/null
   lazygit
-  popd > /dev/null
+  popd > /dev/null 2>&1
 end
 complete -xc dotfiles -n __fish_use_subcommand -a lg -d "open lazygit at dotfiles repository"
 
