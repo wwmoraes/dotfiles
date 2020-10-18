@@ -37,12 +37,11 @@ PREPATHS=(
   $HOME/.yarn/bin
   $HOME/.krew/bin
   $HOME/.cargo/bin
-  $HOME/.go/bin
   $HOME/go/bin
+  $HOME/.go/bin
   $HOME/.local/opt/bin
   $HOME/.local/opt/sbin
   $HOME/.local/bin
-  $HOME/bin
 )
 
 mkdir -p $HOME/.local/bin
