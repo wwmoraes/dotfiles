@@ -5,3 +5,4 @@ yq
 asciinema
 doge
 thefuck
+yamllint
