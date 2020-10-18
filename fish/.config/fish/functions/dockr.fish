@@ -17,6 +17,8 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
     docker ps | fzf -m --header-lines=1 -0 | awk 'ORS=" " {print $1}' | ifne xargs -n 1 docker stop
   case rmc
     docker container ls -a | tail +2 | fzf -m -0 | awk '{print $1}' | ifne xargs -I{} -n 1 docker container rm $argv[2..-1] {}
+  case exec
+    docker container ls | tail +2 | fzf -m -0 | awk '{print $1}' | ifne xargs -o -I{} -n 1 docker exec -it {} $argv[2..-1]
   case rmi
     docker image ls | tail +2 | fzf -m -0 | awk '$1 == "<none>" || $2 == "<none>" {print $3;next};{print $1":"$2}' | ifne xargs docker rmi $argv[2..-1]
   case rmv
