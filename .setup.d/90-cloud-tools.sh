@@ -113,3 +113,11 @@ if [ $? -ne 0 ]; then
   chmod +x ~/.local/bin/lab
   rm -rf $TMP
 fi
+
+printf "Checking \e[96mopa\e[0m...\n"
+type -p opa &> /dev/null
+if [ $? -ne 0 ]; then
+
+  curl -fsSLo ~/.local/bin/opa https://openpolicyagent.org/downloads/latest/opa_${SYSTEM}_${ARCH}
+  chmod +x ~/.local/bin/opa
+fi
