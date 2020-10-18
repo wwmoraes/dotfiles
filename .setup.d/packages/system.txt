@@ -17,4 +17,5 @@ unzip
 gnupg:gpg
 expect
 tmate
+shellcheck
 fswatch
