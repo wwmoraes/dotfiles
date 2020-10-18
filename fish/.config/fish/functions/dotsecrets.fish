@@ -102,7 +102,7 @@ function _dotsecrets_add
   echo "stowing back file..."
   pushd $DOTSECRETS_DIR > /dev/null
   stow -t ~ -R "$tool"
-  popd > /dev/null
+  popd > /dev/null 2>&1
 end
 complete -xc dotsecrets -n __fish_use_subcommand -a add -d "add and stow new file to dotsecrets"
 
@@ -110,7 +110,7 @@ complete -xc dotsecrets -n __fish_use_subcommand -a add -d "add and stow new fil
 function _dotsecrets_install
   pushd $DOTSECRETS_DIR > /dev/null
   make install
-  popd > /dev/null
+  popd > /dev/null 2>&1
 end
 complete -xc dotsecrets -n __fish_use_subcommand -a install -d "[re]install dotsecrets"
 
@@ -119,7 +119,7 @@ function _dotsecrets_update
   pushd $DOTSECRETS_DIR > /dev/null
   git pull
   make install
-  popd > /dev/null
+  popd > /dev/null 2>&1
 end
 complete -xc dotsecrets -n __fish_use_subcommand -a update -d "update dotsecrets"
 
@@ -127,7 +127,7 @@ complete -xc dotsecrets -n __fish_use_subcommand -a update -d "update dotsecrets
 function _dotsecrets_setup
   pushd $DOTSECRETS_DIR > /dev/null
   make setup
-  popd > /dev/null
+  popd > /dev/null 2>&1
 end
 complete -xc dotsecrets -n __fish_use_subcommand -a setup -d "setup environment for dotsecrets"
 
@@ -141,6 +141,6 @@ complete -xc dotsecrets -n __fish_use_subcommand -a code -d "open VSCode on dots
 function _dotsecrets_lg
   pushd $DOTSECRETS_DIR > /dev/null
   lazygit
-  popd > /dev/null
+  popd > /dev/null 2>&1
 end
 complete -xc dotsecrets -n __fish_use_subcommand -a lg -d "open lazygit at dotsecrets repository"
