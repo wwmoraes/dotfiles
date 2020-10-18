@@ -1,3 +1,5 @@
+set -q DOTSECRETS_DIR; or set -U DOTSECRETS_DIR $HOME/.secrets
+
 # dotsecrets main command
 function dotsecrets -a cmd -d "Setup dotsecrets"
   switch "$cmd"
@@ -63,17 +65,17 @@ function _dotsecrets_add
   end
 
   # Gets the tool folder
-  set tool (find ~/.secrets/ -maxdepth 1 -type d -not -name '.*' -exec basename {} \; | fzf --prompt="Choose project to add the file ")
+  set tool (find $DOTSECRETS_DIR/ -maxdepth 1 -type d -not -name '.*' -exec basename {} \; | fzf --prompt="Choose project to add the file ")
 
   if test (string length $tool || echo 0) -eq 0
     read -P 'New tool folder: ' tool
-    if test -d $HOME/.secrets/$tool
+    if test -d $DOTSECRETS_DIR/$tool
       echo "Folder for tool $tool already exists"
       return 1
     end
   end
 
-  set destination (string replace $HOME $HOME/.secrets/$tool $file)
+  set destination (string replace $HOME $DOTSECRETS_DIR/$tool $file)
 
   echo "Tool: $tool"
   printf "Source: %s\n" (string replace $HOME "~" $file)
@@ -95,7 +97,7 @@ function _dotsecrets_add
   rm "$file"
 
   echo "stowing back file..."
-  pushd ~/.secrets > /dev/null
+  pushd $DOTSECRETS_DIR > /dev/null
   stow -t ~ -R "$tool"
   popd > /dev/null
 end
@@ -103,7 +105,7 @@ complete -xc dotsecrets -n __fish_use_subcommand -a add -d "add and stow new fil
 
 # install subcommand
 function _dotsecrets_install
-  pushd ~/.secrets > /dev/null
+  pushd $DOTSECRETS_DIR > /dev/null
   make install
   popd > /dev/null
 end
@@ -111,7 +113,7 @@ complete -xc dotsecrets -n __fish_use_subcommand -a install -d "[re]install dots
 
 # update subcommand
 function _dotsecrets_update
-  pushd ~/.secrets > /dev/null
+  pushd $DOTSECRETS_DIR > /dev/null
   git pull
   make install
   popd > /dev/null
@@ -120,7 +122,7 @@ complete -xc dotsecrets -n __fish_use_subcommand -a update -d "update dotsecrets
 
 # setup subcommand
 function _dotsecrets_setup
-  pushd ~/.secrets > /dev/null
+  pushd $DOTSECRETS_DIR > /dev/null
   make setup
   popd > /dev/null
 end
@@ -128,13 +130,13 @@ complete -xc dotsecrets -n __fish_use_subcommand -a setup -d "setup environment 
 
 # code subcommand
 function _dotsecrets_code
-  code ~/.secrets
+  code $DOTSECRETS_DIR
 end
 complete -xc dotsecrets -n __fish_use_subcommand -a code -d "open VSCode on dotsecrets' repository"
 
 # lg subcommand
 function _dotsecrets_lg
-  pushd ~/.secrets > /dev/null
+  pushd $DOTSECRETS_DIR > /dev/null
   lazygit
   popd > /dev/null
 end
