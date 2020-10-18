@@ -16,7 +16,6 @@
   "editor.suggestSelection": "first",
   "window.titleBarStyle": "custom",
   "bookmarks.saveBookmarksInProject": true,
-  "types-autoinstaller.saveAsDevDependency": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.organizeImports": false
@@ -24,16 +23,12 @@
   "gitlens.hovers.currentLine.over": "line",
   "workbench.editor.enablePreview": false,
   "bookmarks.useWorkaroundForFormatters": true,
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+
   "javascript.updateImportsOnFileMove.enabled": "always",
   "workbench.startupEditor": "newUntitledFile",
   "breadcrumbs.enabled": true,
   "workbench.colorCustomizations": {
     "bookmarks.lineBackground": "#157EFB22"
-  },
-  "go.useLanguageServer": true,
-  "go.alternateTools": {
-    "go": "~/.go/bin/go"
   },
   "terminal.integrated.fontFamily": "Fira Code",
   "git.autofetch": true,
@@ -41,7 +36,7 @@
   "explorer.confirmDelete": true,
   "git-graph.maxDepthOfRepoSearch": 2,
   "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-  "editor.fontLigatures": true,
+  "editor.fontLigatures": "'ss03','ss07'",
   "editor.fontWeight": "400",
   "editor.fontSize": 16,
   "workbench.list.automaticKeyboardNavigation": false,
@@ -57,33 +52,29 @@
     "$home/dev/",
     "$home/../shared/dev/"
   ],
-  "projectManager.vscode.baseFolders": [
-    "$home/workspace/",
-    "$home/dev/",
-    "$home/../shared/dev/"
-  ],
   "projectManager.git.ignoredFolders": [
     "node_modules",
     "vendor",
-    ".terraform"
-  ],
-  "projectManager.vscode.ignoredFolders": [
-    "node_modules",
-    "vendor",
-    ".terraform"
+    ".terraform",
+    "tmp",
   ],
   "todo-tree.filtering.excludeGlobs": [
     "**/vendor/**/*.*",
-    "**/node_modules/**/*.*"
+    "**/node_modules/**/*.*",
+    "**/.terraform/**/*.*",
+    "**/tmp/**/*.*"
   ],
   "cSpell.language": "en,fullstack",
   "cSpell.languageSettings": [{ "languageId": "*", "dictionaries": ["Fullstack"]}],
   "cSpell.userWords": [
     "CLOUDSQL",
     "ESNEXT",
+    "Errorln",
+    "Infoln",
     "MESSAGEBIRD",
     "SIGINT",
     "SIGTERM",
+    "Traceln",
     "artero",
     "backreference",
     "camelcase",
@@ -116,6 +107,7 @@
     "plusplus",
     "postcoverage",
     "proto",
+    "protobuf",
     "runtimes",
     "signup",
     "sourcemap",
@@ -159,14 +151,8 @@
   },
   "git-graph.dialog.merge.noFastForward": false,
   "git-graph.dialog.merge.squashCommits": true,
-  "git-graph.fetchAndPrune": true,
-  "licenser.author": "William Wagner Moraes Artero",
+  "licenser.author": "William Artero",
   "projectManager.groupList": true,
-  "rust-client.rustupPath": "~/.cargo/bin/rustup",
-  "go.lintTool": "golangci-lint",
-  "go.lintFlags": [
-    "--fast"
-  ],
   "window.nativeTabs": true,
   "editor.acceptSuggestionOnEnter": "smart",
   "typescript.updateImportsOnFileMove.enabled": "always",
@@ -176,13 +162,10 @@
   "prettier.tabWidth": 2,
   "git.autoStash": true,
   "npm.packageManager": "yarn",
-  "eslint.packageManager": "yarn",
   "prettier.packageManager": "yarn",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "typings.bin": "yarn",
-  "npm.bin": "yarn"
-  "npm.bin": "yarn",
-  "licenser.license": "MIT"
+  "workbench.sideBar.location": "left",
+  "licenser.license": "MIT",
 }
