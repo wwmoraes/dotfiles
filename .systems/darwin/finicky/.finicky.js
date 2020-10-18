@@ -7,6 +7,8 @@ module.exports = {
         "*.messagebird.com*",
         "*.officevibe.com*",
         "messagebird.atlassian.net*",
+        "console.cloud.google.com/*?*project=mb-*-tst*",
+        "console.cloud.google.com/*?*project=mb-*-prod*",
       ],
       browser: "Firefox"
     },
