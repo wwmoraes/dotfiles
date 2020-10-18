@@ -1,2 +1,5 @@
 # open terminal
-cmd - return : ~/Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~
+cmd - return : ~/Applications/Kitty.app/Contents/MacOS/kitty -1 --instance-group=main -d ~
+
+# terminal with fuzzy connect
+cmd + shift - return : ~/Applications/Kitty.app/Contents/MacOS/kitty -1 --instance-group=main -d ~ fish -c "fconnect"
