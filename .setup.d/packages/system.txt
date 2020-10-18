@@ -17,5 +17,7 @@ unzip
 gnupg:gpg
 expect
 tmate
+grc
+lnav
 shellcheck
 fswatch
