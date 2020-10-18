@@ -21,11 +21,14 @@ function dotsecrets -a cmd -d "Setup dotsecrets"
       _dotsecrets_lg
     case setup
       _dotsecrets_setup
+    case cd
+      cd $DOTSECRETS_DIR
     case "" "*"
       echo "Unknown option $cmd"
   end
 end
 complete -ec dotsecrets
+complete -xc dotsecrets -n __fish_use_subcommand -a cd -d "navigate to the dotsecrets folder"
 
 # add subcommand
 function _dotsecrets_add
