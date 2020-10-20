@@ -21,3 +21,4 @@ grc
 lnav
 shellcheck
 fswatch
+hadolint
