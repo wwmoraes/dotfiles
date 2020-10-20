@@ -24,3 +24,5 @@ Thumbs.db
 ### Language/framework-specific
 # NodeJS
 node_modules
+
+.wakatime-project

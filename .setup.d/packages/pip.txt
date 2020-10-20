@@ -6,3 +6,4 @@ asciinema
 doge
 thefuck
 yamllint
+wakatime
