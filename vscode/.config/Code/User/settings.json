@@ -18,7 +18,7 @@
   "bookmarks.saveBookmarksInProject": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports": false
+    "source.organizeImports": false,
   },
   "gitlens.hovers.currentLine.over": "line",
   "workbench.editor.enablePreview": false,
@@ -147,7 +147,9 @@
     "**/i3/config": "i3",
     "Dockerfile_*": "dockerfile",
     ".env*": "dotenv",
-    ".terraformignore": "gitignore"
+    ".terraformignore": "gitignore",
+    "*.tpl": "go-template",
+    ".helmignore": "gitignore"
   },
   "git-graph.dialog.merge.noFastForward": false,
   "git-graph.dialog.merge.squashCommits": true,
@@ -168,4 +170,7 @@
   },
   "workbench.sideBar.location": "left",
   "licenser.license": "MIT",
+  "githubPullRequests.defaultMergeMethod": "rebase",
+  "javascript.format.semicolons": "insert",
+  "typescript.format.semicolons": "insert",
 }
