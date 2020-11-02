@@ -7,3 +7,4 @@ doge
 thefuck
 yamllint
 wakatime
+tmuxp
