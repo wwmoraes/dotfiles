@@ -147,6 +147,9 @@ launchTmux() {
   # non-interactive session
   [[ $- == *i* ]] || return
 
+  # VSCode terminal
+  [[ "$TERM_PROGRAM" =~ "vscode" ]] && return
+
   # returns if already on a tmux session
   [[ "$TERM" =~ "screen" ]] && return
   [[ -z "$TMUX" ]] || return
