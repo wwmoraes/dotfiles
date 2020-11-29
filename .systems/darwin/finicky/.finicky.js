@@ -17,8 +17,9 @@ module.exports = {
         "*.home.localhost*",
         "*.tinc.localhost*",
         "*.com.br*",
+        "*.thuisbezorgd.nl*"
       ],
       browser: "Safari"
     },
   ]
-}
+};
