@@ -1,5 +1,5 @@
 {
-	"recommendations": [
+  "recommendations": [
     "hangxingliu.vscode-nginx-conf-hint",
     "sidneys1.gitconfig",
     "dcasella.i3",
@@ -7,9 +7,9 @@
     "dunstontc.viml",
     "malmaud.tmux",
     "skyapps.fish-vscode",
-    "lunaryorn.fish-ide",
+    "sumneko.lua"
   ],
-	"unwantedRecommendations": [
+  "unwantedRecommendations": [
     // Microsoft's global recommendations, FML
     "dbaeumer.jshint",
     "hookyqr.beautify",
@@ -18,6 +18,6 @@
     "googlecloudtools.cloudcode",
     "ms-kubernetes-tools.vscode-kubernetes-tools",
     "msjsdiag.vscode-react-native",
-    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "ms-kubernetes-tools.vscode-kubernetes-tools"
   ]
 }
