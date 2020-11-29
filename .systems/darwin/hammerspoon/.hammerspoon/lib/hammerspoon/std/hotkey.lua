@@ -1,0 +1,2 @@
+--- @class Hotkey
+local Hotkey
