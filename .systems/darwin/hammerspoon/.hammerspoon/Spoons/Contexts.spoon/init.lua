@@ -1,10 +1,60 @@
 --- === Contexts ===
 ---
---- utilities to close/open/hide groups of applications
+--- close/open/hide groups of applications based on contexts
+---
+--- there's a built-in switcher that can be used with ^ + ⌥ + ⌘ + C, unless
+--- overridden
+---
+--- there's also timers that run on 9am and 5pm to ask to open and close,
+--- respectively, the work context
 ---
 
+--- @class ContextEntry
+--- context title used on notifications and on the chooser
+--- @field title string
+--- optional time string on when to emit the notification to open the context
+--- @field openAt string|nil
+--- optional time string on when to emit the notification to close the context
+--- @field closeAt string|nil
+--- days to skip the scheduled open/close
+--- @field exceptDays table<number,boolean>|nil
+--- list of application names or bundle IDs to interact with
+--- @field applications string[]
+
 --- @class Contexts : Spoon
-local obj = {}
+--- global logger instance
+--- @field protected logger LoggerInstance
+--- list of timers created to notify about openning and closing contexts at
+--- certain times
+--- @field protected timers TimerInstance[]
+--- list of choices available on the chooser
+--- @field protected choices table
+--- chooser placeholder text shown on the input box
+--- @field public chooserPlaceholderText string
+--- context details to use throughout the module
+--- @field public contexts table
+local obj = {
+  timers = {},
+  choices = {},
+  chooserPlaceholderText = "Which context you want to close?",
+  contexts = {
+    --- @type ContextEntry
+    work = {
+      title = "Work",
+      openAt = "09:00",
+      closeAt = "17:00",
+      --- @type table<number,boolean>
+      exceptDays = {
+        [1] = true,
+        [7] = true
+      },
+      applications = {
+        "Firefox",
+        "Slack"
+      }
+    }
+  }
+}
 obj.__index = obj
 
 -- Metadata
@@ -13,29 +63,12 @@ obj.version = "1.0"
 obj.author = "William Artero"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
+--- @type HotkeyMapping
 obj.defaultHotkeys = {
   chooser = {{"ctrl", "option", "cmd"}, "c"}
 }
 
---- global logger instance
 obj.logger = hs.logger.new(string.lower(obj.name))
-
---- chooser settings
-obj.chooser = {
-  placeholderText = "Which context you want to close?",
-  choices = {},
-}
-
---- list of apps per context
-obj.contexts = {
-  work = {
-    title = "Work",
-    applications = {
-      "Firefox",
-      "Slack"
-    }
-  }
-}
 
 --- wraps `fn` with a closure, which calls `fn` within a protected call using `pcall`, and logs the error using the `logger.e`
 --- @param logger LoggerInstance
@@ -50,8 +83,21 @@ local function protectedPartial(logger, fn, ...)
   end
 end
 
+--- callback that fires the context switch action if not on `exceptDays`
+--- @param context ContextEntry
+--- @param contextName string
+--- @param baseURL string
+--- @param action string
+local function doAtCallback(context, contextName, baseURL, action)
+  if context.exceptDays ~= nil and context.exceptDays[os.date("*t").wday] then
+    return
+  end
+
+  hs.urlevent.openURL(string.format("%s?name=%s&action=%s", baseURL, contextName, action))
+end
+
 --- actions available on application instances
---- @alias AppAction "'kill'" | nil
+--- @alias AppAction "'kill'" | "'open'" | nil
 
 --- gracefully kill all applications within context
 --- @param context string
@@ -108,8 +154,8 @@ function obj:contextChooser(action)
     self:doContext(action, choice.context)
   end
   local chooser = hs.chooser.new(completionFn)
-  chooser:placeholderText(self.chooser.placeholderText)
-  chooser:choices(self.chooser.choices)
+  chooser:placeholderText(self.chooserPlaceholderText)
+  chooser:choices(self.choices)
   chooser:show()
   return self
 end
@@ -122,19 +168,20 @@ function obj:handleURLEvent(eventName, params)
   -- check if the event is contexts
   assert(eventName == string.lower(self.name), string.format("unknown event %s", eventName))
   -- get the context name
-  local contextName = assert(params.name, "no context name provided")
+  local contextName = assert(params.name, "no context provided")
+  -- get the action name
+  local action = assert(params.action, "no action provided")
   -- get the interactive flag, or default to true
   local interactive = true
   if params.interactive ~= nil and params.interactive == "false" then
     interactive = false
   end
 
-  local information = string.format("Close all %s-related applications?", contextName)
-
   if interactive then
     -- create the notification
+    local information = string.format("%s all %s-related applications?", action, contextName)
     hs.notify.new(
-      function() self:killContext(contextName) end,
+      function() self:doContext(action, contextName) end,
       {
         title = self.name,
         subTitle = contextName,
@@ -145,7 +192,7 @@ function obj:handleURLEvent(eventName, params)
         otherButtonTitle = "Not yet"
       }):send()
   else
-    self:killContext(contextName)
+    self:doContext(action, contextName)
   end
 
   return self
@@ -165,19 +212,44 @@ end
 
 --- @return Contexts @the Contexts object
 function obj:start()
-  self.chooser.choices = {}
+  self.choices = {}
   for contextName, _ in pairs(self.contexts) do
     local text = self.contexts[contextName].title or contextName
-    table.insert(self.chooser.choices, {
+    table.insert(self.choices, {
       text = text,
       context = contextName,
     })
   end
 
-  hs.urlevent.bind(string.lower(self.name), function(...)
+  local eventName = string.lower(self.name)
+  local baseURL = "hammerspoon://"..eventName
+
+  hs.urlevent.bind(eventName, function(...)
     local status, err = pcall(self.handleURLEvent, self, ...)
     if not status then self.logger.e(err) end
   end)
+
+  --- @param contextName string
+  --- @param context ContextEntry
+  for contextName, context in pairs(self.contexts) do
+    if context.openAt ~= nil then
+      table.insert(self.timers, hs.timer.doAt(
+        context.openAt,
+        "1d",
+        hs.fnutils.partial(doAtCallback, context, contextName, baseURL, "open"),
+        true
+      ))
+    end
+
+    if context.closeAt ~= nil then
+      table.insert(self.timers, hs.timer.doAt(
+        context.closeAt,
+        "1d",
+        hs.fnutils.partial(doAtCallback, context, contextName, baseURL, "kill"),
+        true
+      ))
+    end
+  end
 
   return self
 end
@@ -185,6 +257,13 @@ end
 --- @return Contexts @the Contexts object
 function obj:stop()
   hs.urlevent.bind(string.lower(self.name), nil)
+
+  while #self.timers > 0 do
+    table.remove(self.timers, #self.timers):stop()
+  end
+
+  self.choices = {}
+
   return self
 end
 
