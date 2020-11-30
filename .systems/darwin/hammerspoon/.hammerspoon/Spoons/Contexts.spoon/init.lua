@@ -73,10 +73,17 @@ function obj:doContext(action, contextName)
   local context = assert(self.contexts[contextName], string.format("context %s does not exist", contextName))
   local appNames = assert(context.applications, string.format("context %s has no applications set", contextName))
 
-  for _, appName in ipairs(appNames) do
-    local app = hs.application(appName)
-    if app ~= nil and type(app[action]) == "function" then
-      app[action]()
+  -- TODO refactor action handling
+  if action == "open" then
+    for _, appName in ipairs(appNames) do
+      hs.application.open(appName)
+    end
+  else
+    for _, appName in ipairs(appNames) do
+      local app = hs.application(appName)
+      if app ~= nil and app[action] and type(app[action]) == "function" then
+        app[action](app)
+      end
     end
   end
 
