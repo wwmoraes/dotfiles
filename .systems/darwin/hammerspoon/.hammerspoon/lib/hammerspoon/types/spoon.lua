@@ -1,14 +1,15 @@
 -- Spoon definitions
 
 --- @class SpoonMetadata
---- @field public name string the name of the Spoon
---- @field public version string the version of the Spoon
---- @field public author string the Spoon's author name and email
---- @field public license string the license of the spoon
---- @field public homepage string|nil the homepage of the spoon
+--- @field public name string @Spoon's name
+--- @field public version string @Spoon's version
+--- @field public author string @Spoon's author name and email
+--- @field public license string @Spoon's license
+--- @field public homepage string|nil @Spoon's homepage
+--- @field public defaultHotkeys table<string,HotkeyMapping> @Spoon's default hotkey mapping
 
 --- @class Spoon : SpoonMetadata
-local Spoon = {}
+local Spoon
 
 --- executes any initial work needed by the Spoon
 --- @return Spoon @the spoon object

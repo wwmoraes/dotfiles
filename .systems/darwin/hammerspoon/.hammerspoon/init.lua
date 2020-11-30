@@ -25,7 +25,4 @@ hs.spoons.use("Meetings", {
 --- @type Meetings
 spoon.Meetings = spoon.Meetings
 
--- local Slack = require("Slack")
--- local slackInstance = Slack.new(os.getenv("SLACK_TOKEN"))
-
 end)

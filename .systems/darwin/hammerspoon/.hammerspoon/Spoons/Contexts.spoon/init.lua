@@ -33,6 +33,7 @@
 --- @field public chooserPlaceholderText string
 --- context details to use throughout the module
 --- @field public contexts table
+--- Contexts Spoon object
 local obj = {
   timers = {},
   choices = {},

@@ -22,6 +22,7 @@
 --- the time of the day to run the scheduler and create the timers for all
 --- meetings (format: "HH:MM")
 --- @field public dailyScheduleTime string
+--- Meetings Spoon object
 local obj = {
   timers = {},
   calendarURL = nil,
