@@ -16,8 +16,10 @@ spoon.Contexts = spoon.Contexts
 
 hs.spoons.use("Meetings", {
   config = {
-    calendarURL = os.getenv("MEETINGS_CALENDAR_URL")
+    calendarURL = os.getenv("MEETINGS_CALENDAR_URL"),
+    browserBundleID = "org.mozilla.firefox",
   },
+  hotkeys = "default",
   start = true,
 })
 --- @type Meetings
@@ -26,10 +28,4 @@ spoon.Meetings = spoon.Meetings
 -- local Slack = require("Slack")
 -- local slackInstance = Slack.new(os.getenv("SLACK_TOKEN"))
 
-hs.timer.doAt("00:00", "1d", function()
-  hs.urlevent.openURL("hammerspoon://meetings?action=schedule")
-end)
-
-hs.hotkey.bind({"ctrl", "option", "cmd"}, "m", function()
-  hs.urlevent.openURL("hammerspoon://meetings?action=schedule")
 end)
