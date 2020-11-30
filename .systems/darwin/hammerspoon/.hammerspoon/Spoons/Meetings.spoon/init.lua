@@ -46,8 +46,7 @@ obj.defaultHotkeys = {
 --- global logger instance
 obj.logger = hs.logger.new(string.lower(obj.name))
 
-local ical = require("lib.ical")
-
+local ical = dofile(hs.spoons.resourcePath("ical.lua"))
 
 ---@param date table
 ---@return table
