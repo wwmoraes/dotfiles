@@ -14,6 +14,6 @@ function dotenv -a filePath -d '"Sources" (set universal and exports) variables 
     echo Setting (set_color brcyan)$key(set_color normal)
 
     set -e $key
-    set -U $key $value
+    set -Ux $key $value
   end
 end
