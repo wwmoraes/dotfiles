@@ -46,8 +46,24 @@ obj.defaultHotkeys = {
 --- global logger instance
 obj.logger = hs.logger.new(string.lower(obj.name))
 
-local utils = require("lib.utils")
 local ical = require("lib.ical")
+
+
+---@param date table
+---@return table
+local function endOfDay(date)
+  return {
+    year = date.year,
+    month = date.month,
+    day = date.day,
+    hour = 23,
+    min = 59,
+    sec = 59,
+    wday = date.wday,
+    yday = date.yday,
+    isdst = date.isdst,
+  }
+end
 
 --- stop current timers, and remove them
 --- @return Meetings @the Meetings object
@@ -78,7 +94,7 @@ function obj:schedule()
         end
         local now = os.date("*t")
         local startTime = os.time(now)
-        local endTime = os.time(utils.endOfDay(now))
+        local endTime = os.time(endOfDay(now))
         local timeRange = ical.span(startTime, endTime)
         local events = ical.events(cal)
         for _,v in ipairs(events) do
