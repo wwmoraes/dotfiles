@@ -37,7 +37,7 @@
 local obj = {
   timers = {},
   choices = {},
-  chooserPlaceholderText = "Which context you want to close?",
+  chooserPlaceholderText = "Which context you want to %s?",
   contexts = {
     --- @type ContextEntry
     work = {
@@ -136,7 +136,7 @@ function obj:doContext(action, contextName)
     end
   end
 
-  hs.alert.show("The applications were closed. Enjoy!")
+  hs.alert.show(string.format("%s executed for %s applications", action, contextName))
   return self
 end
 
@@ -157,7 +157,7 @@ function obj:contextChooser(action)
     self:doContext(action, choice.context)
   end
   local chooser = hs.chooser.new(completionFn)
-  chooser:placeholderText(self.chooserPlaceholderText)
+  chooser:placeholderText(string.format(self.chooserPlaceholderText, action))
   chooser:choices(self.choices)
   chooser:show()
   return self
