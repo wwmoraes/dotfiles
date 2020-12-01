@@ -24,5 +24,3 @@ hs.spoons.use("Meetings", {
 })
 --- @type Meetings
 spoon.Meetings = spoon.Meetings
-
-end)
