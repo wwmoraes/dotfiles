@@ -5,10 +5,7 @@
   "terminal.integrated.automationShell.osx": "/usr/local/bin/fish",
   "editor.tabSize": 2,
   "editor.minimap.enabled": false,
-  "editor.rulers": [
-    80,
-    100
-  ],
+  "editor.rulers": [80, 100],
   "window.zoomLevel": 0,
   "terminal.integrated.rendererType": "dom",
   "editor.wordWrap": "on",
@@ -18,7 +15,7 @@
   "bookmarks.saveBookmarksInProject": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports": false,
+    "source.organizeImports": false
   },
   "gitlens.hovers.currentLine.over": "line",
   "workbench.editor.enablePreview": false,
@@ -56,16 +53,19 @@
     "node_modules",
     "vendor",
     ".terraform",
-    "tmp",
+    "tmp"
   ],
   "todo-tree.filtering.excludeGlobs": [
     "**/vendor/**/*.*",
     "**/node_modules/**/*.*",
     "**/.terraform/**/*.*",
-    "**/tmp/**/*.*"
+    "**/tmp/**/*.*",
+    "**/__*snapshots__/*.snap"
   ],
   "cSpell.language": "en,fullstack",
-  "cSpell.languageSettings": [{ "languageId": "*", "dictionaries": ["Fullstack"]}],
+  "cSpell.languageSettings": [
+    { "languageId": "*", "dictionaries": ["Fullstack"] }
+  ],
   "cSpell.userWords": [
     "CLOUDSQL",
     "ESNEXT",
@@ -173,4 +173,8 @@
   "githubPullRequests.defaultMergeMethod": "rebase",
   "javascript.format.semicolons": "insert",
   "typescript.format.semicolons": "insert",
+  "python.languageServer": "Microsoft",
+  "go.useLanguageServer": true,
+  "editor.formatOnSave": true,
+  "github-actions.org-features": false
 }
