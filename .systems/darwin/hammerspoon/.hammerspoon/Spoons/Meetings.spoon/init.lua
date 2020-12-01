@@ -44,7 +44,7 @@ obj.defaultHotkeys = {
 }
 
 --- global logger instance
-obj.logger = hs.logger.new(string.lower(obj.name))
+obj.logger = hs.logger.new(string.lower(obj.name), "info")
 
 local ical = dofile(hs.spoons.resourcePath("ical.lua"))
 
@@ -105,7 +105,7 @@ function obj:schedule()
               table.insert(self.timers, hs.timer.doAt(openTime, 0, function()
                 hs.urlevent.openURLWithBundle(meetURL, self.browserBundleID)
               end, true))
-              self.logger.d(string.format("scheduled %s %s (opens on %s)", v.SUMMARY, time, openTime))
+              self.logger.i(string.format("scheduled %s %s (opens on %s)", v.SUMMARY, time, openTime))
             end
           end
         end
@@ -157,9 +157,11 @@ function obj:start()
     if not status then self.logger.e(err) end
   end)
 
-  hs.timer.doAt(self.dailyScheduleTime, "1d", function()
+  table.insert(self.timers, hs.timer.doAt(self.dailyScheduleTime, "1d", function()
     hs.urlevent.openURL(baseURL .. "?action=schedule")
-  end)
+  end))
+
+  self:schedule()
 
   return self
 end
@@ -168,9 +170,7 @@ end
 function obj:stop()
   hs.urlevent.bind(string.lower(self.name), nil)
 
-  while #self.timers > 0 do
-    table.remove(self.timers, #self.timers):stop()
-  end
+  self:cleanup()
 
   return self
 end
