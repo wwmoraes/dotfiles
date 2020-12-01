@@ -66,7 +66,9 @@ obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 --- @type HotkeyMapping
 obj.defaultHotkeys = {
-  chooser = {{"ctrl", "option", "cmd"}, "c"}
+  killChooser = {{"ctrl", "option", "cmd"}, "k"},
+  hideChooser = {{"ctrl", "option", "cmd"}, "h"},
+  openChooser = {{"ctrl", "option", "cmd"}, "o"},
 }
 
 obj.logger = hs.logger.new(string.lower(obj.name))
@@ -98,7 +100,7 @@ local function doAtCallback(context, contextName, baseURL, action)
 end
 
 --- actions available on application instances
---- @alias AppAction "'kill'" | "'open'" | nil
+--- @alias AppAction "'kill'" | "'open'" | "'hide'" | nil
 
 --- gracefully kill all applications within context
 --- @param context string
@@ -203,8 +205,14 @@ end
 --- @return Contexts @the Contexts object
 function obj:bindHotkeys(mapping)
   local def = {
-    chooser = protectedPartial(
+    killChooser = protectedPartial(
       self.logger, self.contextChooser, self, "kill"
+    ),
+    hideChooser = protectedPartial(
+      self.logger, self.contextChooser, self, "hide"
+    ),
+    openChooser = protectedPartial(
+      self.logger, self.contextChooser, self, "open"
     ),
   }
   hs.spoons.bindHotkeysToSpec(def, mapping)
