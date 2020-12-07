@@ -15,6 +15,7 @@ fish/.config/fish/functions/fisher.fish
 fish/.config/fish/conf.d/nvm.fish
 fish/.config/fish/completions/nvm.fish
 fish/.config/fish/functions/nvm.fish
+fish/.config/fish/functions/_nvm_*.fish
 # edc/bass
 fish/.config/fish/functions/__bass.py
 fish/.config/fish/functions/bass.fish
@@ -23,6 +24,7 @@ fish/.config/fish/completions/kubectl.fish
 # otms61/fish-pet
 fish/.config/fish/functions/prev.fish
 fish/.config/fish/functions/pet-select.fish
+
 
 # VSCode
 vscode/.config/Code
