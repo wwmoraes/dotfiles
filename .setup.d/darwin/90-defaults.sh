@@ -11,6 +11,9 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until the parent has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+# disable system policy (i.e. allow apps from anywhere)
+sudo spctl --master-enable
+
 ###############################################################################
 ### UI/UX
 ###############################################################################
