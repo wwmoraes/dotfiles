@@ -17,6 +17,7 @@ spoon.Contexts = spoon.Contexts
 hs.spoons.use("Meetings", {
   config = {
     calendarURL = os.getenv("MEETINGS_CALENDAR_URL"),
+    dailyScheduleTime = "09:00",
     browserBundleID = "org.mozilla.firefox",
   },
   hotkeys = "default",
