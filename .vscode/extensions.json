@@ -18,6 +18,6 @@
     "googlecloudtools.cloudcode",
     "ms-kubernetes-tools.vscode-kubernetes-tools",
     "msjsdiag.vscode-react-native",
-    "ms-kubernetes-tools.vscode-kubernetes-tools"
+    "ms-vscode-remote.remote-containers",
   ]
 }
