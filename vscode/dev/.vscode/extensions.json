@@ -17,18 +17,13 @@
     "codezombiech.gitignore",
     "vilicvane.sensitive-replace",
     "ymotongpoo.licenser",
-    "aaron-bond.better-comments",
     "davraamides.todotxt-mode",
-    "wallabyjs.quokka-vscode",
     "mohsen1.prettify-json",
-    "esbenp.prettier-vscode",
-    "bungcip.better-toml",
     "redhat.vscode-yaml",
     "thomascsd.vscode-readme-pattern",
     "emilast.logfilehighlighter",
     "davidanson.vscode-markdownlint",
     "tomashubelbauer.vscode-markdown-table-format",
-    "bierner.emojisense",
     "vsls-contrib.gistfs",
     "bierner.markdown-checkbox",
     "bierner.markdown-preview-github-styles",
@@ -36,12 +31,8 @@
     "cschleiden.vscode-github-actions",
     "mrmlnc.vscode-duplicate",
     "fooxly.workspace",
-    "hbenl.vscode-test-explorer"
-    // "rust-lang.rust",
-    // "golang.go",
-    // "zxh404.vscode-proto3",
-    // "formulahendry.code-runner",
-    // "vadimcn.vscode-lldb",
+    "hbenl.vscode-test-explorer",
+    "selcuk-usta.code-complexity-report-generator",
   ],
   "unwantedRecommendations": [
     "vscode.csharp",
@@ -54,6 +45,10 @@
     "mauve.terraform",
     "bierner.markdown-yaml-preamble",
     "bierner.github-markdown-preview",
+    "austin.code-gnu-global",
+    "rebornix.ruby",
+    "ms-vscode.cpptools-extension-pack",
+    "esbenp.prettier-vscode",
     // Microsoft's global recommendations, FML
     "ms-vscode-remote.remote-containers",
     "hookyqr.beautify",
@@ -63,6 +58,6 @@
     "googlecloudtools.cloudcode",
     "msjsdiag.vscode-react-native",
     "ms-kubernetes-tools.vscode-kubernetes-tools",
-    "mindaro.mindaro"
-  ]
+    "mindaro.mindaro",
+  ],
 }

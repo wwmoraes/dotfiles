@@ -5,7 +5,7 @@ function fconnect -d "fuzzy connect to a host"
     sort | \
     uniq | \
     grep -v -e "*" -e github.com -e bitbucket.com | \
-    fzf -1 --header="HOST" --prompt="Which host you want to connect to? "); or return 2
+    fzf --print-query --header="HOST" --prompt="Which host you want to connect to? " | tail -n1); or return 2
 
     set options "mosh/tmux" "ssh/tmux" mosh ssh
 

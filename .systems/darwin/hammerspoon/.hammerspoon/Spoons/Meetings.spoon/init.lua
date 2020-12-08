@@ -158,7 +158,7 @@ function obj:start()
   end)
 
   table.insert(self.timers, hs.timer.doAt(self.dailyScheduleTime, "1d", function()
-    hs.urlevent.openURL(baseURL .. "?action=schedule")
+    self:schedule()
   end))
 
   self:schedule()
