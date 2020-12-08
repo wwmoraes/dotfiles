@@ -21,7 +21,6 @@
     "davraamides.todotxt-mode",
     "wallabyjs.quokka-vscode",
     "mohsen1.prettify-json",
-    "esbenp.prettier-vscode",
     "bungcip.better-toml",
     "redhat.vscode-yaml",
     "thomascsd.vscode-readme-pattern",
@@ -54,6 +53,7 @@
     "mauve.terraform",
     "bierner.markdown-yaml-preamble",
     "bierner.github-markdown-preview",
+    "esbenp.prettier-vscode",
     // Microsoft's global recommendations, FML
     "ms-vscode-remote.remote-containers",
     "hookyqr.beautify",

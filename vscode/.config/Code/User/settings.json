@@ -161,13 +161,8 @@
   "files.trimFinalNewlines": true,
   "editor.renderFinalNewline": false,
   "todo-tree.tree.showScanModeButton": false,
-  "prettier.tabWidth": 2,
   "git.autoStash": true,
   "npm.packageManager": "yarn",
-  "prettier.packageManager": "yarn",
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "workbench.sideBar.location": "left",
   "licenser.license": "MIT",
   "githubPullRequests.defaultMergeMethod": "rebase",
