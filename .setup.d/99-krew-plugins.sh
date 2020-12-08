@@ -24,9 +24,11 @@ echo "Checking krew plugin manager..."
 kubectl plugin list 2> /dev/null | grep kubectl-krew > /dev/null
 if [ $? -ne 0 ]; then
   pushd "$(mktemp -d)" > /dev/null
-  curl -fsSLO "https://storage.googleapis.com/krew/v0.2.1/krew.{tar.gz,yaml}"
+  curl -fsSLO https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.tar.gz
+  curl -fsSLO https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.yaml
   tar xzf krew.tar.gz
-  ./krew-"${SYSTEM}_amd64" install \
+  KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/arm.*$/arm/')"
+  $KREW install \
     --manifest=krew.yaml --archive=krew.tar.gz
   popd > /dev/null
 
