@@ -69,13 +69,13 @@ define isInstalled
 endef
 
 .PHONY: install
-install: check
+install: check cleanup
 	$(foreach dir,${DIRECTORIES},$(call stow,${dir}))
 	$(foreach dir,${OS_DIRECTORIES},$(call osstow,${dir}))
 	$(foreach dir,${HOST_DIRECTORIES},$(call hostnamestow,${dir}))
 
 .PHONY: remove
-remove: check
+remove:
 	$(foreach dir,${DIRECTORIES},$(call unstow,${dir}))
 	$(foreach dir,${OS_DIRECTORIES},$(call osunstow,${dir}))
 	$(foreach dir,${HOST_DIRECTORIES},$(call hostnameunstow,${dir}))
@@ -85,5 +85,9 @@ check:
 	$(foreach tool,$(TOOLS),$(call isInstalled,$(tool)))
 
 .PHONY: setup
-setup:
+setup: cleanup
 	@bash setup.sh
+
+.PHONY: cleanup
+cleanup:
+	@find . -name .DS_Store -type f -delete
