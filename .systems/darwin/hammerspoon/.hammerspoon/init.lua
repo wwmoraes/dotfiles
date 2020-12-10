@@ -10,6 +10,20 @@ hs.spoons.use("ReloadConfiguration", {
   start = true,
 })
 
+hs.spoons.use("Env", {
+  config = {
+    --- @type table<string,ContextName>
+    contexts = {
+      ["M1Cabuk"] = "personal",
+      ["arch-cabuk"] = "personal",
+      ["Williams-MacBook-Pro"] = "work",
+    },
+  },
+  start = true,
+})
+--- @type Env
+spoon.Env = spoon.Env
+
 hs.spoons.use("Contexts", { hotkeys = "default", start = true })
 --- @type Contexts
 spoon.Contexts = spoon.Contexts
