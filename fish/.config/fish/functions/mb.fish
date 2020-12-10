@@ -30,19 +30,31 @@ complete -xc mb -n '__fish_seen_subcommand_from gpg-trust'
 # gpg-decrypt subcommand
 complete -ec _mb_gpg-decrypt
 function _mb_gpg-decrypt
-  # use the current directory per default
-  test (count $argv) = 0; and set -l argv (pwd)
+  argparse --name=decrypt 'k/keep' -- $argv
+  or return
 
-  echo "searching and decrypting files..."
-  find . -type f -name '*.gpg' | while read -l filePath
+  test (count $argv) -gt 0; or set argv (fd --hidden -E .git | fzf -m --prompt="select files to decrypt")
+  test (count $argv) -gt 0; or return 2
+
+  for filePath in $argv
     printf "%-"(tput cols)"s\r" "[decrypting] "(set_color cyan)$filePath(set_color normal)
+
+    set encryptionID (gpg --pinentry-mode cancel --status-fd 1 -n --list-packets secret-values.yaml.gpg 2> /dev/null | grep ENC_TO | cut -d' ' -f3)
+    gpg -K $encryptionID > /dev/null ^&1
+    test $status -eq 0; or begin
+      printf "%-"(tput cols)"s\n" "[error] "(set_color cyan)$filePath(set_color normal)" (no key found)"
+      continue
+    end
+
     echo "$filePath" | gpg --batch --quiet --yes --decrypt-files
     or printf "%-"(tput cols)"s\n" "[error] "(set_color cyan)$filePath(set_color normal) && continue
-    printf "%-"(tput cols)"s\n" "[decrypted] "(set_color cyan)$filePath(set_color normal)
+    printf "%-"(tput cols)"s\r" "[decrypted] "(set_color cyan)$filePath(set_color normal)
 
-    printf "%-"(tput cols)"s\r" "[removing] "(set_color cyan)$filePath(set_color normal)
-    rm "$filePath"
-    printf "%-"(tput cols)"s\n" "[removed] "(set_color cyan)$filePath(set_color normal)
+    string length -q -- $_flag_keep; or begin
+      printf "%-"(tput cols)"s\r" "[removing] "(set_color cyan)$filePath(set_color normal)
+      rm "$filePath"
+    end
+    printf "%-"(tput cols)"s\n" "[done] "(set_color cyan)$filePath(set_color normal)
   end
 end
 complete -xc mb -n __fish_use_subcommand -a gpg-decrypt -d "recursively decrypts all gpg files on given (or current) directory"
@@ -54,7 +66,17 @@ function _mb_gpg-encrypt
   argparse --name=encrypt 'k/keep' -- $argv
   or return
 
-  set -q GPG_RECIPIENT; or echo "Error: set GPG_RECIPIENT environment variable with the GPG recipient to use" && return 1
+  set -q GPG_RECIPIENT; or begin
+    echo "Error: set GPG_RECIPIENT environment variable with the GPG recipient to use"
+    return 1
+  end
+
+  gpg -k $GPG_RECIPIENT > /dev/null ^&1
+  test $status -eq 0; or begin
+    echo "Error: no public key found for recipient $GPG_RECIPIENT"
+    return 1
+  end
+
   test (count $argv) -gt 0; or set argv (fd --hidden -E .git | fzf -m --prompt="select files to encrypt")
   test (count $argv) -gt 0; or return
 
@@ -69,8 +91,10 @@ function _mb_gpg-encrypt
   printf "%-"(tput cols)"s\r" "[encrypting] "(set_color cyan)$filePath(set_color normal)
   gpg --batch --encrypt-files --yes -r $GPG_RECIPIENT "$filePath"
 
-  printf "%-"(tput cols)"s\r" "[removing] "(set_color cyan)$filePath(set_color normal)
-  string length -q -- $_flag_keep; or rm $filePath
+  string length -q -- $_flag_keep; or begin
+    printf "%-"(tput cols)"s\r" "[removing] "(set_color cyan)$filePath(set_color normal)
+    rm "$filePath"
+  end
   printf "%-"(tput cols)"s\n" "[done] "(set_color cyan)$filePath".gpg"(set_color normal)
   end
 end
