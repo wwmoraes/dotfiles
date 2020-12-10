@@ -138,6 +138,11 @@ end
 --- @param mapping HotkeyMapping table of strings that describe bindable actions of the spoon, with hotkey spec values
 --- @return Meetings @the Meetings object
 function obj:bindHotkeys(mapping)
+  if self.calendarURL == "" then
+    self.logger.i("calendar URL is empty, skipping meetings hotkey bindings")
+    return self
+  end
+
   local def = {
     schedule = hs.fnutils.partial(
       hs.urlevent.openURL, "hammerspoon://meetings?action=schedule"
@@ -149,6 +154,11 @@ end
 
 --- @return Meetings @the Meetings object
 function obj:start()
+  if self.calendarURL == "" then
+    self.logger.i("calendar URL is empty, skipping meetings setup")
+    return self
+  end
+
   local eventName = string.lower(self.name)
   local baseURL = "hammerspoon://"..eventName
 
