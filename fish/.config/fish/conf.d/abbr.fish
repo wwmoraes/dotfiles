@@ -51,7 +51,8 @@ if type -q kubectl
   abbr -a -U kosvc "kubectl get services | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs kubectl open-svc"
   abbr -a -U kgextsvc "kubectl get services | awk '\$5 !~ /<none>/ {\$7=\"\";print}' | column -t"
   abbr -a -U kgaextsvc "kubectl get services -A | awk '\$5 !~ /<none>/ {\$7=\"\";print}' | column -t"
-  abbr -a -U kgpl "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get pod {} -o  go-template='{{range \$label, \$value := .metadata.labels}}{{\$label}}: {{\$value}}{{\"\\n\"}}{{end}}'"
+  abbr -a -U kgpol "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get pod {} -o  go-template='{{range \$name, \$value := .metadata.labels}}{{\$name}}: {{\$value}}{{\"\\n\"}}{{end}}'"
+  abbr -a -U kgpoa "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get pod {} -o  go-template='{{range \$name, \$value := .metadata.annotations}}{{\$name}}: {{\$value}}{{\"\\n\"}}{{end}}'"
 
   # base kubectl (fuzzy)
   abbr -a -U klpof "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl logs {}"
