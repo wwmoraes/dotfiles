@@ -27,21 +27,6 @@ if [ $? -ne 0 ]; then
   chmod +x ~/bin/kubectl
 fi
 
-printf "Checking \e[96mkubebox\e[0m...\n"
-type -p kubebox &> /dev/null
-if [ $? -ne 0 ]; then
-  case "${SYSTEM}" in
-    "linux")
-      curl -Lo ~/bin/kubebox https://github.com/astefanutti/kubebox/releases/download/v0.6.0/kubebox-linux;;
-    "darwin")
-      curl -Lo kubebox https://github.com/astefanutti/kubebox/releases/download/v0.6.0/kubebox-macos;;
-    ""|*)
-      echo "Sorry, platform unsupported by kubebox";;
-  esac
-
-  [ -f ~/bin/kubebox ] && chmod +x ~/bin/kubebox
-fi
-
 printf "Checking \e[96mkubeval\e[0m...\n"
 type -p kubeval &> /dev/null
 if [ $? -ne 0 ]; then
