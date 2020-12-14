@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -Eeuo pipefail
+
 eval $(/usr/libexec/path_helper -s)
 
 processDotenvFile() {
@@ -16,6 +18,8 @@ processDotenvFile() {
     launchctl setenv $name "$value"
   done <"$1"
 }
+
+HOST=$(hostname -s)
 
 [[ -f "$HOME/.env" ]] && processDotenvFile "$HOME/.env"
 [[ -f "$HOME/.env_secrets" ]] && processDotenvFile "$HOME/.env_secrets"
