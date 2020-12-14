@@ -23,8 +23,8 @@ printf "\e[1;34mKubernetes CLI & powerups\e[0m\n"
 printf "Checking \e[96mkubectl\e[0m...\n"
 type -p kubectl &> /dev/null
 if [ $? -ne 0 ]; then
-  curl -Lo ~/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-  chmod +x ~/bin/kubectl
+  curl -Lo ~/.local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+  chmod +x ~/.local/bin/kubectl
 fi
 
 printf "Checking \e[96mkubeval\e[0m...\n"
