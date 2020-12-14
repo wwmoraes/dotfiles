@@ -1,1 +1,4 @@
-hammerspoon
+hammerspoon:/Applications/Hammerspoon.app/Contents/MacOS/Hammerspoon
+dozer:/Applications/Dozer.app/Contents/MacOS/Dozer
+finicky:/Applications/Finicky.app/Contents/MacOS/Finicky
+responsively:/Applications/ResponsivelyApp.app/Contents/MacOS/ResponsivelyApp
