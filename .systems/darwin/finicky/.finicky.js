@@ -2,6 +2,11 @@ module.exports = {
   defaultBrowser: "Browserosaurus",
   handlers: [
     {
+      match: ({ sourceBundleIdentifier }) =>
+        ["com.tinyspeck.slackmacgap", "notion.id"].includes(sourceBundleIdentifier),
+      browser: "Firefox"
+    },
+    {
       match: [
         "*.messagebird.io*",
         "*.messagebird.com*",
