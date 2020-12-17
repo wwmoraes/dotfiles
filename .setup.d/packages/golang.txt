@@ -1,2 +1,3 @@
 github.com/jesseduffield/lazygit
 gopkg.in/mikefarah/yq.v2
+github.com/google/wire/cmd/wire
