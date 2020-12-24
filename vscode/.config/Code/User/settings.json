@@ -168,7 +168,7 @@
   "githubPullRequests.defaultMergeMethod": "rebase",
   "javascript.format.semicolons": "insert",
   "typescript.format.semicolons": "insert",
-  "python.languageServer": "Microsoft",
+  "python.languageServer": "Pylance",
   "go.useLanguageServer": true,
   "editor.formatOnSave": true,
   "github-actions.org-features": false,
