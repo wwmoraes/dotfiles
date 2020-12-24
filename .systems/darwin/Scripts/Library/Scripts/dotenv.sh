@@ -15,7 +15,7 @@ processDotenvFile() {
 
     IFS="=" read -r name value <<<"$line"
 
-    launchctl setenv $name "$value"
+    launchctl setenv $name $value
   done <"$1"
 }
 
