@@ -22,3 +22,4 @@ lnav
 shellcheck
 fswatch
 hadolint
+golangci-lint
