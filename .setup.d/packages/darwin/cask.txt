@@ -3,3 +3,4 @@ dozer:/Applications/Dozer.app/Contents/MacOS/Dozer
 finicky:/Applications/Finicky.app/Contents/MacOS/Finicky
 responsively:/Applications/ResponsivelyApp.app/Contents/MacOS/ResponsivelyApp
 browserosaurus:/Applications/Browserosaurus.app/Contents/MacOS/Browserosaurus
+keybase:/Applications/Keybase.app/Contents/MacOS/Keybase
