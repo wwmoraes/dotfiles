@@ -25,3 +25,4 @@ hadolint
 golangci-lint
 graphviz
 node
+tldr
