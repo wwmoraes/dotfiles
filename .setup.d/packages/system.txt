@@ -26,3 +26,4 @@ golangci-lint
 graphviz:dot
 node
 tldr
+pulumi
