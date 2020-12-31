@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+
 printf "\e[1;34mTmux extensions\e[0m\n"
 
 printf "Checking \e[96mtpm\e[0m...\n"

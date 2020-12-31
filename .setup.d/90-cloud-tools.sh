@@ -1,10 +1,14 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+
 printf "\e[1;34mGCP tools\e[0m\n"
 
 printf "Checking \e[96mgcloud\e[0m...\n"
-type -p gcloud &> /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(type -p gcloud &> /dev/null); then
   printf "Downloading and installing \e[96mGoogle SDK\e[0m...\n"
   curl https://sdk.cloud.google.com | bash -- --disable-prompts --install-dir=$HOME/.local/
 
@@ -21,15 +25,13 @@ fi
 printf "\e[1;34mKubernetes CLI & powerups\e[0m\n"
 
 printf "Checking \e[96mkubectl\e[0m...\n"
-type -p kubectl &> /dev/null
-if [ $? -ne 0 ]; then
   curl -Lo ~/.local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+if ! _=$(type -p kubectl &> /dev/null); then
   chmod +x ~/.local/bin/kubectl
 fi
 
 printf "Checking \e[96mkubeval\e[0m...\n"
-type -p kubeval &> /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(type -p kubeval &> /dev/null); then
   VERSION=$(curl -fsSL https://api.github.com/repos/instrumenta/kubeval/tags | jq -r '.[0].name')
 
   if [ "${ARCH}" != "" ]; then
@@ -44,8 +46,7 @@ if [ $? -ne 0 ]; then
 fi
 
 printf "Checking \e[96mhelm\e[0m...\n"
-type -p helm &> /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(type -p helm &> /dev/null); then
   VERSION=$(curl -fsSL https://api.github.com/repos/helm/helm/tags | jq -r '.[0].name')
 
   TMP=$(mktemp -d)
@@ -56,8 +57,7 @@ if [ $? -ne 0 ]; then
 fi
 
 printf "Checking \e[96mkustomize\e[0m...\n"
-type -p kustomize &> /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(type -p kustomize &> /dev/null); then
 
   VERSION=$(curl -fsSL https://api.github.com/repos/kubernetes-sigs/kustomize/tags | jq -r '.[0].name')
 
@@ -76,8 +76,7 @@ if [ $? -ne 0 ]; then
 fi
 
 printf "Checking \e[96mkapp\e[0m...\n"
-type -p kapp &> /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(type -p kapp &> /dev/null); then
 
   VERSION=$(curl -fsSL https://api.github.com/repos/k14s/kapp/tags | jq -r '.[0].name')
 
@@ -86,8 +85,7 @@ if [ $? -ne 0 ]; then
 fi
 
 printf "Checking \e[96mlab\e[0m...\n"
-type -p lab &> /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(type -p lab &> /dev/null); then
 
   VERSION=$(curl -fsSL https://api.github.com/repos/zaquestion/lab/tags | jq -r '.[0].name')
 
@@ -100,8 +98,7 @@ if [ $? -ne 0 ]; then
 fi
 
 printf "Checking \e[96mopa\e[0m...\n"
-type -p opa &> /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(type -p opa &> /dev/null); then
 
   curl -fsSLo ~/.local/bin/opa https://openpolicyagent.org/downloads/latest/opa_${SYSTEM}_${ARCH}
   chmod +x ~/.local/bin/opa

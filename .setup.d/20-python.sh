@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+
 ### setup
 PACKAGES_FILE_NAME=packages/pip.txt
 
@@ -21,8 +26,7 @@ printf "\e[1;33mPython pip packages\e[0m\n"
 
 ### Check package tool
 printf "Checking \e[96mpip\e[0m manager...\n"
-type -p pip3 &> /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(type -p pip3 &> /dev/null); then
   TMP=$(mktemp -t get-pip.py)
   curl https://bootstrap.pypa.io/get-pip.py -o $TMP 2> /dev/null
   sudo python3 $TMP
@@ -30,9 +34,9 @@ if [ $? -ne 0 ]; then
 fi
 
 ### Install packages
-for PACKAGE in ${PACKAGES[@]}; do
   printf "Checking \e[96m${PACKAGE}\e[0m...\n"
   pip3 show $PACKAGE &>/dev/null && continue
+for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
 
   printf "Installing \e[96m${PACKAGE}\e[0m...\n"
   sudo -H pip3 install $PACKAGE

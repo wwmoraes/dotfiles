@@ -1,9 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 
 # sane defaults on https://github.com/kevinSuttle/macOS-Defaults
+set -Eeuo pipefail
 
 # close system preferences to avoid it overriding any settings done here
 osascript -e 'tell application "System Preferences" to quit'
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+: "${DEFAULTS:=0}"
 
 # Ask for the administrator password upfront
 sudo -v

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+
 ### setup
 POLYFILLS_RELATIVE_PATH=../.polyfills
 
@@ -16,8 +21,8 @@ printf "\e[1;33mPolyfills\e[0m\n"
 
 for pf in $(ls $POLYFILLS_PATH); do
   printf "Checking \e[96m${pf}\e[0m...\n"
-   type -p $pf &> /dev/null
-   if [ $? -ne 0 ]; then
+   
+   if ! _=$(type -p $pf &> /dev/null); then
     printf "Polyfilling \e[96m${pf}\e[0m...\n"
     ln -sf "$POLYFILLS_PATH/$pf" "$HOME/.local/bin/$f"
    fi

@@ -1,10 +1,14 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+
 printf "\e[1;34mBase tools\e[0m\n"
 
 printf "Checking \e[96mpet\e[0m...\n"
-type -p pet > /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(type -p pet > /dev/null); then
   BASE_URL=https://github.com/knqyf263/pet
 
   VERSION="$(curl -sI ${BASE_URL}/releases/latest | sed -En 's/^Location: .*\/v([0-9.]+).*/\1/p')"
@@ -21,8 +25,7 @@ if [ $? -ne 0 ]; then
 fi
 
 printf "Checking \e[96mminikube\e[0m...\n"
-type -p minikube > /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(type -p minikube > /dev/null); then
   TMP=$(mktemp -d)
   pushd $TMP >& /dev/null
   printf "Downloading \e[96mminikube\e[0m...\n"

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+
 ### setup
 PACKAGES_FILE_NAME=packages/rust.txt
 
@@ -22,8 +27,7 @@ printf "\e[1;33mRust packages\e[0m\n"
 ### Check package tool
 echo "Checking rustup..."
 # Get manager
-type -p rustup &> /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(type -p rustup &> /dev/null); then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 fi
 
@@ -47,7 +51,7 @@ done
 echo "Checking for rust packages..."
 
 ### Install packages
-for PACKAGE in ${PACKAGES[@]}; do
+for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
   printf "Checking \e[96m${PACKAGE%%:*}\e[0m...\n"
   type -p ${PACKAGE##*:} &> /dev/null && type -p $HOME/.cargo/bin/${PACKAGE##*:} &> /dev/null && continue
 

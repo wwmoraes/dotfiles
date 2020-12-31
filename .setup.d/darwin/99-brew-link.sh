@@ -6,6 +6,11 @@
 ###   to your path (LOL). Democracy uh?
 ###
 
+set -Eeuo pipefail
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+
 printf "\e[1;33mHomebrew (correct) linking\e[0m\n"
 
 CHECKMARK=$(printf "\xE2\x9C\x94")
@@ -23,8 +28,7 @@ for package in $(ls /usr/local/opt/); do
 
   if [ -d /usr/local/opt/$package/bin ]; then
     for bin in $(ls /usr/local/opt/$package/bin); do
-      type -p $bin &> /dev/null
-      if [ $? -ne 0 ]; then
+      if ! _=$(type -p $bin &> /dev/null); then
         BINS+=("$bin")
         ln -sf /usr/local/opt/$package/bin/$bin ~/.local/opt/bin
       fi
@@ -33,8 +37,7 @@ for package in $(ls /usr/local/opt/); do
 
   if [ -d /usr/local/opt/$package/sbin ]; then
     for sbin in $(ls /usr/local/opt/$package/sbin); do
-      type -p $sbin &> /dev/null
-      if [ $? -ne 0 ]; then
+      if ! _=$(type -p $sbin &> /dev/null); then
         BINS+=("$sbin")
         ln -sf /usr/local/opt/$package/sbin/$sbin ~/.local/opt/sbin
       fi

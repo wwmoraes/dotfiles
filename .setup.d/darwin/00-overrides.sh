@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+
 ln -sf /usr/local/bin/python3 /usr/local/bin/python
 
 # link VSCode user folder

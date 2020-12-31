@@ -1,5 +1,7 @@
 #!/bin/bash --noprofile --norc
 
+set -Eeuo pipefail
+
 set +m # disable job control in order to allow lastpipe
 if [ $(shopt | grep lastpipe | wc -l) = 1 ]; then
   shopt -s lastpipe
@@ -88,17 +90,17 @@ printf "\e[1;34mMiscellaneous\e[0m\n"
 # creates the control path folder for SSH
 mkdir -p ~/.ssh/control
 # Update system font cache
-type -p fc-cache > /dev/null
-if [ $? -eq 0 ]; then
+if _=$(type -p fc-cache > /dev/null); then
   printf "Updating font cache...\n"
   fc-cache -f &
 fi
 ### Set fish paths
 printf "Setting fish universal variables...\n"
+set +e
 fish ./variables.fish $PATHS
+set -e
 
-type -p kquitapp5 > /dev/null
-if [ $? -eq 0 ]; then
+if _=$(type -p kquitapp5 &> /dev/null); then
   printf "Updating KDE globals...\n"
   kquitapp5 kglobalaccel && sleep 2s && kglobalaccel5 &
 fi

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+
 ### setup
 EXTENSIONS_FILE_NAME=.vscode/extensions.json
 
@@ -16,8 +21,7 @@ printf "\e[1;33mVSCode extensions\e[0m\n"
 
 ### Check vscode
 echo "Checking vscode..."
-VSCODE=$(command -v code-oss)
-[ "$VSCODE" = "" ] && $(command -v code)
+VSCODE=$(command -v code || command -v code-oss)
 if [ ! "$VSCODE" = "" ]; then
   ### Install packages
   echo "Checking extensions..."

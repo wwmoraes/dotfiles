@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+
 ### setup
 PACKAGES_FILE_NAME=packages/golang.txt
 
@@ -22,8 +27,7 @@ printf "\e[1;33mGolang packages\e[0m\n"
 ### Check package tool
 echo "Checking golang..."
 # Get manager
-type -p go &> /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(type -p go &> /dev/null); then
   GOINSTALL=
   case "${SYSTEM}" in
     "darwin")
@@ -40,14 +44,14 @@ if [ $? -ne 0 ]; then
   curl -fsSL https://raw.githubusercontent.com/wwmoraes/golang-tools-install-script/master/goinstall.sh | bash -s - $GOINSTALL
 fi
 
-[[ -z "$GOPATH" ]] && GOPATH=$HOME/go
+: "${GOPATH:=${HOME}/go}"
 
 echo "Checking for Go packages on $GOPATH..."
 
 ### Install packages
-for PACKAGE in ${PACKAGES[@]}; do
   printf "Checking go package \e[96m${PACKAGE}\e[0m...\n"
   test -d $GOPATH/src/$PACKAGE && continue
+for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
 
   printf "Installing go package \e[96m${PACKAGE}\e[0m...\n"
   go get ${PACKAGE}

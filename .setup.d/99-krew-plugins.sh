@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+
 ### setup
 PACKAGES_FILE_NAME=packages/krew.txt
 
@@ -21,8 +26,7 @@ printf "\e[1;33mKrew plugins\e[0m\n"
 
 ### Check package tool
 echo "Checking krew plugin manager..."
-kubectl plugin list 2> /dev/null | grep kubectl-krew > /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(kubectl plugin list 2> /dev/null | grep kubectl-krew > /dev/null); then
   pushd "$(mktemp -d)" > /dev/null
   curl -fsSLO https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.tar.gz
   curl -fsSLO https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.yaml
@@ -37,7 +41,7 @@ if [ $? -ne 0 ]; then
 fi
 
 ### Install packages
-for PACKAGE in ${PACKAGES[@]}; do
+for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
   printf "Checking \e[96m${PACKAGE}\e[0m...\n"
   kubectl krew list | grep $PACKAGE > /dev/null && continue
 

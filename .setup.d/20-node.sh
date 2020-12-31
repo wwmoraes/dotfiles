@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+
 ### setup
 PACKAGES_FILE_NAME=packages/node.txt
 
@@ -22,8 +27,7 @@ printf "\e[1;33mNode packages\e[0m\n"
 ### Check package tool
 echo "Checking npm..."
 # Get manager
-type -p npm &> /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(type -p npm &> /dev/null); then
   echo "npm not found - plase install node"
   exit 1
 fi
@@ -31,15 +35,14 @@ fi
 ### Check package tool
 echo "Checking yarn..."
 # Get manager
-type -p yarn &> /dev/null
-if [ $? -ne 0 ]; then
+if ! _=$(type -p yarn &> /dev/null); then
   npm i -g yarn
 fi
 
 echo "Checking for node packages..."
 
 ### Install packages
-for PACKAGE in ${PACKAGES[@]}; do
+for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
   printf "Checking \e[96m${PACKAGE%%:*}\e[0m...\n"
   test -d $(yarn global dir)/node_modules/${PACKAGE##*:} && continue
 

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+
 if [ "${SYSTEM}" == "darwin" ]; then
   ### setup
   PACKAGES_FILE_DIR=packages/darwin
@@ -24,7 +29,7 @@ if [ "${SYSTEM}" == "darwin" ]; then
   printf "\e[1;33mBrew cask packages\e[0m\n"
 
   ### Install packages
-  for PACKAGE in ${PACKAGES[@]}; do
+  for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
     printf "Checking \e[96m${PACKAGE%%:*}\e[0m...\n"
     type -p ${PACKAGE##*:} &> /dev/null && continue
 
