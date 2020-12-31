@@ -1,6 +1,0 @@
-[user]
-  name = William Artero
-  email = william.moraesartero@messagebird.com
-
-[url "git@git.messagebird.io:"]
-	insteadOf = https://gitlab.messagebird.io/

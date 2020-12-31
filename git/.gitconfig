@@ -9,6 +9,7 @@
 [include]
 	path = ~/.gitaliases
 	path = ~/.gitcolors
+	path = ~/.gitconfig-secrets
 
 [protocol]
 	# faster git server communication.
@@ -20,9 +21,6 @@
 
 [pull]
 	rebase = true
-
-[commit]
-	gpgSign = false
 
 # push easily. http://stackoverflow.com/a/23918418/89484
 [push]
@@ -68,14 +66,6 @@
 	update = true
 	initializenew = true
 
-# Default user
-[user]
-	name = William Artero
-	email = williamwmoraes@gmail.com
-
-# Work overrides
-[includeIf "gitdir:/Users/william/workspace/**/"]
-	path = .gitconfig-work
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true
