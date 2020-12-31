@@ -20,26 +20,23 @@ fi
 printf "\e[1;33mVSCode extensions\e[0m\n"
 
 ### Check vscode
-echo "Checking vscode..."
+printf "Checking \e[96mcode\e[0m...\n"
 VSCODE=$(command -v code || command -v code-oss)
 if [ ! "$VSCODE" = "" ]; then
-  ### Install packages
-  echo "Checking extensions..."
   TMP=$(mktemp -d)
-  # mknod $TMP/vscode-installed p
+
   mkfifo $TMP/vscode-installed
   $VSCODE --list-extensions | tr '[:upper:]' '[:lower:]' | sort > $TMP/vscode-installed &
 
-  # mknod $TMP/vscode-extensions-list p
   mkfifo $TMP/vscode-extensions-list
   cat $EXTENSIONS_FILE_NAME | grep -vE "[ \t]*//.*" | jq .recommendations[] | tr -d '"' | sort > $TMP/vscode-extensions-list &
 
   comm -13 $TMP/vscode-installed $TMP/vscode-extensions-list | uniq -u | while read EXTENSION; do
     printf "Installing \e[96m${EXTENSION}\e[0m...\n"
-    $VSCODE --install-extension $EXTENSION
+    $VSCODE --install-extension ${EXTENSION}
   done
 
   rm -r $TMP
 else
-  echo "VSCode is not installed or in path"
+  echo "code is not installed or in path"
 fi
