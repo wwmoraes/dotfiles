@@ -34,10 +34,10 @@ if ! _=$(type -p pip3 &> /dev/null); then
 fi
 
 ### Install packages
-  printf "Checking \e[96m${PACKAGE}\e[0m...\n"
-  pip3 show $PACKAGE &>/dev/null && continue
 for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
+  printf "Checking \e[96m${PACKAGE%%|*}\e[0m...\n"
+  pip3 show -qqq ${PACKAGE%%|*} &>/dev/null && continue
 
-  printf "Installing \e[96m${PACKAGE}\e[0m...\n"
-  sudo -H pip3 install $PACKAGE
+  printf "Installing \e[96m${PACKAGE%%|*}\e[0m...\n"
+  sudo -H pip3 install ${PACKAGE##*|}
 done
