@@ -49,10 +49,10 @@ fi
 echo "Checking for Go packages on $GOPATH..."
 
 ### Install packages
-  printf "Checking go package \e[96m${PACKAGE}\e[0m...\n"
-  test -d $GOPATH/src/$PACKAGE && continue
 for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
+  printf "Checking go package \e[96m${PACKAGE%%:*}\e[0m...\n"
+  test -f $GOPATH/bin/${PACKAGE##*:} && continue
 
-  printf "Installing go package \e[96m${PACKAGE}\e[0m...\n"
-  go get ${PACKAGE}
+  printf "Installing go package \e[96m${PACKAGE%%:*}\e[0m...\n"
+  go get ${PACKAGE%%:*}
 done

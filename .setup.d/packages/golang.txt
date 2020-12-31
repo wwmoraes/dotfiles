@@ -1,3 +1,3 @@
-github.com/jesseduffield/lazygit
-gopkg.in/mikefarah/yq.v2
-github.com/google/wire/cmd/wire
+github.com/jesseduffield/lazygit:lazygit
+github.com/mikefarah/yq/v2:yq
+github.com/google/wire/cmd/wire:wire
