@@ -11,7 +11,7 @@ printf "Checking \e[96mpet\e[0m...\n"
 if ! _=$(type -p pet > /dev/null); then
   BASE_URL=https://github.com/knqyf263/pet
 
-  VERSION="$(curl -sI ${BASE_URL}/releases/latest | sed -En 's/^Location: .*\/v([0-9.]+).*/\1/p')"
+  VERSION="$(curl -sI ${BASE_URL}/releases/latest | sed -En 's/^[Ll]ocation: .*\/v([0-9.]+).*/\1/p')"
 
   DOWNLOAD_URL=${BASE_URL}/releases/download/v${VERSION}/pet_${VERSION}_${SYSTEM}_${ARCH}.tar.gz
 
