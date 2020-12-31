@@ -10,7 +10,7 @@ printf "\e[1;34mGCP tools\e[0m\n"
 printf "Checking \e[96mgcloud\e[0m...\n"
 if ! _=$(type -p gcloud &> /dev/null); then
   printf "Downloading and installing \e[96mGoogle SDK\e[0m...\n"
-  curl https://sdk.cloud.google.com | bash -- --disable-prompts --install-dir=$HOME/.local/
+  curl https://sdk.cloud.google.com | bash -s -- --disable-prompts --install-dir=$HOME/.local/
 
   printf "Authenticating \e[96mgcloud\e[0m user...\n"
   gcloud auth login
