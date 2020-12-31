@@ -23,6 +23,6 @@ shellcheck
 fswatch
 hadolint
 golangci-lint
-graphviz
+graphviz:dot
 node
 tldr

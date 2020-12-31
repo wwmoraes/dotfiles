@@ -1,8 +1,8 @@
 e2fsprogs:/usr/local/opt/e2fsprogs/sbin/mkfs.ext4
 watch
 watchman
-todo-txt
+todo-txt:todo.sh
 koekeishiya/formulae/skhd:skhd
 git
 stow
-wakatime-cli
+wakatime-cli:wakatime
