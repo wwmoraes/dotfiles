@@ -53,6 +53,7 @@ module.exports = {
     },
     {
       match: [
+        "github.com/wwmoraes*",
         "*.home.localhost*",
         "*.tinc.localhost*",
         "*.com.br*",
