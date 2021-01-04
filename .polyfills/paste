@@ -7,3 +7,5 @@ command -v wl-paste > /dev/null && wl-paste $@; exit 0 # Wayland
 command -v powershell.exe > /dev/null && powershell.exe Get-Clipboard $@; exit 0 # WSL
 
 echo "unable to find any clipboard tool"; exit 1
+
+# vim: ft=sh
