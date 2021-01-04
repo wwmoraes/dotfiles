@@ -42,6 +42,16 @@ module.exports = {
       browser: "Firefox"
     },
     {
+      match: ({ sourceBundleIdentifier }) =>
+        [
+          "com.facebook.archon",
+          "ru.keepcoder.Telegram",
+          "WhatsApp",
+          "com.fluidapp.FluidApp2.LinkedIn",
+        ].includes(sourceBundleIdentifier),
+      browser: "Safari"
+    },
+    {
       match: [
         "*.home.localhost*",
         "*.tinc.localhost*",
