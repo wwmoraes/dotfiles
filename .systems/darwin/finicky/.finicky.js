@@ -27,7 +27,10 @@ module.exports = {
   handlers: [
     {
       match: ({ sourceBundleIdentifier }) =>
-        ["com.tinyspeck.slackmacgap", "notion.id"].includes(sourceBundleIdentifier),
+        [
+          "com.tinyspeck.slackmacgap",
+          "notion.id"
+        ].includes(sourceBundleIdentifier),
       browser: "Firefox"
     },
     {
