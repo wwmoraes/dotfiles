@@ -22,6 +22,8 @@
 --- the time of the day to run the scheduler and create the timers for all
 --- meetings (format: "HH:MM")
 --- @field public dailyScheduleTime string
+--- array of regexp matcher strings to extract meeting URLs from events
+--- @field meetingURLMatchers string[]
 --- Meetings Spoon object
 local obj = {
   timers = {},
@@ -29,6 +31,10 @@ local obj = {
   secondsBefore = 5*60,
   browserBundleID = hs.urlevent.getDefaultHandler("https"),
   dailyScheduleTime = "00:00",
+  meetingURLMatchers = {
+    '(https://meet%.google%.com/[a-z]+-[a-z]+-[a-z]+)',
+    '(https://stream%.meet%.google%.com/stream/[a-z0-9]+-[a-z0-9]+-[a-z0-9]+-[a-z0-9]+-[a-z0-9]+)',
+  },
 }
 obj.__index = obj
 
@@ -62,6 +68,23 @@ local function endOfDay(date)
     yday = date.yday,
     isdst = date.isdst,
   }
+end
+
+--- extract the first meeting URL from text
+--- currently supported: Google Meet, Google Meet Stream
+--- @param text string
+--- @return string | nil
+function obj:getMeetingURL(text)
+  ---@type string|nil
+  local meetingURL
+  for _,matcher in ipairs(obj.meetingURLMatchers) do
+    meetingURL = text:match(matcher)
+    if meetingURL ~= nil then
+      break
+    end
+  end
+
+  return meetingURL
 end
 
 --- stop current timers, and remove them
@@ -98,7 +121,7 @@ function obj:schedule()
         local events = ical.events(cal)
         for _,v in ipairs(events) do
           if ical.is_in(v, timeRange) then
-            local meetURL = v.DESCRIPTION:match('(https://meet%.google%.com/[a-z]+-[a-z]+-[a-z]+)')
+            local meetURL = obj:getMeetingURL(v.DESCRIPTION)
             if meetURL ~= nil then
               local time = os.date("%H:%M", v.DTSTART)
               local openTime = os.date("%H:%M", v.DTSTART - self.secondsBefore)
