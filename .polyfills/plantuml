@@ -1,0 +1,15 @@
+#!/bin/sh
+
+type -p java &> /dev/null || {
+  echo "java not found"
+  exit 1
+}
+
+type -p plantuml.jar &> /dev/null || {
+  echo "plantuml.jar not found"
+  exit 1
+}
+
+exec java -jar "$(which plantuml.jar)" $@
+
+# vim: ft=sh

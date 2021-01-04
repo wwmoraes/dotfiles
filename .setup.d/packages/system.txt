@@ -27,3 +27,4 @@ graphviz:dot
 node
 tldr
 pulumi
+plantuml

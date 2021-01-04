@@ -34,3 +34,14 @@ if ! _=$(type -p minikube > /dev/null); then
   install minikube-${SYSTEM}-amd64 ~/.local/bin/minikube
   popd >& /dev/null
 fi
+
+printf "Checking \e[96mplantuml\e[0m...\n"
+if ! _=$(type -p plantuml.jar > /dev/null); then
+  TMP=$(mktemp -d)
+  pushd $TMP >& /dev/null
+  printf "Downloading \e[96mplantuml\e[0m...\n"
+  curl -fsSLO https://netix.dl.sourceforge.net/project/plantuml/plantuml.jar
+  printf "Installing \e[96mplantuml\e[0m...\n"
+  install -g $(id -g) -o $(id -u) -m 0750 plantuml.jar ~/.local/bin/minikube
+  popd >& /dev/null
+fi
