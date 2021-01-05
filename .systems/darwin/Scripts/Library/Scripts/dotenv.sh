@@ -15,7 +15,11 @@ processDotenvFile() {
 
     IFS="=" read -r name value <<<"$line"
 
-    launchctl setenv $name $value
+    case "$value" in
+      \'*\') launchctl setenv $name "$(printf "%s" "$value" | sed -E "s/^'(.*)'$/\1/")";;
+      *) launchctl setenv $name $value;;
+    esac
+
   done <"$1"
 }
 
