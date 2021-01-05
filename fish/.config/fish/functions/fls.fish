@@ -6,9 +6,15 @@ function fls -d "Fuzzy lists git-enabled folders"
 
   # remove duplicate paths
   set -l PROJECT_PATHS
-    set -l path (realpath (string replace "~" $HOME $path))
   for path in (string split ',' $GIT_PROJECT_PATHS)
+    set -l path (realpath (string replace "~" $HOME $path) 2> /dev/null)
+    test -d $path; or continue
     contains $path $PROJECT_PATHS; or set -a PROJECT_PATHS "$path"
+  end
+
+  test (count $PROJECT_PATHS) -eq 0; and begin
+    echo "none of the paths set on GIT_PROJECT_PATHS exist"
+    return 1
   end
 
   # tmp folder & fifo setup
@@ -29,7 +35,7 @@ function fls -d "Fuzzy lists git-enabled folders"
 
   # save pid and disown
   set PID (jobs -lp | tail +1)
-  disown $PID
+  disown $PID > /dev/null ^&1
   # fish's trap cmd EXIT
   function _fls_cleanup -V PID -V tmpDir --on-event fish_postexec
     functions -e _fls_cleanup
