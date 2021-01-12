@@ -3,3 +3,4 @@ github.com/mikefarah/yq/v2:yq
 github.com/google/wire/cmd/wire:wire
 github.com/jfeliu007/goplantuml/cmd/goplantuml:goplantuml
 sigs.k8s.io/kind:kind
+github.com/wagoodman/dive:dive
