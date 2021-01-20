@@ -7,7 +7,9 @@
     "dunstontc.viml",
     "malmaud.tmux",
     "skyapps.fish-vscode",
-    "sumneko.lua"
+    "sumneko.lua",
+    "mikestead.dotenv",
+    "virgilsisoe.hammerspoon-snippets"
   ],
   "unwantedRecommendations": [
     // Microsoft's global recommendations, FML
