@@ -679,9 +679,15 @@ if [ ${DEFAULTS} -eq 1 ]; then
 	# disable system integrity protection on fs, nvram and debug
 	# csrutil enable --without fs --without nvram --without debug
 
-	read -p 'do you want to kill related applications to load new defaults? [y/N] ' confirm
+	read -r -p 'do you want to kill related applications to load new defaults? [y/N] ' confirm
 
-	if [ "${confirm}" == "Y" -o "${confirm}" == "y" ]; then
+  if [ -d /System/Library/CoreServices/PowerChime.app ]; then
+    printf "Disabling MacOS power chime...\n"
+    defaults write com.apple.PowerChime ChimeOnAllHardware -bool false
+    killall PowerChime &> /dev/null
+  fi
+
+	if [ "${confirm}" == "Y" ] || [ "${confirm}" == "y" ]; then
 		for app in "Activity Monitor" \
 			"Address Book" \
 			"Calendar" \

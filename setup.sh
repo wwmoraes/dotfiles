@@ -110,14 +110,6 @@ if _=$(type -p kquitapp5 &> /dev/null); then
   kquitapp5 kglobalaccel && sleep 2s && kglobalaccel5 &
 fi
 
-if [ "${SYSTEM}" == "darwin" ]; then
-  if [ -d /System/Library/CoreServices/PowerChime.app ]; then
-    printf "Disabling MacOS power chime...\n"
-    defaults write com.apple.PowerChime ChimeOnAllHardware -bool false
-    killall PowerChime &> /dev/null
-  fi
-fi
-
 printf "Reloading tmux configuration...\n"
 tmux source-file "${HOME}/.tmux.conf"
 
