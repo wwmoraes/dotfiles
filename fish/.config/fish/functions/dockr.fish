@@ -23,6 +23,15 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
     docker image ls | tail +2 | fzf -m -0 | awk '$1 == "<none>" || $2 == "<none>" {print $3;next};{print $1":"$2}' | ifne xargs docker rmi $argv[2..-1]
   case rmv
     docker volume ls | tail +2 | fzf -m -0 | awk '{print $2}' | ifne xargs -n 1 docker volume rm
+  case labels
+    set -l images (docker image ls | awk '$1 != "<none>" && $2 != "<none>"' | fzf -m --header-lines=1 -0 | awk '{print $1":"$2}')
+    if test (count $images)
+      for image in $images
+        printf "Image: $image\n\n"
+        docker inspect -f '{{range $k, $v := .Config.Labels}}{{printf "%s=%s\n" $k $v}}{{end}}' $image | cat (echo "LABEL=VALUE" | psub) - | column -t -s =
+        echo
+      end
+    end
   # case ""
   #   __fish_print_help dockr
   case "*"
@@ -36,3 +45,4 @@ complete -xc dockr -n __fish_use_subcommand -a rmin -d "removes all anonymous im
 complete -xc dockr -n __fish_use_subcommand -a rmi -d "remove images interactively"
 complete -xc dockr -n __fish_use_subcommand -a rmc -d "remove containers interactively"
 complete -xc dockr -n __fish_use_subcommand -a rmv -d "remove volumes interactively"
+complete -xc dockr -n __fish_use_subcommand -a labels -d "list all labels set on an image"
