@@ -2,22 +2,22 @@
 
 set -Eeuo pipefail
 
-eval $(/usr/libexec/path_helper -s)
+eval "$(/usr/libexec/path_helper -s)"
 
 processDotenvFile() {
   if [ ! -r "$1" ]; then
       return
   fi
 
-  while read line; do
+  while read -r line; do
     # skip empty lines or comments
-    if [ ! -n "$line" -o `expr "$line" : '#'` -gt 0 ]; then continue; fi
+    if [ -z "$line" ] || [ "$(expr "${line}" : '#')" -gt 0 ]; then continue; fi
 
     IFS="=" read -r name value <<<"$line"
 
     case "$value" in
-      \'*\') launchctl setenv $name "$(printf "%s" "$value" | sed -E "s/^'(.*)'$/\1/")";;
-      *) launchctl setenv $name $value;;
+      \'*\') launchctl setenv "${name}" "$(printf "%s" "$value" | sed -E "s/^'(.*)'$/\1/")";;
+      *) launchctl setenv "${name}" "${value}";;
     esac
 
   done <"$1"

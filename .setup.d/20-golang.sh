@@ -9,18 +9,18 @@ set -Eeuo pipefail
 PACKAGES_FILE_NAME=packages/golang.txt
 
 ### magic block :D
-DIRNAME=$(perl -MCwd -e 'print Cwd::abs_path shift' $0 | xargs dirname)
+DIRNAME=$(perl -MCwd -e 'print Cwd::abs_path shift' "$0" | xargs dirname)
 # Checks and sets the file path corretly if running directly or sourced
-if [ "$0" == "$BASH_SOURCE" ]; then
-  PACKAGES_FILE_PATH=$DIRNAME/$PACKAGES_FILE_NAME
+if [ "$0" == "${BASH_SOURCE[0]}" ]; then
+  PACKAGES_FILE_PATH="${DIRNAME}/${PACKAGES_FILE_NAME}"
 else
-  PACKAGES_FILE_PATH=$DIRNAME/${BASH_SOURCE%%/*}/$PACKAGES_FILE_NAME
+  PACKAGES_FILE_PATH="${DIRNAME}/${BASH_SOURCE%%/*}/${PACKAGES_FILE_NAME}"
 fi
 
 PACKAGES=()
 while IFS= read -r line; do
    PACKAGES+=("$line")
-done <$PACKAGES_FILE_PATH
+done <"${PACKAGES_FILE_PATH}"
 
 printf "\e[1;33mGolang packages\e[0m\n"
 
@@ -41,18 +41,18 @@ if ! _=$(type -p go &> /dev/null); then
       fi
       ;;
   esac
-  curl -fsSL https://raw.githubusercontent.com/wwmoraes/golang-tools-install-script/master/goinstall.sh | bash -s - $GOINSTALL
+  curl -fsSL https://raw.githubusercontent.com/wwmoraes/golang-tools-install-script/master/goinstall.sh | bash -s - "${GOINSTALL}"
 fi
 
 : "${GOPATH:=${HOME}/go}"
 
-echo "Checking for Go packages on $GOPATH..."
+echo "Checking for Go packages on ${GOPATH}..."
 
 ### Install packages
 for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
-  printf "Checking go package \e[96m${PACKAGE%%:*}\e[0m...\n"
-  test -f $GOPATH/bin/${PACKAGE##*:} && continue
+  printf "Checking go package \e[96m%s\e[0m...\n" "$(basename "${PACKAGE%%:*}")"
+  test -f "${GOPATH}/bin/${PACKAGE##*:}" && continue
 
-  printf "Installing go package \e[96m${PACKAGE%%:*}\e[0m...\n"
-  go get ${PACKAGE%%:*}
+  printf "Installing go package \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+  go get "${PACKAGE%%:*}"
 done

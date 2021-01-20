@@ -3,7 +3,7 @@
 set -Eeuo pipefail
 
 set +m # disable job control in order to allow lastpipe
-if [ $(shopt | grep lastpipe | wc -l) = 1 ]; then
+if [ "$(shopt | grep -c lastpipe)" = "1" ]; then
   shopt -s lastpipe
 fi
 
@@ -13,51 +13,54 @@ fi
 printf "\e[1;34mProfile-like variable exports\e[0m\n"
 
 profileFilesList=(
-  $HOME/.profile
-  $HOME/.bash_profile
-  $HOME/.bashrc
+  "${HOME}/.profile"
+  "${HOME}/.bash_profile"
+  "${HOME}/.bashrc"
 )
 
 # Ignores non-existent profile files
-for profilePath in ${profileFilesList[@]}; do
-  if [ ! -f "$profilePath" ]; then
-    profileFilesList=( ${profileFilesList[@]/$profilePath} )
+for profilePath in "${profileFilesList[@]}"; do
+  if [ ! -f "${profilePath}" ]; then
+    profileFilesList=( "${profileFilesList[@]/$profilePath}" )
   fi
 done
 
 # Source them to update context
-for profilePath in ${profileFilesList[@]}; do
-  if [ -f "$profilePath" ]; then
-    . $profilePath
+for profilePath in "${profileFilesList[@]}"; do
+  if [ -f "${profilePath}" ]; then
+    # shellcheck disable=SC1090
+    . "${profilePath}"
   fi
 done
 
 # System paths (FIFO)
 PREPATHS=(
-  $HOME/.config/yarn/global/node_modules/.bin
-  $HOME/.local/google-cloud-sdk/bin
-  $HOME/.yarn/bin
-  $HOME/.krew/bin
-  $HOME/.cargo/bin
-  $HOME/go/bin
-  $HOME/.go/bin
-  $HOME/.local/opt/bin
-  $HOME/.local/opt/sbin
-  $HOME/.local/bin
+  "${HOME}/.config/yarn/global/node_modules/.bin"
+  "${HOME}/.local/google-cloud-sdk/bin"
+  "${HOME}/.yarn/bin"
+  "${HOME}/.krew/bin"
+  "${HOME}/.cargo/bin"
+  "${HOME}/go/bin"
+  "${HOME}/.go/bin"
+  "${HOME}/.local/opt/bin"
+  "${HOME}/.local/opt/sbin"
+  "${HOME}/.local/bin"
 )
 
-mkdir -p $HOME/.local/bin
-mkdir -p $HOME/.local/opt/{bin,sbin}
+mkdir -p "${HOME}/.local/bin"
+mkdir -p "${HOME}/.local/opt/{bin,sbin}"
 
-for PREPATH in ${PREPATHS[@]}; do
-    PATH=$PREPATH:$PATH
+for PREPATH in "${PREPATHS[@]}"; do
+    PATH=${PREPATH}:${PATH}
 done
 
 # Dedup paths
 echo "dedupping and exporting PATH"
-export PATH=$(echo -n $PATH | awk -v RS=: '{gsub(/\/$/,"")} !($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
+TMP_PATH=$(echo -n "${PATH}" | awk -v RS=: '{gsub(/\/$/,"")} !($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
+export PATH=${TMP_PATH}
+unset TMP_PATH
 echo "persisting PATH"
-echo "PATH=${PATH}" > $HOME/.env_path
+echo "PATH=${PATH}" > "${HOME}/.env_path"
 
 # used to pass to the fish script
 PATHS=$PATH
@@ -76,13 +79,15 @@ echo "Architecture: ${ARCH}"
 
 ### setup scripts
 for setupd in .setup.d/*.sh; do
-  . $setupd
+  # shellcheck disable=SC1090
+  . "${setupd}"
 done
 
 ### platform-specitic setup scripts
-if [ -d .setup.d/$SYSTEM ]; then
-  for setupd in .setup.d/$SYSTEM/*.sh; do
-    . $setupd
+if [ -d ".setup.d/${SYSTEM}" ]; then
+  for setupd in .setup.d/"${SYSTEM}"/*.sh; do
+    # shellcheck disable=SC1090
+    . "${setupd}"
   done
 fi
 
@@ -97,7 +102,7 @@ fi
 ### Set fish paths
 printf "Setting fish universal variables...\n"
 set +e
-fish ./variables.fish $PATHS
+fish ./variables.fish "${PATHS}"
 set -e
 
 if _=$(type -p kquitapp5 &> /dev/null); then
@@ -114,14 +119,13 @@ if [ "${SYSTEM}" == "darwin" ]; then
 fi
 
 printf "Reloading tmux configuration...\n"
-tmux source-file $HOME/.tmux.conf
+tmux source-file "${HOME}/.tmux.conf"
 
 printf "\e[1;34mCleanup\e[0m\n"
 
 printf "Removing old variables...\n"
-VARIABLES=()
 while IFS= read -r line; do
-   PACKAGES+=("$line")
+   unset "${line}"
 done <.env-remove
 
 printf "\e[1;32mDone!\e[0m\n"

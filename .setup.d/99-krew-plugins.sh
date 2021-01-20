@@ -9,18 +9,18 @@ set -Eeuo pipefail
 PACKAGES_FILE_NAME=packages/krew.txt
 
 ### magic block :D
-DIRNAME=$(perl -MCwd -e 'print Cwd::abs_path shift' $0 | xargs dirname)
+DIRNAME=$(perl -MCwd -e 'print Cwd::abs_path shift' "$0" | xargs dirname)
 # Checks and sets the file path corretly if running directly or sourced
-if [ "$0" == "$BASH_SOURCE" ]; then
-  PACKAGES_FILE_PATH=$DIRNAME/$PACKAGES_FILE_NAME
+if [ "$0" == "${BASH_SOURCE[0]}" ]; then
+  PACKAGES_FILE_PATH="${DIRNAME}/${PACKAGES_FILE_NAME}"
 else
-  PACKAGES_FILE_PATH=$DIRNAME/${BASH_SOURCE%%/*}/$PACKAGES_FILE_NAME
+  PACKAGES_FILE_PATH="${DIRNAME}/${BASH_SOURCE%%/*}/${PACKAGES_FILE_NAME}"
 fi
 
 PACKAGES=()
 while IFS= read -r line; do
-   PACKAGES+=("$line")
-done <$PACKAGES_FILE_PATH
+   PACKAGES+=("${line}")
+done <"${PACKAGES_FILE_PATH}"
 
 printf "\e[1;33mKrew plugins\e[0m\n"
 
@@ -42,9 +42,9 @@ fi
 
 ### Install packages
 for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
-  printf "Checking \e[96m${PACKAGE}\e[0m...\n"
-  kubectl krew list | grep $PACKAGE > /dev/null && continue
+  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE}"
+  kubectl krew list | grep "${PACKAGE}" > /dev/null && continue
 
-  printf "Installing \e[96m${PACKAGE}\e[0m...\n"
-  kubectl krew install $PACKAGE
+  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE}"
+  kubectl krew install "${PACKAGE}"
 done

@@ -9,18 +9,18 @@ set -Eeuo pipefail
 PACKAGES_FILE_NAME=packages/node.txt
 
 ### magic block :D
-DIRNAME=$(perl -MCwd -e 'print Cwd::abs_path shift' $0 | xargs dirname)
+DIRNAME=$(perl -MCwd -e 'print Cwd::abs_path shift' "$0" | xargs dirname)
 # Checks and sets the file path corretly if running directly or sourced
-if [ "$0" == "$BASH_SOURCE" ]; then
-  PACKAGES_FILE_PATH=$DIRNAME/$PACKAGES_FILE_NAME
+if [ "$0" == "${BASH_SOURCE[0]}" ]; then
+  PACKAGES_FILE_PATH="${DIRNAME}/${PACKAGES_FILE_NAME}"
 else
-  PACKAGES_FILE_PATH=$DIRNAME/${BASH_SOURCE%%/*}/$PACKAGES_FILE_NAME
+  PACKAGES_FILE_PATH="${DIRNAME}/${BASH_SOURCE%%/*}/${PACKAGES_FILE_NAME}"
 fi
 
 PACKAGES=()
 while IFS= read -r line; do
    PACKAGES+=("$line")
-done <$PACKAGES_FILE_PATH
+done <"${PACKAGES_FILE_PATH}"
 
 printf "\e[1;33mNode packages\e[0m\n"
 
@@ -43,9 +43,9 @@ echo "Checking for node packages..."
 
 ### Install packages
 for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
-  printf "Checking \e[96m${PACKAGE%%:*}\e[0m...\n"
-  test -d $(yarn global dir)/node_modules/${PACKAGE##*:} && continue
+  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+  test -d "$(yarn global dir)/node_modules/${PACKAGE##*:}" && continue
 
-  printf "Installing \e[96m${PACKAGE%%:*}\e[0m...\n"
-  yarn global add ${PACKAGE%%:*} > /dev/null
+  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+  yarn global add "${PACKAGE%%:*}" > /dev/null
 done
