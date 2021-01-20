@@ -1,4 +1,4 @@
-#!/bin/bash --noprofile --norc
+#!/bin/bash --norc
 
 set -Eeuo pipefail
 
