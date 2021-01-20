@@ -9,7 +9,7 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
   case rmin
     set -l images (docker images | awk '/^<none>[ ]+<none>/ {print $3}')
     if test (count $images) -gt 0
-      docker rmi (docker images | awk '/^<none>[ ]+<none>/ {print $3}')
+      docker rmi $images
     else
       echo "there's no <none>:<none> images to remove"
     end
