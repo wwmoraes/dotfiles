@@ -3,7 +3,7 @@ git
 vim
 stow
 tmux
-pip
+pip:pip3
 gawk
 mawk
 jq
