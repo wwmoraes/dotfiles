@@ -66,6 +66,7 @@ function _projects_create
     printf "%-"(tput cols)"s\r" "[$printProjectName] creating on $printProjectDir..."
     mkdir -p $projectDir
     git -C $projectDir init -q
+    curl -fsSL https://gist.github.com/wwmoraes/75dc66767a9f487c8235c5423027f69c/raw/setup.sh | sh -s -- "$projectDir"
     printf "%-"(tput cols)"s\n" "[$printProjectName] created on $printProjectDir"
   end
 end
