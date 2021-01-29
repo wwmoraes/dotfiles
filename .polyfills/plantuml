@@ -10,6 +10,6 @@ type -p plantuml.jar &> /dev/null || {
   exit 1
 }
 
-exec java -jar "$(which plantuml.jar)" $@
+exec java -Djava.awt.headless=true -jar "$(which plantuml.jar)" $@
 
 # vim: ft=sh
