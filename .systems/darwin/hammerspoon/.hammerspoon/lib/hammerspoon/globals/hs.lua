@@ -1,4 +1,5 @@
 --- @class Hammerspoon
+--- @field caffeinate Caffeinate
 --- @field hotkey Hotkey
 --- @field inspect Inspect
 --- @field logger Logger
