@@ -33,6 +33,10 @@
 --- @field public chooserPlaceholderText string
 --- context details to use throughout the module
 --- @field public contexts table
+--- map of system events to functions to execute
+--- @field protected eventCallback table<number,function>
+--- system events watcher
+--- @field protected watcher Watcher
 --- Contexts Spoon object
 local obj = {
   timers = {},
@@ -57,6 +61,11 @@ local obj = {
   }
 }
 obj.__index = obj
+
+obj.eventCallback = {
+  [hs.caffeinate.watcher.systemWillSleep] = hs.fnutils.partial(obj.cleanupTimers, obj),
+  [hs.caffeinate.watcher.systemDidWake] = hs.fnutils.partial(obj.setupTimers, obj),
+}
 
 -- Metadata
 obj.name = "Contexts"
@@ -97,6 +106,12 @@ local function doAtCallback(context, contextName, baseURL, action)
   end
 
   hs.urlevent.openURL(string.format("%s?name=%s&action=%s", baseURL, contextName, action))
+end
+
+--- processes caffeinate watcher events
+--- @param eventType number
+function obj:processEvent(eventType)
+  self.eventCallback[eventType]()
 end
 
 --- actions available on application instances
@@ -219,8 +234,10 @@ function obj:bindHotkeys(mapping)
   return self
 end
 
+--- create choice entries based on current contexts, using the title field value
+--- as chooser text, if present, or the context name itself otherwise
 --- @return Contexts @the Contexts object
-function obj:start()
+function obj:generateChoices()
   self.choices = {}
   for contextName, _ in pairs(self.contexts) do
     local text = self.contexts[contextName].title or contextName
@@ -230,13 +247,13 @@ function obj:start()
     })
   end
 
-  local eventName = string.lower(self.name)
-  local baseURL = "hammerspoon://"..eventName
+  return self
+end
 
-  hs.urlevent.bind(eventName, function(...)
-    local status, err = pcall(self.handleURLEvent, self, ...)
-    if not status then self.logger.e(err) end
-  end)
+--- setup context timers
+--- @return Contexts @the Contexts object
+function obj:setupTimers()
+  local baseURL = "hammerspoon://"..string.lower(self.name)
 
   --- @param contextName string
   --- @param context ContextEntry
@@ -263,15 +280,53 @@ function obj:start()
   return self
 end
 
+--- stop and remove context timers
 --- @return Contexts @the Contexts object
-function obj:stop()
-  hs.urlevent.bind(string.lower(self.name), nil)
-
+function obj:cleanupTimers()
   while #self.timers > 0 do
     table.remove(self.timers, #self.timers):stop()
   end
 
-  self.choices = {}
+  return self
+end
+
+--- @return Contexts @the Contexts object
+function obj:init()
+  self:generateChoices()
+
+  self.watcher = hs.caffeinate.watcher.new(hs.fnutils.partial(self.processEvent, self))
+
+  return self
+end
+
+--- @return Contexts @the Contexts object
+function obj:start()
+  -- bind URL event
+  local eventName = string.lower(self.name)
+  hs.urlevent.bind(eventName, function(...)
+    local status, err = pcall(self.handleURLEvent, self, ...)
+    if not status then self.logger.e(err) end
+  end)
+
+  -- setup context timers
+  self:setupTimers()
+
+  -- starts the system events watcher
+  self.watcher:start()
+
+  return self
+end
+
+--- @return Contexts @the Contexts object
+function obj:stop()
+  -- unbind URL event
+  hs.urlevent.bind(string.lower(self.name), nil)
+
+  -- cleanup context timers
+  self:cleanupTimers()
+
+  -- stops the system events watcher
+  self.watcher:stop()
 
   return self
 end
