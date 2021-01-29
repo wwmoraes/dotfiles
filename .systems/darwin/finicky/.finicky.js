@@ -49,6 +49,7 @@ module.exports = {
         [
           "com.facebook.archon",
           "ru.keepcoder.Telegram",
+          "com.hnc.Discord",
           "WhatsApp",
           "com.fluidapp.FluidApp2.LinkedIn",
         ].includes(sourceBundleIdentifier),
