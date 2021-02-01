@@ -16,7 +16,7 @@ hs.spoons.use("Env", {
     contexts = {
       ["M1Cabuk"] = "personal",
       ["arch-cabuk"] = "personal",
-      ["Williams-MacBook-Pro"] = "work",
+      ["NLMBF04E-C82334"] = "work",
     },
   },
   start = true,

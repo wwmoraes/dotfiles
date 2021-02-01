@@ -27,7 +27,7 @@ HOST=$(hostname -s)
 
 [[ -f "$HOME/.env" ]] && processDotenvFile "$HOME/.env"
 [[ -f "$HOME/.env_secrets" ]] && processDotenvFile "$HOME/.env_secrets"
-[[ "$HOST" == "Williams-MacBook-Pro" ]] && {
+[[ "$HOST" == "NLMBF04E-C82334" ]] && {
   [[ -f "$HOME/.env_work" ]] && processDotenvFile "$HOME/.env_work"
   [[ -f "$HOME/.env_work_secrets" ]] && processDotenvFile "$HOME/.env_work_secrets"
 }

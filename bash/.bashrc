@@ -127,7 +127,7 @@ set -o allexport
   [[ -f "$HOME/.env_personal" ]] && source "$HOME/.env_personal"
   [[ -f "$HOME/.env_personal_secrets" ]] && source "$HOME/.env_personal_secrets"
 }
-[[ "$HOST" == "Williams-MacBook-Pro" ]] && {
+[[ "$HOST" == "NLMBF04E-C82334" ]] && {
   [[ -f "$HOME/.env_work" ]] && source "$HOME/.env_work"
   [[ -f "$HOME/.env_work_secrets" ]] && source "$HOME/.env_work_secrets"
 }
