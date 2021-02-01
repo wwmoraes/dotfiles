@@ -6,3 +6,4 @@ browserosaurus:/Applications/Browserosaurus.app/Contents/MacOS/Browserosaurus
 keybase:/Applications/Keybase.app/Contents/MacOS/Keybase
 dropbox:/Applications/Dropbox.app/Contents/MacOS/Dropbox
 docker:/Applications/Docker.app/Contents/MacOS/Docker
+1password:/Applications/1Password 7.app/Contents/MacOS/1Password 7
