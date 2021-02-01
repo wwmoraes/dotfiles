@@ -21,7 +21,7 @@ printf "\e[1;33mVSCode extensions\e[0m\n"
 
 ### Check vscode
 printf "Checking \e[96mcode\e[0m...\n"
-VSCODE=$(command -v code || command -v code-oss)
+VSCODE=$(command -v code || command -v code-oss || echo "")
 if [ ! "${VSCODE}" = "" ]; then
   TMP=$(mktemp -d)
 

@@ -54,5 +54,5 @@ for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
   test -f "${GOPATH}/bin/${PACKAGE##*:}" && continue
 
   printf "Installing go package \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-  go get "${PACKAGE%%:*}"
+  go get "${PACKAGE%%:*}" || true
 done
