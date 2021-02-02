@@ -1,2 +1,2 @@
 powershell:pwsh
-corkscrew
+azure-cli:az
