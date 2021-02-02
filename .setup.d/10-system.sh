@@ -29,6 +29,13 @@ if [ -f "${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/${SYSTEM}/${PACKAGES_FILE_NAME}"
   done <"${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/${SYSTEM}/${PACKAGES_FILE_NAME}"
 fi
 
+HOST=$(hostname -s)
+if [ -f "${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/${HOST}/${PACKAGES_FILE_NAME}" ]; then
+  while IFS= read -r line; do
+    PACKAGES+=("${line}")
+  done <"${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/${HOST}/${PACKAGES_FILE_NAME}"
+fi
+
 printf "\e[1;33mSystem packages\e[0m\n"
 
 ### Check package tool
