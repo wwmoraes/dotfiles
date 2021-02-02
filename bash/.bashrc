@@ -123,7 +123,7 @@ HOST=$(hostname -s)
 set -o allexport
 [[ -f "$HOME/.env" ]] && source "$HOME/.env"
 [[ -f "$HOME/.env_secrets" ]] && source "$HOME/.env_secrets"
-[[ "$HOST" == "arch-linux" ]] && {
+[[ "$HOST" == "M1Cabuk" ]] && {
   [[ -f "$HOME/.env_personal" ]] && source "$HOME/.env_personal"
   [[ -f "$HOME/.env_personal_secrets" ]] && source "$HOME/.env_personal_secrets"
 }

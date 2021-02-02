@@ -15,7 +15,6 @@ hs.spoons.use("Env", {
     --- @type table<string,ContextName>
     contexts = {
       ["M1Cabuk"] = "personal",
-      ["arch-cabuk"] = "personal",
       ["NLMBF04E-C82334"] = "work",
     },
   },
