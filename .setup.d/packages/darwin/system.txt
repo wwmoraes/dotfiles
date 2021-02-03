@@ -6,3 +6,8 @@ koekeishiya/formulae/skhd:skhd
 git
 stow
 wakatime-cli:wakatime
+terraform
+kubernetes-cli:kubectl
+kubeval
+opa
+yamllint
