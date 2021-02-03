@@ -21,6 +21,10 @@ function dotfiles -a cmd -d "Setup dotfiles"
       _dotfiles_lg
     case setup
       _dotfiles_setup
+    case vscode-dump
+      _dotfiles_vscode-dump
+    case vscode-install
+      _dotfiles_vscode-install
     case config
       _dotfiles_config $argv[2..-1]
     case cd
@@ -132,6 +136,22 @@ function _dotfiles_setup
   popd > /dev/null 2>&1
 end
 complete -xc dotfiles -n __fish_use_subcommand -a setup -d "setup environment for dotfiles"
+
+# vscode-dump subcommand
+function _dotfiles_vscode-dump
+  pushd $DOTFILES_DIR > /dev/null
+  make vscode-dump
+  popd > /dev/null 2>&1
+end
+complete -xc dotfiles -n __fish_use_subcommand -a vscode-dump -d "dumps the current installed VSCode extension list into the dotfiles"
+
+# vscode-install subcommand
+function _dotfiles_vscode-install
+  pushd $DOTFILES_DIR > /dev/null
+  make vscode-install
+  popd > /dev/null 2>&1
+end
+complete -xc dotfiles -n __fish_use_subcommand -a vscode-install -d "installs the VSCode extension list saved on the dotfiles"
 
 # code subcommand
 function _dotfiles_code
