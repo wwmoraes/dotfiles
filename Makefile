@@ -91,3 +91,9 @@ setup: cleanup
 .PHONY: cleanup
 cleanup:
 	@find . -name .DS_Store -type f -delete
+
+vscode-dump:
+	code --list-extensions | tr '[:upper:]' '[:lower:]' | sort > vscode-extensions
+
+vscode-install:
+	@cat vscode-extensions | xargs -P $(shell sysctl -n hw.activecpu) -I{} code --install-extension {}
