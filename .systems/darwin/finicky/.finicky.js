@@ -29,18 +29,16 @@ module.exports = {
       match: ({ sourceBundleIdentifier }) =>
         [
           "com.tinyspeck.slackmacgap",
-          "notion.id"
+          "com.microsoft.teams",
+          "com.microsoft.Outlook",
         ].includes(sourceBundleIdentifier),
       browser: "Firefox"
     },
     {
       match: [
-        "*.messagebird.io*",
-        "*.messagebird.com*",
-        "*.officevibe.com*",
-        "messagebird.atlassian.net*",
-        "console.cloud.google.com/*?*project=mb-*-tst*",
-        "console.cloud.google.com/*?*project=mb-*-prod*",
+        "*.abnamro.com/*",
+        "*.abnamro.org/*",
+        "dev.azure.com/*abnamro/*",
       ],
       browser: "Firefox"
     },
