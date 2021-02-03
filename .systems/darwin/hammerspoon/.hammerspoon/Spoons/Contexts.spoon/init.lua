@@ -54,7 +54,6 @@ local obj = {
         [7] = true
       },
       applications = {
-        "Firefox",
         "Slack"
       }
     }

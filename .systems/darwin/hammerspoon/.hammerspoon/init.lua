@@ -23,7 +23,20 @@ hs.spoons.use("Env", {
 --- @type Env
 spoon.Env = spoon.Env
 
-hs.spoons.use("Contexts", { hotkeys = "default", start = true })
+hs.spoons.use("Contexts", {
+  config = {
+    contexts = {
+      work = {
+        applications = {
+          "Firefox",
+          "Teams",
+        },
+      },
+    },
+  },
+  hotkeys = "default",
+  start = true,
+})
 --- @type Contexts
 spoon.Contexts = spoon.Contexts
 
