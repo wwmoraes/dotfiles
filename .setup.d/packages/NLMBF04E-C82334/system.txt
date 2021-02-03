@@ -1,2 +1,8 @@
 powershell:pwsh
 azure-cli:az
+awscli:aws
+eksctl
+kubernetes-helm:helm
+operator-sdk
+vault
+awslogs
