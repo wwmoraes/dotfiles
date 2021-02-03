@@ -24,17 +24,6 @@ if ! _=$(type -p pet > /dev/null); then
   popd > /dev/null
 fi
 
-printf "Checking \e[96mminikube\e[0m...\n"
-if ! _=$(type -p minikube > /dev/null); then
-  TMP=$(mktemp -d)
-  pushd "${TMP}" >& /dev/null
-  printf "Downloading \e[96mminikube\e[0m...\n"
-  curl -fsSLO "https://storage.googleapis.com/minikube/releases/latest/minikube-${SYSTEM}-amd64"
-  printf "Extracting \e[96mminikube\e[0m...\n"
-  install "minikube-${SYSTEM}-amd64" ~/.local/bin/minikube
-  popd >& /dev/null
-fi
-
 printf "Checking \e[96mplantuml\e[0m...\n"
 if ! _=$(type -p plantuml.jar > /dev/null); then
   TMP=$(mktemp -d)
