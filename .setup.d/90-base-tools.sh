@@ -31,6 +31,6 @@ if ! _=$(type -p plantuml.jar > /dev/null); then
   printf "Downloading \e[96mplantuml\e[0m...\n"
   curl -fsSLO https://netix.dl.sourceforge.net/project/plantuml/plantuml.jar
   printf "Installing \e[96mplantuml\e[0m...\n"
-  install -g "$(id -g)" -o "$(id -u)" -m 0750 plantuml.jar ~/.local/bin/minikube
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 plantuml.jar ~/.local/bin/plantuml.jar
   popd >& /dev/null
 fi
