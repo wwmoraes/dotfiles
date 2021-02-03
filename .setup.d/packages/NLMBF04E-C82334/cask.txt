@@ -1,0 +1,3 @@
+virtualbox:/Applications/VirtualBox.app/Contents/MacOS/VirtualBox
+vagrant:/usr/local/bin/vagrant
+postman:/Applications/Postman.app/Contents/MacOS/Postman
