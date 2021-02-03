@@ -11,3 +11,4 @@ kubernetes-cli:kubectl
 kubeval
 opa
 yamllint
+mas
