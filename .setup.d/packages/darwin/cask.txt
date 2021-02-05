@@ -10,3 +10,37 @@ docker
 kitty
 karabiner-elements
 uninstallpkg
+typora
+thingsmacsandboxhelper
+whatsapp
+messenger
+telegram
+discord
+tiddly:/Applications/TiddlyDesktop.app/Contents/MacOS/nwjs
+tor-browser:/Applications/Tor Browser.app/Contents/MacOS/XUL
+unlox
+lulu
+muzzle
+1password-cli:/usr/local/bin/op
+google-backup-and-sync:/Applications/Backup and Sync.app/Contents/MacOS/Backup and Sync
+google-chrome:/Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+firefox
+fluid
+megasync
+fluor
+mate-translate:/Applications/Mate Translate.app/Contents/MacOS/Mate Translate
+appcleaner
+suspicious-package:/Applications/Suspicious Package.app/Contents/MacOS/Suspicious Package
+launchcontrol
+launchpad-manager:/Applications/Launchpad Manager.app/Contents/MacOS/Launchpad Manager
+the-unarchiver:/Applications/The Unarchiver.app/Contents/MacOS/The Unarchiver
+image2icon
+daisydisk
+deezer
+kindle
+steam:/Applications/Steam.app/Contents/MacOS/steam_osx
+shadow
+gpg-suite-no-mail:/Applications/GPG Keychain.app/Contents/MacOS/GPG Keychain
+amethyst
+hazel
+krisp
