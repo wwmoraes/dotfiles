@@ -4,6 +4,8 @@ set -Eeuo pipefail
 
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
+: "${WORK:?unknown if on a work machine}"
+: "${PERSONAL:?unknown if on a personal machine}"
 
 if [ "${SYSTEM}" == "darwin" ]; then
   ### setup
@@ -26,12 +28,30 @@ if [ "${SYSTEM}" == "darwin" ]; then
     done <"${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/${PACKAGES_FILE_NAME}"
   fi
 
+  if [ "${PERSONAL}" = "1" ]; then
+    echo IZ PERSONALZ
+    if [ -f "${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../personal/${PACKAGES_FILE_NAME}" ]; then
+
+      while IFS= read -r line; do
+        PACKAGES+=("${line}")
+      done <"${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../personal/${PACKAGES_FILE_NAME}"
+    fi
+  fi
+
+  if [ "${WORK}" = "1" ]; then
+    if [ -f "${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../work/${PACKAGES_FILE_NAME}" ]; then
+      while IFS= read -r line; do
+        PACKAGES+=("${line}")
+      done <"${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../work/${PACKAGES_FILE_NAME}"
+    fi
+  fi
+
   HOST=$(hostname -s)
-if [ -f "${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../${HOST}/${PACKAGES_FILE_NAME}" ]; then
-  while IFS= read -r line; do
-    PACKAGES+=("${line}")
-  done <"${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../${HOST}/${PACKAGES_FILE_NAME}"
-fi
+  if [ -f "${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../${HOST}/${PACKAGES_FILE_NAME}" ]; then
+    while IFS= read -r line; do
+      PACKAGES+=("${line}")
+    done <"${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../${HOST}/${PACKAGES_FILE_NAME}"
+  fi
 
   printf "\e[1;33mBrew cask packages\e[0m\n"
 

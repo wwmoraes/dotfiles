@@ -4,6 +4,8 @@ set -Eeuo pipefail
 
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
+: "${WORK:?unknown if on a work machine}"
+: "${PERSONAL:?unknown if on a personal machine}"
 
 ### setup
 PACKAGES_FILE_DIR=packages
@@ -27,6 +29,22 @@ if [ -f "${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/${SYSTEM}/${PACKAGES_FILE_NAME}"
   while IFS= read -r line; do
     PACKAGES+=("${line}")
   done <"${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/${SYSTEM}/${PACKAGES_FILE_NAME}"
+fi
+
+if [ "${PERSONAL}" = "1" ]; then
+  if [ -f "${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/personal/${PACKAGES_FILE_NAME}" ]; then
+    while IFS= read -r line; do
+      PACKAGES+=("${line}")
+    done <"${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/personal/${PACKAGES_FILE_NAME}"
+  fi
+fi
+
+if [ "${WORK}" = "1" ]; then
+  if [ -f "${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/work/${PACKAGES_FILE_NAME}" ]; then
+    while IFS= read -r line; do
+      PACKAGES+=("${line}")
+    done <"${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/work/${PACKAGES_FILE_NAME}"
+  fi
 fi
 
 HOST=$(hostname -s)
