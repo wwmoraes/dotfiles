@@ -1,12 +1,12 @@
-hammerspoon:/Applications/Hammerspoon.app/Contents/MacOS/Hammerspoon
-dozer:/Applications/Dozer.app/Contents/MacOS/Dozer
-finicky:/Applications/Finicky.app/Contents/MacOS/Finicky
+hammerspoon
+dozer
+finicky
 responsively:/Applications/ResponsivelyApp.app/Contents/MacOS/ResponsivelyApp
-browserosaurus:/Applications/Browserosaurus.app/Contents/MacOS/Browserosaurus
-keybase:/Applications/Keybase.app/Contents/MacOS/Keybase
-dropbox:/Applications/Dropbox.app/Contents/MacOS/Dropbox
-docker:/Applications/Docker.app/Contents/MacOS/Docker
+browserosaurus
+keybase
+dropbox
+docker
 1password:/Applications/1Password 7.app/Contents/MacOS/1Password 7
-kitty:/Applications/Kitty.app/Contents/MacOS/Kitty
-karabiner-elements:/Applications/Karabiner-Elements.app/Contents/MacOS/Karabiner-Elements
-uninstallpkg:/Applications/UninstallPKG.app/Contents/MacOS/UninstallPKG
+kitty
+karabiner-elements
+uninstallpkg

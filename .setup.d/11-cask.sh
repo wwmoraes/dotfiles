@@ -38,9 +38,15 @@ fi
   ### Install packages
   for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
     printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-    type -p "${PACKAGE##*:}" &> /dev/null && continue
 
+    PACKAGE_CHECK_PATH=$(echo "${PACKAGE}" | awk 'BEGIN {FS=":"};{print $2}')
+
+    if [[ "${PACKAGE_CHECK_PATH}" = "" ]]; then
+      PACKAGE_CHECK_PATH="/Applications/${PACKAGE%%:*}.app/Contents/MacOS/${PACKAGE%%:*}"
+    fi
+
+    type -p "${PACKAGE_CHECK_PATH}" &> /dev/null && continue
     printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-    brew install -q --cask "${PACKAGE%%:*}" 2> /dev/null
+    brew install -q --cask "${PACKAGE%%:*}" 2> /dev/null || true
   done
 fi
