@@ -20,8 +20,6 @@ RIGHTWARDS_ARROW=$(printf "\xE2\x9E\xBE")
 rm -rf "${HOME}"/.local/opt/{bin,sbin}
 mkdir -p "${HOME}"/.local/opt/{bin,sbin}
 
-brew link --overwrite python@3.9 || true
-
 for package in /usr/local/opt/*; do
   # echo $package
   printf "Cheking \e[96m%s\e[0m..." "$( basename "${package}")"
