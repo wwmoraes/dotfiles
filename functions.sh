@@ -5,19 +5,37 @@ getOS() {
 }
 
 getArch() {
-  case "$(uname -m | tr '[:upper:]' '[:lower:]')" in
-    armv8)
-      echo arm64
-      ;;
+  OS=$(getOS)
+  if [ "${OS}" = "darwin" ]; then
+    # use the sysctl brand info set by the mach kernel on MacOS
+    case "$(sysctl -qn machdep.cpu.brand_string)" in
+      "Apple M1")
+        ARCH=arm64e;;
+      "Intel*")
+        ARCH=x86_64;;
+      ""|*)
+        ARCH=unknown;;
+    esac
+  elif [ "${OS}" = "linux" && _=$(type -p lscpu &>/dev/null) ]; then
+    ARCH=$(lscpu | awk '$1 == "Architecture:" {print $2}' | tr '[:upper:]' '[:lower:]')
+  else
+    # very unreliable, as uname will output the architecture it was built and
+    # ran with, e.g. MacOS emulated architectures (such as PowerPC, when
+    # migrated to Intel, or Intel, when migrated to ARM)
+    ARCH=$(uname -m | tr '[:upper:]' '[:lower:]')
+  fi
+
+  case "${ARCH}" in
+    armv8|arm64*|aarch64*)
+      echo arm64;;
+    x86_64|amd64)
+      echo amd64;;
     x86|386)
-      echo 386
-      ;;
+      echo 386;;
     arm*)
-      echo arm
-      ;;
-    x86_64|amd64|""|*)
-      echo amd64
-      ;;
+      echo arm;;
+    ""|*)
+      echo ${ARCH};;
   esac
 }
 
