@@ -5,7 +5,10 @@
   "terminal.integrated.automationShell.osx": "/usr/local/bin/fish",
   "editor.tabSize": 2,
   "editor.minimap.enabled": false,
-  "editor.rulers": [80, 100],
+  "editor.rulers": [
+    80,
+    100
+  ],
   "window.zoomLevel": 0,
   "terminal.integrated.rendererType": "dom",
   "editor.wordWrap": "on",
@@ -20,7 +23,6 @@
   "gitlens.hovers.currentLine.over": "line",
   "workbench.editor.enablePreview": false,
   "bookmarks.useWorkaroundForFormatters": true,
-
   "javascript.updateImportsOnFileMove.enabled": "always",
   "workbench.startupEditor": "newUntitledFile",
   "breadcrumbs.enabled": true,
@@ -64,14 +66,18 @@
   ],
   "cSpell.language": "en,fullstack",
   "cSpell.languageSettings": [
-    { "languageId": "*", "dictionaries": ["Fullstack"] }
+    {
+      "languageId": "*",
+      "dictionaries": [
+        "Fullstack"
+      ]
+    }
   ],
   "cSpell.userWords": [
     "CLOUDSQL",
     "ESNEXT",
     "Errorln",
     "Infoln",
-    "MESSAGEBIRD",
     "SIGINT",
     "SIGTERM",
     "Traceln",
