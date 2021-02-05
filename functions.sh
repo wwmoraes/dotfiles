@@ -20,3 +20,17 @@ getArch() {
       ;;
   esac
 }
+
+isWork() {
+  HOST=$(hostname -s)
+  test "${HOST}" = "NLMBF04E-C82334" && echo 1 && return
+
+  echo 0
+}
+
+isPersonal() {
+  HOST=$(hostname -s)
+  test "${HOST}" = "M1Cabuk" && echo 1 && return
+
+  echo 0
+}

@@ -76,6 +76,10 @@ SYSTEM=$(getOS)
 echo "System: ${SYSTEM}"
 ARCH=$(getArch)
 echo "Architecture: ${ARCH}"
+WORK=$(isWork)
+echo "Is work? ${WORK}"
+PERSONAL=$(isPersonal)
+echo "Is personal? ${PERSONAL}"
 
 ### setup scripts
 for setupd in .setup.d/*.sh; do
