@@ -1,3 +1,5 @@
 virtualbox
 vagrant:/usr/local/bin/vagrant
 postman
+muzzle
+firefox
