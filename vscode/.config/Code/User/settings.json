@@ -181,4 +181,14 @@
   "editor.formatOnSave": true,
   "github-actions.org-features": false,
   "yaml.format.enable": false,
+  "azure.resourceFilter": [
+    "3a15904d-3fd9-4256-a753-beb05cdf0c6d/21f8e00c-9685-419b-ab9d-1ead9586751b"
+  ],
+  "vs-kubernetes": {
+    "vs-kubernetes.knownKubeconfigs": [
+      "/Users/william/.secrets/k8s/.kube/config-home",
+      "/Users/william/.secrets/k8s/.kube/config-work",
+    ],
+    "vs-kubernetes.kubeconfig": "/Users/william/.secrets/k8s/.kube/config-work"
+  },
 }
