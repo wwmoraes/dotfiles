@@ -2,7 +2,19 @@
   "files.associations": {
     "**/.gitaliases": "gitconfig"
   },
-  "cSpell.words": ["fileutils"],
+  "cSpell.words": [
+    "Fira",
+    "Kubeconfigs",
+    "Pylance",
+    "autofetch",
+    "dont",
+    "fileutils",
+    "gitlens",
+    "helmignore",
+    "kubeconfig",
+    "terraformignore",
+    "vsicons"
+  ],
   "Lua.diagnostics.globals": ["hs", "spoon"],
   "Lua.workspace.library": {
     "/Applications/Hammerspoon.app/Contents/Resources/extensions/": true,

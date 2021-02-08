@@ -98,12 +98,14 @@
     "gitlab",
     "iife",
     "jsdoc",
+    "kube",
     "kubectl",
     "kubernetes",
     "kustomize",
     "lcov",
     "linkedin",
     "maxdepth",
+    "monospace",
     "moraes",
     "multiline",
     "nonblock",
@@ -143,7 +145,7 @@
     ".vscode"
   ],
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
