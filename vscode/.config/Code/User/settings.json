@@ -193,3 +193,5 @@
   },
   "workbench.editor.decorations.badges": true,
   "workbench.editor.decorations.colors": true,
+  "team.showWelcomeMessage": false,
+}
