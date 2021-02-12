@@ -17,6 +17,8 @@ function golang -a cmd -d "go wrapper with commands that Google forgot" -w go
     test -d $GOPATH/src/$package; and rm -rf $GOPATH/src/$package
     # remove bin
     test -f $GOPATH/bin/$splitPackage[3]; and rm -rf $GOPATH/bin/$splitPackage[3]
+    # remove mod
+    find $GOPATH/pkg/mod/$package* -type d -maxdepth 0 -exec sudo rm -rf {} +
     # remove cache
     test -d $GOPATH/pkg/mod/cache/download/$argv[2]; and rm -rf $GOPATH/pkg/mod/cache/download/$argv[2]
 
