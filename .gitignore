@@ -24,6 +24,9 @@ fish/.config/fish/completions/kubectl.fish
 # otms61/fish-pet
 fish/.config/fish/functions/prev.fish
 fish/.config/fish/functions/pet-select.fish
+# PatrickF1/fzf.fish
+fish/.config/fish/conf.d/fzf.fish
+fish/.config/fish/functions/__fzf_*.fish
 
 
 # VSCode
