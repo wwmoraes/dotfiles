@@ -11,7 +11,6 @@ google-backup-and-sync:/Applications/Backup and Sync.app/Contents/MacOS/Backup a
 google-chrome:/Applications/Google Chrome.app/Contents/MacOS/Google Chrome
 fluid
 megasync
-fluor
 mate-translate:/Applications/Mate Translate.app/Contents/MacOS/Mate Translate
 suspicious-package:/Applications/Suspicious Package.app/Contents/MacOS/Suspicious Package
 launchcontrol
