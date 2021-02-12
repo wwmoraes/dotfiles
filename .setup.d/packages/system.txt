@@ -29,3 +29,4 @@ tldr
 pulumi
 goreleaser
 telnet
+bat
