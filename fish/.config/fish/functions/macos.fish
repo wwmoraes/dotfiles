@@ -45,8 +45,10 @@ function _macos_hide-on-dock
     echo "path does not contain an application bundle property list"
     return 1
   end
-  
-  sudo /usr/libexec/PlistBuddy -c 'Add :LSUIElement bool true' "$appPath/Contents/Info.plist"
+
+  sudo /usr/libexec/PlistBuddy -c 'Set :LSUIElement true' "$appPath/Contents/Info.plist" 2>/dev/null
+  or sudo /usr/libexec/PlistBuddy -c 'Add :LSUIElement bool true' "$appPath/Contents/Info.plist" 2>/dev/null
+
   echo "done - please reopen the app"
 end
 complete -xc macos -n __fish_use_subcommand -a hide-on-dock -d "makes the app hide its icon on Dock"
@@ -58,8 +60,8 @@ function _macos_show-on-dock
     echo "path does not contain an application bundle property list"
     return 1
   end
-  
-  sudo /usr/libexec/PlistBuddy -c 'Delete :LSUIElement' "$appPath/Contents/Info.plist"
+
+  sudo /usr/libexec/PlistBuddy -c 'Delete :LSUIElement' "$appPath/Contents/Info.plist" 2>/dev/null
   echo "done - please reopen the app"
 end
 complete -xc macos -n __fish_use_subcommand -a show-on-dock -d "makes the app hide its icon on Dock"
