@@ -38,7 +38,7 @@ module.exports = {
       match: [
         "*.abnamro.com/*",
         "*.abnamro.org/*",
-        "dev.azure.com/*abnamro/*",
+        "*.azure.com/*",
       ],
       browser: "Firefox"
     },
