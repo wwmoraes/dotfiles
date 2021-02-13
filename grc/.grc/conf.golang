@@ -1,0 +1,75 @@
+# running test
+regexp==== (RUN)\s+(\S*)
+colour="\033[90m",white,blue
+=====
+# passed tests
+regexp=--- (PASS): (\S*)
+colour="\033[90m",green,blue
+=====
+# paused/resumed parallel tests
+regexp==== (CONT|PAUSE) .*
+colour="\033[90m"
+=====
+# final pass status
+regexp=^PASS$
+colour=green
+=====
+# final fail status
+regexp=^FAIL$
+colour=red
+=====
+# package fail status
+regexp=^(FAIL)\s+(\S*)
+colour=default,red,bold magenta
+=====
+# package ok status
+regexp=^(ok)\s+(\S*)
+colours=default,green,bold magenta
+=====
+# package unknown status
+regexp=^(\?)\s+(\S*)
+colours=default,yellow,bold magenta
+=====
+# test function/run fail status
+regexp=--- (FAIL): (\S+)\s+(.*)
+colour="\033[90m",red,blue,default
+=====
+# log lines with file name, line number and message
+regexp=(\S+\.go(?::\d+)?):\s+\S+
+colour=default,cyan
+=====
+# cover test file names, line numbers, test function and percentage <80.0%
+regexp=^(\S+\.go(?::\d+)?):\s+(\S+)\s+((?:[0-9]|[0-7][0-9]).[0-9]%)
+colour=default,cyan,blue,bold underline red
+=====
+# cover test file names, line numbers, test function and percentage >=80.0%
+regexp=^(\S+\.go(?::\d+)?):\s+(\S+)\s+([89][0-9].[0-9]%)
+colour=default,cyan,blue,bold yellow
+=====
+# cover test file names, line numbers, test function and percentage 100.0%
+regexp=^(\S+\.go(?::\d+)?):\s+(\S+)\s+(100.0%)
+colour=default,cyan,blue,bold green
+=====
+# cover total line when <80.0%
+regexp=^total:\s+\(statements\)\s+((?:[0-9]|[0-7][0-9]).[0-9]%)$
+colour=default,bold underline red
+=====
+# cover total line when >=80.0%
+regexp=^total:\s+\(statements\)\s+([89][0-9].[0-9]%)$
+colour=default,bold yellow
+=====
+# cover total line when 100.0%
+regexp=^total:\s+\(statements\)\s+(100.0%)$
+colour=default,bold green
+=====
+# coverage report is <80.0%
+regexp=^coverage:\s+((?:[0-9]|[0-7][0-9]).[0-9]%)\s+.*$
+colour=default,bold yellow
+=====
+# coverage report is >=80.0%
+regexp=^coverage:\s+([89][0-9].[0-9]%)\s+.*$
+colour=default,bold yellow
+=====
+# coverage report is 100.0%
+regexp=^coverage:\s+100.0%\s+.*$
+colour=default,bold green

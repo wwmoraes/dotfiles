@@ -1,6 +1,7 @@
 {
   "files.associations": {
-    "**/.gitaliases": "gitconfig"
+    "**/.gitaliases": "gitconfig",
+    "grc/.grc/conf.*": "grc-app"
   },
   "cSpell.words": [
     "Fira",
