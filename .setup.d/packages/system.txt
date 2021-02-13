@@ -30,3 +30,4 @@ pulumi
 goreleaser
 telnet
 bat
+less:lesskey
