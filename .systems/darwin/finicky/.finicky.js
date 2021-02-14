@@ -1,3 +1,6 @@
+/// <reference path="./finicky.d.ts" />
+/// <reference path="./.finicky.d.ts" />
+/** @type {import("./.finicky.d").Finicky.Config} */
 module.exports = {
   defaultBrowser: "Browserosaurus",
   rewrite: [
