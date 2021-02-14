@@ -1,0 +1,39 @@
+#!/bin/bash
+# vim: ft=bash
+
+set -Eeuo pipefail
+
+SCRIPT_NAME=$(basename "$0")
+
+[[ "$1" = "usage" ]] && {
+  echo "    ${TODO_SH} [-fhpantvV] [-d todo_config] ${SCRIPT_NAME} <action> [task_number] [task_description]"
+  echo "      Context/project-aware actions (must be on a folder within GIT_PROJECT_PATHS)"
+  exit 0
+}
+
+git status --porcelain 2>/dev/null >&2 || {
+  echo "this directory is not within a git project"
+  exit 1
+}
+
+PROJECT_PATH=$(git rev-parse --show-toplevel)
+WORKSPACE=$(dirname "${PROJECT_PATH}")
+PROJECT_PATHS=$(echo "${GIT_PROJECT_PATHS}" | sed "s|~|${HOME}|g" | tr ',' $'\n')
+echo -e "${PROJECT_PATHS}" | grep -qE "^${WORKSPACE}$" || {
+  printf "\e[96m%s\e[m is not within the project paths:\n" "${WORKSPACE}"
+  printf "\e[96m%s\e[m\n" "${PROJECT_PATHS}"
+  exit 1
+}
+
+CONTEXT=$(basename "${WORKSPACE}")
+PROJECT=$(basename -s .git $(git remote get-url $(git remote)))
+FILTERS="@${CONTEXT} +${PROJECT}"
+
+# remove script name
+shift
+
+# extract the command
+COMMAND="$1"
+shift
+
+"${TODO_FULL_SH}" "${COMMAND}" "$* ${FILTERS}"
