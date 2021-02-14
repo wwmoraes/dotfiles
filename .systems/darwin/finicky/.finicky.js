@@ -5,8 +5,20 @@ module.exports = {
   defaultBrowser: "Browserosaurus",
   rewrite: [
     {
+      match: "tracking.tldrnewsletter.com/*",
+      url: ({ url }) => {
+        let newUrlString = url.pathname.replace(/.*?(https?)/, "$1");
+        let length = 0;
+        while (newUrlString.length != length) {
+          length = newUrlString.length;
+          newUrlString = unescape(newUrlString);
+        }
+        return newUrlString;
+      },
+    },
+    {
       match: () => true,
-      url({ url }) {
+      url: ({ url }) => {
         const removeKeysStartingWith = ["utm_", "uta_"];
         const removeKeys = ["fblid", "gclid", "auto_subscribed", "email_source"];
 
