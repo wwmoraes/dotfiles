@@ -2,7 +2,14 @@
 status --is-interactive; or exit
 
 abbr -a -U wttr "curl v2.wttr.in"
-abbr -a -U t "todo.sh"
+
+# todo.sh
+if type -q todo.sh
+  abbr -a -U t "todo.sh"
+  abbr -a -U tp "todo.sh p"
+  abbr -a -U tpa "todo.sh p a"
+  abbr -a -U tpls "todo.sh p ls"
+end
 
 # git abbreviations
 if type -q git
