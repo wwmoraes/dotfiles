@@ -29,12 +29,12 @@ module.exports = {
   ],
   handlers: [
     {
-      match: ({ sourceBundleIdentifier }) =>
+      match: ({ opener }) =>
         [
           "com.tinyspeck.slackmacgap",
           "com.microsoft.teams",
           "com.microsoft.Outlook",
-        ].includes(sourceBundleIdentifier),
+        ].includes(opener.bundleId),
       browser: "Firefox"
     },
     {
@@ -46,14 +46,14 @@ module.exports = {
       browser: "Firefox"
     },
     {
-      match: ({ sourceBundleIdentifier }) =>
+      match: ({ opener }) =>
         [
           "com.facebook.archon",
           "ru.keepcoder.Telegram",
           "com.hnc.Discord",
           "WhatsApp",
           "com.fluidapp.FluidApp2.LinkedIn",
-        ].includes(sourceBundleIdentifier),
+        ].includes(opener.bundleId),
       browser: "Safari"
     },
     {
