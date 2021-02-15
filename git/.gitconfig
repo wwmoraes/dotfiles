@@ -24,6 +24,7 @@
   ff = only
 
 [rebase]
+  autoSquash = true
   autoStash = true
 
 # push easily. http://stackoverflow.com/a/23918418/89484
