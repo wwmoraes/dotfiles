@@ -14,12 +14,12 @@ function __fish_preexec_wakatime --on-event fish_preexec
 
   test -n "$argv"
   and begin
-    wakatime \
+    echo "$argv" | cut -d ' ' -f1 | xargs -I{} wakatime \
       --write \
       --plugin "fish-wakatime/0.0.1" \
       --entity-type app \
       --project "$project" \
-      --entity "(echo $argv | cut -d ' ' -f1)" 2>&1 >/dev/null &
-    disown (jobs -lp | tail +1)
+      --entity "{}" 2>&1 >/dev/null &
+    disown (jobs -lp | tail +1) 2>/dev/null
   end
 end
