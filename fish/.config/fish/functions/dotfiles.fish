@@ -29,6 +29,8 @@ function dotfiles -a cmd -d "Setup dotfiles"
       _dotfiles_config $argv[2..-1]
     case cd
       cd $DOTFILES_DIR
+    case update
+      _dotfiles_update $argv[2..-1]
     case "" "*"
       echo "Unknown option $cmd"
   end
@@ -210,3 +212,17 @@ function _dotfiles_config -a opt
 
 end
 complete -xc dotfiles -n __fish_use_subcommand -a config -d "configures other tools"
+
+function _dotfiles_update
+  pushd $DOTFILES_DIR > /dev/null
+  if test (git branch --show-current) -ne "master"
+    echo "not on master, aborting"
+    return 1
+  end
+  git stash push -a -q
+  git pull --ff-only -q
+  git stash pop -q
+  make install
+  popd > /dev/null 2>&1
+end
+complete -xc dotfiles -n __fish_use_subcommand -a update -d "pull and install files"
