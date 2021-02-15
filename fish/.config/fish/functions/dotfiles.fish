@@ -215,14 +215,19 @@ complete -xc dotfiles -n __fish_use_subcommand -a config -d "configures other to
 
 function _dotfiles_update
   pushd $DOTFILES_DIR > /dev/null
+
+  # currently not on master branch
   if test (git branch --show-current) -ne "master"
-    echo "not on master, aborting"
-    return 1
+    # stash branch changes
+    test (git s -s | wc -l | xargs) -gt 0; and git stash push -a -q
+    git checkout master
   end
-  git stash push -a -q
-  git pull --ff-only -q
-  git stash pop -q
-  make install
+
+  # git stash push -a -q
+  git pull --ff-only --autostash -q
+  and make install
+  # git stash pop -q
+
   popd > /dev/null 2>&1
 end
 complete -xc dotfiles -n __fish_use_subcommand -a update -d "pull and install files"
