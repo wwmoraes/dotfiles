@@ -23,6 +23,9 @@
 	rebase = true
   ff = only
 
+[rebase]
+  autoStash = true
+
 # push easily. http://stackoverflow.com/a/23918418/89484
 [push]
 	recurseSubmodules = check
@@ -30,6 +33,7 @@
 	followTags = true
 
 [merge]
+  autoStash = true
   ff = only
 
 [stash]
