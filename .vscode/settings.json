@@ -26,7 +26,10 @@
     "tldrnewsletter",
     "vsicons"
   ],
-  "Lua.diagnostics.globals": ["hs", "spoon"],
+  "Lua.diagnostics.globals": [
+    "hs",
+    "spoon"
+  ],
   "Lua.workspace.library": {
     "/Applications/Hammerspoon.app/Contents/Resources/extensions/": true,
     "~/.hammerspoon/Spoons/": true

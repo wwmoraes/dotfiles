@@ -6,6 +6,4 @@ else if test -d "$PYTHON_PATH/site-packages"
 end
 
 # Setup powerline if installed
-if functions -q powerline-setup
-  powerline-setup
-end
+functions -q powerline-setup; and powerline-setup
