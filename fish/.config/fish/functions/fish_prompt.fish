@@ -4,9 +4,7 @@ function __fish_preexec_wakatime --on-event fish_preexec
   test -d $PWD/.git
   and begin
     if not test -f $PWD/.wakatime-project
-      set project (git -C $PWD remote get-url (git -C $PWD remote | head -1) 2> /dev/null)
-      set project (string replace -r "git@(.*):(.*)\.git" "\$1/\$2" $project)
-      echo $project >$PWD/.wakatime-project
+      project > $PWD/.wakatime-project
     else
       set project (cat $PWD/.wakatime-project)
     end
