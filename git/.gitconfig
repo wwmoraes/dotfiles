@@ -21,12 +21,16 @@
 
 [pull]
 	rebase = true
+  ff = only
 
 # push easily. http://stackoverflow.com/a/23918418/89484
 [push]
 	recurseSubmodules = check
 	default = current
 	followTags = true
+
+[merge]
+  ff = only
 
 [stash]
 	showPatch = true
