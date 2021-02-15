@@ -217,7 +217,7 @@ function _dotfiles_update
   pushd $DOTFILES_DIR > /dev/null
 
   # currently not on master branch
-  if test (git branch --show-current) -ne "master"
+  if not test (git branch --show-current) = "master"
     # stash branch changes
     test (git s -s | wc -l | xargs) -gt 0; and git stash push -a -q
     git checkout master
