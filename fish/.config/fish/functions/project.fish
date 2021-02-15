@@ -7,6 +7,8 @@ function project
   set name (git remote get-url (git remote | head -1) 2> /dev/null)
   # remove .git suffix
   set name (string replace -r "\.git\$" "" $name)
+  # replace prefix of gists so it doesn't end up with just the hash
+  set name (string replace "git@gist.github.com:" "gist/" $name)
   # remove git prefix for SSH URLs
   set name (string replace -r "^git@.*:" "" $name)
   # remove HTTP prefix
