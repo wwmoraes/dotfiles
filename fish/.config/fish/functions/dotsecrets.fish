@@ -144,3 +144,22 @@ function _dotsecrets_lg
   popd > /dev/null 2>&1
 end
 complete -xc dotsecrets -n __fish_use_subcommand -a lg -d "open lazygit at dotsecrets repository"
+
+function _dotsecrets_update
+  pushd $DOTSECRETS_DIR > /dev/null
+
+  # currently not on master branch
+  if not test (git branch --show-current) = "master"
+    # stash branch changes
+    test (git s -s | wc -l | xargs) -gt 0; and git stash push -a -q
+    git checkout master
+  end
+
+  # git stash push -a -q
+  git pull --ff-only --autostash -q
+  and make install
+  # git stash pop -q
+
+  popd > /dev/null 2>&1
+end
+complete -xc dotsecrets -n __fish_use_subcommand -a update -d "pull and install files"
