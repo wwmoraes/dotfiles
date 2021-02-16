@@ -1,4 +1,5 @@
 function __fish_preexec_wakatime --on-event fish_preexec
+  set -l languageName ""
   set -l projectName "terminal"
 
   test -d $PWD/.git
@@ -18,10 +19,20 @@ function __fish_preexec_wakatime --on-event fish_preexec
     # ignore if not a valid command
     type -p "$commandName" > /dev/null ^&1; or return
 
+    ### language overrides
+    # fish abbreviations
+    abbr -l | grep -qx $commandName; and set languageName "fish"
+    # fish functions
+    functions -n | tr ',' '\n' | grep -x $commandName; and set languageName "fish"
+    # shell scripts
+    string match -r "\.fish\$" $commandName; and set languageName "fish"
+    string match -r "\.sh\$" $commandName; and set languageName "shell"
+
     wakatime \
       --write \
       --plugin "fish-wakatime/0.0.1" \
       --entity-type app \
+      --language "$languageName" \
       --project "$projectName" \
       --entity "$commandName" 2>&1 >/dev/null &
     disown (jobs -lp | tail +1) 2>/dev/null
