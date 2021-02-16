@@ -15,6 +15,8 @@ function __fish_preexec_wakatime --on-event fish_preexec
 
     # replace folder navigation to cd command
     test -d $commandName; and set -l commandName "cd"
+    # ignore if not a valid command
+    type -p "$commandName" > /dev/null ^&1; or return
 
     wakatime \
       --write \
