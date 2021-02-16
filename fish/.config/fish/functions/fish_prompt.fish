@@ -12,6 +12,10 @@ function __fish_preexec_wakatime --on-event fish_preexec
   test -n "$argv"
   and begin
     set -l commandName (echo "$argv" | cut -d ' ' -f1)
+
+    # replace folder navigation to cd command
+    test -d $commandName; and set -l commandName "cd"
+
     wakatime \
       --write \
       --plugin "fish-wakatime/0.0.1" \
