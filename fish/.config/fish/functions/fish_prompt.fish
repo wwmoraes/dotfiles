@@ -14,10 +14,17 @@ function __fish_preexec_wakatime --on-event fish_preexec
   and begin
     set -l commandName (echo "$argv" | cut -d ' ' -f1)
 
+    ### command name transformations
     # replace folder navigation to cd command
     test -d $commandName; and set -l commandName "cd"
     # ignore if not a valid command
     type -p "$commandName" > /dev/null ^&1; or return
+
+    ### project overrides
+    # change the project to terminal if it is a builtin command
+    builtin -n | grep -qx $commandName; and set projectName "terminal"
+    test "$commandName" = "dotfiles"; and set projectName "wwmoraes/dotfiles"
+    test "$commandName" = "dotsecrets"; and set projectName "wwmoraes/dotsecrets"
 
     ### language overrides
     # fish abbreviations
