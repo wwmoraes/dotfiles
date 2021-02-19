@@ -29,12 +29,12 @@
   "workbench.colorCustomizations": {
     "bookmarks.lineBackground": "#157EFB22"
   },
-  "terminal.integrated.fontFamily": "Fira Code",
+  "terminal.integrated.fontFamily": "'Fira Code'",
   "git.autofetch": true,
   "vsicons.dontShowNewVersionMessage": true,
   "explorer.confirmDelete": true,
   "git-graph.maxDepthOfRepoSearch": 2,
-  "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+  "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', monospace, 'Droid Sans Fallback'",
   "editor.fontLigatures": "'ss03','ss07'",
   "editor.fontWeight": "400",
   "editor.fontSize": 16,
