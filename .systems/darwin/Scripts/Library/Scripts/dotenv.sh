@@ -15,6 +15,9 @@ processDotenvFile() {
 
     IFS="=" read -r name value <<<"$line"
 
+    # expand tilde with the home path
+    value=$(echo "${value}" | sed "s|~|${HOME}|g")
+
     case "$value" in
       \'*\') launchctl setenv "${name}" "$(printf "%s" "$value" | sed -E "s/^'(.*)'$/\1/")";;
       *) launchctl setenv "${name}" "${value}";;
