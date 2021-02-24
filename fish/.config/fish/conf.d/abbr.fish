@@ -14,12 +14,13 @@ end
 # git abbreviations
 if type -q git
   abbr -a -U g "git"
-  abbr -a -U gco "git checkout"
-  abbr -a -U gga "git add --all && git commit --amend --no-edit"
-  abbr -a -U ggp "git push --force"
-  abbr -a -U gss "git s -s"
-  abbr -a -U gra "git rebase --autosquash -i"
-  abbr -a -U grra "git rebase --autosquash -i --root"
+  abbr -a -U gc "git checkout"
+  abbr -a -U ga "git add --all && git commit --amend --no-edit"
+  abbr -a -U gp "git push"
+  abbr -a -U gg "git push --force"
+  abbr -a -U gs "git s -s"
+  abbr -a -U gr "git rebase --autosquash -i"
+  abbr -a -U grr "git rebase --autosquash -i --root"
 end
 
 # terraform abbreviations
