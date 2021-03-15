@@ -34,6 +34,11 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
     end
   # case ""
   #   __fish_print_help dockr
+  case tags
+    for image in $argv[2..-1]
+      set -l tags (curl -fsSL https://registry.hub.docker.com/v1/repositories/$image/tags | jq -r '.[].name' | xargs)
+      printf "%s: %s\n" $image $tags
+    end
   case "*"
     docker $argv
   end
@@ -46,3 +51,4 @@ complete -xc dockr -n __fish_use_subcommand -a rmi -d "remove images interactive
 complete -xc dockr -n __fish_use_subcommand -a rmc -d "remove containers interactively"
 complete -xc dockr -n __fish_use_subcommand -a rmv -d "remove volumes interactively"
 complete -xc dockr -n __fish_use_subcommand -a labels -d "list all labels set on an image"
+complete -xc dockr -n __fish_use_subcommand -a tags -d "list all image remote tags"
