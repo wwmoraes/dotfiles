@@ -51,3 +51,31 @@ hs.spoons.use("Meetings", {
 })
 ---@type Meetings
 spoon.Meetings = spoon.Meetings
+
+hs.spoons.use("Hazel", {
+  config = {
+    rulesets = {
+      [os.getenv("HOME") .. "/Downloads"] = {
+        function(path, flags)
+          return path:match(".*/.TheUnarchiverTemp0") and flags.itemIsDir == true
+        end,
+        function (path, flags)
+          return path:match(".*/.TheUnarchiverTemp0/.*")
+        end,
+        function (path, flags)
+          return flags.itemModified or flags.itemRemoved
+        end,
+        function (path, flags)
+          if path:match('%.zip$') then
+            hs.task.new("/usr/bin/open", nil, nil, {path}):start()
+            return true
+          end
+          return false
+        end
+      },
+    },
+  },
+  start = true,
+})
+---@type Hazel
+spoon.Hazel = spoon.Hazel
