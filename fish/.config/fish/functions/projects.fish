@@ -39,6 +39,8 @@ function projects -a cmd -d "projects repository management"
       _projects_cd $argv
     case ls
       _projects_ls $argv
+    case update
+      _projects_update $argv
     case "" "*"
       echo "Unknown option $cmd"
   end
@@ -150,3 +152,8 @@ function _projects_ls
   ls -1 $PROJECTS_DIR
 end
 complete -xc projects -n __fish_use_subcommand -a ls -d "list projects"
+
+function _projects_update
+  curl -fsSL https://gist.github.com/wwmoraes/75dc66767a9f487c8235c5423027f69c/raw/setup.sh | sh -s -- "$PWD"
+end
+complete -xc projects -n __fish_use_subcommand -a update -d "update project files"
