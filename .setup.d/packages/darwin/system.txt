@@ -13,3 +13,4 @@ opa
 yamllint
 mas
 coreutils
+conftest
