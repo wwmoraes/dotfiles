@@ -27,9 +27,17 @@ hs.spoons.use("Contexts", {
   config = {
     contexts = {
       work = {
+        title = "Work",
+        openAt = "09:00",
+        closeAt = "17:00",
+        exceptDays = {
+          [1] = true,
+          [7] = true
+        },
         applications = {
           "Firefox",
-          "Teams",
+          "Microsoft Teams",
+          "Microsoft Outlook"
         },
       },
     },
