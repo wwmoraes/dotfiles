@@ -12,3 +12,4 @@ kubeval
 opa
 yamllint
 mas
+coreutils
