@@ -15,7 +15,9 @@ endif
 
 define stow
 	$(info stowing $(subst /,,$(1))...)
-	@stow -t ~ -R $(1) 2>&1 \
+	@stow \
+		$(if $(wildcard $(1)/.adopt),--adopt) \
+		-t ~ -R $(1) 2>&1 \
 		| grep -v 'BUG in find_stowed_path?' \
 		| grep -v 'WARNING: skipping target which was current stow directory' \
 		| grep -v 'stow: ERROR: stow_contents() called with non-directory path:' \
@@ -32,7 +34,9 @@ endef
 
 define osstow
 	$(info stowing $(OS)/$(subst /,,$(1))...)
-	@cd .systems/$(OS) && stow -t ~ -R $(1) 2>&1 \
+	@cd .systems/$(OS) && stow \
+		$(if $(wildcard .systems/$(OS)/$(1)/.adopt),--adopt) \
+		-t ~ -R $(1) 2>&1 \
 		| grep -v 'BUG in find_stowed_path?' \
 		| grep -v 'WARNING: skipping target which was current stow directory' \
 		| grep -v 'stow: ERROR: stow_contents() called with non-directory path:' \
@@ -49,7 +53,9 @@ endef
 
 define hostnamestow
 	$(info stowing $(HOSTNAME)/$(subst /,,$(1))...)
-	@cd .hostnames/$(HOSTNAME) && stow -t ~ -R $(1) 2>&1 \
+	@cd .hostnames/$(HOSTNAME) && stow \
+		$(if $(wildcard .hostnames/$(HOSTNAME)/$(1)/.adopt),--adopt) \
+		-t ~ -R $(1) 2>&1 \
 		| grep -v 'BUG in find_stowed_path?' \
 		| grep -v 'WARNING: skipping target which was current stow directory' \
 		| grep -v 'stow: ERROR: stow_contents() called with non-directory path:' \
