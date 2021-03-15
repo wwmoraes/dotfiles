@@ -25,5 +25,6 @@ for POLYFILL in "${POLYFILLS_PATH}"/*; do
    if ! _=$(type -p "${POLYFILL}" &> /dev/null); then
     printf "Polyfilling \e[96m%s\e[0m...\n" "${POLYFILL}"
     ln -sf "${POLYFILLS_PATH}/${POLYFILL}" "$HOME/.local/bin/${POLYFILL}"
+    chmod +x "$HOME/.local/bin/${POLYFILL}"
    fi
 done
