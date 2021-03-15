@@ -1,0 +1,2 @@
+---@class ImageInstance
+local ImageInstance

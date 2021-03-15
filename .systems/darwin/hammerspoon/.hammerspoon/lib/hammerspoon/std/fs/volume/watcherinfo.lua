@@ -1,0 +1,2 @@
+---@class VolumeWatcherInfo
+---@field path string

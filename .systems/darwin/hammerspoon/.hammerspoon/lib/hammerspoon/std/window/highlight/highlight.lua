@@ -1,0 +1,2 @@
+---@class WindowHighlight
+local WindowHighlight

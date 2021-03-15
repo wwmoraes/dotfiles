@@ -1,0 +1,5 @@
+---@class CGWindowBounds
+---@field Width integer
+---@field Height integer
+---@field Y integer
+---@field X integer

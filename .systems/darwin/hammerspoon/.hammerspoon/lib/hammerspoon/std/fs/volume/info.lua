@@ -1,0 +1,39 @@
+--- Notes:
+---
+--- * Not all keys will be present for all volumes
+--- * The meanings of `NSURLVolumeIsEjectableKey` and `NSURLVolumeIsRemovableKey`
+--- are not generally what they sound like. If you want a simple test as to
+--- whether or not a volume is a removable drive (e.g. a USB hard disk), check
+--- for `NSURLVolumeIsInternalKey` being false (this is what Finder does)
+---@class VolumeInfo
+--- size of the volume in bytes
+---@field NSURLVolumeTotalCapacityKey number
+--- available space on the volume in bytes
+---@field NSURLVolumeAvailableCapacityKey number
+--- indicates if the volume was automounted
+---@field NSURLVolumeIsAutomountedKey boolean
+--- indicates if the volume can be browsed
+---@field NSURLVolumeIsBrowsableKey boolean
+--- indicates if the volume should be ejected before its media is removed
+---@field NSURLVolumeIsEjectableKey boolean
+--- indicates if the volume is an internal drive or an external drive
+---@field NSURLVolumeIsInternalKey boolean
+--- indicates if the volume is a local or remote drive
+---@field NSURLVolumeIsLocalKey boolean
+--- indicates if the volume is read only
+---@field NSURLVolumeIsReadOnlyKey boolean
+--- indicates if the volume's media can be physically ejected from the drive
+--- (e.g. a DVD)
+---@field NSURLVolumeIsRemovableKey boolean
+--- maximum file size the volume can support, in bytes
+---@field NSURLVolumeMaximumFileSizeKey number
+--- UUID of volume's filesystem
+---@field NSURLVolumeUUIDStringKey string
+--- for remote volumes, the network URL of the volume
+---@field NSURLVolumeURLForRemountingKey string
+--- localized version of the volume's name
+---@field NSURLVolumeLocalizedNameKey string
+--- volume's name
+---@field NSURLVolumeNameKey string
+--- localized description of the volume
+---@field NSURLVolumeLocalizedFormatDescriptionKey string
