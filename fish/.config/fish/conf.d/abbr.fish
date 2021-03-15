@@ -299,42 +299,6 @@ if type -q kubectl
   # work-only abbreviations
   if isWork
     abbr -a -U kdip "kubectl get secrets | awk 'NR==1{print;next};\$2 ~ /kubernetes.io\/dockerconfigjson/ {print}' | fzf --ansi --header-lines=1 -1 | awk '{print \$1}' | xargs -I{} -o kubectl get secret {} -o yaml | yq -r '.data[\".dockerconfigjson\"]' | base64 -D | jq -r '.auths | keys[] as \$key | .[\$key].auth' | base64 -D"
-
-    abbr -a -U kinpri-backends "kubectl ingress-nginx -n nginx-private backends --deployment nginx-private-nginx-ingress-controller"
-    abbr -a -U kinpub-backends "kubectl ingress-nginx -n nginx-public backends --deployment nginx-public-nginx-ingress-controller"
-    abbr -a -U kinint-backends "kubectl ingress-nginx -n nginx-internal backends --deployment nginx-internal-nginx-ingress-controller"
-
-    abbr -a -U kinpri-certs "kubectl get ingresses -A | awk '{print $1,$2,$3}' | column -t | fzf --header-lines=1 | awk '{print $3}' | tr ',' '\n' | fzf --header='HOST' -1 -0 | xargs kubectl ingress-nginx -n nginx-private certs --deployment nginx-private-nginx-ingress-controller --host"
-    abbr -a -U kinpub-certs "kubectl get ingresses -A | awk '{print $1,$2,$3}' | column -t | fzf --header-lines=1 | awk '{print $3}' | tr ',' '\n' | fzf --header='HOST' -1 -0 | xargs kubectl ingress-nginx -n nginx-public certs --deployment nginx-public-nginx-ingress-controller --host"
-    abbr -a -U kinint-certs "kubectl get ingresses -A | awk '{print $1,$2,$3}' | column -t | fzf --header-lines=1 | awk '{print $3}' | tr ',' '\n' | fzf --header='HOST' -1 -0 | xargs kubectl ingress-nginx -n nginx-internal certs --deployment nginx-internal-nginx-ingress-controller --host"
-
-    abbr -a -U kinpri-conf "kubectl ingress-nginx -n nginx-private conf --deployment nginx-private-nginx-ingress-controller"
-    abbr -a -U kinpub-conf "kubectl ingress-nginx -n nginx-public conf --deployment nginx-public-nginx-ingress-controller"
-    abbr -a -U kinint-conf "kubectl ingress-nginx -n nginx-internal conf --deployment nginx-internal-nginx-ingress-controller"
-
-    abbr -a -U "kinpri-exec" "kubectl ingress-nginx -n nginx-private exec --deployment nginx-private-nginx-ingress-controller"
-    abbr -a -U "kinpub-exec" "kubectl ingress-nginx -n nginx-public exec --deployment nginx-public-nginx-ingress-controller"
-    abbr -a -U "kinint-exec" "kubectl ingress-nginx -n nginx-internal exec --deployment nginx-internal-nginx-ingress-controller"
-
-    abbr -a -U kinpri-Ueneral "kubectl ingress-nginx -n nginx-private general --deployment nginx-private-nginx-ingress-controller"
-    abbr -a -U kinpub-Ueneral "kubectl ingress-nginx -n nginx-public general --deployment nginx-public-nginx-ingress-controller"
-    abbr -a -U kinint-Ueneral "kubectl ingress-nginx -n nginx-internal general --deployment nginx-internal-nginx-ingress-controller"
-
-    abbr -a -U kinpri-info "kubectl ingress-nginx -n nginx-private info --service nginx-private-nginx-ingress-controller"
-    abbr -a -U kinpub-info "kubectl ingress-nginx -n nginx-public info --service nginx-public-nginx-ingress-controller"
-    abbr -a -U kinint-info "kubectl ingress-nginx -n nginx-internal info --service nginx-internal-nginx-ingress-controller"
-
-    # TODO ingresses
-
-    # TODO lint
-
-    abbr -a -U kinpri-logs "kubectl ingress-nginx -n nginx-private logs --deployment nginx-private-nginx-ingress-controller"
-    abbr -a -U kinpub-logs "kubectl ingress-nginx -n nginx-public logs --deployment nginx-public-nginx-ingress-controller"
-    abbr -a -U kinint-logs "kubectl ingress-nginx -n nginx-internal logs --deployment nginx-internal-nginx-ingress-controller"
-
-    abbr -a -U kinpri-ssh "kubectl ingress-nginx -n nginx-private ssh --deployment nginx-private-nginx-ingress-controller"
-    abbr -a -U kinpub-ssh "kubectl ingress-nginx -n nginx-public ssh --deployment nginx-public-nginx-ingress-controller"
-    abbr -a -U kinint-ssh "kubectl ingress-nginx -n nginx-internal ssh --deployment nginx-internal-nginx-ingress-controller"
   end
 end
 
