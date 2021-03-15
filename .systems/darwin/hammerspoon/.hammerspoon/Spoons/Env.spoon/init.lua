@@ -10,7 +10,7 @@
 ---
 
 --- returns the short hostname from the output of the `hostname -s` command
---- @return string @current hostname
+---@return string @current hostname
 local function hostname()
   local proc = io.popen("/bin/hostname -s")
   local hostname = proc:read("l") or ""
@@ -19,17 +19,17 @@ local function hostname()
   return hostname
 end
 
---- @alias ContextName '"work"' | '"personal"'
+---@alias ContextName '"work"' | '"personal"'
 
---- @class Env : Spoon
+---@class Env : Spoon
 --- global logger instance
---- @field protected logger LoggerInstance
+---@field protected logger LoggerInstance
 --- variables loaded from the files
---- @field protected variables table<string,string>
+---@field protected variables table<string,string>
 --- files to load environment variables from
---- @field public files string[]
+---@field public files string[]
 --- map of short hostnames and their contexts to load extra variables from
---- @field public contexts table<string,ContextName>
+---@field public contexts table<string,ContextName>
 --- Env Spoon object
 local obj = {
   variables = {},
@@ -51,16 +51,16 @@ obj.license = "MIT - https://opensource.org/licenses/MIT"
 obj.logger = hs.logger.new(string.lower(obj.name), "info")
 
 --- loads environment variables from the given file, if it exists
---- @param filename string @file path and name to load variables from
---- @return Env @the Env object
+---@param filename string @file path and name to load variables from
+---@return Env @the Env object
 function obj:loadFromFile(filename)
   local file = io.open(filename, "r")
-  
+
   if file == nil then
     return self
   end
 
-  --- @type string|nil
+  ---@type string|nil
   for line in file:lines("l") do
     if line == nil then goto continue end
     if line:sub(1) == "#" then goto continue end
@@ -82,7 +82,7 @@ function obj:loadFromFile(filename)
   return self
 end
 
---- @return Env @the Env object
+---@return Env @the Env object
 function obj:load()
   obj.variables = {}
 
@@ -96,8 +96,8 @@ end
 
 --- returns the variable value stored on this instance, if it is set, or returns
 --- the value from a vanilla `os.getenv` call
---- @param name string @variable name to get
---- @return string|nil @the variable value or `nil`, if not set
+---@param name string @variable name to get
+---@return string|nil @the variable value or `nil`, if not set
 function obj:getenv(name)
   return self.variables[name] or obj.osgetenv(name)
 end
@@ -105,7 +105,7 @@ end
 --- loads the environment files and overrides `os.getenv` function so it tries
 --- to get environment variables from this `Env` instance first, falling back to
 --- the original lua function if the variable is unset
---- @return Env @the Env object
+---@return Env @the Env object
 function obj:start()
   local thisHostname = hostname()
   local context = self.contexts[thisHostname]
@@ -125,7 +125,7 @@ function obj:start()
 end
 
 --- restores `os.getenv` and cleanups the loaded environment variables
---- @return Env @the Env object
+---@return Env @the Env object
 function obj:stop()
   os.getenv = obj.osgetenv
 

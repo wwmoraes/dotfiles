@@ -1,4 +1,5 @@
---- @alias HotkeyModifier "'cmd'"|"'command'"|"'⌘'"|"'ctrl'"|"'control'"|"'⌃'"|"'alt'"|"'option'"|"'⌥'"|"'shift'"|"'⇧'"
+---@alias AccessibilityStateCallback "function()"
 
---- @alias HotkeySpec HotkeyModifier[]|string|number
---- @alias HotkeyMapping table<string,HotkeySpec[]>
+---@param completionWord string @input that completions are needed for
+---@return string[] @ possible completion options
+---@alias CompletionsCallback "function(completionWord:string):string[]"

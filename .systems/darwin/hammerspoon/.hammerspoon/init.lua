@@ -12,7 +12,7 @@ hs.spoons.use("ReloadConfiguration", {
 
 hs.spoons.use("Env", {
   config = {
-    --- @type table<string,ContextName>
+    ---@type table<string,ContextName>
     contexts = {
       ["M1Cabuk"] = "personal",
       ["NLMBF04E-C82334"] = "work",
@@ -20,7 +20,7 @@ hs.spoons.use("Env", {
   },
   start = true,
 })
---- @type Env
+---@type Env
 spoon.Env = spoon.Env
 
 hs.spoons.use("Contexts", {
@@ -37,7 +37,7 @@ hs.spoons.use("Contexts", {
   hotkeys = "default",
   start = true,
 })
---- @type Contexts
+---@type Contexts
 spoon.Contexts = spoon.Contexts
 
 hs.spoons.use("Meetings", {
@@ -49,5 +49,5 @@ hs.spoons.use("Meetings", {
   hotkeys = "default",
   start = true,
 })
---- @type Meetings
+---@type Meetings
 spoon.Meetings = spoon.Meetings

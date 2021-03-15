@@ -29,7 +29,7 @@ local Slack = {
 }
 
 --- set the user presence status
---- @param status "'auto'"|"'away'"
+---@param status "'auto'"|"'away'"
 function Slack:setPresence(status)
   assert(status, "no status provided")
 
@@ -40,9 +40,9 @@ end
 
 --- sets the user status text and emoji.
 --- If no expiration is given, the status will be set indefinitely
---- @param text string
---- @param emoji string
---- @param expiration "'N'"|"'30M'"|"'45M'"|"'1H'"
+---@param text string
+---@param emoji string
+---@param expiration "'N'"|"'30M'"|"'45M'"|"'1H'"
 function Slack:setStatus(text, emoji, expiration)
   assert(text, "no text provided")
   assert(emoji, "no emoji provided")
@@ -59,9 +59,9 @@ end
 
 --- executes a post call to the slack API with the needed headers and serialized
 --- data, and calls the provided callback function with the response
---- @param data table
---- @param endpoint string
---- @param callback fun(httpCode:number, body:string, res:table):nil
+---@param data table
+---@param endpoint string
+---@param callback fun(httpCode:number, body:string, res:table):nil
 function Slack:rawAsyncPost(data, endpoint, callback)
   local data = hs.json.encode(data)
   local headers = {
@@ -97,8 +97,8 @@ function Slack:rawAsyncPost(data, endpoint, callback)
 end
 
 --- creates a new instance of Slack with the provided token
---- @param token string
---- @return Slack
+---@param token string
+---@return Slack
 function obj.new(token)
   assert(token, "a token must be provided")
   -- TODO assert token format

@@ -1,2 +1,2 @@
---- @type table<string,Spoon>
+---@type table<string,Spoon>
 spoon = spoon

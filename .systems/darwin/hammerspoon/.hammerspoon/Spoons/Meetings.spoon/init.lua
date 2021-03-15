@@ -7,23 +7,23 @@
 --- and relies on a fetchable calendar ics file to get all events from
 ---
 
---- @class Meetings : Spoon
+---@class Meetings : Spoon
 --- global logger instance
---- @field protected logger LoggerInstance
+---@field protected logger LoggerInstance
 --- list of timers created to open the meet links before the start time
---- @field protected timers TimerInstance[]
+---@field protected timers TimerInstance[]
 --- calendar ics file URL to fetch and process the meetings from
---- @field public calendarURL string
+---@field public calendarURL string
 --- seconds before the meeting start time to open the meet link
 --- (defaults to 5min)
---- @field public secondsBefore number
+---@field public secondsBefore number
 --- browser bundle to use to open the link (uses the OS default if not set)
---- @field public browserBundleID string
+---@field public browserBundleID string
 --- the time of the day to run the scheduler and create the timers for all
 --- meetings (format: "HH:MM")
---- @field public dailyScheduleTime string
+---@field public dailyScheduleTime string
 --- array of regexp matcher strings to extract meeting URLs from events
---- @field meetingURLMatchers string[]
+---@field meetingURLMatchers string[]
 --- Meetings Spoon object
 local obj = {
   timers = {},
@@ -44,7 +44,7 @@ obj.version = "1.0"
 obj.author = "William Artero"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
---- @type HotkeyMapping
+---@type HotkeyMapping
 obj.defaultHotkeys = {
   schedule = {{"ctrl", "option", "cmd"}, "m"}
 }
@@ -72,8 +72,8 @@ end
 
 --- extract the first meeting URL from text
 --- currently supported: Google Meet, Google Meet Stream
---- @param text string
---- @return string | nil
+---@param text string
+---@return string | nil
 function obj:getMeetingURL(text)
   ---@type string|nil
   local meetingURL
@@ -88,7 +88,7 @@ function obj:getMeetingURL(text)
 end
 
 --- stop current timers, and remove them
---- @return Meetings @the Meetings object
+---@return Meetings @the Meetings object
 function obj:cleanup()
   self.logger.i("stopping and removing timers...")
   while #self.timers > 0 do
@@ -99,7 +99,7 @@ function obj:cleanup()
 end
 
 --- fetch the ical data and create timers for the meetings
---- @return Meetings @the Meetings object
+---@return Meetings @the Meetings object
 function obj:schedule()
   assert(self.calendarURL, "no calendar URL set")
   self:cleanup()
@@ -142,9 +142,9 @@ function obj:schedule()
 end
 
 --- callback to process URL events from hs.urlevent
---- @param eventName string
---- @param params table
---- @return Meetings @the Meetings object
+---@param eventName string
+---@param params table
+---@return Meetings @the Meetings object
 function obj:handleURLEvent(eventName, params)
   assert(eventName == string.lower(self.name), string.format("unknown event %s", eventName))
   assert(params, "no params provided")
@@ -158,8 +158,8 @@ function obj:handleURLEvent(eventName, params)
   return self
 end
 
---- @param mapping HotkeyMapping table of strings that describe bindable actions of the spoon, with hotkey spec values
---- @return Meetings @the Meetings object
+---@param mapping HotkeyMapping table of strings that describe bindable actions of the spoon, with hotkey spec values
+---@return Meetings @the Meetings object
 function obj:bindHotkeys(mapping)
   if self.calendarURL == "" then
     self.logger.i("calendar URL is empty, skipping meetings hotkey bindings")
@@ -175,7 +175,7 @@ function obj:bindHotkeys(mapping)
   return self
 end
 
---- @return Meetings @the Meetings object
+---@return Meetings @the Meetings object
 function obj:start()
   if self.calendarURL == "" then
     self.logger.i("calendar URL is empty, skipping meetings setup")
@@ -199,7 +199,7 @@ function obj:start()
   return self
 end
 
---- @return Meetings @the Meetings object
+---@return Meetings @the Meetings object
 function obj:stop()
   hs.urlevent.bind(string.lower(self.name), nil)
 
