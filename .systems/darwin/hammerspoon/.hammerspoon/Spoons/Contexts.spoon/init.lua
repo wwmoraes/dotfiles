@@ -56,6 +56,13 @@ local obj = {
       applications = {
         "Slack"
       }
+    },
+    development = {
+      title = "Development",
+      applications = {
+        "com.microsoft.vscode",
+        "net.kovidgoyal.kitty"
+      }
     }
   }
 }
