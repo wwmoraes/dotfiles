@@ -17,3 +17,12 @@ local Hotkey
 ---@param key string|number @name of a keyboard key (as found in `hs.keycodes.map`), or a raw keycode number
 ---@return boolean @`true` if the hotkey can be assigned, `false` otherwise
 function Hotkey.assignable(mods, key)end
+
+---@param mods HotkeyModifier[]|string
+---@param key string|number
+---@param message string|nil
+---@param pressedfn function|nil
+---@param releasedfn function|nil
+---@param repeatfn function|nil
+---@return HotkeyInstance
+function Hotkey.bind(mods, key, message, pressedfn, releasedfn, repeatfn)end

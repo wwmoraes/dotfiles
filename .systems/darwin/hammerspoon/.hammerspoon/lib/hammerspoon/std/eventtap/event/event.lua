@@ -21,7 +21,7 @@ function EventTapEvent.newEventFromData(data)end
 ---@return EventTapEventInstance|nil
 function EventTapEvent.newGesture(gestureType, gestureValue)end
 
----@param mods EventTapEventKeyModifier|nil
+---@param mods EventTapEventKeyModifier[]|nil
 ---@param key string|integer
 ---@param isdown boolean
 ---@return EventTapEventInstance

@@ -37,7 +37,9 @@ function EventTapEventInstance:getUnicodeString()end
 
 function EventTapEventInstance:location()end
 
-function EventTapEventInstance:post()end
+---@param app ApplicationInstance|nil
+---@return EventTapEventInstance
+function EventTapEventInstance:post(app)end
 
 function EventTapEventInstance:rawFlags()end
 
