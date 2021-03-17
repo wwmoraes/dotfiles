@@ -64,6 +64,7 @@ module.exports = {
           "com.hnc.Discord",
           "WhatsApp",
           "com.fluidapp.FluidApp2.LinkedIn",
+          "com.readdle.smartemail-Mac"
         ].includes(opener.bundleId),
       browser: "Safari"
     },
