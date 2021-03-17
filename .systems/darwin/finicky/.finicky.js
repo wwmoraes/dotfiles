@@ -74,7 +74,8 @@ module.exports = {
         "*.home.localhost*",
         "*.tinc.localhost*",
         "*.com.br*",
-        "*.thuisbezorgd.nl*"
+        "*.thuisbezorgd.nl*",
+        "*.krisp.ai/*"
       ],
       browser: "Safari"
     },
