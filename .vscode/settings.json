@@ -34,9 +34,9 @@
     "hs",
     "spoon"
   ],
-  "Lua.workspace.library": {
-    "/Applications/Hammerspoon.app/Contents/Resources/extensions/": true,
-    "~/.hammerspoon/Spoons/": true
-  },
+  "Lua.workspace.library": [
+    "/Applications/Hammerspoon.app/Contents/Resources/extensions/",
+    "~/.hammerspoon/Spoons/"
+  ],
   "workspace.isHidden": true
 }

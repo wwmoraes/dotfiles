@@ -29,7 +29,7 @@
   "workbench.colorCustomizations": {
     "bookmarks.lineBackground": "#157EFB22"
   },
-  "terminal.integrated.fontFamily": "'Fira Code'",
+  "terminal.integrated.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "git.autofetch": true,
   "vsicons.dontShowNewVersionMessage": true,
   "explorer.confirmDelete": true,
@@ -182,7 +182,7 @@
   "github-actions.org-features": false,
   "yaml.format.enable": false,
   "azure.resourceFilter": [
-    "3a15904d-3fd9-4256-a753-beb05cdf0c6d/21f8e00c-9685-419b-ab9d-1ead9586751b"
+    "3a15904d-3fd9-4256-a753-beb05cdf0c6d/37523455-06d3-4fb9-8306-61a3c08f4d09"
   ],
   "vs-kubernetes": {
     "vs-kubernetes.knownKubeconfigs": [
@@ -195,6 +195,9 @@
   "workbench.editor.decorations.colors": true,
   "team.showWelcomeMessage": false,
   "editor.semanticHighlighting.enabled": true,
+  "azureResourceManagerTools.parameterFiles": {
+    "/Users/william/workspace/Azure/CBSP-Azure/CustomerSolutions/Mendix/Kubernetes/ACS-Engine-Output/ACS-Engine-Output-Artifacts-Dev/azuredeploy.json": "azuredeploy.parameters.json"
+  },
   "todo-tree.general.tags": [
     "BUG",
     "HACK",
@@ -205,4 +208,10 @@
     "[x]"
   ],
   "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+  "workbench.editorAssociations": [
+    {
+      "viewType": "jupyter.notebook.ipynb",
+      "filenamePattern": "*.ipynb"
+    }
+  ],
 }
