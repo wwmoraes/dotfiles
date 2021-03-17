@@ -100,9 +100,7 @@ local function hostname()
   return hostname
 end
 
-local thisHostname = hostname()
-
-if thisHostname == "NLMBF04E-C82334" then
+if hostname() == "NLMBF04E-C82334" then
   -- minimize personal browser and other utility applications
   hs.hotkey.bind({"ctrl", "option", "command"}, "m", function()
     local windows = hs.window.filter.new({
