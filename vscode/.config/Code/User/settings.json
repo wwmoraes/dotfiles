@@ -194,4 +194,15 @@
   "workbench.editor.decorations.badges": true,
   "workbench.editor.decorations.colors": true,
   "team.showWelcomeMessage": false,
+  "editor.semanticHighlighting.enabled": true,
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME",
+    "TODO",
+    "XXX",
+    "[ ]",
+    "[x]"
+  ],
+  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
 }

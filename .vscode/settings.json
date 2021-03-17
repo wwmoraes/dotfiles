@@ -1,4 +1,8 @@
 {
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true
+  },
   "files.associations": {
     "**/.gitaliases": "gitconfig",
     "grc/.grc/conf.*": "grc-app"
@@ -33,5 +37,6 @@
   "Lua.workspace.library": {
     "/Applications/Hammerspoon.app/Contents/Resources/extensions/": true,
     "~/.hammerspoon/Spoons/": true
-  }
+  },
+  "workspace.isHidden": true
 }
