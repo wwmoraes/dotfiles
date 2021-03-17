@@ -1,4 +1,6 @@
-# Vim local directories
+### Vim
+vim/.vim/viminfo
+vim/.vim/.netrwhist
 vim/.vim/backups/*
 !vim/.vim/backups/.gitkeep
 vim/.vim/swaps/*
@@ -6,8 +8,8 @@ vim/.vim/swaps/*
 vim/.vim/undo/*
 !vim/.vim/undo/.gitkeep
 
-# Vim files
-vim/.vim/viminfo
+### Fish
+fish/.config/fish/fish_variables
 
 ### fisher
 fish/.config/fish/functions/fisher.fish
@@ -28,12 +30,5 @@ fish/.config/fish/functions/pet-select.fish
 fish/.config/fish/conf.d/fzf.fish
 fish/.config/fish/functions/__fzf_*.fish
 
-
 # VSCode
-vscode/.config/Code
-!vscode/.config/Code/User/snippets
-!vscode/.config/Code/User/keybindings.json
-!vscode/.config/Code/User/settings.json
-
-fish/.config/fish/fish_variables
-vim/.vim/.netrwhist
+vscode/.config/Code/User/*Storage
