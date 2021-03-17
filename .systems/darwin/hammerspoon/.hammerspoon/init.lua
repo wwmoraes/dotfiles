@@ -87,3 +87,35 @@ hs.spoons.use("Hazel", {
 })
 ---@type Hazel
 spoon.Hazel = spoon.Hazel
+
+-- ### plain init config
+
+--- returns the short hostname from the output of the `hostname -s` command
+---@return string @current hostname
+local function hostname()
+  local proc = io.popen("/bin/hostname -s")
+  local hostname = proc:read("l") or ""
+  proc:close()
+
+  return hostname
+end
+
+local thisHostname = hostname()
+
+if thisHostname == "NLMBF04E-C82334" then
+  -- minimize personal browser and other utility applications
+  hs.hotkey.bind({"ctrl", "option", "command"}, "m", function()
+    local windows = hs.window.filter.new({
+      ["Agenda"] = true,
+      ["Safari"] = true,
+    }):getWindows()
+    for _, window in pairs(windows) do
+      window:minimize()
+    end
+  end)
+
+  -- toggle Microsoft Teams mute
+  hs.hotkey.bind(nil, "F19", nil, function()
+    hs.eventtap.event.newKeyEvent({"shift", "cmd"}, "m", true):post(hs.application.get("com.microsoft.teams"))
+  end)
+end
