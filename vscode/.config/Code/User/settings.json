@@ -214,4 +214,5 @@
       "filenamePattern": "*.ipynb"
     }
   ],
+  "go.toolsManagement.autoUpdate": true,
 }
