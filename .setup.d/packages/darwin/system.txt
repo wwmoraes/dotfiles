@@ -14,3 +14,5 @@ yamllint
 mas
 coreutils
 conftest
+grype
+syft
