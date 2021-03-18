@@ -23,6 +23,10 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
     docker image ls | tail +2 | fzf -m -0 | awk '$1 == "<none>" || $2 == "<none>" {print $3;next};{print $1":"$2}' | ifne xargs docker rmi $argv[2..-1]
   case rmv
     docker volume ls | tail +2 | fzf -m -0 | awk '{print $2}' | ifne xargs -n 1 docker volume rm
+  case fsbom
+    docker image ls | awk '$1 != "<none>" && $2 != "<none>"' | fzf --header-lines=1 -0 | awk '{print $1":"$2}' | ifne xargs -o -I{} syft $argv[2..-1] {}
+  case fscan
+    docker image ls | awk '$1 != "<none>" && $2 != "<none>"' | fzf --header-lines=1 -0 | awk '{print $1":"$2}' | ifne xargs -o -I{} grype $argv[2..-1] {}
   case labels
     set -l images (docker image ls | awk '$1 != "<none>" && $2 != "<none>"' | fzf -m --header-lines=1 -0 | awk '{print $1":"$2}')
     if test (count $images)
@@ -52,3 +56,5 @@ complete -xc dockr -n __fish_use_subcommand -a rmc -d "remove containers interac
 complete -xc dockr -n __fish_use_subcommand -a rmv -d "remove volumes interactively"
 complete -xc dockr -n __fish_use_subcommand -a labels -d "list all labels set on an image"
 complete -xc dockr -n __fish_use_subcommand -a tags -d "list all image remote tags"
+complete -xc dockr -n __fish_use_subcommand -a fsbom -d "fuzzy runs syft to get an image's SBoM"
+complete -xc dockr -n __fish_use_subcommand -a fscan -d "fuzzy runs grype to scan images"
