@@ -43,6 +43,17 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
       set -l tags (curl -fsSL https://registry.hub.docker.com/v1/repositories/$image/tags | jq -r '.[].name' | xargs)
       printf "%s: %s\n" $image $tags
     end
+  case context
+    set -l tag (printf '\
+    FROM busybox
+    WORKDIR /context
+    COPY . .
+    CMD find . -not \( -path "." \) | cut -d/ -f2- | sort
+    ' | docker build -q -f - .)
+
+    docker run --rm -it $tag
+
+    docker image rm $tag > /dev/null
   case "*"
     docker $argv
   end
@@ -56,5 +67,6 @@ complete -xc dockr -n __fish_use_subcommand -a rmc -d "remove containers interac
 complete -xc dockr -n __fish_use_subcommand -a rmv -d "remove volumes interactively"
 complete -xc dockr -n __fish_use_subcommand -a labels -d "list all labels set on an image"
 complete -xc dockr -n __fish_use_subcommand -a tags -d "list all image remote tags"
+complete -xc dockr -n __fish_use_subcommand -a context -d "builds and runs a dummy image that lists the context docker gets"
 complete -xc dockr -n __fish_use_subcommand -a fsbom -d "fuzzy runs syft to get an image's SBoM"
 complete -xc dockr -n __fish_use_subcommand -a fscan -d "fuzzy runs grype to scan images"
