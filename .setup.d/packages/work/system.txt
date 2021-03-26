@@ -6,4 +6,4 @@ kubernetes-helm:helm
 operator-sdk
 vault
 awslogs
-azure-functions-core-tools@3
+azure-functions-core-tools@3:func
