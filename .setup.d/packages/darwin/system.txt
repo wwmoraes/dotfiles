@@ -12,7 +12,7 @@ kubeval
 opa
 yamllint
 mas
-coreutils
+coreutils:stdbuf
 conftest
 grype
 syft
