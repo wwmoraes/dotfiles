@@ -5,6 +5,9 @@ set -Eeuo pipefail
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
 
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
 ### setup
 EXTENSIONS_FILE_NAME=.vscode/extensions.json
 

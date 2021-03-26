@@ -2,6 +2,9 @@
 
 set -Eeuo pipefail
 
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
 set +m # disable job control in order to allow lastpipe
 if [ "$(shopt | grep -c lastpipe)" = "1" ]; then
   shopt -s lastpipe

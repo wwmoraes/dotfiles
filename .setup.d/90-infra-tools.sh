@@ -5,6 +5,9 @@ set -Eeuo pipefail
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
 
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
 printf "\e[1;34mInfrastructure tools\e[0m\n"
 
 printf "Checking \e[96mterraform\e[0m...\n"

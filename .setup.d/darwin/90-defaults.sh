@@ -7,6 +7,9 @@ set -Eeuo pipefail
 : "${DEFAULTS:=0}"
 
 if [ ${DEFAULTS} -eq 1 ]; then
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
 	printf "\e[1;33mDarwin defaults\e[0m\n"
 
 	# sane defaults on https://github.com/kevinSuttle/macOS-Defaults

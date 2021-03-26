@@ -16,6 +16,10 @@ fi
 . functions.sh
 
 ### variables used across the setup files
+: "${TRACE:=0}"
+export TRACE
+: "${VERBOSE:=0}"
+export VERBOSE
 export SYSTEM=$(getOS)
 echo "System: ${SYSTEM}"
 export ARCH=$(getArch)

@@ -5,6 +5,9 @@ set -Eeuo pipefail
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
 
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
 printf "\e[1;34mhelm plugins\e[0m\n"
 
 PLUGINS=(

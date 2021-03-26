@@ -7,6 +7,9 @@ set -Eeuo pipefail
 : "${WORK:?unknown if on a work machine}"
 : "${PERSONAL:?unknown if on a personal machine}"
 
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
 if [ "${SYSTEM}" == "darwin" ]; then
   ### setup
   PACKAGES_FILE_DIR=packages/darwin
