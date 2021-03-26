@@ -89,24 +89,12 @@ else
 fi
 
 if [ "${SYSTEM}" = "darwin" ]; then
-  printf "linking python3 binaries on /usr/local/bin...\n"
-  PYTHON_KEG_NAME=$(brew info --json python | jq -r '.[0].name')
-  PYTHON_KEG_VERSION=$(brew info --json python | jq -r '.[0].linked_keg')
-  PYTHON_FRAMEWORK_VERSION=$(echo ${PYTHON_KEG_VERSION} | cut -d. -f 1,2)
-  PYTHON_BIN_PATH=$(brew --prefix)/Cellar/${PYTHON_KEG_NAME}/${PYTHON_KEG_VERSION}/Frameworks/Python.framework/Versions/${PYTHON_FRAMEWORK_VERSION}/bin
-  PYTHON_LIBEXEC_PATH=$(brew --prefix)/opt/${PYTHON_KEG_NAME}/libexec/bin
+  printf "linking brew python binaries on /usr/local/bin...\n"
+  brew link -q -f --overwrite "$(brew info --json python | jq -r '.[0].name')" || true
 
-  for SOURCE in "${PYTHON_LIBEXEC_PATH}"/*; do
+  for SOURCE in /usr/local/opt/python/bin/*; do
     TARGET=/usr/local/bin/$(basename "${SOURCE}")
-    [ -e "${TARGET}" ] && unlink "${TARGET}"
+    test -e "${TARGET}" && unlink "${TARGET}"
     ln -sf "${SOURCE}" "${TARGET}"
   done
-
-  for SOURCE in "${PYTHON_BIN_PATH}"/*; do
-    TARGET=/usr/local/bin/$(basename "${SOURCE}")
-    [ -e "${TARGET}" ] && unlink "${TARGET}"
-    ln -sf "${SOURCE}" "${TARGET}"
-  done
-
-  brew link --overwrite ${PYTHON_KEG_NAME} || true
 fi
