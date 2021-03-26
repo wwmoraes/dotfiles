@@ -67,7 +67,7 @@ if [ "${SYSTEM}" == "darwin" ]; then
 
     if ! _=$(echo "${INSTALLED_PACKAGES}" | grep -Fx "${PACKAGE%%:*}"); then
       printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE##*:}"
-      mas install "${PACKAGE%%:*}"
+      mas install "${PACKAGE%%:*}" || true
     fi
   done
 fi
