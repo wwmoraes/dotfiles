@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/sh
+
+set -Eeuo pipefail
 
 getOS() {
   uname -s | tr '[:upper:]' '[:lower:]'
@@ -11,12 +13,12 @@ getArch() {
     case "$(sysctl -qn machdep.cpu.brand_string)" in
       "Apple M1")
         ARCH=arm64e;;
-      "Intel*")
+      Intel*)
         ARCH=x86_64;;
       ""|*)
         ARCH=unknown;;
     esac
-  elif [ "${OS}" = "linux" && _=$(type -p lscpu &>/dev/null) ]; then
+  elif [ "${OS}" = "linux" ] && _=$(type -p lscpu &>/dev/null); then
     ARCH=$(lscpu | awk '$1 == "Architecture:" {print $2}' | tr '[:upper:]' '[:lower:]')
   else
     # very unreliable, as uname will output the architecture it was built and
@@ -35,7 +37,7 @@ getArch() {
     arm*)
       echo arm;;
     ""|*)
-      echo ${ARCH};;
+      echo "${ARCH}";;
   esac
 }
 
