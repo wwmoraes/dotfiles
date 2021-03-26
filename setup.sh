@@ -75,13 +75,13 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ### variables used across the setup files
-SYSTEM=$(getOS)
+: "${SYSTEM:=$(getOS)}"
 echo "System: ${SYSTEM}"
-ARCH=$(getArch)
+: "${ARCH:=$(getArch)}"
 echo "Architecture: ${ARCH}"
-WORK=$(isWork)
+: "${WORK:=$(isWork)}"
 echo "Is work? ${WORK}"
-PERSONAL=$(isPersonal)
+: "${PERSONAL:=$(isPersonal)}"
 echo "Is personal? ${PERSONAL}"
 : "${HOST:=$(hostname -s)}"
 
