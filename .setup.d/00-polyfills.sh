@@ -20,6 +20,6 @@ for POLYFILL in "${POLYFILLS_PATH}"/*; do
   command -V "${COMMAND}" >/dev/null 2>&1 && continue
 
   printf "Polyfilling \e[91m%s\e[0m...\n" "${COMMAND}"
-  ln -sf "${POLYFILL}" "$HOME/.local/bin/${COMMAND}"
-  chmod +x "$HOME/.local/bin/${COMMAND}"
+  ln -sf "${POLYFILL}" "${HOME}/.local/bin/${COMMAND}"
+  chmod +x "${HOME}/.local/bin/${COMMAND}"
 done

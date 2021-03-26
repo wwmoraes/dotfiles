@@ -24,4 +24,4 @@ type -p jq > /dev/null || {
 item=$1
 field=$2
 
-op get item $item | jq -er ".details.fields[] | select(.designation==\"$field\") | .value"
+op get item "${item}" | jq -er ".details.fields[] | select(.designation==\"${field}\") | .value"

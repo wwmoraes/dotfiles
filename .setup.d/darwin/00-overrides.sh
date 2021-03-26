@@ -10,8 +10,8 @@ test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
 # link VSCode user folder
-SOURCE="$HOME/.config/Code/User"
-TARGET="$HOME/Library/Application Support/Code/User"
+SOURCE="${HOME}/.config/Code/User"
+TARGET="${HOME}/Library/Application Support/Code/User"
 if [ ! -L "${TARGET}" ]; then
   rm -rf "${TARGET}"
   ln -sf "${SOURCE}" "${TARGET}"

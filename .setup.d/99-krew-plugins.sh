@@ -38,7 +38,7 @@ if ! _=$(kubectl plugin list 2> /dev/null | grep kubectl-krew > /dev/null); then
   curl -fsSLO https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.yaml
   tar xzf krew.tar.gz
   KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/arm.*$/arm/')"
-  $KREW install \
+  ${KREW} install \
     --manifest=krew.yaml --archive=krew.tar.gz
 
   echo "Initializing krew..."

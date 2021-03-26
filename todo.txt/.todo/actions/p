@@ -1,7 +1,7 @@
 #!/bin/bash
 # vim: ft=bash
 
-set -Eeuo pipefail
+set -eum
 
 SCRIPT_NAME=$(basename "$0")
 
@@ -26,7 +26,7 @@ echo -e "${PROJECT_PATHS}" | grep -qE "^${WORKSPACE}$" || {
 }
 
 CONTEXT=$(basename "${WORKSPACE}")
-PROJECT=$(basename -s .git $(git remote get-url $(git remote)))
+PROJECT=$(basename -s .git "$(git remote get-url "$(git remote)")")
 FILTERS="@${CONTEXT} +${PROJECT}"
 
 # remove script name
