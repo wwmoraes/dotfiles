@@ -83,6 +83,7 @@ WORK=$(isWork)
 echo "Is work? ${WORK}"
 PERSONAL=$(isPersonal)
 echo "Is personal? ${PERSONAL}"
+: "${HOST:=$(hostname -s)}"
 
 ### setup scripts
 for setupd in .setup.d/*.sh; do

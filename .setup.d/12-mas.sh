@@ -6,6 +6,7 @@ set -Eeuo pipefail
 : "${SYSTEM:?unknown system}"
 : "${WORK:?unknown if on a work machine}"
 : "${PERSONAL:?unknown if on a personal machine}"
+: "${HOST:=$(hostname -s)}"
 
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
@@ -51,7 +52,6 @@ if [ "${SYSTEM}" == "darwin" ]; then
     fi
   fi
 
-  HOST=$(hostname -s)
   if [ -f "${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../${HOST}/${PACKAGES_FILE_NAME}" ]; then
     while IFS= read -r line; do
       PACKAGES+=("${line}")
