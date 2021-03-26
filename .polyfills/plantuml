@@ -1,11 +1,11 @@
 #!/bin/sh
 
-type -p java &> /dev/null || {
+command -V java >/dev/null 2>&1 || {
   echo "java not found"
   exit 1
 }
 
-type -p plantuml.jar &> /dev/null || {
+command -V plantuml.jar >/dev/null 2>&1 || {
   echo "plantuml.jar not found"
   exit 1
 }

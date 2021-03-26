@@ -1,0 +1,2 @@
+push|https://github.com/chartmuseum/helm-push
+2to3|https://github.com/helm/helm-2to3

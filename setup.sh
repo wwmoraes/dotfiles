@@ -1,72 +1,46 @@
-#!/bin/bash --norc
+#!/bin/sh
 
-set -Eeuo pipefail
+set -eum
+trap 'kill 0' INT HUP TERM
 
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
-set +m # disable job control in order to allow lastpipe
-if [ "$(shopt | grep -c lastpipe)" = "1" ]; then
-  shopt -s lastpipe
-fi
-
 # import common functions
+# shellcheck source=functions.sh
 . functions.sh
 
 printf "\e[1;34mProfile-like variable exports\e[0m\n"
 
-profileFilesList=(
-  "${HOME}/.profile"
-  "${HOME}/.bash_profile"
-  "${HOME}/.bashrc"
-)
-
-# Ignores non-existent profile files
-for profilePath in "${profileFilesList[@]}"; do
-  if [ ! -f "${profilePath}" ]; then
-    profileFilesList=( "${profileFilesList[@]/$profilePath}" )
-  fi
-done
-
-# Source them to update context
-for profilePath in "${profileFilesList[@]}"; do
-  if [ -f "${profilePath}" ]; then
-    # shellcheck disable=SC1090
-    . "${profilePath}"
-  fi
-done
+sourceFiles "${HOME}/.profile"
 
 # System paths (FIFO)
-PREPATHS=(
-  "${HOME}/.config/yarn/global/node_modules/.bin"
-  "${HOME}/.local/google-cloud-sdk/bin"
-  "${HOME}/.yarn/bin"
-  "${HOME}/.krew/bin"
-  "${HOME}/.cargo/bin"
-  "${HOME}/go/bin"
-  "${HOME}/.go/bin"
-  "${HOME}/.local/opt/bin"
-  "${HOME}/.local/opt/sbin"
-  "${HOME}/.local/bin"
+PREPATHS=$(join ":" \
+  "${HOME}/.config/yarn/global/node_modules/.bin" \
+  "${HOME}/.local/google-cloud-sdk/bin" \
+  "${HOME}/.yarn/bin" \
+  "${HOME}/.krew/bin" \
+  "${HOME}/.cargo/bin" \
+  "${HOME}/go/bin" \
+  "${HOME}/.go/bin" \
+  "${HOME}/.local/opt/bin" \
+  "${HOME}/.local/opt/sbin" \
+  "${HOME}/.local/bin" \
+  "/usr/local/opt/coreutils/libexec/gnubin" \
 )
 
 mkdir -p "${HOME}/.local/bin"
 mkdir -p "${HOME}/.local/opt/{bin,sbin}"
 
-for PREPATH in "${PREPATHS[@]}"; do
-    PATH=${PREPATH}:${PATH}
-done
+PATH="${PREPATHS}:${PATH}"
 
 # Dedup paths
 echo "dedupping and exporting PATH"
-TMP_PATH=$(echo -n "${PATH}" | awk -v RS=: '{gsub(/\/$/,"")} !($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
+TMP_PATH=$(printf "%s" "${PATH}" | awk -v RS=: '{gsub(/\/$/,"")} !($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
 export PATH=${TMP_PATH}
 unset TMP_PATH
 echo "persisting PATH"
 echo "PATH=${PATH}" > "${HOME}/.env_path"
-
-# used to pass to the fish script
-PATHS=$PATH
 
 # Ask for the administrator password upfront
 sudo -v
@@ -75,27 +49,31 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ### variables used across the setup files
+set -a
 : "${SYSTEM:=$(getOS)}"
-echo "System: ${SYSTEM}"
 : "${ARCH:=$(getArch)}"
-echo "Architecture: ${ARCH}"
 : "${WORK:=$(isWork)}"
-echo "Is work? ${WORK}"
 : "${PERSONAL:=$(isPersonal)}"
-echo "Is personal? ${PERSONAL}"
 : "${HOST:=$(hostname -s)}"
+: "${PACKAGES_PATH:=${HOME}/.files/.setup.d/packages}"
+set +a
+
+echo "System: ${SYSTEM}"
+echo "Architecture: ${ARCH}"
+echo "Is work? ${WORK}"
+echo "Is personal? ${PERSONAL}"
 
 ### setup scripts
 for setupd in .setup.d/*.sh; do
   # shellcheck disable=SC1090
-  . "${setupd}"
+  sh "${setupd}" "$@" || echo "${setupd} failed"
 done
 
 ### platform-specitic setup scripts
 if [ -d ".setup.d/${SYSTEM}" ]; then
   for setupd in .setup.d/"${SYSTEM}"/*.sh; do
     # shellcheck disable=SC1090
-    . "${setupd}"
+    sh "${setupd}" "$@" || echo "${setupd} failed"
   done
 fi
 
@@ -103,17 +81,15 @@ printf "\e[1;34mMiscellaneous\e[0m\n"
 # creates the control path folder for SSH
 mkdir -p ~/.ssh/control
 # Update system font cache
-if _=$(type -p fc-cache > /dev/null); then
+if _=$(command -V fc-cache >/dev/null 2>&1); then
   printf "Updating font cache...\n"
   fc-cache -f &
 fi
 ### Set fish paths
 printf "Setting fish universal variables...\n"
-set +e
-fish ./variables.fish "${PATHS}"
-set -e
+fish ./variables.fish "${PATH}" || "failed to setup fish variables"
 
-if _=$(type -p kquitapp5 &> /dev/null); then
+if _=$(command -V kquitapp5 >/dev/null 2>&1); then
   printf "Updating KDE globals...\n"
   kquitapp5 kglobalaccel && sleep 2s && kglobalaccel5 &
 fi

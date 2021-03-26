@@ -1,6 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-set -Eeuo pipefail
+set -eum
+trap 'kill 0' INT HUP TERM
 
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
@@ -11,7 +12,7 @@ test "${VERBOSE:-0}" = "1" && set -v
 # link VSCode user folder
 SOURCE="$HOME/.config/Code/User"
 TARGET="$HOME/Library/Application Support/Code/User"
-if [[ ! -L "${TARGET}" ]]; then
+if [ ! -L "${TARGET}" ]; then
   rm -rf "${TARGET}"
   ln -sf "${SOURCE}" "${TARGET}"
 fi

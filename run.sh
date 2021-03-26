@@ -1,35 +1,36 @@
-#!/bin/bash
+#!/bin/sh
 
-set -Eeuo pipefail
+set -eum
+trap 'kill 0' INT HUP TERM
 
-if [[ $# -lt 1 ]]; then
+if [ $# -lt 1 ]; then
   echo "usage: $0 <script-path-to-run> [args]"
   exit 2
 fi
 
-set +m # disable job control in order to allow lastpipe
-if [ "$(shopt | grep -c lastpipe)" = "1" ]; then
-  shopt -s lastpipe
-fi
-
 # import common functions
-. functions.sh
+# shellcheck source=functions.sh
+. "${HOME}/.files/functions.sh"
 
 ### variables used across the setup files
+set -a
 : "${TRACE:=0}"
-export TRACE
 : "${VERBOSE:=0}"
-export VERBOSE
-export SYSTEM=$(getOS)
+SYSTEM=$(getOS)
+ARCH=$(getArch)
+WORK=$(isWork)
+PERSONAL=$(isPersonal)
+HOST=$(hostname -s)
+PACKAGES_PATH="${HOME}/.files/.setup.d/packages"
+set +a
+
 echo "System: ${SYSTEM}"
-export ARCH=$(getArch)
 echo "Architecture: ${ARCH}"
-export WORK=$(isWork)
 echo "Is work? ${WORK}"
-export PERSONAL=$(isPersonal)
 echo "Is personal? ${PERSONAL}"
+echo "packages path: ${PACKAGES_PATH}"
 
 SCRIPT="${1}"
 shift
 
-exec "${SCRIPT}" "$@"
+sh "${SCRIPT}" "$@"

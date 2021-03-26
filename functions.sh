@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -Eeuo pipefail
+set -eum
 
 getOS() {
   uname -s | tr '[:upper:]' '[:lower:]'
@@ -18,7 +18,7 @@ getArch() {
       ""|*)
         ARCH=unknown;;
     esac
-  elif [ "${OS}" = "linux" ] && _=$(type -p lscpu &>/dev/null); then
+  elif [ "${OS}" = "linux" ] && _=$(command -V lscpu >/dev/null 2>&1); then
     ARCH=$(lscpu | awk '$1 == "Architecture:" {print $2}' | tr '[:upper:]' '[:lower:]')
   else
     # very unreliable, as uname will output the architecture it was built and
@@ -54,3 +54,19 @@ isPersonal() {
 
   echo 0
 }
+
+sourceFiles() {
+  for file in "$@"; do
+    # skip if file does not exist
+    test ! -e "${file}" && return
+
+    # skip if file is not readable
+    test ! -r "${file}" && return
+
+    # Source them to update context
+    # shellcheck disable=SC1090
+    . "${file}"
+  done
+}
+
+join() { IFS="$1"; shift; echo "$*"; }

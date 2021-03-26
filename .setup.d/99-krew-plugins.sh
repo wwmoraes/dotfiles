@@ -1,53 +1,54 @@
-#!/bin/bash
+#!/bin/sh
 
-set -Eeuo pipefail
+set -eum
+trap 'kill 0' INT HUP TERM
 
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
+: "${PACKAGES_PATH:?must be set}"
 
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
-### setup
-PACKAGES_FILE_NAME=packages/krew.txt
+# create temp work dir and traps cleanup
+TMP=$(mktemp -d)
+OLD_PWD="${PWD}"
+cd "${TMP}"
+trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
 
-### magic block :D
-DIRNAME=$(perl -MCwd -e 'print Cwd::abs_path shift' "$0" | xargs dirname)
-# Checks and sets the file path corretly if running directly or sourced
-if [ "$0" == "${BASH_SOURCE[0]}" ]; then
-  PACKAGES_FILE_PATH="${DIRNAME}/${PACKAGES_FILE_NAME}"
-else
-  PACKAGES_FILE_PATH="${DIRNAME}/${BASH_SOURCE%%/*}/${PACKAGES_FILE_NAME}"
-fi
+# package file name
+PACKAGES_FILE_NAME=krew.txt
+PACKAGES_FILE_PATH="${PACKAGES_PATH}/${PACKAGES_FILE_NAME}"
 
-PACKAGES=()
-while IFS= read -r line; do
-   PACKAGES+=("${line}")
+# named pipe to receive all packages
+PACKAGES="${TMP}/packages"
+mkfifo "${PACKAGES}"
+
+# reads packages from the file
+while IFS= read -r LINE; do
+  printf "%s\n" "${LINE}" > "${PACKAGES}" &
 done <"${PACKAGES_FILE_PATH}"
 
 printf "\e[1;33mKrew plugins\e[0m\n"
 
 ### Check package tool
-echo "Checking krew plugin manager..."
+printf "Checking \e[91mkrew\e[0m...\n"
 if ! _=$(kubectl plugin list 2> /dev/null | grep kubectl-krew > /dev/null); then
-  pushd "$(mktemp -d)" > /dev/null
   curl -fsSLO https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.tar.gz
   curl -fsSLO https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.yaml
   tar xzf krew.tar.gz
   KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/arm.*$/arm/')"
   $KREW install \
     --manifest=krew.yaml --archive=krew.tar.gz
-  popd > /dev/null
 
   echo "Initializing krew..."
   kubectl krew update
 fi
 
-### Install packages
-for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
+while read -r PACKAGE; do
   printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE}"
   kubectl krew list | grep "${PACKAGE}" > /dev/null && continue
 
   printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE}"
   kubectl krew install "${PACKAGE}"
-done
+done < "${PACKAGES}"

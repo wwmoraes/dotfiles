@@ -17,7 +17,7 @@ cd "${TMP}"
 trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
 
 # package file name
-PACKAGES_FILE_NAME=pip.txt
+PACKAGES_FILE_NAME=rustup.txt
 PACKAGES_FILE_PATH="${PACKAGES_PATH}/${PACKAGES_FILE_NAME}"
 
 # wanted packages
@@ -29,24 +29,24 @@ while IFS= read -r LINE; do
   printf "%s\n" "${LINE}" > "${PACKAGES}" &
 done <"${PACKAGES_FILE_PATH}"
 
-printf "\e[1;33mPython pip packages\e[0m\n"
+printf "\e[1;33mRustup components\e[0m\n"
 
 ### Check package tool
-printf "Checking \e[96mpip\e[0m manager...\n"
-if ! _=$(python3 -m pip -V > /dev/null 2>&1); then
-  curl -fsSLO https://bootstrap.pypa.io/get-pip.py
-  sudo python3 get-pip.py
+printf "Checking \e[91mrustup\e[0m...\n"
+# Get manager
+if ! _=$(command -V rustup >/dev/null 2>&1); then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 fi
 
-printf "Listing installed packages...\n"
+TARGET=$(rustup target list 2>&1 | awk '/(installed)/ {print $1}' | head -n1)
 INSTALLED="${TMP}/installed"
-python3 -m pip list --format freeze | cut -d= -f1 > "${INSTALLED}"
+rustup component list 2>&1 | awk '/(installed)/ {print $1}' | sed "s/-${TARGET}//" > "${INSTALLED}"
 
 ### Install packages
 while read -r PACKAGE; do
-  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
-  grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
+  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+  grep -q "${PACKAGE}" "${INSTALLED}" && continue
 
-  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
-  sudo -H python3 -m pip install -qqq "${PACKAGE##*|}"
+  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE}"
+  rustup component add "${PACKAGE}" --target "${TARGET}"
 done < "${PACKAGES}"

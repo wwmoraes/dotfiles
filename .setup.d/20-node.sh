@@ -1,54 +1,63 @@
-#!/bin/bash
+#!/bin/sh
 
-set -Eeuo pipefail
+set -eum
+trap 'kill 0' INT HUP TERM
 
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
+: "${PACKAGES_PATH:?must be set}"
 
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
-### setup
-PACKAGES_FILE_NAME=packages/node.txt
+# create temp work dir and traps cleanup
+TMP=$(mktemp -d)
+OLD_PWD="${PWD}"
+cd "${TMP}"
+trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
 
-### magic block :D
-DIRNAME=$(perl -MCwd -e 'print Cwd::abs_path shift' "$0" | xargs dirname)
-# Checks and sets the file path corretly if running directly or sourced
-if [ "$0" == "${BASH_SOURCE[0]}" ]; then
-  PACKAGES_FILE_PATH="${DIRNAME}/${PACKAGES_FILE_NAME}"
-else
-  PACKAGES_FILE_PATH="${DIRNAME}/${BASH_SOURCE%%/*}/${PACKAGES_FILE_NAME}"
-fi
+# package file name
+PACKAGES_FILE_NAME=node.txt
+PACKAGES_FILE_PATH="${PACKAGES_PATH}/${PACKAGES_FILE_NAME}"
 
-PACKAGES=()
-while IFS= read -r line; do
-   PACKAGES+=("$line")
+# wanted packages
+PACKAGES="${TMP}/packages"
+mkfifo "${PACKAGES}"
+
+# reads wanted packages
+while IFS= read -r LINE; do
+  printf "%s\n" "${LINE}" > "${PACKAGES}" &
 done <"${PACKAGES_FILE_PATH}"
 
-printf "\e[1;33mNode packages\e[0m\n"
+printf "\e[1;33mNode\e[0m\n"
 
-### Check package tool
-echo "Checking npm..."
-# Get manager
-if ! _=$(type -p npm &> /dev/null); then
-  echo "npm not found - plase install node"
+printf "Checking \e[91mnode\e[0m...\n"
+if ! _=$(command -V node >/dev/null 2>&1); then
+  echo "node not found"
   exit 1
 fi
 
-### Check package tool
-echo "Checking yarn..."
-# Get manager
-if ! _=$(type -p yarn &> /dev/null); then
+printf "Checking \e[91mnpm\e[0m...\n"
+if ! _=$(command -V npm >/dev/null 2>&1); then
+  echo "npm not found"
+  exit 1
+fi
+
+printf "Checking \e[91myarn\e[0m...\n"
+if ! _=$(command -V yarn >/dev/null 2>&1); then
   npm i -g yarn
 fi
 
-echo "Checking for node packages..."
+printf "\e[1;33mYarn global packages\e[0m\n"
+
+INSTALLED="${TMP}/installed"
+jq -r '.dependencies | keys[]' "$(yarn global dir)/package.json" > "${INSTALLED}"
 
 ### Install packages
-for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
+while read -r PACKAGE; do
   printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-  test -d "$(yarn global dir)/node_modules/${PACKAGE##*:}" && continue
+  grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
 
   printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
   yarn global add "${PACKAGE%%:*}" > /dev/null
-done
+done < "${PACKAGES}"

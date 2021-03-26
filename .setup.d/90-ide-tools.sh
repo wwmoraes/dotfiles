@@ -1,45 +1,50 @@
-#!/bin/bash
+#!/bin/sh
 
-set -Eeuo pipefail
+set -eum
+trap 'kill 0' INT HUP TERM
 
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
+: "${PACKAGES_PATH:?must be set}"
 
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
+# create temp work dir and traps cleanup
+TMP=$(mktemp -d)
+OLD_PWD="${PWD}"
+cd "${TMP}"
+trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
+
 ### setup
-EXTENSIONS_FILE_NAME=.vscode/extensions.json
+PACKAGES_FILE_NAME=vscode.txt
+PACKAGES_FILE_PATH="${PACKAGES_PATH}/${PACKAGES_FILE_NAME}"
 
-### magic block :D
-DIRNAME=$(perl -MCwd -e 'print Cwd::abs_path shift' "$0" | xargs dirname)
-# Checks and sets the file path corretly if running directly or sourced
-if [ "$0" == "${BASH_SOURCE[0]}" ]; then
-  EXTENSIONS_FILE_NAME=$(perl -MCwd -e 'print Cwd::abs_path shift' "${DIRNAME}/../${EXTENSIONS_FILE_NAME}")
-else
-  EXTENSIONS_FILE_NAME=$(perl -MCwd -e 'print Cwd::abs_path shift' "${DIRNAME}/${BASH_SOURCE%%/*}/../${EXTENSIONS_FILE_NAME}")
-fi
+# wanted packages
+PACKAGES="${TMP}/packages"
+mkfifo "${PACKAGES}"
 
-printf "\e[1;33mVSCode extensions\e[0m\n"
+# reads wanted packages
+while IFS= read -r LINE; do
+  printf "%s\n" "${LINE}" > "${PACKAGES}" &
+done <"${PACKAGES_FILE_PATH}"
+
+printf "\e[1;34mVSCode extensions\e[0m\n"
 
 ### Check vscode
-printf "Checking \e[96mcode\e[0m...\n"
-VSCODE=$(command -v code || command -v code-oss || echo "")
-if [ ! "${VSCODE}" = "" ]; then
-  TMP=$(mktemp -d)
-
-  mkfifo "${TMP}/vscode-installed"
-  "${VSCODE}" --list-extensions | tr '[:upper:]' '[:lower:]' | sort > "${TMP}/vscode-installed" &
-
-  mkfifo "${TMP}/vscode-extensions-list"
-  grep -vE "[ \t]*//.*" "${EXTENSIONS_FILE_NAME}" | jq .recommendations[] | tr -d '"' | sort > "${TMP}/vscode-extensions-list" &
-
-  comm -13 "${TMP}/vscode-installed" "${TMP}/vscode-extensions-list" | uniq -u | while read -r EXTENSION; do
-    printf "Installing \e[96m%s\e[0m...\n" "${EXTENSION}"
-    "${VSCODE}" --install-extension "${EXTENSION}"
-  done
-
-  rm -r "${TMP}"
-else
-  echo "code is not installed or in path"
+VSCODE=$(command -v code 2> /dev/null || command -v code-oss 2> /dev/null || echo "")
+if [ "${VSCODE}" = "" ]; then
+  echo "code not found"
+  exit 1
 fi
+
+INSTALLED="${TMP}/installed"
+"${VSCODE}" --list-extensions | tr '[:upper:]' '[:lower:]' > "${INSTALLED}"
+
+while read -r PACKAGE; do
+  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE}"
+  grep -q "${PACKAGE}" "${INSTALLED}" && continue
+
+  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE}"
+  "${VSCODE}" --install-extension "${PACKAGE}"
+done < "${PACKAGES}"

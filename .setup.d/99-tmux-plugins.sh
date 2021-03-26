@@ -1,6 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-set -Eeuo pipefail
+set -eum
+trap 'kill 0' INT HUP TERM
 
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"

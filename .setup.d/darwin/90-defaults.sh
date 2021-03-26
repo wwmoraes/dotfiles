@@ -1,15 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
-set -Eeuo pipefail
+set -eum
+trap 'kill 0' INT HUP TERM
 
-: "${ARCH:?unknown architecture}"
-: "${SYSTEM:?unknown system}"
-: "${DEFAULTS:=0}"
-
-if [ ${DEFAULTS} -eq 1 ]; then
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
+if [ "${DEFAULTS:-0}" = "1" ]; then
 	printf "\e[1;33mDarwin defaults\e[0m\n"
 
 	# sane defaults on https://github.com/kevinSuttle/macOS-Defaults
@@ -551,8 +548,8 @@ test "${VERBOSE:-0}" = "1" && set -v
 	defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 	# Disable local Time Machine backups
-	# hash tmutil &> /dev/null && sudo tmutil disablelocal
-	hash tmutil &> /dev/null && sudo tmutil thinlocalsnapshots / 1000000000 1 &> /dev/null
+	# hash tmutil > /dev/null 2>&1 && sudo tmutil disablelocal
+	hash tmutil > /dev/null 2>&1 && sudo tmutil thinlocalsnapshots / 1000000000 1 > /dev/null 2>&1
 
 	################################################################################
 	### Activity Monitor
@@ -682,15 +679,16 @@ test "${VERBOSE:-0}" = "1" && set -v
 	# disable system integrity protection on fs, nvram and debug
 	# csrutil enable --without fs --without nvram --without debug
 
-	read -r -p 'do you want to kill related applications to load new defaults? [y/N] ' confirm
-
   if [ -d /System/Library/CoreServices/PowerChime.app ]; then
     printf "Disabling MacOS power chime...\n"
     defaults write com.apple.PowerChime ChimeOnAllHardware -bool false
-    killall PowerChime &> /dev/null
+    killall PowerChime > /dev/null 2>&1
   fi
 
-	if [ "${confirm}" == "Y" ] || [ "${confirm}" == "y" ]; then
+  printf 'do you want to kill related applications to load new defaults? [y/N] '
+	read -r confirm
+
+	if [ "${confirm}" = "Y" ] || [ "${confirm}" = "y" ]; then
 		for app in "Activity Monitor" \
 			"Address Book" \
 			"Calendar" \
@@ -707,7 +705,7 @@ test "${VERBOSE:-0}" = "1" && set -v
 			"SystemUIServer" \
 			"Terminal" \
 			"iCal"; do
-			killall "${app}" &> /dev/null
+			killall "${app}" > /dev/null 2>&1
 		done
 	fi
 fi

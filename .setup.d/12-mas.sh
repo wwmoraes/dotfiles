@@ -1,73 +1,73 @@
-#!/bin/bash
+#!/bin/sh
 
-set -Eeuo pipefail
+set -eum
+trap 'kill 0' INT HUP TERM
 
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
-: "${WORK:?unknown if on a work machine}"
-: "${PERSONAL:?unknown if on a personal machine}"
-: "${HOST:=$(hostname -s)}"
+: "${HOST:?unknown host}"
+: "${PACKAGES_PATH:?must be set}"
 
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
-if [ "${SYSTEM}" == "darwin" ]; then
-  ### setup
-  PACKAGES_FILE_DIR=packages/darwin
-  PACKAGES_FILE_NAME=mas.txt
+# exit early if not on darwin
+test "${SYSTEM}" = "darwin" || exit
 
-  ### magic block :D
-  DIRNAME=$(perl -MCwd -e 'print Cwd::abs_path shift' "$0" | xargs dirname)
-  # Checks and sets the file path corretly if running directly or sourced
-  if [ "$0" == "${BASH_SOURCE[0]}" ]; then
-    BASE_FILE_PATH="${DIRNAME}"
-  else
-    BASE_FILE_PATH="${DIRNAME}/${BASH_SOURCE%%/*}"
-  fi
+# create temp work dir and traps cleanup
+TMP=$(mktemp -d)
+OLD_PWD="${PWD}"
+cd "${TMP}"
+trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
 
-  PACKAGES=()
-  if [ -f "${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/${PACKAGES_FILE_NAME}" ]; then
-    while IFS= read -r line; do
-      echo "${line}" | grep -Eq "^#" && continue
-      PACKAGES+=("$line")
-    done <"${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/${PACKAGES_FILE_NAME}"
-  fi
+# package file name
+PACKAGES_FILE_NAME=mas.txt
+PACKAGES_FILE_PATH="${PACKAGES_PATH}/${PACKAGES_FILE_NAME}"
+PERSONAL_PACKAGES_FILE_PATH="${PACKAGES_PATH}/personal/${PACKAGES_FILE_NAME}"
+WORK_PACKAGES_FILE_PATH="${PACKAGES_PATH}/work/${PACKAGES_FILE_NAME}"
+HOST_PACKAGES_FILE_PATH="${PACKAGES_PATH}/${HOST}/${PACKAGES_FILE_NAME}"
 
-  if [ "${PERSONAL}" = "1" ]; then
-    if [ -f "${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../personal/${PACKAGES_FILE_NAME}" ]; then
+# wanted packages
+PACKAGES="${TMP}/packages"
+mkfifo "${PACKAGES}"
 
-      while IFS= read -r line; do
-        echo "${line}" | grep -Eq "^#" && continue
-        PACKAGES+=("${line}")
-      done <"${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../personal/${PACKAGES_FILE_NAME}"
-    fi
-  fi
+# reads wanted packages
+while IFS= read -r LINE; do
+  echo "${LINE}" | grep -Eq "^#" && continue
+  printf "%s\n" "${LINE}" > "${PACKAGES}" &
+done < "${PACKAGES_FILE_PATH}"
 
-  if [ "${WORK}" = "1" ]; then
-    if [ -f "${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../work/${PACKAGES_FILE_NAME}" ]; then
-      while IFS= read -r line; do
-        echo "${line}" | grep -Eq "^#" && continue
-        PACKAGES+=("${line}")
-      done <"${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../work/${PACKAGES_FILE_NAME}"
-    fi
-  fi
-
-  if [ -f "${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../${HOST}/${PACKAGES_FILE_NAME}" ]; then
-    while IFS= read -r line; do
-      PACKAGES+=("${line}")
-    done <"${BASE_FILE_PATH}/${PACKAGES_FILE_DIR}/../${HOST}/${PACKAGES_FILE_NAME}"
-  fi
-
-  printf "\e[1;33mMac App Store packages\e[0m\n"
-
-  INSTALLED_PACKAGES=$(mas list | grep -vE "^#" | awk '{print $1}')
-  ### Install packages
-  for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
-    printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE##*:}"
-
-    if ! _=$(echo "${INSTALLED_PACKAGES}" | grep -Fx "${PACKAGE%%:*}"); then
-      printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE##*:}"
-      mas install "${PACKAGE%%:*}" || true
-    fi
-  done
+if [ "${PERSONAL}" = "1" ] && [ -f "${PERSONAL_PACKAGES_FILE_PATH}" ]; then
+  while IFS= read -r LINE; do
+    echo "${LINE}" | grep -Eq "^#" && continue
+    printf "%s\n" "${LINE}" > "${PACKAGES}" &
+  done < "${PERSONAL_PACKAGES_FILE_PATH}"
 fi
+
+if [ "${WORK}" = "1" ] && [ -f "${WORK_PACKAGES_FILE_PATH}" ]; then
+  while IFS= read -r LINE; do
+    echo "${LINE}" | grep -Eq "^#" && continue
+    printf "%s\n" "${LINE}" > "${PACKAGES}" &
+  done < "${WORK_PACKAGES_FILE_PATH}"
+fi
+
+if [ -f "${HOST_PACKAGES_FILE_PATH}" ]; then
+  while IFS= read -r LINE; do
+    echo "${LINE}" | grep -Eq "^#" && continue
+    printf "%s\n" "${LINE}" > "${PACKAGES}" &
+  done < "${HOST_PACKAGES_FILE_PATH}"
+fi
+
+printf "\e[1;33mMac App Store packages\e[0m\n"
+
+INSTALLED="${TMP}/installed"
+mas list | awk '{print $1}' > "${INSTALLED}"
+
+### Install packages
+while read -r PACKAGE; do
+  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE##*:}"
+  grep -q "${PACKAGE%%:*}" "${INSTALLED}" && continue
+
+  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE##*:}"
+  mas install "${PACKAGE%%:*}" || true
+done < "${PACKAGES}"

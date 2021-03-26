@@ -1,6 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-set -Eeuo pipefail
+set -eum
+trap 'kill 0' INT HUP TERM
 
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
@@ -9,25 +10,16 @@ test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
 ### setup
-POLYFILLS_RELATIVE_PATH=../.polyfills
-
-### magic block :D
-DIRNAME=$(perl -MCwd -e 'print Cwd::abs_path shift' "$0" | xargs dirname)
-# Checks and sets the file path corretly if running directly or sourced
-if [ "$0" == "${BASH_SOURCE[0]}" ]; then
-  POLYFILLS_PATH=${DIRNAME}/${POLYFILLS_RELATIVE_PATH}
-else
-  POLYFILLS_PATH=${DIRNAME}/${BASH_SOURCE%%/*}/${POLYFILLS_RELATIVE_PATH}
-fi
+POLYFILLS_PATH="${HOME}/.files/.polyfills"
 
 printf "\e[1;33mPolyfills\e[0m\n"
 
 for POLYFILL in "${POLYFILLS_PATH}"/*; do
-  printf "Checking \e[96m%s\e[0m...\n" "$(basename "${POLYFILL}")"
+  COMMAND=$(basename "${POLYFILL}")
+  printf "Checking \e[91m%s\e[0m...\n" "${COMMAND}"
+  command -V "${COMMAND}" >/dev/null 2>&1 && continue
 
-   if ! _=$(type -p "${POLYFILL}" &> /dev/null); then
-    printf "Polyfilling \e[96m%s\e[0m...\n" "${POLYFILL}"
-    ln -sf "${POLYFILLS_PATH}/${POLYFILL}" "$HOME/.local/bin/${POLYFILL}"
-    chmod +x "$HOME/.local/bin/${POLYFILL}"
-   fi
+  printf "Polyfilling \e[91m%s\e[0m...\n" "${COMMAND}"
+  ln -sf "${POLYFILL}" "$HOME/.local/bin/${COMMAND}"
+  chmod +x "$HOME/.local/bin/${COMMAND}"
 done

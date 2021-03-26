@@ -9,7 +9,7 @@ function fchroot -d "Fuzzy chroots into partitions, even with distinct architect
     end
 
     # Keep-alive: update existing `sudo` time stamp until the parent has finished
-    bash -c 'while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null' &
+    sh -c 'while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null' &
     set -l keepalivePID (jobs -lp)
     function _clean_keepalive -j %self -V keepalivePID
       kill $keepalivePID

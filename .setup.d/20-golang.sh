@@ -1,43 +1,48 @@
-#!/bin/bash
+#!/bin/sh
 
-set -Eeuo pipefail
+set -eum
+trap 'kill 0' INT HUP TERM
 
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
+: "${PACKAGES_PATH:?must be set}"
+: "${GOPATH:=${HOME}/go}"
 
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
-### setup
-PACKAGES_FILE_NAME=packages/golang.txt
+# create temp work dir and traps cleanup
+TMP=$(mktemp -d)
+OLD_PWD="${PWD}"
+cd "${TMP}"
+trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
 
-### magic block :D
-DIRNAME=$(perl -MCwd -e 'print Cwd::abs_path shift' "$0" | xargs dirname)
-# Checks and sets the file path corretly if running directly or sourced
-if [ "$0" == "${BASH_SOURCE[0]}" ]; then
-  PACKAGES_FILE_PATH="${DIRNAME}/${PACKAGES_FILE_NAME}"
-else
-  PACKAGES_FILE_PATH="${DIRNAME}/${BASH_SOURCE%%/*}/${PACKAGES_FILE_NAME}"
-fi
+# package file name
+PACKAGES_FILE_NAME=golang.txt
+PACKAGES_FILE_PATH="${PACKAGES_PATH}/${PACKAGES_FILE_NAME}"
 
-PACKAGES=()
-while IFS= read -r line; do
-   PACKAGES+=("$line")
+# wanted packages
+PACKAGES="${TMP}/packages"
+mkfifo "${PACKAGES}"
+
+# reads wanted packages
+while IFS= read -r LINE; do
+  printf "%s\n" "${LINE}" > "${PACKAGES}" &
 done <"${PACKAGES_FILE_PATH}"
 
 printf "\e[1;33mGolang packages\e[0m\n"
 
 ### Check package tool
-echo "Checking golang..."
+printf "Checking \e[91mgo\e[0m...\n"
 # Get manager
-if ! _=$(type -p go &> /dev/null); then
+if ! _=$(command -V go >/dev/null 2>&1); then
   GOINSTALL=
   case "${SYSTEM}" in
     "darwin")
       GOINSTALL=--darwin
       ;;
     "linux")
-      if [ "${ARCH}" == "amd64" ]; then
+      if [ "${ARCH}" = "amd64" ]; then
         GOINSTALL=--64
       else
         GOINSTALL=--32
@@ -47,15 +52,14 @@ if ! _=$(type -p go &> /dev/null); then
   curl -fsSL https://raw.githubusercontent.com/wwmoraes/golang-tools-install-script/master/goinstall.sh | bash -s - "${GOINSTALL}"
 fi
 
-: "${GOPATH:=${HOME}/go}"
-
-echo "Checking for Go packages on ${GOPATH}..."
+printf "Checking go packages on \e[94m%s\e[0m...\n" "${GOPATH}"
 
 ### Install packages
-for PACKAGE in "${PACKAGES[@]+${PACKAGES[@]}}"; do
-  printf "Checking go package \e[96m%s\e[0m...\n" "$(basename "${PACKAGE%%:*}")"
+while read -r PACKAGE; do
+  NAME="$(basename "${PACKAGE%%:*}")"
+  printf "Checking \e[96m%s\e[0m...\n" "${NAME}"
   test -f "${GOPATH}/bin/${PACKAGE##*:}" && continue
 
-  printf "Installing go package \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-  go get "${PACKAGE%%:*}" || true
-done
+  printf "Installing \e[96m%s\e[0m...\n" "${NAME}"
+  go get "${PACKAGE%%:*}"
+done < "${PACKAGES}"

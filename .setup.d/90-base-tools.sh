@@ -1,39 +1,40 @@
-#!/bin/bash
+#!/bin/sh
 
-set -Eeuo pipefail
+set -eum
+trap 'kill 0' INT HUP TERM
 
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
+: "${PACKAGES_PATH:?must be set}"
 
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
+# create temp work dir and traps cleanup
+TMP=$(mktemp -d)
+OLD_PWD="${PWD}"
+cd "${TMP}"
+trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
+
 printf "\e[1;34mBase tools\e[0m\n"
 
 printf "Checking \e[96mpet\e[0m...\n"
-if ! _=$(type -p pet > /dev/null); then
+if ! _=$(command -V pet > /dev/null 2>&1); then
   BASE_URL=https://github.com/knqyf263/pet
-
   VERSION="$(curl -sI "${BASE_URL}/releases/latest" | sed -En 's/^[Ll]ocation: .*\/v([0-9.]+).*/\1/p')"
-
   DOWNLOAD_URL="${BASE_URL}/releases/download/v${VERSION}/pet_${VERSION}_${SYSTEM}_${ARCH}.tar.gz"
 
-  pushd ~/.local/bin > /dev/null
   printf "Downloading \e[96mpet\e[0m...\n"
-  curl -fsSLo pet.tar.gz "${DOWNLOAD_URL}"
-  printf "Extracting \e[96mpet\e[0m...\n"
-  tar -xzf pet.tar.gz
-  rm pet.tar.gz
-  popd > /dev/null
+  curl -fsSL "${DOWNLOAD_URL}" | tar xzf -
+  printf "Installing \e[96mpet\e[0m...\n"
+  chmod +x pet
+  mv pet ~/.local/bin
 fi
 
 printf "Checking \e[96mplantuml\e[0m...\n"
-if ! _=$(type -p plantuml.jar > /dev/null); then
-  TMP=$(mktemp -d)
-  pushd "${TMP}" >& /dev/null
+if ! _=$(command -V plantuml.jar > /dev/null 2>&1); then
   printf "Downloading \e[96mplantuml\e[0m...\n"
   curl -fsSLO https://netix.dl.sourceforge.net/project/plantuml/plantuml.jar
   printf "Installing \e[96mplantuml\e[0m...\n"
   install -g "$(id -g)" -o "$(id -u)" -m 0750 plantuml.jar ~/.local/bin/plantuml.jar
-  popd >& /dev/null
 fi

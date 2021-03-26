@@ -92,14 +92,24 @@ check:
 
 .PHONY: setup
 setup: cleanup
-	@bash setup.sh
+	@sh setup.sh
 
 .PHONY: cleanup
 cleanup:
 	@find . -name .DS_Store -type f -delete
 
+.PHONY: vscode-dump
 vscode-dump:
-	code --list-extensions | tr '[:upper:]' '[:lower:]' | sort > vscode-extensions
+	@code --list-extensions | tr '[:upper:]' '[:lower:]' | sort > .setup.d/packages/vscode.txt
 
+.PHONY: vscode-install
 vscode-install:
-	@cat vscode-extensions | xargs -P $(shell sysctl -n hw.activecpu) -I{} code --install-extension {}
+	@cat .setup.d/packages/vscode.txt | xargs -P $(shell sysctl -n hw.activecpu) -I{} code --install-extension {}
+
+.PHONY: frun
+frun:
+	@find .setup.d -name "*.sh" | fzf -m | ifne xargs -I{} env TRACE=0 ./run.sh "{}"
+
+.PHONY: lint
+lint:
+	@shellcheck $(wildcard *.sh) $(wildcard .setup.d/*.sh) $(wildcard .setup.d/**/*.sh)
