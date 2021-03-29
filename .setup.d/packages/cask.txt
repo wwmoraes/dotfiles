@@ -1,5 +1,4 @@
 hammerspoon
-dozer
 finicky
 browserosaurus
 keybase
@@ -16,6 +15,5 @@ appcleaner
 launchpad-manager:/Applications/Launchpad Manager.app/Contents/MacOS/Launchpad Manager
 the-unarchiver:/Applications/The Unarchiver.app/Contents/MacOS/The Unarchiver
 amethyst
-hazel
 krisp
 fluor
