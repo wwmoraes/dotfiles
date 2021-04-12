@@ -8,6 +8,7 @@ trap 'kill 0' INT HUP TERM
 : "${PACKAGES_PATH:?must be set}"
 : "${WORK:?unknown if on a work machine}"
 : "${PERSONAL:?unknown if on a personal machine}"
+: "${TAGSRC:=${HOME}/.tagsrc}"
 
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
@@ -35,19 +36,32 @@ while IFS= read -r LINE; do
   printf "%s\n" "${LINE}" > "${PACKAGES}" &
 done < "${PACKAGES_FILE_PATH}"
 
-if [ "${PERSONAL}" = "1" ] && [ -f "${PERSONAL_PACKAGES_FILE_PATH}" ]; then
-  while IFS= read -r LINE; do
-    echo "${LINE}" | grep -Eq "^#" && continue
-    printf "%s\n" "${LINE}" > "${PACKAGES}" &
-  done < "${PERSONAL_PACKAGES_FILE_PATH}"
-fi
+for TAG in "${TAGSRC}"; do
+  TAG_PACKAGES_FILE_PATH="${PACKAGES_PATH}/${TAG}/${PACKAGES_FILE_NAME}"
 
-if [ "${WORK}" = "1" ] && [ -f "${WORK_PACKAGES_FILE_PATH}" ]; then
+  test -f "${TAG_PACKAGES_FILE_PATH}" || continue
+
+  echo "loading packages for tag ${TAG}"
+
   while IFS= read -r LINE; do
     echo "${LINE}" | grep -Eq "^#" && continue
     printf "%s\n" "${LINE}" > "${PACKAGES}" &
-  done < "${WORK_PACKAGES_FILE_PATH}"
-fi
+  done < "${TAG_PACKAGES_FILE_PATH}"
+done
+
+# if grep -qFx "personal" "${TAGSRC}" && [ -f "${PERSONAL_PACKAGES_FILE_PATH}" ]; then
+#   while IFS= read -r LINE; do
+#     echo "${LINE}" | grep -Eq "^#" && continue
+#     printf "%s\n" "${LINE}" > "${PACKAGES}" &
+#   done < "${PERSONAL_PACKAGES_FILE_PATH}"
+# fi
+
+# if [ "${WORK}" = "1" ] && [ -f "${WORK_PACKAGES_FILE_PATH}" ]; then
+#   while IFS= read -r LINE; do
+#     echo "${LINE}" | grep -Eq "^#" && continue
+#     printf "%s\n" "${LINE}" > "${PACKAGES}" &
+#   done < "${WORK_PACKAGES_FILE_PATH}"
+# fi
 
 if [ -f "${HOST_PACKAGES_FILE_PATH}" ]; then
   while IFS= read -r LINE; do
@@ -85,7 +99,7 @@ while read -r PACKAGE; do
   command -V "${PACKAGE##*:}" >/dev/null 2>&1 && continue
 
   printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-  "${MANAGER}" "${PACKAGE%%:*}" 2> /dev/null
+  "${MANAGER}" "${PACKAGE%%:*}" 2> /dev/null || true
 done < "${PACKAGES}"
 
 if [ "${SYSTEM}" = "darwin" ]; then

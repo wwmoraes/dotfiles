@@ -297,7 +297,7 @@ if type -q kubectl
   abbr -a -U kdelclu "kubectl config get-clusters | fzf -m --ansi --header-lines=1 | xargs -I{} -o kubectl config delete-cluster {}"
 
   # work-only abbreviations
-  if isWork
+  if tags contains work
     abbr -a -U kdip "kubectl get secrets | awk 'NR==1{print;next};\$2 ~ /kubernetes.io\/dockerconfigjson/ {print}' | fzf --ansi --header-lines=1 -1 | awk '{print \$1}' | xargs -I{} -o kubectl get secret {} -o yaml | yq -r '.data[\".dockerconfigjson\"]' | base64 -D | jq -r '.auths | keys[] as \$key | .[\$key].auth' | base64 -D"
   end
 end

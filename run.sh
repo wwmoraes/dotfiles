@@ -18,14 +18,17 @@ set -a
 : "${VERBOSE:=0}"
 SYSTEM=$(getOS)
 ARCH=$(getArch)
+TAGS=$(getTags)
 WORK=$(isWork)
 PERSONAL=$(isPersonal)
 HOST=$(hostname -s)
 PACKAGES_PATH="${HOME}/.files/.setup.d/packages"
+TAGSRC="${HOME}/.tagsrc"
 set +a
 
 echo "System: ${SYSTEM}"
 echo "Architecture: ${ARCH}"
+echo "Tags: ${TAGS}"
 echo "Is work? ${WORK}"
 echo "Is personal? ${PERSONAL}"
 echo "packages path: ${PACKAGES_PATH}"

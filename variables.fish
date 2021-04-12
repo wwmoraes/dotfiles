@@ -7,11 +7,11 @@ test -f ~/.config/fish/config.fish; and source ~/.config/fish/config.fish
 # Set environment variables
 dotenv ~/.env
 dotenv ~/.env_secrets
-isPersonal; and begin
+tags contains personal; and begin
   dotenv ~/.env_personal
   dotenv ~/.env_personal_secrets
 end
-isWork; and begin
+tags contains work; and begin
   dotenv ~/.env_work
   dotenv ~/.env_work_secrets
 end

@@ -8,6 +8,7 @@ trap 'kill 0' INT HUP TERM
 : "${PACKAGES_PATH:?must be set}"
 : "${WORK:?unknown if on a work machine}"
 : "${PERSONAL:?unknown if on a personal machine}"
+: "${TAGSRC:=${HOME}/.tagsrc}"
 
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
@@ -24,8 +25,6 @@ trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
 # package file name
 PACKAGES_FILE_NAME=cask.txt
 PACKAGES_FILE_PATH="${PACKAGES_PATH}/${PACKAGES_FILE_NAME}"
-PERSONAL_PACKAGES_FILE_PATH="${PACKAGES_PATH}/personal/${PACKAGES_FILE_NAME}"
-WORK_PACKAGES_FILE_PATH="${PACKAGES_PATH}/work/${PACKAGES_FILE_NAME}"
 HOST_PACKAGES_FILE_PATH="${PACKAGES_PATH}/${HOST}/${PACKAGES_FILE_NAME}"
 
 # wanted packages
@@ -38,19 +37,16 @@ while IFS= read -r LINE; do
   printf "%s\n" "${LINE}" > "${PACKAGES}" &
 done < "${PACKAGES_FILE_PATH}"
 
-if [ "${PERSONAL}" = "1" ] && [ -f "${PERSONAL_PACKAGES_FILE_PATH}" ]; then
-  while IFS= read -r LINE; do
-    echo "${LINE}" | grep -Eq "^#" && continue
-    printf "%s\n" "${LINE}" > "${PACKAGES}" &
-  done < "${PERSONAL_PACKAGES_FILE_PATH}"
-fi
+while read -r TAG; do
+  TAG_PACKAGES_FILE_PATH="${PACKAGES_PATH}/${TAG}/${PACKAGES_FILE_NAME}"
 
-if [ "${WORK}" = "1" ] && [ -f "${WORK_PACKAGES_FILE_PATH}" ]; then
-  while IFS= read -r LINE; do
+  test -f "${TAG_PACKAGES_FILE_PATH}" || continue
+
+  while read -r LINE; do
     echo "${LINE}" | grep -Eq "^#" && continue
     printf "%s\n" "${LINE}" > "${PACKAGES}" &
-  done < "${WORK_PACKAGES_FILE_PATH}"
-fi
+  done < "${TAG_PACKAGES_FILE_PATH}"
+done < "${TAGSRC}"
 
 if [ -f "${HOST_PACKAGES_FILE_PATH}" ]; then
   while IFS= read -r LINE; do

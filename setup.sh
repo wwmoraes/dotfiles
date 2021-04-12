@@ -50,8 +50,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ### variables used across the setup files
 set -a
+: "${TAGSRC:=${HOME}/.tagsrc}"
 : "${SYSTEM:=$(getOS)}"
 : "${ARCH:=$(getArch)}"
+: "${TAGS:=$(getTags)}"
 : "${WORK:=$(isWork)}"
 : "${PERSONAL:=$(isPersonal)}"
 : "${HOST:=$(hostname -s)}"
@@ -60,6 +62,7 @@ set +a
 
 echo "System: ${SYSTEM}"
 echo "Architecture: ${ARCH}"
+echo "Tags: ${TAGS}"
 echo "Is work? ${WORK}"
 echo "Is personal? ${PERSONAL}"
 

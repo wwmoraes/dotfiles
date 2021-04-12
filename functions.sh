@@ -2,6 +2,8 @@
 
 set -eum
 
+: "${TAGSRC:=${HOME}/.tagsrc}"
+
 getOS() {
   uname -s | tr '[:upper:]' '[:lower:]'
 }
@@ -41,17 +43,21 @@ getArch() {
   esac
 }
 
-isWork() {
-  HOST=$(hostname -s)
-  test "${HOST}" = "NLMBF04E-C82334" && echo 1 && return
+getTags() {
+  cat "${TAGSRC}"
+}
 
+isTagged() {
+  grep -qFx "$1" "${TAGSRC}"
+}
+
+isWork() {
+  isTagged work && echo 1 && return
   echo 0
 }
 
 isPersonal() {
-  HOST=$(hostname -s)
-  test "${HOST}" = "M1Cabuk" && echo 1 && return
-
+  isTagged personal && echo 1 && return
   echo 0
 }
 

@@ -2,7 +2,7 @@
 status --is-interactive; or exit
 
 # work-only
-isWork; or exit
+tags contains work; or exit
 
 if type -q kubectl
   function work-setup
