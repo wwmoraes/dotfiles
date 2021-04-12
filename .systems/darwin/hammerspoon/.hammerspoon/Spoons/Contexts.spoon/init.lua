@@ -16,6 +16,8 @@
 ---@field openAt string|nil
 --- optional time string on when to emit the notification to close the context
 ---@field closeAt string|nil
+--- rules to enable/disable the timers per hostname (default true for all hosts)
+---@field hostnames table<string,boolean>|nil
 --- days to skip the scheduled open/close
 ---@field exceptDays table<number,boolean>|nil
 --- list of application names or bundle IDs to interact with
@@ -32,7 +34,7 @@
 --- chooser placeholder text shown on the input box
 ---@field public chooserPlaceholderText string
 --- context details to use throughout the module
----@field public contexts table
+---@field public contexts ContextEntry[]
 --- map of system events to functions to execute
 ---@field protected eventCallback table<number,function>
 --- system events watcher
@@ -112,6 +114,16 @@ local function doAtCallback(context, contextName, baseURL, action)
   end
 
   hs.urlevent.openURL(string.format("%s?name=%s&action=%s", baseURL, contextName, action))
+end
+
+--- returns the short hostname from the output of the `hostname -s` command
+---@return string @current hostname
+local function hostname()
+  local proc = io.popen("/bin/hostname -s")
+  local hostname = proc:read("l") or ""
+  proc:close()
+
+  return hostname
 end
 
 --- processes caffeinate watcher events
@@ -260,26 +272,30 @@ end
 ---@return Contexts @the Contexts object
 function obj:setupTimers()
   local baseURL = "hammerspoon://"..string.lower(self.name)
+  local host = hostname()
 
   ---@param contextName string
   ---@param context ContextEntry
   for contextName, context in pairs(self.contexts) do
-    if context.openAt ~= nil then
-      table.insert(self.timers, hs.timer.doAt(
-        context.openAt,
-        "1d",
-        hs.fnutils.partial(doAtCallback, context, contextName, baseURL, "open"),
-        true
-      ))
-    end
+    -- do not enable the timers on hosts explicitly listed as false
+    if context.hostnames[host] ~= false then
+      if context.openAt ~= nil then
+        table.insert(self.timers, hs.timer.doAt(
+          context.openAt,
+          "1d",
+          hs.fnutils.partial(doAtCallback, context, contextName, baseURL, "open"),
+          true
+        ))
+      end
 
-    if context.closeAt ~= nil then
-      table.insert(self.timers, hs.timer.doAt(
-        context.closeAt,
-        "1d",
-        hs.fnutils.partial(doAtCallback, context, contextName, baseURL, "kill"),
-        true
-      ))
+      if context.closeAt ~= nil then
+        table.insert(self.timers, hs.timer.doAt(
+          context.closeAt,
+          "1d",
+          hs.fnutils.partial(doAtCallback, context, contextName, baseURL, "kill"),
+          true
+        ))
+      end
     end
   end
 

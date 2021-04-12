@@ -1,5 +1,7 @@
 require("lib.hammerspoon")
 
+-- ### spoons configuration
+
 hs.spoons.use("ReloadConfiguration", {
   config = {
     watch_paths = {
@@ -30,6 +32,9 @@ hs.spoons.use("Contexts", {
         title = "Work",
         openAt = "09:00",
         closeAt = "17:00",
+        hostnames = {
+          ["M1Cabuk"] = false,
+        },
         exceptDays = {
           [1] = true,
           [7] = true
@@ -88,7 +93,7 @@ hs.spoons.use("Hazel", {
 ---@type Hazel
 spoon.Hazel = spoon.Hazel
 
--- ### plain init config
+-- ### plain init configuration
 
 --- returns the short hostname from the output of the `hostname -s` command
 ---@return string @current hostname
