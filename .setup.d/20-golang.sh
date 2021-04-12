@@ -61,5 +61,5 @@ while read -r PACKAGE; do
   test -f "${GOPATH}/bin/${PACKAGE##*:}" && continue
 
   printf "Installing \e[96m%s\e[0m...\n" "${NAME}"
-  go get "${PACKAGE%%:*}"
+  go get "${PACKAGE%%:*}" || printf "\e[91mFAILED\e[m to install \e[96m%s\e[0m (%s)\n" "${NAME}" "golang" >&2
 done < "${PACKAGES}"

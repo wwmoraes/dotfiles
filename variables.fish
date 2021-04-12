@@ -32,6 +32,7 @@ for user_path in (string split ':' $argv[1] | sed 's|/$||g')[-1..1]
 end
 
 ### Cleanup of paths (done separately so the user paths order are kept)
+echo "Removing duplicate user paths..."
 for user_path in $fish_user_paths
   # duplicates
   set -l indices (echo -e (string join "\n" $fish_user_paths) | \
@@ -53,6 +54,7 @@ for user_path in $fish_user_paths
 end
 
 # Remove old environment variables
+echo "Removing old environment variables..."
 for entry in (cat .env-remove | grep -v '^#' | grep -v '^$')
   if set -q $entry
     echo Unsetting (set_color brcyan)$entry(set_color normal)
@@ -62,3 +64,6 @@ end
 
 # Remove the global version, as it shadows the universal one
 set -eg fish_user_paths
+
+echo "fish was set up succesfully"
+exit 0
