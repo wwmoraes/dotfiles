@@ -215,4 +215,7 @@
     }
   ],
   "go.toolsManagement.autoUpdate": true,
+  "[go]": {
+    "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
+  },
 }
