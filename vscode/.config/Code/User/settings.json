@@ -218,4 +218,5 @@
   "[go]": {
     "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
   },
+  "licenser.disableAutoHeaderInsertion": true
 }
