@@ -1,0 +1,39 @@
+# headers format
+regexp=(?:\s|^)(CONTAINER ID|NAME|CPU %|MEM USAGE / LIMIT|MEM %|NET I/O|BLOCK I/O|PIDS)(?:\s|$)
+colours=default,bold
+======
+# DEFAULT ENTRIES
+regexp=^(?!CONTAINER ID)(.*)$
+colours=bright_black
+======
+# NAME
+regexp=^(?!CONTAINER ID)\w+\s+([a-z0-9-_]+)\s
+colours=unchanged,on_blue white
+======
+# SIZES
+regexp=\s([0-9.]+)((?:[A-Z]*i|k?)B)\s
+colours=unchanged,white,cyan
+======
+# PIDS
+regexp=\s([0-9]+)(?:\s*$)
+colours=unchanged,magenta
+======
+# DEFAULT PERCENTAGES
+regexp=\s([0-9]+\.[0-9]{2}%)\s
+colours=unchanged,green
+count=more
+======
+# PERCENTAGES >= 50%
+regexp=\s([5-9][0-9]\.[0-9]{2}%)\s
+colours=unchanged,yellow
+count=more
+======
+# PERCENTAGES >= 70%
+regexp=\s([7-9][0-9]\.[0-9]{2}%)\s
+colours=unchanged,bright_red
+count=more
+======
+# PERCENTAGES >= 100%
+regexp=\s(1[0-9]{2}\.[0-9]{2}%)\s
+colours=unchanged,bold red
+count=more
