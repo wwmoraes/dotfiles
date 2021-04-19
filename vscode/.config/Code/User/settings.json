@@ -153,11 +153,11 @@
   "workbench.iconTheme": "vscode-icons",
   "files.associations": {
     "**/i3/config": "i3",
-    "Dockerfile_*": "dockerfile",
     ".env*": "dotenv",
     ".terraformignore": "gitignore",
     "*.tpl": "go-template",
-    ".helmignore": "gitignore"
+    ".helmignore": "gitignore",
+    ".coveragerc": "ini"
   },
   "git-graph.dialog.merge.noFastForward": false,
   "git-graph.dialog.merge.squashCommits": true,
