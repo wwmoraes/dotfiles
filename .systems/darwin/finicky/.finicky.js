@@ -1,7 +1,7 @@
 /// <reference path="./.finicky.d.ts" />
 /** @type {import("./.finicky.d").Finicky.Config} */
 module.exports = {
-  defaultBrowser: "Browserosaurus",
+  defaultBrowser: "OpenIn",
   rewrite: [
     {
       match: "tracking.tldrnewsletter.com/*",
