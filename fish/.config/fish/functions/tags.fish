@@ -3,6 +3,7 @@ set -q TAGSRC; or set -U TAGSRC $HOME/.tagsrc
 function tags -a cmd -d "interact with host tags"
   switch "$cmd"
     case "get" ""
+      test -f "$TAGSRC"; or return 0
       cat "$TAGSRC"
     case "set"
       printf "%s\n" $argv[2..-1] | tee "$TAGSRC"
@@ -14,6 +15,8 @@ function tags -a cmd -d "interact with host tags"
       set -l TAGS (grep -vE "^($REMOVE)\$" "$TAGSRC")
       printf "%s\n" $TAGS | tee "$TAGSRC"
     case "contains"
+      test (count $argv[2..-1]) -gt 0; or return 2
+      test -f "$TAGSRC"; or return 1
       grep -qFx "$argv[2]" "$TAGSRC"
     case "usage" "*"
       echo "usage: tags [get]"

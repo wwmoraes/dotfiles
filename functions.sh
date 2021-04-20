@@ -44,10 +44,13 @@ getArch() {
 }
 
 getTags() {
+  test -f "$TAGSRC" || return 0
   cat "${TAGSRC}"
 }
 
 isTagged() {
+  test $# -gt 0 || return 2
+  test -f "${TAGSRC}" || return 1
   grep -qFx "$1" "${TAGSRC}"
 }
 
