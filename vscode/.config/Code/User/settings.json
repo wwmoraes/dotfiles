@@ -3,6 +3,8 @@
   "terminal.integrated.automationShell.linux": "/usr/bin/fish",
   "terminal.integrated.shell.osx": "/usr/local/bin/fish",
   "terminal.integrated.automationShell.osx": "/usr/local/bin/fish",
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
   "editor.tabSize": 2,
   "editor.minimap.enabled": false,
   "editor.rulers": [
@@ -157,6 +159,7 @@
     ".terraformignore": "gitignore",
     "*.tpl": "go-template",
     ".helmignore": "gitignore",
+    ".style.yapf": "ini",
     ".coveragerc": "ini"
   },
   "git-graph.dialog.merge.noFastForward": false,
@@ -177,6 +180,7 @@
   "javascript.format.semicolons": "insert",
   "typescript.format.semicolons": "insert",
   "python.languageServer": "Pylance",
+  "python.formatting.provider": "yapf",
   "go.useLanguageServer": true,
   "editor.formatOnSave": true,
   "github-actions.org-features": false,
