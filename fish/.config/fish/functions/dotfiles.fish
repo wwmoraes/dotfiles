@@ -31,6 +31,8 @@ function dotfiles -a cmd -d "Setup dotfiles"
       cd $DOTFILES_DIR
     case update
       _dotfiles_update $argv[2..-1]
+    case run
+      _dotfiles_run $argv[2..-1]
     case "" "*"
       echo "Unknown option $cmd"
   end
@@ -231,3 +233,17 @@ function _dotfiles_update
   popd > /dev/null 2>&1
 end
 complete -xc dotfiles -n __fish_use_subcommand -a update -d "pull and install files"
+
+function _dotfiles_run
+  # Check and get file path
+  if test (count $argv) != 1
+    echo "Error: please pass a script to run"
+    return 1
+  end
+
+  set script $DOTFILES_DIR/.setup.d/$argv[1]
+
+  bash $DOTFILES_DIR/run.sh $script
+end
+complete -xc dotfiles -n __fish_use_subcommand -a run -d "executes a setup script independently"
+complete -xc dotfiles -n '__fish_seen_subcommand_from run' -a "(__fish_complete_suffix (commandline -ct) .sh '' $DOTFILES_DIR/.setup.d)"
