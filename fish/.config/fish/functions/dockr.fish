@@ -32,7 +32,24 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
     if test (count $images)
       for image in $images
         printf "Image: $image\n\n"
-        docker inspect -f '{{range $k, $v := .Config.Labels}}{{printf "%s=%s\n" $k $v}}{{end}}' $image | cat (echo "LABEL=VALUE" | psub) - | column -t -s =
+
+        ### docker CLI has some serious problems with shell scripting: a plain
+        ### inspect call with the -f flag works, e.g.:
+        # docker inspect -f "{{range \$k, \$v := .Config.Labels}}{{printf \"%s=%s\\n\" \$k \$v}}{{end}}" $image
+        ### however, if you try the very same command on a pipe or within a
+        ### subshell (e.g. to store in a variable), it errors with
+        ### '"docker inspect" requires at least 1 argument.', which is
+        ### absolutely bs. E.g.:
+        # docker inspect -f "{{range \$k, \$v := .Config.Labels}}{{printf \"%s=%s\\n\" \$k \$v}}{{end}}" $image \
+        # | cat (echo "LABEL=VALUE" | psub) - | column -t -s =
+        ### OR
+        # set labels (docker inspect -f "{{range \$k, \$v := .Config.Labels}}{{printf \"%s=%s\\n\" \$k \$v}}{{end}}" $image)
+        ### Both examples error for no good reason.
+        ### So back to jq it is then, which is far more stable...
+        docker inspect $image \
+        | jq -r '.[0].Config.Labels | to_entries | map("\\(.key)=\\(.value)") | .[]' \
+        | cat (echo "LABEL=VALUE" | psub) - | column -t -s =
+
         echo
       end
     end
