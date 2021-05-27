@@ -43,9 +43,6 @@
   "workbench.list.automaticKeyboardNavigation": false,
   "workbench.activityBar.visible": true,
   "editor.cursorSurroundingLines": 5,
-  "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
   "projectManager.any.maxDepthRecursion": 1,
   "projectManager.removeCurrentProjectFromList": true,
   "projectManager.git.baseFolders": [
@@ -152,6 +149,9 @@
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
   "workbench.iconTheme": "vscode-icons",
   "files.associations": {
     "**/i3/config": "i3",
@@ -160,7 +160,7 @@
     "*.tpl": "go-template",
     ".helmignore": "gitignore",
     ".style.yapf": "ini",
-    ".coveragerc": "ini"
+    ".coveragerc": "ini",
   },
   "git-graph.dialog.merge.noFastForward": false,
   "git-graph.dialog.merge.squashCommits": true,
@@ -219,8 +219,6 @@
     }
   ],
   "go.toolsManagement.autoUpdate": true,
-  "[go]": {
-    "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
-  },
-  "licenser.disableAutoHeaderInsertion": true
+  "licenser.disableAutoHeaderInsertion": true,
+  "workbench.editor.untitled.hint": "hidden"
 }
