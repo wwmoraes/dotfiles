@@ -5,7 +5,9 @@
   },
   "files.associations": {
     "**/.gitaliases": "gitconfig",
-    "grc/.grc/conf.*": "grc-app"
+    "**/.gitcolors": "gitconfig",
+    "grc/.grc/conf.*": "grc-app",
+    "**/.gitignore*": "gitignore"
   },
   "cSpell.words": [
     "Browserosaurus",
