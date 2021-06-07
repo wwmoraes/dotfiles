@@ -117,7 +117,7 @@ if [ "$HOST" == "M1Cabuk" ]; then
   test -f "$HOME/.env_personal" && source "$HOME/.env_personal"
   test -f "$HOME/.env_personal_secrets" && source "$HOME/.env_personal_secrets"
 fi
-if [ "$HOST" == "NLMBF04E-C82334" ]; then
+if [ "$HOST" == "C02DQ36NMD6P" ]; then
   test -f "$HOME/.env_work" && source "$HOME/.env_work"
   test -f "$HOME/.env_work_secrets" && source "$HOME/.env_work_secrets"
 fi

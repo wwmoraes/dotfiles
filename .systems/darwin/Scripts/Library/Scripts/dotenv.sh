@@ -39,7 +39,7 @@ if [ "${HOST}" = "M1Cabuk" ]; then
   processDotenvFile "${HOME}/.env_personal"
   processDotenvFile "${HOME}/.env_personal_secrets"
 fi
-if [ "${HOST}" = "NLMBF04E-C82334" ]; then
+if [ "${HOST}" = "C02DQ36NMD6P" ]; then
   processDotenvFile "${HOME}/.env_work"
   processDotenvFile "${HOME}/.env_work_secrets"
 fi

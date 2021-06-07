@@ -17,7 +17,7 @@ hs.spoons.use("Env", {
     ---@type table<string,ContextName>
     contexts = {
       ["M1Cabuk"] = "personal",
-      ["NLMBF04E-C82334"] = "work",
+      ["C02DQ36NMD6P"] = "work",
     },
   },
   start = true,
@@ -105,7 +105,7 @@ local function hostname()
   return hostname
 end
 
-if hostname() == "NLMBF04E-C82334" then
+if hostname() == "C02DQ36NMD6P" then
   -- minimize personal browser and other utility applications
   hs.hotkey.bind({"ctrl", "option", "command"}, "m", function()
     local windows = hs.window.filter.new({
