@@ -161,6 +161,7 @@
     ".helmignore": "gitignore",
     ".style.yapf": "ini",
     ".coveragerc": "ini",
+    "*.yml": "yaml"
   },
   "git-graph.dialog.merge.noFastForward": false,
   "git-graph.dialog.merge.squashCommits": true,
@@ -191,9 +192,10 @@
   "vs-kubernetes": {
     "vs-kubernetes.knownKubeconfigs": [
       "/Users/william/.secrets/k8s/.kube/config-home",
-      "/Users/william/.secrets/k8s/.kube/config-work",
+      "/Users/william/.secrets/k8s/.kube/config-work"
     ],
-    "vs-kubernetes.kubeconfig": "/Users/william/.secrets/k8s/.kube/config-work"
+    "vs-kubernetes.kubeconfig": "/Users/william/.secrets/k8s/.kube/config-work",
+    "vscode-kubernetes.minikube-path.mac": "/Users/william/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
   },
   "workbench.editor.decorations.badges": true,
   "workbench.editor.decorations.colors": true,
@@ -219,6 +221,13 @@
     }
   ],
   "go.toolsManagement.autoUpdate": true,
+  "[go]": {
+    "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
+  },
   "licenser.disableAutoHeaderInsertion": true,
-  "workbench.editor.untitled.hint": "hidden"
+  "[markdown]": {
+    "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
+  },
+  "workbench.editor.untitled.hint": "hidden",
+  "redhat.telemetry.enabled": true,
 }
