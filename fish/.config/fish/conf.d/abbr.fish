@@ -63,6 +63,8 @@ if type -q kubectl
   abbr -a -U kgaextsvc "kubectl get services -A | awk '\$5 !~ /<none>/ {\$7=\"\";print}' | column -t"
   abbr -a -U kgpol "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get pod {} -o  go-template='{{range \$name, \$value := .metadata.labels}}{{\$name}}: {{\$value}}{{\"\\n\"}}{{end}}'"
   abbr -a -U kgpoa "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get pod {} -o  go-template='{{range \$name, \$value := .metadata.annotations}}{{\$name}}: {{\$value}}{{\"\\n\"}}{{end}}'"
+  abbr -a -U kgnol "kubectl get nodes | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get node {} -o  go-template='{{range \$name, \$value := .metadata.labels}}{{\$name}}: {{\$value}}{{\"\\n\"}}{{end}}'"
+  abbr -a -U kgnoa "kubectl get nodes | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get node {} -o  go-template='{{range \$name, \$value := .metadata.annotations}}{{\$name}}: {{\$value}}{{\"\\n\"}}{{end}}'"
 
   # base kubectl (fuzzy)
   abbr -a -U klpof "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl logs {}"
@@ -99,6 +101,7 @@ if type -q kubectl
   abbr -a -U kesc "kubectl edit storageclass"
   abbr -a -U kers "kubectl edit replicaset"
   abbr -a -U keq "kubectl edit quota"
+
   # k edit ... (fuzzy)
   abbr -a -U kepof "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl edit pod {}"
   abbr -a -U keingf "kubectl get ingress | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl edit ingress {}"
