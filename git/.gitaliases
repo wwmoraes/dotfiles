@@ -6,7 +6,7 @@
 	unstage = reset -q HEAD --
 	discard = checkout --
 	uncommit = reset --mixed HEAD~
-	amend = commit --amend --all
+	amend = commit --amend --all --no-edit
 
 # almost-human aliases
 	hreset = reset --hard
