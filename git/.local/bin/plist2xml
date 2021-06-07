@@ -1,0 +1,5 @@
+#!/bin/sh
+
+plutil -convert xml1 -o - "$1"
+
+# vim: ft=sh

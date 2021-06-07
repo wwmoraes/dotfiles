@@ -82,3 +82,6 @@
   required = true
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
+
+[diff "plist"]
+  textconv = plist2xml
