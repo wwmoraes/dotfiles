@@ -42,7 +42,8 @@ hs.spoons.use("Contexts", {
         applications = {
           "Firefox",
           "Microsoft Teams",
-          "Microsoft Outlook"
+          "Microsoft Outlook",
+          "OneDrive"
         },
       },
     },
