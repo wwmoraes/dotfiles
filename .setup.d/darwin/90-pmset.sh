@@ -11,6 +11,6 @@ test "${VERBOSE:-0}" = "1" && set -v
 # exit early if not on darwin
 test "${SYSTEM}" = "darwin" || exit
 
-sudo pmset -a standbydelaylow 3600
+sudo pmset -a standbydelaylow 900
 sudo pmset -a highstandbythreshold 50
-sudo pmset -a standbydelayhigh 10800
+sudo pmset -a standbydelayhigh 3600
