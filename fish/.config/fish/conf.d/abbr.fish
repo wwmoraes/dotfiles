@@ -1,6 +1,9 @@
 # Abbreviations available only in interactive shells
 status --is-interactive; or exit
 
+### removes old abbreviations, but takes a bit of time
+# abbr -l | xargs -P 8 -I % fish -c 'abbr -e -U %; true'
+
 abbr -a -U wttr "curl v2.wttr.in"
 
 # todo.sh
