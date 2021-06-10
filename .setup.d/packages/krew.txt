@@ -12,3 +12,4 @@ grep
 ctx
 ns
 ingress-nginx
+whoami
