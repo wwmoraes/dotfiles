@@ -22,7 +22,6 @@
     "source.fixAll": true,
     "source.organizeImports": false
   },
-  "gitlens.hovers.currentLine.over": "line",
   "workbench.editor.enablePreview": false,
   "bookmarks.useWorkaroundForFormatters": true,
   "javascript.updateImportsOnFileMove.enabled": "always",
@@ -230,4 +229,5 @@
   },
   "workbench.editor.untitled.hint": "hidden",
   "redhat.telemetry.enabled": true,
+  "gitlens.hovers.annotations.over": "annotation",
 }
