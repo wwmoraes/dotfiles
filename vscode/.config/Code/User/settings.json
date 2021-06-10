@@ -160,7 +160,8 @@
     ".helmignore": "gitignore",
     ".style.yapf": "ini",
     ".coveragerc": "ini",
-    "*.yml": "yaml"
+    "*.yml": "yaml",
+    "*.gotmpl": "go-template"
   },
   "git-graph.dialog.merge.noFastForward": false,
   "git-graph.dialog.merge.squashCommits": true,
