@@ -1,7 +1,5 @@
 powerline-status
 powerline-kubernetes|https://github.com/wwmoraes/powerline-kubernetes/tarball/master#egg=powerline-kubernetes
-ansible
-yq
 asciinema
 doge
 thefuck
