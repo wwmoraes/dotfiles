@@ -1,4 +1,5 @@
 set -q PROJECTS_DIR; or set -U PROJECTS_DIR $HOME/dev
+set -q PROJECTS_ORIGIN; or set -U PROJECTS_ORIGIN "git@github.com:wwmoraes/%s.git"
 
 function __projects_fish_complete_directories -d "Complete directory prefixes" --argument-names comp desc
     if not set -q desc[1]
@@ -68,6 +69,7 @@ function _projects_create
     printf "%-"(tput cols)"s\r" "[$printProjectName] creating on $printProjectDir..."
     mkdir -p $projectDir
     git -C $projectDir init -q
+    git -C $projectDir remote add origin (printf $PROJECTS_ORIGIN $project)
     curl -fsSL https://gist.github.com/wwmoraes/75dc66767a9f487c8235c5423027f69c/raw/setup.sh | sh -s -- "$projectDir"
     printf "%-"(tput cols)"s\n" "[$printProjectName] created on $printProjectDir"
   end
