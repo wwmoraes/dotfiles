@@ -114,6 +114,7 @@
     "postcoverage",
     "proto",
     "protobuf",
+    "pulumi",
     "runtimes",
     "signup",
     "sourcemap",
