@@ -17,3 +17,4 @@ the-unarchiver:/Applications/The Unarchiver.app/Contents/MacOS/The Unarchiver
 amethyst
 krisp
 fluor
+thingsmacsandboxhelper

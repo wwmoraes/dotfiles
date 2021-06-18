@@ -1,5 +1,4 @@
 responsively:/Applications/ResponsivelyApp.app/Contents/MacOS/ResponsivelyApp
-thingsmacsandboxhelper
 whatsapp
 messenger
 telegram
