@@ -36,7 +36,7 @@
 --- context details to use throughout the module
 ---@field public contexts ContextEntry[]
 --- map of system events to functions to execute
----@field protected eventCallback table<number,function>
+---@field public eventCallback table<number,function>
 --- system events watcher
 ---@field protected watcher CaffeinateWatcher
 --- Contexts Spoon object
@@ -70,16 +70,26 @@ local obj = {
 }
 obj.__index = obj
 
-obj.eventCallback = {
-  [hs.caffeinate.watcher.systemWillSleep] = hs.fnutils.partial(obj.cleanupTimers, obj),
-  [hs.caffeinate.watcher.systemDidWake] = hs.fnutils.partial(obj.setupTimers, obj),
-}
-
 -- Metadata
 obj.name = "Contexts"
 obj.version = "1.0"
 obj.author = "William Artero"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
+
+obj.eventName = {
+  [0] = "systemDidWake",
+  [1] = "systemWillSleep",
+  [2] = "systemWillPowerOff",
+  [3] = "screensDidSleep",
+  [4] = "screensDidWake",
+  [5] = "sessionDidResignActive",
+  [6] = "sessionDidBecomeActive",
+  [7] = "screensaverDidStart",
+  [8] = "screensaverWillStop",
+  [9] = "screensaverDidStop",
+  [10] = "screensDidLock",
+  [11] = "screensDidUnlock",
+}
 
 ---@type HotkeyMapping
 obj.defaultHotkeys = {
@@ -88,7 +98,7 @@ obj.defaultHotkeys = {
   openChooser = {{"ctrl", "option", "cmd"}, "o"},
 }
 
-obj.logger = hs.logger.new(string.lower(obj.name))
+obj.logger = hs.logger.new(string.lower(obj.name), "info")
 
 --- wraps `fn` with a closure, which calls `fn` within a protected call using `pcall`, and logs the error using the `logger.e`
 ---@param logger LoggerInstance
@@ -129,7 +139,15 @@ end
 --- processes caffeinate watcher events
 ---@param eventType number
 function obj:processEvent(eventType)
-  self.eventCallback[eventType]()
+  local eventName = self.eventName[eventType]
+  local fn = self.eventCallback[eventType]
+  if fn == nil then
+    self.logger.i("no handler registered for event", eventName)
+    return
+  end
+
+  self.logger.f("executing %s handler", eventName)
+  fn(self)
 end
 
 --- actions available on application instances
@@ -299,6 +317,7 @@ function obj:setupTimers()
     end
   end
 
+  self.logger.i("timers set up successfully")
   return self
 end
 
@@ -309,6 +328,7 @@ function obj:cleanupTimers()
     table.remove(self.timers, #self.timers):stop()
   end
 
+  self.logger.i("timers cleaned up successfully")
   return self
 end
 
@@ -317,6 +337,11 @@ function obj:init()
   self:generateChoices()
 
   self.watcher = hs.caffeinate.watcher.new(hs.fnutils.partial(self.processEvent, self))
+  self.eventCallback = {
+    [hs.caffeinate.watcher.systemDidWake] = hs.fnutils.partial(self.setupTimers, self),
+    [hs.caffeinate.watcher.systemWillSleep] = hs.fnutils.partial(self.cleanupTimers, self),
+    [hs.caffeinate.watcher.systemWillPowerOff] = hs.fnutils.partial(self.cleanupTimers, self),
+  }
 
   return self
 end
