@@ -1,74 +1,44 @@
 {
-  "terminal.integrated.shell.linux": "/usr/bin/fish",
-  "terminal.integrated.automationShell.linux": "/usr/bin/fish",
-  "terminal.integrated.shell.osx": "/usr/local/bin/fish",
-  "terminal.integrated.automationShell.osx": "/usr/local/bin/fish",
-  "editor.detectIndentation": false,
-  "editor.insertSpaces": true,
-  "editor.tabSize": 2,
-  "editor.minimap.enabled": false,
-  "editor.rulers": [
-    80,
-    100
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "azure.resourceFilter": [
+    "3a15904d-3fd9-4256-a753-beb05cdf0c6d/37523455-06d3-4fb9-8306-61a3c08f4d09"
   ],
-  "window.zoomLevel": 0,
-  "terminal.integrated.rendererType": "dom",
-  "editor.wordWrap": "on",
-  "editor.wrappingIndent": "indent",
-  "editor.suggestSelection": "first",
-  "window.titleBarStyle": "custom",
   "bookmarks.saveBookmarksInProject": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.organizeImports": false
-  },
-  "workbench.editor.enablePreview": false,
   "bookmarks.useWorkaroundForFormatters": true,
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "workbench.startupEditor": "newUntitledFile",
   "breadcrumbs.enabled": true,
-  "workbench.colorCustomizations": {
-    "bookmarks.lineBackground": "#157EFB22"
-  },
-  "terminal.integrated.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-  "git.autofetch": true,
-  "vsicons.dontShowNewVersionMessage": true,
-  "explorer.confirmDelete": true,
-  "git-graph.maxDepthOfRepoSearch": 2,
-  "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', monospace, 'Droid Sans Fallback'",
-  "editor.fontLigatures": "'ss03','ss07'",
-  "editor.fontWeight": "400",
-  "editor.fontSize": 16,
-  "workbench.list.automaticKeyboardNavigation": false,
-  "workbench.activityBar.visible": true,
-  "editor.cursorSurroundingLines": 5,
-  "projectManager.any.maxDepthRecursion": 1,
-  "projectManager.removeCurrentProjectFromList": true,
-  "projectManager.git.baseFolders": [
-    "$home/workspace/",
-    "$home/dev/",
-    "$home/../shared/dev/"
+  "cSpell.ignorePaths": [
+    "/usr/**",
+    "**/package-lock.json",
+    "**/node_modules/**",
+    "**/vscode-extension/**",
+    "**/.git/objects/**",
+    ".vscode"
   ],
-  "projectManager.git.ignoredFolders": [
-    "node_modules",
-    "vendor",
-    ".terraform",
-    "tmp"
-  ],
-  "todo-tree.filtering.excludeGlobs": [
-    "**/vendor/**/*.*",
-    "**/node_modules/**/*.*",
-    "**/.terraform/**/*.*",
-    "**/tmp/**/*.*",
-    "**/__*snapshots__/*.snap"
+  "cSpell.ignoreWords": [
+    "editorconfig",
+    "flexbox",
+    "ismap",
+    "linebreak",
+    "longdesc",
+    "nohoist",
+    "prestart",
+    "maxdepth"
   ],
   "cSpell.language": "en,fullstack",
   "cSpell.languageSettings": [
     {
-      "languageId": "*",
       "dictionaries": [
         "Fullstack"
-      ]
+      ],
+      "languageId": "*"
     }
   ],
   "cSpell.userWords": [
@@ -125,86 +95,125 @@
     "untracked",
     "wwmoraes"
   ],
-  "cSpell.ignoreWords": [
-    "editorconfig",
-    "flexbox",
-    "ismap",
-    "linebreak",
-    "longdesc",
-    "nohoist",
-    "prestart",
-    "maxdepth"
+  "editor.acceptSuggestionOnEnter": "smart",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": false
+  },
+  "editor.cursorSurroundingLines": 5,
+  "editor.detectIndentation": false,
+  "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', monospace, 'Droid Sans Fallback'",
+  "editor.fontLigatures": "'ss03','ss07'",
+  "editor.fontSize": 16,
+  "editor.fontWeight": "400",
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": true,
+  "editor.minimap.enabled": false,
+  "editor.renderFinalNewline": false,
+  "editor.rulers": [
+    80,
+    100
   ],
-  "cSpell.ignorePaths": [
-    "/usr/**",
-    "**/package-lock.json",
-    "**/node_modules/**",
-    "**/vscode-extension/**",
-    "**/.git/objects/**",
-    ".vscode"
-  ],
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "[yaml]": {
-    "editor.defaultFormatter": "redhat.vscode-yaml"
-  },
-  "workbench.iconTheme": "vscode-icons",
+  "editor.semanticHighlighting.enabled": true,
+  "editor.suggestSelection": "first",
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "editor.wrappingIndent": "indent",
+  "explorer.confirmDelete": true,
   "files.associations": {
     "**/i3/config": "i3",
-    ".env*": "dotenv",
-    ".terraformignore": "gitignore",
+    "*.gotmpl": "go-template",
     "*.tpl": "go-template",
+    "*.yml": "yaml",
+    ".coveragerc": "ini",
+    ".env*": "dotenv",
     ".helmignore": "gitignore",
     ".style.yapf": "ini",
-    ".coveragerc": "ini",
-    "*.yml": "yaml",
-    "*.gotmpl": "go-template"
+    ".terraformignore": "gitignore"
   },
+  "files.trimFinalNewlines": true,
   "git-graph.dialog.merge.noFastForward": false,
   "git-graph.dialog.merge.squashCommits": true,
-  "licenser.author": "William Artero",
-  "projectManager.groupList": true,
-  "window.nativeTabs": true,
-  "editor.acceptSuggestionOnEnter": "smart",
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "files.trimFinalNewlines": true,
-  "editor.renderFinalNewline": false,
-  "todo-tree.tree.showScanModeButton": false,
+  "git-graph.maxDepthOfRepoSearch": 2,
   "git.autoStash": true,
-  "npm.packageManager": "yarn",
-  "workbench.sideBar.location": "left",
-  "licenser.license": "MIT",
-  "githubPullRequests.defaultMergeMethod": "rebase",
-  "javascript.format.semicolons": "insert",
-  "typescript.format.semicolons": "insert",
-  "python.languageServer": "Pylance",
-  "python.formatting.provider": "yapf",
-  "go.useLanguageServer": true,
-  "editor.formatOnSave": true,
+  "git.autofetch": true,
   "github-actions.org-features": false,
-  "yaml.format.enable": false,
-  "azure.resourceFilter": [
-    "3a15904d-3fd9-4256-a753-beb05cdf0c6d/37523455-06d3-4fb9-8306-61a3c08f4d09"
+  "githubPullRequests.defaultMergeMethod": "rebase",
+  "gitlens.hovers.annotations.over": "annotation",
+  "go.toolsManagement.autoUpdate": true,
+  "go.useLanguageServer": true,
+  "javascript.format.semicolons": "insert",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "licenser.author": "William Artero",
+  "licenser.disableAutoHeaderInsertion": true,
+  "licenser.license": "MIT",
+  "npm.packageManager": "yarn",
+  "projectManager.any.maxDepthRecursion": 1,
+  "projectManager.git.baseFolders": [
+    "$home/workspace/",
+    "$home/dev/",
+    "$home/../shared/dev/"
   ],
-  "vs-kubernetes": {
-    "vs-kubernetes.knownKubeconfigs": [
-      "/Users/william/.secrets/k8s/.kube/config-home",
-      "/Users/william/.secrets/k8s/.kube/config-work"
-    ],
-    "vs-kubernetes.kubeconfig": "/Users/william/.secrets/k8s/.kube/config-work",
-    "vscode-kubernetes.minikube-path.mac": "/Users/william/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
-  },
-  "workbench.editor.decorations.badges": true,
-  "workbench.editor.decorations.colors": true,
+  "projectManager.git.ignoredFolders": [
+    "node_modules",
+    "vendor",
+    ".terraform",
+    "tmp"
+  ],
+  "projectManager.groupList": true,
+  "projectManager.removeCurrentProjectFromList": true,
+  "python.formatting.provider": "yapf",
+  "python.languageServer": "Pylance",
+  "python.showStartPage": false,
+  "redhat.telemetry.enabled": true,
   "team.showWelcomeMessage": false,
-  "editor.semanticHighlighting.enabled": true,
-  "azureResourceManagerTools.parameterFiles": {
-    "/Users/william/workspace/Azure/CBSP-Azure/CustomerSolutions/Mendix/Kubernetes/ACS-Engine-Output/ACS-Engine-Output-Artifacts-Dev/azuredeploy.json": "azuredeploy.parameters.json"
+  "terminal.integrated.automationShell.linux": "/usr/bin/fish",
+  "terminal.integrated.automationShell.osx": "/usr/local/bin/fish",
+  "terminal.integrated.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+  "terminal.integrated.profiles.linux": {
+    "bash": {
+      "icon": "terminal-bash",
+      "path": "bash"
+    },
+    "fish": {
+      "icon": "terminal",
+      "path": "/usr/bin/fish"
+    },
+    "pwsh": {
+      "icon": "terminal-powershell",
+      "path": "pwsh"
+    },
+    "tmux": {
+      "icon": "terminal-tmux",
+      "path": "tmux"
+    }
   },
+  "terminal.integrated.profiles.osx": {
+    "bash": {
+      "icon": "terminal-bash",
+      "path": "bash"
+    },
+    "fish": {
+      "icon": "terminal",
+      "path": "/usr/local/bin/fish"
+    },
+    "pwsh": {
+      "icon": "terminal-powershell",
+      "path": "pwsh"
+    },
+    "tmux": {
+      "icon": "terminal-tmux",
+      "path": "tmux"
+    }
+  },
+  "terminal.integrated.rendererType": "dom",
+  "todo-tree.filtering.excludeGlobs": [
+    "**/vendor/**/*.*",
+    "**/node_modules/**/*.*",
+    "**/.terraform/**/*.*",
+    "**/tmp/**/*.*",
+    "**/__*snapshots__/*.snap"
+  ],
   "todo-tree.general.tags": [
     "BUG",
     "HACK",
@@ -215,18 +224,35 @@
     "[x]"
   ],
   "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+  "todo-tree.tree.showScanModeButton": false,
+  "typescript.format.semicolons": "insert",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "vs-kubernetes": {
+    "vs-kubernetes.knownKubeconfigs": [
+      "/Users/william/.secrets/k8s/.kube/config-home",
+      "/Users/william/.secrets/k8s/.kube/config-work"
+    ],
+    "vs-kubernetes.kubeconfig": "/Users/william/.secrets/k8s/.kube/config-work",
+    "vscode-kubernetes.minikube-path.mac": "/Users/william/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
+  },
+  "vsicons.dontShowNewVersionMessage": true,
+  "window.nativeTabs": true,
+  "window.titleBarStyle": "custom",
+  "window.zoomLevel": 0,
+  "workbench.activityBar.visible": true,
+  "workbench.colorCustomizations": {
+    "bookmarks.lineBackground": "#157EFB22"
+  },
+  "workbench.editor.decorations.badges": true,
+  "workbench.editor.decorations.colors": true,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.untitled.hint": "hidden",
   "workbench.editorAssociations": {
     "*.ipynb": "jupyter.notebook.ipynb"
   },
-  "go.toolsManagement.autoUpdate": true,
-  "[go]": {
-    "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
-  },
-  "licenser.disableAutoHeaderInsertion": true,
-  "[markdown]": {
-    "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
-  },
-  "workbench.editor.untitled.hint": "hidden",
-  "redhat.telemetry.enabled": true,
-  "gitlens.hovers.annotations.over": "annotation",
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.list.automaticKeyboardNavigation": false,
+  "workbench.sideBar.location": "left",
+  "workbench.startupEditor": "newUntitledFile",
+  "yaml.format.enable": false
 }
