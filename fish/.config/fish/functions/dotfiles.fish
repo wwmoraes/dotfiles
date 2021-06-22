@@ -72,23 +72,36 @@ function _dotfiles_add
   end
 
   # Check if the file is really a file LOL
-  if not test -f $file
-    echo "Error: only files can be added"
+  if test ! -f $file -a ! -d $file
+    echo "Error: only files and folders can be added"
     return 1
   end
 
+  # check if global or system-specific
+  read -P 'Is it global or system-specific? <G/s> ' context
+  set -l context (string lower $context)
+  switch "$context"
+  case "s*"
+    set -l ARCH (uname -s | tr '[:upper:]' '[:lower:]')
+    set TOOLS_DIR "$DOTFILES_DIR/.systems/$ARCH"
+  case "" "*"
+    set TOOLS_DIR $DOTFILES_DIR
+  end
+
+  mkdir -p "$TOOLS_DIR"
+
   # Gets the tool folder
-  set tool (find $DOTFILES_DIR/ -maxdepth 1 -type d -not -name '.*' -exec basename {} \; | fzf --prompt="Choose project to add the file ")
+  set tool (find $TOOLS_DIR/ -maxdepth 1 -type d -not -name '.*' -exec basename {} \; | fzf --prompt="Choose project to add the file ")
 
   if test (string length $tool || echo 0) -eq 0
     read -P 'New tool folder: ' tool
-    if test -d $DOTFILES_DIR/$tool
+    if test -d $TOOLS_DIR/$tool
       echo "Folder for tool $tool already exists"
       return 1
     end
   end
 
-  set destination (string replace $HOME $DOTFILES_DIR/$tool $file)
+  set destination (string replace $HOME $TOOLS_DIR/$tool $file)
 
   echo "Tool: $tool"
   printf "Source: %s\n" (string replace $HOME "~" $file)
@@ -105,12 +118,12 @@ function _dotfiles_add
   echo "preparing directory..."
   mkdir -p (dirname $destination)
 
-  echo "moving file..."
-  cp "$file" "$destination"
-  rm "$file"
+  echo "moving package..."
+  cp -r "$file" "$destination"
+  rm -rf "$file"
 
-  echo "stowing back file..."
-  pushd $DOTFILES_DIR > /dev/null
+  echo "stowing back package..."
+  pushd $TOOLS_DIR > /dev/null
   stow -t ~ -R "$tool"
   popd > /dev/null 2>&1
 end
