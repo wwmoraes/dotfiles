@@ -9,6 +9,14 @@
     "grc/.grc/conf.*": "grc-app",
     "**/.gitignore*": "gitignore"
   },
+  "cSpell.ignorePaths": [
+    "**/package-lock.json",
+    "**/node_modules/**",
+    "**/vscode-extension/**",
+    "**/.git/objects/**",
+    ".vscode",
+    ".setup.d/packages/**/*.txt"
+  ],
   "cSpell.words": [
     "Browserosaurus",
     "Fira",

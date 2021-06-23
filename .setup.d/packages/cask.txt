@@ -19,3 +19,4 @@ krisp
 fluor
 thingsmacsandboxhelper
 dozer
+fluid
