@@ -18,4 +18,3 @@ kindle
 steam:/Applications/Steam.app/Contents/MacOS/steam_osx
 shadow
 gpg-suite-no-mail:/Applications/GPG Keychain.app/Contents/MacOS/GPG Keychain
-image2icon
