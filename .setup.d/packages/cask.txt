@@ -22,3 +22,4 @@ dozer
 fluid
 image2icon
 ubersicht
+swiftdefaultappsprefpane
