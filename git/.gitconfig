@@ -1,3 +1,5 @@
+[advice]
+  detachedHead = false
 [core]
   editor = vim
   pager = cat
