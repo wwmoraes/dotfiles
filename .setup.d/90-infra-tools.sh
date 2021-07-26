@@ -19,12 +19,14 @@ printf "\e[1;34mInfrastructure tools\e[0m\n"
 
 printf "Checking \e[96mterraform\e[0m...\n"
 if ! _=$(command -V terraform >/dev/null 2>&1); then
-  if ! VERSION=$(curl -sf https://releases.hashicorp.com/terraform/ | grep terraform_ | head -n1 | sed -E 's/.*terraform_([0-9.]+).*/\1/'); then
-    echo "unable to fetch version tag"
-    exit 1
-  fi
+  ### thank you hashicorp for fucking changing the pattern!
+  # if ! VERSION=$(curl -sf https://releases.hashicorp.com/terraform/ | grep terraform_ | head -n1 | sed -E 's/.*terraform_([0-9.]+).*/\1/'); then
+  #   echo "unable to fetch version tag"
+  #   exit 1
+  # fi
+  VERSION=0.15.5
 
-  printf "Downloading \e[96mterraform\e[0m...\n"
+  printf "Downloading \e[96mterraform\e[0m ${VERSION}...\n"
   if ! curl -fsSLo terraform.zip "https://releases.hashicorp.com/terraform/${VERSION}/terraform_${VERSION}_${SYSTEM}_${ARCH}.zip" > /dev/null; then
     echo "failed to download"
     exit 1
