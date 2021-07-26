@@ -6,6 +6,9 @@ DIRECTORIES = $(sort $(wildcard */))
 OS_DIRECTORIES = $(sort $(patsubst .systems/$(OS)/%,%,$(wildcard .systems/$(OS)/*/)))
 HOST_DIRECTORIES = $(sort $(patsubst .hostnames/$(HOSTNAME)/%,%,$(wildcard .hostnames/$(HOSTNAME)/*/)))
 
+VSCODE_INSTALLED = $(shell code --list-extensions)
+VSCODE_EXTENSIONS = $(shell cat .setup.d/packages/vscode.txt)
+
 # Detect OS
 ifeq ($(OS),Windows_NT)
     OS := windows
@@ -103,8 +106,9 @@ vscode-dump:
 	@code --list-extensions | tr '[:upper:]' '[:lower:]' | sort > .setup.d/packages/vscode.txt
 
 .PHONY: vscode-install
+vscode-install: VSCODE_PENDING = $(filter-out ${VSCODE_INSTALLED},${VSCODE_EXTENSIONS})
 vscode-install:
-	@cat .setup.d/packages/vscode.txt | xargs -P $(shell sysctl -n hw.activecpu) -I{} code --install-extension {}
+	@echo ${VSCODE_PENDING} | xargs -n1 code --install-extension
 
 .PHONY: frun
 frun:
