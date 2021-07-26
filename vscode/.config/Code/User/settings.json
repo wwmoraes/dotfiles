@@ -207,6 +207,7 @@
     }
   },
   "terminal.integrated.rendererType": "dom",
+  "testExplorer.useNativeTesting": true,
   "todo-tree.filtering.excludeGlobs": [
     "**/vendor/**/*.*",
     "**/node_modules/**/*.*",
@@ -248,11 +249,18 @@
   "workbench.editor.enablePreview": false,
   "workbench.editor.untitled.hint": "hidden",
   "workbench.editorAssociations": {
-    "*.ipynb": "jupyter.notebook.ipynb"
+    "*.ipynb": "jupyter-notebook"
   },
   "workbench.iconTheme": "vscode-icons",
   "workbench.list.automaticKeyboardNavigation": false,
-  "workbench.sideBar.location": "left",
   "workbench.startupEditor": "newUntitledFile",
-  "yaml.format.enable": false
+  "yaml.format.enable": false,
+  "testExplorer.gutterDecoration": false,
+  "testExplorer.codeLens": false,
+  "testExplorer.errorDecoration": false,
+  "testExplorer.errorDecorationHover": false,
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left"
+  }
 }
