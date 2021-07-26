@@ -147,6 +147,10 @@
   "licenser.author": "William Artero",
   "licenser.disableAutoHeaderInsertion": true,
   "licenser.license": "MIT",
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left"
+  },
   "npm.packageManager": "yarn",
   "projectManager.any.maxDepthRecursion": 1,
   "projectManager.git.baseFolders": [
@@ -207,6 +211,10 @@
     }
   },
   "terminal.integrated.rendererType": "dom",
+  "testExplorer.codeLens": false,
+  "testExplorer.errorDecoration": false,
+  "testExplorer.errorDecorationHover": false,
+  "testExplorer.gutterDecoration": false,
   "testExplorer.useNativeTesting": true,
   "todo-tree.filtering.excludeGlobs": [
     "**/vendor/**/*.*",
@@ -254,13 +262,5 @@
   "workbench.iconTheme": "vscode-icons",
   "workbench.list.automaticKeyboardNavigation": false,
   "workbench.startupEditor": "newUntitledFile",
-  "yaml.format.enable": false,
-  "testExplorer.gutterDecoration": false,
-  "testExplorer.codeLens": false,
-  "testExplorer.errorDecoration": false,
-  "testExplorer.errorDecorationHover": false,
-  "notebook.cellToolbarLocation": {
-    "default": "right",
-    "jupyter-notebook": "left"
-  }
+  "yaml.format.enable": false
 }
