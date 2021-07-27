@@ -75,6 +75,7 @@ ms-vscode.cpptools
 ms-vscode.test-adapter-converter
 msjsdiag.debugger-for-chrome
 naumovs.color-highlight
+nhoizey.gremlins
 njpwerner.autodocstring
 ofhumanbondage.react-proptypes-intellisense
 ombratteng.nftalbs
