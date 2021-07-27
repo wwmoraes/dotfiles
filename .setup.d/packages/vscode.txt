@@ -47,6 +47,7 @@ ipedrazas.kubernetes-snippets
 james-yu.latex-workshop
 jasonnutter.vscode-codeowners
 jebbs.plantuml
+jemcclin.readabilitycheck
 jetmartin.bats
 jinliming2.vscode-go-template
 joaompinto.vscode-graphviz
