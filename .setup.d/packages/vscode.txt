@@ -80,6 +80,7 @@ njpwerner.autodocstring
 ofhumanbondage.react-proptypes-intellisense
 ombratteng.nftalbs
 oren-trutner.grc-syntax-highlighting
+plex.vscode-regolint
 quicktype.quicktype
 redhat.vscode-commons
 redhat.vscode-yaml
