@@ -3,6 +3,7 @@ alefragnani.bookmarks
 alefragnani.project-manager
 alfnielsen.vsc-scaffolding
 andys8.jest-snippets
+axetroy.vscode-auto-schema
 bbenoist.vagrant
 bdavs.expect
 bierner.emojisense
