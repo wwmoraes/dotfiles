@@ -40,6 +40,7 @@ gruntfuggly.todo-tree
 hangxingliu.vscode-nginx-conf-hint
 hashicorp.terraform
 hbenl.vscode-test-explorer
+ibm.output-colorizer
 iciclesoft.workspacesort
 idleberg.applescript
 ipedrazas.kubernetes-snippets
