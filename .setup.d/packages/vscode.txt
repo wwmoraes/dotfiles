@@ -101,7 +101,6 @@ swellaby.vscode-rust-test-adapter
 sysninja.vscode-ansible-mod
 thomascsd.vscode-readme-pattern
 tim-koehler.helm-intellisense
-tinygo.vscode-tinygo
 tomashubelbauer.vscode-markdown-table-format
 tsandall.opa
 vadimcn.vscode-lldb
