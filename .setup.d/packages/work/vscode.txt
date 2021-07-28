@@ -1,0 +1,5 @@
+ms-azuretools.vscode-azurefunctions
+ms-azuretools.vscode-azureresourcegroups
+ms-kubernetes-tools.vscode-kubernetes-tools
+ms-vscode.azure-account
+ms-vscode.powershell
