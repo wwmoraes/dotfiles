@@ -222,6 +222,14 @@
   },
   "javascript.format.semicolons": "insert",
   "javascript.updateImportsOnFileMove.enabled": "always",
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "/package.json"
+      ],
+      "url": "https://json.schemastore.org/package.json"
+    }
+  ],
   "licenser.author": "William Artero",
   "licenser.disableAutoHeaderInsertion": true,
   "licenser.license": "MIT",
@@ -340,5 +348,8 @@
   "workbench.iconTheme": "vscode-icons",
   "workbench.list.automaticKeyboardNavigation": false,
   "workbench.startupEditor": "newUntitledFile",
-  "yaml.format.enable": false
+  "yaml.format.enable": false,
+  "yaml.schemas": {
+    "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml"
+  }
 }
