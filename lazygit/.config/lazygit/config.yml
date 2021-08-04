@@ -1,0 +1,8 @@
+confirmOnQuit: false
+quitOnTopLevelReturn: false
+notARepository: skip
+os:
+  openCommand: code -rg {{filename}}
+git:
+  branchLogCmd: git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative {{branchName}} --
+  allBranchesLogCmd: git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
