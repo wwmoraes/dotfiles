@@ -21,5 +21,5 @@ thingsmacsandboxhelper
 dozer
 fluid
 image2icon
-ubersicht
-swiftdefaultappsprefpane
+ubersicht:/Applications/Übersicht.app/Contents/MacOS/Übersicht
+swiftdefaultappsprefpane:~/Library/PreferencePanes/SwiftDefaultApps.prefPane/Contents/MacOS/SwiftDefaultApps
