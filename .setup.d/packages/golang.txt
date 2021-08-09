@@ -4,3 +4,5 @@ github.com/google/wire/cmd/wire
 github.com/jfeliu007/goplantuml/cmd/goplantuml
 sigs.k8s.io/kind
 github.com/wagoodman/dive
+github.com/moznion/go-json-ice/cmd/json-ice:json-ice
+golang.org/x/tools/cmd/goimports
