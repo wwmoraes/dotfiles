@@ -152,6 +152,7 @@ function _projects_ls
   end
 
   ls -1 $PROJECTS_DIR
+  find $PROJECTS_DIR -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort
 end
 complete -xc projects -n __fish_use_subcommand -a ls -d "list projects"
 
