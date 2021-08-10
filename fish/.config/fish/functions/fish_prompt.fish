@@ -31,8 +31,8 @@ function __fish_preexec_wakatime --on-event fish_preexec
   # fish functions
   functions -n | tr ',' '\n' | grep -qx $commandName; and set languageName "fish"
   # shell scripts
-  string match -r "\.fish\$" $commandName; and set languageName "fish"
-  string match -r "\.sh\$" $commandName; and set languageName "shell"
+  string match -qr "\.fish\$" $commandName; and set languageName "fish"
+  string match -qr "\.sh\$" $commandName; and set languageName "shell"
 
   wakatime \
     --write \
