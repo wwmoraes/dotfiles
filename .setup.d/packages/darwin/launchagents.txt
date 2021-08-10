@@ -1,0 +1,2 @@
+com.google.keystone.agent
+mega.mac.megaupdater
