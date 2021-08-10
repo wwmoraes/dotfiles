@@ -233,6 +233,7 @@
   "licenser.author": "William Artero",
   "licenser.disableAutoHeaderInsertion": true,
   "licenser.license": "MIT",
+  "liveshare.presence": true,
   "notebook.cellToolbarLocation": {
     "default": "right",
     "jupyter-notebook": "left"
@@ -241,8 +242,7 @@
   "projectManager.any.maxDepthRecursion": 1,
   "projectManager.git.baseFolders": [
     "$home/workspace/",
-    "$home/dev/",
-    "$home/../shared/dev/"
+    "$home/dev/"
   ],
   "projectManager.git.ignoredFolders": [
     "node_modules",
@@ -256,7 +256,12 @@
   "python.languageServer": "Pylance",
   "python.showStartPage": false,
   "redhat.telemetry.enabled": true,
+  "shellcheck.customArgs": [
+    "-x"
+  ],
+  "team.remoteUrl": "https://dev.azure.com/cbsp-abnamro/",
   "team.showWelcomeMessage": false,
+  "team.teamProject": "GRD0001045",
   "terminal.integrated.automationShell.linux": "/usr/bin/fish",
   "terminal.integrated.automationShell.osx": "/usr/local/bin/fish",
   "terminal.integrated.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
@@ -347,7 +352,7 @@
   },
   "workbench.iconTheme": "vscode-icons",
   "workbench.list.automaticKeyboardNavigation": false,
-  "workbench.startupEditor": "newUntitledFile",
+  "workbench.startupEditor": "none",
   "yaml.format.enable": false,
   "yaml.schemas": {
     "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml"
