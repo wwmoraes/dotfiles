@@ -14,6 +14,16 @@ if type -q todo.sh
   abbr -a -U tpls "todo.sh p ls"
 end
 
+# project fish command abbreviations
+if type -q projects
+  abbr -a -U pcd "projects cd"
+  abbr -a -U pls "projects ls"
+  abbr -a -U plg "projects lg"
+  abbr -a -U pcode "projects code"
+  abbr -a -U pnew "projects new"
+  abbr -a -U pupdate "projects update"
+end
+
 # git abbreviations
 if type -q git
   abbr -a -U g "git"
