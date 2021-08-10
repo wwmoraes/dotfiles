@@ -8,9 +8,11 @@ if [ $# -lt 1 ]; then
   exit 2
 fi
 
+: "${DOTFILES_PATH:=${HOME}/.files}"
+
 # import common functions
 # shellcheck source=functions.sh
-. "${HOME}/.files/functions.sh"
+. "${DOTFILES_PATH}/functions.sh"
 
 ### variables used across the setup files
 set -a
@@ -22,10 +24,11 @@ TAGS=$(getTags)
 WORK=$(isWork)
 PERSONAL=$(isPersonal)
 HOST=$(hostname -s)
-PACKAGES_PATH="${HOME}/.files/.setup.d/packages"
 TAGSRC="${HOME}/.tagsrc"
+: "${PACKAGES_PATH:=${DOTFILES_PATH}/.setup.d/packages}"
 set +a
 
+echo "dotfiles path: ${DOTFILES_PATH}"
 echo "System: ${SYSTEM}"
 echo "Architecture: ${ARCH}"
 echo "Tags: ${TAGS}"

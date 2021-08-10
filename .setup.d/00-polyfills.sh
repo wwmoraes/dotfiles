@@ -3,6 +3,7 @@
 set -eum
 trap 'kill 0' INT HUP TERM
 
+: "${DOTFILES_PATH:=${HOME}/.files}"
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
 

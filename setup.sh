@@ -50,6 +50,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ### variables used across the setup files
 set -a
+: "${DOTFILES_PATH:=${HOME}/.files}"
 : "${TAGSRC:=${HOME}/.tagsrc}"
 : "${SYSTEM:=$(getOS)}"
 : "${ARCH:=$(getArch)}"
@@ -57,9 +58,10 @@ set -a
 : "${WORK:=$(isWork)}"
 : "${PERSONAL:=$(isPersonal)}"
 : "${HOST:=$(hostname -s)}"
-: "${PACKAGES_PATH:=${HOME}/.files/.setup.d/packages}"
+: "${PACKAGES_PATH:=${DOTFILES_PATH}/.setup.d/packages}"
 set +a
 
+echo "Dotfiles path: ${DOTFILES_PATH}"
 echo "System: ${SYSTEM}"
 echo "Architecture: ${ARCH}"
 echo "Tags: ${TAGS}"
