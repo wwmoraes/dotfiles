@@ -30,8 +30,8 @@ function projects -a cmd -d "projects repository management"
   end
 
   switch "$cmd"
-    case create
-      _projects_create $argv
+    case new
+      _projects_new $argv
     case code
       _projects_code $argv
     case lg
@@ -49,7 +49,7 @@ end
 complete -ec projects
 
 # create subcommand
-function _projects_create
+function _projects_new
   if test (count $argv) -lt 1
     echo "Error: please pass at least one project name to create"
     return 1
@@ -74,8 +74,8 @@ function _projects_create
     printf "%-"(tput cols)"s\n" "[$printProjectName] created on $printProjectDir"
   end
 end
-complete -xc projects -n __fish_use_subcommand -a create -d "creates a project directory and initialize git on it"
-complete -xc projects -n '__fish_seen_subcommand_from create' -a ""
+complete -xc projects -n __fish_use_subcommand -a new -d "creates a project directory and initialize git on it"
+complete -xc projects -n '__fish_seen_subcommand_from new' -a ""
 
 # code subcommand
 function _projects_code
