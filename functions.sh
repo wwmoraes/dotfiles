@@ -44,7 +44,7 @@ getArch() {
 }
 
 getTags() {
-  test -f "$TAGSRC" || return 0
+  test -f "${TAGSRC}" || return 0
   cat "${TAGSRC}"
 }
 

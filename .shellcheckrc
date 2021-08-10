@@ -1,1 +1,3 @@
 shell=sh
+enable=require-variable-braces
+source-path=SCRIPTDIR

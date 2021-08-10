@@ -26,7 +26,7 @@ if ! _=$(command -V terraform >/dev/null 2>&1); then
   # fi
   VERSION=0.15.5
 
-  printf "Downloading \e[96mterraform\e[0m ${VERSION}...\n"
+  printf "Downloading \e[96mterraform\e[0m %s...\n" "${VERSION}"
   if ! curl -fsSLo terraform.zip "https://releases.hashicorp.com/terraform/${VERSION}/terraform_${VERSION}_${SYSTEM}_${ARCH}.zip" > /dev/null; then
     echo "failed to download"
     exit 1

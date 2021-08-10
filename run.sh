@@ -18,25 +18,26 @@ fi
 set -a
 : "${TRACE:=0}"
 : "${VERBOSE:=0}"
-SYSTEM=$(getOS)
-ARCH=$(getArch)
-TAGS=$(getTags)
-WORK=$(isWork)
-PERSONAL=$(isPersonal)
-HOST=$(hostname -s)
-TAGSRC="${HOME}/.tagsrc"
 : "${PACKAGES_PATH:=${DOTFILES_PATH}/.setup.d/packages}"
+: "${TAGSRC:=${HOME}/.tagsrc}"
+: "${SYSTEM:=$(getOS)}"
+: "${ARCH:=$(getArch)}"
+: "${TAGS:=$(getTags)}"
+: "${WORK:=$(isWork)}"
+: "${PERSONAL:=$(isPersonal)}"
+: "${HOST:=$(hostname -s)}"
 set +a
 
 echo "dotfiles path: ${DOTFILES_PATH}"
+echo "packages path: ${PACKAGES_PATH}"
+echo "Tags rc file: ${TAGSRC}"
 echo "System: ${SYSTEM}"
 echo "Architecture: ${ARCH}"
 echo "Tags: ${TAGS}"
 echo "Is work? ${WORK}"
 echo "Is personal? ${PERSONAL}"
-echo "packages path: ${PACKAGES_PATH}"
+echo "Host: ${HOST}"
 
-SCRIPT="${1}"
+SCRIPT="$1"
 shift
-
 sh "${SCRIPT}" "$@"

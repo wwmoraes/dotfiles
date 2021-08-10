@@ -62,11 +62,13 @@ set -a
 set +a
 
 echo "Dotfiles path: ${DOTFILES_PATH}"
+echo "Packages path: ${PACKAGES_PATH}"
 echo "System: ${SYSTEM}"
 echo "Architecture: ${ARCH}"
 echo "Tags: ${TAGS}"
 echo "Is work? ${WORK}"
 echo "Is personal? ${PERSONAL}"
+echo "Host: ${HOST}"
 
 ### setup scripts
 for setupd in .setup.d/*.sh; do

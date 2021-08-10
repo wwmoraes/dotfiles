@@ -13,4 +13,4 @@ test "${VERBOSE:-0}" = "1" && set -v
 sudo /usr/sbin/DevToolsSecurity -enable
 
 # add current user to the developer group
-sudo dscl . append /Groups/_developer GroupMembership $(whoami)
+sudo dscl . append /Groups/_developer GroupMembership "$(whoami)"
