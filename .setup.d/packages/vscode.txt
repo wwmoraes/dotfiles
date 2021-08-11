@@ -56,14 +56,12 @@ jpoissonnier.vscode-styled-components
 jvitor83.types-autoinstaller
 kavod-io.vscode-jest-test-adapter
 kisstkondoros.vscode-codemetrics
-knisterpeter.vscode-github
 korekontrol.saltstack
 kumar-harsh.graphql-for-vscode
 leonhard-s.python-sphinx-highlight
 lextudio.restructuredtext
 littlefoxteam.vscode-python-test-adapter
 malmaud.tmux
-me-dutour-mathieu.vscode-github-actions
 mgmcdermott.vscode-language-babel
 mhutchie.git-graph
 mikestead.dotenv
