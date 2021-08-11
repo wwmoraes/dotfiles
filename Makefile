@@ -21,6 +21,7 @@ define stow
 	$(info stowing $(subst /,,$(1))...)
 	@stow \
 		$(if $(shell grep -F "$(subst /,,$(1))" .adopt),--adopt) \
+		--no-folding \
 		-t ~ -R $(1) 2>&1 \
 		| grep -v 'BUG in find_stowed_path?' \
 		| grep -v 'WARNING: skipping target which was current stow directory' \
@@ -40,6 +41,7 @@ define osstow
 	$(info stowing $(OS)/$(subst /,,$(1))...)
 	@cd .systems/$(OS) && stow \
 		$(if $(shell grep -F "$(OS)/$(subst /,,$(1))" .adopt),--adopt) \
+		--no-folding \
 		-t ~ -R $(1) 2>&1 \
 		| grep -v 'BUG in find_stowed_path?' \
 		| grep -v 'WARNING: skipping target which was current stow directory' \
@@ -59,6 +61,7 @@ define hostnamestow
 	$(info stowing $(HOSTNAME)/$(subst /,,$(1))...)
 	@cd .hostnames/$(HOSTNAME) && stow \
 		$(if $(shell grep -F "$(HOSTNAME)/$(subst /,,$(1))" .adopt),--adopt) \
+		--no-folding \
 		-t ~ -R $(1) 2>&1 \
 		| grep -v 'BUG in find_stowed_path?' \
 		| grep -v 'WARNING: skipping target which was current stow directory' \
