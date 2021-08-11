@@ -1,14 +1,12 @@
 {
-  "files.exclude": {
-    "**/.git": true,
-    "**/.DS_Store": true
-  },
-  "files.associations": {
-    "**/.gitaliases": "gitconfig",
-    "**/.gitcolors": "gitconfig",
-    "grc/.grc/conf.*": "grc-app",
-    "**/.gitignore*": "gitignore"
-  },
+  "Lua.diagnostics.globals": [
+    "hs",
+    "spoon"
+  ],
+  "Lua.workspace.library": [
+    "/Applications/Hammerspoon.app/Contents/Resources/extensions/",
+    "~/.hammerspoon/Spoons/"
+  ],
   "cSpell.ignorePaths": [
     "**/package-lock.json",
     "**/node_modules/**",
@@ -40,13 +38,15 @@
     "tldrnewsletter",
     "vsicons"
   ],
-  "Lua.diagnostics.globals": [
-    "hs",
-    "spoon"
-  ],
-  "Lua.workspace.library": [
-    "/Applications/Hammerspoon.app/Contents/Resources/extensions/",
-    "~/.hammerspoon/Spoons/"
-  ],
+  "files.associations": {
+    "**/.gitaliases": "gitconfig",
+    "**/.gitcolors": "gitconfig",
+    "**/.gitignore*": "gitignore",
+    "grc/.grc/conf.*": "grc-app"
+  },
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/.git": true
+  },
   "workspace.isHidden": true
 }

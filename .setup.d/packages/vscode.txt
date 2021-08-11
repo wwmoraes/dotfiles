@@ -4,7 +4,6 @@ alefragnani.project-manager
 alfnielsen.vsc-scaffolding
 andys8.jest-snippets
 axetroy.vscode-auto-schema
-bbenoist.vagrant
 bdavs.expect
 bierner.emojisense
 bierner.markdown-checkbox
@@ -74,9 +73,9 @@ ms-azuretools.vscode-docker
 ms-python.python
 ms-python.vscode-pylance
 ms-toolsai.jupyter
+ms-vscode-remote.remote-ssh-edit
 ms-vscode.cpptools
 ms-vscode.test-adapter-converter
-msjsdiag.debugger-for-chrome
 naumovs.color-highlight
 nhoizey.gremlins
 njpwerner.autodocstring
@@ -101,6 +100,7 @@ swellaby.vscode-rust-test-adapter
 sysninja.vscode-ansible-mod
 thomascsd.vscode-readme-pattern
 tim-koehler.helm-intellisense
+timonwong.shellcheck
 tomashubelbauer.vscode-markdown-table-format
 tsandall.opa
 vadimcn.vscode-lldb
