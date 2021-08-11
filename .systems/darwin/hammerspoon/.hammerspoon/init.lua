@@ -96,6 +96,8 @@ spoon.Hazel = spoon.Hazel
 
 -- ### plain init configuration
 
+local logger = hs.logger.new("init", "info")
+
 --- returns the short hostname from the output of the `hostname -s` command
 ---@return string @current hostname
 local function hostname()
@@ -121,5 +123,11 @@ if hostname() == "C02DQ36NMD6P" then
   -- toggle Microsoft Teams mute
   hs.hotkey.bind(nil, "F19", nil, function()
     hs.eventtap.event.newKeyEvent({"shift", "cmd"}, "m", true):post(hs.application.get("com.microsoft.teams"))
+  end)
+
+  -- apply all rules on Microsft Outlook
+  hs.hotkey.bind(nil, "F18", nil, function()
+    local success, output, details = hs.osascript.applescriptFromFile(os.getenv("HOME") .. "/Library/Scripts/MSOutlookApplyAllRules.applescript")
+    if success ~= true then logger.e(output, details) end
   end)
 end
