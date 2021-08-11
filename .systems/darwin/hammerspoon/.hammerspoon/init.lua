@@ -122,7 +122,7 @@ if hostname() == "C02DQ36NMD6P" then
 
   -- toggle Microsoft Teams mute
   hs.hotkey.bind(nil, "F19", nil, function()
-    hs.eventtap.event.newKeyEvent({"shift", "cmd"}, "m", true):post(hs.application.get("com.microsoft.teams"))
+    hs.eventtap.event.newKeyEvent({"cmd", "shift"}, "m", true):post(hs.application.get("com.microsoft.teams"))
   end)
 
   -- apply all rules on Microsft Outlook
