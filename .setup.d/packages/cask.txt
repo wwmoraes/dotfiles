@@ -24,3 +24,4 @@ image2icon
 ubersicht:/Applications/Übersicht.app/Contents/MacOS/Übersicht
 swiftdefaultappsprefpane:~/Library/PreferencePanes/SwiftDefaultApps.prefPane/Contents/MacOS/SwiftDefaultApps
 clean-me:/Applications/Clean Me.app/Contents/MacOS/Clean Me
+obsidian/Applications/Obsidian.app/Contents/MacOS/Obsidian

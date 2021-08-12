@@ -31,4 +31,3 @@ goreleaser
 telnet
 bat
 less:lesskey
-obsidian
