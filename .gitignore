@@ -31,6 +31,3 @@ fish/.config/fish/functions/pet-select.fish
 # PatrickF1/fzf.fish
 fish/.config/fish/conf.d/fzf.fish
 fish/.config/fish/functions/__fzf_*.fish
-
-# VSCode
-vscode/.config/Code/User/*Storage

@@ -1,0 +1,16 @@
+[
+  {
+    "enabled": true,
+    "name": "dotfiles",
+    "paths": [],
+    "rootPath": "~/.files",
+    "tags": []
+  },
+  {
+    "enabled": true,
+    "name": "dotsecrets",
+    "paths": [],
+    "rootPath": "~/.secrets",
+    "tags": []
+  }
+]
