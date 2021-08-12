@@ -98,10 +98,7 @@ done < "${PACKAGES}"
 if [ "${SYSTEM}" = "darwin" ]; then
   printf "linking brew python binaries on \e[94m/usr/local/bin\e[m...\n"
   brew link -q -f --overwrite "$(brew info --json python | jq -r '.[0].name')" >/dev/null 2>&1 || true
-
-  for SOURCE in /usr/local/opt/python/bin/*; do
-    TARGET=/usr/local/bin/$(basename "${SOURCE}")
-    test -e "${TARGET}" && unlink "${TARGET}"
-    ln -sf "${SOURCE}" "${TARGET}"
-  done
 fi
+
+printf "cleaning up broken binary links..."
+find -L /usr/local/bin/ -type l -exec rm -- {} +

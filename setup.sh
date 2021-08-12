@@ -22,9 +22,7 @@ PREPATHS=$(join ":" \
   "${HOME}/.krew/bin" \
   "${HOME}/.cargo/bin" \
   "${HOME}/go/bin" \
-  "${HOME}/.go/bin" \
   "${HOME}/.local/opt/bin" \
-  "${HOME}/.local/opt/sbin" \
   "${HOME}/.local/bin" \
   "/usr/local/opt/coreutils/libexec/gnubin" \
 )

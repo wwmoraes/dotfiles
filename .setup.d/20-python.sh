@@ -29,18 +29,20 @@ while IFS= read -r LINE; do
   printf "%s\n" "${LINE}" > "${PACKAGES}" &
 done <"${PACKAGES_FILE_PATH}"
 
-printf "\e[1;33mPython pip packages\e[0m\n"
+printf "\e[1;33mPython3 packages\e[0m\n"
 
 ### Check package tool
 printf "Checking \e[96mpip\e[0m manager...\n"
 if ! _=$(python3 -m pip -V > /dev/null 2>&1); then
   curl -fsSLO https://bootstrap.pypa.io/get-pip.py
   sudo python3 get-pip.py
+else
+  sudo python3 -m pip install --upgrade pip
 fi
 
 printf "Listing installed packages...\n"
 INSTALLED="${TMP}/installed"
-python3 -m pip list --format freeze | cut -d= -f1 > "${INSTALLED}"
+python3 -m pip list --user --format freeze | cut -d= -f1 > "${INSTALLED}"
 
 ### Install packages
 while read -r PACKAGE; do
@@ -48,5 +50,5 @@ while read -r PACKAGE; do
   grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
 
   printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
-  sudo -H python3 -m pip install -qqq "${PACKAGE##*|}"
+  python3 -m pip install --user -qqq "${PACKAGE##*|}"
 done < "${PACKAGES}"
