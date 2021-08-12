@@ -6,3 +6,4 @@ thefuck
 yamllint
 wakatime
 tmuxp
+pipenv
