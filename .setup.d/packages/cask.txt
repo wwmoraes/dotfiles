@@ -6,7 +6,6 @@ dropbox
 docker
 1password:/Applications/1Password 7.app/Contents/MacOS/1Password 7
 kitty
-karabiner-elements
 uninstallpkg
 typora
 unlox
@@ -24,4 +23,4 @@ image2icon
 ubersicht:/Applications/Übersicht.app/Contents/MacOS/Übersicht
 swiftdefaultappsprefpane:~/Library/PreferencePanes/SwiftDefaultApps.prefPane/Contents/MacOS/SwiftDefaultApps
 clean-me:/Applications/Clean Me.app/Contents/MacOS/Clean Me
-obsidian/Applications/Obsidian.app/Contents/MacOS/Obsidian
+obsidian:/Applications/Obsidian.app/Contents/MacOS/Obsidian

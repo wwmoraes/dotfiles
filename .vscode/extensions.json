@@ -9,7 +9,8 @@
     "skyapps.fish-vscode",
     "sumneko.lua",
     "mikestead.dotenv",
-    "virgilsisoe.hammerspoon-snippets"
+    "virgilsisoe.hammerspoon-snippets",
+    "bungcip.better-toml"
   ],
   "unwantedRecommendations": [
     // Microsoft's global recommendations, FML
@@ -22,4 +23,3 @@
     "msjsdiag.vscode-react-native",
     "ms-vscode-remote.remote-containers"
   ]
-}
