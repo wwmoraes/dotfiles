@@ -92,6 +92,11 @@ getPackages() {
     echo "usage: get_packages <package-file-name>" > /dev/fd/2
     exit 1
   fi
+
+  : "${DOTFILES_PATH:=${HOME}/.files}"
+  : "${PACKAGES_PATH:=${DOTFILES_PATH}/.setup.d/packages}"
+  : "${TAGSRC:=${HOME}/.tagsrc}"
+
   # package file name
   PACKAGES_FILE_NAME="$1"
   PACKAGES_FILE_PATH="${PACKAGES_PATH}/${PACKAGES_FILE_NAME}"

@@ -1,0 +1,2 @@
+~/.config/Code|~/Library/Application Support/Code
+~/.config/lazygit|~/Library/Application Support/lazygit

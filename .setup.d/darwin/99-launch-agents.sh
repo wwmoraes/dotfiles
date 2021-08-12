@@ -5,7 +5,6 @@ trap 'kill 0' INT HUP TERM
 
 : "${SYSTEM:?unknown system}"
 : "${DOTFILES_PATH:=${HOME}/.files}"
-: "${TAGSRC:=${HOME}/.tagsrc}"
 : "${START_INTERVAL:=604800}"
 
 test "${TRACE:-0}" = "1" && set -x
