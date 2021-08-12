@@ -5,7 +5,6 @@ telegram
 discord
 tiddly:/Applications/TiddlyDesktop.app/Contents/MacOS/nwjs
 tor-browser:/Applications/Tor Browser.app/Contents/MacOS/XUL
-lulu
 google-backup-and-sync:/Applications/Backup and Sync.app/Contents/MacOS/Backup and Sync
 google-chrome:/Applications/Google Chrome.app/Contents/MacOS/Google Chrome
 megasync
@@ -13,10 +12,8 @@ mate-translate:/Applications/Mate Translate.app/Contents/MacOS/Mate Translate
 suspicious-package:/Applications/Suspicious Package.app/Contents/MacOS/Suspicious Package
 launchcontrol
 daisydisk
-deezer
 kindle
 steam:/Applications/Steam.app/Contents/MacOS/steam_osx
-shadow
 gpg-suite-no-mail:/Applications/GPG Keychain.app/Contents/MacOS/GPG Keychain
 image2icon
 little-snitch:/Applications/Little Snitch.app/Contents/MacOS/Little Snitch
