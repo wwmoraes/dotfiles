@@ -14,8 +14,14 @@ printf "\e[1;34mProfile-like variable exports\e[0m\n"
 
 sourceFiles "${HOME}/.profile"
 
+PYTHON_PATH=
+if command -V python3 > /dev/null 2>&1; then
+  PYTHON_PATH=$(python3 -m site --user-base)/bin
+fi
+
 # System paths (FIFO)
 PREPATHS=$(join ":" \
+  "${PYTHON_PATH}" \
   "${HOME}/.config/yarn/global/node_modules/.bin" \
   "${HOME}/.local/google-cloud-sdk/bin" \
   "${HOME}/.yarn/bin" \

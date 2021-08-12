@@ -1,4 +1,4 @@
 function fish_greeting
-  ls | doge
+  type -q doge; and ls | doge
   curl -fs --max-time 0.3 http://whatthecommit.com/index.txt
 end

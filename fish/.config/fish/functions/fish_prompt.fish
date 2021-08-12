@@ -9,6 +9,8 @@ function __fish_preexec_wakatime --on-event fish_preexec
     set projectName (cat $PWD/.wakatime-project)
   end
 
+  type -p wakatime > /dev/null ^&1; or return
+
   test -z "$argv"; and return
 
   set -l commandName (echo "$argv" | cut -d ' ' -f1)
