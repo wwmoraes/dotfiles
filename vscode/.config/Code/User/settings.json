@@ -222,6 +222,7 @@
   },
   "javascript.format.semicolons": "insert",
   "javascript.updateImportsOnFileMove.enabled": "always",
+  "json.schemaDownload.enable": true,
   "json.schemas": [
     {
       "fileMatch": [
@@ -339,7 +340,6 @@
   "window.nativeTabs": true,
   "window.titleBarStyle": "custom",
   "window.zoomLevel": 0,
-  "workbench.activityBar.visible": true,
   "workbench.colorCustomizations": {
     "bookmarks.lineBackground": "#157EFB22"
   },
@@ -354,7 +354,9 @@
   "workbench.list.automaticKeyboardNavigation": false,
   "workbench.startupEditor": "none",
   "yaml.format.enable": false,
+  "yaml.schemaStore.enable": true,
   "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "**/.github/workflows/*",
     "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml"
   }
 }
