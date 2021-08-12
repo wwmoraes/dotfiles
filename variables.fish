@@ -26,7 +26,7 @@ echo "Setting fish user paths..."
 for user_path in (string split ':' $argv[1] | sed 's|/$||g')[-1..1]
   if test -d "$user_path" \
     && string match -q (string replace "/$USER" "/*" $HOME) $user_path
-    echo adding/keeping (set_color brmagenta)$user_path(set_color normal)
+    echo "adding/keeping "(set_color brmagenta)"$user_path"(set_color normal)
     set -U fish_user_paths $user_path $fish_user_paths
   end
 end
@@ -48,7 +48,7 @@ for user_path in $fish_user_paths
 
   # non-existent
   if test ! -d "$user_path"
-    printf "path (set_color brmagenta)$user_path(set_color normal) does not exist. Removing from user paths...\n"
+    echo "path "(set_color brmagenta)"$user_path"(set_color normal)" does not exist. Removing from user paths..."
     set -eU fish_user_paths[(contains -i $user_path $fish_user_paths)]
   end
 end
