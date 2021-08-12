@@ -140,6 +140,7 @@
   "github-actions.org-features": false,
   "githubPullRequests.defaultMergeMethod": "rebase",
   "gitlens.hovers.annotations.over": "annotation",
+  "gitlens.statusBar.enabled": false,
   "go.toolsManagement.autoUpdate": true,
   "go.useLanguageServer": true,
   "gremlins.characters": {

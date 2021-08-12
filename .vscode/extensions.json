@@ -21,5 +21,11 @@
     "googlecloudtools.cloudcode",
     "ms-kubernetes-tools.vscode-kubernetes-tools",
     "msjsdiag.vscode-react-native",
-    "ms-vscode-remote.remote-containers"
+    "ms-vscode-remote.remote-containers",
+    "mindaro.mindaro",
+    "ms-vscode-remote.remote-containers",
+    "vscodevim.vim",
+    "msjsdiag.vscode-react-native",
+    "googlecloudtools.cloudcode"
   ]
+}
