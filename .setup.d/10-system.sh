@@ -94,11 +94,3 @@ while read -r PACKAGE; do
   printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
   ${MANAGER} "${PACKAGE%%:*}" 2> /dev/null || true
 done < "${PACKAGES}"
-
-if [ "${SYSTEM}" = "darwin" ]; then
-  printf "linking brew python binaries on \e[94m/usr/local/bin\e[m...\n"
-  brew link -q -f --overwrite "$(brew info --json python | jq -r '.[0].name')" >/dev/null 2>&1 || true
-fi
-
-printf "cleaning up broken binary links..."
-find -L /usr/local/bin/ -type l -exec rm -- {} +
