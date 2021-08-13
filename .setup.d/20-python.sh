@@ -30,15 +30,15 @@ while IFS= read -r LINE; do
 done <"${PACKAGES_FILE_PATH}"
 
 printf "\e[1;33mPython3 packages\e[0m\n"
-
 ### Check package tool
 printf "Checking \e[96mpip\e[0m manager...\n"
 if ! _=$(python3 -m pip -V > /dev/null 2>&1); then
-  curl -fsSLO https://bootstrap.pypa.io/get-pip.py
-  sudo python3 get-pip.py
-else
-  sudo python3 -m pip install --upgrade pip
+  # curl -fsSLO https://bootstrap.pypa.io/get-pip.py
+  # python3 get-pip.py
+  python3 -m ensurepip
 fi
+
+python3 -m pip install --user --upgrade pip
 
 printf "Listing installed packages...\n"
 INSTALLED="${TMP}/installed"
