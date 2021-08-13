@@ -56,10 +56,11 @@ printf "Checking go packages on \e[94m%s\e[0m...\n" "${GOPATH}"
 
 ### Install packages
 while read -r PACKAGE; do
-  NAME="$(basename "${PACKAGE%%:*}")"
-  printf "Checking \e[96m%s\e[0m...\n" "${NAME}"
-  test -f "${GOPATH}/bin/${PACKAGE##*:}" && continue
+  BIN=$(basename "${PACKAGE##*:}")
+  BIN="${BIN%%@*}"
+  printf "Checking \e[96m%s\e[0m...\n" "${BIN}"
+  test -f "${GOPATH}/bin/${BIN}" && continue
 
-  printf "Installing \e[96m%s\e[0m...\n" "${NAME}"
-  go get "${PACKAGE%%:*}" || printf "\e[91mFAILED\e[m to install \e[96m%s\e[0m (%s)\n" "${NAME}" "golang" >&2
+  printf "Installing \e[96m%s\e[0m...\n" "${BIN}"
+  go get -u "${PACKAGE%%:*}" || printf "\e[91mFAILED\e[m to install \e[96m%s\e[0m\n" "${BIN}" >&2
 done < "${PACKAGES}"
