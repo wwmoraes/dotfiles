@@ -1,5 +1,7 @@
 require("lib.hammerspoon")
 
+local logger = hs.logger.new("init", "info")
+
 -- ### spoons configuration
 
 hs.spoons.use("ReloadConfiguration", {
@@ -69,6 +71,22 @@ spoon.Meetings = spoon.Meetings
 hs.spoons.use("Hazel", {
   config = {
     rulesets = {
+      [os.getenv("HOME") .. "/Downloads/aws-credentials"] = {
+        function(path, flags) return flags.itemCreated end,
+        function(path, flags) return flags.itemIsFile end,
+        function(path, flags)
+          local f = io.open(path, "r")
+          return f ~= nil and io.close(f)
+        end,
+        ---@param path string
+        ---@param flags PathwatcherFlags
+        function(path, flags)
+          local status, err = os.rename(path, os.getenv("HOME") .. "/.aws/credentials")
+          if status then return true end
+          logger.e(err)
+          return false
+        end,
+      },
       [os.getenv("HOME") .. "/Downloads"] = {
         function(path, flags)
           return path:match(".*/.TheUnarchiverTemp0") and flags.itemIsDir == true
@@ -95,8 +113,6 @@ hs.spoons.use("Hazel", {
 spoon.Hazel = spoon.Hazel
 
 -- ### plain init configuration
-
-local logger = hs.logger.new("init", "info")
 
 --- returns the short hostname from the output of the `hostname -s` command
 ---@return string @current hostname
