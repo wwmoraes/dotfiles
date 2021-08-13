@@ -28,29 +28,32 @@ obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 obj.logger = hs.logger.new(string.lower(obj.name), 'verbose')
 
----@param rules RuleFn[]
----@param logger LoggerInstance
 ---@param paths string[]
 ---@param flagTables table<string,PathwatcherFlags>
 ---@return Hazel @the Hazel object
-local function executeRules(rules, logger, paths, flagTables)
-  logger.i("executing rules for ".. hs.json.encode(paths, false))
-  ---@type RuleFn
-  for rule in rules do
-    for index, path in pairs(paths) do
-      if rule(path, flagTables[index]) then break end
-    end
+function obj:execute(paths, flagTables)
+  self.logger.i("executing rules for ".. hs.json.encode(paths, false))
+  for index, path in pairs(paths) do
+    -- local rules = self.rulesets[path]
+    -- if #rules > self.rulesets[path] then
+      -- for _, rule in ipairs(rules) do
+      for _, rule in ipairs(self.rulesets[path]) do
+        if rule(path, flagTables[index]) == false then return self end
+      end
+    -- end
   end
+
+  return self
 end
 
 ---@return Contexts @the Contexts object
 function obj:start()
   for path, rules in pairs(self.rulesets) do
     if #rules > 0 then
-      table.insert(self.watchers,hs.pathwatcher.new(
+      table.insert(self.watchers, hs.pathwatcher.new(
         path,
-        hs.fnutils.partial(executeRules, rules, obj.logger)
-      ))
+        hs.fnutils.partial(obj.execute, obj)
+      ):start())
       self.logger.i("watcher set for "..path)
     end
   end
