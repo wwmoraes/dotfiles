@@ -122,3 +122,7 @@ frun:
 .PHONY: lint
 lint:
 	@shellcheck $(wildcard *.sh) $(wildcard .setup.d/*.sh) $(wildcard .setup.d/**/*.sh)
+
+.PHONY: chmod
+chmod:
+	@find .setup.d -type f -name "*.sh" -exec chmod +x {} \;

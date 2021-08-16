@@ -10,21 +10,21 @@ function dotfiles -a cmd -d "Setup dotfiles"
         end
       end
 
-      _dotfiles_add $argv
+      _dotfiles_add $argv[2..-1]
     case code
-      _dotfiles_code
+      _dotfiles_code $argv[2..-1]
     case install
-      _dotfiles_install
+      _dotfiles_install $argv[2..-1]
     case update
-      _dotfiles_update
+      _dotfiles_update $argv[2..-1]
     case lg
-      _dotfiles_lg
+      _dotfiles_lg $argv[2..-1]
     case setup
-      _dotfiles_setup
+      _dotfiles_setup $argv[2..-1]
     case vscode-dump
-      _dotfiles_vscode-dump
+      _dotfiles_vscode-dump $argv[2..-1]
     case vscode-install
-      _dotfiles_vscode-install
+      _dotfiles_vscode-install $argv[2..-1]
     case config
       _dotfiles_config $argv[2..-1]
     case cd
@@ -33,6 +33,8 @@ function dotfiles -a cmd -d "Setup dotfiles"
       _dotfiles_update $argv[2..-1]
     case run
       _dotfiles_run $argv[2..-1]
+    case chmod
+      _dotfiles_chmod $argv[2..-1]
     case "" "*"
       echo "Unknown option $cmd"
   end
@@ -49,7 +51,6 @@ function _dotfiles_add
   end
 
   # Check and get file path
-  set -e argv[1]
   if test (count $argv) != 1
     echo "Error: please pass a file/directory to add"
     return 1
@@ -260,3 +261,9 @@ function _dotfiles_run
 end
 complete -xc dotfiles -n __fish_use_subcommand -a run -d "executes a setup script independently"
 complete -xc dotfiles -n '__fish_seen_subcommand_from run' -a "(__fish_complete_suffix (commandline -ct) .sh '' $DOTFILES_DIR/.setup.d)"
+
+function _dotfiles_chmod
+  echo "adjusting setup scripts..."
+  find $DOTFILES_DIR/.setup.d -type f -name "*.sh" -exec chmod +x {} \;
+end
+complete -xc dotfiles -n __fish_use_subcommand -a chmod -d "set setup scripts as executable"

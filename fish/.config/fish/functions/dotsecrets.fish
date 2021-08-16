@@ -10,19 +10,21 @@ function dotsecrets -a cmd -d "Setup dotsecrets"
         end
       end
 
-      _dotsecrets_add $argv
+      _dotsecrets_add $argv[2..-1]
     case install
-      _dotsecrets_install
+      _dotsecrets_install $argv[2..-1]
     case update
-      _dotsecrets_update
+      _dotsecrets_update $argv[2..-1]
     case code
-      _dotsecrets_code
+      _dotsecrets_code $argv[2..-1]
     case lg
-      _dotsecrets_lg
+      _dotsecrets_lg $argv[2..-1]
     case setup
-      _dotsecrets_setup
+      _dotsecrets_setup $argv[2..-1]
     case cd
       cd $DOTSECRETS_DIR
+    case chmod
+      _dotsecrets_chmod $argv[2..-1]
     case "" "*"
       echo "Unknown option $cmd"
   end
@@ -39,7 +41,6 @@ function _dotsecrets_add
   end
 
   # Check and get file path
-  set -e argv[1]
   if test (count $argv) != 1
     echo "Error: please pass a file/directory to add"
     return 1
@@ -163,3 +164,9 @@ function _dotsecrets_update
   popd > /dev/null 2>&1
 end
 complete -xc dotsecrets -n __fish_use_subcommand -a update -d "pull and install files"
+
+function _dotsecrets_chmod
+  echo "adjusting setup scripts..."
+  find $DOTSECRETS_DIR/.setup.d -type f -name "*.sh" -exec chmod +x {} \;
+end
+complete -xc dotfiles -n __fish_use_subcommand -a chmod -d "set setup scripts as executable"
