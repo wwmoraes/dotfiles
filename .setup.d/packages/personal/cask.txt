@@ -14,7 +14,6 @@ launchcontrol
 daisydisk
 kindle
 steam:/Applications/Steam.app/Contents/MacOS/steam_osx
-gpg-suite-no-mail:/Applications/GPG Keychain.app/Contents/MacOS/GPG Keychain
 image2icon
 little-snitch:/Applications/Little Snitch.app/Contents/MacOS/Little Snitch
 calibre
