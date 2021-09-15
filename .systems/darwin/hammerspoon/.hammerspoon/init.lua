@@ -2,9 +2,18 @@ require("lib.hammerspoon")
 
 local logger = hs.logger.new("init", "info")
 
--- ### spoons configuration
+---### third-party spoons configuration
 
-hs.spoons.use("ReloadConfiguration", {
+hs.loadSpoon("SpoonInstall")
+---@type SpoonInstall
+spoon.SpoonInstall = spoon.SpoonInstall
+spoon.SpoonInstall.repos.wwmoraes = {
+  url = "https://github.com/wwmoraes/spoons",
+  desc = "wwmoraes' spoons",
+  branch = "release",
+}
+
+spoon.SpoonInstall:andUse("ReloadConfiguration", {
   config = {
     watch_paths = {
       hs.configdir,
@@ -13,6 +22,8 @@ hs.spoons.use("ReloadConfiguration", {
   },
   start = true,
 })
+
+---### development spoons configuration
 
 hs.spoons.use("Env", {
   config = {
