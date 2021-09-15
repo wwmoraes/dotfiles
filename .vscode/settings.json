@@ -5,6 +5,7 @@
   ],
   "Lua.workspace.library": [
     "/Applications/Hammerspoon.app/Contents/Resources/extensions/",
+    ".systems/darwin/hammerspoon/.hammerspoon/lib/hammerspoon",
     "~/.hammerspoon/Spoons/"
   ],
   "cSpell.ignorePaths": [
