@@ -12,5 +12,19 @@
     "paths": [],
     "rootPath": "~/.secrets",
     "tags": []
+  },
+  {
+    "enabled": true,
+    "name": "Stratus",
+    "paths": [],
+    "rootPath": "~/workspace/Stratus.code-workspace",
+    "tags": []
+  },
+  {
+    "enabled": true,
+    "name": "mcp-tf-module-aks-test",
+    "paths": [],
+    "rootPath": "~/workspace/mcp-tf-module-aks/test",
+    "tags": []
   }
 ]
