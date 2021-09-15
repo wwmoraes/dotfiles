@@ -129,7 +129,8 @@
     ".env*": "dotenv",
     ".helmignore": "gitignore",
     ".style.yapf": "ini",
-    ".terraformignore": "gitignore"
+    ".terraformignore": "gitignore",
+    "*.tfstate": "json"
   },
   "files.trimFinalNewlines": true,
   "git-graph.dialog.merge.noFastForward": false,
