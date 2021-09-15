@@ -360,5 +360,34 @@
   "yaml.schemas": {
     "https://json.schemastore.org/github-workflow.json": "**/.github/workflows/*",
     "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml"
-  }
+  },
+  "cSpell.enableFiletypes": [
+    "!handlebars",
+    "!haskell",
+    "!jade",
+    "!jupyter",
+    "!pug",
+    "!scala",
+    "Log",
+    "advpl",
+    "codeowners",
+    "diff",
+    "dockercompose",
+    "dockerfile",
+    "editorconfig",
+    "git-rebase",
+    "gitignore",
+    "ignore",
+    "ini",
+    "jq",
+    "jsx-tags",
+    "log",
+    "lua",
+    "makefile",
+    "powershell",
+    "properties",
+    "shellscript",
+    "sql",
+    "xml"
+  ]
 }
