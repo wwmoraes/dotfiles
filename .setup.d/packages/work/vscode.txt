@@ -1,4 +1,3 @@
-argutec.argutec-azure-repos
 bbenoist.vagrant
 marcostazi.vs-code-vagrantfile
 ms-azuretools.vscode-azurefunctions
