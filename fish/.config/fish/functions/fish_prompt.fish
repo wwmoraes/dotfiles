@@ -13,7 +13,7 @@ function __fish_preexec_wakatime --on-event fish_preexec
 
   test -z "$argv"; and return
 
-  set -l commandName (echo "$argv" | cut -d ' ' -f1)
+  set -l commandName (string split ' ' $argv[1])[1]
 
   ### command name transformations
   # replace folder navigation with cd command
