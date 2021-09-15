@@ -1,31 +1,28 @@
 {
   "recommendations": [
-    "hangxingliu.vscode-nginx-conf-hint",
-    "sidneys1.gitconfig",
-    "dcasella.i3",
     "bdavs.expect",
+    "bungcip.better-toml",
+    "dcasella.i3",
     "dunstontc.viml",
+    "hangxingliu.vscode-nginx-conf-hint",
     "malmaud.tmux",
+    "mikestead.dotenv",
+    "sidneys1.gitconfig",
     "skyapps.fish-vscode",
     "sumneko.lua",
-    "mikestead.dotenv",
-    "virgilsisoe.hammerspoon-snippets",
-    "bungcip.better-toml"
+    "virgilsisoe.hammerspoon-snippets"
   ],
   "unwantedRecommendations": [
     // Microsoft's global recommendations, FML
     "dbaeumer.jshint",
-    "hookyqr.beautify",
-    "felipecaputo.git-project-manager",
     "donjayamanne.githistory",
+    "felipecaputo.git-project-manager",
     "googlecloudtools.cloudcode",
-    "ms-kubernetes-tools.vscode-kubernetes-tools",
-    "msjsdiag.vscode-react-native",
-    "ms-vscode-remote.remote-containers",
+    "hookyqr.beautify",
     "mindaro.mindaro",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
     "ms-vscode-remote.remote-containers",
-    "vscodevim.vim",
     "msjsdiag.vscode-react-native",
-    "googlecloudtools.cloudcode"
+    "vscodevim.vim"
   ]
 }
