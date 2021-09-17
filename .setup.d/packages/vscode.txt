@@ -98,7 +98,6 @@ sumneko.lua
 swellaby.vscode-rust-test-adapter
 sysninja.vscode-ansible-mod
 thomascsd.vscode-readme-pattern
-tim-koehler.helm-intellisense
 timonwong.shellcheck
 tomashubelbauer.vscode-markdown-table-format
 tsandall.opa
