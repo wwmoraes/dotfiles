@@ -25,3 +25,4 @@ swiftdefaultappsprefpane:~/Library/PreferencePanes/SwiftDefaultApps.prefPane/Con
 clean-me:/Applications/Clean Me.app/Contents/MacOS/Clean Me
 obsidian:/Applications/Obsidian.app/Contents/MacOS/Obsidian
 gpg-suite-no-mail:/Applications/GPG Keychain.app/Contents/MacOS/GPG Keychain
+visual-studio-code:/Applications/Visual Studio Code.app/Contents/MacOS/Electron
