@@ -60,7 +60,7 @@ printf "\e[1;33mBrew cask packages\e[0m\n"
 ### Install packages
 while read -r PACKAGE; do
   printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-  PACKAGE_CHECK_PATH=$(echo "${PACKAGE}" | awk 'BEGIN {FS=":"};{print $2}')
+  PACKAGE_CHECK_PATH=$(echo "${PACKAGE}" | awk 'BEGIN {FS=":"};{sub(/^~/, "'"${HOME}"'", $2); print $2}')
   if [ "${PACKAGE_CHECK_PATH}" = "" ]; then
     PACKAGE_CHECK_PATH="/Applications/${PACKAGE%%:*}.app/Contents/MacOS/${PACKAGE%%:*}"
   fi
