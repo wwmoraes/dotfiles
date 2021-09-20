@@ -1,3 +1,0 @@
----@class EventTapPoint
----@field x number
----@field y number

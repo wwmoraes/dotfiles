@@ -1,1 +1,0 @@
----@alias FsDirIterator "function():any"

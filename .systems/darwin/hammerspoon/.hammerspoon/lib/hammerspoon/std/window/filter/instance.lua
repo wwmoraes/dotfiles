@@ -1,2 +1,0 @@
----@class WindowFilterInstance
-local WindowFilterInstance

@@ -1,2 +1,0 @@
----@class WindowLayoutInstance
-local WindowLayoutInstance

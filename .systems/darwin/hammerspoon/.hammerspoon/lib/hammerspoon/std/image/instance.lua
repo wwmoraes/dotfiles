@@ -1,2 +1,0 @@
----@class ImageInstance
-local ImageInstance

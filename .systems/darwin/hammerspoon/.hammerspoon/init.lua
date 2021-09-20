@@ -1,4 +1,4 @@
-require("lib.hammerspoon")
+require("types.hammerspoon")
 
 local logger = hs.logger.new("init", "info")
 

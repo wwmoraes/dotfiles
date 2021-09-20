@@ -1,4 +1,0 @@
----@class SpoonInfo
----@field name string
----@field loaded boolean
----@field version string

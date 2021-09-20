@@ -1,2 +1,0 @@
----@class WindowLayout
-local WindowLayout

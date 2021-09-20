@@ -1,2 +1,0 @@
----@class WindowTilingInstance
-local WindowTilingInstance

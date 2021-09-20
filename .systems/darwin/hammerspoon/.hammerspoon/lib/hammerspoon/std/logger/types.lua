@@ -1,3 +1,0 @@
----@alias LogLevelName '"nothing"'|'"error"'|'"warning"'|'"info"'|'"debug"'|'"verbose"'
----@alias LogLevelNumber '0'|'1'|'2'|'3'|'4'|'5'
----@alias LogLevel LogLevelName|LogLevelNumber

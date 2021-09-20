@@ -1,1 +1,0 @@
----@alias GeometryParam GeometryInstance|GeometryTable|string

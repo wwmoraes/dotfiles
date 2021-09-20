@@ -1,2 +1,0 @@
----@class ScreenInstance
-local ScreenInstance

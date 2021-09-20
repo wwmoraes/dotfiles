@@ -1,2 +1,0 @@
----@class Screen
-local Screen

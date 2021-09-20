@@ -1,2 +1,0 @@
----@class WindowSwitcherInstance
-local WindowSwitcherInstance
