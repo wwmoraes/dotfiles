@@ -359,7 +359,8 @@
   "yaml.schemaStore.enable": true,
   "yaml.schemas": {
     "https://json.schemastore.org/github-workflow.json": "**/.github/workflows/*",
-    "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml"
+    "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml",
+    "https://json.schemastore.org/chart.json": "Chart.yaml"
   },
   "cSpell.enableFiletypes": [
     "!handlebars",
