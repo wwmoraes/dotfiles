@@ -51,8 +51,11 @@ printf "Checking \e[96mhelm\e[0m...\n"
 if ! _=$(command -V helm >/dev/null 2>&1); then
   VERSION=$(curl -fsSL https://api.github.com/repos/helm/helm/tags | jq -r '.[0].name')
 
+  printf "Downloading \e[96mhelm\e[0m...\n"
   curl -fsSLo helm.tar.gz "https://get.helm.sh/helm-${VERSION}-${SYSTEM}-${ARCH}.tar.gz"
-  tar  xzf helm.tar.gz "${SYSTEM}-${ARCH}/helm"
+  tar xzf helm.tar.gz "${SYSTEM}-${ARCH}/helm"
+
+  printf "Installing \e[96mhelm\e[0m...\n"
   install -g "$(id -g)" -o "$(id -u)" -m 0750 "${SYSTEM}-${ARCH}/helm" ~/.local/bin/helm
 fi
 
