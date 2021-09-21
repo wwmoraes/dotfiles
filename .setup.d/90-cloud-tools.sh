@@ -59,6 +59,17 @@ if ! _=$(command -V helm >/dev/null 2>&1); then
   install -g "$(id -g)" -o "$(id -u)" -m 0750 "${SYSTEM}-${ARCH}/helm" ~/.local/bin/helm
 fi
 
+printf "Checking \e[96mhelmfile\e[0m...\n"
+if ! _=$(command -V helmfile >/dev/null 2>&1); then
+  VERSION=$(curl -fsSL https://api.github.com/repos/roboll/helmfile/tags | jq -r '.[0].name')
+
+  printf "Downloading \e[96mhelmfile\e[0m...\n"
+  curl -fsSLo helmfile "https://github.com/roboll/helmfile/releases/download/${VERSION}/helmfile_${SYSTEM}_${ARCH}"
+
+  printf "Installing \e[96mhelmfile\e[0m...\n"
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 helmfile ~/.local/bin/helmfile
+fi
+
 printf "Checking \e[96mkustomize\e[0m...\n"
 if ! _=$(command -V kustomize >/dev/null 2>&1); then
 
