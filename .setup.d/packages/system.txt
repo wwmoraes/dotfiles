@@ -32,3 +32,4 @@ telnet
 bat
 less:lesskey
 calicoctl
+minikube
