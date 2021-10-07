@@ -1,4 +1,3 @@
-powershell:pwsh
 azure-cli:az
 awscli:aws
 eksctl
