@@ -1,30 +1,37 @@
 [
-  {
-    "enabled": true,
-    "name": "dotfiles",
-    "paths": [],
-    "rootPath": "~/.files",
-    "tags": []
-  },
-  {
-    "enabled": true,
-    "name": "dotsecrets",
-    "paths": [],
-    "rootPath": "~/.secrets",
-    "tags": []
-  },
-  {
-    "enabled": true,
-    "name": "Stratus",
-    "paths": [],
-    "rootPath": "~/workspace/Stratus.code-workspace",
-    "tags": []
-  },
-  {
-    "enabled": true,
-    "name": "mcp-tf-module-aks-test",
-    "paths": [],
-    "rootPath": "~/workspace/mcp-tf-module-aks/test",
-    "tags": []
-  }
+	{
+		"name": "dotfiles",
+		"rootPath": "~/.files",
+		"paths": [],
+		"tags": [],
+		"enabled": true
+	},
+	{
+		"name": "dotsecrets",
+		"rootPath": "~/.secrets",
+		"paths": [],
+		"tags": [],
+		"enabled": true
+	},
+	{
+		"name": "Stratus",
+		"rootPath": "~/workspace/Stratus.code-workspace",
+		"paths": [],
+		"tags": [],
+		"enabled": true
+	},
+	{
+		"name": "mcp-tf-module-aks-test",
+		"rootPath": "~/workspace/mcp-tf-module-aks/test",
+		"paths": [],
+		"tags": [],
+		"enabled": true
+	},
+	{
+		"name": "dots",
+		"rootPath": "/Users/william/dev/dots.code-workspace",
+		"paths": [],
+		"tags": [],
+		"enabled": true
+	}
 ]
