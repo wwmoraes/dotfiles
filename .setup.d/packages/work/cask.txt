@@ -1,5 +1,5 @@
-virtualbox
+-virtualbox
 vagrant:/usr/local/bin/vagrant
 postman
-muzzle
+-muzzle
 firefox
