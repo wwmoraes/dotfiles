@@ -17,7 +17,7 @@ the-unarchiver:/Applications/The Unarchiver.app/Contents/MacOS/The Unarchiver
 amethyst
 krisp
 fluor
-thingsmacsandboxhelper
+thingsmacsandboxhelper:/Applications/ThingsMacSandboxHelper.app/Contents/MacOS/ThingsMacSandboxHelper
 dozer
 fluid
 image2icon
@@ -30,3 +30,4 @@ visual-studio-code:/Applications/Visual Studio Code.app/Contents/MacOS/Electron
 -ngrok
 -hazel
 -lens
+macfuse:/Library/Frameworks/macFUSE.framework/Versions/Current/macFUSE
