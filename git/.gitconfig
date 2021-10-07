@@ -1,5 +1,6 @@
 [advice]
   detachedHead = false
+
 [core]
   editor = vim
   pager = cat
@@ -11,9 +12,10 @@
 
 # Include files to keep this one lean
 [include]
+  path = ~/.gitconfig-os
+  path = ~/.gitconfig-secrets
   path = ~/.gitaliases
   path = ~/.gitcolors
-  path = ~/.gitconfig-secrets
 
 [protocol]
   # faster git server communication.
