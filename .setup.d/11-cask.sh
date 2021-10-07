@@ -59,13 +59,28 @@ printf "\e[1;33mBrew cask packages\e[0m\n"
 
 ### Install packages
 while read -r PACKAGE; do
+  case "${PACKAGE%%:*}" in
+  -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
+  *) REMOVE=0;;
+  esac
   printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
   PACKAGE_CHECK_PATH=$(echo "${PACKAGE}" | awk 'BEGIN {FS=":"};{sub(/^~/, "'"${HOME}"'", $2); print $2}')
   if [ "${PACKAGE_CHECK_PATH}" = "" ]; then
     PACKAGE_CHECK_PATH="/Applications/${PACKAGE%%:*}.app/Contents/MacOS/${PACKAGE%%:*}"
   fi
-  command -V "${PACKAGE_CHECK_PATH}" >/dev/null 2>&1 && continue
 
-  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-  brew install -q --cask "${PACKAGE%%:*}" 2> /dev/null || true
+  case "${REMOVE}" in
+    1)
+      command -V "${PACKAGE_CHECK_PATH}" >/dev/null 2>&1 || continue
+
+      printf "Removing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+      brew remove -q "${PACKAGE%%:*}" 2> /dev/null || true
+      ;;
+    0)
+      command -V "${PACKAGE_CHECK_PATH}" >/dev/null 2>&1 && continue
+
+      printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+      brew install -q --cask "${PACKAGE%%:*}" 2> /dev/null || true
+      ;;
+  esac
 done < "${PACKAGES}"
