@@ -112,6 +112,7 @@ wakatime.vscode-wakatime
 wallabyjs.quokka-vscode
 warpnet.salt-lint
 wix.vscode-import-cost
+wmaurer.change-case
 wolfmah.ansible-vault-inline
 xabikos.javascriptsnippets
 xyc.vscode-mdx-preview
