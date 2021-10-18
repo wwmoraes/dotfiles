@@ -50,9 +50,9 @@ module.exports = {
     },
     {
       match: [
-        "*.abnamro.com/*",
-        "*.abnamro.org/*",
-        "*.azure.com/*",
+        "*.abnamro.com*",
+        "*.abnamro.org*",
+        "*.azure.com*",
       ],
       browser: "Firefox"
     },
@@ -75,7 +75,7 @@ module.exports = {
         "*.tinc.localhost*",
         "*.com.br*",
         "*.thuisbezorgd.nl*",
-        "*.krisp.ai/*"
+        "*.krisp.ai*"
       ],
       browser: "Safari"
     },
