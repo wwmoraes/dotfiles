@@ -1,10 +1,5 @@
 function domain -d "extract domain from a given URL"
-    set -l parts (string split / -- (string replace -r "^[a-z]+://" "" $argv[1]))
-    set -l domain $parts[1]
-
-    if test -z "$domain"
-        set domain $argv[1]
-    end
+    set -l domain (string replace -r "^(?:[a-z]+://)?([^:]+)(?::[0-9]+)?\$" "\$1" $argv[1])
 
     echo (string replace www. '' $domain)
 end
