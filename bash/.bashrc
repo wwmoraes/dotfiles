@@ -111,17 +111,13 @@ fi
 
 HOST=$(hostname -s)
 set -a
-test -f "$HOME/.env" && source "$HOME/.env"
-test -f "$HOME/.env_secrets" && source "$HOME/.env_secrets"
-if [ "$HOST" == "M1Cabuk" ]; then
-  test -f "$HOME/.env_personal" && source "$HOME/.env_personal"
-  test -f "$HOME/.env_personal_secrets" && source "$HOME/.env_personal_secrets"
-fi
-if [ "$HOST" == "C02DQ36NMD6P" ]; then
-  test -f "$HOME/.env_work" && source "$HOME/.env_work"
-  test -f "$HOME/.env_work_secrets" && source "$HOME/.env_work_secrets"
-fi
-test -f "$HOME/.env-$HOST" && source "$HOME/.env-$HOST"
+test -f "${HOME}/.env" && source "${HOME}/.env"
+test -f "${HOME}/.env_secrets" && source "${HOME}/.env_secrets"
+while IFS= read -r TAG; do
+  test -d "${HOME}/.env_${TAG}" && source "${HOME}/.env_${TAG}"
+  test -d "${HOME}/.env_${TAG}_secrets" && source "${HOME}/.env_${TAG}_secrets"
+done < ~/.tagsrc
+test -f "${HOME}/.env-${HOST}" && source "${HOME}/.env-${HOST}"
 set +a
 
 # fzf & bashfu sorcery

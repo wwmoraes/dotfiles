@@ -14,6 +14,8 @@ processDotenvFile() {
   # skip if file is not readable
   test ! -r "$1" && return
 
+  echo "processing $1..."
+
   while read -r line; do
     # skip empty lines
     test -z "${line}" && continue
@@ -35,14 +37,10 @@ processDotenvFile() {
 
 processDotenvFile "${HOME}/.env"
 processDotenvFile "${HOME}/.env_secrets"
-if [ "${HOST}" = "M1Cabuk" ]; then
-  processDotenvFile "${HOME}/.env_personal"
-  processDotenvFile "${HOME}/.env_personal_secrets"
-fi
-if [ "${HOST}" = "C02DQ36NMD6P" ]; then
-  processDotenvFile "${HOME}/.env_work"
-  processDotenvFile "${HOME}/.env_work_secrets"
-fi
+while IFS= read -r TAG; do
+  processDotenvFile "${HOME}/.env_${TAG}"
+  processDotenvFile "${HOME}/.env_${TAG}_secrets"
+done < ~/.tagsrc
 processDotenvFile "${HOME}/.env-${HOST}"
 
 exit 0
