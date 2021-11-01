@@ -1,0 +1,6 @@
+{
+	"autoupdate": true,
+	"terminal": {
+		"appleScriptTemplate3": "\n\t\t\tset quotedScriptName to quoted form of \"{{ .Command }}\"\n\t\t{{ if .Params }}\n\t\t\tset commandLine to {{ .Vars }} \u0026 \" \" \u0026 quotedScriptName \u0026 \" \" \u0026 {{ .Params }}\n\t\t{{ else }}\n\t\t\tset commandLine to {{ .Vars }} \u0026 \" \" \u0026 quotedScriptName\n\t\t{{ end }}\n\t\t\tif application \"Terminal\" is running then \n\t\t\t\ttell application \"Terminal\"\n\t\t\t\t\tdo script commandLine\n\t\t\t\t\tactivate\n\t\t\t\tend tell\n\t\t\telse\n\t\t\t\ttell application \"Terminal\"\n\t\t\t\t\tdo script commandLine in window 1\n\t\t\t\t\tactivate\n\t\t\t\tend tell\n\t\t\tend if\n\t\t"
+	}
+}

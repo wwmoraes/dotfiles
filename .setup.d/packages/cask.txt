@@ -31,3 +31,4 @@ visual-studio-code:/Applications/Visual Studio Code.app/Contents/MacOS/Electron
 -hazel
 -lens
 macfuse:/Library/Frameworks/macFUSE.framework/Versions/Current/macFUSE
+xbar
