@@ -49,6 +49,7 @@
     "CLOUDSQL",
     "codeclimate",
     "concat",
+    "digimon",
     "dockerlabelvalidate",
     "dockerlint",
     "downlevel",
