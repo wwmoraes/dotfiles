@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+REMOTE_NAME=$(git remote)
+DEFAULT_BRANCH_NAME=$(git remote show "${REMOTE_NAME}" | awk '/HEAD branch/ {print $NF}')
+LAST_RELEASE_BRANCH=$(git branch -r -l | tail +2 | grep ${REMOTE_NAME}/release | sort | tail -1 | xargs)
+DEFAULT_BRANCH="${REMOTE_NAME}/${DEFAULT_BRANCH_NAME}"
+
+git log --pretty=format:'%s %b' --abbrev-commit ${LAST_RELEASE_BRANCH}..${DEFAULT_BRANCH} | grep -E '\#[0-9]{6}' | sed -E 's/.*\#([0-9]{6}).*/\1/' | sort | uniq
