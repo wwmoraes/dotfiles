@@ -110,9 +110,12 @@ tmux source-file "${HOME}/.tmux.conf"
 
 printf "\e[1;34mCleanup\e[0m\n"
 
-printf "Removing old variables...\n"
-while IFS= read -r line; do
-   unset "${line}"
-done <.env-remove
+printf "Removing environment variables...\n"
+for FILE in ~/.env_remove*; do
+  while IFS= read -r VARIABLE; do
+    echo "Removing ${VARIABLE}..."
+    unset "${VARIABLE}"
+  done < "${FILE}"
+done
 
 printf "\e[1;32mDone!\e[0m\n"

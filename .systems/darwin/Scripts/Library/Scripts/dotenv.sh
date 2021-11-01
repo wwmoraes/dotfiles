@@ -43,4 +43,10 @@ while IFS= read -r TAG; do
 done < ~/.tagsrc
 processDotenvFile "${HOME}/.env-${HOST}"
 
+for FILE in ~/.env_remove*; do
+  while IFS= read -r VARIABLE; do
+    launchctl unsetenv "${VARIABLE}"
+  done < "${FILE}"
+done
+
 exit 0

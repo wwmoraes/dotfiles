@@ -55,11 +55,12 @@ end
 
 # Remove old environment variables
 echo "Removing old environment variables..."
-for entry in (cat .env-remove | grep -v '^#' | grep -v '^$')
-  if set -q $entry
-    echo Unsetting (set_color brcyan)$entry(set_color normal)
-    eval "set -e $entry"
-  end
+for file in ~/.env_remove*
+  while read -l variable
+    echo Removing (set_color brcyan)$variable(set_color normal)
+    set -eg $variable
+    set -eU $variable
+  end < (cat "$file" | grep -v '^#' | grep -v '^$' | psub)
 end
 
 # Remove the global version, as it shadows the universal one
