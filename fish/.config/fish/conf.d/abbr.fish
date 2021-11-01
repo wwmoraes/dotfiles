@@ -66,7 +66,7 @@ if type -q kubectl
   abbr -a -U kgaa "kubectl get cm,ep,pvc,po,svc,sa,ds,deploy,rs,sts,hpa,vpa,cj,jobs,ing,secret"
   abbr -a -U kdelf "kubectl get cm,ep,pvc,po,svc,sa,ds,deploy,rs,sts,hpa,vpa,cj,jobs,ing,secret | awk 'NF > 0 && \$1 != \"NAME\" {print \$1}' | fzf -m --ansi | xargs -I{} -o kubectl delete {} --wait=false --now=true"
   abbr -a -U kgra "kubectl api-resources --verbs=list --namespaced -o name | grep -v events | xargs -n 1 kubectl get --show-kind --ignore-not-found"
-  abbr -a -U krt "kubectl run toolbox -i --tty --rm --restart=Never --image=wwmoraes/toolbox --limits='cpu=100m,memory=128Mi'"
+  abbr -a -U krt "kubectl run --rm -it --image=wwmoraes/toolbox --restart=Never toolbox"
   abbr -a -U kl "kubectl logs"
   abbr -a -U kpf "kubectl port-forward"
   abbr -a -U kctx "kubectl ctx"
