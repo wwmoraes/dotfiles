@@ -11,3 +11,5 @@ echo -e (string join "\n" $fish_user_paths) | \
   fzf -m --header-lines=1 --prompt="which element(s) do you want to remove? " | \
   awk '{print $1}' | ifne xargs -I {} fish -c "set -eU fish_user_paths[{}]"
 ```
+
+## TEST 2
