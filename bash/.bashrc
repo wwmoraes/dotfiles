@@ -109,13 +109,19 @@ if ! shopt -oq posix; then
   fi
 fi
 
+for FILE in ${HOME}/.env_remove*; do
+  while IFS= read -r VARIABLE; do
+    unset "${VARIABLE}"
+  done < "${FILE}"
+done
+
 HOST=$(hostname -s)
 set -a
 test -f "${HOME}/.env" && source "${HOME}/.env"
 test -f "${HOME}/.env_secrets" && source "${HOME}/.env_secrets"
 while IFS= read -r TAG; do
-  test -d "${HOME}/.env_${TAG}" && source "${HOME}/.env_${TAG}"
-  test -d "${HOME}/.env_${TAG}_secrets" && source "${HOME}/.env_${TAG}_secrets"
+  test -f "${HOME}/.env_${TAG}" && source "${HOME}/.env_${TAG}"
+  test -f "${HOME}/.env_${TAG}_secrets" && source "${HOME}/.env_${TAG}_secrets"
 done < ~/.tagsrc
 test -f "${HOME}/.env-${HOST}" && source "${HOME}/.env-${HOST}"
 set +a
