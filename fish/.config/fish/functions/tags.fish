@@ -10,10 +10,18 @@ function tags -a cmd -d "interact with host tags"
     case "add"
       set -l TAGS (cat "$TAGSRC" (string split " " $argv[2..-1] | psub) | sort | uniq)
       printf "%s\n" $TAGS | tee "$TAGSRC"
+      for tag in $argv[2..-1]
+        test -f $HOME/.env_$tag
+        and dotenv $HOME/.env_$tag
+      end
     case "remove"
       set -l REMOVE (string join '|' $argv[2..-1])
       set -l TAGS (grep -vE "^($REMOVE)\$" "$TAGSRC")
       printf "%s\n" $TAGS | tee "$TAGSRC"
+      for tag in $argv[2..-1]
+        test -f $HOME/.env_$tag
+        and dotenv -u $HOME/.env_$tag
+      end
     case "contains"
       test (count $argv[2..-1]) -gt 0; or return 2
       test -f "$TAGSRC"; or return 1
