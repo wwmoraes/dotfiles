@@ -13,3 +13,4 @@ ctx
 ns
 ingress-nginx
 whoami
+deprecations
