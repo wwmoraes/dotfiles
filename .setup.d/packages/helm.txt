@@ -1,2 +1,3 @@
 push|https://github.com/chartmuseum/helm-push.git
 2to3|https://github.com/helm/helm-2to3.git
+diff|https://github.com/databus23/helm-diff.git
