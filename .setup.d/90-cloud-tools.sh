@@ -115,3 +115,13 @@ if ! _=$(command -V opa >/dev/null 2>&1); then
   printf "Installing \e[96mopa\e[0m...\n"
   install -g "$(id -g)" -o "$(id -u)" -m 0750 opa ~/.local/bin/opa
 fi
+
+printf "Checking \e[96mpluto\e[0m...\n"
+if ! _=$(command -V pluto >/dev/null 2>&1); then
+  printf "Downloading \e[96mpluto\e[0m...\n"
+  VERSION=$(curl -fsSL https://api.github.com/repos/FairwindsOps/pluto/releases | jq -r '.[0].name')
+  curl -fsSLo - "https://github.com/FairwindsOps/pluto/releases/download/${VERSION}/pluto_${VERSION#v*}_${SYSTEM}_${ARCH}.tar.gz" | tar xzf -
+
+  printf "Installing \e[96mpluto\e[0m...\n"
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 pluto ~/.local/bin/pluto
+fi
