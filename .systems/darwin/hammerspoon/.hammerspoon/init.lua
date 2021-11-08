@@ -135,6 +135,27 @@ local function hostname()
   return hostname
 end
 
+--- changes the tinyproxy config file link and sends a USR1 signal to the daemon
+--- to reload the config
+--- @param name string|nil
+--- @return nil
+local function changeProxyProfile(name)
+  name = (name == nil and "direct") or name
+  local sourceFile = string.format("%s/.config/tinyproxy/tinyproxy-%s.conf", os.getenv("HOME"), name)
+  local targetFile = os.getenv("HOME") .. "/.config/tinyproxy/tinyproxy.conf"
+  logger.i("linking proxy profile config file...")
+  local output, status, type, rc = hs.execute(string.format("ln -sf '%s' '%s'", sourceFile, targetFile))
+  if status ~= true then
+    logger.e("failed to link proxy config: %s (%s %d)", output, type, rc)
+  end
+  -- TODO use the pid file and the standard kill
+  logger.i("reloading proxy config...")
+  local output, status, type, rc = hs.execute("killall -USR1 tinyproxy")
+  if status ~= true then
+    logger.e("failed to reload proxy config: %s (%s %d)", output, type, rc)
+  end
+end
+
 if hostname() == "C02DQ36NMD6P" then
   -- minimize personal browser and other utility applications
   hs.hotkey.bind({"ctrl", "option", "command"}, "m", function()
@@ -157,4 +178,16 @@ if hostname() == "C02DQ36NMD6P" then
     local success, output, details = hs.osascript.applescriptFromFile(os.getenv("HOME") .. "/Library/Scripts/MSOutlookApplyAllRules.applescript")
     if success ~= true then logger.e(output, details) end
   end)
+
+  hs.network.reachability.forHostName("intranet.nl.eu.abnamro.com"):setCallback(function(self, flags)
+    if (flags & hs.network.reachability.flags.reachable) > 0 then
+      -- VPN tunnel is up
+      logger.i("VPN is up!")
+      changeProxyProfile("aab-vpn")
+    else
+      -- VPN tunnel is down
+      logger.i("VPN is down!")
+      changeProxyProfile("direct")
+    end
+  end):start()
 end
