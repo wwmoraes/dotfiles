@@ -112,6 +112,7 @@
   "editor.insertSpaces": true,
   "editor.minimap.enabled": false,
   "editor.renderFinalNewline": false,
+  "editor.guides.bracketPairs": "active",
   "editor.rulers": [
     80,
     100

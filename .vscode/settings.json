@@ -49,5 +49,6 @@
     "**/.DS_Store": true,
     "**/.git": true
   },
-  "workspace.isHidden": true
+  "workspace.isHidden": true,
+  "Lua.completion.autoRequire": false
 }
