@@ -21,13 +21,13 @@
     <key>WatchPaths</key>
     <array>
       <string>/Users/william/.env</string>
+      <string>/Users/william/.env_remove</string>
       <string>/Users/william/.env_secrets</string>
       <string>/Users/william/.env_personal</string>
       <string>/Users/william/.env_personal_secrets</string>
       <string>/Users/william/.env_work</string>
       <string>/Users/william/.env_work_secrets</string>
-      <string>/Users/william/.env-M1Cabuk</string>
-      <string>/Users/william/.env-C02DQ36NMD6P</string>
+      <string>/Users/william/.env_remove_work_secrets</string>
     </array>
   </dict>
 </plist>
