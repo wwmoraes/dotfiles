@@ -79,7 +79,7 @@ fi
 
 # remove trailing slash
 ORGANIZATION="${ORGANIZATION%*/}"
-QUERY="[?contains(${REPOSITORIES}, repository.name)${PREFIXES}].[repository.name,pullRequestId,mergeStatus,title,createdBy.uniqueName]"
+QUERY="[?contains(${REPOSITORIES}, repository.name)${PREFIXES}].[repository.name,pullRequestId,mergeStatus,title,createdBy.displayName]"
 QUERY="${QUERY//\"/\'}"
 
 PRS=$(az repos pr list \
@@ -100,7 +100,7 @@ while IFS=$'\t' read -r REPOSITORY ID STATUS TITLE AUTHOR; do
     "succeeded") STATUS="";;
     *) STATUS="${YELLOW} (${STATUS})${RESET}";;
   esac
-  echo -e "${MAGENTA}${ID}${RESET}\t${TITLE} ${CYAN}@${AUTHOR%@*}${RESET}${STATUS} | href=${ORGANIZATION}/${PROJECT}/_git/${REPOSITORY}/pullrequest/${ID} ansi=true"
+  echo -e "${MAGENTA}${ID}${RESET}\t${TITLE} ${CYAN}[${AUTHOR}]${RESET}${STATUS} | href=${ORGANIZATION}/${PROJECT}/_git/${REPOSITORY}/pullrequest/${ID} ansi=true"
 done < <(echo "${PRS}" | grep .)
 echo "---"
 echo "Refresh | refresh=true key=CmdOrCtrl+r"
