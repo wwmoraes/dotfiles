@@ -13,6 +13,15 @@ function zz -a cmd -d "Azure CLI simplified - now from Z to Z"
       az group list --query '[].name' -o tsv | \
       fzf | \
       ifne xargs -I% az configure --defaults group="%"
+    case pr
+      set -l args $argv[2..-1] --auto-complete --delete-source-branch
+      set -l workItem (tmux display-message -p '#S' | string match -r "^[0-9]+\$")
+
+      test (string length -- "$workItem") -gt 0
+      and set -a args --work-items $workItem
+
+      echo "creating PR..."
+      az repos pr create $args | jq -r '"\(.repository.webUrl)/pullrequest/\(.pullRequestId)"' | xargs open
     case "*"
       az $argv
   end
