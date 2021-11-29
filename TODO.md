@@ -19,3 +19,9 @@ echo -e (string join "\n" $fish_user_paths) | \
 %staff ALL = NOPASSWD:SETENV: /bin/mkdir -p /Application
 %staff ALL = NOPASSWD:SETENV: /bin/mv /usr/local/Caskroom/*.app /Applications/*.app
 ```
+
+## Git hooks templates
+
+- <https://github.com/greg0ire/git_template>
+- <http://git-scm.com/docs/githooks>
+- <http://git-scm.com/docs/git-init#_template_directory>
