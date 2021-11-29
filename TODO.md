@@ -12,4 +12,10 @@ echo -e (string join "\n" $fish_user_paths) | \
   awk '{print $1}' | ifne xargs -I {} fish -c "set -eU fish_user_paths[{}]"
 ```
 
-## TEST 2
+## sudoers settings
+
+```sudoers
+# homebrew
+%staff ALL = NOPASSWD:SETENV: /bin/mkdir -p /Application
+%staff ALL = NOPASSWD:SETENV: /bin/mv /usr/local/Caskroom/*.app /Applications/*.app
+```
