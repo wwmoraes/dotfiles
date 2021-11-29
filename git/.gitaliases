@@ -141,6 +141,9 @@
 # fuzzy reset back to prior commit
 	freset = !HASH=`git log --pretty=oneline | head -n 50 | fzf` && git reset --soft `echo ${HASH} | awk '{ print $1 }'`^
 
+# update hooks
+  hooks = "!f() { local templateDir=$(git config --get --path init.templatedir); local gitDir=$(git rev-parse --git-dir); rsync --archive --verbose --compress --cvs-exclude \"$templateDir/hooks/\" \"$gitDir/hooks\" --delete; }; f"
+
 # purge a file from history (BEWARE: this option REWRITES all commits)
   purge = "!f() { git filter-branch --force --index-filter \"git rm --cached --ignore-unmatch "$1"\" --prune-empty --tag-name-filter cat -- --all; }; f"
 
