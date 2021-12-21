@@ -33,3 +33,4 @@ visual-studio-code:/Applications/Visual Studio Code.app/Contents/MacOS/Electron
 macfuse:/Library/Frameworks/macFUSE.framework/Versions/Current/macFUSE
 xbar
 gas-mask
+deezer
