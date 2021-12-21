@@ -1,10 +1,8 @@
 function fconnect -d "fuzzy connect to a host"
-  set -l host (grep -REh --exclude-dir=control "^Host" ~/.ssh | \
-    sed 's/Host //' | \
-    awk 'FS=" " {print $1}' | \
+  set -l host (find -L ~/.ssh -type f \
+    -exec awk '/^Host (.*\*.*|github.com)/ {next};/^Host/ {print $2}' '{}' \; | \
     sort | \
     uniq | \
-    grep -v -e "*" -e github.com -e bitbucket.com | \
     fzf --print-query --header="HOST" --prompt="Which host you want to connect to? " | tail -n1); or return 2
 
     set options "mosh/tmux" "ssh/tmux" mosh ssh
