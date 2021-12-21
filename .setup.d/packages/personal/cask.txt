@@ -17,5 +17,4 @@ steam:/Applications/Steam.app/Contents/MacOS/steam_osx
 image2icon
 little-snitch:/Applications/Little Snitch.app/Contents/MacOS/Little Snitch
 calibre
-openmtp
 deluge
