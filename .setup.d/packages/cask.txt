@@ -32,3 +32,4 @@ visual-studio-code:/Applications/Visual Studio Code.app/Contents/MacOS/Electron
 -lens
 macfuse:/Library/Frameworks/macFUSE.framework/Versions/Current/macFUSE
 xbar
+gas-mask
