@@ -2,6 +2,8 @@ function __op_seen_subcommand_of
   return (__fish_seen_subcommand_of $argv || __fish_seen_subcommand_of help $argv)
 end
 
+set -l categories "'Login' 'Bank Account' 'Membership' 'Server' 'Secure Note' 'Database' 'Outdoor License' 'Social Security Number' 'Credit Card' 'Driver License' 'Passport' 'Software License' 'Identity' 'Email Account' 'Reward Program' 'Wireless Router'"
+
 complete -ec op
 # root flags
 complete -fc op -n '__fish_no_arguments' -s v -l version -d "version for op"
@@ -116,7 +118,7 @@ complete -fc op -n '__op_seen_subcommand_of -p get item && __fish_not_contain_op
 complete -fc op -n '__op_seen_subcommand_of -p get item && __fish_not_contain_opt share-link' -l share-link -d "get a shareable link for the item"
 complete -xc op -n '__op_seen_subcommand_of -p get item && __fish_not_contain_opt vault' -l vault -d "look up for the item in this vault"
 # get template options
-complete -xc op -n '__op_seen_subcommand_of get template' -a "'Login' 'Bank Account' 'Membership' 'Server' 'Secure Note' 'Database' 'Outdoor License' 'Social Security Number' 'Credit Card' 'Driver License' 'Passport' 'Software License' 'Identity' 'Email Account' 'Reward Program' 'Wireless Router'"
+complete -xc op -n '__op_seen_subcommand_of get template' -a $categories
 # get totp flags
 complete -xc op -n '__op_seen_subcommand_of -p get totp && __fish_not_contain_opt vault' -l vault -d "look up for the item in this vault"
 # get user flags
@@ -140,7 +142,7 @@ complete -fc op -n '__op_seen_subcommand_of -p list events && __fish_not_contain
 complete -xc op -n '__op_seen_subcommand_of -p list groups && __fish_not_contain_opt user' -l user -d "list groups that a user belongs to"
 complete -xc op -n '__op_seen_subcommand_of -p list groups && __fish_not_contain_opt vault' -l vault -d "list groups that have direct access to a vault"
 # list items flags
-complete -xc op -n '__op_seen_subcommand_of -p list items && __fish_not_contain_opt categories' -l categories -d "only list items in these categories (comma-separated)"
+complete -xc op -n '__op_seen_subcommand_of -p list items && __fish_not_contain_opt categories' -l categories -a $categories -d "only list items in these categories (comma-separated)"
 complete -fc op -n '__op_seen_subcommand_of -p list items && __fish_not_contain_opt include-trash' -l include-trash -d "include items in the Trash"
 complete -xc op -n '__op_seen_subcommand_of -p list items && __fish_not_contain_opt tags' -l tags -d "only list items with these tags (comma-separated)"
 complete -xc op -n '__op_seen_subcommand_of -p list items && __fish_not_contain_opt vault' -l vault -d "only list items in this vault"
