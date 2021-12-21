@@ -149,3 +149,5 @@
 
 # grep changes using a regexp and since the provided time
   tgrep = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && FILES=`git ls-files | fzf -m` && git rev-list --all --since=$2 | xargs -I% git grep $1 % -- $FILES; cd $A; }; f"
+
+  subrm = "!f(){ git rm -r $1 2> /dev/null || true; rm -rf .git/modules/$1; git config -f .git/config --remove-section submodule.$1 2> /dev/null || true; }; f"
