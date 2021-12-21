@@ -66,9 +66,24 @@ brew tap > "${TAPS}"
 
 ### Add repository
 while read -r PACKAGE; do
-  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE}"
-  grep -qFx "${PACKAGE}" "${TAPS}" && continue
+  case "${PACKAGE%%:*}" in
+    -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
+    *) REMOVE=0;;
+  esac
 
-  printf "Tapping \e[96m%s\e[0m...\n" "${PACKAGE}"
-  brew tap -q "${PACKAGE}" 2> /dev/null || true
+  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE}"
+  case "${REMOVE}" in
+    1)
+      grep -qFx "${PACKAGE}" "${TAPS}" || continue
+
+      printf "Untapping \e[96m%s\e[0m...\n" "${PACKAGE}"
+      brew untap -q "${PACKAGE}" 2> /dev/null || true
+      ;;
+    0)
+      grep -qFx "${PACKAGE}" "${TAPS}" && continue
+
+      printf "Tapping \e[96m%s\e[0m...\n" "${PACKAGE}"
+      brew tap -q "${PACKAGE}" 2> /dev/null || true
+      ;;
+  esac
 done < "${PACKAGES}"

@@ -69,13 +69,21 @@ printf "\e[1;33mSystem packages\e[0m\n"
 printf "Checking system manager...\n"
 # Manager options
 if [ -x "$(which apt-get 2> /dev/null)" ]; then
-  MANAGER="sudo apt-get install --no-install-recommends --no-install-suggests"
+  MANAGER="sudo apt-get"
+  MANAGER_INSTALL_ARGS="install --no-install-recommends --no-install-suggests"
+  MANAGER_REMOVE_ARGS="remove"
 elif [ -x "$(which yay 2> /dev/null)" ]; then
-  MANAGER="sudo yay -S"
+  MANAGER="sudo yay"
+  MANAGER_INSTALL_ARGS="-S"
+  MANAGER_REMOVE_ARGS="-Rs"
 elif [ -x "$(which pacman 2> /dev/null)" ]; then
-  MANAGER="sudo pacman -S"
+  MANAGER="sudo pacman"
+  MANAGER_INSTALL_ARGS="-S"
+  MANAGER_REMOVE_ARGS="-Rs"
 elif [ -x "$(which brew 2> /dev/null)" ]; then
-  MANAGER="brew install"
+  MANAGER="brew"
+  MANAGER_INSTALL_ARGS="install"
+  MANAGER_REMOVE_ARGS="remove"
 else
   # empty manager
   MANAGER=
@@ -88,9 +96,23 @@ fi
 
 ### Install packages
 while read -r PACKAGE; do
-  printf "Checking \e[96m%s\e[0m...\n" "$(basename "${PACKAGE%%:*}")"
-  command -V "${PACKAGE##*:}" >/dev/null 2>&1 && continue
+  case "${PACKAGE%%:*}" in
+    -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
+    *) REMOVE=0;;
+  esac
 
-  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-  ${MANAGER} "${PACKAGE%%:*}" 2> /dev/null || true
+  printf "Checking \e[96m%s\e[0m...\n" "$(basename "${PACKAGE%%:*}")"
+  case "${REMOVE}" in
+    1)
+      command -V "${PACKAGE##*:}" >/dev/null 2>&1 || continue
+      printf "Uninstalling \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+      ${MANAGER} ${MANAGER_REMOVE_ARGS} "${PACKAGE%%:*}" 2> /dev/null || true
+    ;;
+    0)
+      command -V "${PACKAGE##*:}" >/dev/null 2>&1 && continue
+      printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+      ${MANAGER} ${MANAGER_INSTALL_ARGS} "${PACKAGE%%:*}" 2> /dev/null || true
+    ;;
+  esac
+
 done < "${PACKAGES}"
