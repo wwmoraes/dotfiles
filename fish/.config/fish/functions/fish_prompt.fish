@@ -45,3 +45,9 @@ function __fish_preexec_wakatime --on-event fish_preexec
     --entity "$commandName" 2>&1 >/dev/null &
   disown (jobs -lp | tail +1) 2>/dev/null
 end
+
+function fish_prompt
+  set -l error $status
+  set -q GOPATH; or set -l GOPATH (go env GOPATH)
+  eval $GOPATH/bin/powerline-go -error $error -jobs (count (jobs -p))
+end
