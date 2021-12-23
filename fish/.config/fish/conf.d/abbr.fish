@@ -1,4 +1,4 @@
-# Abbreviations available only in interactive shells
+# only apply on interactive shells
 status --is-interactive; or exit
 
 ### removes old abbreviations, but takes a bit of time

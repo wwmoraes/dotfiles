@@ -1,3 +1,6 @@
+# only apply on interactive shells
+status --is-interactive; or exit
+
 # Add powerline function bindings
 set -l PYTHON_USER_BASE (python3 -m site --user-base)
 if test -d "$PYTHON_USER_BASE/bin"

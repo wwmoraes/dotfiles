@@ -1,4 +1,4 @@
-# only apply grc override on interactive shells
+# only apply on interactive shells
 status --is-interactive; or exit
 
 # don't setup anything if grc is not installed
