@@ -28,7 +28,7 @@ if ! _=$(command -V pet > /dev/null 2>&1); then
   curl -fsSL "${DOWNLOAD_URL}" | tar xzf -
   printf "Installing \e[96mpet\e[0m...\n"
   chmod +x pet
-  mv pet ~/.local/bin
+  mv pet "${HOME}/.local/bin"
 fi
 
 printf "Checking \e[96mplantuml\e[0m...\n"
@@ -36,7 +36,7 @@ if ! _=$(command -V plantuml.jar > /dev/null 2>&1); then
   printf "Downloading \e[96mplantuml\e[0m...\n"
   curl -fsSLO https://netix.dl.sourceforge.net/project/plantuml/plantuml.jar
   printf "Installing \e[96mplantuml\e[0m...\n"
-  install -g "$(id -g)" -o "$(id -u)" -m 0750 plantuml.jar ~/.local/bin/plantuml.jar
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 plantuml.jar "${HOME}/.local/bin/plantuml.jar"
 fi
 
 printf "Checking \e[96mgrawkit\e[0m...\n"
@@ -44,5 +44,5 @@ if ! _=$(command -V grawkit > /dev/null 2>&1); then
   printf "Downloading \e[96mgrawkit\e[0m...\n"
   curl -fsSLO https://raw.githubusercontent.com/deuill/grawkit/master/grawkit
   printf "Installing \e[96mgrawkit\e[0m...\n"
-  install -g "$(id -g)" -o "$(id -u)" -m 0750 grawkit ~/.local/bin/grawkit
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 grawkit "${HOME}/.local/bin/grawkit"
 fi

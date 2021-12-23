@@ -31,7 +31,7 @@ printf "\e[1;34mKubernetes CLI & powerups\e[0m\n"
 printf "Checking \e[96mkubectl\e[0m...\n"
 if ! _=$(command -V kubectl >/dev/null 2>&1); then
   curl -Lo kubectl "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/${SYSTEM}/amd64/kubectl"
-  install -g "$(id -g)" -o "$(id -u)" -m 0750 kubectl ~/.local/bin/kubectl
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 kubectl "${HOME}/.local/bin/kubectl"
 fi
 
 printf "Checking \e[96mkubeval\e[0m...\n"
@@ -43,7 +43,7 @@ if ! _=$(command -V kubeval >/dev/null 2>&1); then
     curl -fsSLo kubeval.tar.gz "https://github.com/instrumenta/kubeval/releases/download/${VERSION}/kubeval-${SYSTEM}-${ARCH}.tar.gz"
     tar xzf kubeval.tar.gz
     printf "Installing \e[96mkubeval\e[0m...\n"
-    install -g "$(id -g)" -o "$(id -u)" -m 0750 kubeval ~/.local/bin/kubeval
+    install -g "$(id -g)" -o "$(id -u)" -m 0750 kubeval "${HOME}/.local/bin/kubeval"
   fi
 fi
 
@@ -56,7 +56,7 @@ if ! _=$(command -V helm >/dev/null 2>&1); then
   tar xzf helm.tar.gz "${SYSTEM}-${ARCH}/helm"
 
   printf "Installing \e[96mhelm\e[0m...\n"
-  install -g "$(id -g)" -o "$(id -u)" -m 0750 "${SYSTEM}-${ARCH}/helm" ~/.local/bin/helm
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 "${SYSTEM}-${ARCH}/helm" "${HOME}/.local/bin/helm"
 fi
 
 printf "Checking \e[96mhelmfile\e[0m...\n"
@@ -67,7 +67,7 @@ if ! _=$(command -V helmfile >/dev/null 2>&1); then
   curl -fsSLo helmfile "https://github.com/roboll/helmfile/releases/download/${VERSION}/helmfile_${SYSTEM}_${ARCH}"
 
   printf "Installing \e[96mhelmfile\e[0m...\n"
-  install -g "$(id -g)" -o "$(id -u)" -m 0750 helmfile ~/.local/bin/helmfile
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 helmfile "${HOME}/.local/bin/helmfile"
 fi
 
 printf "Checking \e[96mkustomize\e[0m...\n"
@@ -81,7 +81,7 @@ if ! _=$(command -V kustomize >/dev/null 2>&1); then
   tar xzf kustomize.tar.gz
 
   printf "Installing \e[96mkustomize\e[0m...\n"
-  install -g "$(id -g)" -o "$(id -u)" -m 0750 kustomize ~/.local/bin/kustomize
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 kustomize "${HOME}/.local/bin/kustomize"
 fi
 
 printf "Checking \e[96mkapp\e[0m...\n"
@@ -92,7 +92,7 @@ if ! _=$(command -V kapp >/dev/null 2>&1); then
   curl -fsSLo kapp "https://github.com/k14s/kapp/releases/download/${VERSION}/kapp-${SYSTEM}-${ARCH}"
 
   printf "Installing \e[96mkapp\e[0m...\n"
-  install -g "$(id -g)" -o "$(id -u)" -m 0750 kapp ~/.local/bin/kapp
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 kapp "${HOME}/.local/bin/kapp"
 fi
 
 printf "Checking \e[96mlab\e[0m...\n"
@@ -104,7 +104,7 @@ if ! _=$(command -V lab >/dev/null 2>&1); then
   tar xzf lab.tar.gz
 
   printf "Installing \e[96mlab\e[0m...\n"
-  install -g "$(id -g)" -o "$(id -u)" -m 0750 lab ~/.local/bin/lab
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 lab "${HOME}/.local/bin/lab"
 fi
 
 printf "Checking \e[96mopa\e[0m...\n"
@@ -113,7 +113,7 @@ if ! _=$(command -V opa >/dev/null 2>&1); then
   curl -fsSLo opa "https://openpolicyagent.org/downloads/latest/opa_${SYSTEM}_${ARCH}"
 
   printf "Installing \e[96mopa\e[0m...\n"
-  install -g "$(id -g)" -o "$(id -u)" -m 0750 opa ~/.local/bin/opa
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 opa "${HOME}/.local/bin/opa"
 fi
 
 printf "Checking \e[96mpluto\e[0m...\n"
@@ -123,5 +123,5 @@ if ! _=$(command -V pluto >/dev/null 2>&1); then
   curl -fsSLo - "https://github.com/FairwindsOps/pluto/releases/download/${VERSION}/pluto_${VERSION#v*}_${SYSTEM}_${ARCH}.tar.gz" | tar xzf -
 
   printf "Installing \e[96mpluto\e[0m...\n"
-  install -g "$(id -g)" -o "$(id -u)" -m 0750 pluto ~/.local/bin/pluto
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 pluto "${HOME}/.local/bin/pluto"
 fi

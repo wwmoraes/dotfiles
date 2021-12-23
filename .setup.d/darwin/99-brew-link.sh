@@ -44,7 +44,7 @@ for package in /usr/local/opt/*; do
     for bin in "${package}"/bin/*; do
       if ! _=$(command -V "${bin}" >/dev/null 2>&1); then
         basename "${bin}" >> "${BINS}"
-        ln -sf "${bin}" ~/.local/opt/bin
+        ln -sf "${bin}" "${HOME}/.local/opt/bin"
       fi
     done
   fi
@@ -53,7 +53,7 @@ for package in /usr/local/opt/*; do
     for sbin in "${package}"/sbin/*; do
       if ! _=$(command -V "${sbin}" >/dev/null 2>&1); then
         basename "${sbin}" >> "${BINS}"
-        ln -sf "${sbin}" ~/.local/opt/sbin
+        ln -sf "${sbin}" "${HOME}/.local/opt/sbin"
       fi
     done
   fi

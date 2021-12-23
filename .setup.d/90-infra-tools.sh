@@ -36,5 +36,5 @@ if ! _=$(command -V terraform >/dev/null 2>&1); then
 
   unzip terraform.zip
   chmod +x terraform
-  mv terraform ~/.local/bin
+  mv terraform "${HOME}/.local/bin"
 fi

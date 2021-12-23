@@ -40,10 +40,10 @@ processDotenvFile "${HOME}/.env_secrets"
 while IFS= read -r TAG; do
   processDotenvFile "${HOME}/.env_${TAG}"
   processDotenvFile "${HOME}/.env_${TAG}_secrets"
-done < ~/.tagsrc
+done < "${HOME}/.tagsrc"
 processDotenvFile "${HOME}/.env-${HOST}"
 
-for FILE in ~/.env_remove*; do
+for FILE in "${HOME}/.env_remove"*; do
   while IFS= read -r VARIABLE; do
     launchctl unsetenv "${VARIABLE}"
   done < "${FILE}"

@@ -41,7 +41,7 @@ PATH="${PREPATHS}:${PATH}"
 # Dedup paths
 echo "dedupping and exporting PATH"
 TMP_PATH=$(printf "%s" "${PATH}" | awk -v RS=: '{gsub(/\/$/,"")} !($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
-export PATH=${TMP_PATH}
+export PATH="${TMP_PATH}"
 unset TMP_PATH
 echo "persisting PATH"
 echo "PATH=${PATH}" > "${HOME}/.env_path"
@@ -90,7 +90,7 @@ fi
 
 printf "\e[1;34mMiscellaneous\e[0m\n"
 # creates the control path folder for SSH
-mkdir -p ~/.ssh/control
+mkdir -p "${HOME}/.ssh/control"
 # Update system font cache
 if _=$(command -V fc-cache >/dev/null 2>&1); then
   printf "Updating font cache...\n"
@@ -111,7 +111,7 @@ tmux source-file "${HOME}/.tmux.conf"
 printf "\e[1;34mCleanup\e[0m\n"
 
 printf "Removing environment variables...\n"
-for FILE in ~/.env_remove*; do
+for FILE in "${HOME}/.env_remove"*; do
   while IFS= read -r VARIABLE; do
     echo "Removing ${VARIABLE}..."
     unset "${VARIABLE}"
