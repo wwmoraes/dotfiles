@@ -55,12 +55,22 @@ fi
 printf "Checking go packages on \e[94m%s\e[0m...\n" "${GOPATH}"
 
 ### Install packages
+FIFO=$(mktemp -u -t dotfiles.golang)
+mkfifo -m 0600 "${FIFO}"
+trap 'rm -f "${FIFO}"' EXIT INT TERM
 while read -r PACKAGE; do
-  BIN=$(basename "${PACKAGE##*:}")
-  BIN="${BIN%%@*}"
+  # IFS=: read PKG BIN <<< "${PACKAGE}"
+  # IFS=@ read MODULE VERSION <<< "${PKG}"
+  echo "${PACKAGE}" > "${FIFO}" &
+  IFS=: read PKG BIN < "${FIFO}"
+  echo "${PKG}" > "${FIFO}" &
+  IFS=@ read MODULE VERSION < "${FIFO}"
+  : "${VERSION:=latest}"
+  : "${BIN:=$(basename "${MODULE}")}"
+
   printf "Checking \e[96m%s\e[0m...\n" "${BIN}"
   test -f "${GOPATH}/bin/${BIN}" && continue
 
   printf "Installing \e[96m%s\e[0m...\n" "${BIN}"
-  go get -u "${PACKAGE%%:*}" || printf "\e[91mFAILED\e[m to install \e[96m%s\e[0m\n" "${BIN}" >&2
+  go install "${MODULE}@${VERSION}" || printf "\e[91mFAILED\e[m to install \e[96m%s\e[0m\n" "${BIN}" >&2
 done < "${PACKAGES}"
