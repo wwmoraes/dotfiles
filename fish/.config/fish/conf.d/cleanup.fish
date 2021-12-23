@@ -1,1 +1,1 @@
-functions -e isPersonal isWork
+functions -e isPersonal isWork work-setup
