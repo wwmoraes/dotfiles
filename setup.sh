@@ -31,6 +31,7 @@ PREPATHS=$(join ":" \
   "${HOME}/.local/opt/bin" \
   "${HOME}/.local/bin" \
   "/usr/local/opt/coreutils/libexec/gnubin" \
+  "/usr/local/bin"
 )
 
 mkdir -p "${HOME}/.local/bin"
