@@ -9,7 +9,7 @@ function __fish_preexec_wakatime --on-event fish_preexec
     set projectName (cat $PWD/.wakatime-project)
   end
 
-  type -p wakatime > /dev/null ^&1; or return
+  type -p wakatime > /dev/null 2>&1; or return
 
   test -z "$argv"; and return
 
@@ -19,7 +19,7 @@ function __fish_preexec_wakatime --on-event fish_preexec
   # replace folder navigation with cd command
   test -d $commandName; and set -l commandName "cd"
   # ignore if not a valid command
-  type -p "$commandName" > /dev/null ^&1; or return
+  type -p "$commandName" > /dev/null 2>&1; or return
 
   ### project overrides
   # change the project to terminal if it is a builtin command

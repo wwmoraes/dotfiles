@@ -40,7 +40,7 @@ function _mb_gpg-decrypt
     printf "%-"(tput cols)"s\r" "[decrypting] "(set_color cyan)$filePath(set_color normal)
 
     set encryptionID (gpg --pinentry-mode cancel --status-fd 1 -n --list-packets secret-values.yaml.gpg 2> /dev/null | grep ENC_TO | cut -d' ' -f3)
-    gpg -K $encryptionID > /dev/null ^&1
+    gpg -K $encryptionID > /dev/null 2>&1
     test $status -eq 0; or begin
       printf "%-"(tput cols)"s\n" "[error] "(set_color cyan)$filePath(set_color normal)" (no key found)"
       continue
@@ -71,7 +71,7 @@ function _mb_gpg-encrypt
     return 1
   end
 
-  gpg -k $GPG_RECIPIENT > /dev/null ^&1
+  gpg -k $GPG_RECIPIENT > /dev/null 2>&1
   test $status -eq 0; or begin
     echo "Error: no public key found for recipient $GPG_RECIPIENT"
     return 1
@@ -262,7 +262,7 @@ function _mb_helm -w helm
     functions -e _mb_helm_stop_proxy_$PROXY_PID
     echo ""
     echo "stopping port-forward..."
-    kill $PROXY_PID > /dev/null ^&1
+    kill $PROXY_PID > /dev/null 2>&1
     echo "done"
   end
   echo ""

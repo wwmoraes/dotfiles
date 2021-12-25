@@ -15,4 +15,4 @@ else if test -d "/usr/share/powerline"
 end
 
 # Setup powerline if installed
-functions -q powerline-setup; and powerline-setup > /dev/null ^&1
+functions -q powerline-setup; and powerline-setup > /dev/null 2>&1

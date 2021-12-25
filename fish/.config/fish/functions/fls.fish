@@ -35,11 +35,11 @@ function fls -d "Fuzzy lists git-enabled folders"
 
   # save pid and disown
   set PID (jobs -lp | tail +1)
-  disown $PID > /dev/null ^&1
+  disown $PID > /dev/null 2>&1
   # fish's trap cmd EXIT
   function _fls_cleanup -V PID -V tmpDir --on-event fish_postexec
     functions -e _fls_cleanup
-    kill $PID > /dev/null ^&1
+    kill $PID > /dev/null 2>&1
     rm -rf $tmpDir
   end
 
