@@ -22,6 +22,14 @@ function zz -a cmd -d "Azure CLI simplified - now from Z to Z"
 
       echo "creating PR..."
       az repos pr create $args | jq -r '"\(.repository.webUrl)/pullrequest/\(.pullRequestId)"' | xargs open
+    case browse
+      set -l repository (basename (git remote get-url origin))
+      az repos show -r $repository --query webUrl -o tsv | xargs open
+    case dbranch
+      set -l branch (git branch --show-current)
+      git push --delete origin $branch || true
+      git checkout master
+      git branch -D $branch || true
     case "*"
       az $argv
   end
