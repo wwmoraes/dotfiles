@@ -34,3 +34,4 @@ less:lesskey
 calicoctl
 minikube
 gh
+git-remote-gcrypt
