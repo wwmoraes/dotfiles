@@ -33,3 +33,4 @@ bat
 less:lesskey
 calicoctl
 minikube
+gh
