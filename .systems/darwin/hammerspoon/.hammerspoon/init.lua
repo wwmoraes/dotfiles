@@ -184,10 +184,13 @@ if hostname() == "C02DQ36NMD6P" then
       -- VPN tunnel is up
       logger.i("VPN is up!")
       changeProxyProfile("aab-vpn")
+      -- TODO check if the keychain entry exists
+      hs.execute(string.format("kinit --keychain %s@%s", os.getenv("KERBEROS_PRINCIPAL"), os.getenv("KERBEROS_REALM")))
     else
       -- VPN tunnel is down
       logger.i("VPN is down!")
       changeProxyProfile("direct")
+      hs.execute("kdestroy -A")
     end
   end):start()
 end
