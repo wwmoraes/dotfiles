@@ -12,6 +12,7 @@
 #  <xbar.var>string(PROJECT=""): Name or ID of project.</xbar.var>
 #  <xbar.var>string(REPOSITORIES=""): Comma-separated repository names.</xbar.var>
 #  <xbar.var>string(PREFIXES=""): Comma-separated repository name prefixes.</xbar.var>
+#  <xbar.var>string(AZ="az"): Azure CLI command-line custom path.</xbar.var>
 
 set -euo pipefail
 
@@ -19,6 +20,7 @@ set -euo pipefail
 : "${PROJECT:=}"
 : "${REPOSITORIES:=}"
 : "${PREFIXES:=}"
+: "${AZ:=az}"
 
 EXIT=0
 
@@ -26,11 +28,11 @@ echo "↓⤸"
 echo "---"
 
 # check if the azure CLI and devops extensions are installed
-if ! _=$(command -V az > /dev/null 2>&1); then
+if ! _=$(command -V "${AZ}" > /dev/null 2>&1); then
   echo "Please install the Azure CLI"
   ((EXIT=EXIT+1))
 else
-  if ! ADO_EXT_VERSION=$(az extension list --query "[?name=='azure-devops'].version" -o tsv) || [ "${ADO_EXT_VERSION}" == "" ]; then
+  if ! ADO_EXT_VERSION=$(${AZ} extension list --query "[?name=='azure-devops'].version" -o tsv) || [ "${ADO_EXT_VERSION}" == "" ]; then
     #TODO install and refresh
     # open -g bitbar://refreshPlugin?name=$0
     echo "Please install the Azure CLI devops extension"
@@ -82,7 +84,7 @@ ORGANIZATION="${ORGANIZATION%*/}"
 QUERY="[?contains(${REPOSITORIES}, repository.name)${PREFIXES}].[repository.name,pullRequestId,mergeStatus,title,createdBy.displayName]"
 QUERY="${QUERY//\"/\'}"
 
-PRS=$(az repos pr list \
+PRS=$(${AZ} repos pr list \
   --org "${ORGANIZATION}" \
   -p "${PROJECT}" \
   --query "${QUERY}" \
