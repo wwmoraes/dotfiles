@@ -125,14 +125,22 @@ spoon.Hazel = spoon.Hazel
 
 -- ### plain init configuration
 
---- returns the short hostname from the output of the `hostname -s` command
----@return string @current hostname
-local function hostname()
-  local proc = io.popen("/bin/hostname -s")
-  local hostname = proc:read("l") or ""
-  proc:close()
+--- reads the tags from the current host tagsrc file
+--- @return table<string,boolean>
+local function getTags()
+  local tagsrc = os.getenv("TAGSRC") or os.getenv("HOME") .. "/.tagsrc"
+  local tags = {}
+  local fd, err = io.open(tagsrc)
+  if err ~= nil then
+    return tags
+  end
 
-  return hostname
+  for tag in fd:lines() do
+    tags[tag] = true
+  end
+  fd:close()
+
+  return tags
 end
 
 --- changes the tinyproxy config file link and sends a USR1 signal to the daemon
@@ -156,7 +164,8 @@ local function changeProxyProfile(name)
   end
 end
 
-if hostname() == "C02DQ36NMD6P" then
+local tags = getTags()
+if tags["work"] == true then
   -- minimize personal browser and other utility applications
   hs.hotkey.bind({"ctrl", "option", "command"}, "m", function()
     local windows = hs.window.filter.new({
