@@ -179,7 +179,7 @@ if hostname() == "C02DQ36NMD6P" then
     if success ~= true then logger.e(output, details) end
   end)
 
-  hs.network.reachability.forHostName("intranet.nl.eu.abnamro.com"):setCallback(function(self, flags)
+  hs.network.reachability.forHostName(os.getenv("WORK_INTRANET_HOSTNAME")):setCallback(function(self, flags)
     if (flags & hs.network.reachability.flags.reachable) > 0 then
       -- VPN tunnel is up
       logger.i("VPN is up!")
