@@ -189,7 +189,10 @@ if tags["work"] == true then
   end)
 
   hs.network.reachability.forHostName(os.getenv("WORK_INTRANET_HOSTNAME")):setCallback(function(self, flags)
-    if (flags & hs.network.reachability.flags.reachable) > 0 then
+    local isDirect = (hs.network.reachability.linklocal():status() & hs.network.reachability.flags.isDirect) == hs.network.reachability.flags.isDirect
+    local isReachable = (flags & hs.network.reachability.flags.reachable) == hs.network.reachability.flags.reachable
+
+    if not isDirect and isReachable then
       -- VPN tunnel is up
       logger.i("VPN is up!")
       changeProxyProfile("aab-vpn")
