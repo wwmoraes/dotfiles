@@ -15,6 +15,8 @@ function dotsecrets -a cmd -d "Setup dotsecrets"
       _dotsecrets_install $argv[2..-1]
     case update
       _dotsecrets_update $argv[2..-1]
+    case run
+      _dotsecrets_run $argv[2..-1]
     case code
       _dotsecrets_code $argv[2..-1]
     case lg
@@ -169,4 +171,18 @@ function _dotsecrets_chmod
   echo "adjusting setup scripts..."
   find $DOTSECRETS_DIR/.setup.d -type f -name "*.sh" -exec chmod +x {} \;
 end
-complete -xc dotfiles -n __fish_use_subcommand -a chmod -d "set setup scripts as executable"
+complete -xc dotsecrets -n __fish_use_subcommand -a chmod -d "set setup scripts as executable"
+
+function _dotsecrets_run
+  # Check and get file path
+  if test (count $argv) != 1
+    echo "Error: please pass a script to run"
+    return 1
+  end
+
+  set script $DOTSECRETS_DIR/.setup.d/$argv[1]
+
+  bash $DOTSECRETS_DIR/run.sh $script
+end
+complete -xc dotsecrets -n __fish_use_subcommand -a run -d "executes a setup script independently"
+complete -xc dotsecrets -n '__fish_seen_subcommand_from run' -a "(__fish_complete_suffix (commandline -ct) .sh '' $DOTSECRETS_DIR/.setup.d)"
