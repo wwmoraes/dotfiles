@@ -22,45 +22,6 @@ set -euo pipefail
 : "${PREFIXES:=}"
 : "${AZ:=az}"
 
-EXIT=0
-
-echo "↓⤸"
-echo "---"
-
-# check if the azure CLI and devops extensions are installed
-if ! _=$(command -V "${AZ}" > /dev/null 2>&1); then
-  echo "Please install the Azure CLI"
-  ((EXIT=EXIT+1))
-else
-  if ! ADO_EXT_VERSION=$(${AZ} extension list --query "[?name=='azure-devops'].version" -o tsv) || [ "${ADO_EXT_VERSION}" == "" ]; then
-    #TODO install and refresh
-    # open -g bitbar://refreshPlugin?name=$0
-    echo "Please install the Azure CLI devops extension"
-    ((EXIT=EXIT+1))
-  fi
-fi
-
-# check required variables
-if [ -z "${ORGANIZATION}" ]; then
-  echo "Please set the variable ORGANIZATION"
-  ((EXIT=EXIT+1))
-fi
-if [ -z "${PROJECT}" ]; then
-  echo "Please set the variable PROJECT"
-  ((EXIT=EXIT+1))
-fi
-
-# check optional repositories and/or prefixes variables
-if [ -z "${REPOSITORIES}${PREFIXES}" ]; then
-  echo "Please set the variable REPOSITORIES and/or PREFIXES"
-  ((EXIT=EXIT+1))
-fi
-
-# exit if there's any problems
-if [ ${EXIT} -gt 0 ]; then
-  exit 0
-fi
-
 RESET='\033[0m'
 BOLD=$'\033[1m'
 # DIM=$'\033[2m'
@@ -72,23 +33,109 @@ BLUE=$'\033[34;1m'
 MAGENTA=$'\033[35;1m'
 CYAN=$'\033[36;1m'
 
-# transform repositories into an array
-REPOSITORIES="[\"${REPOSITORIES//,/\",\"}\"]"
+debug() {
+  local FORMAT="[DEBUG] $1\n"
+  shift
+  printf "${FORMAT}" "$@" >&3
+}
 
-if [ -n "${PREFIXES}" ]; then
-  PREFIXES=$(echo "${PREFIXES}" | awk 'BEGIN {RS=",";ORS=""};{printf " || starts_with(repository.name, \"%s\")",$1}')
+# multi-character join, as the standard IFS only supports a single character
+join() {
+  local separator="$1"
+  shift
+  local joined=$(printf "${separator}%s" "$@")
+  echo "${joined:${#separator}}"
+}
+
+assertCommands() {
+  # check if the azure CLI and devops extensions are installed
+  debug "checking if azure CLI is installed..."
+  if ! _=$(command -V "${AZ}" > /dev/null 2>&1); then
+    echo "Please install the Azure CLI" >&2
+    exit 2
+  fi
+
+  debug "checking if devops azure CLI extension is installed..."
+  if ! ADO_EXT_VERSION=$(${AZ} extension list --query "[?name=='azure-devops'].version" -o tsv) || [ "${ADO_EXT_VERSION}" == "" ]; then
+    #TODO install and refresh
+    # open -g bitbar://refreshPlugin?name=$0
+    echo "Please install the Azure CLI devops extension" >&2
+    exit 2
+  fi
+}
+
+assertVariables() {
+  local EXIT=0
+
+  # check required variables
+  if [ -z "${ORGANIZATION}" ]; then
+    echo "Please set the variable ORGANIZATION" >&2
+    ((EXIT=EXIT+1))
+  fi
+  if [ -z "${PROJECT}" ]; then
+    echo "Please set the variable PROJECT" >&2
+    ((EXIT=EXIT+1))
+  fi
+
+  # check optional repositories and/or prefixes variables
+  if [ -z "${REPOSITORIES}${PREFIXES}" ]; then
+    echo "Please set the variable REPOSITORIES and/or PREFIXES" >&2
+    ((EXIT=EXIT+1))
+  fi
+
+  # exit if there's any problems
+  if [ ${EXIT} -gt 0 ]; then
+    exec 3>&-
+    exit 2
+  fi
+}
+
+generateQueryFilter() {
+  local FILTERS=()
+
+  if [ -n "${PREFIXES:-}" ]; then
+    debug "transforming prefixes into filters..."
+    while read -r PREFIX; do
+      FILTERS+=("starts_with(repository.name, '${PREFIX}')")
+    done < <(echo "${PREFIXES}" | tr ',' '\n')
+  fi
+
+  if [ -n "${REPOSITORIES:-}" ]; then
+    debug "transforming repositories into filters..."
+    FILTERS+=("contains(['${REPOSITORIES//,/','}'], repository.name)")
+  fi
+
+  join " || " "${FILTERS[@]}"
+}
+
+if [ ${DEBUG:=0} -eq 1 ]; then
+  exec 3>&2
+else
+  exec 3>/dev/null
 fi
+
+echo "↓⤸"
+echo "---"
+
+assertCommands
+assertVariables
 
 # remove trailing slash
 ORGANIZATION="${ORGANIZATION%*/}"
-QUERY="[?contains(${REPOSITORIES}, repository.name)${PREFIXES}].[repository.name,pullRequestId,mergeStatus,title,createdBy.displayName]"
-QUERY="${QUERY//\"/\'}"
+FILTER=$(generateQueryFilter)
+QUERY="[?${FILTER}].[repository.name,pullRequestId,mergeStatus,title,createdBy.displayName]"
+debug "final query: ${QUERY}"
 
-PRS=$(${AZ} repos pr list \
+if ! PRS=$(${AZ} repos pr list \
   --org "${ORGANIZATION}" \
   -p "${PROJECT}" \
   --query "${QUERY}" \
-  -o tsv | sort)
+  -o tsv | sort); then
+  echo "failed to list PRs" >&2
+  echo "${PRS}"
+  exec 3>&-
+  exit 1
+fi
 
 echo "Last update: $(date) | disabled=true | size=10"
 LAST_REPOSITORY=
@@ -106,3 +153,4 @@ while IFS=$'\t' read -r REPOSITORY ID STATUS TITLE AUTHOR; do
 done < <(echo "${PRS}" | grep .)
 echo "---"
 echo "Refresh | refresh=true key=CmdOrCtrl+r"
+exec 3>&-
