@@ -71,6 +71,17 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
     docker run --rm -it $tag
 
     docker image rm $tag > /dev/null
+  case shell
+    switch (uname -s | tr '[:upper:]' '[:lower:]')
+    case "darwin" "windows"
+      docker run -it --rm --privileged --pid=host justincormack/nsenter1
+    case "linux"
+      echo "Linux doesn't have a separate VM for Docker."
+      exit 0
+    case "" "*"
+      echo "Unknown system type."
+      exit 1
+    end
   case "*"
     docker $argv
   end
@@ -87,3 +98,4 @@ complete -xc dockr -n __fish_use_subcommand -a tags -d "list all image remote ta
 complete -xc dockr -n __fish_use_subcommand -a context -d "builds and runs a dummy image that lists the context docker gets"
 complete -xc dockr -n __fish_use_subcommand -a fsbom -d "fuzzy runs syft to get an image's SBoM"
 complete -xc dockr -n __fish_use_subcommand -a fscan -d "fuzzy runs grype to scan images"
+complete -xc dockr -n __fish_use_subcommand -a shell -d "enters the namespace of Docker Desktop (Mac/Win only)"
