@@ -65,9 +65,22 @@ mas list | awk '{print $1}' > "${INSTALLED}"
 
 ### Install packages
 while read -r PACKAGE; do
-  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE##*:}"
-  grep -q "${PACKAGE%%:*}" "${INSTALLED}" && continue
+  case "${PACKAGE%%:*}" in
+    -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
+    *) REMOVE=0;;
+  esac
 
-  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE##*:}"
-  mas install "${PACKAGE%%:*}" || true
+  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE##*:}"
+  case "${REMOVE}" in
+    1)
+      grep -q "${PACKAGE%%:*}" "${INSTALLED}" || continue
+      printf "Uninstalling \e[96m%s\e[0m...\n" "${PACKAGE##*:}"
+      sudo mas uninstall "${PACKAGE%%:*}" || true
+      ;;
+    0)
+      grep -q "${PACKAGE%%:*}" "${INSTALLED}" && continue
+      printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE##*:}"
+      mas install "${PACKAGE%%:*}" || true
+      ;;
+  esac
 done < "${PACKAGES}"
