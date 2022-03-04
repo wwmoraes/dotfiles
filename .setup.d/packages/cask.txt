@@ -1,36 +1,34 @@
-hammerspoon
-finicky
-browserosaurus
-keybase
-dropbox
+-1password:~/Applications/1Password 7.app/Contents/MacOS/1Password 7
+1password-cli:/usr/local/bin/op
+amethyst
+appcleaner
+-browserosaurus
+clean-me:~/Applications/Clean Me.app/Contents/MacOS/Clean Me
 docker
-1password:/Applications/1Password 7.app/Contents/MacOS/1Password 7
+dozer
+dropbox
+finicky
+fluid
+gas-mask:~/Applications/Gas Mask.app/Contents/MacOS/Gas Mask
+google-chrome:~/Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+gpg-suite-no-mail:~/Applications/GPG Keychain.app/Contents/MacOS/GPG Keychain
+hammerspoon
+-hazel
+image2icon
 -jiggler
 kitty
-uninstallpkg
-typora
--unlox
--1password-cli:/usr/local/bin/op
-appcleaner
-launchpad-manager:/Applications/Launchpad Manager.app/Contents/MacOS/Launchpad Manager
-the-unarchiver:/Applications/The Unarchiver.app/Contents/MacOS/The Unarchiver
-amethyst
-krisp
-fluor
-thingsmacsandboxhelper:/Applications/ThingsMacSandboxHelper.app/Contents/MacOS/ThingsMacSandboxHelper
-dozer
-fluid
-image2icon
-ubersicht:/Applications/Übersicht.app/Contents/MacOS/Übersicht
-swiftdefaultappsprefpane:~/Library/PreferencePanes/SwiftDefaultApps.prefPane/Contents/MacOS/SwiftDefaultApps
-clean-me:/Applications/Clean Me.app/Contents/MacOS/Clean Me
-obsidian:/Applications/Obsidian.app/Contents/MacOS/Obsidian
-gpg-suite-no-mail:/Applications/GPG Keychain.app/Contents/MacOS/GPG Keychain
-visual-studio-code:/Applications/Visual Studio Code.app/Contents/MacOS/Electron
--ngrok
--hazel
+krisp:/Applications/krisp.app/Contents/MacOS/krisp
+launchpad-manager:~/Applications/Launchpad Manager.app/Contents/MacOS/Launchpad Manager
 -lens
 macfuse:/Library/Frameworks/macFUSE.framework/Versions/Current/macFUSE
+-ngrok
+obsidian:~/Applications/Obsidian.app/Contents/MacOS/Obsidian
+openin:~/Applications/OpenIn.app/Contents/MacOS/OpenIn
+swiftdefaultappsprefpane:~/Library/PreferencePanes/SwiftDefaultApps.prefPane/Contents/MacOS/SwiftDefaultApps
+the-unarchiver:~/Applications/The Unarchiver.app/Contents/MacOS/The Unarchiver
+-typora
+-ubersicht:~/Applications/Übersicht.app/Contents/MacOS/Übersicht
+uninstallpkg
+-unlox
+visual-studio-code:~/Applications/Visual Studio Code.app/Contents/MacOS/Electron
 xbar
-gas-mask
-deezer

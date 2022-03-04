@@ -16,3 +16,7 @@ coreutils:stdbuf
 conftest
 grype
 syft
+openssl-osx-ca
+skopeo
+yubico-piv-tool
+ykpers:ykpersonalize

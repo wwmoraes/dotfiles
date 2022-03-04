@@ -1,3 +1,4 @@
 instrumenta/instrumenta
 anchore/grype
 anchore/syft
+raggi/ale

@@ -1,20 +1,23 @@
-responsively:/Applications/ResponsivelyApp.app/Contents/MacOS/ResponsivelyApp
-whatsapp
-messenger
-telegram
-discord
-tiddly:/Applications/TiddlyDesktop.app/Contents/MacOS/nwjs
-tor-browser:/Applications/Tor Browser.app/Contents/MacOS/XUL
-google-backup-and-sync:/Applications/Backup and Sync.app/Contents/MacOS/Backup and Sync
-google-chrome:/Applications/Google Chrome.app/Contents/MacOS/Google Chrome
-megasync
-mate-translate:/Applications/Mate Translate.app/Contents/MacOS/Mate Translate
-suspicious-package:/Applications/Suspicious Package.app/Contents/MacOS/Suspicious Package
-launchcontrol
-daisydisk
-kindle
-steam:/Applications/Steam.app/Contents/MacOS/steam_osx
-image2icon
-little-snitch:/Applications/Little Snitch.app/Contents/MacOS/Little Snitch
 calibre
+daisydisk
+deezer
 deluge
+discord
+fluor
+google-backup-and-sync:~/Applications/Backup and Sync.app/Contents/MacOS/Backup and Sync
+image2icon
+keybase
+kindle
+launchcontrol
+little-snitch:~/Applications/Little Snitch.app/Contents/MacOS/Little Snitch
+mate-translate:~/Applications/Mate Translate.app/Contents/MacOS/Mate Translate
+megasync
+messenger
+responsively:~/Applications/ResponsivelyApp.app/Contents/MacOS/ResponsivelyApp
+steam:~/Applications/Steam.app/Contents/MacOS/steam_osx
+suspicious-package:~/Applications/Suspicious Package.app/Contents/MacOS/Suspicious Package
+telegram
+thingsmacsandboxhelper:~/Applications/ThingsMacSandboxHelper.app/Contents/MacOS/ThingsMacSandboxHelper
+tiddly:~/Applications/TiddlyDesktop.app/Contents/MacOS/nwjs
+tor-browser:~/Applications/Tor Browser.app/Contents/MacOS/XUL
+whatsapp
