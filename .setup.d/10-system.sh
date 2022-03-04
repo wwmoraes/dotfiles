@@ -68,6 +68,9 @@ printf "\e[1;33mSystem packages\e[0m\n"
 ### Check package tool
 printf "Checking system manager...\n"
 # Manager options
+MANAGER=
+MANAGER_PRE_EXEC=
+MANAGER_POST_EXEC=
 if [ -x "$(which apt-get 2> /dev/null)" ]; then
   MANAGER="sudo apt-get"
   MANAGER_INSTALL_ARGS="install --no-install-recommends --no-install-suggests"
@@ -84,9 +87,8 @@ elif [ -x "$(which brew 2> /dev/null)" ]; then
   MANAGER="brew"
   MANAGER_INSTALL_ARGS="install"
   MANAGER_REMOVE_ARGS="remove"
-else
-  # empty manager
-  MANAGER=
+  MANAGER_PRE_EXEC="brew update --preinstall"
+  MANAGER_POST_EXEC="brew cleanup"
 fi
 
 if [ -z "${MANAGER}" ]; then
@@ -95,6 +97,11 @@ if [ -z "${MANAGER}" ]; then
 fi
 
 ### Install packages
+if [ -n "${MANAGER_PRE_EXEC}" ]; then
+  printf "Running pre-install hook \e[95m%s\e[0m...\n" "${MANAGER_PRE_EXEC}"
+  ${MANAGER_PRE_EXEC}
+fi
+
 while read -r PACKAGE; do
   case "${PACKAGE%%:*}" in
     -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
@@ -106,13 +113,18 @@ while read -r PACKAGE; do
     1)
       command -V "${PACKAGE##*:}" >/dev/null 2>&1 || continue
       printf "Uninstalling \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-      ${MANAGER} ${MANAGER_REMOVE_ARGS} "${PACKAGE%%:*}" 2> /dev/null || true
+      ${MANAGER} ${MANAGER_REMOVE_ARGS} "${PACKAGE%%:*}" || true
     ;;
     0)
       command -V "${PACKAGE##*:}" >/dev/null 2>&1 && continue
       printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-      ${MANAGER} ${MANAGER_INSTALL_ARGS} "${PACKAGE%%:*}" 2> /dev/null || true
+      ${MANAGER} ${MANAGER_INSTALL_ARGS} "${PACKAGE%%:*}" || true
     ;;
   esac
 
 done < "${PACKAGES}"
+
+if [ -n "${MANAGER_POST_EXEC}" ]; then
+  printf "Running post-install hook \e[95m%s\e[0m...\n" "${MANAGER_POST_EXEC}"
+  ${MANAGER_POST_EXEC}
+fi
