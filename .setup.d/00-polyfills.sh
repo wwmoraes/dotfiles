@@ -3,15 +3,14 @@
 set -eum
 trap 'kill 0' INT HUP TERM
 
-: "${DOTFILES_PATH:=${HOME}/.files}"
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
+: "${DOTFILES_PATH:=${HOME}/.files}"
+: "${POLYFILLS_PATH:=${DOTFILES_PATH}/.polyfills}"
 
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
-### setup
-POLYFILLS_PATH="${HOME}/.files/.polyfills"
 
 printf "\e[1;33mPolyfills\e[0m\n"
 
