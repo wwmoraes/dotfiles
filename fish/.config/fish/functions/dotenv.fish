@@ -12,8 +12,8 @@ function dotenv -d '"Sources" (set universal and exports) variables from given d
   end
 
   for filePath in $HOME/.env_remove*
+    echo "Parsing "(set_color brmagenta)$filePath(set_color normal)
     while read -l variable
-      set -q $variable; or continue
       echo "Removing "(set_color brcyan)$variable(set_color normal)
       set -eg $variable
       set -eU $variable
@@ -26,7 +26,7 @@ function dotenv -d '"Sources" (set universal and exports) variables from given d
       continue
     end
 
-    echo "Parsing file $filePath"
+    echo "Parsing "(set_color brmagenta)$filePath(set_color normal)
 
     for entry in (cat $filePath | grep -v '^#' | grep -v '^$')
       set entry (echo -e $entry | string trim -c '-' | string split -m 1 \=)
@@ -38,6 +38,7 @@ function dotenv -d '"Sources" (set universal and exports) variables from given d
       set -eg $key
       if string length -q -- $_flag_unset
         echo "Unsetting "(set_color brcyan)$key(set_color normal)
+        set -eg $key
         set -eU $key
         launchctl unsetenv $key
       else
