@@ -66,7 +66,7 @@ while read -r PACKAGE; do
   printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
   PACKAGE_CHECK_PATH=$(echo "${PACKAGE}" | awk 'BEGIN {FS=":"};{sub(/^~/, "'"${HOME}"'", $2); print $2}')
   if [ "${PACKAGE_CHECK_PATH}" = "" ]; then
-    PACKAGE_CHECK_PATH="/Applications/${PACKAGE%%:*}.app/Contents/MacOS/${PACKAGE%%:*}"
+    PACKAGE_CHECK_PATH="${HOME}/Applications/${PACKAGE%%:*}.app/Contents/MacOS/${PACKAGE%%:*}"
   fi
 
   case "${REMOVE}" in
@@ -80,7 +80,13 @@ while read -r PACKAGE; do
       command -V "${PACKAGE_CHECK_PATH}" >/dev/null 2>&1 && continue
 
       printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-      brew install -q --cask "${PACKAGE%%:*}" 2> /dev/null || true
+      brew install -qf --cask "${PACKAGE%%:*}" 2> /dev/null || true
       ;;
   esac
+
+  printf "Removing extra attributes of \e[96m%s\e[0m contents...\n" "~/Applications"
+  xattr -r -c "${HOME}/Applications"
+
+  printf "Changing ownership of \e[96m%s\e[0m contents...\n" "~/Applications"
+  sudo chown -R $(id -un):$(id -gn) "${HOME}/Applications"
 done < "${PACKAGES}"
