@@ -1,7 +1,34 @@
+/** @typedef {"work"|"home"} Context */
+/** @typedef {Record<Context,string>} Contexts */
+/** @typedef {Record<string,Contexts>} Browsers */
+
+/** @type {Browsers} */
+const browsers = {
+  "c02dq36nmd6p.local": {
+    work: "com.microsoft.edgemac",
+    home: "com.google.Chrome",
+  },
+};
+
+/** @type {Contexts} */
+const defaultBrowsers = {
+  work: "org.mozilla.firefox",
+  home: "com.apple.Safari",
+};
+
+/**
+ * @param {Context} contextName
+ * @returns {import("./.finicky.d").Finicky.BrowserFn}
+ * */
+const getBrowser = (contextName) => (params) => {
+  const context = browsers[finicky.getSystemInfo().name] || defaultBrowsers;
+  return context[contextName];
+};
+
 /// <reference path="./.finicky.d.ts" />
 /** @type {import("./.finicky.d").Finicky.Config} */
 module.exports = {
-  defaultBrowser: "OpenIn",
+  defaultBrowser: "Browserosaurus",
   rewrite: [
     {
       match: "tracking.tldrnewsletter.com/*",
@@ -10,7 +37,7 @@ module.exports = {
         let length = 0;
         while (newUrlString.length != length) {
           length = newUrlString.length;
-          newUrlString = unescape(newUrlString);
+          newUrlString = decodeURI(newUrlString);
         }
         return newUrlString;
       },
@@ -40,21 +67,37 @@ module.exports = {
   ],
   handlers: [
     {
+      match: "*dev.azure.com*",
+      /// TODO investigate and contribute to finicky's browser path detection
+      /// to work with apps on the home Applications folder
+      browser: "com.fluidapp.FluidApp2.AzureDevOps"
+    },
+    {
+      match: finicky.matchHostnames("teams.microsoft.com"),
+      browser: "com.microsoft.teams",
+      url({ url }) {
+        return {
+          ...url,
+          protocol: "msteams",
+        };
+      },
+    },
+    {
       match: ({ opener }) =>
         [
           "com.tinyspeck.slackmacgap",
           "com.microsoft.teams",
           "com.microsoft.Outlook",
         ].includes(opener.bundleId),
-      browser: "Firefox"
+      browser: getBrowser("work")
     },
     {
       match: [
         "*.abnamro.com*",
         "*.abnamro.org*",
-        "*.azure.com*",
+        "https://portal.azure.com*",
       ],
-      browser: "Firefox"
+      browser: getBrowser("work")
     },
     {
       match: ({ opener }) =>
@@ -66,7 +109,7 @@ module.exports = {
           "com.fluidapp.FluidApp2.LinkedIn",
           "com.readdle.smartemail-Mac"
         ].includes(opener.bundleId),
-      browser: "Safari"
+      browser: getBrowser("home")
     },
     {
       match: [
@@ -77,7 +120,7 @@ module.exports = {
         "*.thuisbezorgd.nl*",
         "*.krisp.ai*"
       ],
-      browser: "Safari"
+      browser: getBrowser("home")
     },
   ]
 };
