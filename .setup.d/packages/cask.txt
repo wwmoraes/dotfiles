@@ -4,7 +4,7 @@ amethyst
 appcleaner
 browserosaurus
 clean-me:~/Applications/Clean Me.app/Contents/MacOS/Clean Me
-docker
+docker:/Applications/Docker.app/Contents/MacOS/Docker
 dozer
 dropbox
 finicky
