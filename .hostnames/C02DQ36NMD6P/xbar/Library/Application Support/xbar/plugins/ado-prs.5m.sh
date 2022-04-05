@@ -9,7 +9,7 @@
 #  <xbar.abouturl>http://github.com/wwmoraes/dotfiles</xbar.abouturl>
 
 #  <xbar.var>string(ORGANIZATION=""): Azure DevOps organization URL.</xbar.var>
-#  <xbar.var>string(PROJECT=""): Name or ID of project.</xbar.var>
+#  <xbar.var>string(PROJECTS=""): Comma-separated name or ID of projects.</xbar.var>
 #  <xbar.var>string(REPOSITORIES=""): Comma-separated repository names.</xbar.var>
 #  <xbar.var>string(PREFIXES=""): Comma-separated repository name prefixes.</xbar.var>
 #  <xbar.var>string(AZ="az"): Azure CLI command-line custom path.</xbar.var>
@@ -17,7 +17,7 @@
 set -euo pipefail
 
 : "${ORGANIZATION:=}"
-: "${PROJECT:=}"
+: "${PROJECTS:=}"
 : "${REPOSITORIES:=}"
 : "${PREFIXES:=}"
 : "${AZ:=az}"
@@ -72,8 +72,8 @@ assertVariables() {
     echo "Please set the variable ORGANIZATION" >&2
     ((EXIT=EXIT+1))
   fi
-  if [ -z "${PROJECT}" ]; then
-    echo "Please set the variable PROJECT" >&2
+  if [ -z "${PROJECTS}" ]; then
+    echo "Please set the variable PROJECTS" >&2
     ((EXIT=EXIT+1))
   fi
 
@@ -123,34 +123,36 @@ assertVariables
 # remove trailing slash
 ORGANIZATION="${ORGANIZATION%*/}"
 FILTER=$(generateQueryFilter)
-QUERY="[?${FILTER}].[repository.name,pullRequestId,mergeStatus,title,createdBy.displayName]"
+QUERY="[?${FILTER}].[repository.project.name,repository.name,pullRequestId,mergeStatus,title,createdBy.displayName]"
 debug "final query: ${QUERY}"
 
-if ! PRS=$(${AZ} repos pr list \
-  --org "${ORGANIZATION}" \
-  -p "${PROJECT}" \
-  --query "${QUERY}" \
-  -o tsv | sort); then
-  echo "failed to list PRs" >&2
-  echo "${PRS}"
-  exec 3>&-
-  exit 1
-fi
+PRS=$(mktemp)
+while read -r PROJECT; do
+  if ! ${AZ} repos pr list \
+    --org "${ORGANIZATION}" \
+    -p "${PROJECT}" \
+    --query "${QUERY}" \
+    -o tsv | sort >> "${PRS}"; then
+    echo "failed to list PRs" >&2
+    exec 3>&-
+    exit 1
+  fi
+done < <(echo "${PROJECTS}" | tr ',' '\n' | grep .)
 
 echo "Last update: $(date) | disabled=true | size=10"
 LAST_REPOSITORY=
-while IFS=$'\t' read -r REPOSITORY ID STATUS TITLE AUTHOR; do
+while IFS=$'\t' read -r PROJECT REPOSITORY ID STATUS TITLE AUTHOR; do
   if [ "${LAST_REPOSITORY}" != "${REPOSITORY}" ]; then
-    LAST_REPOSITORY=${REPOSITORY}
+    LAST_REPOSITORY=${PROJECT}/${REPOSITORY}
     echo "---"
-    echo "${REPOSITORY} | href=${ORGANIZATION}/${PROJECT}/_git/${REPOSITORY}/pullrequests color=cadetblue size=11"
+    echo "${LAST_REPOSITORY} | href=${ORGANIZATION}/${PROJECT}/_git/${REPOSITORY}/pullrequests color=cadetblue size=11"
   fi
   case "${STATUS}" in
     "succeeded") STATUS="";;
     *) STATUS="${YELLOW} (${STATUS})${RESET}";;
   esac
   echo -e "${MAGENTA}${ID}${RESET}\t${TITLE} ${CYAN}[${AUTHOR}]${RESET}${STATUS} | href=${ORGANIZATION}/${PROJECT}/_git/${REPOSITORY}/pullrequest/${ID} ansi=true"
-done < <(echo "${PRS}" | grep .)
+done < <(grep . "${PRS}")
 echo "---"
 echo "Refresh | refresh=true key=CmdOrCtrl+r"
 exec 3>&-
