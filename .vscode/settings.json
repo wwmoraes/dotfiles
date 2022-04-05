@@ -5,8 +5,9 @@
   ],
   "Lua.workspace.library": [
     "/Applications/Hammerspoon.app/Contents/Resources/extensions/",
-    "~/dev/spoons/lib/hammerspoon",
-    "~/.hammerspoon/Spoons/"
+    "~/dev/spoons/lib/types/hammerspoon",
+    "~/dev/spoons/lib/types/spoons",
+    "~/.hammerspoon/Spoons"
   ],
   "cSpell.ignorePaths": [
     "**/package-lock.json",

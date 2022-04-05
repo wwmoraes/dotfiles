@@ -166,7 +166,9 @@
     ".env*": "dotenv",
     ".helmignore": "gitignore",
     ".style.yapf": "ini",
-    ".terraformignore": "gitignore"
+    ".terraformignore": "gitignore",
+    ".gitconfig": "properties",
+    ".gitignore-global": "ignore"
   },
   "files.trimFinalNewlines": true,
   "git-graph.dialog.merge.noFastForward": false,
@@ -397,6 +399,13 @@
   "yaml.schemas": {
     "https://json.schemastore.org/chart.json": "Chart.yaml",
     "https://json.schemastore.org/github-workflow.json": "**/.github/workflows/*",
-    "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml"
-  }
+    "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml",
+    "https://json.schemastore.org/container-structure-test.json": "Dockertest.yaml",
+    "https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json": "azure-pipelines.yml",
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "TomasHubelbauer.vscode-markdown-table-format"
+  },
+  "Lua.telemetry.enable": true,
+  "csharp.suppressBuildAssetsNotification": true
 }
