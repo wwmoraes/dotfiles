@@ -45,7 +45,14 @@ processDotenvFile "${HOME}/.env-${HOST}"
 
 for FILE in "${HOME}/.env_remove"*; do
   while IFS= read -r VARIABLE; do
+    # skip empty lines
+    test -z "${VARIABLE}" && continue
+
+    # skip comment lines
+    test "$(expr "${VARIABLE}" : '#')" -gt 0 && continue
+
     launchctl unsetenv "${VARIABLE}"
+    export -n "${VARIABLE}"
   done < "${FILE}"
 done
 
