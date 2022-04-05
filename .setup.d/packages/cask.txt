@@ -2,7 +2,7 @@
 1password-cli:/usr/local/bin/op
 amethyst
 appcleaner
--browserosaurus
+browserosaurus
 clean-me:~/Applications/Clean Me.app/Contents/MacOS/Clean Me
 docker
 dozer
@@ -23,7 +23,7 @@ launchpad-manager:~/Applications/Launchpad Manager.app/Contents/MacOS/Launchpad 
 macfuse:/Library/Frameworks/macFUSE.framework/Versions/Current/macFUSE
 -ngrok
 obsidian:~/Applications/Obsidian.app/Contents/MacOS/Obsidian
-openin:~/Applications/OpenIn.app/Contents/MacOS/OpenIn
+-openin:~/Applications/OpenIn.app/Contents/MacOS/OpenIn
 swiftdefaultappsprefpane:~/Library/PreferencePanes/SwiftDefaultApps.prefPane/Contents/MacOS/SwiftDefaultApps
 the-unarchiver:~/Applications/The Unarchiver.app/Contents/MacOS/The Unarchiver
 -typora
