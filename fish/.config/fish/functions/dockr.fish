@@ -74,7 +74,9 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
   case shell
     switch (uname -s | tr '[:upper:]' '[:lower:]')
     case "darwin" "windows"
-      docker run -it --rm --privileged --pid=host justincormack/nsenter1
+      # docker run -it --rm --privileged --pid=host justincormack/nsenter1
+      test (count $argv[2..-1]) -eq 0 && set -a argv sh
+      docker run -it --privileged --pid=host busybox nsenter -t 1 -m -u -n -i $argv[2..-1]
     case "linux"
       echo "Linux doesn't have a separate VM for Docker."
       exit 0
