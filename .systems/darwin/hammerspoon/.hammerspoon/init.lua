@@ -26,19 +26,24 @@ spoon.SpoonInstall:andUse("ReloadConfiguration", {
 ---### development spoons configuration
 
 hs.spoons.use("Env", {
-  config = {
-    ---@type table<string,ContextName>
-    contexts = {
-      ["M1Cabuk"] = "personal",
-      ["C02DQ36NMD6P"] = "work",
-    },
-  },
   start = true,
 })
 ---@type Env
 spoon.Env = spoon.Env
 
+local apps = {
+  msEdge = "Microsoft Edge",
+  msTeams = "Microsoft Teams",
+  msOutlook = "Microsoft Outlook",
+  oneDrive = "OneDrive",
+  amethyst = "com.amethyst.Amethyst",
+  vscode = "com.microsoft.vscode",
+  kitty = "net.kovidgoyal.kitty",
+  fluidADO = "Azure DevOps",
+}
+
 hs.spoons.use("Contexts", {
+  ---@type ContextsConfig
   config = {
     contexts = {
       work = {
@@ -53,11 +58,29 @@ hs.spoons.use("Contexts", {
           [7] = true
         },
         applications = {
-          "Firefox",
-          "Microsoft Teams",
-          "Microsoft Outlook",
-          "OneDrive"
+          apps.msEdge,
+          apps.msTeams,
+          apps.msOutlook,
+          apps.oneDrive,
+          apps.fluidADO,
         },
+      },
+      development = {
+        title = "Development",
+        applications = {
+          apps.vscode,
+          apps.kitty,
+        }
+      },
+    },
+    onWake = {
+      open = {
+        apps.amethyst
+      },
+    },
+    onSleep = {
+      kill = {
+        apps.amethyst
       },
     },
   },
@@ -102,15 +125,15 @@ hs.spoons.use("Hazel", {
         function(path, flags)
           return path:match(".*/.TheUnarchiverTemp0") and flags.itemIsDir == true
         end,
-        function (path, flags)
+        function(path, flags)
           return path:match(".*/.TheUnarchiverTemp0/.*")
         end,
-        function (path, flags)
+        function(path, flags)
           return flags.itemModified or flags.itemRemoved
         end,
-        function (path, flags)
+        function(path, flags)
           if path:match('%.zip$') then
-            hs.task.new("/usr/bin/open", nil, nil, {path}):start()
+            hs.task.new("/usr/bin/open", nil, nil, { path }):start()
             return true
           end
           return false
@@ -166,20 +189,9 @@ end
 
 local tags = getTags()
 if tags["work"] == true then
-  -- minimize personal browser and other utility applications
-  hs.hotkey.bind({"ctrl", "option", "command"}, "m", function()
-    local windows = hs.window.filter.new({
-      ["Agenda"] = true,
-      ["Safari"] = true,
-    }):getWindows()
-    for _, window in pairs(windows) do
-      window:minimize()
-    end
-  end)
-
   -- toggle Microsoft Teams mute
   hs.hotkey.bind(nil, "F19", nil, function()
-    hs.eventtap.event.newKeyEvent({"cmd", "shift"}, "m", true):post(hs.application.get("com.microsoft.teams"))
+    hs.eventtap.event.newKeyEvent({ "cmd", "shift" }, "m", true):post(hs.application.get("com.microsoft.teams"))
   end)
 
   -- apply all rules on Microsft Outlook
@@ -188,21 +200,31 @@ if tags["work"] == true then
     if success ~= true then logger.e(output, details) end
   end)
 
+  --- @type boolean
+  local workVpnIsUp = nil
+
   hs.network.reachability.forHostName(os.getenv("WORK_INTRANET_HOSTNAME")):setCallback(function(self, flags)
-    local isDirect = (hs.network.reachability.linklocal():status() & hs.network.reachability.flags.isDirect) == hs.network.reachability.flags.isDirect
     local isReachable = (flags & hs.network.reachability.flags.reachable) == hs.network.reachability.flags.reachable
 
-    if not isDirect and isReachable then
+    if isReachable and workVpnIsUp ~= true then
       -- VPN tunnel is up
       logger.i("VPN is up!")
       changeProxyProfile("aab-vpn")
       -- TODO check if the keychain entry exists
       hs.execute(string.format("kinit --keychain %s@%s", os.getenv("KERBEROS_PRINCIPAL"), os.getenv("KERBEROS_REALM")))
-    else
+      if workVpnIsUp ~= nil then
+        hs.urlevent.openURL("hammerspoon://contexts?name=work&action=open")
+      end
+      workVpnIsUp = true
+    elseif not isReachable and workVpnIsUp ~= false then
       -- VPN tunnel is down
       logger.i("VPN is down!")
       changeProxyProfile("direct")
       hs.execute("kdestroy -A")
+      if workVpnIsUp ~= nil then
+        hs.urlevent.openURL("hammerspoon://contexts?name=work&action=kill")
+      end
+      workVpnIsUp = false
     end
   end):start()
 end
