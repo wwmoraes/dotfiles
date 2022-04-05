@@ -11,3 +11,4 @@ securid
 meetingbar:~/Applications/MeetingBar.app/Contents/MacOS/MeetingBar
 davmail:~/Applications/DavMail.app/Contents/MacOS/davmail
 itsycal:~/Applications/Itsycal.app/Contents/MacOS/Itsycal
+dotnet-sdk:/usr/local/bin/dotnet

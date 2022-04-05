@@ -14,14 +14,28 @@ function zz -a cmd -d "Azure CLI simplified - now from Z to Z"
       fzf | \
       ifne xargs -I% az configure --defaults group="%"
     case pr
-      set -l args $argv[2..-1] --auto-complete --delete-source-branch
-      set -l workItem (tmux display-message -p '#S' | string match -r "^[0-9]+\$")
+      ### A big thank you MSFT for not allowing using PATs on your own APIs. Why
+      ### the fuck have PATs if you can't use it for something as simple as
+      ### creating a PR? Sometimes I wonder why I still try to automate around
+      ### stupidity 🙄
 
-      test (string length -- "$workItem") -gt 0
-      and set -a args --work-items $workItem
+      set baseURL (git remote get-url origin | string replace -r "(.*?://)(?:[^@]*@)?(.*)" "\$1\$2")
+      set sourceRef (git branch --show-current)
+      set upstream (git rev-parse --abbrev-ref --symbolic-full-name @{u})
+      set targetRef (git symbolic-ref --short "refs/remotes/$upstream/HEAD" | string split -m 1 "/" | tail -n1)
 
-      echo "creating PR..."
-      az repos pr create $args | jq -r '"\(.repository.webUrl)/pullrequest/\(.pullRequestId)"' | xargs open
+      echo "creating $sourceRef -> $targetRef PR..."
+      open "$baseURL/pullrequestcreate?sourceRef=$sourceRef&targetRef=$targetRef"
+
+      ### old strategy that requires oauth authentication, which is now defuct
+      # set -l args $argv[2..-1] --auto-complete --delete-source-branch
+      # set -l workItem (tmux display-message -p '#S' | string match -r "^[0-9]+\$")
+
+      # test (string length -- "$workItem") -gt 0
+      # and set -a args --work-items $workItem
+
+      # echo "creating PR..."
+      # az repos pr create $args | jq -r '"\(.repository.webUrl)/pullrequest/\(.pullRequestId)"' | xargs open
     case ado
       _zz_ado $argv[2..-1]
     case browse
