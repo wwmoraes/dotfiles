@@ -1,2 +1,3 @@
 ~/.config/Code|~/Library/Application Support/Code
+~/.config/Code|~/Library/Application Support/VSCodium
 ~/.config/lazygit|~/Library/Application Support/lazygit

@@ -32,10 +32,42 @@ done <"${PACKAGES_FILE_PATH}"
 printf "\e[1;34mVSCode extensions\e[0m\n"
 
 ### Check vscode
-VSCODE=$(command -v code 2> /dev/null || command -v code-oss 2> /dev/null || echo "")
+VSCODE=$(command -v codium 2> /dev/null || command -v code 2> /dev/null || command -v code-oss 2> /dev/null || echo "")
 if [ "${VSCODE}" = "" ]; then
   echo "code not found"
   exit 1
+fi
+
+## configure marketplace on codium (open VSX is still lacking behind)
+CODIUM_RESOURCES_PATH=
+case "${SYSTEM}" in
+  "linux") CODIUM_RESOURCES_PATH=/usr/share/codium/resources;;
+  "darwin")
+    local BUNDLE_PATH=$(lsappinfo info -only bundlepath com.visualstudio.code.oss |\
+      cut -d= -f2 | xargs)
+    CODIUM_RESOURCES_PATH="${BUNDLE_PATH}/Contents/Resources";;
+  "*") echo "unsupported system ${SYSTEM}"; exit 1;;
+esac
+PRODUCT_JSON_PATH="${CODIUM_RESOURCES_PATH}/app/product.json"
+
+IFS='' read -d '' -r JQ_FILTER <<EOF
+.
+| .extensionsGallery.serviceUrl = \$serviceUrl
+| .extensionsGallery.itemUrl = \$itemUrl
+| .extensionsGallery.cacheUrl = \$cacheUrl
+EOF
+
+if [ -f "${PRODUCT_JSON_PATH}" ]; then
+  echo "changing VSCodium extensions gallery to MSFT Marketplace..."
+  local VSX_SERVICE_URL="https://marketplace.visualstudio.com/_apis/public/gallery"
+  local VSX_CACHE_URL="https://vscode.blob.core.windows.net/gallery/index"
+  local VSX_ITEM_URL="https://marketplace.visualstudio.com/items"
+  jq \
+    --arg serviceUrl "${VSX_SERVICE_URL}" \
+    --arg itemUrl "${VSX_ITEM_URL}" \
+    --arg cacheUrl "${VSX_CACHE_URL}" \
+    "${JQ_FILTER}" \
+    "${PRODUCT_JSON_PATH}" | ifne sponge "${PRODUCT_JSON_PATH}"
 fi
 
 INSTALLED="${TMP}/installed"
