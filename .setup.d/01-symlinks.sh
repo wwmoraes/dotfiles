@@ -35,7 +35,7 @@ while IFS='|' read -r SRC DST; do
     rm -rf "${DST}"
   fi
 
-  printf "Linking \e[96m%s\e[0m...\n" "${DST}"
+  printf "Linking \e[96m%s\e[0m => \e[96m%s\e[0m...\n" "${SRC}" "${DST}"
   # ensure the source directory exists, so we always link
   test -d "${SRC}" || mkdir -p "${SRC}"
   ln -sf "${SRC}" "${DST}" || true
