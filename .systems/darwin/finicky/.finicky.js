@@ -1,19 +1,30 @@
-/** @typedef {"work"|"home"} Context */
+/** @typedef {"main"|"work"|"home"} Context */
 /** @typedef {Record<Context,string>} Contexts */
 /** @typedef {Record<string,Contexts>} Browsers */
+/** @typedef {Record<string,string>} Applications */
+
+/** @type {Applications} */
+const apps = {
+  Edge: "com.microsoft.edgemac",
+  Chrome: "com.google.Chrome",
+  Firefox: "org.mozilla.firefox",
+  Safari: "com.apple.Safari",
+};
 
 /** @type {Browsers} */
 const browsers = {
   "c02dq36nmd6p.local": {
-    work: "com.microsoft.edgemac",
-    home: "com.google.Chrome",
+    main: apps.Edge,
+    work: apps.Edge,
+    home: apps.Chrome,
   },
 };
 
 /** @type {Contexts} */
 const defaultBrowsers = {
-  work: "org.mozilla.firefox",
-  home: "com.apple.Safari",
+  main: apps.Firefox,
+  work: apps.Chrome,
+  home: apps.Firefox,
 };
 
 /**
@@ -30,6 +41,7 @@ const getBrowser = (contextName) => (params) => {
 module.exports = {
   defaultBrowser: "Browserosaurus",
   rewrite: [
+    // cleanup TLDR newsletter links
     {
       match: "tracking.tldrnewsletter.com/*",
       url: ({ url }) => {
@@ -42,6 +54,7 @@ module.exports = {
         return newUrlString;
       },
     },
+    // remove tracking query parameters
     {
       match: () => true,
       url: ({ url }) => {
@@ -66,12 +79,14 @@ module.exports = {
     }
   ],
   handlers: [
+    // Work: Azure DevOps
     {
       match: "*dev.azure.com*",
       /// TODO investigate and contribute to finicky's browser path detection
       /// to work with apps on the home Applications folder
       browser: "com.fluidapp.FluidApp2.AzureDevOps"
     },
+    // Work: Microsoft Teams handler
     {
       match: finicky.matchHostnames("teams.microsoft.com"),
       browser: "com.microsoft.teams",
@@ -82,6 +97,7 @@ module.exports = {
         };
       },
     },
+    // Work: source apps
     {
       match: ({ opener }) =>
         [
@@ -91,6 +107,7 @@ module.exports = {
         ].includes(opener.bundleId),
       browser: getBrowser("work")
     },
+    // Work: specific domains
     {
       match: [
         "*.abnamro.com*",
@@ -99,6 +116,7 @@ module.exports = {
       ],
       browser: getBrowser("work")
     },
+    // Personal: social and IM apps
     {
       match: ({ opener }) =>
         [
@@ -106,21 +124,28 @@ module.exports = {
           "ru.keepcoder.Telegram",
           "com.hnc.Discord",
           "WhatsApp",
-          "com.fluidapp.FluidApp2.LinkedIn",
-          "com.readdle.smartemail-Mac"
+          "com.fluidapp.FluidApp2.LinkedIn"
         ].includes(opener.bundleId),
       browser: getBrowser("home")
     },
+    // Personal: local and private domains
     {
       match: [
         "github.com/wwmoraes*",
         "*.home.localhost*",
-        "*.tinc.localhost*",
         "*.com.br*",
         "*.thuisbezorgd.nl*",
         "*.krisp.ai*"
       ],
       browser: getBrowser("home")
     },
+    // General: apps that should open on the main browser directly
+    {
+      match: ({ opener }) =>
+        [
+          "com.1password.1password"
+        ].includes(opener.bundleId),
+      browser: getBrowser("main")
+    }
   ]
 };
