@@ -61,12 +61,13 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
       printf "%s: %s\n" $image $tags
     end
   case context
-    set -l tag (printf '\
+    set -l tag (echo $PWD | md5sum | cut -d' ' -f1)
+    printf '\
     FROM busybox
     WORKDIR /context
     COPY . .
     CMD find . -not \( -path "." \) | cut -d/ -f2- | sort
-    ' | docker build -q -f - .)
+    ' | docker build --load -q -f - -t $tag . > /dev/null
 
     docker run --rm -it $tag
 
