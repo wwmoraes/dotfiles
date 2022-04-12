@@ -24,40 +24,35 @@ PACKAGES_FILE_PATH="${PACKAGES_PATH}/${PACKAGES_FILE_NAME}"
 PACKAGES="${TMP}/packages"
 mkfifo "${PACKAGES}"
 
-# reads wanted packages
-while IFS= read -r LINE; do
-  printf "%s\n" "${LINE}" > "${PACKAGES}" &
-done <"${PACKAGES_FILE_PATH}"
-
-printf "\e[1;34mVSCode extensions\e[0m\n"
-
-### Check vscode
-VSCODE=$(command -v codium 2> /dev/null || command -v code 2> /dev/null || command -v code-oss 2> /dev/null || echo "")
-if [ "${VSCODE}" = "" ]; then
-  echo "code not found"
-  exit 1
-fi
+printf "\e[1;34mVSCodium setup\e[0m\n"
 
 ## configure marketplace on codium (open VSX is still lacking behind)
 CODIUM_RESOURCES_PATH=
 case "${SYSTEM}" in
   "linux") CODIUM_RESOURCES_PATH=/usr/share/codium/resources;;
   "darwin")
-    local BUNDLE_PATH=$(lsappinfo info -only bundlepath com.visualstudio.code.oss |\
+    BUNDLE_PATH=$(lsappinfo info -only bundlepath com.visualstudio.code.oss |\
       cut -d= -f2 | xargs)
     CODIUM_RESOURCES_PATH="${BUNDLE_PATH}/Contents/Resources";;
   "*") echo "unsupported system ${SYSTEM}"; exit 1;;
 esac
-PRODUCT_JSON_PATH="${CODIUM_RESOURCES_PATH}/app/product.json"
 
+PRODUCT_JSON_PATH=
+if [ -n "${CODIUM_RESOURCES_PATH}" ]; then
+  PRODUCT_JSON_PATH="${CODIUM_RESOURCES_PATH}/app/product.json"
+fi
+
+set +e
 IFS='' read -d '' -r JQ_FILTER <<EOF
 .
 | .extensionsGallery.serviceUrl = \$serviceUrl
 | .extensionsGallery.itemUrl = \$itemUrl
 | .extensionsGallery.cacheUrl = \$cacheUrl
 EOF
+set -e
 
-if [ -f "${PRODUCT_JSON_PATH}" ]; then
+echo "checking if VSCodium is installed..."
+if [ -n "${PRODUCT_JSON_PATH}" ] && [ -f "${PRODUCT_JSON_PATH}" ]; then
   echo "changing VSCodium extensions gallery to MSFT Marketplace..."
   local VSX_SERVICE_URL="https://marketplace.visualstudio.com/_apis/public/gallery"
   local VSX_CACHE_URL="https://vscode.blob.core.windows.net/gallery/index"
@@ -68,6 +63,22 @@ if [ -f "${PRODUCT_JSON_PATH}" ]; then
     --arg cacheUrl "${VSX_CACHE_URL}" \
     "${JQ_FILTER}" \
     "${PRODUCT_JSON_PATH}" | ifne sponge "${PRODUCT_JSON_PATH}"
+else
+  echo "VSCodium not found, skipping"
+fi
+
+printf "\e[1;34mVSCode extensions\e[0m\n"
+
+# reads wanted packages
+while IFS= read -r LINE; do
+  printf "%s\n" "${LINE}" > "${PACKAGES}" &
+done <"${PACKAGES_FILE_PATH}"
+
+### Check vscode
+VSCODE=$(command -v codium 2> /dev/null || command -v code 2> /dev/null || command -v code-oss 2> /dev/null || echo "")
+if [ "${VSCODE}" = "" ]; then
+  echo "code not found"
+  exit 1
 fi
 
 INSTALLED="${TMP}/installed"
