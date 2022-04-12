@@ -1,9 +1,13 @@
 {
+  "Lua.telemetry.enable": true,
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "TomasHubelbauer.vscode-markdown-table-format"
   },
   "[yaml]": {
     "editor.defaultFormatter": "redhat.vscode-yaml"
@@ -72,64 +76,11 @@
   ],
   "cSpell.userWords": [
     "artero",
-    "backreference",
-    "camelcase",
-    "chmod",
-    "CLOUDSQL",
-    "codeclimate",
-    "concat",
-    "digimon",
-    "dockerlabelvalidate",
-    "dockerlint",
-    "downlevel",
-    "entrypoint",
-    "entrypoints",
-    "eqeqeq",
-    "Errorln",
-    "ESNEXT",
-    "eval",
-    "gcloud",
-    "getmetatable",
-    "gitlab",
-    "Hammerspoon",
-    "iife",
-    "Infoln",
-    "jsdoc",
-    "kube",
-    "kubectl",
-    "kubernetes",
-    "kustomize",
-    "lcov",
-    "linkedin",
-    "maxdepth",
-    "monospace",
     "moraes",
-    "multiline",
-    "nonblock",
-    "operator",
-    "paren",
-    "parens",
-    "plusplus",
-    "POSIX",
-    "postcoverage",
-    "proto",
-    "protobuf",
-    "pulumi",
-    "runtimes",
-    "setmetatable",
-    "SIGINT",
-    "signup",
-    "SIGTERM",
-    "sourcemap",
-    "tolerations",
-    "Traceln",
-    "tslib",
-    "typechecking",
-    "typedoc",
-    "Unmarshal",
-    "untracked",
+    "tini",
     "wwmoraes"
   ],
+  "csharp.suppressBuildAssetsNotification": true,
   "editor.acceptSuggestionOnEnter": "smart",
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
@@ -164,11 +115,11 @@
     "*.yml": "yaml",
     ".coveragerc": "ini",
     ".env*": "dotenv",
+    ".gitconfig": "properties",
+    ".gitignore-global": "ignore",
     ".helmignore": "gitignore",
     ".style.yapf": "ini",
-    ".terraformignore": "gitignore",
-    ".gitconfig": "properties",
-    ".gitignore-global": "ignore"
+    ".terraformignore": "gitignore"
   },
   "files.trimFinalNewlines": true,
   "git-graph.dialog.merge.noFastForward": false,
@@ -390,7 +341,6 @@
   "workbench.editorAssociations": {
     "*.ipynb": "jupyter-notebook"
   },
-  "workbench.iconTheme": "vscode-icons",
   "workbench.list.automaticKeyboardNavigation": false,
   "workbench.startupEditor": "none",
   "workspace.alwaysShowToggle": true,
@@ -398,14 +348,9 @@
   "yaml.schemaStore.enable": true,
   "yaml.schemas": {
     "https://json.schemastore.org/chart.json": "Chart.yaml",
+    "https://json.schemastore.org/container-structure-test.json": "structure-test.yaml",
     "https://json.schemastore.org/github-workflow.json": "**/.github/workflows/*",
-    "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml",
-    "https://json.schemastore.org/container-structure-test.json": "Dockertest.yaml",
     "https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json": "azure-pipelines.yml",
-  },
-  "[markdown]": {
-    "editor.defaultFormatter": "TomasHubelbauer.vscode-markdown-table-format"
-  },
-  "Lua.telemetry.enable": true,
-  "csharp.suppressBuildAssetsNotification": true
+    "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml"
+  }
 }

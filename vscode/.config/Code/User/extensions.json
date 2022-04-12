@@ -1,17 +1,5 @@
 {
-  "recommendations": [
-    "bdavs.expect",
-    "bungcip.better-toml",
-    "dcasella.i3",
-    "dunstontc.viml",
-    "hangxingliu.vscode-nginx-conf-hint",
-    "malmaud.tmux",
-    "mikestead.dotenv",
-    "sidneys1.gitconfig",
-    "skyapps.fish-vscode",
-    "sumneko.lua",
-    "virgilsisoe.hammerspoon-snippets"
-  ],
+  "recommendations": [],
   "unwantedRecommendations": [
     // Microsoft's global recommendations, FML
     "dbaeumer.jshint",
