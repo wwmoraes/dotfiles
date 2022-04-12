@@ -17,7 +17,8 @@ conftest
 grype
 syft
 openssl-osx-ca
-skopeo
+-skopeo
 yubico-piv-tool
 ykpers:ykpersonalize
+coreutils
 hashicorp/tap/vault:vault
