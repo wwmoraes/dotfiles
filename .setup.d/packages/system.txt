@@ -36,3 +36,5 @@ minikube
 gh
 git-remote-gcrypt
 container-structure-test
+protobuf
+protolint
