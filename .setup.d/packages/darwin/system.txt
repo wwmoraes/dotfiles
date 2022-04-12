@@ -20,3 +20,4 @@ openssl-osx-ca
 skopeo
 yubico-piv-tool
 ykpers:ykpersonalize
+hashicorp/tap/vault:vault

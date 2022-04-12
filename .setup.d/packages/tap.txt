@@ -3,3 +3,4 @@ anchore/grype
 anchore/syft
 raggi/ale
 yoheimuta/protolint
+hashicorp/tap
