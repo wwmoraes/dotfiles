@@ -52,16 +52,17 @@ while read -r PACKAGE; do
   esac
 
 
-  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
   case "${REMOVE}" in
     1)
+      printf "[\e[91muninstall\e[m] Checking \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
       grep -q "${PACKAGE%%|*}" "${INSTALLED}" || continue
-      printf "Uninstalling \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
-      python3 -m pip uninstall -qqq "${PACKAGE##*|}"
+      printf "[\e[91muninstall\e[m] Uninstalling \e[95m%s\e[0m\n" "${PACKAGE%%|*}"
+      python3 -m pip uninstall -y -qqq "${PACKAGE##*|}"
     ;;
     0)
+      printf "[\e[92m install \e[m] Checking \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
       grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
-      printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
+      printf "[\e[92m install \e[m] Installing \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
       python3 -m pip install --user -qqq "${PACKAGE##*|}"
     ;;
   esac
