@@ -1,4 +1,5 @@
 {
+  "Lua.completion.autoRequire": false,
   "Lua.diagnostics.globals": [
     "hs",
     "spoon"
@@ -51,6 +52,5 @@
     "**/.DS_Store": true,
     "**/.git": true
   },
-  "workspace.isHidden": true,
-  "Lua.completion.autoRequire": false
+  "workspace.isHidden": true
 }

@@ -108,6 +108,8 @@
   "editor.wrappingIndent": "indent",
   "explorer.confirmDelete": true,
   "files.associations": {
+    "**/.ssh/config": "ssh_config",
+    "**/.ssh/config.d/*/*": "ssh_config",
     "**/i3/config": "i3",
     "*.gotmpl": "go-template",
     "*.tfstate": "json",
