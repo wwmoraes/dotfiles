@@ -1,5 +1,5 @@
 SHELL = /bin/sh
-TOOLS = stow fish tmux vim powerline
+TOOLS = stow fish tmux vim
 
 HOSTNAME := $(shell hostname -s)
 DIRECTORIES = $(sort $(wildcard */))

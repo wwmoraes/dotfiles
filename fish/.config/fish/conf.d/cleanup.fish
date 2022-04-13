@@ -1,1 +1,1 @@
-functions -e isPersonal isWork work-setup
+functions -e isPersonal isWork work-setup powerline-setup

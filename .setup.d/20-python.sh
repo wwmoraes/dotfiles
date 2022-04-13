@@ -46,9 +46,23 @@ python3 -m pip list --user --format freeze | cut -d= -f1 > "${INSTALLED}"
 
 ### Install packages
 while read -r PACKAGE; do
-  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
-  grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
+  case "${PACKAGE%%:*}" in
+    -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
+    *) REMOVE=0;;
+  esac
 
-  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
-  python3 -m pip install --user -qqq "${PACKAGE##*|}"
+
+  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
+  case "${REMOVE}" in
+    1)
+      grep -q "${PACKAGE%%|*}" "${INSTALLED}" || continue
+      printf "Uninstalling \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
+      python3 -m pip uninstall -qqq "${PACKAGE##*|}"
+    ;;
+    0)
+      grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
+      printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
+      python3 -m pip install --user -qqq "${PACKAGE##*|}"
+    ;;
+  esac
 done < "${PACKAGES}"
