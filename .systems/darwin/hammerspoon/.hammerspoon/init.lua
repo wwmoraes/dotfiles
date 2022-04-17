@@ -148,6 +148,97 @@ spoon.Hazel = spoon.Hazel
 
 -- ### plain init configuration
 
+---@param x string @hexadecimal number of a character
+---@return string
+local hex_to_char = function(x)
+  return string.char(tonumber(x, 16))
+end
+
+---@param url string
+---@return string
+local unescape = function(url)
+  return url:gsub("%%(%x%x)", hex_to_char)
+end
+
+---@param prefix string
+---@param fullURL string
+---@return boolean
+---@return string|nil
+local unprefixer = function(prefix, fullURL)
+  if fullURL:find(prefix) == 1 then
+    return true, unescape(fullURL:sub(string.len(prefix) + 1))
+  end
+
+  return false, nil
+end
+
+---recursively cleans URLs, calling a browser after it is fully clean.
+---@param scheme string
+---@param host string
+---@param params table<string,string>
+---@param fullURL string
+---@param senderPID number
+local function filterURL(scheme, host, params, fullURL, senderPID)
+  logger.i("callback URL:", fullURL)
+  logger.i("params:", hs.inspect(params))
+
+  if scheme ~= "http" and scheme ~= "https" then
+    logger.e("unknown scheme", scheme)
+    return
+  end
+
+  -- re-entrant rewrites to remove prefixed and encoded URLs
+  local done, newUrl = unprefixer("https://tracking.tldrnewsletter.com/CL0/", fullURL)
+  if done then
+    return hs.urlevent.openURLWithBundle(newUrl, "org.hammerspoon.Hammerspoon")
+  end
+
+  -- check if we need to parse params
+  if #params == 0 then
+    local paramsStr = fullURL:match(".*%?(.*)")
+    -- generate params from matched string
+    if paramsStr ~= nil then
+      for param in paramsStr:gmatch("([^&]+)") do
+        local key, value = param:match("([^=&]+)=([^=&]+)")
+        params[key] = value
+      end
+    end
+  end
+
+  -- filter out unwanted keys
+  local unwantedKeys = {
+    "utm_.*",
+    "uta_.*",
+    "fblid",
+    "gclid",
+    "auto_subscribed",
+    "email_source",
+  }
+  for name, _ in pairs(params) do
+    for _, unwanted in ipairs(unwantedKeys) do
+      if name:match(unwanted) then
+        params[name] = nil
+        goto next_param
+      end
+    end
+    ::next_param::
+  end
+
+  -- rebuild URL
+  local newParamsStr = {}
+  for name, value in pairs(params) do
+    table.insert(newParamsStr, string.format("%s=%s", name, value))
+  end
+  local newFullURL = fullURL:match("([^?]+)")
+  if #newParamsStr > 0 then
+    newFullURL = string.format("%s?%s", newFullURL, table.concat(newParamsStr, "&"))
+  end
+
+  return hs.urlevent.openURLWithBundle(newFullURL, "com.apple.Safari")
+end
+
+hs.urlevent.httpCallback = filterURL
+
 --- reads the tags from the current host tagsrc file
 --- @return table<string,boolean>
 local function getTags()
