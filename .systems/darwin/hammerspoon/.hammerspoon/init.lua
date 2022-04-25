@@ -41,6 +41,7 @@ local apps = {
   kitty = "net.kovidgoyal.kitty",
   fluidADO = "com.fluidapp.FluidApp2.AzureDevOps",
   appleSafari = "com.apple.Safari",
+  vscodium = "com.visualstudio.code.oss",
 }
 
 hs.spoons.use("Contexts", {
@@ -69,7 +70,7 @@ hs.spoons.use("Contexts", {
       development = {
         title = "Development",
         applications = {
-          apps.vscode,
+          apps.vscodium,
           apps.kitty,
         }
       },
