@@ -10,6 +10,9 @@ VSCODE_INSTALLED_EXTENSIONS = $(shell code --list-extensions | tr '[:upper:]' '[
 VSCODE_GLOBAL_EXTENSIONS = $(shell cat .setup.d/packages/vscode.txt)
 VSCODE_TAGGED_EXTENSIONS = $(shell cat .setup.d/packages/*/vscode.txt)
 
+NODE_NO_WARNINGS := 1
+export NODE_NO_WARNINGS
+
 # Detect OS
 ifeq ($(OS),Windows_NT)
     OS := windows

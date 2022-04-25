@@ -84,6 +84,10 @@ fi
 INSTALLED="${TMP}/installed"
 "${VSCODE}" --list-extensions | tr '[:upper:]' '[:lower:]' > "${INSTALLED}"
 
+# disable the annoying node deprecation warnings
+NODE_NO_WARNINGS=1
+export NODE_NO_WARNINGS
+
 while read -r PACKAGE; do
   printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE}"
   grep -q "${PACKAGE}" "${INSTALLED}" && continue
