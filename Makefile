@@ -6,9 +6,9 @@ DIRECTORIES = $(sort $(wildcard */))
 OS_DIRECTORIES = $(sort $(patsubst .systems/$(OS)/%,%,$(wildcard .systems/$(OS)/*/)))
 HOST_DIRECTORIES = $(sort $(patsubst .hostnames/$(HOSTNAME)/%,%,$(wildcard .hostnames/$(HOSTNAME)/*/)))
 
-VSCODE_INSTALLED_EXTENSIONS = $(shell code --list-extensions | tr '[:upper:]' '[:lower:]' | sort)
-VSCODE_GLOBAL_EXTENSIONS = $(shell cat .setup.d/packages/vscode.txt)
-VSCODE_TAGGED_EXTENSIONS = $(shell cat .setup.d/packages/*/vscode.txt)
+CODE_INSTALLED_EXTENSIONS = $(shell code --list-extensions | tr '[:upper:]' '[:lower:]' | sort)
+CODE_GLOBAL_EXTENSIONS = $(shell cat .setup.d/packages/code.txt)
+CODE_TAGGED_EXTENSIONS = $(shell cat .setup.d/packages/*/code.txt)
 
 NODE_NO_WARNINGS := 1
 export NODE_NO_WARNINGS
@@ -108,15 +108,15 @@ setup: cleanup
 cleanup:
 	@find . -name .DS_Store -type f -delete
 
-.PHONY: vscode-dump
-vscode-dump: VSCODE_EXTENSION_LIST = $(filter-out ${VSCODE_TAGGED_EXTENSIONS},${VSCODE_INSTALLED_EXTENSIONS})
-vscode-dump:
-	@echo ${VSCODE_EXTENSION_LIST} | tr ' ' '\n' > .setup.d/packages/vscode.txt
+.PHONY: code-dump
+code-dump: CODE_EXTENSION_LIST=$(filter-out ${CODE_TAGGED_EXTENSIONS},${CODE_INSTALLED_EXTENSIONS})
+code-dump:
+	@echo ${CODE_EXTENSION_LIST} | tr ' ' '\n' > .setup.d/packages/code.txt
 
-.PHONY: vscode-install
-vscode-install: VSCODE_PENDING = $(filter-out ${VSCODE_INSTALLED_EXTENSIONS},${VSCODE_GLOBAL_EXTENSIONS})
-vscode-install:
-	@echo ${VSCODE_PENDING} | xargs -n1 code --install-extension
+.PHONY: code-install
+code-install: CODE_PENDING=$(filter-out ${CODE_INSTALLED_EXTENSIONS},${CODE_GLOBAL_EXTENSIONS})
+code-install:
+	@echo ${CODE_PENDING} | xargs -n1 code --install-extension
 
 .PHONY: frun
 frun:

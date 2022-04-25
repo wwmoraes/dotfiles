@@ -17,7 +17,7 @@ cd "${TMP}"
 trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
 
 ### setup
-PACKAGES_FILE_NAME=vscode.txt
+PACKAGES_FILE_NAME=code.txt
 PACKAGES_FILE_PATH="${PACKAGES_PATH}/${PACKAGES_FILE_NAME}"
 
 # wanted packages
@@ -67,22 +67,22 @@ else
   echo "VSCodium not found, skipping"
 fi
 
-printf "\e[1;34mVSCode extensions\e[0m\n"
+printf "\e[1;34mCode extensions\e[0m\n"
 
 # reads wanted packages
 while IFS= read -r LINE; do
   printf "%s\n" "${LINE}" > "${PACKAGES}" &
 done <"${PACKAGES_FILE_PATH}"
 
-### Check vscode
-VSCODE=$(command -v codium 2> /dev/null || command -v code 2> /dev/null || command -v code-oss 2> /dev/null || echo "")
-if [ "${VSCODE}" = "" ]; then
+### Check code
+CODE=$(command -v codium 2> /dev/null || command -v code 2> /dev/null || command -v code-oss 2> /dev/null || echo "")
+if [ "${CODE}" = "" ]; then
   echo "code not found"
   exit 1
 fi
 
 INSTALLED="${TMP}/installed"
-"${VSCODE}" --list-extensions | tr '[:upper:]' '[:lower:]' > "${INSTALLED}"
+"${CODE}" --list-extensions | tr '[:upper:]' '[:lower:]' > "${INSTALLED}"
 
 # disable the annoying node deprecation warnings
 NODE_NO_WARNINGS=1
@@ -93,5 +93,5 @@ while read -r PACKAGE; do
   grep -q "${PACKAGE}" "${INSTALLED}" && continue
 
   printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE}"
-  "${VSCODE}" --install-extension "${PACKAGE}"
+  "${CODE}" --install-extension "${PACKAGE}"
 done < "${PACKAGES}"
