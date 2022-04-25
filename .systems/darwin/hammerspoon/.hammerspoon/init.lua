@@ -32,14 +32,15 @@ hs.spoons.use("Env", {
 spoon.Env = spoon.Env
 
 local apps = {
-  msEdge = "Microsoft Edge",
-  msTeams = "Microsoft Teams",
-  msOutlook = "Microsoft Outlook",
+  msEdge = "com.microsoft.edgemac",
+  msTeams = "com.microsoft.teams",
+  msOutlook = "com.microsoft.Outlook",
   oneDrive = "OneDrive",
   amethyst = "com.amethyst.Amethyst",
   vscode = "com.microsoft.vscode",
   kitty = "net.kovidgoyal.kitty",
-  fluidADO = "Azure DevOps",
+  fluidADO = "com.fluidapp.FluidApp2.AzureDevOps",
+  appleSafari = "com.apple.Safari",
 }
 
 hs.spoons.use("Contexts", {
@@ -146,98 +147,66 @@ hs.spoons.use("Hazel", {
 ---@type Hazel
 spoon.Hazel = spoon.Hazel
 
+hs.spoons.use("CleanURLs", {
+  ---@type CleanURLsConfig
+  config = {
+    prefixes = {
+      "https://tracking.tldrnewsletter.com/CL0/",
+    },
+    params = {
+      -- web tracking parameters
+      "__hs.*", -- HubSpot
+      "__s", -- Drip.com
+      "_bta_.*", -- Bronto
+      "_ga", -- Google Analytics
+      "_hs.*", -- HubSpot
+      "_ke", -- Klaviyo
+      "_openstat", -- Yandex
+      "auto_subscribed",
+      "dclid", -- Google
+      "dm_i", -- dotdigital
+      "ef_id", -- Adobe Advertising Cloud
+      "email_source",
+      "epik", -- Pinterest
+      "fbclid", -- Facebook
+      "gclid", -- Google AdWords/Analytics
+      "gdf.*", -- GoDataFeed
+      "gclsrc", -- Google DoubleClick
+      "hsa_.*", -- HubSpot
+      "hsCtaTracking", -- HubSpot
+      "igshid", -- Instagram
+      "matomo_.*", -- Matomo
+      "mc_.*", -- MailChimp
+      "mkt_.*", -- Adobe Marketo
+      "mkwid", -- Marin
+      "ml_.*", -- MailerLite
+      "msclkid", -- Microsoft Advertising
+      "mtm_.*", -- Matomo
+      "oly_.*", -- Omeda
+      "pcrid", -- Marin
+      "piwik_.*", -- Piwik
+      "pk_.*", -- Piwik
+      "rb_clickid", -- Unknown high-entropy
+      "redirect_log_mongo_id", -- Springbot
+      "redirect_mongo_id", -- Springbot
+      "s_cid", -- Adobe Site Catalyst
+      "s_kwcid", -- Adobe Analytics
+      "sb_referer_host", -- Springbot
+      "trk_.*", -- Listrak
+      "uta_.*",
+      "utm_.*", -- Google Analytics
+      "vero_.*", -- Vero
+      "wickedid", -- Wicked Reports
+      "yclid", -- Yandex click ID
+    },
+    browser = apps.appleSafari,
+  },
+  start = true,
+})
+---@type CleanURLs
+spoon.CleanURLs = spoon.CleanURLs
+
 -- ### plain init configuration
-
----@param x string @hexadecimal number of a character
----@return string
-local hex_to_char = function(x)
-  return string.char(tonumber(x, 16))
-end
-
----@param url string
----@return string
-local unescape = function(url)
-  return url:gsub("%%(%x%x)", hex_to_char)
-end
-
----@param prefix string
----@param fullURL string
----@return boolean
----@return string|nil
-local unprefixer = function(prefix, fullURL)
-  if fullURL:find(prefix) == 1 then
-    return true, unescape(fullURL:sub(string.len(prefix) + 1))
-  end
-
-  return false, nil
-end
-
----recursively cleans URLs, calling a browser after it is fully clean.
----@param scheme string
----@param host string
----@param params table<string,string>
----@param fullURL string
----@param senderPID number
-local function filterURL(scheme, host, params, fullURL, senderPID)
-  logger.i("callback URL:", fullURL)
-  logger.i("params:", hs.inspect(params))
-
-  if scheme ~= "http" and scheme ~= "https" then
-    logger.e("unknown scheme", scheme)
-    return
-  end
-
-  -- re-entrant rewrites to remove prefixed and encoded URLs
-  local done, newUrl = unprefixer("https://tracking.tldrnewsletter.com/CL0/", fullURL)
-  if done then
-    return hs.urlevent.openURLWithBundle(newUrl, "org.hammerspoon.Hammerspoon")
-  end
-
-  -- check if we need to parse params
-  if #params == 0 then
-    local paramsStr = fullURL:match(".*%?(.*)")
-    -- generate params from matched string
-    if paramsStr ~= nil then
-      for param in paramsStr:gmatch("([^&]+)") do
-        local key, value = param:match("([^=&]+)=([^=&]+)")
-        params[key] = value
-      end
-    end
-  end
-
-  -- filter out unwanted keys
-  local unwantedKeys = {
-    "utm_.*",
-    "uta_.*",
-    "fblid",
-    "gclid",
-    "auto_subscribed",
-    "email_source",
-  }
-  for name, _ in pairs(params) do
-    for _, unwanted in ipairs(unwantedKeys) do
-      if name:match(unwanted) then
-        params[name] = nil
-        goto next_param
-      end
-    end
-    ::next_param::
-  end
-
-  -- rebuild URL
-  local newParamsStr = {}
-  for name, value in pairs(params) do
-    table.insert(newParamsStr, string.format("%s=%s", name, value))
-  end
-  local newFullURL = fullURL:match("([^?]+)")
-  if #newParamsStr > 0 then
-    newFullURL = string.format("%s?%s", newFullURL, table.concat(newParamsStr, "&"))
-  end
-
-  return hs.urlevent.openURLWithBundle(newFullURL, "com.apple.Safari")
-end
-
-hs.urlevent.httpCallback = filterURL
 
 --- reads the tags from the current host tagsrc file
 --- @return table<string,boolean>
