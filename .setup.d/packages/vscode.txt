@@ -1,3 +1,5 @@
+actboy168.lua-debug
+actboy168.tasks
 adpyke.vscode-userscript
 alefragnani.bookmarks
 alefragnani.project-manager
@@ -7,8 +9,10 @@ axetroy.vscode-auto-schema
 bdavs.expect
 bierner.emojisense
 bierner.markdown-checkbox
+bierner.markdown-mermaid
 bierner.markdown-preview-github-styles
 blairleduc.touch-bar-display
+budparr.language-hugo-vscode
 bungcip.better-toml
 chrislajoie.vscode-modelines
 christian-kohler.npm-intellisense
@@ -47,15 +51,19 @@ ipedrazas.kubernetes-snippets
 james-yu.latex-workshop
 jasonnutter.vscode-codeowners
 jebbs.plantuml
+jeff-hykin.better-cpp-syntax
 jemcclin.readabilitycheck
 jetmartin.bats
 jinliming2.vscode-go-template
 joaompinto.vscode-graphviz
 jock.svg
 jpoissonnier.vscode-styled-components
+jq-syntax-highlighting.jq-syntax-highlighting
 jvitor83.types-autoinstaller
+kaellarkin.hugo-shortcode-syntax
 kavod-io.vscode-jest-test-adapter
 kisstkondoros.vscode-codemetrics
+knisterpeter.vscode-github
 korekontrol.saltstack
 kumar-harsh.graphql-for-vscode
 leonhard-s.python-sphinx-highlight
@@ -72,8 +80,12 @@ ms-kubernetes-tools.vscode-kubernetes-tools
 ms-python.python
 ms-python.vscode-pylance
 ms-toolsai.jupyter
+ms-toolsai.jupyter-keymap
+ms-toolsai.jupyter-renderers
+ms-vscode-remote.remote-containers
 ms-vscode-remote.remote-ssh-edit
 ms-vscode.cpptools
+ms-vscode.cpptools-themes
 ms-vscode.test-adapter-converter
 naumovs.color-highlight
 nhoizey.gremlins
@@ -81,9 +93,11 @@ njpwerner.autodocstring
 ofhumanbondage.react-proptypes-intellisense
 ombratteng.nftalbs
 oren-trutner.grc-syntax-highlighting
+plex.vscode-protolint
 plex.vscode-regolint
 quicktype.quicktype
 redhat.vscode-commons
+redhat.vscode-xml
 redhat.vscode-yaml
 richie5um2.vscode-sort-json
 rust-lang.rust
@@ -98,6 +112,7 @@ sumneko.lua
 swellaby.vscode-rust-test-adapter
 sysninja.vscode-ansible-mod
 thomascsd.vscode-readme-pattern
+tim-koehler.helm-intellisense
 timonwong.shellcheck
 tomashubelbauer.vscode-markdown-table-format
 tsandall.opa
@@ -108,6 +123,7 @@ virgilsisoe.hammerspoon-snippets
 visualstudioexptteam.vscodeintellicode
 vscode-icons-team.vscode-icons
 vsls-contrib.gistfs
+vstirbu.vscode-mermaid-preview
 wakatime.vscode-wakatime
 wallabyjs.quokka-vscode
 warpnet.salt-lint
