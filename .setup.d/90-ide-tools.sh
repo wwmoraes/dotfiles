@@ -54,9 +54,9 @@ set -e
 echo "checking if VSCodium is installed..."
 if [ -n "${PRODUCT_JSON_PATH}" ] && [ -f "${PRODUCT_JSON_PATH}" ]; then
   echo "changing VSCodium extensions gallery to MSFT Marketplace..."
-  local VSX_SERVICE_URL="https://marketplace.visualstudio.com/_apis/public/gallery"
-  local VSX_CACHE_URL="https://vscode.blob.core.windows.net/gallery/index"
-  local VSX_ITEM_URL="https://marketplace.visualstudio.com/items"
+  VSX_SERVICE_URL="https://marketplace.visualstudio.com/_apis/public/gallery"
+  VSX_CACHE_URL="https://vscode.blob.core.windows.net/gallery/index"
+  VSX_ITEM_URL="https://marketplace.visualstudio.com/items"
   jq \
     --arg serviceUrl "${VSX_SERVICE_URL}" \
     --arg itemUrl "${VSX_ITEM_URL}" \
