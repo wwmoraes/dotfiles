@@ -1,5 +1,23 @@
 require("types.hammerspoon")
+--- reads the tags from the current host tagsrc file
+--- @return table<string,boolean>
+local function getTags()
+  local tagsrc = os.getenv("TAGSRC") or os.getenv("HOME") .. "/.tagsrc"
+  local tags = {}
+  local fd, err = io.open(tagsrc)
+  if err ~= nil then
+    return tags
+  end
 
+  for tag in fd:lines() do
+    table.insert(tags, tag)
+  end
+  fd:close()
+
+  return tags
+end
+
+local tags = getTags()
 local logger = hs.logger.new("init", "info")
 
 ---### third-party spoons configuration
@@ -40,7 +58,9 @@ local apps = {
   vscode = "com.microsoft.vscode",
   kitty = "net.kovidgoyal.kitty",
   fluidADO = "com.fluidapp.FluidApp2.AzureDevOps",
-  appleSafari = "com.apple.Safari",
+  Safari = "com.apple.Safari",
+  Chrome = "com.google.Chrome",
+  Firefox = "org.mozilla.firefox",
   vscodium = "com.visualstudio.code.oss",
 }
 
@@ -148,6 +168,51 @@ hs.spoons.use("Hazel", {
 ---@type Hazel
 spoon.Hazel = spoon.Hazel
 
+local tagContextBrowser = {
+  ["work"] = {
+    ["work"] = apps.msEdge,
+    ["home"] = apps.Chrome,
+  },
+  ["home"] = {
+    ["work"] = apps.Firefox,
+    ["home"] = apps.Safari,
+  },
+}
+
+local hostContext = {
+  ["dev.azure.com"] = "work",
+  ["portal.azure.com"] = "work",
+  ["teams.microsoft.com"] = "work",
+}
+
+local appContext = {
+  ["com.microsoft.Outlook"] = "work",
+  ["com.microsoft.teams"] = "work",
+}
+
+---@param scheme string
+---@param host string
+---@param params table<string,string>
+---@param fullURL string
+---@param senderPID number
+local function browserRouter(scheme, host, params, fullURL, senderPID)
+  local contextBrowser = nil
+  for _, tag in ipairs(tags) do
+    contextBrowser = tagContextBrowser[tag]
+    if contextBrowser ~= nil then break end
+  end
+
+  local sender = hs.application.applicationForPID(senderPID)
+
+  local context = hostContext[host] or appContext[sender:bundleID()]
+  logger.i("context:", context)
+  local browser = contextBrowser[context] or app.Safari
+  logger.i("browser:", browser)
+
+  return hs.urlevent.openURLWithBundle(fullURL, browser)
+end
+
+
 hs.spoons.use("CleanURLs", {
   ---@type CleanURLsConfig
   config = {
@@ -200,7 +265,7 @@ hs.spoons.use("CleanURLs", {
       "wickedid", -- Wicked Reports
       "yclid", -- Yandex click ID
     },
-    browser = apps.appleSafari,
+    browser = browserRouter,
   },
   start = true,
 })
@@ -209,25 +274,7 @@ spoon.CleanURLs = spoon.CleanURLs
 
 -- ### plain init configuration
 
---- reads the tags from the current host tagsrc file
---- @return table<string,boolean>
-local function getTags()
-  local tagsrc = os.getenv("TAGSRC") or os.getenv("HOME") .. "/.tagsrc"
-  local tags = {}
-  local fd, err = io.open(tagsrc)
-  if err ~= nil then
-    return tags
-  end
 
-  for tag in fd:lines() do
-    table.insert(tags, tag)
-  end
-  fd:close()
-
-  return tags
-end
-
-local tags = getTags()
 for _, tag in ipairs(tags) do
   local success, err = pcall(dofile, string.format("tags/%s.lua", tag))
   if success == false then
