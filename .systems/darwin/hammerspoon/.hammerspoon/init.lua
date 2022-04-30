@@ -1,11 +1,11 @@
 require("types.hammerspoon")
 --- reads the tags from the current host tagsrc file
---- @return table<string,boolean>
+--- @return string[]
 local function getTags()
   local tagsrc = os.getenv("TAGSRC") or os.getenv("HOME") .. "/.tagsrc"
   local tags = {}
   local fd, err = io.open(tagsrc)
-  if err ~= nil then
+  if fd == nil or err ~= nil then
     return tags
   end
 
@@ -50,18 +50,34 @@ hs.spoons.use("Env", {
 spoon.Env = spoon.Env
 
 local apps = {
-  msEdge = "com.microsoft.edgemac",
-  msTeams = "com.microsoft.teams",
-  msOutlook = "com.microsoft.Outlook",
-  oneDrive = "OneDrive",
-  amethyst = "com.amethyst.Amethyst",
-  vscode = "com.microsoft.vscode",
-  kitty = "net.kovidgoyal.kitty",
-  fluidADO = "com.fluidapp.FluidApp2.AzureDevOps",
+  Blisk = "org.blisk.blisk",
+  Brave = "com.brave.browser",
+  BraveBeta = "com.brave.browser.beta",
+  BraveDev = "com.brave.browser.dev",
+  ChromeCanary = "com.google.chrome.canary",
+  Edge = "com.microsoft.edgemac",
+  EdgeBeta = "com.microsoft.edgemac.beta",
+  FirefoxDeveloperEdition = "org.mozilla.firefoxdeveloperedition",
+  Opera = "com.operasoftware.opera",
+  Vivaldi = "com.vivaldi.vivaldi",
+  Wavebox = "com.bookry.wavebox",
+  Teams = "com.microsoft.teams",
+  Outlook = "com.microsoft.Outlook",
+  OneDrive = "OneDrive",
+  Amethyst = "com.amethyst.Amethyst",
+  VSCode = "com.microsoft.vscode",
+  Kitty = "net.kovidgoyal.kitty",
+  AzureDevOps = "com.fluidapp.FluidApp2.AzureDevOps",
+  LinkedIn = "com.fluidapp.FluidApp2.LinkedIn",
   Safari = "com.apple.Safari",
   Chrome = "com.google.Chrome",
   Firefox = "org.mozilla.firefox",
-  vscodium = "com.visualstudio.code.oss",
+  VSCodium = "com.visualstudio.code.oss",
+  Slack = "com.tinyspeck.slackmacgap",
+  Messenger = "com.facebook.archon",
+  WhatsApp = "WhatsApp",
+  Discord = "com.hnc.Discord",
+  Telegram = "ru.keepcoder.Telegram",
 }
 
 hs.spoons.use("Contexts", {
@@ -80,18 +96,17 @@ hs.spoons.use("Contexts", {
           [7] = true
         },
         applications = {
-          apps.msEdge,
-          apps.msTeams,
-          apps.msOutlook,
-          apps.oneDrive,
-          apps.fluidADO,
+          apps.Teams,
+          apps.Outlook,
+          apps.OneDrive,
+          apps.AzureDevOps,
         },
       },
       development = {
         title = "Development",
         applications = {
-          apps.vscodium,
-          apps.kitty,
+          apps.VSCodium,
+          apps.Kitty,
         }
       },
     },
@@ -102,7 +117,7 @@ hs.spoons.use("Contexts", {
     },
     onSleep = {
       kill = {
-        apps.amethyst
+        apps.Amethyst
       },
     },
   },
@@ -168,112 +183,185 @@ hs.spoons.use("Hazel", {
 ---@type Hazel
 spoon.Hazel = spoon.Hazel
 
+---@alias Context '"work"'|'"personal"'
+---@alias BrowserContext table<Context,string>
+
+---@type table<string,BrowserContext>
 local tagContextBrowser = {
   ["work"] = {
-    ["work"] = apps.msEdge,
-    ["home"] = apps.Chrome,
+    ["personal"] = apps.Chrome,
   },
-  ["home"] = {
+  ["personal"] = {
     ["work"] = apps.Firefox,
-    ["home"] = apps.Safari,
+    ["personal"] = apps.Safari,
   },
 }
 
-local hostContext = {
-  ["dev.azure.com"] = "work",
-  ["portal.azure.com"] = "work",
-  ["teams.microsoft.com"] = "work",
-}
-
-local appContext = {
-  ["com.microsoft.Outlook"] = "work",
-  ["com.microsoft.teams"] = "work",
-}
-
----@param scheme string
----@param host string
----@param params table<string,string>
----@param fullURL string
----@param senderPID number
-local function browserRouter(scheme, host, params, fullURL, senderPID)
-  local contextBrowser = nil
-  for _, tag in ipairs(tags) do
-    contextBrowser = tagContextBrowser[tag]
-    if contextBrowser ~= nil then break end
-  end
-
-  local sender = hs.application.applicationForPID(senderPID)
-
-  local context = hostContext[host] or appContext[sender:bundleID()]
-  logger.i("context:", context)
-  local browser = contextBrowser[context] or app.Safari
-  logger.i("browser:", browser)
-
-  return hs.urlevent.openURLWithBundle(fullURL, browser)
+---@type string
+local mainContext = nil
+---@type BrowserContext
+local contextBrowser = nil
+for _, tag in ipairs(tags) do
+  mainContext = tag
+  contextBrowser = tagContextBrowser[tag]
+  if contextBrowser ~= nil then break end
 end
 
+local defaultBrowser = {
+  main = apps.Safari,
+  work = apps.Firefox,
+  home = apps.Safari,
+}
 
-hs.spoons.use("CleanURLs", {
-  ---@type CleanURLsConfig
+---@param context Context
+---@return string
+local function getBrowser(context)
+  local contexts = contextBrowser or defaultBrowser
+  return contexts[context] or contexts[mainContext]
+end
+
+---@param prefix string
+---@return Rewrite
+local function prefixRemover(prefix)
+  return {
+    match = function(url)
+      return url:toString():find(prefix) == 1
+    end,
+    url = function(url)
+      return url:toString():sub(string.len(prefix) + 1)
+    end,
+  }
+end
+
+hs.spoons.use("Finicky", {
+  ---@type FinickyConfig
   config = {
-    prefixes = {
-      "https://tracking.tldrnewsletter.com/CL0/",
+    defaultBrowser = getBrowser(mainContext),
+    handlers = {
+      -- Work: Azure DevOps
+      {
+        host = "dev.azure.com",
+        browser = apps.AzureDevOps,
+      },
+      -- Work: Microsoft Teams handler
+      {
+        host = "teams.microsoft.com",
+        browser = apps.Teams,
+        -- TODO override mechanism
+        url = {
+          scheme = "Teams"
+        }
+      },
+      -- Work: source apps
+      {
+        sender = {
+          apps.Slack,
+          apps.Teams,
+          apps.Outlook,
+        },
+        browser = getBrowser("work"),
+      },
+      -- Work: specific domains
+      {
+        match = { "*.abnamro.com*", "*.abnamro.org*" },
+        browser = getBrowser("work"),
+      },
+      -- Personal: social and IM apps
+      {
+        sender = {
+          apps.Messenger,
+          apps.Telegram,
+          apps.Discord,
+          apps.WhatsApp,
+          apps.LinkedIn,
+        },
+        browser = getBrowser("home"),
+      },
+      -- Personal: local and private domains
+      {
+        match = {
+          "github.com/wwmoraes*",
+          "*.home.localhost*",
+          "*.com.br*",
+          "*.thuisbezorgd.nl*",
+          "*.krisp.ai*"
+        },
+        browser = getBrowser("home"),
+      },
     },
-    params = {
-      -- web tracking parameters
-      "__hs.*", -- HubSpot
-      "__s", -- Drip.com
-      "_bta_.*", -- Bronto
-      "_ga", -- Google Analytics
-      "_hs.*", -- HubSpot
-      "_ke", -- Klaviyo
-      "_openstat", -- Yandex
-      "auto_subscribed",
-      "dclid", -- Google
-      "dm_i", -- dotdigital
-      "ef_id", -- Adobe Advertising Cloud
-      "email_source",
-      "epik", -- Pinterest
-      "fbclid", -- Facebook
-      "gclid", -- Google AdWords/Analytics
-      "gdf.*", -- GoDataFeed
-      "gclsrc", -- Google DoubleClick
-      "hsa_.*", -- HubSpot
-      "hsCtaTracking", -- HubSpot
-      "igshid", -- Instagram
-      "matomo_.*", -- Matomo
-      "mc_.*", -- MailChimp
-      "mkt_.*", -- Adobe Marketo
-      "mkwid", -- Marin
-      "ml_.*", -- MailerLite
-      "msclkid", -- Microsoft Advertising
-      "mtm_.*", -- Matomo
-      "oly_.*", -- Omeda
-      "pcrid", -- Marin
-      "piwik_.*", -- Piwik
-      "pk_.*", -- Piwik
-      "rb_clickid", -- Unknown high-entropy
-      "redirect_log_mongo_id", -- Springbot
-      "redirect_mongo_id", -- Springbot
-      "s_cid", -- Adobe Site Catalyst
-      "s_kwcid", -- Adobe Analytics
-      "sb_referer_host", -- Springbot
-      "trk_.*", -- Listrak
-      "uta_.*",
-      "utm_.*", -- Google Analytics
-      "vero_.*", -- Vero
-      "wickedid", -- Wicked Reports
-      "yclid", -- Yandex click ID
+    rewrites = {
+      prefixRemover("https://tracking.tldrnewsletter.com/CL0/"),
+      -- TODO remove query params
     },
-    browser = browserRouter,
   },
   start = true,
+  loglevel = "verbose",
 })
----@type CleanURLs
-spoon.CleanURLs = spoon.CleanURLs
+---@type Finicky
+spoon.Finicky = spoon.Finicky
+
+hs.urlevent.httpCallback = hs.fnutils.partial(spoon.Finicky.open, spoon.Finicky)
+
+-- hs.spoons.use("CleanURLs", {
+--   ---@type CleanURLsConfig
+--   config = {
+--     prefixes = {
+--       "https://tracking.tldrnewsletter.com/CL0/",
+--     },
+--     params = {
+--       -- web tracking parameters
+--       "__hs.*", -- HubSpot
+--       "__s", -- Drip.com
+--       "_bta_.*", -- Bronto
+--       "_ga", -- Google Analytics
+--       "_hs.*", -- HubSpot
+--       "_ke", -- Klaviyo
+--       "_openstat", -- Yandex
+--       "auto_subscribed",
+--       "dclid", -- Google
+--       "dm_i", -- dotdigital
+--       "ef_id", -- Adobe Advertising Cloud
+--       "email_source",
+--       "epik", -- Pinterest
+--       "fbclid", -- Facebook
+--       "gclid", -- Google AdWords/Analytics
+--       "gdf.*", -- GoDataFeed
+--       "gclsrc", -- Google DoubleClick
+--       "hsa_.*", -- HubSpot
+--       "hsCtaTracking", -- HubSpot
+--       "igshid", -- Instagram
+--       "matomo_.*", -- Matomo
+--       "mc_.*", -- MailChimp
+--       "mkt_.*", -- Adobe Marketo
+--       "mkwid", -- Marin
+--       "ml_.*", -- MailerLite
+--       "msclkid", -- Microsoft Advertising
+--       "mtm_.*", -- Matomo
+--       "oly_.*", -- Omeda
+--       "pcrid", -- Marin
+--       "piwik_.*", -- Piwik
+--       "pk_.*", -- Piwik
+--       "rb_clickid", -- Unknown high-entropy
+--       "redirect_log_mongo_id", -- Springbot
+--       "redirect_mongo_id", -- Springbot
+--       "s_cid", -- Adobe Site Catalyst
+--       "s_kwcid", -- Adobe Analytics
+--       "sb_referer_host", -- Springbot
+--       "trk_.*", -- Listrak
+--       "uta_.*",
+--       "utm_.*", -- Google Analytics
+--       "vero_.*", -- Vero
+--       "wickedid", -- Wicked Reports
+--       "yclid", -- Yandex click ID
+--     },
+--     browser = hs.fnutils.partial(spoon.Finicky.open, spoon.Finicky),
+--   },
+--   start = false,
+-- })
+-- ---@type CleanURLs
+-- spoon.CleanURLs = spoon.CleanURLs
 
 -- ### plain init configuration
-
 
 for _, tag in ipairs(tags) do
   local success, err = pcall(dofile, string.format("tags/%s.lua", tag))

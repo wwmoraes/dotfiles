@@ -22,9 +22,9 @@ const browsers = {
 
 /** @type {Contexts} */
 const defaultBrowsers = {
-  main: apps.Firefox,
-  work: apps.Chrome,
-  home: apps.Firefox,
+  main: apps.Safari,
+  work: apps.Firefox,
+  home: apps.Safari,
 };
 
 /**
@@ -36,24 +36,22 @@ const getBrowser = (contextName) => (params) => {
   return context[contextName];
 };
 
+/**
+  * @param {string} prefix
+  * @returns {import("./.finicky.d").Finicky.Rewrite}
+  */
+const prefixBGone = (prefix) => ({
+  match: ({ urlString }) => urlString.startsWith(prefix),
+  url: ({ urlString }) => new URL(decodeURI(urlString.substring(prefix.length))),
+});
+
 /// <reference path="./.finicky.d.ts" />
 /** @type {import("./.finicky.d").Finicky.Config} */
 module.exports = {
-  defaultBrowser: "Browserosaurus",
+  defaultBrowser: getBrowser("main"),
   rewrite: [
     // cleanup TLDR newsletter links
-    {
-      match: "tracking.tldrnewsletter.com/*",
-      url: ({ url }) => {
-        let newUrlString = url.pathname.replace(/.*?(https?)/, "$1");
-        let length = 0;
-        while (newUrlString.length != length) {
-          length = newUrlString.length;
-          newUrlString = decodeURI(newUrlString);
-        }
-        return newUrlString;
-      },
-    },
+    prefixBGone("https://tracking.tldrnewsletter.com/CL0/"),
     // remove tracking query parameters
     {
       match: () => true,
