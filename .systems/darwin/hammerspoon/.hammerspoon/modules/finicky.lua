@@ -13,6 +13,7 @@ local queryParams = require("data.queryParams")
 ---@type table<string,BrowserContext>
 local tagContextBrowser = {
   ["work"] = {
+    ["work"] = apps.Edge,
     ["personal"] = apps.Chrome,
   },
   ["personal"] = {
@@ -63,7 +64,7 @@ local function cleanupQuery(unwantedParams)
   return {
     ---@param url URLInstance
     ---@return boolean
-    match = function(url) return url.query:len() > 0 end,
+    match = function(url) return url.query ~= nil and url.query:len() > 0 end,
     ---@param url URLInstance
     ---@return URLInstance
     url = function(url)
