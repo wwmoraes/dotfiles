@@ -1,24 +1,8 @@
 require("types.hammerspoon")
---- reads the tags from the current host tagsrc file
---- @return string[]
-local function getTags()
-  local tagsrc = os.getenv("TAGSRC") or os.getenv("HOME") .. "/.tagsrc"
-  local tags = {}
-  local fd, err = io.open(tagsrc)
-  if fd == nil or err ~= nil then
-    return tags
-  end
 
-  for tag in fd:lines() do
-    table.insert(tags, tag)
-  end
-  fd:close()
-
-  return tags
-end
-
-local tags = getTags()
 local logger = hs.logger.new("init", "info")
+local tags = require("data.tags")
+local apps = require("data.apps")
 
 ---### third-party spoons configuration
 
@@ -196,6 +180,7 @@ local tagContextBrowser = {
     ["personal"] = apps.Safari,
   },
 }
+-- ### plain init configuration
 
 ---@type string
 local mainContext = nil
@@ -205,6 +190,10 @@ for _, tag in ipairs(tags) do
   mainContext = tag
   contextBrowser = tagContextBrowser[tag]
   if contextBrowser ~= nil then break end
+  local success, err = pcall(dofile, string.format("tags/%s.lua", tag))
+  if success == false then
+    logger.d(err)
+  end
 end
 
 local defaultBrowser = {
@@ -360,12 +349,3 @@ hs.urlevent.httpCallback = hs.fnutils.partial(spoon.Finicky.open, spoon.Finicky)
 -- })
 -- ---@type CleanURLs
 -- spoon.CleanURLs = spoon.CleanURLs
-
--- ### plain init configuration
-
-for _, tag in ipairs(tags) do
-  local success, err = pcall(dofile, string.format("tags/%s.lua", tag))
-  if success == false then
-    logger.d(err)
-  end
-end
