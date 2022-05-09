@@ -156,6 +156,19 @@ hs.spoons.use("Finicky", {
     rewrites = {
       removePrefix("https://tracking.tldrnewsletter.com/CL0/"),
       cleanupQuery(queryParams),
+      {
+        ---@param url URLInstance
+        ---@return boolean
+        match = function(url)
+          return strings.endsWith(url.host, "safelinks.protection.outlook.com")
+        end,
+        ---@param url URLInstance
+        ---@return string|URLInstance
+        url = function(url)
+          local params = spoon.Finicky.parseQuery(url.query)
+          return spoon.Finicky:decodeURIComponent(params["url"])
+        end,
+      }
     },
   },
   start = true,
