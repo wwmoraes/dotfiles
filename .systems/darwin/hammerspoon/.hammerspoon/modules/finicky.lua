@@ -68,13 +68,7 @@ local function cleanupQuery(unwantedParams)
     ---@param url URLInstance
     ---@return URLInstance
     url = function(url)
-      -- convert query string to map
-      ---@type table<string,string>
-      local params = {}
-      for param in url.query:gmatch("([^&]+)") do
-        local name, value = param:match("([^=&]+)=([^=&]+)")
-        params[name] = value
-      end
+      local params = spoon.Finicky.parseQuery(url.query)
 
       -- remove unwanted query parameters
       for _, unwanted in ipairs(unwantedParams) do

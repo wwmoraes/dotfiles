@@ -7,6 +7,11 @@ function strings.startsWith(str, prefix)
   return str:find(prefix) == 1
 end
 
+function strings.endsWith(str, suffix)
+  local startPos, endPos = str:find(suffix)
+  return endPos == str:len() and (endPos - startPos + 1) == suffix:len()
+end
+
 ---@param str string
 ---@param prefix string
 ---@return string
