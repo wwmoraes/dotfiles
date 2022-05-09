@@ -1,6 +1,6 @@
 require("types.hammerspoon")
 
-local logger = hs.logger.new("init", "info")
+local logger = require("helpers.logger")
 local tags = require("data.tags")
 local apps = require("data.apps")
 
