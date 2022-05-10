@@ -1,7 +1,8 @@
 function watchrun -d "watch for file changes and run command on events"
-  if test (count $argv) -lt 2
+  if test (count $argv) -lt 1
+    echo "usage: "(status function)" <command>"
     echo "usage: "(status function)" <path> <command>"
-    echo "usage: "(status function)" <path1>..[pathN] -- <command>"
+    echo "usage: "(status function)" <path>[..pathN] -- <command>"
     return 2
   end
 
@@ -11,7 +12,9 @@ function watchrun -d "watch for file changes and run command on events"
   else
     set paths $argv[1]
     set cmd $argv[2..-1]
+
+    test -n "$cmd"; or set cmd $paths
   end
 
-  fswatch -o $paths | xargs -n 1 sh -c "clear; date; $cmd"
+  fswatch -o --event Updated $paths | xargs -n 1 sh -c "clear; date; $cmd"
 end
