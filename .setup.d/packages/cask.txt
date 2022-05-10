@@ -2,7 +2,7 @@
 1password-cli:/usr/local/bin/op
 amethyst
 appcleaner
-browserosaurus
+-browserosaurus
 clean-me:~/Applications/Clean Me.app/Contents/MacOS/Clean Me
 docker:/Applications/Docker.app/Contents/MacOS/Docker
 dozer
