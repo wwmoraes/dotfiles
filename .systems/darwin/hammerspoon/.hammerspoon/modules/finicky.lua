@@ -141,6 +141,11 @@ hs.spoons.use("Finicky", {
         },
         browser = getBrowser("home"),
       },
+      -- Development
+      {
+        host = "github.com",
+        browser = getBrowser("personal"),
+      },
       -- Personal: local and private domains
       {
         match = {
