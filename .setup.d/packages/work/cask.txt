@@ -4,11 +4,11 @@
 -muzzle
 -postman
 -powershell:pwsh
-securid
+-securid
 -thingsmacsandboxhelper:~/Applications/ThingsMacSandboxHelper.app/Contents/MacOS/ThingsMacSandboxHelper
 -vagrant:/usr/local/bin/vagrant
 -virtualbox
-meetingbar:~/Applications/MeetingBar.app/Contents/MacOS/MeetingBar
-davmail:~/Applications/DavMail.app/Contents/MacOS/davmail
-itsycal:~/Applications/Itsycal.app/Contents/MacOS/Itsycal
+-meetingbar:~/Applications/MeetingBar.app/Contents/MacOS/MeetingBar
+-davmail:~/Applications/DavMail.app/Contents/MacOS/davmail
+-itsycal:~/Applications/Itsycal.app/Contents/MacOS/Itsycal
 dotnet-sdk:/usr/local/bin/dotnet
