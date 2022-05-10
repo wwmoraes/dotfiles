@@ -6,7 +6,7 @@ appcleaner
 clean-me:~/Applications/Clean Me.app/Contents/MacOS/Clean Me
 docker:/Applications/Docker.app/Contents/MacOS/Docker
 dozer
-dropbox
+-dropbox
 finicky
 fluid
 gas-mask:~/Applications/Gas Mask.app/Contents/MacOS/Gas Mask

@@ -3,6 +3,7 @@ daisydisk
 deezer
 deluge
 discord
+dropbox
 fluor
 google-backup-and-sync:~/Applications/Backup and Sync.app/Contents/MacOS/Backup and Sync
 image2icon
