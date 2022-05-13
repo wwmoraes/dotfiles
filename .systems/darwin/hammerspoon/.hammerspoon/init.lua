@@ -161,3 +161,12 @@ end
 -- })
 -- ---@type CleanURLs
 -- spoon.CleanURLs = spoon.CleanURLs
+
+if not hs.ipc.cliStatus() then
+  logger.i("hs CLI not installed, trying to install it")
+  if hs.ipc.cliInstall() then
+    logger.i("hs CLI installed successfully")
+  else
+    logger.e("failed to install the hs CLI")
+  end
+end
