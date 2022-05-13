@@ -4,11 +4,14 @@
     "hs",
     "spoon"
   ],
+  "Lua.workspace.ignoreDir": [
+    ".vscode",
+    "~/.hammerspoon"
+  ],
   "Lua.workspace.library": [
-    "/Applications/Hammerspoon.app/Contents/Resources/extensions/",
-    "~/dev/spoons/lib/types/hammerspoon",
-    "~/dev/spoons/lib/types/spoons",
-    "~/.hammerspoon/Spoons"
+    "~/Applications/Hammerspoon.app/Contents/Resources/extensions",
+    "~/.files/.systems/darwin/hammerspoon/.hammerspoon/Spoons",
+    "~/dev/spoons"
   ],
   "cSpell.ignorePaths": [
     "**/package-lock.json",
