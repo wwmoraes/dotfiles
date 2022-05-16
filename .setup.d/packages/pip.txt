@@ -1,10 +1,10 @@
 -powerline-status
 -powerline-kubernetes
+-wakatime
 asciinema
 doge
 thefuck
 yamllint
-wakatime
 tmuxp
 pipenv
 kubesplit

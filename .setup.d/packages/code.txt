@@ -124,7 +124,6 @@ visualstudioexptteam.vscodeintellicode
 vscode-icons-team.vscode-icons
 vsls-contrib.gistfs
 vstirbu.vscode-mermaid-preview
-wakatime.vscode-wakatime
 wallabyjs.quokka-vscode
 warpnet.salt-lint
 wix.vscode-import-cost
