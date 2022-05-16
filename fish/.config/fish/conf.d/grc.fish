@@ -18,6 +18,6 @@ for executable in (cat ~/.grc/bins.txt | grep -v ":false")
 end
 
 # remove the wrapper function for explicitly disabled binaries
-for executable in (cat ~/.grc/bins.txt | grep ":false")
+for executable in (cat ~/.grc/bins.txt | grep ":false" | cut -d: -f1)
   functions -e $executable
 end
