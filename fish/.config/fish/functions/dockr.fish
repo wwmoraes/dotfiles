@@ -63,14 +63,14 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
   case context
     set -l tag (echo $PWD | md5sum | cut -d' ' -f1)
     printf '\
-    FROM busybox
+    FROM scratch
     WORKDIR /context
     COPY . .
-    CMD find . -not \( -path "." \) | cut -d/ -f2- | sort
     ' | docker build --load -q -f - -t $tag . > /dev/null
 
-    docker run --rm -it $tag
-
+    docker create --name $tag $tag /bin/true > /dev/null
+    docker export $tag | tar -tf - 'context/*' | sed 's|^context/||g' | grep --color=never .
+    docker container rm $tag > /dev/null
     docker image rm $tag > /dev/null
   case shell
     switch (uname -s | tr '[:upper:]' '[:lower:]')
