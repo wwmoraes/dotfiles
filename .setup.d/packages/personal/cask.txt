@@ -1,3 +1,5 @@
+-google-backup-and-sync
+airbuddy
 calibre
 daisydisk
 deezer
@@ -5,20 +7,24 @@ deluge
 discord
 dropbox
 fluor
-google-backup-and-sync:~/Applications/Backup and Sync.app/Contents/MacOS/Backup and Sync
 image2icon
 keybase
 kindle
 launchcontrol
-little-snitch:~/Applications/Little Snitch.app/Contents/MacOS/Little Snitch
-mate-translate:~/Applications/Mate Translate.app/Contents/MacOS/Mate Translate
+little-snitch
+mate-translate
 megasync
 messenger
-responsively:~/Applications/ResponsivelyApp.app/Contents/MacOS/ResponsivelyApp
-steam:~/Applications/Steam.app/Contents/MacOS/steam_osx
-suspicious-package:~/Applications/Suspicious Package.app/Contents/MacOS/Suspicious Package
+nordvpn
+responsively
+soundsource
+steam
+suspicious-package
 telegram
-thingsmacsandboxhelper:~/Applications/ThingsMacSandboxHelper.app/Contents/MacOS/ThingsMacSandboxHelper
-tiddly:~/Applications/TiddlyDesktop.app/Contents/MacOS/nwjs
-tor-browser:~/Applications/Tor Browser.app/Contents/MacOS/XUL
+thingsmacsandboxhelper
+tiddly
+tor-browser
+twitch
 whatsapp
+ykman
+ykpers

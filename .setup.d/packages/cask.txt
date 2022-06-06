@@ -1,34 +1,35 @@
--1password:~/Applications/1Password 7.app/Contents/MacOS/1Password 7
-1password-cli:/usr/local/bin/op
+-browserosaurus
+-cryptomator
+-dropbox
+-hazel
+-jiggler
+-lens
+-ngrok
+-openin
+-swiftdefaultappsprefpane
+-typora
+-ubersicht
+-unlox
+#visual-studio-code
+1password
+1password-cli
 amethyst
 appcleaner
--browserosaurus
 clean-me:~/Applications/Clean Me.app/Contents/MacOS/Clean Me
 docker:/Applications/Docker.app/Contents/MacOS/Docker
 dozer
--dropbox
 finicky
 fluid
-gas-mask:~/Applications/Gas Mask.app/Contents/MacOS/Gas Mask
-google-chrome:~/Applications/Google Chrome.app/Contents/MacOS/Google Chrome
-gpg-suite-no-mail:~/Applications/GPG Keychain.app/Contents/MacOS/GPG Keychain
+free-gpgmail
+gas-mask
+google-chrome
 hammerspoon
--hazel
 image2icon
--jiggler
 kitty
-krisp:/Applications/krisp.app/Contents/MacOS/krisp
-launchpad-manager:~/Applications/Launchpad Manager.app/Contents/MacOS/Launchpad Manager
--lens
-macfuse:/Library/Frameworks/macFUSE.framework/Versions/Current/macFUSE
--ngrok
-obsidian:~/Applications/Obsidian.app/Contents/MacOS/Obsidian
--openin:~/Applications/OpenIn.app/Contents/MacOS/OpenIn
-swiftdefaultappsprefpane:~/Library/PreferencePanes/SwiftDefaultApps.prefPane/Contents/MacOS/SwiftDefaultApps
-the-unarchiver:~/Applications/The Unarchiver.app/Contents/MacOS/The Unarchiver
--typora
--ubersicht:~/Applications/Übersicht.app/Contents/MacOS/Übersicht
+krisp
+launchpad-manager
+macfuse
+obsidian
+the-unarchiver
 uninstallpkg
--unlox
-visual-studio-code:~/Applications/Visual Studio Code.app/Contents/MacOS/Electron
 xbar
