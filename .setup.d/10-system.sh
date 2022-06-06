@@ -69,6 +69,8 @@ printf "\e[1;33mSystem packages\e[0m\n"
 printf "Checking system manager...\n"
 # Manager options
 MANAGER=
+MANAGER_INSTALL_ARGS=
+MANAGER_REMOVE_ARGS=
 MANAGER_PRE_EXEC=
 MANAGER_POST_EXEC=
 if [ -x "$(which apt-get 2> /dev/null)" ]; then

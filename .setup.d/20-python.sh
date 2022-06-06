@@ -51,7 +51,6 @@ while read -r PACKAGE; do
     *) REMOVE=0;;
   esac
 
-
   case "${REMOVE}" in
     1)
       printf "[\e[91muninstall\e[m] Checking \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
