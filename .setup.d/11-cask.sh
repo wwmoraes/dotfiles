@@ -55,38 +55,38 @@ if [ -f "${HOST_PACKAGES_FILE_PATH}" ]; then
   done < "${HOST_PACKAGES_FILE_PATH}"
 fi
 
+printf "Listing installed packages...\n"
+INSTALLED="${TMP}/installed"
+brew list -1 | grep . > "${INSTALLED}"
+
 printf "\e[1;33mBrew cask packages\e[0m\n"
 
 ### Install packages
 while read -r PACKAGE; do
-  case "${PACKAGE%%:*}" in
+  case "${PACKAGE%%|*}" in
   -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
   *) REMOVE=0;;
   esac
-  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-  PACKAGE_CHECK_PATH=$(echo "${PACKAGE}" | awk 'BEGIN {FS=":"};{sub(/^~/, "'"${HOME}"'", $2); print $2}')
-  if [ "${PACKAGE_CHECK_PATH}" = "" ]; then
-    PACKAGE_CHECK_PATH="${HOME}/Applications/${PACKAGE%%:*}.app/Contents/MacOS/${PACKAGE%%:*}"
-  fi
 
   case "${REMOVE}" in
     1)
-      command -V "${PACKAGE_CHECK_PATH}" >/dev/null 2>&1 || continue
-
-      printf "Removing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-      brew remove -q "${PACKAGE%%:*}" 2> /dev/null || true
+      printf "[\e[91muninstall\e[m] Checking \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
+      grep -q "${PACKAGE%%|*}" "${INSTALLED}" || continue
+      printf "[\e[91muninstall\e[m] Uninstalling \e[95m%s\e[0m\n" "${PACKAGE%%|*}"
+      brew remove -q "${PACKAGE%%|*}" ||:
       ;;
     0)
-      command -V "${PACKAGE_CHECK_PATH}" >/dev/null 2>&1 && continue
-
-      printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-      brew install -qf --cask "${PACKAGE%%:*}" 2> /dev/null || true
+      printf "[\e[92m install \e[m] Checking \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
+      grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
+      printf "[\e[92m install \e[m] Installing \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
+      brew install -qf --cask "${PACKAGE%%|*}" ||:
       ;;
   esac
 
-  printf "Removing extra attributes of \e[96m%s\e[0m contents...\n" "~/Applications"
-  xattr -r -c "${HOME}/Applications"
-
-  printf "Changing ownership of \e[96m%s\e[0m contents...\n" "~/Applications"
-  sudo chown -R $(id -un):$(id -gn) "${HOME}/Applications"
 done < "${PACKAGES}"
+
+printf "Removing extra attributes of \e[96m%s\e[0m contents...\n" "${HOME}/Applications"
+sudo xattr -r -c "${HOME}/Applications" 2>&1 | grep -v "No such file"
+
+printf "Changing ownership of \e[96m%s\e[0m contents...\n" "${HOME}/Applications"
+sudo chown -R "$(id -un):$(id -gn)" "${HOME}/Applications"
