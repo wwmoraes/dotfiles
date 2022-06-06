@@ -1,3 +1,4 @@
+-wakatime-cli:wakatime
 e2fsprogs:/usr/local/opt/e2fsprogs/sbin/mkfs.ext4
 watch
 watchman
