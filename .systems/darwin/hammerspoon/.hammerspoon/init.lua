@@ -4,6 +4,8 @@ local logger = require("helpers.logger")
 local tags = require("data.tags")
 local apps = require("data.apps")
 
+hs.application.enableSpotlightForNameSearches(true)
+
 ---### third-party spoons configuration
 
 hs.loadSpoon("SpoonInstall")
