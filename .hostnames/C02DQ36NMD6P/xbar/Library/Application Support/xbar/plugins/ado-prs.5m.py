@@ -23,6 +23,7 @@ from urllib.parse import urljoin
 
 from azure.devops.credentials import BasicAuthentication
 from azure.devops.connection import Connection
+from azure.devops.exceptions import AzureDevOpsServiceError
 from azure.devops.v6_0.git.git_client import GitClient
 from azure.devops.v6_0.git.models import \
   GitPullRequest, \
@@ -64,6 +65,14 @@ except AssertionError as error:
 credentials = BasicAuthentication(username="", password=AZURE_DEVOPS_EXT_PAT)
 connection = Connection(ORGANIZATION, credentials)
 git: GitClient = connection.clients.get_git_client()
+
+try:
+  connection.authenticate()
+except AzureDevOpsServiceError as err:
+  print(err.message)
+  sys.exit(0)
+except:
+  raise
 
 keyFn: Callable[[GitPullRequest], str] = lambda pr: str(pr.repository.name)
 entries: List[str] = []
