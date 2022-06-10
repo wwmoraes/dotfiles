@@ -1,4 +1,5 @@
 **/__pycache__/
+.vscode/*.log
 
 ### Vim
 vim/.vim/viminfo

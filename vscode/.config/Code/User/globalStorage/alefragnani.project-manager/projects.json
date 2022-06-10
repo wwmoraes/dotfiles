@@ -33,5 +33,12 @@
 		"paths": [],
 		"tags": [],
 		"enabled": true
+	},
+	{
+		"name": "CGT",
+		"rootPath": "/Users/william/workspace/CGT.code-workspace",
+		"paths": [],
+		"tags": [],
+		"enabled": true
 	}
 ]
