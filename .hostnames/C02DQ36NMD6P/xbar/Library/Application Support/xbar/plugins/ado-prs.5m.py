@@ -64,9 +64,9 @@ except AssertionError as error:
 
 credentials = BasicAuthentication(username="", password=AZURE_DEVOPS_EXT_PAT)
 connection = Connection(ORGANIZATION, credentials)
-git: GitClient = connection.clients.get_git_client()
 
 try:
+  git: GitClient = connection.clients.get_git_client()
   connection.authenticate()
 except AzureDevOpsServiceError as err:
   print(err.message)
