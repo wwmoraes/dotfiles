@@ -9,7 +9,8 @@ end)
 
 -- apply all rules on Microsft Outlook
 hs.hotkey.bind(nil, "F18", nil, function()
-  local success, output, details = hs.osascript.applescriptFromFile(os.getenv("HOME") .. "/Library/Scripts/MSOutlookApplyAllRules.applescript")
+  local success, output, details = hs.osascript.applescriptFromFile(os.getenv("HOME") ..
+    "/Library/Scripts/MSOutlookApplyAllRules.applescript")
   if success ~= true then logger.e(output, details) end
 end)
 
@@ -38,3 +39,23 @@ hs.network.reachability.forHostName(os.getenv("WORK_INTRANET_HOSTNAME")):setCall
     workVpnIsUp = false
   end
 end):start()
+
+local snowSupportWidget = require("tags.work.snow-support-widget")
+local snowOncallWidget = require("tags.work.snow-oncall-widget")
+
+-- must not be local, otherwise it'll be garbage collected
+lockReloader = hs.caffeinate.watcher.new(function(eventType)
+  if eventType ~= hs.caffeinate.watcher.systemDidWake and
+      eventType ~= hs.caffeinate.watcher.screensDidUnlock then
+    return
+  end
+
+  snowSupportWidget:reload()
+  snowOncallWidget:reload()
+end):start()
+
+-- must not be local, otherwise it'll be garbage collected
+timeReloader = hs.timer.doAt("09:00", "1d", function()
+  snowSupportWidget:reload()
+  snowOncallWidget:reload()
+end, true):start()
