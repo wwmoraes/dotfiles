@@ -152,10 +152,8 @@ require("modules.finicky")
 -- ### plain init configuration
 
 for _, tag in ipairs(tags) do
-  local success, err = pcall(dofile, string.format("tags/%s.lua", tag))
-  if success == false then
-    logger.d(err)
-  end
+  local _, path = pcall(require, string.format("tags.%s", tag))
+  logger.d(string.format("loaded %s", path))
 end
 
 -- local queryParams = require("data.queryParams")
