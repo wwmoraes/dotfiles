@@ -6,6 +6,15 @@ local apps = require("data.apps")
 
 hs.application.enableSpotlightForNameSearches(true)
 
+if hs.settings.getKeys()["timeZone"] == nil then
+  logger.i("storing timezone name...")
+  local output = hs.execute([[stat -f '%Y' /etc/localtime | sed -e 's@.*/zoneinfo/@@']])
+  output = output:gsub("%c+", "")
+  if output:len() > 0 then
+    hs.settings.set("timeZone", output)
+  end
+end
+
 ---### third-party spoons configuration
 
 hs.loadSpoon("SpoonInstall")
