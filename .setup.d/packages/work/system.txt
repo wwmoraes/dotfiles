@@ -1,4 +1,4 @@
-azure-cli:az
+-azure-cli
 awscli:aws
 eksctl
 operator-sdk
