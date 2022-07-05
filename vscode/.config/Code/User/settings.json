@@ -85,6 +85,7 @@
     "digimon",
     "dockerlabelvalidate",
     "dockerlint",
+    "dopat",
     "dotfiles",
     "dotsecrets",
     "downlevel",
@@ -104,6 +105,7 @@
     "iife",
     "Infoln",
     "jsdoc",
+    "keychain",
     "kube",
     "kubectl",
     "kubernetes",
@@ -414,7 +416,8 @@
     "https://json.schemastore.org/container-structure-test.json": "structure-test.yaml",
     "https://json.schemastore.org/github-workflow.json": "**/.github/workflows/*",
     "https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json": "azure-pipelines.yml",
-    "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml"
+    "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml",
+    "https://json.schemastore.org/kustomization.json": "kustomization.yaml"
   },
   "svg.preview.mode": "svg"
 }
