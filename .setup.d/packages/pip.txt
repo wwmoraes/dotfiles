@@ -5,6 +5,6 @@ asciinema
 doge
 kubesplit
 pipenv
-thefuck
-tmuxp
+-thefuck
+-tmuxp
 yamllint
