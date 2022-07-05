@@ -1,10 +1,10 @@
 local logger = hs.logger.new("snow-onc", "error")
 local urls = require("helpers.urls")
 
-local snowURL = os.getenv("SNOW_URL")
-local groupID = os.getenv("SNOW_ONCALL_GROUP_ID")
-local rotasID = os.getenv("SNOW_ONCALL_ROTAS_ID")
-local rostersID = os.getenv("SNOW_ONCALL_ROSTERS_ID")
+local snowURL = assert(os.getenv("SNOW_URL"), "Service Now URL not set")
+local groupID = assert(os.getenv("SNOW_ONCALL_GROUP_ID"), "Service Now on-call group ID not set")
+local rotasID = assert(os.getenv("SNOW_ONCALL_ROTAS_ID"), "Service Now on-call rotation ID not set")
+local rostersID = assert(os.getenv("SNOW_ONCALL_ROSTERS_ID"), "Service Now on-call rosters ID not set")
 local timeZone = hs.settings.get("timeZone") or "Universal"
 
 logger.i("building URL...")

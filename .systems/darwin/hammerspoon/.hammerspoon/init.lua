@@ -6,6 +6,8 @@ local apps = require("data.apps")
 
 hs.application.enableSpotlightForNameSearches(true)
 
+-- named after a disabled feature from hs.host.locale
+-- https://github.com/Hammerspoon/hammerspoon/blob/b03d628f792eb88188962643c32a490f1174c10d/extensions/host/locale/libhost_locale.m#L74
 if hs.settings.getKeys()["timeZone"] == nil then
   logger.i("storing timezone name...")
   local output = hs.execute([[stat -f '%Y' /etc/localtime | sed -e 's@.*/zoneinfo/@@']])

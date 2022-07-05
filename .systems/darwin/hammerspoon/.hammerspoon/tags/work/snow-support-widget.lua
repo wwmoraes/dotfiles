@@ -1,9 +1,9 @@
 local logger = hs.logger.new("snow-sup", "error")
 local urls = require("helpers.urls")
 
-local snowURL = os.getenv("SNOW_URL")
-local groupID = os.getenv("SNOW_SUPPORT_GROUP_ID")
-local rotasID = os.getenv("SNOW_SUPPORT_ROTAS_ID")
+local snowURL = assert(os.getenv("SNOW_URL"), "Service Now URL not set")
+local groupID = assert(os.getenv("SNOW_SUPPORT_GROUP_ID"), "Service Now support group ID not set")
+local rotasID = assert(os.getenv("SNOW_SUPPORT_ROTAS_ID"), "Service Now support rotation ID not set")
 local timeZone = hs.settings.get("timeZone") or "Universal"
 
 logger.i("building URL...")

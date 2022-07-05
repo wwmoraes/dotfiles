@@ -9,7 +9,8 @@ end
 ---@param url string
 ---@return string
 function urls.unescape(url)
-  return url:gsub("%%(%x%x)", hex_to_char)
+  local result, _ = url:gsub("%%(%x%x)", hex_to_char)
+  return result
 end
 
 -- converts a part to be URL-safe
@@ -17,7 +18,7 @@ end
 ---@param part string
 ---@return string
 function urls.encodeURIComponent(part)
-  return part:
+  local result, _ = part:
       gsub("/", "%%2F"):
       gsub("=", "%%3D"):
       gsub("&", "%%26"):
@@ -27,6 +28,7 @@ function urls.encodeURIComponent(part)
       gsub("'", "%%27"):
       gsub(":", "%%3A"):
       gsub("@", "%%40")
+  return result
 end
 
 ---@param base string
