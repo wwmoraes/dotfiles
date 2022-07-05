@@ -7,3 +7,4 @@ awslogs
 azure-functions-core-tools@3:func
 tilt-dev/tap/tilt:tilt
 -tinyproxy
+Azure/kubelogin/kubelogin:kubelogin
