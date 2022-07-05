@@ -22,9 +22,12 @@
     ".setup.d/packages/**/*.txt"
   ],
   "cSpell.words": [
+    "applescript",
     "autofetch",
     "Browserosaurus",
+    "caffeinate",
     "dont",
+    "eventtap",
     "fblid",
     "fileutils",
     "Fira",
@@ -32,10 +35,14 @@
     "gclid",
     "gitlens",
     "helmignore",
+    "kdestroy",
     "keepcoder",
+    "kinit",
     "kubeconfig",
     "Kubeconfigs",
     "mkdir",
+    "ONCALL",
+    "osascript",
     "Pylance",
     "slackmacgap",
     "terraformignore",
@@ -43,6 +50,7 @@
     "tinc",
     "tinyspeck",
     "tldrnewsletter",
+    "urlevent",
     "vsicons"
   ],
   "files.associations": {
