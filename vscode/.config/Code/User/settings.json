@@ -141,6 +141,8 @@
     "typedoc",
     "Unmarshal",
     "untracked",
+    "vararg",
+    "wday",
     "wwmoraes"
   ],
   "csharp.suppressBuildAssetsNotification": true,
