@@ -9,7 +9,6 @@
     "~/.hammerspoon"
   ],
   "Lua.workspace.library": [
-    "~/Applications/Hammerspoon.app/Contents/Resources/extensions",
     "~/.files/.systems/darwin/hammerspoon/.hammerspoon/Spoons",
     "~/dev/spoons"
   ],
