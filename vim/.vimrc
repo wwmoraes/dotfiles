@@ -29,6 +29,8 @@ set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
 set undodir=~/.vim/undo
 
+set clipboard=unnamed " use system clipboard
+
 " Set some junk
 set autoindent " Copy indent from last line when starting new line
 set backspace=indent,eol,start
