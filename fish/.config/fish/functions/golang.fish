@@ -1,5 +1,19 @@
 function golang -a cmd -d "go wrapper with commands that Google forgot" -w go
   switch "$cmd"
+  case install
+    # needed because go install is a piece of shit hardcoded to install only
+    # on the same arch as the compiler itself. If you try to cross-compile,
+    # you'll get:
+    #   cannot install cross-compiled binaries when GOBIN is set
+    # and if GOBIN is unset, you get no binaries installed whatsoever ¯\_(ツ)_/¯
+    set -l GOARCH (lipo -archs (which go) | cut -d' ' -f1)
+    switch $GOARCH
+    case x86_64
+      set GOARCH amd64
+    end
+
+    env GOARCH=$GOARCH go install $argv[2]
+
   case unget
     test (count $argv) -lt 2; and echo "usage: g $argv[1] [packages]" && return 1
 
