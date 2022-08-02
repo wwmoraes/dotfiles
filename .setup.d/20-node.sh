@@ -55,9 +55,24 @@ jq -r '.dependencies | keys[]' "$(yarn global dir)/package.json" > "${INSTALLED}
 
 ### Install packages
 while read -r PACKAGE; do
-  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-  grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
+  case "${PACKAGE%%:*}" in
+    -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
+    *) REMOVE=0;;
+  esac
 
-  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-  yarn global add "${PACKAGE%%:*}" > /dev/null
+
+  case "${REMOVE}" in
+    1)
+      printf "[\e[92muninstall\e[m] Checking \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+      grep -q "${PACKAGE%%|*}" "${INSTALLED}" || continue
+      printf "[\e[92muninstall\e[m] Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+      yarn global remove "${PACKAGE%%:*}" > /dev/null
+    ;;
+    0)
+      printf "[\e[92m install \e[m] Checking \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+      grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
+      printf "[\e[92m install \e[m] Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+      yarn global add "${PACKAGE%%:*}" > /dev/null
+    ;;
+  esac
 done < "${PACKAGES}"
