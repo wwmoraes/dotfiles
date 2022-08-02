@@ -39,3 +39,4 @@ tmate
 tmux
 unzip
 vim
+pre-commit
