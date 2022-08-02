@@ -1,9 +1,21 @@
-filetype plugin indent on
+call plug#begin()
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+call plug#end()
+
+let g:airline_theme = 'powerlineish'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " Settings -------------------------------------------------------------
 
 " Make vim more useful
 set nocompatible
+set guifont=Source\ Code\ Pro\ for\ Powerline:h15
+set term=xterm-256color
+set termencoding=utf-8
+set fillchars+=stl:\ ,stlnc:\
 
 " Syntax highlighting
 set t_Co=256
