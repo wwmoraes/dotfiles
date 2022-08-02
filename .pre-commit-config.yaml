@@ -11,6 +11,9 @@ repos:
     - --assume-in-merge
   - id: check-vcs-permalinks
   - id: check-yaml
+  - id: check-xml
+    types: [file, non-executable, text]
+    types_or: [xml, plist]
   - id: detect-private-key
   # - id: end-of-file-fixer
   - id: fix-byte-order-marker
