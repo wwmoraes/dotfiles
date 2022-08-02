@@ -18,7 +18,6 @@
   path = ~/.gitcolors
 
 [init]
-  templateDir = ~/.local/git/templates
   defaultBranch = master
 
 [protocol]
