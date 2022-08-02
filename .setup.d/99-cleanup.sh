@@ -12,5 +12,5 @@ test "${SYSTEM}" = "darwin" || exit 0
 
 printf "\e[1;33mCleanup\e[0m\n"
 
-printf "removing broken binary links from /usr/local/bin...\n" "/usr/local/bin"
+printf "removing broken binary links from %s...\n" "/usr/local/bin"
 find -L /usr/local/bin/ -type l -exec rm -- {} +

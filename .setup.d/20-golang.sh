@@ -62,9 +62,9 @@ while read -r PACKAGE; do
   # IFS=: read PKG BIN <<< "${PACKAGE}"
   # IFS=@ read MODULE VERSION <<< "${PKG}"
   echo "${PACKAGE}" > "${FIFO}" &
-  IFS=: read PKG BIN < "${FIFO}"
+  IFS=: read -r PKG BIN < "${FIFO}"
   echo "${PKG}" > "${FIFO}" &
-  IFS=@ read MODULE VERSION < "${FIFO}"
+  IFS=@ read -r MODULE VERSION < "${FIFO}"
   : "${VERSION:=latest}"
   : "${BIN:=$(basename "${MODULE}")}"
 

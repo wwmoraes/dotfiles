@@ -1,34 +1,23 @@
-<p align="center">
-  <a href="" rel="noopener">
- <img width=200px height=200px src="https://via.placeholder.com/200.jpg?text=dotfiles" alt="dotfiles"></a>
-</p>
+# dotfiles
 
-<h3 align="center">dotfiles</h3>
+> Cross-platform dotfiles with batteries
 
-<div align="center">
-
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+![Status](https://img.shields.io/badge/status-active-success.svg)
 [![GitHub Issues](https://img.shields.io/github/issues/wwmoraes/dotfiles.svg)](https://github.com/wwmoraes/dotfiles/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/wwmoraes/dotfiles.svg)](https://github.com/wwmoraes/dotfiles/pulls)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
-</div>
-
 ---
-
-<p align="center"> Cross-platform dotfiles with batteries
-    <br>
-</p>
 
 ## 📝 Table of Contents
 
-- [About](#about)
-- [Getting Started](#getting_started)
-- [Usage](#usage)
+- [About](#-about)
+- [Getting Started](#-getting-started)
+- [Usage](#-usage)
 - [TODO](../TODO.md)
 - [Contributing](../CONTRIBUTING.md)
 
-## 🧐 About <a name = "about"></a>
+## 🧐 About
 
 Configures hosts with dotfiles, environment variables, packages and binaries
 across multiple platforms and systems. The reason for this is that managing multiple
@@ -49,7 +38,7 @@ KISS. Shell scripts are virtually available on all OS nowadays (even Windows has
 Bash through WSL now, and had it in a less-compatible way for some decades
 through Cygwin), which makes installing this repository easy on a fresh host.
 
-## 🏁 Getting Started <a name = "getting_started"></a>
+## 🏁 Getting Started
 
 For new hosts, clone the repository on the desired host, install and setup
 directly from the cloned folder using `make install` and `make setup`. Afterwards
@@ -81,7 +70,7 @@ script might need some package installed before it is run).
 For package installation, copy one of the existing setup scripts
 (system/golang/python/rust) and set as desired.
 
-## 🎈 Usage <a name="usage"></a>
+## 🎈 Usage
 
 The fish function, `dotfiles`, has some subcommands that manages the repository,
 namely:
@@ -92,7 +81,8 @@ namely:
 - `update`: updates the repository (i.e. git pull)
 - `code`: opens the repository in VSCode
 - `lg`: opens lazygit at the repository
-- `config`: WIP - configures other CLI tools that need external communication (e.g. gcloud authentication)
+- `config`: WIP - configures other CLI tools that need external communication
+(e.g. gcloud authentication)
 
 ### Project structure
 
@@ -106,12 +96,12 @@ dotfiles/                     <-- this repository
 │   └── ...                   <-- files that'll be linked as ~/.local/bin/...
 ├── .setup.d/                 <-- setup scripts ran by make setup or ./setup.sh
 │   ├── packages/             <-- package lists
-│   │   └── system.txt        <-- system packages (e.g. deb/pacman/rpm/homebrew package names)
+│   │   └── system.txt        <-- system packages (e.g. brew package names)
 │   ├── darwin/               <-- MacOS-specific package lists
-│   │   └── system.txt        <-- system packages (e.g. deb/pacman/rpm/homebrew package names)
+│   │   └── system.txt        <-- system packages (e.g. brew package names)
 │   ├── linux/                <-- Linux-specific package lists
-│   │   └── system.txt        <-- system packages (e.g. deb/pacman/rpm/homebrew package names)
-│   └── 10-system.sh          <-- installs packages/system.txt and packages/<system>/system.txt packages
+│   │   └── system.txt        <-- system packages (e.g. brew package names)
+│   └── 10-system.sh          <-- installs system.txt packages
 ├── .systems/                 <-- system-specific stow files
 │   ├── linux/                <-- linux-specific stow files
 │   │   └── non-dot-folder/   <-- stow group folder

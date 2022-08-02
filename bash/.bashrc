@@ -38,18 +38,18 @@ fi
 
 color_prompt=
 # enable prompt colors if the terminal supports it
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+case "${TERM}" in
+  xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # check if terminal has color support
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+  # We have color support; assume it's compliant with Ecma-48
+  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+  # a case would tend to support setf rather than setaf.)
+  color_prompt=yes
 else
-	color_prompt=
+  color_prompt=
 fi
 
 CHECKMARK=$(printf "\xE2\x9C\x94")
@@ -57,7 +57,7 @@ CROSSMARK=$(printf "\xE2\x9C\x96")
 RIGHTWARDS_ARROW=$(printf "\xE2\x9E\xBE")
 
 parse_git_branch() {
-  if [ $(git status -s 2> /dev/null | wc -l) -gt 0 ]; then
+  if [ "$(git status -s 2> /dev/null | wc -l)" -gt 0 ]; then
     HASCHANGES="*"
   fi
 
@@ -66,23 +66,25 @@ parse_git_branch() {
 
 parse_last_retcode() {
   if [ "$1" = "colored" ]; then
-    test $? -eq 0 && printf "\e[32m${CHECKMARK}\e[39m" || printf "\e[31m${CROSSMARK}\e[39m"
+    # shellcheck disable=SC2181
+    test $? -eq 0 && printf "\e[32m%s\e[39m" "${CHECKMARK}" || printf "\e[31m%s\e[39m" "${CROSSMARK}"
   else
-    [[ $? -eq 0 ]] && printf "${CHECKMARK}" || printf "${CROSSMARK}"
+    # shellcheck disable=SC2181
+    test $? -eq 0 && printf "%s" "${CHECKMARK}" || printf "%s" "${CROSSMARK}"
   fi
 }
 
 if [ "${color_prompt}" = "yes" ]; then
-	PS1=$'\[$(parse_last_retcode colored)\] ${debian_chroot:+($debian_chroot)}\[\e[1;34m\]\W\[\e[33m\]$(parse_git_branch)\[\e[m\] \[\e[1;39m\]\$\[\e[m\] ${RIGHTWARDS_ARROW} '
+  PS1=$'\[$(parse_last_retcode colored)\] ${debian_chroot:+($debian_chroot)}\[\e[1;34m\]\W\[\e[33m\]$(parse_git_branch)\[\e[m\] \[\e[1;39m\]\$\[\e[m\] ${RIGHTWARDS_ARROW} '
 else
-	PS1=$'$(parse_last_retcode) ${debian_chroot:+($debian_chroot)}\W$(parse_git_branch) \$ ${RIGHTWARDS_ARROW} '
+  PS1=$'$(parse_last_retcode) ${debian_chroot:+($debian_chroot)}\W$(parse_git_branch) \$ ${RIGHTWARDS_ARROW} '
 fi
 unset color_prompt
 
 # If this is an xterm set the title
-case "$TERM" in
+case "${TERM}" in
   xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\W $\a\]$PS1";;
+    PS1="\[\e]0;${debian_chroot:+(${debian_chroot})}\W $\a\]${PS1}";;
   *);;
 esac
 
@@ -95,6 +97,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
+    # shellcheck disable=SC1090
     . ~/.bash_aliases
 fi
 
@@ -103,13 +106,15 @@ fi
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
+    # shellcheck disable=SC1091
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
+    # shellcheck disable=SC1091
     . /etc/bash_completion
   fi
 fi
 
-for FILE in ${HOME}/.env_remove*; do
+for FILE in "${HOME}"/.env_remove*; do
   while IFS= read -r VARIABLE; do
     unset "${VARIABLE}"
   done < "${FILE}"
@@ -117,12 +122,17 @@ done
 
 HOST=$(hostname -s)
 set -a
+# shellcheck disable=SC1090
 test -f "${HOME}/.env" && source "${HOME}/.env"
+# shellcheck disable=SC1090
 test -f "${HOME}/.env_secrets" && source "${HOME}/.env_secrets"
 while IFS= read -r TAG; do
+  # shellcheck disable=SC1090
   test -f "${HOME}/.env_${TAG}" && source "${HOME}/.env_${TAG}"
+  # shellcheck disable=SC1090
   test -f "${HOME}/.env_${TAG}_secrets" && source "${HOME}/.env_${TAG}_secrets"
 done < ~/.tagsrc
+# shellcheck disable=SC1090
 test -f "${HOME}/.env-${HOST}" && source "${HOME}/.env-${HOST}"
 set +a
 
@@ -152,7 +162,9 @@ function launchTmux {
   command -v tmux > /dev/null || return
 
   tmuxSessionList() {
-    sessions=(${TMUX_DEFAULT_SESSION:-main} $(tmux list-sessions -F '#S' 2>/dev/null))
+    # TODO use mapfile or read -a instead
+    # shellcheck disable=SC2207
+    sessions=("${TMUX_DEFAULT_SESSION:-main}" $(tmux list-sessions -F '#S' 2>/dev/null))
     printf '%s\n' "${sessions[@]}" | sort | uniq | awk NF
   }
 

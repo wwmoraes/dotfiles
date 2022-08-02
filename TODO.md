@@ -1,5 +1,7 @@
 # TO DO
 
+- [ ] add setup folder per tag + install based on tags
+
 ## transform into function
 
 ```shell

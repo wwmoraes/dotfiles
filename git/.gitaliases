@@ -1,31 +1,31 @@
 [alias]
 # Needed for piping
-	git = !exec git
+  git = !exec git
 
 # Human Aliases
-	unstage = reset -q HEAD --
-	discard = checkout --
-	uncommit = reset --mixed HEAD~
-	amend = commit --amend --all --no-edit
+  unstage = reset -q HEAD --
+  discard = checkout --
+  uncommit = reset --mixed HEAD~
+  amend = commit --amend --all --no-edit
 
 # almost-human aliases
-	hreset = reset --hard
-	fpush = push --force
+  hreset = reset --hard
+  fpush = push --force
 
 # Shorter versions and true aliases
-	s = status
-	co = checkout
-	cherrypick = cherry-pick
-	cherry = cherry-pick
-	cp = cherry-pick
+  s = status
+  co = checkout
+  cherrypick = cherry-pick
+  cherry = cherry-pick
+  cp = cherry-pick
 
 # Goodies
   c = commit -am
-	sclone = clone --depth=1
-	df = diff --color --color-words --abbrev
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-	diff = diff --word-diff
-	reup = rebase-update # depot_tools specific
+  sclone = clone --depth=1
+  df = diff --color --color-words --abbrev
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+  diff = diff --word-diff
+  reup = rebase-update # depot_tools specific
 
 # Amend and force push :D
   yolo = !git commit --amend --all --no-edit && git push --force
@@ -41,108 +41,108 @@
   ra = rebase --abort
 
 # Show the diff between the latest commit and the current state
-	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat --color-words"
+  d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat --color-words"
 
 # Fixup staged changes to specified commit
-	fixup = !sh -c 'REV=$(git rev-parse $1) && git commit --fixup $@ && git rebase -i --autosquash $REV^' -
+  fixup = !sh -c 'REV=$(git rev-parse $1) && git commit --fixup $@ && git rebase -i --autosquash $REV^' -
 
 # Commit staged changes into specific commit w/o opening editor
-	fixit = "!f() { git commit --fixup=$1; GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash $1~1; }; f"
+  fixit = "!f() { git commit --fixup=$1; GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash $1~1; }; f"
 
 # remove changes
-	scraplastcommit = reset --hard HEAD^
+  scraplastcommit = reset --hard HEAD^
 
 # keep your changes
-	unwindlastcommit = reset --soft HEAD^
+  unwindlastcommit = reset --soft HEAD^
 
 # generate a changeset to reverse a previous commit.
-	reverselastcommit = revert HEAD
-	nevermind = !git reset --hard HEAD && git clean -d -f
-	graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
-	precommit = diff --cached --diff-algorithm=minimal -w
+  reverselastcommit = revert HEAD
+  nevermind = !git reset --hard HEAD && git clean -d -f
+  graph = log --graph -10 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
+  precommit = diff --cached --diff-algorithm=minimal -w
 
 # List commits in short form, with colors and branch/tag annotations.
-	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]%Creset" --decorate
+  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]%Creset" --decorate
 
 # List commits showing changed files
-	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]%Creset" --decorate --numstat
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]%Creset" --decorate --numstat
 
 # List with no colors if you need to chain the out put with Unix pipes:
-	lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+  lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
 
 # oneline commits showing dates
-	lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]%Creset" --decorate --date=short
+  lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]%Creset" --decorate --date=short
 
 # default look for short git log:
-	le = log --oneline --decorate
+  le = log --oneline --decorate
 
 # see all the commits related to a file, with the diff of the changes
-	filelog = log -u
-	fl = log -u
+  filelog = log -u
+  fl = log -u
 
 # check what was in the last commit
-	dl = "!git ll -1"
+  dl = "!git ll -1"
 
 # Show a diff last commit:
-	dlc = diff --cached HEAD^
+  dlc = diff --cached HEAD^
 
 # Diff uncommited changes
   diffunc = diff --cached
 
 # Show content (full diff) of a commit given a revision:
-	dr  = "!f() { git diff "$1"^.."$1"; }; f"
-	lc  = "!f() { git ll "$1"^.."$1"; }; f"
-	diffr  = "!f() { git diff "$1"^.."$1"; }; f"
+  dr  = "!f() { git diff "$1"^.."$1"; }; f"
+  lc  = "!f() { git ll "$1"^.."$1"; }; f"
+  diffr  = "!f() { git diff "$1"^.."$1"; }; f"
 
 # Find a file path in codebase
-	f = "!git ls-files | grep -i"
+  f = "!git ls-files | grep -i"
 
 # Search/grep your entire codebase for a string:
-	grep = grep -Ii
-	gr = grep -Ii
+  grep = grep -Ii
+  gr = grep -Ii
 
 # Grep from root folder
-	gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
+  gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
 
 # List all Aliases, and these comments  //  la = "!git config -l | grep alias | cut -c 7-"
-	la = "!cat ~/.gitaliases | sed -n -e '/# Human Aliases/,$p' | grep '^\t\\|\\#'"
+  la = "!cat ~/.gitaliases | sed -n -e '/# Human Aliases/,$p' | grep '^\t\\|\\#'"
 
 # show last tag
-	lasttag = describe --tags --abbrev=0
-	lt = describe --tags --abbrev=0
+  lasttag = describe --tags --abbrev=0
+  lt = describe --tags --abbrev=0
 
 # show recent branches
-	short-recent = "for-each-ref --count=25 --sort=committerdate refs/heads/ --format='%(refname:short)'"
+  short-recent = "for-each-ref --count=25 --sort=committerdate refs/heads/ --format='%(refname:short)'"
 
 # fuzzy add using fzf
-	fadd = "!git ls-files -m -o --exclude-standard | fzf --print0 -0 -m --preview 'git diff --color=always {}' --preview-window=down:10:wrap | xargs -0 -t -o git add --all"
+  fadd = "!git ls-files -m -o --exclude-standard | fzf --print0 -0 -m --preview 'git diff --color=always {}' --preview-window=down:10:wrap | xargs -0 -t -o git add --all"
 
 # fuzzy switch branch...  /fish/functions/fco.fish seems better
-	fco = "!git branch -a | awk '$1 == \"*\" {system(\"tput setaf 3\");print $2;system(\"tput sgr0\");next};{print $1}' | fzf --ansi | sed 's|^remotes/|--track |' | xargs -t git checkout"
+  fco = "!git branch -a | awk '$1 == \"*\" {system(\"tput setaf 3\");print $2;system(\"tput sgr0\");next};{print $1}' | fzf --ansi | sed 's|^remotes/|--track |' | xargs -t git checkout"
 
 # fuzzy delete branch
   fdel = "!git branch -a | awk '$1 == \"*\" {system(\"tput setaf 3\");print $2;system(\"tput sgr0\");next};{print $1}' | fzf --ansi -m | awk '$0 ~ /^remotes/ {print \"push origin --delete\",$0;next}{print \"branch -D\",$0}' | sed 's|remotes/origin/||g' | ifne xargs -L 1 git"
 
 # fuzzy fix staged changes into existing commit
-	ffix = !HASH=`git log --pretty=oneline | head -n 100 | fzf` && git fixit `echo ${HASH} | awk '{ print $1 }'`
+  ffix = !HASH=`git log --pretty=oneline | head -n 100 | fzf` && git fixit `echo ${HASH} | awk '{ print $1 }'`
 
 # fuzzy rebase interactive choose existing commit to start from
-	frebase = !HASH=`git log --pretty=oneline | head -n 100 | fzf` && git rebase -i `echo ${HASH} | awk '{ print $1 }'`^
+  frebase = !HASH=`git log --pretty=oneline | head -n 100 | fzf` && git rebase -i `echo ${HASH} | awk '{ print $1 }'`^
 
 # fuzzy edit untracked/modified files
-	fed = !FILES=`git status -s | awk '{ print $2 }' | fzf -x -m` && code ${FILES}
+  fed = !FILES=`git status -s | awk '{ print $2 }' | fzf -x -m` && code ${FILES}
 
 # fuzzy edit files in conflict state
-	fedconflicts = !FILES=`git status -s | grep '^[UMDA]\\{2\\} ' | awk '{ print $2 }' | fzf -x -m` && code ${FILES}
+  fedconflicts = !FILES=`git status -s | grep '^[UMDA]\\{2\\} ' | awk '{ print $2 }' | fzf -x -m` && code ${FILES}
 
 # fuzzy gitgrep working tree for pattern and choose file(s) to edit
-	fgrep = !sh -c 'FILES=`git grep -l -A 0 -B 0 $1 $2 | fzf -x -m` && code `echo ${FILES} | cut -d':' -f1 | xargs`' -
+  fgrep = !sh -c 'FILES=`git grep -l -A 0 -B 0 $1 $2 | fzf -x -m` && code `echo ${FILES} | cut -d':' -f1 | xargs`' -
 
 # fuzzy select past commit, and edit current state of file(s) changed in it
-	fedlog = !HASH=`git log --pretty=oneline | head -n 50 | fzf` && HASHZ=`echo ${HASH} | awk '{ print $1 }'` && FILES=`git show --pretty='format:' --name-only $HASHZ | grep -v -e '^$' | fzf -x -m` && code ${FILES}
+  fedlog = !HASH=`git log --pretty=oneline | head -n 50 | fzf` && HASHZ=`echo ${HASH} | awk '{ print $1 }'` && FILES=`git show --pretty='format:' --name-only $HASHZ | grep -v -e '^$' | fzf -x -m` && code ${FILES}
 
 # fuzzy reset back to prior commit
-	freset = !HASH=`git log --pretty=oneline | head -n 50 | fzf` && git reset --soft `echo ${HASH} | awk '{ print $1 }'`^
+  freset = !HASH=`git log --pretty=oneline | head -n 50 | fzf` && git reset --soft `echo ${HASH} | awk '{ print $1 }'`^
 
 # update hooks
   hooks = "!f() { local templateDir=$(git config --get --path init.templatedir); local gitDir=$(git rev-parse --git-dir); rsync --archive --verbose --compress --cvs-exclude \"$templateDir/hooks/\" \"$gitDir/hooks\" --delete; }; f"

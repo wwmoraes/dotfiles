@@ -575,8 +575,8 @@ function! s:reorg_rtp()
   let rtps     = map(s:loaded_names(), 's:rtp(g:plugs[v:val])')
   let afters   = filter(map(copy(rtps), 'globpath(v:val, "after")'), '!empty(v:val)')
   let rtp      = join(map(rtps, 'escape(v:val, ",")'), ',')
-                 \ . ','.s:middle.','
-                 \ . join(map(afters, 'escape(v:val, ",")'), ',')
+  \ . ','.s:middle.','
+  \ . join(map(afters, 'escape(v:val, ",")'), ',')
   let &rtp     = substitute(substitute(rtp, ',,*', ',', 'g'), '^,\|,$', '', 'g')
   let s:prtp   = &rtp
 
@@ -1075,7 +1075,7 @@ function! s:do(pull, force, todo)
       endif
       call s:switch_in()
       call setline(4, empty(error) ? (getline(4) . 'OK')
-                                 \ : ('x' . getline(4)[1:] . error))
+      \ : ('x' . getline(4)[1:] . error))
       if !empty(error)
         call add(s:update.errors, name)
         call s:regress_bar()
@@ -1160,7 +1160,7 @@ function! s:update_impl(pull, force, args) abort
 
   let managed = filter(copy(g:plugs), 's:is_managed(v:key)')
   let todo = empty(args) ? filter(managed, '!v:val.frozen || !isdirectory(v:val.dir)') :
-                         \ filter(managed, 'index(args, v:key) >= 0')
+  \ filter(managed, 'index(args, v:key) >= 0')
 
   if empty(todo)
     return s:warn('echo', 'No plugin to '. (a:pull ? 'update' : 'install'))
@@ -1741,10 +1741,13 @@ class Command(object):
     try:
       tfile = tempfile.NamedTemporaryFile(mode='w+b')
       preexec_fn = not G_IS_WIN and os.setsid or None
-      self.proc = subprocess.Popen(self.cmd, stdout=tfile,
-                                   stderr=subprocess.STDOUT,
-                                   stdin=subprocess.PIPE, shell=True,
-                                   preexec_fn=preexec_fn)
+      self.proc = subprocess.Popen(
+        self.cmd,
+        stdout=tfile,
+        stderr=subprocess.STDOUT,
+        stdin=subprocess.PIPE, shell=True,
+        preexec_fn=preexec_fn,
+      )
       thrd = thr.Thread(target=(lambda proc: proc.wait()), args=(self.proc,))
       thrd.start()
 
@@ -1855,9 +1858,10 @@ class Plugin(object):
     mb = regex.match(expect_uri)
     if ma is None or mb is None or ma.groups() != mb.groups():
       msg = ['',
-             'Invalid URI: {0}'.format(actual_uri),
-             'Expected     {0}'.format(expect_uri),
-             'PlugClean required.']
+        'Invalid URI: {0}'.format(actual_uri),
+        'Expected     {0}'.format(expect_uri),
+        'PlugClean required.'
+      ]
       raise InvalidURI(msg)
 
     if G_PULL:
@@ -2165,9 +2169,13 @@ function! s:update_ruby()
                   [false, [data.chomp, "PlugClean required."].join($/)]
                 end
               elsif !compare_git_uri(current_uri, uri)
-                [false, ["Invalid URI: #{current_uri}",
-                         "Expected:    #{uri}",
-                         "PlugClean required."].join($/)]
+                [
+                  false, [
+                    "Invalid URI: #{current_uri}",
+                    "Expected:    #{uri}",
+                    "PlugClean required."
+                  ].join($/)
+                ]
               else
                 if pull
                   log.call name, 'Updating ...', :update

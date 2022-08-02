@@ -5,11 +5,11 @@ FILTERS="@work"
 
 SCRIPT_NAME=$(basename "$0")
 
-[[ "$1" = "usage" ]] && {
+if [ "$1" = "usage" ]; then
   echo "    ${TODO_SH} [-fhpantvV] [-d todo_config] ${SCRIPT_NAME} <action> [task_number] [task_description]"
   echo "      Do actions on ${FILTERS} tasks"
   exit 0
-}
+fi
 
 # remove script name
 shift

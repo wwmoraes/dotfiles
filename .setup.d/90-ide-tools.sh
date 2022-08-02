@@ -42,14 +42,15 @@ if [ -n "${CODIUM_RESOURCES_PATH}" ]; then
   PRODUCT_JSON_PATH="${CODIUM_RESOURCES_PATH}/app/product.json"
 fi
 
-set +e
-IFS='' read -d '' -r JQ_FILTER <<EOF
+JQ_FILTER=""
+while IFS="" read -r line; do
+  JQ_FILTER="$(printf "%s%s\n \b" "${JQ_FILTER}" "${line}")"
+done <<\EOF
 .
-| .extensionsGallery.serviceUrl = \$serviceUrl
-| .extensionsGallery.itemUrl = \$itemUrl
-| .extensionsGallery.cacheUrl = \$cacheUrl
+| .extensionsGallery.serviceUrl = $serviceUrl
+| .extensionsGallery.itemUrl = $itemUrl
+| .extensionsGallery.cacheUrl = $cacheUrl
 EOF
-set -e
 
 echo "checking if VSCodium is installed..."
 if [ -n "${PRODUCT_JSON_PATH}" ] && [ -f "${PRODUCT_JSON_PATH}" ]; then

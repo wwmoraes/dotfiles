@@ -11,7 +11,10 @@ insert_final_newline = false
 
 [*.md]
 trim_trailing_whitespace = false
-insert_final_newline = false
+
+[*.applescript]
+indent_style = tab
+indent_size = 2
 
 [Makefile]
 indent_style = tab

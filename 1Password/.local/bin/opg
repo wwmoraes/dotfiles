@@ -1,7 +1,7 @@
 #!/bin/sh
 
 usage() {
-  echo "$(basename $0) <item> <field>"
+  echo "$(basename "$0") <item> <field>"
 }
 
 if [ $# -ne 2 ]; then
@@ -9,13 +9,13 @@ if [ $# -ne 2 ]; then
   exit 1
 fi
 
-type -p op > /dev/null || {
+command -V op > /dev/null 2>&1 || {
   echo "error: op tool not found - please install 1password CLI"
   echo "https://1password.com/downloads/command-line/"
   exit 1
 }
 
-type -p jq > /dev/null || {
+command -V jq > /dev/null 2>&1 || {
   echo "error: jq tool not found - please install or add to path"
   echo "https://stedolan.github.io/jq/"
   exit 1

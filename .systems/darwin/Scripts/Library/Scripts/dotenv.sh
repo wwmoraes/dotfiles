@@ -52,7 +52,7 @@ for FILE in "${HOME}/.env_remove"*; do
     test "$(expr "${VARIABLE}" : '#')" -gt 0 && continue
 
     launchctl unsetenv "${VARIABLE}"
-    export -n "${VARIABLE}"
+    unset -v "${VARIABLE}"
   done < "${FILE}"
 done
 
