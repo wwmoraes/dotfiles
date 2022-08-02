@@ -6,8 +6,10 @@ DIRECTORIES = $(sort $(wildcard */))
 OS_DIRECTORIES = $(sort $(patsubst .systems/$(OS)/%,%,$(wildcard .systems/$(OS)/*/)))
 HOST_DIRECTORIES = $(sort $(patsubst .hostnames/$(HOSTNAME)/%,%,$(wildcard .hostnames/$(HOSTNAME)/*/)))
 
-CODE_INSTALLED_EXTENSIONS = $(shell code --list-extensions | tr '[:upper:]' '[:lower:]' | sort)
+CODE = $(shell which code | which code-oss | which codium)
+CODE_INSTALLED_EXTENSIONS = $(shell ${CODE} --list-extensions | tr '[:upper:]' '[:lower:]' | sort)
 CODE_GLOBAL_EXTENSIONS = $(shell cat .setup.d/packages/code.txt)
+CODE_GLOBAL_EXTENSIONS_REMOVE = $(shell cat .setup.d/packages/code-remove.txt)
 CODE_TAGGED_EXTENSIONS = $(shell cat .setup.d/packages/*/code.txt)
 
 NODE_NO_WARNINGS := 1
@@ -15,9 +17,9 @@ export NODE_NO_WARNINGS
 
 # Detect OS
 ifeq ($(OS),Windows_NT)
-    OS := windows
+	OS := windows
 else
-    OS := $(shell sh -c 'uname 2>/dev/null | tr '[:upper:]' '[:lower:]' || echo unknown')
+	OS := $(shell sh -c 'uname 2>/dev/null | tr '[:upper:]' '[:lower:]' || echo unknown')
 endif
 
 define stow
@@ -111,12 +113,27 @@ cleanup:
 .PHONY: code-dump
 code-dump: CODE_EXTENSION_LIST=$(filter-out ${CODE_TAGGED_EXTENSIONS},${CODE_INSTALLED_EXTENSIONS})
 code-dump:
-	@echo ${CODE_EXTENSION_LIST} | tr ' ' '\n' > .setup.d/packages/code.txt
+	@echo ${CODE_GLOBAL_EXTENSIONS} | tr ' ' '\n' | grep -E "^-" | cut -d- -f2- >> .setup.d/packages/code-remove.txt
+	@cat .setup.d/packages/code-remove.txt | sort -u | sponge .setup.d/packages/code-remove.txt
+	@echo ${CODE_GLOBAL_EXTENSIONS} ${CODE_EXTENSION_LIST} | tr ' ' '\n' | grep -vE "^-" | sort -u > .setup.d/packages/code.txt
+	@comm -23 .setup.d/packages/code.txt .setup.d/packages/code-remove.txt | sponge .setup.d/packages/code.txt
 
-.PHONY: code-install
-code-install: CODE_PENDING=$(filter-out ${CODE_INSTALLED_EXTENSIONS},${CODE_GLOBAL_EXTENSIONS})
-code-install:
-	@echo ${CODE_PENDING} | xargs -n1 code --install-extension
+.PHONY: code-setup
+code-setup: CODE_PENDING=$(filter-out ${CODE_INSTALLED_EXTENSIONS},${CODE_GLOBAL_EXTENSIONS})
+code-setup: CODE_REMOVE=$(filter-out ${CODE_GLOBAL_EXTENSIONS_REMOVE},${CODE_INSTALLED_EXTENSIONS})
+code-setup:
+	@echo ${CODE_PENDING} | xargs -n1 ${CODE} --install-extension
+	@echo ${CODE_REMOVE} | xargs -n1 ${CODE} --uninstall-extension
+
+
+.PHONY: code-status
+code-status: CODE_PENDING=$(filter-out ${CODE_INSTALLED_EXTENSIONS},${CODE_GLOBAL_EXTENSIONS})
+code-status: CODE_REMOVE=$(filter ${CODE_GLOBAL_EXTENSIONS_REMOVE},${CODE_INSTALLED_EXTENSIONS})
+code-status:
+	@echo "Pending install:"
+	@echo ${CODE_PENDING} | tr ' ' '\n'
+	@echo "Pending removal:"
+	@echo ${CODE_REMOVE} | tr ' ' '\n'
 
 .PHONY: frun
 frun:
