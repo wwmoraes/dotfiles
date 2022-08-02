@@ -10,6 +10,7 @@ function fish_prompt
         -jobs (count (jobs -p)) \
         -modules "venv,user,host,ssh,cwd,perms,jobs,exit,root" \
         -numeric-exit-codes \
+        -shell bare \
         -hostname-only-if-ssh
       return
     end
