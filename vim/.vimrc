@@ -10,8 +10,11 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " Settings -------------------------------------------------------------
 
-" Make vim more useful
-set nocompatible
+syntax on
+filetype plugin indent on
+
+set nocompatible " be iMproved :)
+
 set guifont=Source\ Code\ Pro\ for\ Powerline:h15
 set term=xterm-256color
 set termencoding=utf-8
@@ -20,7 +23,6 @@ set fillchars+=stl:\ ,stlnc:\
 " Syntax highlighting
 set t_Co=256
 set background=dark
-syntax on
 
 " Local directories
 set backupdir=~/.vim/backups
@@ -78,7 +80,7 @@ set regexpengine=1 " Use the old regular expression engine (it's faster for cert
 set report=0 " Show all changes
 set ruler " Show the cursor position
 set scrolloff=3 " Start scrolling three lines before horizontal border of window
-set shell=/bin/sh " Use /bin/sh for executing shell commands
+set shell=/bin/bash " Use /bin/bash for executing shell commands
 set shiftwidth=2 " The # of spaces for indenting
 set shortmess=atI " Don't show the intro message when starting vim
 set showtabline=2 " Always show tab bar
@@ -118,7 +120,7 @@ augroup general_config
 augroup END
 
 " Fish
-augroup filetype_fish
+augroup filetypedetect
   autocmd!
   au BufRead,BufNewFile *.fish set ft=fish
 augroup END
