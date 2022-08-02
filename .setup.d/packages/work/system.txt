@@ -1,10 +1,10 @@
 -azure-cli
-awscli:aws
-eksctl
-operator-sdk
-vault
-awslogs
-azure-functions-core-tools@3:func
-tilt-dev/tap/tilt:tilt
 -tinyproxy
 Azure/kubelogin/kubelogin:kubelogin
+awscli:aws
+awslogs
+azure-functions-core-tools@3:func
+eksctl
+operator-sdk
+tilt-dev/tap/tilt:tilt
+vault

@@ -1,6 +1,6 @@
-instrumenta/instrumenta
 anchore/grype
 anchore/syft
+hashicorp/tap
+instrumenta/instrumenta
 raggi/ale
 yoheimuta/protolint
-hashicorp/tap

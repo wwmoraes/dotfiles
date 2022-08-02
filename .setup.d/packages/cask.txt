@@ -1,3 +1,4 @@
+#visual-studio-code
 -browserosaurus
 -cryptomator
 -dropbox
@@ -10,7 +11,6 @@
 -typora
 -ubersicht
 -unlox
-#visual-studio-code
 1password
 1password-cli
 amethyst
