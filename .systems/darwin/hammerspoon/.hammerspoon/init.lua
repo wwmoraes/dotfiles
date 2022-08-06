@@ -1,5 +1,7 @@
 require("types.hammerspoon")
 
+hs.notify.withdrawAll()
+
 local logger = require("helpers.logger")
 local tags = require("data.tags")
 local apps = require("data.apps")
