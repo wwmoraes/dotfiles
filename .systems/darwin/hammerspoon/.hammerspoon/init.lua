@@ -108,11 +108,18 @@ hs.spoons.use("Meetings", {
 spoon.Meetings = spoon.Meetings
 
 hs.spoons.use("Hazel", {
+  ---@type HazelConfig
   config = {
-    rulesets = {
+    ruleSets = {
       [os.getenv("HOME") .. "/Downloads/aws-credentials"] = {
+        ---@param path string
+        ---@param flags PathwatcherFlags
         function(path, flags) return flags.itemCreated end,
+        ---@param path string
+        ---@param flags PathwatcherFlags
         function(path, flags) return flags.itemIsFile end,
+        ---@param path string
+        ---@param flags PathwatcherFlags
         function(path, flags)
           local f = io.open(path, "r")
           return f ~= nil and io.close(f)
@@ -127,15 +134,23 @@ hs.spoons.use("Hazel", {
         end,
       },
       [os.getenv("HOME") .. "/Downloads"] = {
+        ---@param path string
+        ---@param flags PathwatcherFlags
         function(path, flags)
           return path:match(".*/.TheUnarchiverTemp0") and flags.itemIsDir == true
         end,
+        ---@param path string
+        ---@param flags PathwatcherFlags
         function(path, flags)
           return path:match(".*/.TheUnarchiverTemp0/.*")
         end,
+        ---@param path string
+        ---@param flags PathwatcherFlags
         function(path, flags)
           return flags.itemModified or flags.itemRemoved
         end,
+        ---@param path string
+        ---@param flags PathwatcherFlags
         function(path, flags)
           if path:match('%.zip$') then
             hs.task.new("/usr/bin/open", nil, nil, { path }):start()
