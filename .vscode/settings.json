@@ -39,6 +39,7 @@
     "gitlens",
     "hdrs",
     "helmignore",
+    "hostnames",
     "kdestroy",
     "keepcoder",
     "kinit",
@@ -51,8 +52,10 @@
     "osascript",
     "outdir",
     "outfile",
+    "Pathwatcher",
     "Pylance",
     "repolist",
+    "rulesets",
     "slackmacgap",
     "syncinstall",
     "terraformignore",
@@ -61,11 +64,13 @@
     "tinyspeck",
     "tldrnewsletter",
     "tmpdir",
+    "Unarchiver",
     "Uncompress",
     "uncompressing",
     "urlevent",
     "urlparts",
-    "vsicons"
+    "vsicons",
+    "zoneinfo"
   ],
   "files.associations": {
     "**/.gitaliases": "gitconfig",
