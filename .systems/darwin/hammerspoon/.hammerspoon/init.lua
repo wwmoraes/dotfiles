@@ -78,7 +78,7 @@ hs.spoons.use("Contexts", {
     },
     onWake = {
       open = {
-        apps.amethyst
+        apps.Amethyst
       },
     },
     onSleep = {
