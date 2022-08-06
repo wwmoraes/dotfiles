@@ -318,6 +318,7 @@
   "shellcheck.customArgs": [
     "-x"
   ],
+  "svg.preview.mode": "svg",
   "team.remoteUrl": "https://dev.azure.com/cbsp-abnamro/",
   "team.showWelcomeMessage": false,
   "team.teamProject": "GRD0001045",
@@ -417,9 +418,8 @@
     "https://json.schemastore.org/chart.json": "Chart.yaml",
     "https://json.schemastore.org/container-structure-test.json": "structure-test.yaml",
     "https://json.schemastore.org/github-workflow.json": "**/.github/workflows/*",
+    "https://json.schemastore.org/kustomization.json": "kustomization.yaml",
     "https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json": "azure-pipelines.yml",
-    "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml",
-    "https://json.schemastore.org/kustomization.json": "kustomization.yaml"
-  },
-  "svg.preview.mode": "svg"
+    "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml"
+  }
 }
