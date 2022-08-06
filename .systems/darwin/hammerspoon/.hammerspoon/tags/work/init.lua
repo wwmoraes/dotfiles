@@ -17,7 +17,7 @@ end)
 hs.hotkey.bind(nil, "F18", nil, function()
   local success, output, details = hs.osascript.applescriptFromFile(os.getenv("HOME") ..
     "/Library/Scripts/MSOutlookApplyAllRules.applescript")
-  if success ~= true then logger.e(output, details) end
+  if success ~= true then logger.e(table.concat(output or {}, "\n"), details) end
 end)
 
 ---@param id string
