@@ -171,7 +171,7 @@ hs.spoons.use("Finicky", {
         ---@return string|URLInstance
         url = function(url)
           local params = spoon.Finicky.parseQuery(url.query)
-          return spoon.Finicky:decodeURIComponent(params["url"])
+          return spoon.Finicky.decodeURIComponent(params["url"])
         end,
       }
     },
