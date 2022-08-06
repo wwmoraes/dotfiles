@@ -4,7 +4,7 @@ local onCallRotasID = assert(os.getenv("SNOW_ONCALL_ROTAS_ID"), "Service Now on-
 local onCallRostersID = assert(os.getenv("SNOW_ONCALL_ROSTERS_ID"), "Service Now on-call rosters ID not set")
 local supportGroupID = assert(os.getenv("SNOW_SUPPORT_GROUP_ID"), "Service Now support group ID not set")
 local supportRotasID = assert(os.getenv("SNOW_SUPPORT_ROTAS_ID"), "Service Now support rotation ID not set")
-local timeZone = hs.settings.get("timeZone") or "Universal"
+local timeZone = tostring(hs.settings.get("timeZone") or "Universal")
 
 ---@class WorkWidgets
 ---@field widgets WebWidget[]
