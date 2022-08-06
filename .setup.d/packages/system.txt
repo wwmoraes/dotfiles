@@ -28,6 +28,7 @@ moreutils:sponge
 mosh
 node
 pip:pip3
+pre-commit
 protobuf:protoc
 protolint
 pulumi
@@ -39,4 +40,3 @@ tmate
 tmux
 unzip
 vim
-pre-commit
