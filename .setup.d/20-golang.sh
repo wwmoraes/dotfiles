@@ -55,7 +55,7 @@ fi
 printf "Checking go packages on \e[94m%s\e[0m...\n" "${GOPATH}"
 
 ### Install packages
-FIFO=$(mktemp -u -t dotfiles.golang)
+FIFO=$(mktemp -u -t dotfiles-golang-XXXXXX)
 mkfifo -m 0600 "${FIFO}"
 trap 'rm -f "${FIFO}"' EXIT INT TERM
 while read -r PACKAGE; do
