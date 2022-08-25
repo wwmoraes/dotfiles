@@ -1,4 +1,3 @@
-#visual-studio-code
 -browserosaurus
 -cryptomator
 -dropbox
@@ -11,12 +10,13 @@
 -typora
 -ubersicht
 -unlox
+#visual-studio-code
 1password
 1password-cli
 amethyst
 appcleaner
-clean-me:~/Applications/Clean Me.app/Contents/MacOS/Clean Me
-docker:/Applications/Docker.app/Contents/MacOS/Docker
+clean-me|~/Applications/Clean Me.app/Contents/MacOS/Clean Me
+docker|/Applications/Docker.app/Contents/MacOS/Docker
 dozer
 finicky
 fluid

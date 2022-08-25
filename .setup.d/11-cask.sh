@@ -73,7 +73,7 @@ while read -r PACKAGE; do
       printf "[\e[91muninstall\e[m] Checking \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
       grep -q "${PACKAGE%%|*}" "${INSTALLED}" || continue
       printf "[\e[91muninstall\e[m] Uninstalling \e[95m%s\e[0m\n" "${PACKAGE%%|*}"
-      brew remove -q "${PACKAGE%%|*}" ||:
+      brew remove -qf "${PACKAGE%%|*}" ||:
       ;;
     0)
       printf "[\e[92m install \e[m] Checking \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
