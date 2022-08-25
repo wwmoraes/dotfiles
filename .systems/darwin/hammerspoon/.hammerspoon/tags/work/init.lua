@@ -1,6 +1,6 @@
 require("types.hammerspoon")
 
-local logger = hs.logger.new("work", "info")
+local logger = hs.logger.new("work", "error")
 
 hs.spoons.use("WebWidgets", {
   loglevel = "error",
@@ -20,6 +20,18 @@ hs.hotkey.bind(nil, "F18", nil, function()
   if success ~= true then logger.e(table.concat(output or {}, "\n"), details) end
 end)
 
+local workIntranetHostname = os.getenv("WORK_INTRANET_HOSTNAME")
+if workIntranetHostname == nil or workIntranetHostname:len() <= 0 then
+  logger.e("work intranet hostname not set - skipping VPN and widget setup")
+  return
+end
+
+local adoPatID = os.getenv("AZURE_DEVOPS_EXT_PAT_ID")
+if adoPatID == nil or adoPatID:len() <= 0 then
+  logger.e("Azure DevOps PAT ID not set")
+  return
+end
+
 ---@param id string
 ---@return boolean
 local function updateADOToken(id)
@@ -27,14 +39,19 @@ local function updateADOToken(id)
   return status == true
 end
 
---- @type boolean
-local workVpnIsUp = nil
-local workIntranetHostname = assert(os.getenv("WORK_INTRANET_HOSTNAME"))
-local adoPatID = assert(os.getenv("AZURE_DEVOPS_EXT_PAT_ID"), "Azure DevOps PAT ID not set")
+logger.v("loading widgets...")
 local widgets = require("tags.work.widgets")
 
+logger.v("initializing widgets...")
+widgets:init()
+
+logger.v("setting up reachability...")
+--- @type boolean
+local workVpnIsUp = nil
 hs.network.reachability.forHostName(workIntranetHostname):setCallback(function(self, flags)
   local isReachable = (flags & hs.network.reachability.flags.reachable) == hs.network.reachability.flags.reachable
+
+  hs.execute([[fish -c 'aab renice']], true)
 
   if isReachable and workVpnIsUp ~= true then
     -- VPN tunnel is up
@@ -63,3 +80,5 @@ end):start()
 TimeReloader = hs.timer.doAt("09:00", "1d", function()
   updateADOToken(adoPatID)
 end, true):start()
+
+logger.v("loaded successfully")
