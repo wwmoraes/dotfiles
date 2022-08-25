@@ -22,9 +22,11 @@ finicky
 fluid
 free-gpgmail
 gas-mask
+gimp
 google-chrome
 hammerspoon
 image2icon
+inkscape
 kitty
 krisp
 launchpad-manager
