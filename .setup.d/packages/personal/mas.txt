@@ -19,6 +19,7 @@
 1497506650:Yubico Authenticator
 1540491573:Scenecuts
 1569813296:1Password for Safari
+497799835:Xcode
 568494494:Pocket
 639968404:Parcel
 784801555:Microsoft OneNote
