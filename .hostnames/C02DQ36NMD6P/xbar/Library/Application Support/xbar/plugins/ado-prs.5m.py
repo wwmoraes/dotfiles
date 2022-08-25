@@ -20,10 +20,11 @@ from datetime import datetime
 from itertools import groupby
 from typing import Callable, List
 from urllib.parse import urljoin
+from urllib3.exceptions import HTTPError
 
 from azure.devops.credentials import BasicAuthentication
 from azure.devops.connection import Connection
-from azure.devops.exceptions import AzureDevOpsServiceError
+from azure.devops.exceptions import ClientException
 from azure.devops.v6_0.git.git_client import GitClient
 from azure.devops.v6_0.git.models import \
   GitPullRequest, \
@@ -58,21 +59,25 @@ try:
   assert AZURE_DEVOPS_EXT_PAT != None and len(AZURE_DEVOPS_EXT_PAT) > 0, "Please login to Azure DevOps using the CLI"
 
   assert len(PROJECTS) > 0, "Please set the variable PROJECTS"
-except AssertionError as error:
-  print(error)
-  sys.exit(0)
 
-credentials = BasicAuthentication(username="", password=AZURE_DEVOPS_EXT_PAT)
-connection = Connection(ORGANIZATION, credentials)
+  credentials = BasicAuthentication(username="", password=AZURE_DEVOPS_EXT_PAT)
+  connection = Connection(ORGANIZATION, credentials)
 
-try:
   git: GitClient = connection.clients.get_git_client()
   connection.authenticate()
-except AzureDevOpsServiceError as err:
-  print(err.message)
+except ClientException as err: # ado errors
+  print(err)
   sys.exit(0)
-except:
+except HTTPError as err: # urllib errors
+  print(err)
+  sys.exit(0)
+except ConnectionError as err: # native errors
+  print(err.strerror)
+  sys.exit(0)
+except Exception as err: # anything else
   raise
+  # print(err)
+  # sys.exit(1)
 
 keyFn: Callable[[GitPullRequest], str] = lambda pr: str(pr.repository.name)
 entries: List[str] = []
