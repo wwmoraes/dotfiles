@@ -18,7 +18,7 @@ appcleaner
 clean-me|~/Applications/Clean Me.app/Contents/MacOS/Clean Me
 docker|/Applications/Docker.app/Contents/MacOS/Docker
 dozer
-finicky
+-finicky
 fluid
 free-gpgmail
 gas-mask
