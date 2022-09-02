@@ -202,6 +202,8 @@
   "gitlens.statusBar.enabled": false,
   "go.toolsManagement.autoUpdate": true,
   "go.useLanguageServer": true,
+  "go.buildOnSave": "off",
+  "go.lintTool": "golangci-lint",
   "gremlins.characters": {
     "2013": {
       "description": "en dash",
