@@ -19,6 +19,9 @@
   cherry = cherry-pick
   cp = cherry-pick
 
+# returns how much the current HEAD is from the target branch
+  rel = "!f() { git rev-list --left-right --count HEAD...$1 | sed 's/\t/↑↓/'; }; f"
+
 # Goodies
   c = commit -am
   sclone = clone --depth=1
