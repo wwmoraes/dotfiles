@@ -12,3 +12,4 @@
 -virtualbox
 dotnet-sdk|/usr/local/bin/dotnet
 powershell|pwsh
+-thingsmacsandboxhelper
