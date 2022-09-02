@@ -145,3 +145,44 @@ getPackages() {
 
   export PACKAGES
 }
+
+fixPath() {
+  PYTHON_PATH=
+  if command -V python3 > /dev/null 2>&1; then
+    PYTHON_PATH=$(python3 -m site --user-base)/bin
+  fi
+
+  # System paths (FIFO)
+  PREPATHS=$(join ":" \
+    "${PYTHON_PATH}" \
+    "${HOME}/go/bin/darwin_amd64" \
+    "${HOME}/go/bin" \
+    "${HOME}/.local/opt/bin" \
+    "${HOME}/.local/bin" \
+    "/usr/local/opt/coreutils/libexec/gnubin"
+  )
+
+  POSTPATHS=$(join ":" \
+    "${HOME}/.config/yarn/global/node_modules/.bin" \
+    "${HOME}/.local/google-cloud-sdk/bin" \
+    "${HOME}/.krew/bin" \
+    "${HOME}/.cargo/bin"
+  )
+
+  mkdir -p "${HOME}/.local/bin"
+  mkdir -p "${HOME}/.local/opt/{bin,sbin}"
+
+  PATH="${PREPATHS}:${PATH}:${POSTPATHS}"
+
+  # Dedup paths
+  echo "dedupping and exporting PATH"
+  TMP_PATH=$(printf "%s" "${PATH}" | awk -v RS=: '{gsub(/\/$/,"")} !($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
+  export PATH="${TMP_PATH}"
+  unset TMP_PATH
+  echo "persisting PATH"
+  echo "PATH=${PATH}" > "${HOME}/.env_path"
+
+  ### Set fish paths
+  printf "Setting fish universal variables...\n"
+  fish ./variables.fish "${PATH}" || "failed to setup fish variables"
+}

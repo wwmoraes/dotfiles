@@ -14,38 +14,7 @@ printf "\e[1;34mProfile-like variable exports\e[0m\n"
 
 sourceFiles "${HOME}/.profile"
 
-PYTHON_PATH=
-if command -V python3 > /dev/null 2>&1; then
-  PYTHON_PATH=$(python3 -m site --user-base)/bin
-fi
-
-# System paths (FIFO)
-PREPATHS=$(join ":" \
-  "${PYTHON_PATH}" \
-  "${HOME}/.config/yarn/global/node_modules/.bin" \
-  "${HOME}/.local/google-cloud-sdk/bin" \
-  "${HOME}/.yarn/bin" \
-  "${HOME}/.krew/bin" \
-  "${HOME}/.cargo/bin" \
-  "${HOME}/go/bin" \
-  "${HOME}/.local/opt/bin" \
-  "${HOME}/.local/bin" \
-  "/usr/local/opt/coreutils/libexec/gnubin" \
-  "/usr/local/bin"
-)
-
-mkdir -p "${HOME}/.local/bin"
-mkdir -p "${HOME}/.local/opt/{bin,sbin}"
-
-PATH="${PREPATHS}:${PATH}"
-
-# Dedup paths
-echo "dedupping and exporting PATH"
-TMP_PATH=$(printf "%s" "${PATH}" | awk -v RS=: '{gsub(/\/$/,"")} !($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
-export PATH="${TMP_PATH}"
-unset TMP_PATH
-echo "persisting PATH"
-echo "PATH=${PATH}" > "${HOME}/.env_path"
+fixPath
 
 # Ask for the administrator password upfront
 sudo -v
@@ -97,9 +66,6 @@ if _=$(command -V fc-cache >/dev/null 2>&1); then
   printf "Updating font cache...\n"
   fc-cache -f &
 fi
-### Set fish paths
-printf "Setting fish universal variables...\n"
-fish ./variables.fish "${PATH}" || "failed to setup fish variables"
 
 if _=$(command -V kquitapp5 >/dev/null 2>&1); then
   printf "Updating KDE globals...\n"
