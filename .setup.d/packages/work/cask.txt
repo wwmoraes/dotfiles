@@ -1,4 +1,5 @@
 -davmail|~/Applications/DavMail.app/Contents/MacOS/davmail
+-dropbox
 -firefox
 -fluor
 -itsycal|~/Applications/Itsycal.app/Contents/MacOS/Itsycal
@@ -7,9 +8,9 @@
 -muzzle
 -postman
 -securid
+-thingsmacsandboxhelper
 -thingsmacsandboxhelper|~/Applications/ThingsMacSandboxHelper.app/Contents/MacOS/ThingsMacSandboxHelper
 -vagrant|/usr/local/bin/vagrant
 -virtualbox
 dotnet-sdk|/usr/local/bin/dotnet
 powershell|pwsh
--thingsmacsandboxhelper

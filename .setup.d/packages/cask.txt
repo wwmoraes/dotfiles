@@ -1,6 +1,6 @@
 -browserosaurus
 -cryptomator
--dropbox
+-finicky
 -hazel
 -jiggler
 -lens
@@ -18,7 +18,6 @@ appcleaner
 clean-me|~/Applications/Clean Me.app/Contents/MacOS/Clean Me
 docker|/Applications/Docker.app/Contents/MacOS/Docker
 dozer
--finicky
 fluid
 free-gpgmail
 gas-mask
