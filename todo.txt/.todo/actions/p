@@ -18,7 +18,7 @@ git status --porcelain 2>/dev/null >&2 || {
 
 PROJECT_PATH=$(git rev-parse --show-toplevel)
 WORKSPACE=$(dirname "${PROJECT_PATH}")
-PROJECT_PATHS=$(echo "${GIT_PROJECT_PATHS}" | sed "s|~|${HOME}|g" | tr ',' "$(printf '\n')")
+PROJECT_PATHS=$(echo "${GIT_PROJECT_PATHS}" | sed "s|~|${HOME}|g" | tr ',' '\n')
 printf "%s\n" "${PROJECT_PATHS}" | grep -qE "^${WORKSPACE}$" || {
   printf "\e[96m%s\e[m is not within the project paths:\n" "${WORKSPACE}"
   printf "\e[96m%s\e[m\n" "${PROJECT_PATHS}"
