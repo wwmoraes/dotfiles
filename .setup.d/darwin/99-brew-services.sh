@@ -32,10 +32,12 @@ PACKAGES="${TMP}/packages"
 mkfifo "${PACKAGES}"
 
 # reads global packages
-while IFS= read -r LINE; do
-  echo "${LINE}" | grep -Eq "^#" && continue
-  printf "%s\n" "${LINE}" > "${PACKAGES}" &
-done < "${PACKAGES_FILE_PATH}"
+if [ -f "${PACKAGES_FILE_PATH}" ]; then
+  while IFS= read -r LINE; do
+    echo "${LINE}" | grep -Eq "^#" && continue
+    printf "%s\n" "${LINE}" > "${PACKAGES}" &
+  done < "${PACKAGES_FILE_PATH}"
+fi
 
 # reads system-specific packages
 if [ -f "${SYSTEM_PACKAGES_FILE_PATH}" ]; then
