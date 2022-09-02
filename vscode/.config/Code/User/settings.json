@@ -149,6 +149,7 @@
   ],
   "csharp.suppressBuildAssetsNotification": true,
   "editor.acceptSuggestionOnEnter": "smart",
+  "editor.accessibilitySupport": "off",
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.organizeImports": false
@@ -315,6 +316,7 @@
   ],
   "projectManager.groupList": true,
   "projectManager.removeCurrentProjectFromList": true,
+  "python.analysis.useLibraryCodeForTypes": true,
   "python.formatting.provider": "yapf",
   "python.languageServer": "Pylance",
   "python.showStartPage": false,
@@ -425,5 +427,10 @@
     "https://json.schemastore.org/kustomization.json": "kustomization.yaml",
     "https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json": "azure-pipelines.yml",
     "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml"
-  }
+  },
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.analysis.typeCheckingMode": "strict",
+  "terminal.integrated.enablePersistentSessions": false,
+  "terminal.integrated.persistentSessionReviveProcess": "never"
 }
