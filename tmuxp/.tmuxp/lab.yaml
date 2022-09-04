@@ -1,0 +1,21 @@
+session_name: lab
+start_directory: "${PWD}"
+windows:
+- window_name: infra
+  start_directory: "${HOME}/dev/home-infra"
+  focus: true
+  panes:
+  - pane
+- window_name: pi
+  panes:
+  - ssh pi
+- window_name: nodes
+  layout: tiled
+  options_after:
+    synchronize-panes: on
+  panes:
+  - focus: true
+    shell_command: ssh node01
+  - ssh node02
+  - ssh node03
+  - ssh node04

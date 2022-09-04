@@ -1,11 +1,11 @@
 -powerline-kubernetes
 -powerline-status
 -thefuck
--tmuxp
 -wakatime
 asciinema
 doge
 kubesplit
 pipenv
+tmuxp
 yamllint
 identify
