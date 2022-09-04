@@ -2,7 +2,7 @@ function dotenv -d '"Sources" (set universal and exports) variables from given d
   argparse 'u/unset' -- $argv; or return
 
   if test (count $argv) = 0
-    set -a argv $HOME/.env
+    set -a argv $HOME/.env $HOME/.env_secrets
     for tag in (tags get)
       test -f $HOME/.env_$tag
       and set -a argv $HOME/.env_$tag
@@ -34,6 +34,13 @@ function dotenv -d '"Sources" (set universal and exports) variables from given d
 
       set value (echo -e $entry[2] | string trim -c "'" | tr '\0' '\n' | sed "s|~|$HOME|g")
 
+      if string match -q "*_secrets" $filePath
+        set clearFlags "-eU"
+        set defineFlags "-gx"
+      else
+        set clearFlags "-eg"
+        set defineFlags "-Ux"
+      end
 
       set -eg $key
       if string length -q -- $_flag_unset
@@ -43,7 +50,8 @@ function dotenv -d '"Sources" (set universal and exports) variables from given d
         launchctl unsetenv $key
       else
         echo "Setting "(set_color brcyan)$key(set_color normal)
-        set -Ux $key $value
+        set $clearFlags $key
+        set $defineFlags $key $value
         launchctl setenv $key $value
       end
     end
