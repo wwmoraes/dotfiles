@@ -44,7 +44,7 @@ fi
 
 JQ_FILTER=""
 while IFS="" read -r line; do
-  JQ_FILTER="$(printf "%s%s\n \b" "${JQ_FILTER}" "${line}")"
+  JQ_FILTER="$(printf "%s\n%s" "${JQ_FILTER}" "${line}" | grep .)"
 done <<\EOF
 .
 | .extensionsGallery.serviceUrl = $serviceUrl
