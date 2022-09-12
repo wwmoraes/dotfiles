@@ -21,12 +21,12 @@ repos:
   # - id: no-commit-to-branch
   - id: trailing-whitespace
 - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-  rev: 2.4.0
+  rev: 2.6.1
   hooks:
   - id: editorconfig-checker
     exclude: vscode/.config/Code/User/globalStorage/.*
 - repo: https://github.com/igorshubovych/markdownlint-cli
-  rev: v0.32.1
+  rev: v0.32.2
   hooks:
   - id: markdownlint
 - repo: https://github.com/detailyang/pre-commit-shell
