@@ -40,3 +40,6 @@ repos:
     name: lint bash
     args: [-x, -s, bash]
     files: bash/.*
+ci:
+  skip:
+  - shell-lint
