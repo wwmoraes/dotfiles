@@ -41,5 +41,7 @@ repos:
     args: [-x, -s, bash]
     files: bash/.*
 ci:
+  autofix_commit_msg: "ci: pre-commit autofix"
+  autoupdate_commit_msg: "ci: pre-commit autoupdate"
   skip:
   - shell-lint
