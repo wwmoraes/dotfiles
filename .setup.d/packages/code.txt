@@ -22,7 +22,7 @@ eamodio.gitlens
 editorconfig.editorconfig
 efanzh.graphviz-preview
 emilast.logfilehighlighter
-ethan-reesor.vscode-go-test-adapter
+-ethan-reesor.vscode-go-test-adapter
 folke.vscode-monorepo-workspace
 fooxly.workspace
 gamunu.vscode-yarn
