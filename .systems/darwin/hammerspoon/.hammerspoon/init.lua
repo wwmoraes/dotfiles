@@ -68,6 +68,8 @@ hs.spoons.use("Contexts", {
           apps.Outlook,
           apps.OneDrive,
           apps.AzureDevOps,
+          apps.Edge,
+          apps.VSCode,
         },
       },
       development = {
@@ -193,7 +195,7 @@ end
 if not hs.ipc.cliStatus() then
   logger.i("hs CLI not installed, trying to install it")
   if hs.ipc.cliInstall() then
-    logger.i("hs CLI installed successfully")
+    logger.i("hs CLI installed")
   else
     logger.e("failed to install the hs CLI")
   end
