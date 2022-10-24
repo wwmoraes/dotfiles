@@ -16,21 +16,31 @@ function launch-tmux
   command -v tmux > /dev/null; or return
 
   # get active sessions + "defaults"
-  function tmuxSessionList
-    set -q TMUX_DEFAULT_SESSION; or set -lx TMUX_DEFAULT_SESSION main
-    set sessions $TMUX_DEFAULT_SESSION (tmux list-sessions -F '#S' 2>/dev/null)
-    string join \n $sessions | sort | uniq | awk NF
-  end
+  set -l activeTmuxSessions (tmux list-sessions -F '#S' 2>/dev/null)
+  set -l tmuxSessions (cat "$HOME/.tmux.sessions.conf" 2>/dev/null)
+  set -l tmuxpSessions (ls -1 "$HOME/.tmuxp" 2>/dev/null | ifne xargs basename -s .yaml)
+  set -l sessions (string join \n $activeTmuxSessions $tmuxSessions $tmuxpSessions | sort -u | awk NF)
 
   # offer options
   if command -v fzf > /dev/null
-    set session (tmuxSessionList | fzf --print-query --reverse -0 | tail -n1)
+    set session (string join \n $sessions | fzf --print-query --reverse -0 | tail -n1)
   else
-    echo "tmux sessions: "(tmuxSessionList | xargs)
+    echo "tmux sessions: "(echo $sessions | xargs)
     echo -n "tmux session name: "
     read session
   end
 
   # finally, execute tmux :D
-  test -z $session; or exec tmux -u new -A -s $session > /dev/null
+  test -n $session; or return
+
+  # join existing session
+  echo $activeTmuxSessions | grep -qFx $session
+  and exec tmux -u new -A -s "$session" > /dev/null
+
+  # create tmuxp session
+  command -v tmuxp > /dev/null && test -f "$HOME/.tmuxp/$session.yaml"
+  and exec tmuxp load -y "$session"
+
+  # create new plain session
+  exec tmux -u new -A -s "$session" > /dev/null
 end
