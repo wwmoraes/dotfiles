@@ -102,6 +102,7 @@
     "gitaliases",
     "gitcolors",
     "gitlab",
+    "hadolint",
     "Hammerspoon",
     "iife",
     "Infoln",
@@ -147,7 +148,6 @@
     "wday",
     "wwmoraes"
   ],
-  "csharp.suppressBuildAssetsNotification": true,
   "editor.acceptSuggestionOnEnter": "smart",
   "editor.accessibilitySupport": "off",
   "editor.codeActionsOnSave": {
@@ -180,6 +180,7 @@
     "**/.ssh/config.d/*/*": "ssh_config",
     "**/i3/config": "i3",
     "*.gotmpl": "go-template",
+    "*.gtpl": "go-template",
     "*.tfstate": "json",
     "*.tpl": "go-template",
     "*.yml": "yaml",
@@ -197,14 +198,12 @@
   "git-graph.maxDepthOfRepoSearch": 2,
   "git.autoStash": true,
   "git.autofetch": true,
-  "github-actions.org-features": false,
-  "githubPullRequests.defaultMergeMethod": "rebase",
   "gitlens.hovers.annotations.over": "annotation",
   "gitlens.statusBar.enabled": false,
-  "go.toolsManagement.autoUpdate": true,
-  "go.useLanguageServer": true,
   "go.buildOnSave": "off",
   "go.lintTool": "golangci-lint",
+  "go.toolsManagement.autoUpdate": true,
+  "go.useLanguageServer": true,
   "gremlins.characters": {
     "2013": {
       "description": "en dash",
@@ -316,21 +315,27 @@
   ],
   "projectManager.groupList": true,
   "projectManager.removeCurrentProjectFromList": true,
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.analysis.typeCheckingMode": "strict",
   "python.analysis.useLibraryCodeForTypes": true,
   "python.formatting.provider": "yapf",
   "python.languageServer": "Pylance",
-  "python.showStartPage": false,
   "redhat.telemetry.enabled": true,
   "shellcheck.customArgs": [
     "-x"
   ],
-  "svg.preview.mode": "svg",
-  "team.remoteUrl": "https://dev.azure.com/cbsp-abnamro/",
-  "team.showWelcomeMessage": false,
-  "team.teamProject": "GRD0001045",
-  "terminal.integrated.automationShell.linux": "/usr/bin/fish",
-  "terminal.integrated.automationShell.osx": "/usr/local/bin/fish",
+  "terminal.integrated.automationProfile.linux": {
+    "icon": "terminal",
+    "path": "/usr/bin/fish"
+  },
+  "terminal.integrated.automationProfile.osx": {
+    "icon": "terminal",
+    "path": "/usr/local/bin/fish"
+  },
+  "terminal.integrated.enablePersistentSessions": false,
   "terminal.integrated.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+  "terminal.integrated.persistentSessionReviveProcess": "never",
   "terminal.integrated.profiles.linux": {
     "bash": {
       "icon": "terminal-bash",
@@ -367,7 +372,7 @@
       "path": "tmux"
     }
   },
-  "terminal.integrated.rendererType": "dom",
+  "terminal.integrated.shellIntegration.enabled": false,
   "testExplorer.codeLens": false,
   "testExplorer.errorDecoration": false,
   "testExplorer.errorDecorationHover": false,
@@ -390,17 +395,8 @@
     "[x]"
   ],
   "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
-  "todo-tree.tree.showScanModeButton": false,
   "typescript.format.semicolons": "insert",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "vs-kubernetes": {
-    "vs-kubernetes.knownKubeconfigs": [
-      "/Users/william/.secrets/k8s/.kube/config-home",
-      "/Users/william/.secrets/k8s/.kube/config-work"
-    ],
-    "vs-kubernetes.kubeconfig": "/Users/william/.secrets/k8s/.kube/config-work",
-    "vscode-kubernetes.minikube-path.mac": "/Users/william/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
-  },
   "vsicons.dontShowNewVersionMessage": true,
   "window.nativeTabs": true,
   "window.titleBarStyle": "custom",
@@ -415,9 +411,24 @@
   "workbench.editorAssociations": {
     "*.ipynb": "jupyter-notebook"
   },
-  "workbench.list.automaticKeyboardNavigation": false,
   "workbench.startupEditor": "none",
   "workspace.alwaysShowToggle": true,
+  "write-good.languages": [
+    "markdown",
+    "plaintext"
+  ],
+  "write-good.only-lint-on-save": false,
+  "write-good.write-good-config": {
+    "adverb": true,
+    "cliches": true,
+    "eprime": false,
+    "illusion": true,
+    "passive": true,
+    "so": true,
+    "thereIs": true,
+    "tooWordy": true,
+    "weasel": true
+  },
   "yaml.format.enable": false,
   "yaml.schemaStore.enable": true,
   "yaml.schemas": {
@@ -427,10 +438,5 @@
     "https://json.schemastore.org/kustomization.json": "kustomization.yaml",
     "https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json": "azure-pipelines.yml",
     "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml"
-  },
-  "python.analysis.inlayHints.functionReturnTypes": true,
-  "python.analysis.inlayHints.variableTypes": true,
-  "python.analysis.typeCheckingMode": "strict",
-  "terminal.integrated.enablePersistentSessions": false,
-  "terminal.integrated.persistentSessionReviveProcess": "never"
+  }
 }
