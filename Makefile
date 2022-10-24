@@ -1,10 +1,22 @@
 SHELL = /bin/sh
-TOOLS = stow fish tmux vim
+TOOLS = stow find grep
+
+# Detect OS
+ifeq ($(OS),Windows_NT)
+	OS := windows
+else
+	OS := $(shell sh -c 'uname 2>/dev/null | tr '[:upper:]' '[:lower:]' || echo unknown')
+endif
 
 HOSTNAME := $(shell hostname -s)
-DIRECTORIES = $(sort $(wildcard */))
-OS_DIRECTORIES = $(sort $(patsubst .systems/$(OS)/%,%,$(wildcard .systems/$(OS)/*/)))
-HOST_DIRECTORIES = $(sort $(patsubst .hostnames/$(HOSTNAME)/%,%,$(wildcard .hostnames/$(HOSTNAME)/*/)))
+TAGS := $(shell cat .hostnames/${HOSTNAME}/dotfiles/.tagsrc 2> /dev/null || true)
+
+GLOBAL_PACKAGES = $(sort $(patsubst %/,%,$(wildcard */)))
+OS_PACKAGES = $(sort $(patsubst %/,%,$(wildcard .systems/${OS}/*/)))
+TAG_PACKAGES = $(foreach TAG,${TAGS},$(sort $(patsubst %/,%,$(wildcard .tags/${TAG}/*/))))
+HOST_PACKAGES = $(sort $(patsubst %/,%,$(wildcard .hostnames/${HOSTNAME}/*/)))
+
+PACKAGES = ${GLOBAL_PACKAGES} ${OS_PACKAGES} ${TAG_PACKAGES} ${HOST_PACKAGES}
 
 CODE = $(shell which code | which code-oss | which codium)
 CODE_INSTALLED_EXTENSIONS = $(shell ${CODE} --list-extensions | tr '[:upper:]' '[:lower:]' | sort)
@@ -15,92 +27,42 @@ CODE_TAGGED_EXTENSIONS = $(shell cat .setup.d/packages/*/code.txt)
 NODE_NO_WARNINGS := 1
 export NODE_NO_WARNINGS
 
-# Detect OS
-ifeq ($(OS),Windows_NT)
-	OS := windows
-else
-	OS := $(shell sh -c 'uname 2>/dev/null | tr '[:upper:]' '[:lower:]' || echo unknown')
-endif
-
 define stow
-	$(info stowing $(subst /,,$(1))...)
+	$(info stowing $(patsubst .%,%,$1)...$(if $(shell grep -F "$1" .adopt), +adopt)$(if $(shell grep -F "$1" .no-folding), +no-folding))
 	@stow \
-		$(if $(shell grep -F "$(subst /,,$(1))" .adopt),--adopt) \
-		$(if $(shell grep -F "$(patsubst %/,,$(1))" .no-folding),--no-folding) \
-		-t ~ -R $(1) 2>&1 \
+		$(if $(shell grep -F "$1" .adopt),--adopt) \
+		$(if $(shell grep -F "$1" .no-folding),--no-folding) \
+		-d "$(dir $1)" -t ~ -R $(notdir $1) 2>&1 \
 		| grep -v 'BUG in find_stowed_path?' \
 		| grep -v 'WARNING: skipping target which was current stow directory' \
 		| grep -v 'stow: ERROR: stow_contents() called with non-directory path:' \
 		|| true
 endef
 
-define unstow
-	$(info unstowing $(subst /,,$(1))...)
-	@stow -t ~ -D $(1) 2>&1 \
-		| grep -v 'BUG in find_stowed_path?' \
-		| grep -v 'WARNING: skipping target which was current stow directory' \
-		|| true
-endef
-
-define osstow
-	$(info stowing $(OS)/$(subst /,,$(1))...)
-	@cd .systems/$(OS) && stow \
-		$(if $(shell grep -F "$(OS)/$(subst /,,$(1))" .adopt),--adopt) \
-		$(if $(shell grep -F "$(patsubst %/,,$(1))" .no-folding),--no-folding) \
-		-t ~ -R $(1) 2>&1 \
-		| grep -v 'BUG in find_stowed_path?' \
-		| grep -v 'WARNING: skipping target which was current stow directory' \
-		| grep -v 'stow: ERROR: stow_contents() called with non-directory path:' \
-		|| true
-endef
-
-define osunstow
-	$(info unstowing $(OS)/$(subst /,,$(1))...)
-	@cd .systems/$(OS) && stow -t ~ -D $(1) 2>&1 \
-		| grep -v 'BUG in find_stowed_path?' \
-		| grep -v 'WARNING: skipping target which was current stow directory' \
-		|| true
-endef
-
-define hostnamestow
-	$(info stowing $(HOSTNAME)/$(subst /,,$(1))...)
-	@cd .hostnames/$(HOSTNAME) && stow \
-		$(if $(shell grep -F "$(HOSTNAME)/$(subst /,,$(1))" .adopt),--adopt) \
-		$(if $(shell grep -F "$(patsubst %/,,$(1))" .no-folding),--no-folding) \
-		-t ~ -R $(1) 2>&1 \
-		| grep -v 'BUG in find_stowed_path?' \
-		| grep -v 'WARNING: skipping target which was current stow directory' \
-		| grep -v 'stow: ERROR: stow_contents() called with non-directory path:' \
-		|| true
-endef
-
-define hostnameunstow
-	$(info unstowing $(HOSTNAME)/$(subst /,,$(1))...)
-	@cd .hostnames/$(HOSTNAME) && stow -t ~ -D $(1) 2>&1 \
+define unStow
+	$(info un-stowing $(patsubst .%,%,$1)...)
+	@stow \
+		-d "$(dir $1)" -t ~ -D $(notdir $1) 2>&1 \
 		| grep -v 'BUG in find_stowed_path?' \
 		| grep -v 'WARNING: skipping target which was current stow directory' \
 		|| true
 endef
 
 define isInstalled
-	$(if $(shell which $(1)),,$(warning $(1) isn't installed))
+	$(if $(shell which $1),,$(warning $1 isn't installed))
 endef
 
 .PHONY: install
 install: check cleanup
-	$(foreach dir,${DIRECTORIES},$(call stow,${dir}))
-	$(foreach dir,${OS_DIRECTORIES},$(call osstow,${dir}))
-	$(foreach dir,${HOST_DIRECTORIES},$(call hostnamestow,${dir}))
+	$(foreach PACKAGE,${PACKAGES},$(call stow,${PACKAGE}))
 
 .PHONY: remove
 remove:
-	$(foreach dir,${DIRECTORIES},$(call unstow,${dir}))
-	$(foreach dir,${OS_DIRECTORIES},$(call osunstow,${dir}))
-	$(foreach dir,${HOST_DIRECTORIES},$(call hostnameunstow,${dir}))
+	$(foreach PACKAGE,${PACKAGES},$(call unStow,${PACKAGE}))
 
 .PHONY: check
 check:
-	$(foreach tool,$(TOOLS),$(call isInstalled,$(tool)))
+	$(foreach TOOL,${TOOLS},$(call isInstalled,${TOOL}))
 
 .PHONY: setup
 setup: cleanup
