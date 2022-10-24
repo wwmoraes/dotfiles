@@ -1,2 +1,3 @@
 lerna
 syncpack
+write-good
