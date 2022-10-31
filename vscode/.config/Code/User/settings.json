@@ -157,7 +157,7 @@
   "editor.cursorSurroundingLines": 5,
   "editor.detectIndentation": false,
   "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', monospace, 'Droid Sans Fallback'",
-  "editor.fontLigatures": "'ss03','ss07'",
+  "editor.fontLigatures": "'ss01', 'ss03', 'ss05', 'ss07', 'ss09', 'cv12', 'cv21', 'cv25', 'cv26', 'cv28', 'cv29', 'cv30'",
   "editor.fontSize": 16,
   "editor.fontWeight": "400",
   "editor.formatOnSave": true,
