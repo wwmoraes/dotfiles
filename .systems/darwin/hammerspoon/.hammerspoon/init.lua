@@ -70,6 +70,7 @@ hs.spoons.use("Contexts", {
           apps.AzureDevOps,
           apps.Edge,
           apps.VSCode,
+          apps.Kitty,
         },
       },
       development = {
