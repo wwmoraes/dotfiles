@@ -26,7 +26,7 @@ function _1p_login
       continue
     end
 
-    set -Ux OP_SESSION_$account (op signin --raw $$OP_ADDRESS $$OP_EMAIL)
+    set -gx OP_SESSION_$account (op signin --raw $$OP_ADDRESS $$OP_EMAIL)
   end
 end
 complete -fc 1p -n __fish_use_subcommand -a login -d "1p: logs into all accounts"
@@ -40,7 +40,7 @@ function _1p_renew
     end
 
     echo "renewing session token for $account"
-    set -Ux $OP_SESSION (op --account $account signin --raw)
+    set -gx $OP_SESSION (op --account $account signin --raw)
   end
 end
 complete -fc 1p -n __fish_use_subcommand -a renew -d "1p: renew session tokens for all accounts"
