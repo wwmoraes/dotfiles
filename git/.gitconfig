@@ -92,3 +92,6 @@
 
 [diff "plist"]
   textconv = plist2xml
+
+[safe]
+  directory = *
