@@ -262,7 +262,7 @@ if [ "${DEFAULTS:-0}" = "1" ]; then
   defaults write com.apple.finder ShowPathbar -bool true
 
   echo "setting: Display full POSIX path as Finder window title"
-  defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+  defaults write com.apple.finder _FXShowPosixPathInTitle -bool false
 
   echo "setting: Keep folders on top when sorting by name"
   defaults write com.apple.finder _FXSortFoldersFirst -bool true
