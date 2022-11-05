@@ -6,8 +6,10 @@ deezer
 deluge
 discord
 dropbox
+duet
 fluor
 image2icon
+imazing
 keybase
 kindle
 launchcontrol
@@ -28,3 +30,4 @@ twitch
 whatsapp
 ykman
 ykpers
+zotero

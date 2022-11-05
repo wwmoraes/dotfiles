@@ -1,3 +1,4 @@
 doctl
+ghcup
 muesli/tap/markscribe:markscribe
 tinygo

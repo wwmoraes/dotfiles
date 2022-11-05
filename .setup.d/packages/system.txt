@@ -1,3 +1,4 @@
+-checkmake
 bat
 calicoctl
 container-structure-test
@@ -9,6 +10,7 @@ gawk
 gcc
 gh
 git
+git-crypt
 git-remote-gcrypt
 gnupg:gpg
 golangci-lint
@@ -19,6 +21,7 @@ hadolint
 htop
 hub
 jq
+jtool2
 less:lesskey
 lnav
 man-db:apropos
@@ -32,7 +35,9 @@ pre-commit
 protobuf:protoc
 protolint
 pulumi
+redis
 shellcheck
+socat
 stow
 telnet
 tldr
