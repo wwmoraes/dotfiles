@@ -155,7 +155,6 @@ fixPath() {
   # System paths (FIFO)
   PREPATHS=$(join ":" \
     "${PYTHON_PATH}" \
-    "${HOME}/go/bin/darwin_amd64" \
     "${HOME}/go/bin" \
     "${HOME}/.local/opt/bin" \
     "${HOME}/.local/bin" \
