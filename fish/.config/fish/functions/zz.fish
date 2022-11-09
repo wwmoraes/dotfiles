@@ -19,10 +19,11 @@ function zz -a cmd -d "Azure CLI simplified - now from Z to Z"
       ### creating a PR? Sometimes I wonder why I still try to automate around
       ### stupidity 🙄
 
-      set baseURL (git remote get-url origin | string replace -r "(.*?://)(?:[^@]*@)?(.*)" "\$1\$2")
-      set sourceRef (git branch --show-current)
-      set upstream (git rev-parse --abbrev-ref --symbolic-full-name @{u})
-      set targetRef (git symbolic-ref --short "refs/remotes/$upstream/HEAD" | string split -m 1 "/" | tail -n1)
+      set -l remote (git remote)
+      set -l upstreamURL (git remote get-url $remote)
+      set -l baseURL (string replace -r "(.*?://)(?:[^@]*@)?(.*)" "\$1\$2" $upstreamURL)
+      set -l sourceRef (git branch --show-current)
+      set -l targetRef (git ls-remote --symref $upstreamURL HEAD | sed -nE 's|^ref: refs/heads/([^[:space:]]+)[[:space:]]+HEAD|\1|p')
 
       echo "creating $sourceRef -> $targetRef PR..."
       open "$baseURL/pullrequestcreate?sourceRef=$sourceRef&targetRef=$targetRef"
