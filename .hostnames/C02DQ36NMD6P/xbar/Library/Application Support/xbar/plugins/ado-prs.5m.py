@@ -36,7 +36,8 @@ from termcolor import colored
 print("↓⤸")
 print("---")
 
-ORGANIZATION = os.environ.get("ORGANIZATION", os.environ.get("AZURE_DEVOPS_DEFAULTS_ORGANIZATION"))
+# we need the slash at the end to force urljoin to keep the organization
+ORGANIZATION = os.environ.get("ORGANIZATION", os.environ.get("AZURE_DEVOPS_DEFAULTS_ORGANIZATION", "")) + "/"
 PROJECTS = [v for v in os.environ.get("PROJECTS", os.environ.get("AZURE_DEVOPS_DEFAULTS_PROJECT", "")).split(",") if len(v) > 0]
 REPOSITORIES = [v for v in os.environ.get("REPOSITORIES", "").split(",") if len(v) > 0]
 PREFIXES = [v for v in os.environ.get("PREFIXES", "").split(",") if len(v) > 0]
@@ -52,11 +53,10 @@ else:
   repositoryHasAnyPrefix = check
 
 try:
-  assert ORGANIZATION != None and len(ORGANIZATION) > 0, "Please set the variable ORGANIZATION"
-  ORGANIZATION = ORGANIZATION.rstrip("/")
+  assert len(ORGANIZATION) > 1, "Please set the variable ORGANIZATION"
 
   AZURE_DEVOPS_EXT_PAT = os.environ.get("AZURE_DEVOPS_EXT_PAT", keyring.get_password(f"azdevops-cli:{ORGANIZATION}", "Personal Access Token"))
-  assert AZURE_DEVOPS_EXT_PAT != None and len(AZURE_DEVOPS_EXT_PAT) > 0, "Please login to Azure DevOps using the CLI"
+  assert AZURE_DEVOPS_EXT_PAT != None and len(AZURE_DEVOPS_EXT_PAT) > 0, "Please set the environment with an Azure DevOps personal access token"
 
   assert len(PROJECTS) > 0, "Please set the variable PROJECTS"
 
