@@ -271,6 +271,12 @@
     }
   },
   "haskell.manageHLS": "GHCup",
+  "haskell.toolchain": {
+    "cabal": "recommended",
+    "hls": "recommended",
+    "stack": null
+  },
+  "haskell.upgradeGHCup": true,
   "javascript.format.semicolons": "insert",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "json.schemaDownload.enable": true,

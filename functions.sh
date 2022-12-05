@@ -164,8 +164,10 @@ fixPath() {
   POSTPATHS=$(join ":" \
     "${HOME}/.config/yarn/global/node_modules/.bin" \
     "${HOME}/.local/google-cloud-sdk/bin" \
-    "${HOME}/.krew/bin" \
-    "${HOME}/.cargo/bin"
+    "${HOME}/.cabal/bin" \
+    "${HOME}/.ghcup/bin" \
+    "${HOME}/.cargo/bin" \
+    "${HOME}/.krew/bin"
   )
 
   mkdir -p "${HOME}/.local/bin"
