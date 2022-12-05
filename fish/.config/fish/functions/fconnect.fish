@@ -5,9 +5,13 @@ function fconnect -d "fuzzy connect to a host"
     uniq | \
     fzf --print-query --header="HOST" --prompt="Which host you want to connect to? " | tail -n1); or return 2
 
+    test -n "$host"; or return 2
+
     set options "mosh/tmux" "ssh/tmux" mosh ssh
 
     set -l connType (printf "%s\n" $options | fzf --header="TYPE" --prompt="What type of connection to use? ")
+
+    test -n "$connType"; or return 2
 
     set extraArgs ""
 

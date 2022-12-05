@@ -6,6 +6,6 @@ asciinema
 doge
 kubesplit
 pipenv
-tmuxp
+-tmuxp
 yamllint
 identify

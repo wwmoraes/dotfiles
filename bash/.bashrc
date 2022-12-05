@@ -164,7 +164,7 @@ function launchTmux {
   tmuxSessionList() {
     # TODO use mapfile or read -a instead
     # shellcheck disable=SC2207
-    sessions=("main" $(tmux list-sessions -F '#S' 2>/dev/null) $(ls "$HOME/.tmuxp" 2> /dev/null | xargs basename -s .yaml))
+    sessions=("main" $(tmux list-sessions -F '#S' 2>/dev/null) $(find -L "${HOME}/.config/smug" -mindepth 1 -maxdepth 1 -name "*.yml" -exec basename -s .yml {} \; 2> /dev/null))
     printf '%s\n' "${sessions[@]}" | sort | uniq | awk NF
   }
 
@@ -181,8 +181,8 @@ function launchTmux {
 
     test -n "${session}" || return
 
-    if command -v tmuxp > /dev/null && [ -f "$HOME/.tmuxp/${session}.yaml" ]; then
-      exec tmuxp load -y "${session}"
+    if command -v smug > /dev/null && [ -f "${HOME}/.config/smug/${session}.yml" ]; then
+      exec smug "${session}" -a
     else
       exec tmux -u new -A -s "${session}" > /dev/null
     fi

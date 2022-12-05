@@ -13,3 +13,4 @@ sigs.k8s.io/kind
 github.com/editorconfig-checker/editorconfig-checker/cmd/editorconfig-checker@latest
 github.com/jandelgado/gcov2lcov@latest
 github.com/axw/gocov/gocov@latest
+github.com/ivaaaan/smug@latest
