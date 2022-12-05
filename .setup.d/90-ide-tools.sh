@@ -26,14 +26,15 @@ mkfifo "${PACKAGES}"
 
 printf "\e[1;34mVSCodium setup\e[0m\n"
 
-## configure marketplace on codium (open VSX is still lacking behind)
+## configure marketplace on codium (open VSX is still lagging behind)
 CODIUM_RESOURCES_PATH=
 case "${SYSTEM}" in
   "linux") CODIUM_RESOURCES_PATH=/usr/share/codium/resources;;
   "darwin")
-    BUNDLE_PATH=$(lsappinfo info -only bundlepath com.visualstudio.code.oss |\
+    BUNDLE_PATH=$(lsappinfo info -only bundlepath com.vscodium |\
       cut -d= -f2 | xargs)
-    CODIUM_RESOURCES_PATH="${BUNDLE_PATH}/Contents/Resources";;
+    CODIUM_RESOURCES_PATH="${BUNDLE_PATH}/Contents/Resources"
+    CODE="${CODIUM_RESOURCES_PATH}/app/bin/codium";;
   "*") echo "unsupported system ${SYSTEM}"; exit 1;;
 esac
 
@@ -68,19 +69,19 @@ else
   echo "VSCodium not found, skipping"
 fi
 
+### Check code
+: "{CODE:=$(command -v codium 2> /dev/null || command -v code 2> /dev/null || command -v code-oss 2> /dev/null || echo "")}"
+if [ -z "${CODE}" ]; then
+  echo "code not found"
+  exit 1
+fi
+
 printf "\e[1;34mCode extensions\e[0m\n"
 
 # reads wanted packages
 while IFS= read -r LINE; do
   printf "%s\n" "${LINE}" > "${PACKAGES}" &
 done <"${PACKAGES_FILE_PATH}"
-
-### Check code
-CODE=$(command -v codium 2> /dev/null || command -v code 2> /dev/null || command -v code-oss 2> /dev/null || echo "")
-if [ "${CODE}" = "" ]; then
-  echo "code not found"
-  exit 1
-fi
 
 INSTALLED="${TMP}/installed"
 "${CODE}" --list-extensions | tr '[:upper:]' '[:lower:]' > "${INSTALLED}"
@@ -90,9 +91,22 @@ NODE_NO_WARNINGS=1
 export NODE_NO_WARNINGS
 
 while read -r PACKAGE; do
-  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE}"
-  grep -q "${PACKAGE}" "${INSTALLED}" && continue
+  case "${PACKAGE%%:*}" in
+    -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
+    *) REMOVE=0;;
+  esac
 
-  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE}"
-  "${CODE}" --install-extension "${PACKAGE}"
+  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE}"
+  case "${REMOVE}" in
+    1)
+      grep -q "${PACKAGE}" "${INSTALLED}" || continue
+      printf "Uninstalling \e[96m%s\e[0m...\n" "${PACKAGE}"
+      "${CODE}" --uninstall-extension "${PACKAGE}"
+    ;;
+    0)
+      grep -q "${PACKAGE}" "${INSTALLED}" && continue
+      printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE}"
+      "${CODE}" --install-extension "${PACKAGE}"
+    ;;
+  esac
 done < "${PACKAGES}"
