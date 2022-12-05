@@ -72,5 +72,13 @@ while read -r PACKAGE; do
   test -f "${GOPATH}/bin/${BIN}" && continue
 
   printf "Installing \e[96m%s\e[0m...\n" "${BIN}"
-  go install "${MODULE}@${VERSION}" || printf "\e[91mFAILED\e[m to install \e[96m%s\e[0m\n" "${BIN}" >&2
+  env -u GOBIN go install "${MODULE}@${VERSION}" || printf "\e[91mFAILED\e[m to install \e[96m%s\e[0m\n" "${BIN}" >&2
 done < "${PACKAGES}"
+
+# Darwin go binaries are still built only for x64. This means install builds for
+# arm64, but the end binary is sent to a subdirectory. We fix that by moving
+# them all to avoid yet another directory on the PATH
+GO_BIN_PATH="$(go env GOPATH)/bin"
+GO_OS_ARCH_BIN_PATH="${GO_BIN_PATH}/$(go env GOOS)_$(go env GOARCH)"
+find "${GO_OS_ARCH_BIN_PATH}" -type f -exec mv {} "${GO_BIN_PATH}" \;
+rmdir "${GO_OS_ARCH_BIN_PATH}"
