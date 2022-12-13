@@ -2,7 +2,7 @@ function fish_prompt
   set -l last_status $status
 
   # try to use powerline-go
-  type -p "go" > /dev/null 2>&1; and begin
+  command -q go; and begin
     set -q GOPATH; or set -l GOPATH (go env GOPATH)
     test -x "$GOPATH/bin/powerline-go"; and begin
       "$GOPATH/bin/powerline-go" \

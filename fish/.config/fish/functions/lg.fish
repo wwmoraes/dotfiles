@@ -1,5 +1,5 @@
 function lg -a path -d "Launch lazygit on current (or given) directory"
-  if not type -q lazygit
+  if not command -q lazygit
     echo "please install lazygit to use this function"
     return 1
   end

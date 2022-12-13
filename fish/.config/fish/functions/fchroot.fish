@@ -37,7 +37,7 @@ function fchroot -d "Fuzzy chroots into partitions, even with distinct architect
   # lazy check if the host has qemu-user-static binaries
   if test $useQemu -eq 1
     printf "QEMU needed to run $targetArch. Checking binary..."
-    type -q qemu-$targetArch-static
+    command -q qemu-$targetArch-static
     or begin
       echo " qemu-$targetArch-static not found."
       echo "Install qemu-user-static package to run cross-arch binaries"

@@ -1,5 +1,5 @@
 function fuck -d "Correct your previous console command"
-  if not type -q thefuck
+  if not command -q thefuck
     echo "please install thefuck to use this function"
     return 1
   end

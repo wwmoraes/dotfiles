@@ -2,11 +2,11 @@
 status --is-interactive; or exit
 
 # don't setup anything if grc is not installed
-type -q grc; or exit
+command -q grc; or exit
 
 # create the grc wrapper functions for the enabled binaries
 for executable in (cat ~/.grc/bins.txt | grep -v ":false")
-  type -q $executable; or continue
+  command -q $executable; or continue
 
   function $executable --inherit-variable executable --wraps=$executable
     if isatty 1

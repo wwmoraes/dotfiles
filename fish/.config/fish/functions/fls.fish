@@ -1,5 +1,5 @@
 function fls -d "Fuzzy lists git-enabled folders"
-  type -q fzf; or echo "please install fzf to use this function" && return 1
+  command -q fzf; or echo "please install fzf to use this function" && return 1
 
   # get paths from env or use defaults
   set -q GIT_PROJECT_PATHS; or set -l GIT_PROJECT_PATHS .

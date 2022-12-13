@@ -37,7 +37,7 @@ complete -xc dotsecrets -n __fish_use_subcommand -a cd -d "navigate to the dotse
 # add subcommand
 function _dotsecrets_add
   # Check the presence of needed tools
-  if not type -q fzf
+  if not command -q fzf
     echo "Error: please install fzf to use this function"
     return 1
   end

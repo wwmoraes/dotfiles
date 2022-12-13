@@ -162,7 +162,7 @@ function _mb_helm -w helm
 
   # early check if the helm version exists
   # TODO install missing helm version?
-  type -q $HELM_BIN; or begin
+  command -q $HELM_BIN; or begin
     echo "$HELM_BIN not found or is not executable"
     return 1
   end

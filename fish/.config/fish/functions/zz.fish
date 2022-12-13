@@ -1,5 +1,5 @@
 function zz -a cmd -d "Azure CLI simplified - now from Z to Z"
-  type -q az; or echo "azure CLI is not installed" && return
+  command -q az; or echo "azure CLI is not installed" && return
 
   switch "$cmd"
     case faccount

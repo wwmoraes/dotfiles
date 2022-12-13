@@ -1,10 +1,10 @@
 function gcp -a cmd -d "gloud CLI wrapper with extra commands"
-  type -q gcloud; or echo "gcloud is not installed" && return
-  type -q awk; or echo "awk is not installed" && return
-  type -q sed; or echo "sed is not installed" && return
-  type -q tail; or echo "tail is not installed" && return
-  type -q fzf; or echo "fzf is not installed" && return
-  type -q xargs; or echo "xargs is not installed" && return
+  command -q gcloud; or echo "gcloud is not installed" && return
+  command -q awk; or echo "awk is not installed" && return
+  command -q sed; or echo "sed is not installed" && return
+  command -q tail; or echo "tail is not installed" && return
+  command -q fzf; or echo "fzf is not installed" && return
+  command -q xargs; or echo "xargs is not installed" && return
 
   switch "$cmd"
   case account

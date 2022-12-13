@@ -65,9 +65,9 @@ complete -f -c yarn -n '__fish_use_subcommand' -a remove
 complete -f -c yarn -n '__fish_use_subcommand' -a run
 
 function __fish_yarn_run
-  if test -e package.json; and type -q jq
+  if test -e package.json; and command -q jq
     jq -r '.scripts | to_entries | map("\(.key)\t\(.value | tostring | .[0:20])") | .[]' package.json
-  else if type -q jq
+  else if command -q jq
     command yarn run --json 2> /dev/null | jq -r '.data.hints? | to_entries | map("\(.key)\t\(.value | tostring |.[0:20])") | .[]'
   end
 end

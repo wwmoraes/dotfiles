@@ -1,4 +1,4 @@
-if type -q az
+if command -q az
   function __fish_az_complete
     set -x _ARGCOMPLETE 1
     set -x _ARGCOMPLETE_DFS \t

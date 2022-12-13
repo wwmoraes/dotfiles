@@ -45,7 +45,7 @@ complete -xc dotfiles -n __fish_use_subcommand -a cd -d "navigate to the dotfile
 # add subcommand
 function _dotfiles_add
   # Check the presence of needed tools
-  if not type -q fzf
+  if not command -q fzf
     echo "Error: please install fzf to use this function"
     return 1
   end
@@ -174,7 +174,7 @@ complete -xc dotfiles -n __fish_use_subcommand -a code-setup -d "installs the Co
 # code subcommand
 function _dotfiles_code
   # Check the presence of needed tools
-  if not type -q code
+  if not command -q code
     echo "Error: please install VSCode to use this function"
     return 1
   end
@@ -186,7 +186,7 @@ complete -xc dotfiles -n __fish_use_subcommand -a code -d "open VSCode on dotfil
 # lg subcommand
 function _dotfiles_lg
   # Check the presence of needed tools
-  if not type -q lazygit
+  if not command -q lazygit
     echo "Error: please install lazygit to use this function"
     return 1
   end

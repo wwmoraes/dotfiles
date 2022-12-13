@@ -1,7 +1,7 @@
 function gl -a cmd -d "lab wrapper" -w lab
-  type -q lab; or echo "lab is not installed" && return
-  type -q awk; or echo "awk is not installed" && return
-  type -q sed; or echo "sed is not installed" && return
+  command -q lab; or echo "lab is not installed" && return
+  command -q awk; or echo "awk is not installed" && return
+  command -q sed; or echo "sed is not installed" && return
 
   switch "$cmd"
   case yolo

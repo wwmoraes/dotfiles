@@ -1,6 +1,6 @@
 complete -ec pkg
 function pkg -a cmd -w pkgutil -d "MacOS package management made easy"
-  type -q pkgutil; or echo "pkgutil is not installed" && return
+  command -q pkgutil; or echo "pkgutil is not installed" && return
 
   switch "$cmd"
     case list

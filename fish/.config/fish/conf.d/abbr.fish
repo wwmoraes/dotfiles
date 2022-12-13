@@ -7,7 +7,7 @@ status --is-interactive; or exit
 abbr -a -U wttr "curl v2.wttr.in"
 
 # todo.sh
-if type -q todo.sh
+if command -q todo.sh
   abbr -a -U t "todo.sh"
   abbr -a -U tp "todo.sh p"
   abbr -a -U tpa "todo.sh p a"
@@ -15,7 +15,7 @@ if type -q todo.sh
 end
 
 # project fish command abbreviations
-if type -q projects
+if command -q projects
   abbr -a -U pcd "projects cd"
   abbr -a -U pls "projects ls"
   abbr -a -U plg "projects lg"
@@ -25,7 +25,7 @@ if type -q projects
 end
 
 # git abbreviations
-if type -q git
+if command -q git
   abbr -a -U g "git"
   abbr -a -U gc "git checkout"
   abbr -a -U ga "git add --all && git commit --amend --no-edit"
@@ -38,7 +38,7 @@ if type -q git
 end
 
 # terraform abbreviations
-if type -q terraform
+if command -q terraform
   abbr -a -U tf "terraform"
   abbr -a -U tfi "rm -rf .terraform && terraform init"
   abbr -a -U tfp "terraform plan -out=plan.tfplan"
@@ -47,7 +47,7 @@ if type -q terraform
 end
 
 # lab abbreviations
-if type -q lab
+if command -q lab
   abbr -a -U glcv "gl ci view"
   abbr -a -U glcc "gl ci create"
   abbr -a -U glmc "gl mr create -d -s"
@@ -57,7 +57,7 @@ if type -q lab
 end
 
 # kubectl abbreviations
-if type -q kubectl
+if command -q kubectl
   # base kubectl
   abbr -a -U k "kubectl"
   abbr -a -U kg "kubectl get"
@@ -320,7 +320,7 @@ if type -q kubectl
 end
 
 # velero abbreviations
-if type -q velero
+if command -q velero
   abbr -a -U v "velero"
   abbr -a -U vbg "velero backup get"
   abbr -a -U vsg "velero schedule get"
