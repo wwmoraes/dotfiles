@@ -1,2 +1,3 @@
 azure/functions
-tilt-dev/tap
+-tilt-dev/tap
+hashicorp/tap

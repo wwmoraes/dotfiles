@@ -1,4 +1,12 @@
+ansible
+cfengine:cf-agent
 doctl
 ghcup
 muesli/tap/markscribe:markscribe
 tinygo
+trivy
+lua
+luarocks
+python@3.11
+hugo
+imapfilter

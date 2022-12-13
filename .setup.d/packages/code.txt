@@ -22,7 +22,6 @@ eamodio.gitlens
 editorconfig.editorconfig
 efanzh.graphviz-preview
 emilast.logfilehighlighter
--ethan-reesor.vscode-go-test-adapter
 folke.vscode-monorepo-workspace
 fooxly.workspace
 gamunu.vscode-yarn
@@ -81,7 +80,6 @@ tomashubelbauer.vscode-markdown-table-format
 tsandall.opa
 vilicvane.sensitive-replace
 virgilsisoe.hammerspoon-snippets
-visualstudioexptteam.vscodeintellicode
 vscode-icons-team.vscode-icons
 vsls-contrib.gistfs
 wmaurer.change-case

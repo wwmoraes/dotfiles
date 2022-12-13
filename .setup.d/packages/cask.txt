@@ -1,4 +1,6 @@
 -browserosaurus
+-ccleaner
+-clean-me|~/Applications/Clean Me.app/Contents/MacOS/Clean Me
 -cryptomator
 -finicky
 -hazel
@@ -6,31 +8,33 @@
 -lens
 -ngrok
 -openin
+-spotify
 -swiftdefaultappsprefpane
 -typora
 -ubersicht
 -unlox
-#visual-studio-code
 1password
 1password-cli
 amethyst
 appcleaner
-clean-me|~/Applications/Clean Me.app/Contents/MacOS/Clean Me
 docker|/Applications/Docker.app/Contents/MacOS/Docker
 dozer
 fluid
-free-gpgmail
+flux
 gas-mask
 gimp
 google-chrome
+gpg-suite-no-mail
 hammerspoon
 image2icon
 inkscape
 kitty
-krisp
 launchpad-manager
 macfuse
 obsidian
+syncthing
 the-unarchiver
 uninstallpkg
+utterly
+vscodium
 xbar

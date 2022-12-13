@@ -1,6 +1,7 @@
+-shtirlic/yubikeylockd
 anchore/grype
 anchore/syft
-hashicorp/tap
+goreleaser/tap
 instrumenta/instrumenta
-raggi/ale
+wwmoraes/tap
 yoheimuta/protolint

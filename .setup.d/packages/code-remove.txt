@@ -8,6 +8,7 @@ coolbear.systemd-unit-file
 dcasella.i3
 dongli.python-preview
 eg2.vscode-npm-script
+ethan-reesor.vscode-go-test-adapter
 firsttris.vscode-jest-runner
 formulahendry.code-runner
 github.vscode-pull-request-github
@@ -40,6 +41,8 @@ sysninja.vscode-ansible-mod
 tim-koehler.helm-intellisense
 vadimcn.vscode-lldb
 vaibhavvishal.web-extension
+VisualStudioExptTeam.intellicode-api-usage-examples
+VisualStudioExptTeam.vscodeintellicode
 vstirbu.vscode-mermaid-preview
 wallabyjs.quokka-vscode
 warpnet.salt-lint

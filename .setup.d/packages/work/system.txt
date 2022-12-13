@@ -6,5 +6,6 @@ awslogs
 azure-functions-core-tools@3:func
 eksctl
 operator-sdk
-tilt-dev/tap/tilt:tilt
+tilt
 vault
+terraform

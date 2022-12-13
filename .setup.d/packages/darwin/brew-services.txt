@@ -1,2 +1,2 @@
-openssl-osx-ca
-skhd
+raggi/ale/openssl-osx-ca
+koekeishiya/formulae/skhd
