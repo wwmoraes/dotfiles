@@ -5,3 +5,4 @@ goreleaser/tap
 instrumenta/instrumenta
 wwmoraes/tap
 yoheimuta/protolint
+lemoony/tap

@@ -2,7 +2,6 @@
 -calicoctl
 -checkmake
 -container-structure-test
--expect
 -e2fsprogs
 -golangci-lint
 -htop
@@ -50,6 +49,7 @@ protolint
 pulumi
 redis
 shellcheck
+snipkit
 socat
 stow
 syft

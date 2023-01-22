@@ -13,6 +13,6 @@
 -virtualbox
 dotnet-sdk|/usr/local/bin/dotnet
 firefox
-krisp
+-krisp
 powershell|pwsh
 visual-studio-code

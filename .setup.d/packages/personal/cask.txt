@@ -17,6 +17,7 @@ deezer
 deluge
 discord
 dropbox
+duckduckgo
 duet
 fluor
 free-gpgmail
@@ -36,6 +37,8 @@ obs
 onyx
 responsively
 soundsource
+spotify
+staruml
 steam
 suspicious-package
 telegram
@@ -44,4 +47,5 @@ tiddly
 tor-browser
 touch-portal
 whatsapp
+yattee
 zotero

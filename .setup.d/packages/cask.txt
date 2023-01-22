@@ -31,6 +31,7 @@ inkscape
 kitty
 launchpad-manager
 macfuse
+multi
 obsidian
 syncthing
 the-unarchiver
