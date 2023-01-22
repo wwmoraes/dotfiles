@@ -1,18 +1,15 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# shellcheck shell=bash
 
-# If not running interactively, don't do anything
+# skip if not running interactively
 test "${-#*i}" == "$-" && return
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
+# don't put duplicate lines or lines starting with space in the history
 HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+# sets history length
 HISTSIZE=1000
 HISTFILESIZE=2000
 
@@ -26,7 +23,7 @@ shopt -s checkwinsize
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
 test -x /usr/bin/lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
@@ -122,9 +119,9 @@ done
 
 HOST=$(hostname -s)
 set -a
-# shellcheck disable=SC1090
+# shellcheck disable=SC1091
 test -f "${HOME}/.env" && source "${HOME}/.env"
-# shellcheck disable=SC1090
+# shellcheck disable=SC1091
 test -f "${HOME}/.env_secrets" && source "${HOME}/.env_secrets"
 while IFS= read -r TAG; do
   # shellcheck disable=SC1090
