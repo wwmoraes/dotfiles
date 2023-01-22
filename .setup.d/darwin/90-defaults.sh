@@ -751,6 +751,9 @@ if [ "${DEFAULTS:-0}" = "1" ]; then
 
   printf "\e[1;34mSecurity\e[0m\n"
 
+  echo "setting: ignore Remote Desktop/DisplayLink for PAM Touch ID"
+  defaults write com.apple.security.authorization ignoreArd -bool TRUE
+
   echo "setting: enable more than one smartcard/token per user"
   sudo defaults write /Library/Preferences/com.apple.security.smartcard oneCardPerUser -bool false
 
