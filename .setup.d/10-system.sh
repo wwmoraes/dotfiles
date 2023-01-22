@@ -86,7 +86,11 @@ elif [ -x "$(which pacman 2> /dev/null)" ]; then
   MANAGER_INSTALL_ARGS="-S"
   MANAGER_REMOVE_ARGS="-Rs"
 elif [ -x "$(which brew 2> /dev/null)" ]; then
-  MANAGER="brew"
+  if [ -x "/opt/homebrew/bin/brew" ] && [ "${SYSTEM}" = "darwin" ] && [ "${ARCH}" = "arm64" ]; then
+    MANAGER="arch -arm64 /opt/homebrew/bin/brew"
+  else
+    MANAGER="/usr/local/Homebrew/bin/brew"
+  fi
   MANAGER_INSTALL_ARGS="install"
   MANAGER_REMOVE_ARGS="remove"
   MANAGER_PRE_EXEC="brew update --preinstall"

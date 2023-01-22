@@ -147,43 +147,94 @@ getPackages() {
 }
 
 fixPath() {
-  PYTHON_PATH=
-  if command -V python3 > /dev/null 2>&1; then
-    PYTHON_PATH=$(python3 -m site --user-base)/bin
-  fi
-
   # System paths (FIFO)
-  PREPATHS=$(join ":" \
-    "${PYTHON_PATH}" \
-    "${HOME}/go/bin" \
-    "${HOME}/.local/opt/bin" \
+  ### TODO use HOMEBREW_PREFIX to avoid duplicate path entries here
+  PRE_PATH=$(join ":" \
     "${HOME}/.local/bin" \
-    "/usr/local/opt/coreutils/libexec/gnubin"
+    "/opt/homebrew/opt/coreutils/libexec/gnubin" \
+    "/opt/homebrew/bin" \
+    "/opt/homebrew/sbin" \
+    "/usr/local/opt/coreutils/libexec/gnubin" \
+    "/usr/local/bin" \
+    "/usr/local/sbin"
   )
 
-  POSTPATHS=$(join ":" \
-    "${HOME}/.config/yarn/global/node_modules/.bin" \
-    "${HOME}/.local/google-cloud-sdk/bin" \
+  POST_PATH=$(join ":" \
+    "${HOME}/go/bin" \
+    "${HOME}/.cargo/bin" \
     "${HOME}/.cabal/bin" \
     "${HOME}/.ghcup/bin" \
-    "${HOME}/.cargo/bin" \
-    "${HOME}/.krew/bin"
+    "${HOME}/.local/google-cloud-sdk/bin" \
+    "${HOME}/.krew/bin" \
+    "${HOME}/.config/yarn/global/node_modules/.bin"
   )
 
-  mkdir -p "${HOME}/.local/bin"
-  mkdir -p "${HOME}/.local/opt/{bin,sbin}"
+  if command -V python3 > /dev/null 2>&1; then
+    PYTHON_PATH=$(python3 -m site --user-base)/bin
+    POST_PATH=${PYTHON_PATH}:${POST_PATH}
+  fi
 
-  PATH="${PREPATHS}:${PATH}:${POSTPATHS}"
+  mkdir -p "${HOME}/.local/bin"
+  rm -rf "${HOME}/.local/opt/bin"
+  rm -rf "${HOME}/.local/opt/sbin"
+
+  # remove pre- and post-paths from the existing path to ensure they are on the
+  # right position
+
+  PATH_LINES=$(mktemp)
+  # shellcheck disable=SC2064
+  trap "rm -f '${PATH_LINES}'" EXIT
+  echo "${PATH}" | sed "s/:/\n/g" > "${PATH_LINES}"
+
+  CLEAN_PATH=''
+  while read -r DIR; do
+    case "${PRE_PATH}:${POST_PATH}" in
+      ${DIR}:*) ;;
+      *:${DIR}:*) ;;
+      *:${DIR}) ;;
+     *) CLEAN_PATH=$(join ":" "${CLEAN_PATH}" "${DIR}");;
+    esac
+  done < "${PATH_LINES}"
+  rm "${PATH_LINES}"
+
+  PATH="${PRE_PATH}:${CLEAN_PATH#:*}:${POST_PATH}"
+
+  REMOVE_PATH_LINES=$(mktemp)
+  # shellcheck disable=SC2064
+  trap "rm -f '${PATH_LINES}'" EXIT
+  paths2remove > "${REMOVE_PATH_LINES}"
+
+  # remove paths we don't want anymore
+  while read -r ENTRY; do
+    case "${PATH}" in
+      ${ENTRY}:*) PATH=${PATH#*:};;
+      *:${ENTRY}:*) PATH=$(echo "${PATH}" | sed "s#:${ENTRY}:#:#g");;
+      *:${ENTRY}) PATH=${PATH%:*};;
+      *);;
+    esac
+  done < "${REMOVE_PATH_LINES}"
+  rm "${REMOVE_PATH_LINES}"
 
   # Dedup paths
   echo "dedupping and exporting PATH"
   TMP_PATH=$(printf "%s" "${PATH}" | awk -v RS=: '{gsub(/\/$/,"")} !($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
   export PATH="${TMP_PATH}"
-  unset TMP_PATH
-  echo "persisting PATH"
-  echo "PATH=${PATH}" > "${HOME}/.env_path"
+
+  printf "updating launchctl paths...\n"
+  launchctl setenv PATH "${PATH}"
+  sudo launchctl config system path "${PATH}"
+  sudo launchctl config user path "${PATH}"
 
   ### Set fish paths
   printf "Setting fish universal variables...\n"
   fish ./variables.fish "${PATH}" || "failed to setup fish variables"
+}
+
+paths2remove() {
+  echo "${HOME}/Library/Python/3.9/bin"
+  echo "${HOME}/Library/Python/3.10/bin"
+  echo "${HOME}/go/bin/darwin_arm64"
+  echo "${HOME}/go/bin/darwin_amd64"
+  echo "${HOME}/.local/opt/bin"
+  echo "${HOME}/.local/opt/sbin"
 }

@@ -18,16 +18,19 @@ end
 
 test -f ~/.env-(hostname -s); and dotenv ~/.env-(hostname -s)
 
+set -xg PATH $argv
+
 # dedup args
 set -l argv[1] (echo -n $argv[1] | awk '{gsub(/\/$/,"")} !($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
 
 ### Add user paths to fish
 echo "Setting fish user paths..."
+set -eU fish_user_paths
 for user_path in (string split ':' $argv[1] | sed 's|/$||g')[-1..1]
   if test -d "$user_path" \
     && string match -q (string replace "/$USER" "/*" $HOME) $user_path
     echo "adding/keeping "(set_color brmagenta)"$user_path"(set_color normal)
-    set -U fish_user_paths $user_path $fish_user_paths
+    set -aU fish_user_paths $user_path
   end
 end
 
@@ -43,6 +46,7 @@ for user_path in $fish_user_paths
                   sort -r)
 
   for indice in $indices
+    echo "removing $fish_user_paths[$indice]"
     set -eU fish_user_paths[$indice]
   end
 
@@ -66,5 +70,5 @@ end
 # Remove the global version, as it shadows the universal one
 set -eg fish_user_paths
 
-echo "fish was set up succesfully"
+echo "fish was set up successfully"
 exit 0

@@ -1,8 +1,8 @@
 #!/bin/sh
 #
-# Homebrew doesn't link keg-only packages to /usr/local/{bin,sbin},
+# Homebrew doesn't link keg-only packages to <prefix>/{bin,sbin},
 #   even with `brew link --force <package>`
-#   instead, they recommend adding /usr/local/opt/<package>/{bin,sbin}
+#   instead, they recommend adding <prefix>/opt/<package>/{bin,sbin}
 #   to your path (LOL). Democracy uh?
 #
 
@@ -28,11 +28,6 @@ CHECKMARK=$(printf "\xE2\x9C\x94")
 CROSSMARK=$(printf "\xE2\x9C\x96")
 RIGHTWARDS_ARROW=$(printf "\xE2\x9E\xBE")
 
-rm -rf "${HOME}"/.local/opt/bin
-rm -rf "${HOME}"/.local/opt/sbin
-mkdir -p "${HOME}"/.local/opt/bin
-mkdir -p "${HOME}"/.local/opt/sbin
-
 for package in /usr/local/opt/*; do
   NAME=$(basename "${package}")
   BINS="${TMP}/bins-${NAME}"
@@ -44,7 +39,7 @@ for package in /usr/local/opt/*; do
     for bin in "${package}"/bin/*; do
       if ! _=$(command -V "${bin}" >/dev/null 2>&1); then
         basename "${bin}" >> "${BINS}"
-        ln -sf "${bin}" "${HOME}/.local/opt/bin"
+        ln -sf "${bin}" "${HOME}/.local/bin"
       fi
     done
   fi
@@ -53,7 +48,7 @@ for package in /usr/local/opt/*; do
     for sbin in "${package}"/sbin/*; do
       if ! _=$(command -V "${sbin}" >/dev/null 2>&1); then
         basename "${sbin}" >> "${BINS}"
-        ln -sf "${sbin}" "${HOME}/.local/opt/sbin"
+        ln -sf "${sbin}" "${HOME}/.local/sbin"
       fi
     done
   fi
@@ -64,3 +59,7 @@ for package in /usr/local/opt/*; do
     printf "\e[92m%s\e[0m\n" "${CHECKMARK}"
   fi
 done
+
+if [ ! -f /opt/local/bin/fish ]; then
+  ln -sf /opt/homebrew/bin/fish /opt/local/bin/fish
+fi
