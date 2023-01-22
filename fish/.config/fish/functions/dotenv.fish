@@ -17,6 +17,7 @@ function dotenv -d '"Sources" (set universal and exports) variables from given d
       echo "Removing "(set_color brcyan)$variable(set_color normal)
       set -eg $variable
       set -eU $variable
+      launchctl unsetenv $variable
     end < (cat "$filePath" | grep -v '^#' | grep -v '^$' | psub)
   end
 

@@ -35,14 +35,7 @@ processDotenvFile() {
   done <"$1"
 }
 
-processDotenvFile "${HOME}/.env"
-processDotenvFile "${HOME}/.env_secrets"
-while IFS= read -r TAG; do
-  processDotenvFile "${HOME}/.env_${TAG}"
-  processDotenvFile "${HOME}/.env_${TAG}_secrets"
-done < "${HOME}/.tagsrc"
-processDotenvFile "${HOME}/.env-${HOST}"
-
+# remove first
 for FILE in "${HOME}/.env_remove"*; do
   while IFS= read -r VARIABLE; do
     # skip empty lines
@@ -55,5 +48,13 @@ for FILE in "${HOME}/.env_remove"*; do
     unset -v "${VARIABLE}"
   done < "${FILE}"
 done
+
+processDotenvFile "${HOME}/.env"
+processDotenvFile "${HOME}/.env_secrets"
+while IFS= read -r TAG; do
+  processDotenvFile "${HOME}/.env_${TAG}"
+  processDotenvFile "${HOME}/.env_${TAG}_secrets"
+done < "${HOME}/.tagsrc"
+processDotenvFile "${HOME}/.env-${HOST}"
 
 exit 0
