@@ -15,25 +15,26 @@ function pgpz -a cmd -d "gpg for human beings" -w gpg
         gpg -o gpg-privkey-$identity.key.asc --armor --export-secret-keys $identity
       end
     case "unlock"
-      set -l GPG_PRESET_PASSPHRASE (realpath (dirname (which gpg2))/../libexec/gpg-preset-passphrase)
+      # make sure we have executables on path; this is specially needed when
+      # calling the function from clean environments such as Hammerspoon
+      eval (/usr/libexec/path_helper -c)
 
-      string length -q $GPG_PRESET_PASSPHRASE; or begin
-        echo "gpg-preset-passphrase not found"
-        return 1
-      end
+      set -l GPG_PRESET_PASSPHRASE (gpgconf --list-dirs libexecdir)/gpg-preset-passphrase
 
       set -q GPG_OP_ITEM_ID; or begin
         echo "GPG_OP_ITEM_ID not set"
         return 1
       end
 
-      set -q GPG_KEYGRIP; or begin
-        echo "GPG_KEYGRIP not set"
-        return 1
+      set -l PASSWORD (op item get $GPG_OP_ITEM_ID --fields password | xargs)
+
+      # gpg-connect-agent /bye &> /dev/null
+      gpg2 -K --fingerprint --with-colons | sed -nr '/fpr/,+1{s/^grp:+(.*):$/\1/p;}' | while read -l GRIP
+        echo "unlocking key grip $GRIP"
+        echo $PASSWORD | $GPG_PRESET_PASSPHRASE -c -c $GRIP
       end
 
-      gpg-connect-agent /bye &> /dev/null
-      op item get $GPG_OP_ITEM_ID --fields password | $GPG_PRESET_PASSPHRASE --preset $GPG_KEYGRIP
+      echo "done"
     case "" "*"
       gpg $argv
   end
