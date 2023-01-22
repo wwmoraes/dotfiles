@@ -1,9 +1,9 @@
 -azure-cli
 -tinyproxy
 Azure/kubelogin/kubelogin:kubelogin
-awscli:aws
+awscli
 awslogs
-azure-functions-core-tools@3:func
+azure-functions-core-tools@3
 eksctl
 operator-sdk
 tilt

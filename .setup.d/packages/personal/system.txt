@@ -1,5 +1,5 @@
 ansible
-cfengine:cf-agent
+cfengine
 doctl
 ghcup
 muesli/tap/markscribe:markscribe

@@ -71,30 +71,36 @@ printf "Checking system manager...\n"
 MANAGER=
 MANAGER_INSTALL_ARGS=
 MANAGER_REMOVE_ARGS=
-MANAGER_PRE_EXEC=
-MANAGER_POST_EXEC=
-if [ -x "$(which apt-get 2> /dev/null)" ]; then
-  MANAGER="sudo apt-get"
+MANAGER_PRE_EXEC_ARGS=
+MANAGER_POST_EXEC_ARGS=
+if [ -x "$(which apt 2> /dev/null)" ]; then
+  MANAGER="sudo apt"
   MANAGER_INSTALL_ARGS="install --no-install-recommends --no-install-suggests"
   MANAGER_REMOVE_ARGS="remove"
+  MANAGER_LIST_ARGS="list --quiet --installed 2> /dev/null | tail +2 | cut -d'/' -f1"
 elif [ -x "$(which yay 2> /dev/null)" ]; then
   MANAGER="sudo yay"
   MANAGER_INSTALL_ARGS="-S"
   MANAGER_REMOVE_ARGS="-Rs"
+  MANAGER_LIST_ARGS="-Qq"
 elif [ -x "$(which pacman 2> /dev/null)" ]; then
   MANAGER="sudo pacman"
   MANAGER_INSTALL_ARGS="-S"
   MANAGER_REMOVE_ARGS="-Rs"
+  MANAGER_LIST_ARGS="-Qq"
 elif [ -x "$(which brew 2> /dev/null)" ]; then
   if [ -x "/opt/homebrew/bin/brew" ] && [ "${SYSTEM}" = "darwin" ] && [ "${ARCH}" = "arm64" ]; then
     MANAGER="arch -arm64 /opt/homebrew/bin/brew"
   else
     MANAGER="/usr/local/Homebrew/bin/brew"
   fi
+
+  eval "$(${MANAGER} shellenv)"
   MANAGER_INSTALL_ARGS="install"
   MANAGER_REMOVE_ARGS="remove"
-  MANAGER_PRE_EXEC="brew update --preinstall"
-  MANAGER_POST_EXEC="brew cleanup"
+  MANAGER_LIST_ARGS="list --formula -1; list --cask -1"
+  MANAGER_PRE_EXEC_ARGS="update --preinstall"
+  MANAGER_POST_EXEC_ARGS="cleanup"
 fi
 
 if [ -z "${MANAGER}" ]; then
@@ -102,10 +108,15 @@ if [ -z "${MANAGER}" ]; then
   exit 1
 fi
 
+printf "Listing installed packages...\n"
+INSTALLED="${TMP}/installed"
+sh -c "$(echo "${MANAGER} ${MANAGER_LIST_ARGS}" | sed "s#;# ; ${MANAGER} #g" | xargs)" | sort -u > "${INSTALLED}"
+
 ### Install packages
-if [ -n "${MANAGER_PRE_EXEC}" ]; then
-  printf "Running pre-install hook \e[95m%s\e[0m...\n" "${MANAGER_PRE_EXEC}"
-  ${MANAGER_PRE_EXEC}
+if [ -n "${MANAGER_PRE_EXEC_ARGS}" ]; then
+  printf "Running pre-install hook \e[95m%s\e[0m...\n" "${MANAGER_PRE_EXEC_ARGS}"
+  # shellcheck disable=SC2086 # we want the args to expand
+  ${MANAGER} ${MANAGER_PRE_EXEC_ARGS}
 fi
 
 while read -r PACKAGE; do
@@ -117,20 +128,24 @@ while read -r PACKAGE; do
   printf "Checking \e[96m%s\e[0m...\n" "$(basename "${PACKAGE%%:*}")"
   case "${REMOVE}" in
     1)
-      command -V "${PACKAGE##*:}" >/dev/null 2>&1 || continue
-      printf "Uninstalling \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+      grep -q "${PACKAGE##*:}" "${INSTALLED}" || continue
+      # command -V "${PACKAGE##*:}" >/dev/null 2>&1 || continue
+      printf "Uninstalling \e[96m%s\e[0m...\n" "${PACKAGE##*:}"
+      # shellcheck disable=SC2086 # we want the args to expand
       ${MANAGER} ${MANAGER_REMOVE_ARGS} "${PACKAGE%%:*}" || true
     ;;
     0)
-      command -V "${PACKAGE##*:}" >/dev/null 2>&1 && continue
-      printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+      grep -q "${PACKAGE##*:}" "${INSTALLED}" && continue
+      # command -V "${PACKAGE##*:}" >/dev/null 2>&1 && continue
+      printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE##*:}"
+      # shellcheck disable=SC2086 # we want the args to expand
       ${MANAGER} ${MANAGER_INSTALL_ARGS} "${PACKAGE%%:*}" || true
     ;;
   esac
-
 done < "${PACKAGES}"
 
-if [ -n "${MANAGER_POST_EXEC}" ]; then
-  printf "Running post-install hook \e[95m%s\e[0m...\n" "${MANAGER_POST_EXEC}"
-  ${MANAGER_POST_EXEC}
+if [ -n "${MANAGER_POST_EXEC_ARGS}" ]; then
+  printf "Running post-install hook \e[95m%s\e[0m...\n" "${MANAGER_POST_EXEC_ARGS}"
+  # shellcheck disable=SC2086 # we want the args to expand
+  ${MANAGER} ${MANAGER_POST_EXEC_ARGS}
 fi
