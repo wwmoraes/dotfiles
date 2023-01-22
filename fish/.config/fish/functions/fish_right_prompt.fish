@@ -1,10 +1,6 @@
 function fish_right_prompt
   # must be on a git directory
   git rev-parse --is-inside-work-tree >/dev/null 2>&1; or return
-  # try to use powerline-go
-  type -p "go" > /dev/null 2>&1; or return
-  set -q GOPATH; or set -l GOPATH (go env GOPATH)
-  test -x "$GOPATH/bin/powerline-go"; or return
 
   set -l background "303030"
   set -l normal (set_color -b $background normal)

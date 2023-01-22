@@ -12,6 +12,9 @@ function launch-tmux
   # already inside a tmux session
   string match -q "screen*" $TERM; and return
 
+  # path hack
+  set -xg PATH (launchctl getenv PATH)
+
   # tmux not found
   command -v tmux > /dev/null; or return
 
