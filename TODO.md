@@ -1,6 +1,22 @@
 # TO DO
 
+- [ ] path management
+- [ ] MacOS: use `/etc/paths.d`, `/etc/manpaths.d` + `/usr/libexec/path_helper -s`
 - [ ] add setup folder per tag + install based on tags
+- [ ] fix casks that only work on `/Applications`
+  - `1password`
+  - `megasync`
+  - `duet`
+  - `little-snitch`
+- [ ] remove quarantine from installed bundles `xattr -rd com.apple.quarantine <path>`
+- [ ] add touch ID support for sudo
+  - file `/etc/pam.d/sudo`
+  - entry: `auth sufficient pam_tid.so`
+
+## miscellaneous commands
+
+- random generator
+  `env LC_ALL=C tr -dc A-Za-z0-9_- </dev/urandom | head -c 256 ; echo ''`
 
 ## transform into function
 
