@@ -3,6 +3,7 @@ adpyke.vscode-userscript
 alefragnani.bookmarks
 alefragnani.project-manager
 axetroy.vscode-auto-schema
+azaugg.vscode-cfengine
 bierner.emojisense
 bierner.markdown-checkbox
 bierner.markdown-preview-github-styles
@@ -11,9 +12,9 @@ budparr.language-hugo-vscode
 bungcip.better-toml
 chrislajoie.vscode-modelines
 christopherstyles.html-entities
+claui.packaging
 codezombiech.gitignore
 cschleiden.vscode-github-actions
-cssho.vscode-svgviewer
 datoux.vscode-pytest-intellisence
 davidanson.vscode-markdownlint
 dbaeumer.vscode-eslint
@@ -53,6 +54,7 @@ mohsen1.prettify-json
 mrmlnc.vscode-duplicate
 ms-azuretools.vscode-docker
 ms-kubernetes-tools.vscode-kubernetes-tools
+ms-python.isort
 ms-python.python
 ms-python.vscode-pylance
 ms-vscode.cpptools
@@ -77,6 +79,7 @@ tangzx.emmylua
 thomascsd.vscode-readme-pattern
 timonwong.shellcheck
 tomashubelbauer.vscode-markdown-table-format
+travisthetechie.write-good-linter
 tsandall.opa
 vilicvane.sensitive-replace
 virgilsisoe.hammerspoon-snippets

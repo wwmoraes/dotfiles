@@ -51,6 +51,7 @@
   "cSpell.userWords": [
     "addprefix",
     "artero",
+    "automations",
     "backreference",
     "buildx",
     "Cabuk",
@@ -174,6 +175,7 @@
     "*.yml": "yaml",
     ".coveragerc": "ini",
     ".env*": "dotenv",
+    ".gitaliases": "properties",
     ".gitconfig": "properties",
     ".gitignore-global": "ignore",
     ".helmignore": "gitignore",

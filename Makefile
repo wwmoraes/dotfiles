@@ -84,8 +84,8 @@ code-dump:
 code-setup: CODE_PENDING=$(filter-out ${CODE_INSTALLED_EXTENSIONS},${CODE_GLOBAL_EXTENSIONS})
 code-setup: CODE_REMOVE=$(filter ${CODE_GLOBAL_EXTENSIONS_REMOVE},${CODE_INSTALLED_EXTENSIONS})
 code-setup:
-	@echo ${CODE_PENDING} | xargs -n1 ${CODE} --install-extension
-	@echo ${CODE_REMOVE} | xargs -n1 ${CODE} --uninstall-extension
+	@echo ${CODE_PENDING} | xargs -n1 -I% bash -c 'echo "installing %"; ${CODE} --install-extension %'
+	@echo ${CODE_REMOVE} | xargs -n1 -I% bash -c 'echo "installing %"; ${CODE} --uninstall-extension %'
 
 
 .PHONY: code-status

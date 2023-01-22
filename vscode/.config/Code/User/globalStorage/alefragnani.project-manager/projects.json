@@ -40,5 +40,12 @@
 		"paths": [],
 		"tags": [],
 		"enabled": true
+	},
+	{
+		"name": "pets",
+		"rootPath": "/Users/william/dev/pets.code-workspace",
+		"paths": [],
+		"tags": [],
+		"enabled": true
 	}
 ]

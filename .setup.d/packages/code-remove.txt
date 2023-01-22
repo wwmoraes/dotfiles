@@ -1,3 +1,5 @@
+VisualStudioExptTeam.intellicode-api-usage-examples
+VisualStudioExptTeam.vscodeintellicode
 actboy168.lua-debug
 alfnielsen.vsc-scaffolding
 andys8.jest-snippets
@@ -5,6 +7,7 @@ bdavs.expect
 bierner.markdown-mermaid
 christian-kohler.npm-intellisense
 coolbear.systemd-unit-file
+cssho.vscode-svgviewer
 dcasella.i3
 dongli.python-preview
 eg2.vscode-npm-script
@@ -13,6 +16,7 @@ firsttris.vscode-jest-runner
 formulahendry.code-runner
 github.vscode-pull-request-github
 hangxingliu.vscode-nginx-conf-hint
+hbenl.test-adapter-converter
 idleberg.applescript
 jemcclin.readabilitycheck
 jetmartin.bats
@@ -41,8 +45,6 @@ sysninja.vscode-ansible-mod
 tim-koehler.helm-intellisense
 vadimcn.vscode-lldb
 vaibhavvishal.web-extension
-VisualStudioExptTeam.intellicode-api-usage-examples
-VisualStudioExptTeam.vscodeintellicode
 vstirbu.vscode-mermaid-preview
 wallabyjs.quokka-vscode
 warpnet.salt-lint
