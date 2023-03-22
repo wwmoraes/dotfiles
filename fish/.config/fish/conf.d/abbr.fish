@@ -30,11 +30,12 @@ if command -q git
   abbr -a -U gc "git checkout"
   abbr -a -U ga "git add --all && git commit --amend --no-edit"
   abbr -a -U gp "git push"
-  abbr -a -U gg "git push --force"
+  abbr -a -U gg "git yolo"
   abbr -a -U gs "git s -s"
   abbr -a -U gd "git d"
   abbr -a -U gr "git rebase --autosquash -i"
   abbr -a -U grr "git rebase --autosquash -i --root"
+  abbr -a -U ggc "git gc --aggressive --prune=now"
 end
 
 # terraform abbreviations
