@@ -115,6 +115,8 @@ if command -q kubectl
   abbr -a -U kesc "kubectl edit storageclass"
   abbr -a -U kers "kubectl edit replicaset"
   abbr -a -U keq "kubectl edit quota"
+  abbr -a -U kenp "kubectl edit networkpolicy.crd.projectcalico.org"
+  abbr -a -U kegnp "kubectl edit globalnetworkpolicy.crd.projectcalico.org"
 
   # k edit ... (fuzzy)
   abbr -a -U kepof "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl edit pod {}"
@@ -142,6 +144,8 @@ if command -q kubectl
   abbr -a -U kescf "kubectl get storageclasses | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl edit storageclass {}"
   abbr -a -U kersf "kubectl get replicasets | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl edit replicaset {}"
   abbr -a -U keendf "kubectl get endpoints | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl edit endpoint {}"
+  abbr -a -U kenpf "kubectl get networkpolicy.crd.projectcalico.org | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl edit networkpolicy.crd.projectcalico.org {}"
+  abbr -a -U kegnpf "kubectl get globalnetworkpolicy.crd.projectcalico.org | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl edit globalnetworkpolicy.crd.projectcalico.org {}"
 
   # k get ...
   abbr -a -U kgpo "kubectl get pods"
@@ -170,6 +174,8 @@ if command -q kubectl
   abbr -a -U kgrs "kubectl get replicasets"
   abbr -a -U kgend "kubectl get endpoints"
   abbr -a -U kglr "kubectl get limitranges"
+  abbr -a -U kgnp "kubectl get networkpolicy.crd.projectcalico.org"
+  abbr -a -U kggnp "kubectl get globalnetworkpolicy.crd.projectcalico.org"
   # k get ... (yaml)
   abbr -a -U kgpoy "kubectl get pods -o yaml"
   abbr -a -U kgingy "kubectl get ingresses -o yaml"
@@ -198,6 +204,8 @@ if command -q kubectl
   abbr -a -U kgendy "kubectl get endpoints -o yaml"
   abbr -a -U kgqy "kubectl get quotas -o yaml"
   abbr -a -U kglry "kubectl get limitranges -o yaml"
+  abbr -a -U kgnpy "kubectl get networkpolicy.crd.projectcalico.org -o yaml"
+  abbr -a -U kggnpy "kubectl get globalnetworkpolicy.crd.projectcalico.org -o yaml"
   # k get ... (yaml, fuzzy, neat)
   abbr -a -U kgpof "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get pod {} -o yaml | kubectl neat -f -"
   abbr -a -U kgingf "kubectl get ingress | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get ingress {} -o yaml | kubectl neat -f -"
@@ -226,6 +234,8 @@ if command -q kubectl
   abbr -a -U kgendf "kubectl get endpoints | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get endpoints {} -o yaml | kubectl neat -f -"
   abbr -a -U kgqf "kubectl get quota | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get quota {} -o yaml | kubectl neat -f -"
   abbr -a -U kglrf "kubectl get limitrange | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get limitrange {} -o yaml | kubectl neat -f -"
+  abbr -a -U kgnpf "kubectl get networkpolicy.crd.projectcalico.org | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get networkpolicy.crd.projectcalico.org {} -o yaml | kubectl neat -f -"
+  abbr -a -U kggnpf "kubectl get globalnetworkpolicy.crd.projectcalico.org | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get globalnetworkpolicy.crd.projectcalico.org {} -o yaml | kubectl neat -f -"
   # k describe ... (non-fuzzy)
   abbr -a -U kdpo "kubectl describe pods"
   abbr -a -U kding "kubectl describe ingresses"
@@ -252,6 +262,8 @@ if command -q kubectl
   abbr -a -U kdsc "kubectl describe storageclasses"
   abbr -a -U kdrs "kubectl describe replicasets"
   abbr -a -U kdend "kubectl describe endpoints"
+  abbr -a -U kdnp "kubectl describe networkpolicy.crd.projectcalico.org"
+  abbr -a -U kdgnp "kubectl describe globalnetworkpolicy.crd.projectcalico.org"
   # k describe ... (fuzzy)
   abbr -a -U kdpof "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl describe pod {}"
   abbr -a -U kdingf "kubectl get ingress | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl describe ingress {}"
@@ -278,6 +290,8 @@ if command -q kubectl
   abbr -a -U kdscf "kubectl get storageclasses | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl describe storageclass {}"
   abbr -a -U kdrsf "kubectl get replicasets | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl describe replicaset {}"
   abbr -a -U kdendf "kubectl get endpoints | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl describe endpoint {}"
+  abbr -a -U kdnpf "kubectl get networkpolicy.crd.projectcalico.org | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl describe networkpolicy.crd.projectcalico.org {}"
+  abbr -a -U kdgnpf "kubectl get globalnetworkpolicy.crd.projectcalico.org | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl describe globalnetworkpolicy.crd.projectcalico.org {}"
   # k delete ... (fuzzy)
   abbr -a -U kdelpof "kubectl get pods | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl delete pod {} --wait=false --now=true"
   abbr -a -U kdelingf "kubectl get ingress | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl delete ingress {} --wait=false --now=true"
@@ -304,6 +318,8 @@ if command -q kubectl
   abbr -a -U kdelcrbf "kubectl get clusterrolebindings | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl delete clusterrolebinding {} --wait=false --now=true"
   abbr -a -U kdelscf "kubectl get storageclasses | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl delete storageclass {} --wait=false --now=true"
   abbr -a -U kdelendf "kubectl get replicasets | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl delete replicaset {} --wait=false --now=true"
+  abbr -a -U kdelnpf "kubectl get networkpolicy.crd.projectcalico.org | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl delete networkpolicy.crd.projectcalico.org {} --wait=false --now=true"
+  abbr -a -U kdelgnpf "kubectl get globalnetworkpolicy.crd.projectcalico.org | fzf -m --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl delete globalnetworkpolicy.crd.projectcalico.org {} --wait=false --now=true"
 
   # k get event -w  ... (fuzzy)
   abbr -a -U kgpoef "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -I{} -o kubectl get event -w --field-selector involvedObject.name={}"
