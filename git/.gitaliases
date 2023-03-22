@@ -29,6 +29,9 @@
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
   diff = diff --word-diff
   reup = rebase-update # depot_tools specific
+  seek-n-blame = "!f() { git blame $(git log --pretty=%H --diff-filter=AM -1 -- "$1") -- "$1"; }; f"
+  who-deleted = "!f() { git show -s --pretty=medium $(git log --pretty=%H -1 --diff-filter=D -- "$1"); }; f"
+  last-deleted = "!f() { git log --pretty=%H -${1:-1} --diff-filter=D | xargs -n1 git diff-tree --no-commit-id --name-only --diff-filter=D -r | sort -u; }; f"
 
 # Amend and force push :D
   yolo = !git commit --amend --all --no-edit && git push --force
