@@ -125,3 +125,23 @@ if ! _=$(command -V pluto >/dev/null 2>&1); then
   printf "Installing \e[96mpluto\e[0m...\n"
   install -g "$(id -g)" -o "$(id -u)" -m 0750 pluto "${HOME}/.local/bin/pluto"
 fi
+
+printf "Checking \e[96mcalicoctl\e[0m...\n"
+if ! _=$(command -V calicoctl >/dev/null 2>&1); then
+  printf "Downloading \e[96mcalicoctl\e[0m...\n"
+  VERSION=3.21.6
+  curl -fsSLo calicoctl "https://github.com/projectcalico/calico/releases/download/v3.21.6/calicoctl-${SYSTEM}-${ARCH}"
+
+  printf "Installing \e[96mcalicoctl\e[0m...\n"
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 calicoctl "${HOME}/.local/bin/calicoctl"
+fi
+
+printf "Checking \e[96msonobuoy\e[0m...\n"
+if ! _=$(command -V sonobuoy >/dev/null 2>&1); then
+  printf "Downloading \e[96msonobuoy\e[0m...\n"
+  VERSION=$(curl -fsSL https://api.github.com/repos/vmware-tanzu/sonobuoy/releases | jq -r '.[0].name')
+  curl -fsSLo - "https://github.com/vmware-tanzu/sonobuoy/releases/download/${VERSION}/sonobuoy_${VERSION#v*}_${SYSTEM}_${ARCH}.tar.gz" | tar xzf -
+
+  printf "Installing \e[96msonobuoy\e[0m...\n"
+  install -g "$(id -g)" -o "$(id -u)" -m 0750 sonobuoy "${HOME}/.local/bin/sonobuoy"
+fi
