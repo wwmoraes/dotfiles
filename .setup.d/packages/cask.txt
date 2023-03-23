@@ -5,6 +5,7 @@
 -finicky
 -hazel
 -jiggler
+-krisp
 -lens
 -ngrok
 -openin
@@ -33,6 +34,7 @@ launchpad-manager
 macfuse
 multi
 obsidian
+spotify
 syncthing
 the-unarchiver
 uninstallpkg

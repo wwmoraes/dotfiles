@@ -4,8 +4,9 @@
 -wakatime
 asciinema
 doge
+identify
 kubesplit
 pipenv
 -tmuxp
 yamllint
-identify
+yq
