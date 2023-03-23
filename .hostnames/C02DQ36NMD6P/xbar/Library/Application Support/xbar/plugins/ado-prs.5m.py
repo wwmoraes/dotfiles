@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/local/bin/python3.10
 
 #  <xbar.title>Azure DevOps Pull Requests</xbar.title>
 #  <xbar.version>0.0.1</xbar.version>
@@ -37,7 +37,7 @@ print("↓⤸")
 print("---")
 
 # we need the slash at the end to force urljoin to keep the organization
-ORGANIZATION = os.environ.get("ORGANIZATION", os.environ.get("AZURE_DEVOPS_DEFAULTS_ORGANIZATION", "")) + "/"
+ORGANIZATION = os.environ.get("ORGANIZATION", os.environ.get("AZURE_DEVOPS_DEFAULTS_ORGANIZATION", "")).rstrip("/")
 PROJECTS = [v for v in os.environ.get("PROJECTS", os.environ.get("AZURE_DEVOPS_DEFAULTS_PROJECT", "")).split(",") if len(v) > 0]
 REPOSITORIES = [v for v in os.environ.get("REPOSITORIES", "").split(",") if len(v) > 0]
 PREFIXES = [v for v in os.environ.get("PREFIXES", "").split(",") if len(v) > 0]
@@ -96,7 +96,7 @@ for project in PROJECTS:
     for pr in PRs:
       creator: IdentityRef = pr.created_by
       repository: GitRepository = pr.repository
-      prUrl = urljoin(ORGANIZATION, f"{project}/_git/{repository.name}/pullrequest/{pr.pull_request_id}")
+      prUrl = urljoin(ORGANIZATION + "/", f"{project}/_git/{repository.name}/pullrequest/{pr.pull_request_id}")
       entries.append(f"{colored(pr.pull_request_id, 'yellow', attrs=['bold'])}\t{pr.title} {colored('[%s]' % creator.display_name, 'cyan', attrs=['bold'])} | href={prUrl} ansi=true")
 
 lastUpdate = datetime.now().astimezone().strftime("%a %b %d %Y %H:%M:%S %Z")
