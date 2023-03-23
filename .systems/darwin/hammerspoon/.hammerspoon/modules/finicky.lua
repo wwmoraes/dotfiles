@@ -14,11 +14,11 @@ local queryParams = require("data.queryParams")
 local tagContextBrowser = {
   ["work"] = {
     ["work"] = apps.Edge,
-    ["personal"] = apps.Chrome,
+    ["home"] = apps.Firefox,
   },
-  ["personal"] = {
+  ["home"] = {
     ["work"] = apps.Firefox,
-    ["personal"] = apps.Safari,
+    ["home"] = apps.Safari,
   },
 }
 
@@ -131,7 +131,7 @@ hs.spoons.use("Finicky", {
         match = { "*.abnamro.com*", "*.abnamro.org*" },
         browser = getBrowser("work"),
       },
-      -- Personal: social and IM apps
+      -- Home: social and IM apps
       {
         sender = {
           apps.Messenger,
@@ -145,9 +145,9 @@ hs.spoons.use("Finicky", {
       -- Development
       {
         host = "github.com",
-        browser = getBrowser("personal"),
+        browser = getBrowser("home"),
       },
-      -- Personal: local and private domains
+      -- Home: local and private domains
       {
         match = {
           "github.com/wwmoraes*",
@@ -173,6 +173,15 @@ hs.spoons.use("Finicky", {
         url = function(url)
           local params = spoon.Finicky.parseQuery(url.query)
           return spoon.Finicky.decodeURIComponent(params["url"])
+        end,
+      },
+      {
+        match = function(url)
+          return url.host == "confluence.aws.abnamro.org"
+        end,
+        url = function(url)
+          url.host = "confluence.int.abnamro.com"
+          return url
         end,
       }
     },
