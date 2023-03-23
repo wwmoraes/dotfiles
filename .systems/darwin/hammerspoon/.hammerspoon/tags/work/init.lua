@@ -32,11 +32,49 @@ if adoPatID == nil or adoPatID:len() <= 0 then
   return
 end
 
+local mcpAdoPatID = os.getenv("MCP_PAT_ID")
+if mcpAdoPatID == nil or mcpAdoPatID:len() <= 0 then
+  logger.e("MCP Azure DevOps PAT ID not set")
+  return
+end
+
 ---@param id string
 ---@return boolean
 local function updateADOToken(id)
   local _, status = hs.execute(string.format("az dopat update --id %s --days 15", id), true)
   return status == true
+end
+
+---@param principal string
+---@return boolean
+local function refreshKerberosPrincipal(principal)
+  local _, status = hs.execute("kinit --keychain " .. principal)
+  return status == true
+end
+
+local function shouldRenewKerberos()
+  local output, status = hs.execute([[klist --json | jq -r '.tickets[].Expires']], true)
+  if status ~= true then
+    return true
+  end
+
+  local now = os.time()
+  local year, month, day = os.date("%Y-%m-%d", now):match('(%d+)-(%d+)-(%d+)')
+  local nowStr = os.date("%Y%m%d%H%M%S", os.time({
+    year = year,
+    month = month,
+    day = day,
+    hour = 17,
+    min = 0,
+    sec = 0,
+  }))
+  for expDate in output:gmatch("(.-)[\r\n]+") do
+    if expDate <= nowStr then
+      return true
+    end
+  end
+
+  return false
 end
 
 logger.v("loading widgets...")
@@ -56,9 +94,11 @@ hs.network.reachability.forHostName(workIntranetHostname):setCallback(function(s
   if isReachable and workVpnIsUp ~= true then
     -- VPN tunnel is up
     logger.i("VPN is up!")
-    -- TODO check if the keychain entry exists
-    hs.execute(string.format("kinit --keychain %s@%s", os.getenv("KERBEROS_PRINCIPAL"), os.getenv("KERBEROS_REALM")))
+    if shouldRenewKerberos() then
+      refreshKerberosPrincipal(string.format("%s@%s", os.getenv("KERBEROS_PRINCIPAL"), os.getenv("KERBEROS_REALM")))
+    end
     updateADOToken(adoPatID)
+    updateADOToken(mcpAdoPatID)
     widgets:start()
     if workVpnIsUp == false then
       hs.urlevent.openURL("hammerspoon://contexts?name=work&action=open")
@@ -77,8 +117,9 @@ hs.network.reachability.forHostName(workIntranetHostname):setCallback(function(s
 end):start()
 
 -- must not be local, otherwise it'll be garbage collected
-TimeReloader = hs.timer.doAt("09:00", "1d", function()
+TimeReloader = hs.timer.doAt("09:30", "1d", function()
   updateADOToken(adoPatID)
+  updateADOToken(mcpAdoPatID)
 end, true):start()
 
 logger.v("loaded successfully")
