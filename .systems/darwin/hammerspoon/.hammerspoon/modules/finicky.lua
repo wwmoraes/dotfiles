@@ -7,8 +7,8 @@ local tags = require("data.tags")
 local apps = require("data.apps")
 local queryParams = require("data.queryParams")
 
----@alias Context '"work"'|'"personal"'
----@alias BrowserContext table<Context,string>
+---@alias Context '"work"'|'"home"'
+---@alias BrowserContext table<Context,string|table<string>>
 
 ---@type table<string,BrowserContext>
 local tagContextBrowser = {
@@ -32,6 +32,7 @@ for _, tag in ipairs(tags) do
   if contextBrowser ~= nil then break end
 end
 
+---@type table<string,string|table<string>>
 local defaultBrowser = {
   main = apps.Safari,
   work = apps.Firefox,
@@ -39,7 +40,7 @@ local defaultBrowser = {
 }
 
 ---@param context Context
----@return string
+---@return string|table<string>
 local function getBrowser(context)
   local contexts = contextBrowser or defaultBrowser
   return contexts[context] or contexts[mainContext]
