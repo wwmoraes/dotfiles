@@ -44,6 +44,10 @@ set convert-meta off
 # Use Alt/Meta + Delete to delete the preceding word
 "\e[3;3~": kill-word
 
+# macOS Option + Left/Right arrow keys to move the cursor wordwise
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+
 set colored-stats On
 set completion-prefix-display-length 3
 set show-all-if-unmodified On
