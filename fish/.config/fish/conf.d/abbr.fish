@@ -314,7 +314,7 @@ if command -q kubectl
   abbr -a kdelclu "kubectl config get-clusters | fzf -m --ansi --header-lines=1 | xargs -I{} -o kubectl config delete-cluster {}"
 
   # flux
-  abbr -a -U kfxs "kubectl get fluxconfigs -A -o go-template --template '{{ range \$config := .items }}{{ with \$config }}{{ .metadata.name }}: {{ .status.lastSyncedCommit }}{{ \"\r\n\" }}{{ end }}{{ end }}' | column -t"
+  abbr -a kfxs "kubectl get fluxconfigs -A -o go-template --template '{{ range \$config := .items }}{{ with \$config }}{{ .metadata.name }}: {{ .status.lastSyncedCommit }}{{ \"\r\n\" }}{{ end }}{{ end }}' | column -t"
 
   # work-only abbreviations
   if tags contains work
