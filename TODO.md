@@ -38,6 +38,15 @@ echo -e (string join "\n" $fish_user_paths) | \
 %staff ALL = NOPASSWD:SETENV: /bin/mv /usr/local/Caskroom/*.app /Applications/*.app
 ```
 
+## container commands
+
+list effective capabilities
+
+```sh
+apk update && apk add --quiet --no-cache libcap
+capsh --decode=$(grep Cap /proc/1/status | grep CapEff | cut -d':' -f2 | xargs) | cut -d'=' -f2 | tr ',' '\n'
+```
+
 ## Git hooks templates
 
 - <https://github.com/greg0ire/git_template>
