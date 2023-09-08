@@ -1,3 +1,4 @@
 lerna
 syncpack
 write-good
+xunit-viewer

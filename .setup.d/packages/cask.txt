@@ -18,6 +18,7 @@
 1password-cli
 amethyst
 appcleaner
+blackhole-2ch
 docker|/Applications/Docker.app/Contents/MacOS/Docker
 dozer
 fluid
@@ -35,6 +36,7 @@ macfuse
 multi
 obsidian
 spotify
+suspicious-package
 syncthing
 the-unarchiver
 uninstallpkg

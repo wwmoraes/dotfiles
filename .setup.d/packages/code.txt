@@ -26,6 +26,7 @@ emilast.logfilehighlighter
 folke.vscode-monorepo-workspace
 fooxly.workspace
 gamunu.vscode-yarn
+github.vscode-pull-request-github
 golang.go
 gruntfuggly.todo-tree
 hashicorp.terraform
@@ -41,7 +42,6 @@ jinliming2.vscode-go-template
 joaompinto.vscode-graphviz
 jock.svg
 kaellarkin.hugo-shortcode-syntax
-knisterpeter.vscode-github
 leonhard-s.python-sphinx-highlight
 lextudio.restructuredtext
 littlefoxteam.vscode-python-test-adapter
@@ -69,7 +69,7 @@ redhat.vscode-commons
 redhat.vscode-xml
 redhat.vscode-yaml
 richie5um2.vscode-sort-json
-rust-lang.rust
+rust-lang.rust-analyzer
 sidneys1.gitconfig
 skyapps.fish-vscode
 streetsidesoftware.code-spell-checker

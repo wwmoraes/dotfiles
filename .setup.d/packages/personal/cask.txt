@@ -1,4 +1,3 @@
--blackhole-2ch
 -etrecheckpro
 -google-backup-and-sync
 -imazing

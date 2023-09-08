@@ -1,8 +1,8 @@
 -github.com/axw/gocov/gocov@latest
 -github.com/mikefarah/yq/v2@latest:yq
+github.com/cosmtrek/air@latest
 github.com/editorconfig-checker/editorconfig-checker/cmd/editorconfig-checker@latest
 github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-github.com/google/wire/cmd/wire@latest
 github.com/GoogleContainerTools/container-structure-test/cmd/container-structure-test@latest
 github.com/hasit/bolter@latest
 github.com/ivaaaan/smug@latest
@@ -15,4 +15,5 @@ github.com/wagoodman/dive@v0.9.2
 golang.org/x/tools/cmd/goimports@latest
 google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 google.golang.org/protobuf/cmd/protoc-gen-go@latest
-sigs.k8s.io/kind@latest
+github.com/1pkg/gopium@latest
+github.com/1pkg/goutline@latest

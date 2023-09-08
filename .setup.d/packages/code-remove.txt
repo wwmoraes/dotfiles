@@ -1,5 +1,3 @@
-VisualStudioExptTeam.intellicode-api-usage-examples
-VisualStudioExptTeam.vscodeintellicode
 actboy168.lua-debug
 alfnielsen.vsc-scaffolding
 andys8.jest-snippets
@@ -14,7 +12,6 @@ eg2.vscode-npm-script
 ethan-reesor.vscode-go-test-adapter
 firsttris.vscode-jest-runner
 formulahendry.code-runner
-github.vscode-pull-request-github
 hangxingliu.vscode-nginx-conf-hint
 hbenl.test-adapter-converter
 idleberg.applescript
@@ -25,6 +22,7 @@ jq-syntax-highlighting.jq-syntax-highlighting
 jvitor83.types-autoinstaller
 kavod-io.vscode-jest-test-adapter
 kisstkondoros.vscode-codemetrics
+knisterpeter.vscode-github
 korekontrol.saltstack
 kumar-harsh.graphql-for-vscode
 mgmcdermott.vscode-language-babel
@@ -37,6 +35,7 @@ njpwerner.autodocstring
 ofhumanbondage.react-proptypes-intellisense
 ombratteng.nftalbs
 oren-trutner.grc-syntax-highlighting
+rust-lang.rust
 ryanluker.vscode-coverage-gutters
 samuelcolvin.jinjahtml
 selcuk-usta.code-complexity-report-generator
@@ -45,6 +44,8 @@ sysninja.vscode-ansible-mod
 tim-koehler.helm-intellisense
 vadimcn.vscode-lldb
 vaibhavvishal.web-extension
+VisualStudioExptTeam.intellicode-api-usage-examples
+VisualStudioExptTeam.vscodeintellicode
 vstirbu.vscode-mermaid-preview
 wallabyjs.quokka-vscode
 warpnet.salt-lint
