@@ -51,28 +51,30 @@ complete -ec projects
 # create subcommand
 function _projects_new
   if test (count $argv) -lt 1
-    echo "Error: please pass at least one project name to create"
+    echo "usage: projects new <name> [description]"
     return 1
   end
 
-  for project in $argv
-    set -l projectDir $PROJECTS_DIR/$project
-    set -l printProjectName (set_color blue)$project(set_color normal)
-    set -l printProjectDir (set_color cyan)$projectDir(set_color normal)
+  set -l project $argv[1]
+  set -l description $argv[2]
 
-    printf "%-"(tput cols)"s\r" "[$printProjectName] checking if it exists..."
-    test -d $projectDir/.git; and begin
-      printf "%-"(tput cols)"s\n" "[$printProjectName] already exists, skipping"
-      continue
-    end
+  set -l projectDir $PROJECTS_DIR/$project
+  set -l printProjectName (set_color blue)$project(set_color normal)
+  set -l printProjectDir (set_color cyan)$projectDir(set_color normal)
 
-    printf "%-"(tput cols)"s\r" "[$printProjectName] creating on $printProjectDir..."
-    mkdir -p $projectDir
-    git -C $projectDir init -q
-    git -C $projectDir remote add origin (printf $PROJECTS_ORIGIN $project)
-    curl -fsSL https://gist.github.com/wwmoraes/75dc66767a9f487c8235c5423027f69c/raw/setup.sh | sh -s -- "$projectDir"
-    printf "%-"(tput cols)"s\n" "[$printProjectName] created on $printProjectDir"
+  printf "%-"(tput cols)"s\r" "[$printProjectName] checking if it exists..."
+  test -d $projectDir/.git; and begin
+    printf "%-"(tput cols)"s\n" "[$printProjectName] already exists, skipping"
+    return
   end
+
+  printf "%-"(tput cols)"s\r" "[$printProjectName] creating on $printProjectDir..."
+  mkdir -p $projectDir
+  git -C $projectDir init -q
+  test -n "$description"; and echo "$description" > $projectDir/.git/description
+  git -C $projectDir remote add origin (printf $PROJECTS_ORIGIN $project)
+  curl -fsSL https://gist.github.com/wwmoraes/75dc66767a9f487c8235c5423027f69c/raw/setup.sh | sh -s -- "$projectDir"
+  printf "%-"(tput cols)"s\n" "[$printProjectName] created on $printProjectDir"
 end
 complete -xc projects -n __fish_use_subcommand -a new -d "creates a project directory and initialize git on it"
 complete -xc projects -n '__fish_seen_subcommand_from new' -a ""
@@ -157,6 +159,20 @@ end
 complete -xc projects -n __fish_use_subcommand -a ls -d "list projects"
 
 function _projects_update
-  curl -fsSL https://gist.github.com/wwmoraes/75dc66767a9f487c8235c5423027f69c/raw/setup.sh | sh -s -- "$PWD"
+  set -l project $argv[1]
+  set -l description $argv[2]
+
+  test "$project" = "."; and set -l project (basename "$PWD")
+  test -n "$project"; or set -l project (basename "$PWD")
+  set -l projectDir $PROJECTS_DIR/$project
+
+  test -d "$projectDir"; or begin
+    echo "error: project $project not found on $projectDir"
+    echo "usage: projects update <name> [description]"
+    return 1
+  end
+
+  test -n "$description"; and echo "$description" > "$projectDir/.git/description"
+  curl -fsSL https://gist.github.com/wwmoraes/75dc66767a9f487c8235c5423027f69c/raw/setup.sh | sh -s -- "$projectDir"
 end
 complete -xc projects -n __fish_use_subcommand -a update -d "update project files"
