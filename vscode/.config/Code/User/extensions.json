@@ -13,7 +13,7 @@
     "msjsdiag.vscode-react-native",
     "vscodevim.vim",
     // kthxbai bloatware from VSCode
-    "ms-toolsai.jupyter",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "ms-toolsai.jupyter"
   ]
 }

@@ -7,14 +7,29 @@
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[markdown]": {
-    "editor.defaultFormatter": "TomasHubelbauer.vscode-markdown-table-format"
+    "editor.defaultFormatter": "TomasHubelbauer.vscode-markdown-table-format",
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 80
+  },
+  "[python]": {
+    "editor.formatOnType": true
   },
   "[yaml]": {
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
   "azure.resourceFilter": [
-    "3a15904d-3fd9-4256-a753-beb05cdf0c6d/37523455-06d3-4fb9-8306-61a3c08f4d09"
+    "3a15904d-3fd9-4256-a753-beb05cdf0c6d/37523455-06d3-4fb9-8306-61a3c08f4d09",
+    "3a15904d-3fd9-4256-a753-beb05cdf0c6d/0a1e54a3-58b3-40f8-82bd-efd7844068a5",
+    "3a15904d-3fd9-4256-a753-beb05cdf0c6d/29325d63-1916-4027-bd24-c1adc5caea64",
+    "3a15904d-3fd9-4256-a753-beb05cdf0c6d/5f32302c-f4ec-46c8-951b-87d885736c53",
+    "3a15904d-3fd9-4256-a753-beb05cdf0c6d/ee620084-4e26-4652-ad03-2d0d368f62a2",
+    "3a15904d-3fd9-4256-a753-beb05cdf0c6d/295152d0-9abc-4667-9ad9-d1350705deea",
+    "3a15904d-3fd9-4256-a753-beb05cdf0c6d/505a2c61-99b8-4764-8b77-ab5d3396abb4"
   ],
+  "azureResourceManagerTools.parameterFiles": {
+    "/Users/william/workspace/aks-secure-context/tmp/test/keyvault.template.json": "keyvault.parameters.json",
+    "/Users/william/workspace/aks-secure-context/tmp/test/msft.template.json": "msft.parameters.json"
+  },
   "bookmarks.saveBookmarksInProject": true,
   "bookmarks.useWorkaroundForFormatters": true,
   "breadcrumbs.enabled": true,
@@ -62,10 +77,12 @@
     "concat",
     "conda",
     "coverprofile",
+    "Customisation",
     "digimon",
     "dockerlabelvalidate",
     "dockerlint",
     "dopat",
+    "dotenv",
     "dotfiles",
     "dotsecrets",
     "downlevel",
@@ -93,9 +110,12 @@
     "Infoln",
     "jsdoc",
     "keychain",
+    "keyvault",
     "kube",
+    "KUBECONFIG",
     "kubectl",
     "kubernetes",
+    "kustomizations",
     "kustomize",
     "lcov",
     "linkedin",
@@ -141,7 +161,7 @@
   "editor.accessibilitySupport": "off",
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports": false
+    "source.organizeImports": true
   },
   "editor.cursorSurroundingLines": 5,
   "editor.detectIndentation": false,
@@ -153,7 +173,7 @@
   "editor.guides.bracketPairs": "active",
   "editor.insertSpaces": true,
   "editor.minimap.enabled": false,
-  "editor.renderFinalNewline": false,
+  "editor.renderFinalNewline": "off",
   "editor.rulers": [
     80,
     100
@@ -168,6 +188,8 @@
     "**/.ssh/config": "ssh_config",
     "**/.ssh/config.d/*/*": "ssh_config",
     "**/i3/config": "i3",
+    "*.azure-pipelines.yaml": "azure-pipelines",
+    "*.azure-pipelines.yml": "azure-pipelines",
     "*.gotmpl": "go-template",
     "*.gtpl": "go-template",
     "*.tfstate": "json",
@@ -180,7 +202,9 @@
     ".gitignore-global": "ignore",
     ".helmignore": "gitignore",
     ".style.yapf": "ini",
-    ".terraformignore": "gitignore"
+    ".terraformignore": "gitignore",
+    "azure-pipelines.yaml": "azure-pipelines",
+    "azure-pipelines.yml": "azure-pipelines"
   },
   "files.trimFinalNewlines": true,
   "git-graph.dialog.merge.noFastForward": false,
@@ -190,10 +214,12 @@
   "git.autofetch": true,
   "gitlens.hovers.annotations.over": "annotation",
   "gitlens.statusBar.enabled": false,
-  "go.buildOnSave": "off",
+  "go.coverOnSave": false,
+  "go.lintOnSave": "package",
   "go.lintTool": "golangci-lint",
   "go.toolsManagement.autoUpdate": true,
   "go.useLanguageServer": true,
+  "go.vetOnSave": "package",
   "gremlins.characters": {
     "2013": {
       "description": "en dash",
@@ -288,12 +314,20 @@
         "/package.json"
       ],
       "url": "https://json.schemastore.org/package.json"
+    },
+    {
+      "fileMatch": [
+        "*.azure-pipelines.yaml",
+        "*.azure-pipelines.yml",
+        "azure-pipelines.yaml",
+        "azure-pipelines.yml"
+      ],
+      "url": "https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"
     }
   ],
   "licenser.author": "William Artero",
   "licenser.disableAutoHeaderInsertion": true,
   "licenser.license": "MIT",
-  "liveshare.presence": true,
   "notebook.cellToolbarLocation": {
     "default": "right",
     "jupyter-notebook": "left"
@@ -314,9 +348,8 @@
   "projectManager.removeCurrentProjectFromList": true,
   "python.analysis.inlayHints.functionReturnTypes": true,
   "python.analysis.inlayHints.variableTypes": true,
-  "python.analysis.typeCheckingMode": "strict",
+  "python.analysis.typeCheckingMode": "basic",
   "python.analysis.useLibraryCodeForTypes": true,
-  "python.formatting.provider": "yapf",
   "python.languageServer": "Pylance",
   "redhat.telemetry.enabled": true,
   "shellcheck.customArgs": [
@@ -394,10 +427,13 @@
   "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
   "typescript.format.semicolons": "insert",
   "typescript.updateImportsOnFileMove.enabled": "always",
+  "vs-kubernetes": {
+    "vs-kubernetes.crd-code-completion": "enabled",
+    "vs-kubernetes.minikube-show-information-expiration": "2023-07-14T12:18:53.263Z"
+  },
   "vsicons.dontShowNewVersionMessage": true,
   "window.nativeTabs": true,
   "window.titleBarStyle": "custom",
-  "window.zoomLevel": 0,
   "workbench.colorCustomizations": {
     "bookmarks.lineBackground": "#157EFB22"
   },
@@ -412,7 +448,8 @@
   "workspace.alwaysShowToggle": true,
   "write-good.languages": [
     "markdown",
-    "plaintext"
+    "plaintext",
+    "yaml"
   ],
   "write-good.only-lint-on-save": false,
   "write-good.write-good-config": {
@@ -433,7 +470,6 @@
     "https://json.schemastore.org/container-structure-test.json": "structure-test.yaml",
     "https://json.schemastore.org/github-workflow.json": "**/.github/workflows/*",
     "https://json.schemastore.org/kustomization.json": "kustomization.yaml",
-    "https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json": "azure-pipelines.yml",
     "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml"
   }
 }

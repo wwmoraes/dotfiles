@@ -1,51 +1,58 @@
 [
-	{
-		"name": "dotfiles",
-		"rootPath": "~/.files",
-		"paths": [],
-		"tags": [],
-		"enabled": true
-	},
-	{
-		"name": "dotsecrets",
-		"rootPath": "~/.secrets",
-		"paths": [],
-		"tags": [],
-		"enabled": true
-	},
-	{
-		"name": "Stratus",
-		"rootPath": "~/workspace/Stratus.code-workspace",
-		"paths": [],
-		"tags": [],
-		"enabled": true
-	},
-	{
-		"name": "mcp-tf-module-aks-test",
-		"rootPath": "~/workspace/mcp-tf-module-aks/test",
-		"paths": [],
-		"tags": [],
-		"enabled": true
-	},
-	{
-		"name": "dots",
-		"rootPath": "/Users/william/dev/dots.code-workspace",
-		"paths": [],
-		"tags": [],
-		"enabled": true
-	},
-	{
-		"name": "CGT",
-		"rootPath": "/Users/william/workspace/CGT.code-workspace",
-		"paths": [],
-		"tags": [],
-		"enabled": true
-	},
-	{
-		"name": "pets",
-		"rootPath": "/Users/william/dev/pets.code-workspace",
-		"paths": [],
-		"tags": [],
-		"enabled": true
-	}
+  {
+    "enabled": true,
+    "name": "dotfiles",
+    "paths": [],
+    "rootPath": "~/.files",
+    "tags": []
+  },
+  {
+    "enabled": true,
+    "name": "dotsecrets",
+    "paths": [],
+    "rootPath": "~/.secrets",
+    "tags": []
+  },
+  {
+    "enabled": true,
+    "name": "Stratus",
+    "paths": [],
+    "rootPath": "~/workspace/Stratus.code-workspace",
+    "tags": []
+  },
+  {
+    "enabled": true,
+    "name": "mcp-tf-module-aks-test",
+    "paths": [],
+    "rootPath": "~/workspace/mcp-tf-module-aks/test",
+    "tags": []
+  },
+  {
+    "enabled": true,
+    "name": "dots",
+    "paths": [],
+    "rootPath": "/Users/william/dev/dots.code-workspace",
+    "tags": []
+  },
+  {
+    "enabled": true,
+    "name": "CGT",
+    "paths": [],
+    "rootPath": "/Users/william/workspace/CGT.code-workspace",
+    "tags": []
+  },
+  {
+    "enabled": true,
+    "name": "pets",
+    "paths": [],
+    "rootPath": "/Users/william/dev/pets.code-workspace",
+    "tags": []
+  },
+  {
+    "enabled": true,
+    "name": "FSCP",
+    "paths": [],
+    "rootPath": "/Users/william/workspace/FSCP.code-workspace",
+    "tags": []
+  }
 ]
