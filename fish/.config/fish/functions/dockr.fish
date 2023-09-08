@@ -6,6 +6,8 @@ function dockr -a cmd -d "Docker CLI wrapper with extra commands"
   command -q xargs; or echo "xargs is not installed" && return
 
   switch "$cmd"
+  case reclaim
+    docker run --privileged --pid=host justincormack/nsenter1 /sbin/fstrim /var/lib/docker
   case rmin
     set -l images (docker images | awk '/^<none>[ ]+<none>/ {print $3}')
     if test (count $images) -gt 0
