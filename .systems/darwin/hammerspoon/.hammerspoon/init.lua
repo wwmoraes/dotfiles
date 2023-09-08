@@ -72,6 +72,7 @@ hs.spoons.use("Contexts", {
           apps.VSCode,
           apps.Kitty,
           apps.Keeper,
+          apps.XBar,
         },
       },
       development = {

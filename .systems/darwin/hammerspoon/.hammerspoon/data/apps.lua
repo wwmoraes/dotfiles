@@ -20,6 +20,7 @@ local apps = {
   VSCode = "com.microsoft.vscode",
   VSCodium = "com.vscodium",
   WhatsApp = "WhatsApp",
+  XBar = "com.xbarapp.app",
 }
 
 return apps
