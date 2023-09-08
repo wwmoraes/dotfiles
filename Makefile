@@ -108,6 +108,7 @@ lint:
 .PHONY: chmod
 chmod:
 	@find .setup.d -type f -name "*.sh" -exec chmod +x {} \;
+	@find fish -type f -name "*.fish" -exec chmod +x {} \;
 
 reorder-packages: $(shell find .setup.d/packages -type f -iname "*.txt")
 	$(foreach PACKAGE,$^,$(shell sort -u ${PACKAGE} | sponge ${PACKAGE}))
