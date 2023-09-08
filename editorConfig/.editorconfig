@@ -13,6 +13,9 @@ trim_trailing_whitespace = true
 end_of_line = lf
 insert_final_newline = true
 
+[.vscode/*.json]
+insert_final_newline = false
+
 # Tab indentation (no size specified)
 [Makefile]
 indent_style = tab
