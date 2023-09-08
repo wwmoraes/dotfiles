@@ -62,12 +62,13 @@ parse_git_branch() {
 }
 
 parse_last_retcode() {
+  STATUS=$?
   if [ "$1" = "colored" ]; then
     # shellcheck disable=SC2181
-    test $? -eq 0 && printf "\e[32m%s\e[39m" "${CHECKMARK}" || printf "\e[31m%s\e[39m" "${CROSSMARK}"
+    test ${STATUS} -eq 0 && printf "\e[32m%s\e[39m" "${CHECKMARK}" || printf "\e[31m%s\e[39m" "${CROSSMARK}"
   else
     # shellcheck disable=SC2181
-    test $? -eq 0 && printf "%s" "${CHECKMARK}" || printf "%s" "${CROSSMARK}"
+    test ${STATUS} -eq 0 && printf "%s" "${CHECKMARK}" || printf "%s" "${CROSSMARK}"
   fi
 }
 
