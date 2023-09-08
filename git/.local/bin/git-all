@@ -26,3 +26,5 @@ set -e argv[$FLAG_C_INDEX..$FLAG_C_CONTENT_INDEX]
 pushd $CONTEXT > /dev/null; or exit 1
 run $argv
 popd > /dev/null
+
+# vim: ft=fish
