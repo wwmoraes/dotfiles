@@ -31,8 +31,7 @@ CODIUM_RESOURCES_PATH=
 case "${SYSTEM}" in
   "linux") CODIUM_RESOURCES_PATH=/usr/share/codium/resources;;
   "darwin")
-    BUNDLE_PATH=$(lsappinfo info -only bundlepath com.vscodium |\
-      cut -d= -f2 | xargs)
+    BUNDLE_PATH=$(mdfind "(kMDItemContentTypeTree=com.apple.application) && (kMDItemDisplayName == '*Codium*')")
     CODIUM_RESOURCES_PATH="${BUNDLE_PATH}/Contents/Resources"
     CODE="${CODIUM_RESOURCES_PATH}/app/bin/codium";;
   "*") echo "unsupported system ${SYSTEM}"; exit 1;;
