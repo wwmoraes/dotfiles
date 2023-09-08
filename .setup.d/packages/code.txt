@@ -1,3 +1,4 @@
+1Password.op-vscode
 actboy168.tasks
 adpyke.vscode-userscript
 alefragnani.bookmarks

@@ -14,12 +14,15 @@
 -typora
 -ubersicht
 -unlox
+-utterly
 1password
 1password-cli
 amethyst
 appcleaner
 blackhole-2ch
 docker|/Applications/Docker.app/Contents/MacOS/Docker
+breaktimer
+docker|~/Applications/Docker.app/Contents/MacOS/Docker
 dozer
 fluid
 flux
@@ -40,6 +43,5 @@ suspicious-package
 syncthing
 the-unarchiver
 uninstallpkg
-utterly
 vscodium
 xbar

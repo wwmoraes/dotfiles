@@ -3,6 +3,19 @@
 -operator-sdk
 -tilt
 -tinyproxy
+-gh
+-goreleaser
+-grype
+-hub
+-mosh
+-protobuf
+-protolint
+-pulumi
+-snipkit
+-syft
+-tilt
+-tinyproxy
+-todo-txt
 awscli
 awslogs
 azure-functions-core-tools@3
@@ -13,5 +26,7 @@ kubeconform
 kubernetes-cli
 minikube
 opa
+eksctl
+operator-sdk
 terraform
 vault
