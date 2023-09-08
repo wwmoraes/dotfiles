@@ -6,6 +6,7 @@ trap 'kill 0' INT HUP TERM
 : "${ARCH:?unknown architecture}"
 : "${SYSTEM:?unknown system}"
 : "${PACKAGES_PATH:?must be set}"
+: "${TAGSRC:=${HOME}/.tagsrc}"
 
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
@@ -19,15 +20,46 @@ trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
 # package file name
 PACKAGES_FILE_NAME=node.txt
 PACKAGES_FILE_PATH="${PACKAGES_PATH}/${PACKAGES_FILE_NAME}"
+SYSTEM_PACKAGES_FILE_PATH="${PACKAGES_PATH}/${SYSTEM}/${PACKAGES_FILE_NAME}"
+HOST_PACKAGES_FILE_PATH="${PACKAGES_PATH}/${HOST}/${PACKAGES_FILE_NAME}"
 
 # wanted packages
 PACKAGES="${TMP}/packages"
 mkfifo "${PACKAGES}"
 
-# reads wanted packages
+# reads global packages
 while IFS= read -r LINE; do
+  echo "${LINE}" | grep -Eq "^#" && continue
   printf "%s\n" "${LINE}" > "${PACKAGES}" &
-done <"${PACKAGES_FILE_PATH}"
+done < "${PACKAGES_FILE_PATH}"
+
+# reads system-specific packages
+if [ -f "${SYSTEM_PACKAGES_FILE_PATH}" ]; then
+  while IFS= read -r LINE; do
+    echo "${LINE}" | grep -Eq "^#" && continue
+    printf "%s\n" "${LINE}" > "${PACKAGES}" &
+  done < "${SYSTEM_PACKAGES_FILE_PATH}"
+fi
+
+# reads tag-specific packages
+while IFS= read -r TAG; do
+  TAG_PACKAGES_FILE_PATH="${PACKAGES_PATH}/${TAG}/${PACKAGES_FILE_NAME}"
+
+  test -f "${TAG_PACKAGES_FILE_PATH}" || continue
+
+  while IFS= read -r LINE; do
+    echo "${LINE}" | grep -Eq "^#" && continue
+    printf "%s\n" "${LINE}" > "${PACKAGES}" &
+  done < "${TAG_PACKAGES_FILE_PATH}"
+done < "${TAGSRC}"
+
+# reads host-specific packages
+if [ -f "${HOST_PACKAGES_FILE_PATH}" ]; then
+  while IFS= read -r LINE; do
+    echo "${LINE}" | grep -Eq "^#" && continue
+    printf "%s\n" "${LINE}" > "${PACKAGES}" &
+  done < "${HOST_PACKAGES_FILE_PATH}"
+fi
 
 printf "\e[1;33mNode\e[0m\n"
 
