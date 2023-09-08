@@ -12,6 +12,14 @@
 - [ ] add touch ID support for sudo
   - file `/etc/pam.d/sudo`
   - entry: `auth sufficient pam_tid.so`
+- [ ] stack for arm64
+  - <https://downloads.haskell.org/ghcup/unofficial-bindists/stack/>
+- [ ] minimal GHCup from script for Stack/VSCode management
+
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org |\
+env BOOTSTRAP_HASKELL_MINIMAL=1 sh
+```
 
 ## miscellaneous commands
 
