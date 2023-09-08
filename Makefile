@@ -18,7 +18,7 @@ HOST_PACKAGES = $(sort $(patsubst %/,%,$(wildcard .hostnames/${HOSTNAME}/*/)))
 
 PACKAGES = ${GLOBAL_PACKAGES} ${OS_PACKAGES} ${TAG_PACKAGES} ${HOST_PACKAGES}
 
-CODE = $(shell which code | which code-oss | which codium)
+CODE = $(shell which code || which code-oss || which codium)
 CODE_INSTALLED_EXTENSIONS = $(shell ${CODE} --list-extensions | tr '[:upper:]' '[:lower:]' | sort)
 CODE_GLOBAL_EXTENSIONS = $(shell cat .setup.d/packages/code.txt)
 CODE_GLOBAL_EXTENSIONS_REMOVE = $(shell cat .setup.d/packages/code-remove.txt)
@@ -84,8 +84,8 @@ code-dump:
 code-setup: CODE_PENDING=$(filter-out ${CODE_INSTALLED_EXTENSIONS},${CODE_GLOBAL_EXTENSIONS})
 code-setup: CODE_REMOVE=$(filter ${CODE_GLOBAL_EXTENSIONS_REMOVE},${CODE_INSTALLED_EXTENSIONS})
 code-setup:
-	@echo ${CODE_PENDING} | xargs -n1 -I% bash -c 'echo "installing %"; ${CODE} --install-extension %'
-	@echo ${CODE_REMOVE} | xargs -n1 -I% bash -c 'echo "installing %"; ${CODE} --uninstall-extension %'
+	@echo ${CODE_PENDING} | xargs -n1 -I% bash -c 'echo "installing %"; ${CODE} --log error --install-extension %'
+	@echo ${CODE_REMOVE} | xargs -n1 -I% bash -c 'echo "installing %"; ${CODE} --log error --uninstall-extension %'
 
 
 .PHONY: code-status
