@@ -19,14 +19,26 @@ function zz -a cmd -d "Azure CLI simplified - now from Z to Z"
       ### creating a PR? Sometimes I wonder why I still try to automate around
       ### stupidity 🙄
 
-      set -l remote (git remote)
+      # defaults to the optional remote name passed
+      set -l remote $argv[2]
+      test -z "$remote"; and begin
+        # we bail out on multiple remotes. Better than picking one randomly 🤷‍♂️
+        set -l remotesCount (git remote | wc -l | xargs)
+        test $remotesCount -gt 1; and begin
+          echo "multiple remotes found:"
+          git remote
+          echo "usage: zz pr [remote-name]"
+          return 2
+        end
+        set -l remote (git remote)
+      end
       set -l upstreamURL (git remote get-url $remote)
       set -l baseURL (string replace -r "(.*?://)(?:[^@]*@)?(.*)" "\$1\$2" $upstreamURL)
       set -l sourceRef (git branch --show-current)
       set -l targetRef (git ls-remote --symref $upstreamURL HEAD | sed -nE 's|^ref: refs/heads/([^[:space:]]+)[[:space:]]+HEAD|\1|p')
 
       echo "creating $sourceRef -> $targetRef PR..."
-      open "$baseURL/pullrequestcreate?sourceRef=$sourceRef&targetRef=$targetRef"
+      echo "$baseURL/pullrequestcreate?sourceRef=$sourceRef&targetRef=$targetRef" | tee /dev/tty | xargs open
 
       ### old strategy that requires oauth authentication, which is now defuct
       # set -l args $argv[2..-1] --auto-complete --delete-source-branch
