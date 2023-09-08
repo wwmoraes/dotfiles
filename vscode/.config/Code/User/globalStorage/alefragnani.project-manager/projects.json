@@ -47,12 +47,5 @@
     "paths": [],
     "rootPath": "/Users/william/dev/pets.code-workspace",
     "tags": []
-  },
-  {
-    "enabled": true,
-    "name": "FSCP",
-    "paths": [],
-    "rootPath": "/Users/william/workspace/FSCP.code-workspace",
-    "tags": []
   }
 ]

@@ -1,5 +1,13 @@
 {
   "Lua.telemetry.enable": true,
+  "[c4]": {
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false
+  },
+  "[dockercompose]": {
+    "editor.autoIndent": "advanced",
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
@@ -26,10 +34,12 @@
     "3a15904d-3fd9-4256-a753-beb05cdf0c6d/295152d0-9abc-4667-9ad9-d1350705deea",
     "3a15904d-3fd9-4256-a753-beb05cdf0c6d/505a2c61-99b8-4764-8b77-ab5d3396abb4"
   ],
-  "azureResourceManagerTools.parameterFiles": {
-    "/Users/william/workspace/aks-secure-context/tmp/test/keyvault.template.json": "keyvault.parameters.json",
-    "/Users/william/workspace/aks-secure-context/tmp/test/msft.template.json": "msft.parameters.json"
-  },
+  "betterStrongerToml.jsonSchema.associations": [
+    {
+      "pattern": "fly.toml",
+      "schema": "https://json.schemastore.org/fly.json"
+    }
+  ],
   "bookmarks.saveBookmarksInProject": true,
   "bookmarks.useWorkaroundForFormatters": true,
   "breadcrumbs.enabled": true,
@@ -37,12 +47,17 @@
     "*"
   ],
   "cSpell.ignorePaths": [
-    "/usr/**",
-    "**/package-lock.json",
-    "**/node_modules/**",
-    "**/vscode-extension/**",
+    ".vscode",
     "**/.git/objects/**",
-    ".vscode"
+    "**/*.mk",
+    "**/Makefile",
+    "**/node_modules/**",
+    "**/package-lock.json",
+    "**/package.yaml",
+    "**/stack.yaml",
+    "**/vscode-extension/**",
+    "**/go.mod",
+    "**/go.sum"
   ],
   "cSpell.ignoreWords": [
     "editorconfig",
@@ -68,6 +83,7 @@
     "artero",
     "automations",
     "backreference",
+    "bitmask",
     "buildx",
     "Cabuk",
     "camelcase",
@@ -79,6 +95,7 @@
     "coverprofile",
     "Customisation",
     "digimon",
+    "dockercompose",
     "dockerlabelvalidate",
     "dockerlint",
     "dopat",
@@ -94,14 +111,19 @@
     "Errorln",
     "ESNEXT",
     "eval",
+    "fmap",
+    "foldl",
+    "foldr",
     "fullscreen",
     "gcloud",
+    "Generalised",
     "getmetatable",
     "gitaliases",
     "gitcolors",
     "gitlab",
     "GOARCH",
     "grafana",
+    "grammarly",
     "hadolint",
     "Hammerspoon",
     "ifeq",
@@ -121,6 +143,7 @@
     "linkedin",
     "localtime",
     "maxdepth",
+    "Monoid",
     "monospace",
     "moraes",
     "multiline",
@@ -135,10 +158,12 @@
     "POSIX",
     "postcoverage",
     "Powerline",
+    "Prec",
     "proto",
     "protobuf",
     "pulumi",
     "runtimes",
+    "Semigroup",
     "setmetatable",
     "SIGINT",
     "signup",
@@ -152,6 +177,7 @@
     "typedoc",
     "Unmarshal",
     "untracked",
+    "unwords",
     "vararg",
     "venv",
     "wday",
@@ -173,11 +199,16 @@
   "editor.guides.bracketPairs": "active",
   "editor.insertSpaces": true,
   "editor.minimap.enabled": false,
+  "editor.quickSuggestions": {
+    "comments": "inline",
+    "strings": "inline"
+  },
   "editor.renderFinalNewline": "off",
   "editor.rulers": [
     80,
     100
   ],
+  "editor.screenReaderAnnounceInlineSuggestion": false,
   "editor.semanticHighlighting.enabled": true,
   "editor.suggestSelection": "first",
   "editor.tabSize": 2,
@@ -192,6 +223,7 @@
     "*.azure-pipelines.yml": "azure-pipelines",
     "*.gotmpl": "go-template",
     "*.gtpl": "go-template",
+    "*.hsfiles": "mustache",
     "*.tfstate": "json",
     "*.tpl": "go-template",
     "*.yml": "yaml",
@@ -220,6 +252,12 @@
   "go.toolsManagement.autoUpdate": true,
   "go.useLanguageServer": true,
   "go.vetOnSave": "package",
+  "grammarly.config.documentDomain": "business",
+  "grammarly.config.suggestions.ConjunctionAtStartOfSentence": true,
+  "grammarly.config.suggestions.PassiveVoice": true,
+  "grammarly.config.suggestions.PrepositionAtTheEndOfSentence": true,
+  "grammarly.config.suggestions.StylisticFragments": true,
+  "grammarly.config.suggestions.UnnecessaryEllipses": true,
   "gremlins.characters": {
     "2013": {
       "description": "en dash",
@@ -300,11 +338,13 @@
   },
   "haskell.manageHLS": "GHCup",
   "haskell.toolchain": {
-    "cabal": "recommended",
-    "hls": "recommended",
+    "cabal": null,
+    "ghc": null,
     "stack": null
   },
   "haskell.upgradeGHCup": true,
+  "html.format.indentInnerHtml": true,
+  "http.proxySupport": "fallback",
   "javascript.format.semicolons": "insert",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "json.schemaDownload.enable": true,
@@ -352,6 +392,9 @@
   "python.analysis.useLibraryCodeForTypes": true,
   "python.languageServer": "Pylance",
   "redhat.telemetry.enabled": true,
+  "rust-analyzer.inlayHints.chainingHints.enable": false,
+  "rust-analyzer.inlayHints.parameterHints.enable": false,
+  "rust-analyzer.inlayHints.typeHints.enable": false,
   "shellcheck.customArgs": [
     "-x"
   ],
@@ -364,6 +407,9 @@
     "path": "/usr/local/bin/fish"
   },
   "terminal.integrated.enablePersistentSessions": false,
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
   "terminal.integrated.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "terminal.integrated.persistentSessionReviveProcess": "never",
   "terminal.integrated.profiles.linux": {
@@ -415,16 +461,60 @@
     "**/tmp/**/*.*",
     "**/__*snapshots__/*.snap"
   ],
+  "todo-tree.general.tagGroups": {
+    "FIX": [
+      "FIXME",
+      "FIX",
+      "FIXIT",
+      "HACK"
+    ]
+  },
   "todo-tree.general.tags": [
     "BUG",
     "HACK",
+    "FIX",
     "FIXME",
+    "FIXIT",
     "TODO",
-    "XXX",
     "[ ]",
     "[x]"
   ],
-  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+  "todo-tree.highlights.customHighlight": {
+    "BUG": {
+      "foreground": "#f00",
+      "gutterIcon": true,
+      "icon": "bug",
+      "iconColour": "#f00"
+    },
+    "FIX": {
+      "foreground": "#ff0",
+      "gutterIcon": true,
+      "icon": "alert",
+      "iconColour": "#ff0"
+    },
+    "[ ]": {
+      "foreground": "#ff0",
+      "gutterIcon": true,
+      "icon": "circle",
+      "iconColour": "#ff0"
+    },
+    "[x]": {
+      "foreground": "#0a0",
+      "hideFromTree": true,
+      "icon": "check-circle",
+      "iconColour": "#060"
+    }
+  },
+  "todo-tree.highlights.defaultHighlight": {
+    "foreground": "#0ff",
+    "gutterIcon": true,
+    "icon": "comment",
+    "iconColour": "#0ff",
+    "type": "tag-and-subTag"
+  },
+  "todo-tree.regex.regex": "(--|//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)",
+  "todo-tree.tree.buttons.groupByTag": true,
+  "todo-tree.tree.labelFormat": "${after}",
   "typescript.format.semicolons": "insert",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "vs-kubernetes": {
@@ -439,11 +529,31 @@
   },
   "workbench.editor.decorations.badges": true,
   "workbench.editor.decorations.colors": true,
-  "workbench.editor.enablePreview": false,
   "workbench.editor.untitled.hint": "hidden",
   "workbench.editorAssociations": {
     "*.ipynb": "jupyter-notebook"
   },
+  "workbench.settings.applyToAllProfiles": [
+    "editor.fontSize",
+    "editor.fontFamily",
+    "editor.tabSize",
+    "editor.autoIndent",
+    "editor.insertSpaces",
+    "editor.wordWrap",
+    "workbench.editor.enablePreview",
+    "editor.fontLigatures",
+    "editor.fontVariations",
+    "editor.fontWeight",
+    "editor.formatOnSave",
+    "editor.formatOnPaste",
+    "editor.formatOnSaveMode",
+    "editor.formatOnType",
+    "diffEditor.experimental.useVersion2",
+    "diffEditor.ignoreTrimWhitespace",
+    "editor.screenReaderAnnounceInlineSuggestion",
+    "editor.suggest.insertMode",
+    "workbench.editor.decorations.badges"
+  ],
   "workbench.startupEditor": "none",
   "workspace.alwaysShowToggle": true,
   "write-good.languages": [
