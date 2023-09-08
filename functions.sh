@@ -163,7 +163,6 @@ fixPath() {
     "${HOME}/go/bin" \
     "${HOME}/.cargo/bin" \
     "${HOME}/.cabal/bin" \
-    "${HOME}/.ghcup/bin" \
     "${HOME}/.local/google-cloud-sdk/bin" \
     "${HOME}/.krew/bin" \
     "${HOME}/.config/yarn/global/node_modules/.bin"
