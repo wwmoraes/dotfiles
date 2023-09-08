@@ -123,3 +123,31 @@ TimeReloader = hs.timer.doAt("09:30", "1d", function()
 end, true):start()
 
 logger.v("loaded successfully")
+
+SNG = hs.menubar.new(true)
+SNG:setIcon(
+  hs.image.imageFromPath(table.concat({ hs.configdir, "tags/work", "logo.png" }, "/")):size({ h = 16, w = 16 })
+  , false)
+SNG:setTooltip("easy AAB")
+SNG:setMenu({
+  {
+    title = "Open ServiceNow Green item",
+    shortcut = "o",
+    fn = function()
+      local text = hs.pasteboard.readString()
+      if text == nil then
+        local button, text = hs.dialog.textPrompt("ID", "the item identifier number/code")
+        if button ~= "OK" then
+          return
+        end
+      end
+
+      hs.urlevent.openURL("https://servicenow.abnamro.org/text_search_exact_match.do?sysparm_search=" .. text)
+    end
+  }, {
+  title = "-"
+}, {
+  title = "TODO",
+  disabled = true
+}
+})

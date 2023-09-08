@@ -7,9 +7,9 @@ local obj = {
 ---@return WorkWidgets
 function obj:init()
   local snowURL = assert(os.getenv("SNOW_URL"), "Service Now URL not set")
-  local onCallGroupID = assert(os.getenv("SNOW_ONCALL_GROUP_ID"), "Service Now on-call group ID not set")
-  local onCallRotasID = assert(os.getenv("SNOW_ONCALL_ROTAS_ID"), "Service Now on-call rotation ID not set")
-  local onCallRostersID = assert(os.getenv("SNOW_ONCALL_ROSTERS_ID"), "Service Now on-call rosters ID not set")
+  -- local onCallGroupID = assert(os.getenv("SNOW_ONCALL_GROUP_ID"), "Service Now on-call group ID not set")
+  -- local onCallRotasID = assert(os.getenv("SNOW_ONCALL_ROTAS_ID"), "Service Now on-call rotation ID not set")
+  -- local onCallRostersID = assert(os.getenv("SNOW_ONCALL_ROSTERS_ID"), "Service Now on-call rosters ID not set")
   local supportGroupID = assert(os.getenv("SNOW_SUPPORT_GROUP_ID"), "Service Now support group ID not set")
   local supportRotasID = assert(os.getenv("SNOW_SUPPORT_ROTAS_ID"), "Service Now support rotation ID not set")
   local timeZone = hs.settings.get("timeZone") or "Universal"
@@ -66,56 +66,56 @@ function obj:init()
     -- spell-checker: enable
   }))
 
-  table.insert(obj.widgets, spoon.WebWidgets:new({
-    rectangle = hs.geometry.rect(348, 52, 860, 236),
-    baseURL = snowURL,
-    endpoint = "$oc.do",
-    exactURL = true,
-    refreshOn = {
-      events = {
-        hs.caffeinate.watcher.systemDidWake,
-        hs.caffeinate.watcher.screensDidUnlock,
-      },
-      times = {
-        {
-          time = "09:00",
-          repeatInterval = "1d",
-        }
-      }
-    },
-    params = {
-      -- spell-checker: disable
-      ["sysparm_include_view"] = "daily,weekly,monthly",
-      ["sysparm_timezone"] = tostring(timeZone),
-      ["sysparm_timeline_enabled"] = "true",
-      ["sysparm_current_view"] = "weekly",
-      ["sysparm_group_id"] = onCallGroupID,
-      ["sysparm_rotas"] = onCallRotasID,
-      ["sysparm_rosters"] = onCallRostersID,
-      ["sysparm_show_gaps"] = "false",
-      ["sysparm_show_conflicts"] = "false"
-      -- spell-checker: enable
-    },
-    -- spell-checker: disable
-    style = [[
-      /* reposition progress indicator */
-      .icon-loading { top: 9px !important; left: 9px !important; right: auto !important; }
+  -- table.insert(obj.widgets, spoon.WebWidgets:new({
+  --   rectangle = hs.geometry.rect(348, 52, 860, 236),
+  --   baseURL = snowURL,
+  --   endpoint = "$oc.do",
+  --   exactURL = true,
+  --   refreshOn = {
+  --     events = {
+  --       hs.caffeinate.watcher.systemDidWake,
+  --       hs.caffeinate.watcher.screensDidUnlock,
+  --     },
+  --     times = {
+  --       {
+  --         time = "09:00",
+  --         repeatInterval = "1d",
+  --       }
+  --     }
+  --   },
+  --   params = {
+  --     -- spell-checker: disable
+  --     ["sysparm_include_view"] = "daily,weekly,monthly",
+  --     ["sysparm_timezone"] = tostring(timeZone),
+  --     ["sysparm_timeline_enabled"] = "true",
+  --     ["sysparm_current_view"] = "weekly",
+  --     ["sysparm_group_id"] = onCallGroupID,
+  --     ["sysparm_rotas"] = onCallRotasID,
+  --     ["sysparm_rosters"] = onCallRostersID,
+  --     ["sysparm_show_gaps"] = "false",
+  --     ["sysparm_show_conflicts"] = "false"
+  --     -- spell-checker: enable
+  --   },
+  --   -- spell-checker: disable
+  --   style = [[
+  --     /* reposition progress indicator */
+  --     .icon-loading { top: 9px !important; left: 9px !important; right: auto !important; }
 
-      /* remove unneeded controls */
-      .dhx_cal_navline, sn-on-call-filter { display: none !important; }
+  --     /* remove unneeded controls */
+  --     .dhx_cal_navline, sn-on-call-filter { display: none !important; }
 
-      /* fix header after control removal */
-      .dhx_cal_header { top: 0px !important; left: -2px !important; }
-      .dhx_cal_data { top: 36px !important; overflow: hidden; height: 440px !important; }
+  --     /* fix header after control removal */
+  --     .dhx_cal_header { top: 0px !important; left: -2px !important; }
+  --     .dhx_cal_data { top: 36px !important; overflow: hidden; height: 440px !important; }
 
-      /* hide group rows (roster + time off) */
-      .dhx_cal_data .dhx_row_folder { display: none; }
+  --     /* hide group rows (roster + time off) */
+  --     .dhx_cal_data .dhx_row_folder { display: none; }
 
-      /* hide time off rows */
-      .dhx_cal_data .dhx_row_folder:not(:first-of-type) ~ .dhx_row_item { display: none; }
-    ]],
-    -- spell-checker: enable
-  }))
+  --     /* hide time off rows */
+  --     .dhx_cal_data .dhx_row_folder:not(:first-of-type) ~ .dhx_row_item { display: none; }
+  --   ]],
+  --   -- spell-checker: enable
+  -- }))
 
   return self
 end
