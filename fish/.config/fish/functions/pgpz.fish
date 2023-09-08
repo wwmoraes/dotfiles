@@ -15,6 +15,10 @@ function pgpz -a cmd -d "gpg for human beings" -w gpg
         gpg -o gpg-privkey-$identity.key.asc --armor --export-secret-keys $identity
       end
     case "unlock"
+      command -q op; or echo "op is not installed" && return 1
+      command -q gpg2; or echo "gpg2 is not installed" && return 1
+      command -q gpgconf; or echo "gpgconf is not installed" && return 1
+
       # make sure we have executables on path; this is specially needed when
       # calling the function from clean environments such as Hammerspoon
       eval (/usr/libexec/path_helper -c)
@@ -27,14 +31,13 @@ function pgpz -a cmd -d "gpg for human beings" -w gpg
       end
 
       set -l PASSWORD (op item get $GPG_OP_ITEM_ID --fields password | xargs)
+      test $pipestatus[1] -eq 0; or return 1
 
       # gpg-connect-agent /bye &> /dev/null
       gpg2 -K --fingerprint --with-colons | sed -nr '/fpr/,+1{s/^grp:+(.*):$/\1/p;}' | while read -l GRIP
         echo "unlocking key grip $GRIP"
-        echo $PASSWORD | $GPG_PRESET_PASSPHRASE -c -c $GRIP
+        echo $PASSWORD | $GPG_PRESET_PASSPHRASE -c $GRIP
       end
-
-      echo "done"
     case "" "*"
       gpg $argv
   end
