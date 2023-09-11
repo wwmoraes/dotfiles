@@ -11,7 +11,7 @@ function pour -a cmd -w brew -d "helps serve brewed content the right way"
         set -a formulas $arg
       end
 
-      brew install $argv
+      brew install $argv[2..-1]
       _pour_tags $formulas
     case "tags"
       _pour_tags $argv[2..-1]
