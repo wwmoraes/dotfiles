@@ -1,3 +1,4 @@
+-app-cleaner
 -davmail|~/Applications/DavMail.app/Contents/MacOS/davmail
 -dropbox
 -fluor
@@ -7,12 +8,11 @@
 -muzzle
 -postman
 -securid
+-syncthing
 -thingsmacsandboxhelper
 -thingsmacsandboxhelper|~/Applications/ThingsMacSandboxHelper.app/Contents/MacOS/ThingsMacSandboxHelper
 -vagrant|/usr/local/bin/vagrant
 -virtualbox
 dotnet-sdk|/usr/local/bin/dotnet
 firefox
--krisp
 powershell|pwsh
-visual-studio-code
