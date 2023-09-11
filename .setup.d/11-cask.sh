@@ -86,7 +86,7 @@ while read -r PACKAGE; do
 done < "${PACKAGES}"
 
 printf "Removing extra attributes of \e[96m%s\e[0m contents...\n" "${HOME}/Applications"
-sudo xattr -r -c "${HOME}/Applications" 2>&1 | grep -v "No such file"
+sudo xattr -r -c "${HOME}/Applications" 2>&1 | grep -v 'Operation not permitted'
 
 printf "Changing ownership of \e[96m%s\e[0m contents...\n" "${HOME}/Applications"
-sudo chown -R "$(id -un):$(id -gn)" "${HOME}/Applications"
+sudo chown -R "$(id -un):$(id -gn)" "${HOME}/Applications" 2>&1 | grep -v 'Operation not permitted'
