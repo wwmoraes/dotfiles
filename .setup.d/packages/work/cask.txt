@@ -8,6 +8,7 @@
 -muzzle
 -postman
 -securid
+-spotify
 -syncthing
 -thingsmacsandboxhelper
 -thingsmacsandboxhelper|~/Applications/ThingsMacSandboxHelper.app/Contents/MacOS/ThingsMacSandboxHelper

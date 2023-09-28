@@ -12,7 +12,6 @@
 -multi
 -ngrok
 -openin
--spotify
 -swiftdefaultappsprefpane
 -typora
 -ubersicht
@@ -41,7 +40,6 @@ kitty
 launchpad-manager
 macfuse
 obsidian
-spotify
 suspicious-package
 the-unarchiver
 uninstallpkg
