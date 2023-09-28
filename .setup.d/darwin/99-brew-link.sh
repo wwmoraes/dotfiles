@@ -60,6 +60,6 @@ for package in /usr/local/opt/*; do
   fi
 done
 
-if [ ! -f /opt/local/bin/fish ]; then
-  ln -sf /opt/homebrew/bin/fish /opt/local/bin/fish
+if [ ! -f /usr/local/bin/fish ]; then
+  ln -sf /opt/homebrew/bin/fish /usr/local/bin/fish
 fi
