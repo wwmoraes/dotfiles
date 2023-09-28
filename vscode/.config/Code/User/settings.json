@@ -368,6 +368,8 @@
   "licenser.author": "William Artero",
   "licenser.disableAutoHeaderInsertion": true,
   "licenser.license": "MIT",
+  "liveshare.connectionMode": "relay",
+  "liveshare.launcherClient": "visualStudioCode",
   "notebook.cellToolbarLocation": {
     "default": "right",
     "jupyter-notebook": "left"
