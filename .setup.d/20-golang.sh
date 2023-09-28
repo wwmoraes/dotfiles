@@ -59,8 +59,11 @@ FIFO=$(mktemp -u -t dotfiles-golang-XXXXXX)
 mkfifo -m 0600 "${FIFO}"
 trap 'rm -f "${FIFO}"' EXIT INT TERM
 while read -r PACKAGE; do
-  # IFS=: read PKG BIN <<< "${PACKAGE}"
-  # IFS=@ read MODULE VERSION <<< "${PKG}"
+  case "${PACKAGE%%:*}" in
+    -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
+    *) REMOVE=0;;
+  esac
+
   echo "${PACKAGE}" > "${FIFO}" &
   IFS=: read -r PKG BIN < "${FIFO}"
   echo "${PKG}" > "${FIFO}" &
@@ -68,11 +71,25 @@ while read -r PACKAGE; do
   : "${VERSION:=latest}"
   : "${BIN:=$(basename "${MODULE}")}"
 
-  printf "Checking \e[96m%s\e[0m...\n" "${BIN}"
-  test -f "${GOPATH}/bin/${BIN}" && continue
+  GOPATH=$(go env GOPATH)
 
-  printf "Installing \e[96m%s\e[0m...\n" "${BIN}"
-  env -u GOBIN go install "${MODULE}@${VERSION}" || printf "\e[91mFAILED\e[m to install \e[96m%s\e[0m\n" "${BIN}" >&2
+  case "${REMOVE}" in
+    1)
+      printf "[\e[91muninstall\e[m] Checking \e[96m%s\e[0m\n" "${BIN}"
+      test -f "${GOPATH}/bin/${BIN}" || continue
+      printf "[\e[91muninstall\e[m] Uninstalling \e[95m%s\e[0m\n" "${BIN}"
+      test -d $GOPATH/src/$MODULE && rm -rf $GOPATH/src/$MODULE
+      test -f $GOPATH/bin/$BIN && rm -rf $GOPATH/bin/$BIN
+      test -d $GOPATH/pkg/mod/$MODULE && rm -rf $GOPATH/pkg/mod/$MODULE
+      test -d $GOPATH/pkg/mod/cache/download/$MODULE && rm -rf $GOPATH/pkg/mod/cache/download/$MODULE
+    ;;
+    0)
+      printf "[\e[92m install \e[m] Checking \e[96m%s\e[0m\n" "${BIN}"
+      test -f "${GOPATH}/bin/${BIN}" && continue
+      printf "[\e[92m install \e[m] Installing \e[96m%s\e[0m\n" "${BIN}"
+      env -u GOBIN go install "${MODULE}@${VERSION}" || printf "\e[91mFAILED\e[m to install \e[96m%s\e[0m\n" "${BIN}" >&2
+    ;;
+  esac
 done < "${PACKAGES}"
 
 # Darwin go binaries are still built only for x64. This means install builds for
@@ -80,5 +97,7 @@ done < "${PACKAGES}"
 # them all to avoid yet another directory on the PATH
 GO_BIN_PATH="$(go env GOPATH)/bin"
 GO_OS_ARCH_BIN_PATH="${GO_BIN_PATH}/$(go env GOOS)_$(go env GOARCH)"
-find "${GO_OS_ARCH_BIN_PATH}" -type f -exec mv {} "${GO_BIN_PATH}" \;
-rmdir "${GO_OS_ARCH_BIN_PATH}"
+if [ -d "${GO_OS_ARCH_BIN_PATH}" ]; then
+  find "${GO_OS_ARCH_BIN_PATH}" -type f -exec mv {} "${GO_BIN_PATH}" \;
+  rmdir "${GO_OS_ARCH_BIN_PATH}"
+fi
