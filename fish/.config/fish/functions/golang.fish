@@ -38,6 +38,10 @@ function golang -a cmd -d "go wrapper with commands that Google forgot" -w go
       sed -i -e '/'(echo $argv[2] | sed -E 's/([./])/\\\\\1/g')'/d' go.mod
       go mod tidy
     end
+  case coverage
+    set -q GOCOVERPROFILE; or set -l GOCOVERPROFILE tmp/test.gcov
+    go test -race -coverprofile=$GOCOVERPROFILE ./...
+    go tool cover -func=$GOCOVERPROFILE
   case "" "*"
     go $argv
   end
