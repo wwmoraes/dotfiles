@@ -73,17 +73,17 @@ MANAGER_INSTALL_ARGS=
 MANAGER_REMOVE_ARGS=
 MANAGER_PRE_EXEC_ARGS=
 MANAGER_POST_EXEC_ARGS=
-if [ -x "$(which apt 2> /dev/null)" ]; then
+if [ -x "$(which apt 2> /dev/null)" ] && [ "${SYSTEM}" = "linux" ]; then
   MANAGER="sudo apt"
   MANAGER_INSTALL_ARGS="install --no-install-recommends --no-install-suggests"
   MANAGER_REMOVE_ARGS="remove"
   MANAGER_LIST_ARGS="list --quiet --installed 2> /dev/null | tail +2 | cut -d'/' -f1"
-elif [ -x "$(which yay 2> /dev/null)" ]; then
+elif [ -x "$(which yay 2> /dev/null)" ] && [ "${SYSTEM}" = "linux" ]; then
   MANAGER="sudo yay"
   MANAGER_INSTALL_ARGS="-S"
   MANAGER_REMOVE_ARGS="-Rs"
   MANAGER_LIST_ARGS="-Qq"
-elif [ -x "$(which pacman 2> /dev/null)" ]; then
+elif [ -x "$(which pacman 2> /dev/null)" ] && [ "${SYSTEM}" = "linux" ]; then
   MANAGER="sudo pacman"
   MANAGER_INSTALL_ARGS="-S"
   MANAGER_REMOVE_ARGS="-Rs"
