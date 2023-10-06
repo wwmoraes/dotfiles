@@ -9,6 +9,7 @@
   precomposeUnicode = true
   ignorecase = false
   commentChar = auto
+  # hooksPath = ~/.local/hooks
 
 [diff "plist"]
   textconv = plist2xml
@@ -87,7 +88,16 @@
 [stash]
   showPatch = true
 
+# https://git-scm.com/docs/git-interpret-trailers
+[trailer "sign"]
+	key = Signed-off-by
+  ifmissing = add
+  ifexists = addIfDifferent
+  command = echo \"$(git config user.name) <$(git config user.email)>\"
 
+[trailer "coauthor"]
+  key = Co-authored-by
+  ifexists = addIfDifferent
 
 [url "git://gist.github.com/"]
   insteadOf = "gist:"
