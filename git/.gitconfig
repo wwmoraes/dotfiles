@@ -10,6 +10,33 @@
   ignorecase = false
   commentChar = auto
 
+[diff "plist"]
+  textconv = plist2xml
+
+[diff]
+  # Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
+  # https://blog.github.com/2018-04-05-git-217-released/
+  colorMoved = zebra
+
+[difftool]
+  prompt = false
+
+[fetch]
+  prune = true
+
+[filter "lfs"]
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+
+[gui]
+  pruneduringfetch = true
+
+[help]
+  # correct typos
+  autocorrect = 1
+
 # Include files to keep this one lean
 [include]
   path = ~/.gitconfig-os
@@ -20,21 +47,21 @@
 [init]
   defaultBranch = master
 
+[log]
+  date = relative
+
+[merge]
+  autoStash = true
+  ff = only
+
 [protocol]
   # faster git server communication.
   # like a LOT faster. https://opensource.googleblog.com/2018/05/introducing-git-protocol-version-2.html
   # version = 2
 
-[fetch]
-  prune = true
-
 [pull]
   rebase = true
   ff = only
-
-[rebase]
-  autoSquash = true
-  autoStash = true
 
 # push easily. http://stackoverflow.com/a/23918418/89484
 [push]
@@ -42,33 +69,25 @@
   default = current
   followTags = true
 
-[merge]
+[rebase]
+  autoSquash = true
   autoStash = true
-  ff = only
+
+# [remote "origin"]
+  # fetch = +refs/heads/*:refs/remotes/origin/*
+
+[safe]
+  directory = *
+
+[smartgit "submodule"]
+  fetchalways = false
+  update = true
+  initializenew = true
 
 [stash]
   showPatch = true
 
-[diff]
-  # Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
-  # https://blog.github.com/2018-04-05-git-217-released/
-  colorMoved = zebra
 
-[log]
-  date = relative
-
-[gui]
-  pruneduringfetch = true
-
-[difftool]
-  prompt = false
-
-[help]
-  # correct typos
-  autocorrect = 1
-
-# [remote "origin"]
-  # fetch = +refs/heads/*:refs/remotes/origin/*
 
 [url "git://gist.github.com/"]
   insteadOf = "gist:"
@@ -78,20 +97,3 @@
 
 [url "git@gist.github.com:"]
   insteadOf = https://gist.github.com/
-
-[smartgit "submodule"]
-  fetchalways = false
-  update = true
-  initializenew = true
-
-[filter "lfs"]
-  process = git-lfs filter-process
-  required = true
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-
-[diff "plist"]
-  textconv = plist2xml
-
-[safe]
-  directory = *
