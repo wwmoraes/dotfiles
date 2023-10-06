@@ -247,6 +247,9 @@
   "gitlens.hovers.annotations.over": "annotation",
   "gitlens.statusBar.enabled": false,
   "go.coverOnSave": false,
+  "go.delveConfig": {
+    "debugAdapter": "legacy"
+  },
   "go.lintOnSave": "package",
   "go.lintTool": "golangci-lint",
   "go.toolsManagement.autoUpdate": true,
