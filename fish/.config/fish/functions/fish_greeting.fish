@@ -1,4 +1,3 @@
 function fish_greeting
-  command -q doge; and ls | doge
-  curl -fs --max-time 0.3 https://whatthecommit.com/index.txt || true
+  fortune | cowsay -n -W 80 -f (ls /opt/homebrew/share/cows/*.cow | shuf -n1)
 end

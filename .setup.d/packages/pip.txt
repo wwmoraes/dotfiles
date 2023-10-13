@@ -1,3 +1,4 @@
+-doge
 -powerline-kubernetes
 -powerline-status
 -thefuck
@@ -5,7 +6,6 @@
 -urllib3-secure-extra
 -wakatime
 asciinema
-doge
 identify
 kubesplit
 pipenv

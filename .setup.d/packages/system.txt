@@ -14,7 +14,9 @@
 conftest
 container-structure-test
 coreutils
+cowsay
 fish
+fortune
 fswatch
 fzf
 gawk
@@ -40,6 +42,7 @@ shellcheck
 skopeo
 socat
 stow
+structurizr-cli
 telnet
 tldr
 tmux
@@ -49,4 +52,3 @@ watch
 watchman
 yamllint
 yubico-piv-tool
-structurizr-cli
