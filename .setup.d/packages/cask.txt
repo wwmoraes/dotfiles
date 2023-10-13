@@ -4,6 +4,7 @@
 -clean-me|~/Applications/Clean Me.app/Contents/MacOS/Clean Me
 -cryptomator
 -finicky
+-free-gpgmail
 -google-chrome
 -hazel
 -jiggler
@@ -29,7 +30,6 @@ dozer
 elgato-stream-deck
 fluid
 flux
-free-gpgmail
 gas-mask
 gimp
 gpg-suite-no-mail
