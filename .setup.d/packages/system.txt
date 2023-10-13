@@ -11,6 +11,7 @@
 -mawk
 -tmate
 -wakatime-cli
+adr-tools
 conftest
 container-structure-test
 coreutils
