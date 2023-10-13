@@ -7,18 +7,18 @@ local tags = require("data.tags")
 local apps = require("data.apps")
 local queryParams = require("data.queryParams")
 
----@alias Context '"work"'|'"home"'
+---@alias Context '"work"'|'"personal"'
 ---@alias BrowserContext table<Context,string|table<string>>
 
 ---@type table<string,BrowserContext>
 local tagContextBrowser = {
   ["work"] = {
     ["work"] = apps.Edge,
-    ["home"] = apps.Firefox,
+    ["personal"] = apps.Firefox,
   },
-  ["home"] = {
+  ["personal"] = {
     ["work"] = apps.Firefox,
-    ["home"] = apps.Safari,
+    ["personal"] = apps.Safari,
   },
 }
 
@@ -36,7 +36,7 @@ end
 local defaultBrowser = {
   main = apps.Safari,
   work = apps.Firefox,
-  home = apps.Safari,
+  personal = apps.Safari,
 }
 
 ---@param context Context
@@ -140,23 +140,23 @@ hs.spoons.use("Finicky", {
           apps.WhatsApp,
           apps.LinkedIn,
         },
-        browser = getBrowser("home"),
+        browser = getBrowser("personal"),
       },
       -- Development
       {
         host = "github.com",
-        browser = getBrowser("home"),
+        browser = getBrowser("personal"),
       },
       -- Home: local and private domains
       {
         match = {
           "github.com/wwmoraes*",
-          "*.home.localhost*",
+          "*.personal.localhost*",
           "*.com.br*",
           "*.thuisbezorgd.nl*",
           "*.krisp.ai*"
         },
-        browser = getBrowser("home"),
+        browser = getBrowser("personal"),
       },
     },
     rewrites = {
