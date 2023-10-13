@@ -13,12 +13,15 @@ trim_trailing_whitespace = true
 end_of_line = lf
 insert_final_newline = true
 
+[*.html]
+insert_final_newline = false
+
+[*.mk]
+indent_style = tab
+
 [.vscode/*.json]
 insert_final_newline = false
 
 # Tab indentation (no size specified)
 [Makefile]
-indent_style = tab
-
-[*.mk]
 indent_style = tab
