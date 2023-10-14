@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>dev.artero.environment</string>
+    <key>LimitLoadToSessionType</key>
+    <array>
+      <string>Aqua</string>
+      <string>StandardIO</string>
+      <string>Background</string>
+    </array>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/sh</string>
+      <string>-c</string>
+      <string>{{ .chezmoi.homeDir }}/Library/Scripts/dotenv.sh</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true />
+    <key>WatchPaths</key>
+    <array>
+      {{- $files := glob (joinPath .chezmoi.homeDir ".config" "environment.d" "*.conf") }}
+      {{- range $_, $file := $files }}
+      <string>{{ $file }}</string>
+      {{- end }}
+      <string>{{ .chezmoi.homeDir }}/.config/environment.rm.conf</string>
+    </array>
+  </dict>
+</plist>

@@ -1,0 +1,45 @@
+#!/bin/sh
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+
+# .Brewfile hash: #{{ include (joinPath .chezmoi.homeDir "/.Brewfile") | sha256sum }}
+
+HOMEBREW_PREFIX="#{{ .brewPrefix }}"
+HOMEBREW_REPOSITORY="#{{ .brewRepository }}"
+
+# clone
+if [ ! -d "${HOMEBREW_REPOSITORY}" ]; then
+  git clone https://github.com/Homebrew/brew "${HOMEBREW_REPOSITORY}"
+  chmod -R go-w "${HOMEBREW_PREFIX}/share/zsh"
+  chmod -R go-w "${HOMEBREW_PREFIX}/share/fish"
+fi
+
+# link the binary
+if [ "${HOMEBREW_PREFIX}" != "${HOMEBREW_REPOSITORY}" ]; then
+  ln -sf "${HOMEBREW_REPOSITORY}/bin/brew" "${HOMEBREW_PREFIX}/bin/brew"
+fi
+
+# force to work in arm64 mode
+if [ "$(uname -m)" = "arm64" ]; then
+  # shellcheck disable=SC2139 # we want it to expand now, not later
+  alias brew="arch -arm64 ${HOMEBREW_PREFIX}/bin/brew"
+else
+  # shellcheck disable=SC2139 # we want it to expand now, not later
+  alias brew="${HOMEBREW_PREFIX}/bin/brew"
+fi
+
+# "load"
+eval "$(brew shellenv)"
+
+echo "brew: update"
+brew update --force --quiet
+
+echo "brew: bundle"
+brew bundle --global
+
+echo "brew: cleanup"
+brew bundle cleanup --global --force
+
+# TODO add the brew prefix to the PATH and drop this
+if [ ! -f /usr/local/bin/fish ]; then
+  ln -sf "${HOMEBREW_PREFIX}/bin/fish" /usr/local/bin/fish
+fi

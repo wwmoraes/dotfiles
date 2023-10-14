@@ -1,0 +1,15 @@
+#!/bin/sh
+
+command -V java >/dev/null 2>&1 || {
+  echo "java not found"
+  exit 1
+}
+
+test -f "$HOME/.local/share/plantuml.jar" || {
+  echo "shared plantuml.jar not found"
+  exit 1
+}
+
+exec java -Djava.awt.headless=true -jar "$HOME/.local/share/plantuml.jar" "$@"
+
+# vim: ft=sh

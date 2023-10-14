@@ -1,0 +1,16 @@
+{{- /* cspell:disable */ -}}
+{{- if .tags.personal }}
+
+PROJECTS_DIR=~/dev
+GIT_PROJECT_PATHS='~/dev'
+
+# man
+MANPAGER=/opt/homebrew/bin/less
+PAGER=/opt/homebrew/bin/less
+
+EMAIL={{ .me.personalEmail }}
+DIGITALOCEAN_CONTEXT=default
+PULUMI_ACCESS_TOKEN={{ onepasswordRead "op://Development/Pulumi/credential" }}
+WRANGLER_TOKEN={{ onepasswordRead "op://Development/Wrangler/credential" }}
+
+{{- end }}

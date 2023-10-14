@@ -1,0 +1,33 @@
+#!/bin/sh
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+
+#{{- range $_, $filename := (glob (joinPath .chezmoi.homeDir ".local" "share" "fonts" "*")) }}
+# #{{ base $filename }} hash: #{{ include $filename | sha256sum }}
+#{{- end }}
+
+set -eum
+trap 'kill 0' INT HUP TERM
+
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
+# run only on darwin
+test "${CHEZMOI_OS:-}" = "darwin" || exit
+
+printf "\e[1;33mDarwin fonts\e[0m\n"
+
+printf "linking font files...\n"
+mkdir -p "${HOME}/Library/Fonts"
+for FONT in "${HOME}"/.local/share/fonts/*; do
+  ln -f "${FONT}" "${HOME}/Library/Fonts/$(basename "${FONT}")"
+done
+printf "refreshing font database...\n"
+atsutil databases -removeUser
+printf "reloading font daemon...\n"
+killall fontd
+
+# Update system font cache
+if _=$(command -V fc-cache >/dev/null 2>&1); then
+  printf "Updating font cache...\n"
+  fc-cache -f &
+fi

@@ -1,0 +1,17 @@
+[".local/share/fonts"]
+include = ["*/*.ttf"]
+## Fira Code is stable, last release is from 2021
+# refreshPeriod = "672h"
+stripComponents = 1
+type = "archive"
+url = "https://github.com/tonsky/FiraCode/releases/download/{{ .versions.firaCode }}/Fira_Code_v{{ .versions.firaCode }}.zip"
+
+[".local/share/fonts/PowerlineSymbols.otf"]
+url = "https://github.com/powerline/powerline/raw/master/font/PowerlineSymbols.otf"
+type = "file"
+refreshPeriod = "672h"
+
+[".local/share/fonts/Source Code Pro for Powerline.otf"]
+url = "https://github.com/powerline/fonts/raw/master/SourceCodePro/Source%20Code%20Pro%20for%20Powerline.otf"
+type = "file"
+refreshPeriod = "672h"

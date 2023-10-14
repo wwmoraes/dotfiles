@@ -1,0 +1,5 @@
+{{- if .tags.work }}
+[global]
+index = {{ onepasswordRead "op://Work/Nexus RM/pypi" }}
+index-url = {{ onepasswordRead "op://Work/Nexus RM/pip-simple" }}
+{{- end }}

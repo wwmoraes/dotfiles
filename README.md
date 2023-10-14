@@ -1,180 +1,41 @@
-# dotfiles
+# William's Dotfiles 2.0
 
-> Cross-platform dotfiles with batteries
+## Table of Contents
 
-![Status](https://img.shields.io/badge/status-active-success.svg)
-[![GitHub Issues](https://img.shields.io/github/issues/wwmoraes/dotfiles.svg)](https://github.com/wwmoraes/dotfiles/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/wwmoraes/dotfiles.svg)](https://github.com/wwmoraes/dotfiles/pulls)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-
----
-
-## 📝 Table of Contents
-
-- [About](#-about)
-- [Getting Started](#-getting-started)
-- [Usage](#-usage)
-- [TODO](../TODO.md)
+- [About](#about)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
 - [Contributing](../CONTRIBUTING.md)
 
-## 🧐 About
+## About
 
-Configures hosts with dotfiles, environment variables, packages and binaries
-across multiple platforms and systems. The reason for this is that managing multiple
-contexts (work machine, home machine, lab machine) can get tedious and even
-time-consuming, thus this repository was born.
+Dotfiles for all sorts of tools and configurations using chezmoi. Templates are
+kept to a bare minimal for sanity's sake.
 
-- cross-platform, system-specific and host-specific supported features
-  - dotfiles' setup (using stow)
-  - environment variables' setup (using stow + functions per shell to load)
-  - package install (system dependent tool + per language as go get, pip, cargo)
-- cross-platform polyfill executables (mostly scripts)
+## Getting Started
 
-### FAQ
+- Install `1password` and its v2 CLI
+- Authenticate in 1Password
 
-> why not create a binary + DSL + specific config + whatever?
+Then:
 
-KISS. Shell scripts are virtually available on all OS nowadays (even Windows has
-Bash through WSL now, and had it in a less-compatible way for some decades
-through Cygwin), which makes installing this repository easy on a fresh host.
-
-## 🏁 Getting Started
-
-For new hosts, clone the repository on the desired host, install and setup
-directly from the cloned folder using `make install` and `make setup`. Afterwards
-it can be managed using fish's `dotfiles` function.
-
-### Prerequisites
-
-The installation process, `make install`, which configures only dotfiles, needs
-
-- GNU Stow
-- GNU Make or compatible
-
-The setup process and its scripts, `make setup` or `./setup.sh`, needs GNU Bash.
-
-### Installing
-
-```sh
-git clone git@github.com:wwmoraes/dotfiles.git ~/.files
-cd ~/.files
-make install && make setup
+```shell
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply git@github.com:wwmoraes/dotfiles.git
 ```
 
-### Creating your own setup scripts
+## Usage
 
-The setup process runs any scripts found on `.setup.d` folder in alphabetical
-order, thus the number prefix convention is used to guarantee the order (as your
-script might need some package installed before it is run).
+Check the [upstream chezmoi][chezmoi-command-overview] documentation for all
+commands, or use the `--help` for more. Shells also have autocompletion
+configured when you install chezmoi, use and abuse it!
 
-For package installation, copy one of the existing setup scripts
-(system/golang/python/rust) and set as desired.
+[chezmoi-command-overview]: https://www.chezmoi.io/user-guide/command-overview/
 
-## 🎈 Usage
+## FAQ
 
-The fish function, `dotfiles`, has some subcommands that manages the repository,
-namely:
+> **Question**: Why is there a mix of sh/bash and fish scripts?
 
-- `add <file/folder>`: moves the target file/folder to the repository and stows it
-- `install`: installs the dotfiles (i.e. runs `make install`)
-- `setup`: runs the setup scripts
-- `update`: updates the repository (i.e. git pull)
-- `code`: opens the repository in VSCode
-- `lg`: opens lazygit at the repository
-- `config`: WIP - configures other CLI tools that need external communication
-(e.g. gcloud authentication)
-
-### Project structure
-
-```text
-dotfiles/                     <-- this repository
-├── .hostnames/               <-- host-specific stow files
-│   └── any-host-name/        <-- hostname as in the command hostname -s
-│       └── non-dot-folder/   <-- stow group folder
-│           └── ...           <-- files/folders that'll be stowed as ~/...
-├── .polyfills/               <-- custom executable files to be installed on ~/.local/bin
-│   └── ...                   <-- files that'll be linked as ~/.local/bin/...
-├── .setup.d/                 <-- setup scripts ran by make setup or ./setup.sh
-│   ├── packages/             <-- package lists
-│   │   └── system.txt        <-- system packages (e.g. brew package names)
-│   ├── darwin/               <-- MacOS-specific package lists
-│   │   └── system.txt        <-- system packages (e.g. brew package names)
-│   ├── linux/                <-- Linux-specific package lists
-│   │   └── system.txt        <-- system packages (e.g. brew package names)
-│   └── 10-system.sh          <-- installs system.txt packages
-├── .systems/                 <-- system-specific stow files
-│   ├── linux/                <-- linux-specific stow files
-│   │   └── non-dot-folder/   <-- stow group folder
-│   │       └── ...           <-- files/folders that'll be stowed as ~/...
-│   └── darwin/               <-- MacOS-specific stow files
-│       └── non-dot-folder/   <-- stow group folder
-│           └── ...           <-- files/folders that'll be stowed as ~/...
-└── non-dot-folder/           <-- stow group folder
-    └── ...                   <-- files/folders that'll be stowed as ~/...
-```
-
-Stow group folders are used to group and organize files as seem fit. These names
-are visible during install, e.g.:
-
-```text
-stowing 1Password...
-stowing bash...
-stowing editorConfig...
-stowing environment...
-stowing fish...
-stowing fonts...
-stowing git...
-stowing kitty...
-stowing pet...
-stowing powerline...
-stowing tmux...
-stowing vim...
-stowing vscode...
-stowing darwin/LaunchAgents...
-stowing darwin/MTMR...
-stowing darwin/finicky...
-stowing darwin/skhd...
-stowing M1Cabuk/kitty...
-```
-
-Stows are done from the most to the least broad context, that is, cross-platform
-dotfiles go first, then system-specific and finally host-specific.
-
-### Current dotfiles
-
-#### Cross-platform
-
-| Category             | Tool               |
-|----------------------|--------------------|
-| Shell                | fish               |
-| Terminal             | Kitty              |
-| Terminal multiplexer | tmux               |
-| Terminal editor      | vim                |
-| Visual editor        | Visual Studio Code |
-| Snippet manager      | pet                |
-| Password manager     | 1Password          |
-
-#### Linux
-
-| Category        | Tool                   |
-|-----------------|------------------------|
-| Graphics server | Xorg                   |
-| Window Manager  | i3 (KDE to be removed) |
-| Sound server    | PulseAudio             |
-
-#### MacOS
-
-| Category           | Tool                     |
-|--------------------|--------------------------|
-| Window Manager     | i3                       |
-| URL handler        | Finicky + Browserosaurus |
-| Touchbar           | MTMR                     |
-| Keyboard shortcuts | skhd                     |
-
-### Polyfills
-
-- `arp` - runs `ip n`
-- `copy` - uses system-specific tools to copy piped data to clipboard
-  - MacOS: `pbcopy`
-  - Linux: `xsel`/`xclip`/`wl-copy`
-  - Windows: `powershell.exe`
+**Answer:** I need a POSIX shell available on my hosts to bootstrap everything.
+I use it to install `brew` and run it at least once. It installs most of my
+tools, including other shells. This also means that any scripts that run before
+or during the apply step should be POSIX-only.

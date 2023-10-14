@@ -1,0 +1,10 @@
+#!/bin/sh
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+
+# .config/environment.rm.conf hash: #{{ include (joinPath .chezmoi.homeDir ".config" "environment.rm.conf") | sha256sum }}
+
+printf "Removing environment variables...\n"
+while IFS= read -r VARIABLE; do
+  echo "Removing ${VARIABLE}..."
+  unset "${VARIABLE}"
+done < "${HOME}/.config/environment.rm.conf"

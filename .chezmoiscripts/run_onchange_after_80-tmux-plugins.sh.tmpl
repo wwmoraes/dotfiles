@@ -1,0 +1,19 @@
+#!/bin/sh
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+
+# .tmux.conf hash: #{{ include (joinPath .chezmoi.homeDir ".tmux.plugins.conf") | sha256sum }}
+
+set -eum
+trap 'kill 0' INT HUP TERM
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
+printf "\e[1;34mTmux extensions\e[0m\n"
+
+printf "Installing tpm plugins...\n"
+tmux source-file "${HOME}/.tmux.conf"
+"${HOME}/.tmux/plugins/tpm/bin/install_plugins"

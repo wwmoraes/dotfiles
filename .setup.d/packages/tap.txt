@@ -1,8 +1,0 @@
--goreleaser/tap
--shtirlic/yubikeylockd
-anchore/grype
-anchore/syft
-instrumenta/instrumenta
-lemoony/tap
-wwmoraes/tap
-yoheimuta/protolint

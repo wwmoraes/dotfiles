@@ -1,0 +1,87 @@
+#!/bin/sh
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+
+#{{- $sources := list }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "node.txt") }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" .chezmoi.os "node.txt") }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" .chezmoi.hostname "node.txt") }}
+#{{- if .tags.personal }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "personal" "node.txt") }}
+#{{- else if .tags.work }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "work" "node.txt") }}
+#{{- end }}
+
+#{{- range $_, $source := $sources }}
+#{{- if stat $source }}
+# #{{ $source }} hash: #{{ include $source | sha256sum }}
+#{{- end }}
+#{{- end }}
+
+set -eum
+trap 'kill 0' INT HUP TERM
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+: "${DOTFILES_PATH:?must be set}"
+: "${PACKAGES_PATH:?must be set}"
+: "${TAGSRC:=${HOME}/.tagsrc}"
+
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
+# import common functions
+# shellcheck source=../.setup.d/functions.sh
+. "${DOTFILES_PATH}/.setup.d/functions.sh"
+
+printf "\e[1;33mNode\e[0m\n"
+
+printf "Checking \e[91mnode\e[0m...\n"
+if ! _=$(command -V node >/dev/null 2>&1); then
+  echo "node not found"
+  exit 1
+fi
+
+printf "Checking \e[91mnpm\e[0m...\n"
+if ! _=$(command -V npm >/dev/null 2>&1); then
+  echo "npm not found"
+  exit 1
+fi
+
+printf "Checking \e[91myarn\e[0m...\n"
+if ! _=$(command -V yarn >/dev/null 2>&1); then
+  npm i -g yarn
+fi
+
+printf "\e[1;33mYarn global packages\e[0m\n"
+
+enterTmp
+
+INSTALLED="${TMP}/installed"
+jq -r '.dependencies | keys[]' "$(yarn global dir)/package.json" > "${INSTALLED}"
+
+getPackages "node.txt"
+: "${PACKAGES:?run getPackages to generate}"
+
+### Install packages
+while read -r PACKAGE; do
+  case "${PACKAGE%%:*}" in
+    -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
+    *) REMOVE=0;;
+  esac
+
+
+  case "${REMOVE}" in
+    1)
+      printf "[\e[92muninstall\e[m] Checking \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+      grep -q "${PACKAGE%%|*}" "${INSTALLED}" || continue
+      printf "[\e[92muninstall\e[m] Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+      yarn global remove "${PACKAGE%%:*}" > /dev/null
+    ;;
+    0)
+      printf "[\e[92m install \e[m] Checking \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+      grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
+      printf "[\e[92m install \e[m] Installing \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
+      yarn global add "${PACKAGE%%:*}" > /dev/null
+    ;;
+  esac
+done < "${PACKAGES}"

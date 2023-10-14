@@ -1,4 +1,0 @@
-[[snippets]]
-  description = "List IAM policy for an account"
-  command = "gcloud projects get-iam-policy <GCP Project> | yq -y '[.bindings[] | select(.members[] | contains(\"<account>\")) | .role]'"
-  output = ""

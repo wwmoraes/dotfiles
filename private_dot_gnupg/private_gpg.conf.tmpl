@@ -1,0 +1,44 @@
+# default key to sign with
+default-key {{ .me.pgpFingerprint }}
+
+# try to use the GnuPG-Agent before asking for a passphrase
+use-agent
+
+# disable copyright notice
+no-greeting
+# disable inclusion of the version string in ASCII armored output
+no-emit-version
+# disable comment string in clear text signatures and ASCII armored messages
+no-comments
+# display long key IDs
+keyid-format 0xlong
+# list all keys (or the specified ones) along with their fingerprints
+with-fingerprint
+# create ASCII armored output
+armor
+# display the calculated validity of user IDs during key listings
+list-options show-uid-validity
+verify-options show-uid-validity
+
+# server that --recv-keys, --send-keys, and --search-keys will use
+#keyserver
+
+# when using --refresh-keys, if the key in question has a preferred keyserver
+# URL, then disable use of that preferred keyserver to refresh the key from
+keyserver-options no-honor-keyserver-url include-revoked
+
+
+# automatic key location
+auto-key-locate cert pka keyserver
+
+# personal cipher preferences - when multiple ciphers are supported by
+# all recipients, gpg chooses the strongest one
+personal-cipher-preferences AES256 TWOFISH AES192 AES
+# personal digest preferences - when multiple digests are supported by
+# all recipients, gpg chooses the strongest one
+personal-digest-preferences SHA512 SHA384 SHA256 SHA224
+# message digest algorithm used when signing a key
+cert-digest-algo SHA512
+# preference list is used for new keys
+default-preference-list SHA512 SHA384 SHA256 SHA224 AES256 AES192 AES CAST5 ZLIB BZIP2 ZIP Uncompressed
+auto-key-retrieve

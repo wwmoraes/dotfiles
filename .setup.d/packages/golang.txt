@@ -16,5 +16,4 @@ github.com/ivaaaan/smug@latest
 github.com/jesseduffield/lazygit@latest
 github.com/justjanne/powerline-go@latest
 github.com/mikefarah/yq/v2@latest:yq
-github.com/wagoodman/dive@latest
 sigs.k8s.io/kind@latest

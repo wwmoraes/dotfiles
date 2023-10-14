@@ -1,7 +1,7 @@
 cargo
 rls
 rust-analysis
-rust-src:rust-src
+#rust-src:rust-src
 rust-std
 rustc
 rustfmt

@@ -1,0 +1,25 @@
+#!/bin/sh
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+
+#{{- range $_, $filename := (glob (joinPath .chezmoi.sourceDir ".global.d" "Library" "LaunchDaemons" "*.plist")) }}
+# #{{ base $filename }} hash: #{{ include $filename | sha256sum }}
+#{{- end }}
+
+set -eum
+trap 'kill 0' INT HUP TERM
+
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
+# run only on darwin
+test "${CHEZMOI_OS:-}" = "darwin" || exit
+
+for filename in "${CHEZMOI_SOURCE_DIR}/.global.d/Library/LaunchDaemons/"*.plist; do
+  NAME=$(basename -s .plist "${filename}")
+  TARGET=/Library/LaunchDaemons/$(basename "${filename}")
+
+  echo "installing launch daemon ${NAME}"
+  sudo install -o root -g wheel -m 0644 "${filename}" "${TARGET}"
+done
+
+echo "please reboot for them to take effect"

@@ -1,0 +1,17 @@
+{
+  "aliases": {
+    "builder": "buildx"
+  },
+  "auths": {
+    "https://index.docker.io/v1/": {}
+  },
+  "credsStore": "desktop",
+  "currentContext": "default",
+  "experimental": "disabled",
+  "plugins": {
+    "-x-cli-hints": {
+      "enabled": "true"
+    }
+  },
+  "stackOrchestrator": "swarm"
+}

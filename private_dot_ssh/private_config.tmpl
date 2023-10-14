@@ -1,0 +1,34 @@
+### Global include
+Include config.d/globals/*
+
+IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+
+{{- $homeMAC := onepasswordRead "op://Personal/Wireless Router/MAC/wireless" }}
+
+Match exec "arp -an | grep -qF {{ $homeMAC }} 2> /dev/null"
+  Include config.d/locations/home
+
+{{- if .tags.personal }}
+
+IdentityFile ~/.ssh/personal.pub
+IdentitiesOnly yes
+
+Host github.com bitbucket.org
+  IdentityFile ~/.ssh/personal.pub
+  IdentitiesOnly yes
+
+{{- else if .tags.work }}
+
+IdentityFile ~/.ssh/work.pub
+IdentitiesOnly yes
+
+Host github.com
+  # ProxyCommand nc -X CONNECT -x localhost:8888 %h %p
+  IdentityFile ~/.ssh/work.pub
+  IdentitiesOnly yes
+
+Host *.abnamro.com
+  IdentityFile ~/.ssh/work.pub
+  IdentitiesOnly yes
+
+{{- end }}

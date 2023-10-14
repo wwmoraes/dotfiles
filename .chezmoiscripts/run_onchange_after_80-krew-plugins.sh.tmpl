@@ -1,0 +1,45 @@
+#!/bin/sh
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+
+#{{- $sources := list }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "krew.txt") }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" .chezmoi.os "krew.txt") }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" .chezmoi.hostname "krew.txt") }}
+#{{- if .tags.personal }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "personal" "krew.txt") }}
+#{{- else if .tags.work }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "work" "krew.txt") }}
+#{{- end }}
+
+set -eum
+trap 'kill 0' INT HUP TERM
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+: "${PACKAGES_PATH:?must be set}"
+
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
+# import common functions
+# shellcheck source=../.setup.d/functions.sh
+. "${DOTFILES_PATH}/.setup.d/functions.sh"
+
+enterTmp
+
+printf "Listing installed plugins...\n"
+INSTALLED="${TMP}/installed"
+kubectl krew list | cut -d= -f1 > "${INSTALLED}"
+
+getPackages "krew.txt"
+: "${PACKAGES:?run getPackages to generate}"
+
+printf "\e[1;33mKrew plugins\e[0m\n"
+
+while read -r PACKAGE; do
+  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE}"
+  grep -q "${PACKAGE}" "${INSTALLED}" && continue
+
+  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE}"
+  kubectl krew install "${PACKAGE}"
+done < "${PACKAGES}"

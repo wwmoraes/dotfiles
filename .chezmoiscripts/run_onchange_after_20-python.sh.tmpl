@@ -1,0 +1,75 @@
+#!/bin/sh
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+
+#{{- $sources := list }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "pip.txt") }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" .chezmoi.os "pip.txt") }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" .chezmoi.hostname "pip.txt") }}
+#{{- if .tags.personal }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "personal" "pip.txt") }}
+#{{- else if .tags.work }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "work" "pip.txt") }}
+#{{- end }}
+
+#{{- range $_, $source := $sources }}
+#{{- if stat $source }}
+# #{{ $source }} hash: #{{ include $source | sha256sum }}
+#{{- end }}
+#{{- end }}
+
+set -eum
+trap 'kill 0' INT HUP TERM
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+: "${PACKAGES_PATH:?must be set}"
+
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
+# import common functions
+# shellcheck source=../.setup.d/functions.sh
+. "${DOTFILES_PATH}/.setup.d/functions.sh"
+
+printf "\e[1;33mPython3 packages\e[0m\n"
+### Check package tool
+printf "Checking \e[96mpip\e[0m manager...\n"
+if ! _=$(python3 -m pip -V > /dev/null 2>&1); then
+  # curl -fsSLO https://bootstrap.pypa.io/get-pip.py
+  # python3 get-pip.py
+  python3 -m ensurepip
+fi
+
+python3 -m pip install --user --upgrade pip
+
+enterTmp
+
+printf "Listing installed packages...\n"
+INSTALLED="${TMP}/installed"
+python3 -m pip list --user --format freeze | cut -d= -f1 > "${INSTALLED}"
+
+getPackages "pip.txt"
+: "${PACKAGES:?run getPackages to generate}"
+
+### Install packages
+while read -r PACKAGE; do
+  case "${PACKAGE%%:*}" in
+    -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
+    *) REMOVE=0;;
+  esac
+
+  case "${REMOVE}" in
+    1)
+      printf "[\e[91muninstall\e[m] Checking \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
+      grep -q "${PACKAGE%%|*}" "${INSTALLED}" || continue
+      printf "[\e[91muninstall\e[m] Uninstalling \e[95m%s\e[0m\n" "${PACKAGE%%|*}"
+      python3 -m pip uninstall -y -qqq "${PACKAGE##*|}"
+    ;;
+    0)
+      printf "[\e[92m install \e[m] Checking \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
+      grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
+      printf "[\e[92m install \e[m] Installing \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
+      python3 -m pip install --user -qqq "${PACKAGE##*|}"
+    ;;
+  esac
+done < "${PACKAGES}"

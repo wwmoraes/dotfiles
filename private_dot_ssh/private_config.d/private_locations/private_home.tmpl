@@ -1,0 +1,23 @@
+{{- $FQDN := onepasswordRead "op://Personal/Wireless Router/FQDN" -}}
+{{- $stationName := onepasswordRead "op://Personal/Wireless Router/base station name" -}}
+
+CanonicalizeHostname yes
+CanonicalDomains {{ $FQDN }}
+CanonicalizeMaxDots 0
+
+Host {{ $stationName }}
+  HostName {{ onepasswordRead "op://Personal/Wireless Router/server" }}
+  User root
+  IdentityFile ~/.ssh/{{ $stationName }}.pub
+  IdentitiesOnly yes
+  PubkeyAcceptedKeyTypes +ssh-rsa
+  HostKeyAlgorithms=+ssh-rsa
+
+Host *.{{ $FQDN }}
+  Ciphers aes128-ctr,aes192-ctr,aes256-ctr
+  HostKeyAlgorithms ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-rsa,ssh-dss,ssh-ed25519
+  KexAlgorithms ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256
+  MACs hmac-sha2-256,hmac-sha2-512,hmac-sha1
+  User william
+  IdentityFile ~/.ssh/cabuk.pub
+  IdentitiesOnly yes

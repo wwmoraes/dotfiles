@@ -6,10 +6,6 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.applescript]
-indent_style = tab
-indent_size = 2
-
 [*.html]
 insert_final_newline = false
 
@@ -19,10 +15,13 @@ insert_final_newline = false
 [*.md]
 trim_trailing_whitespace = false
 
+[*.xml]
+insert_final_newline = false
+
 [.vscode/settings.json]
 insert_final_newline = false
 
-[vscode/.config/Code/User/settings.json]
+[.shadow.d/.config/Code/User/settings.json]
 insert_final_newline = false
 
 [Makefile]

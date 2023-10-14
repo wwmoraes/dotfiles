@@ -1,3 +1,0 @@
-stepsize.stepsize
-stepsize.tech-debt-tracker
-tinygo.vscode-tinygo

@@ -1,0 +1,43 @@
+# source files to ignore during apply
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+LICENSE
+README.md
+SECURITY.md
+TODO.md
+
+# target files to hide from the unmanaged command
+**/.DS_Store
+**/*.log
+
+.config/fish/fish_variables
+.gnupg/.#lk0*
+.ssh/*.old
+.ssh/control/*
+.ssh/known_hosts
+.stack/*
+!.stack/config.yaml
+.tldrc
+.tmux
+.Trash
+.vim/.netrwhist
+.vim/backups
+.vim/plugged
+.vim/swaps
+.vim/undo
+.vim/viminfo
+.vscode
+.yarnrc
+.wrangler
+
+[A-Za-z]*
+
+!Library
+Library/*
+!Library/Application Support
+Library/Application Support/*
+!Library/Application Support/Code
+!Library/Application Support/lazygit
+!Library/Application Support/xbar
+!Library/LaunchAgents
+!Library/Scripts

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/dockerd.json",
+  "builder": {
+    "features": {
+      "buildkit": true
+    },
+    "gc": {
+      "defaultKeepStorage": "20GB",
+      "enabled": true
+    }
+  },
+  "debug": false,
+  "experimental": false
+}

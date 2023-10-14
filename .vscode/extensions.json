@@ -1,14 +1,16 @@
 {
   "recommendations": [
-    "bungcip.better-toml",
     "dcasella.i3",
     "dunstontc.viml",
     "hangxingliu.vscode-nginx-conf-hint",
+    "jinliming2.vscode-go-template",
     "malmaud.tmux",
     "mikestead.dotenv",
+    "oren-trutner.grc-syntax-highlighting",
     "sidneys1.gitconfig",
     "skyapps.fish-vscode",
     "sumneko.lua",
+    "tamasfe.even-better-toml",
     "virgilsisoe.hammerspoon-snippets"
   ],
   "unwantedRecommendations": [

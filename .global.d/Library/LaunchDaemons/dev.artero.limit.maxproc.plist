@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>limit.maxproc</string>
+    <string>dev.artero.limit.maxproc</string>
     <key>ProgramArguments</key>
     <array>
       <string>launchctl</string>

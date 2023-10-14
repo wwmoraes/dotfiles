@@ -1,4 +1,5 @@
-github.com/cloudflare/cfssl/cmd/...@latest
+github.com/cloudflare/cfssl/cmd/cfssl@latest
+github.com/cloudflare/cfssl/cmd/cfssljson@latest
 github.com/cosmtrek/air@latest
 github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
 github.com/google/wire/cmd/wire@latest

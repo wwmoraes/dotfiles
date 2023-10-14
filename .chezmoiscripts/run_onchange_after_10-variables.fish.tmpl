@@ -1,0 +1,47 @@
+#!/bin/fish
+# chezmoi:template:left-delimiter="# {{" right-delimiter=}}
+# {{- range $_, $filename := (glob (joinPath .chezmoi.homeDir ".config" "environment.d" "*.conf")) }}
+# # {{ base $filename }} hash: # {{ include $filename | sha256sum }}
+# {{- end }}
+# {{- range $_, $filename := (glob (joinPath .chezmoi.homeDir ".config" "paths.d" "*.conf")) }}
+# # {{ base $filename }} hash: # {{ include $filename | sha256sum }}
+# {{- end }}
+# chezmoi:template:left-delimiter= right-delimiter=
+
+printf "\e[1;34mVariable exports\e[0m\n"
+
+echo "loading environment variables..."
+dotenv
+
+echo "collecting PATH..."
+set -l paths
+for pathFile in ~/.config/paths.d/*.conf
+  cat "$pathFile" | grep -v '^#' | grep -v '^$' | while read -l line
+    set -a paths "$line"
+  end
+end
+
+printf "Setting fish PATH...\n"
+set -egl PATH
+set -xU PATH $paths
+set -xg PATH $paths
+
+echo "Removing fish user paths..."
+set -elgU fish_user_paths
+
+# run only on darwin
+string match -q "$CHEZMOI_OS" "darwin"; or exit
+
+set -l posixPath (string join ":" $PATH | string collect)
+
+echo "configuring root launchd user path..."
+# sudo launchctl config system path "${PATH}"
+sudo launchctl config user path "$posixPath"
+
+echo "configuring launchd user path..."
+# cspell:disable-next-line
+launchctl setenv PATH "$posixPath"
+
+echo "killing Dock to reload paths..."
+# cspell:disable-next-line
+killall Dock

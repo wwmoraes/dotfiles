@@ -1,0 +1,8 @@
+{{- /* cspell:disable */ -}}
+# variables used by fish functions
+
+GIT_PROJECT_PATHS='~/dev,~/workspace'
+
+DOCKER_HUB_USER={{ onepasswordRead "op://Development/Docker/username" }}
+DOCKER_HUB_TOKEN={{ onepasswordRead "op://Development/Docker/token" }}
+ANSIBLE_GALAXY_TOKEN={{ onepasswordRead "op://Personal/Ansible Galaxy/credential" }}

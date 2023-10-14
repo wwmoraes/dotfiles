@@ -1,3 +1,0 @@
-azure/functions
--tilt-dev/tap
-hashicorp/tap

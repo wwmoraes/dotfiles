@@ -1,0 +1,44 @@
+#!/bin/sh
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+
+#{{- $sources := list }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "helm.txt") }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" .chezmoi.os "helm.txt") }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" .chezmoi.hostname "helm.txt") }}
+#{{- if .tags.personal }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "personal" "helm.txt") }}
+#{{- else if .tags.work }}
+#{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "work" "helm.txt") }}
+#{{- end }}
+
+set -eum
+trap 'kill 0' INT HUP TERM
+
+: "${ARCH:?unknown architecture}"
+: "${SYSTEM:?unknown system}"
+: "${PACKAGES_PATH:?must be set}"
+
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
+# import common functions
+# shellcheck source=../.setup.d/functions.sh
+. "${DOTFILES_PATH}/.setup.d/functions.sh"
+
+printf "\e[1;34mhelm plugins\e[0m\n"
+
+enterTmp
+
+INSTALLED="${TMP}/installed"
+helm plugin list 2>/dev/null | awk 'NR != 1 {print $1}' > "${INSTALLED}"
+
+getPackages "helm.txt"
+: "${PACKAGES:?run getPackages to generate}"
+
+while read -r PACKAGE; do
+  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
+  grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
+
+  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
+  helm plugin install "${PACKAGE##*|}"
+done < "${PACKAGES}"

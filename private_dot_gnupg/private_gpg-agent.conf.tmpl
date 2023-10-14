@@ -1,0 +1,8 @@
+default-cache-ttl 600
+max-cache-ttl 7200
+
+# allows gpg-preset-passphrase to seed gpg-agent's passphrase internal cache
+allow-preset-passphrase
+
+pinentry-program {{ lookPath "pinentry-tty" }}
+enable-ssh-support
