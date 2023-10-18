@@ -42,13 +42,14 @@ spoon.SpoonInstall:andUse("ReloadConfiguration", {
 
 ---### development spoons configuration
 
-hs.spoons.use("Env", {
+spoon.SpoonInstall:andUse("Env", {
   start = true,
+  repo = "wwmoraes",
 })
 ---@type Env
 spoon.Env = spoon.Env
 
-hs.spoons.use("Contexts", {
+spoon.SpoonInstall:andUse("Contexts", {
   ---@type ContextsConfig
   config = {
     contexts = {
@@ -96,11 +97,12 @@ hs.spoons.use("Contexts", {
   },
   hotkeys = "default",
   start = true,
+  repo = "wwmoraes",
 })
 ---@type Contexts
 spoon.Contexts = spoon.Contexts
 
-hs.spoons.use("Meetings", {
+spoon.SpoonInstall:andUse("Meetings", {
   config = {
     calendarURL = os.getenv("MEETINGS_CALENDAR_URL") or "",
     dailyScheduleTime = "09:00",
@@ -108,11 +110,12 @@ hs.spoons.use("Meetings", {
   },
   hotkeys = "default",
   start = true,
+  repo = "wwmoraes",
 })
 ---@type Meetings
 spoon.Meetings = spoon.Meetings
 
-hs.spoons.use("Hazel", {
+spoon.SpoonInstall:andUse("Hazel", {
   ---@type HazelConfig
   config = {
     ruleSets = {
@@ -167,6 +170,7 @@ hs.spoons.use("Hazel", {
     },
   },
   start = true,
+  repo = "wwmoraes",
 })
 ---@type Hazel
 spoon.Hazel = spoon.Hazel
