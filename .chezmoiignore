@@ -11,15 +11,28 @@ TODO.md
 # target files to hide from the unmanaged command
 **/.DS_Store
 **/*.log
+**/*~
 
 .config/fish/fish_variables
+.docker/*
+!.docker/config.json
+!.docker/daemon.json
+.gnupg/.?lk0x*
+.gnupg/S.*
+.minikube
+.moby
+.npm
+.pulumi
+.redhat
+.rustup
 .ssh/*.old
 .ssh/control/*
 .ssh/known_hosts
 .stack/*
 !.stack/config.yaml
+.secrets
+.terraform.d
 .tldrc
-.tmux
 .Trash
 .vim/.netrwhist
 .vim/backups
@@ -28,8 +41,10 @@ TODO.md
 .vim/undo
 .vim/viminfo
 .vscode
-.yarnrc
+.vysor
+.wget-hsts
 .wrangler
+.yarnrc
 
 [A-Za-z]*
 
@@ -41,4 +56,8 @@ Library/Application Support/*
 !Library/Application Support/lazygit
 !Library/Application Support/xbar
 !Library/LaunchAgents
+Library/LaunchAgents/*
+!Library/LaunchAgents/dev.artero.*.plist
 !Library/Scripts
+
+*_history
