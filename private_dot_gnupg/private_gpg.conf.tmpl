@@ -2,7 +2,9 @@
 default-key {{ .me.pgpFingerprint }}
 
 # try to use the GnuPG-Agent before asking for a passphrase
-use-agent
+# use-agent
+
+pinentry-mode ask
 
 # disable copyright notice
 no-greeting

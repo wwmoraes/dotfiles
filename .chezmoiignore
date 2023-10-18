@@ -11,7 +11,6 @@ TODO.md
 **/*.log
 
 .config/fish/fish_variables
-.gnupg/.#lk0*
 .ssh/*.old
 .ssh/control/*
 .ssh/known_hosts
