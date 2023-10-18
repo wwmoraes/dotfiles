@@ -22,7 +22,9 @@ end
 ---### third-party spoons configuration
 
 hs.loadSpoon("SpoonInstall")
+
 ---@type SpoonInstall
+---@diagnostic disable-next-line: assign-type-mismatch
 spoon.SpoonInstall = spoon.SpoonInstall
 spoon.SpoonInstall.repos.wwmoraes = {
   url = "https://github.com/wwmoraes/spoons",
@@ -47,6 +49,7 @@ spoon.SpoonInstall:andUse("Env", {
   repo = "wwmoraes",
 })
 ---@type Env
+---@diagnostic disable-next-line: assign-type-mismatch
 spoon.Env = spoon.Env
 
 spoon.SpoonInstall:andUse("Contexts", {
@@ -100,6 +103,7 @@ spoon.SpoonInstall:andUse("Contexts", {
   repo = "wwmoraes",
 })
 ---@type Contexts
+---@diagnostic disable-next-line: assign-type-mismatch
 spoon.Contexts = spoon.Contexts
 
 spoon.SpoonInstall:andUse("Meetings", {
@@ -113,6 +117,7 @@ spoon.SpoonInstall:andUse("Meetings", {
   repo = "wwmoraes",
 })
 ---@type Meetings
+---@diagnostic disable-next-line: assign-type-mismatch
 spoon.Meetings = spoon.Meetings
 
 spoon.SpoonInstall:andUse("Hazel", {
@@ -173,6 +178,7 @@ spoon.SpoonInstall:andUse("Hazel", {
   repo = "wwmoraes",
 })
 ---@type Hazel
+---@diagnostic disable-next-line: assign-type-mismatch
 spoon.Hazel = spoon.Hazel
 
 require("modules.finicky")
