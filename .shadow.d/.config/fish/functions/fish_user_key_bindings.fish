@@ -1,6 +1,8 @@
 function fish_user_key_bindings
-  # Ctrl-S: pet-select
-  bind \cs 'pet-select'
-  # Ctrl-R: reload-config
+  # Alt-S: save previous command as a snippet
+  bind \es 'pet new $history[1]; commandline -f repaint'
+  # Ctrl-S: select a snippet
+  bind \cs 'commandline (pet search --color --query (commandline)); commandline -f repaint'
+  # Ctrl-R: reload config
   bind \cr 'reload-config'
 end

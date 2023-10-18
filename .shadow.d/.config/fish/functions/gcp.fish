@@ -1,4 +1,7 @@
-function gcp -a cmd -d "gloud CLI wrapper with extra commands"
+# do nothing if gcloud isn't installed
+command -q gcloud; or exit
+
+function gcp -w gcloud -a cmd -d "gloud CLI wrapper with extra commands"
   command -q gcloud; or echo "gcloud is not installed" && return
   command -q awk; or echo "awk is not installed" && return
   command -q sed; or echo "sed is not installed" && return
@@ -26,9 +29,6 @@ function gcp -a cmd -d "gloud CLI wrapper with extra commands"
   end
 end
 
-complete -ec gcp
-complete -c gcp -w gcloud
-
 # account subcommand
 function _gcp_account
   set active (gcloud config get-value account | tail -n 1)
@@ -45,8 +45,6 @@ complete -xc gcp -n '__fish_seen_subcommand_from account'
 # reauth subcommand
 function _gcp_reauth
   goyq d -i ~/.kube/config 'users.*.user.auth-provider.config'
-  goyq d -i ~/.kube/config-home 'users.*.user.auth-provider.config'
-  goyq d -i ~/.kube/config-work 'users.*.user.auth-provider.config'
 
   echo "authenticating user..."
   gcloud -q --no-user-output-enabled auth login --brief --update-adc 2> /dev/null

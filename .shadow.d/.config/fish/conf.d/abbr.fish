@@ -1,10 +1,7 @@
 # only apply on interactive shells
 status --is-interactive; or exit
 
-### removes old abbreviations, but takes a bit of time
-# abbr -l | xargs -P 8 -I % fish -c 'abbr -e %; true'
-
-abbr -a wttr "curl v2.wttr.in"
+abbr -a lg lazygit
 
 # todo.sh
 if command -q todo.sh
@@ -12,16 +9,6 @@ if command -q todo.sh
   abbr -a tp "todo.sh p"
   abbr -a tpa "todo.sh p a"
   abbr -a tpls "todo.sh p ls"
-end
-
-# project fish command abbreviations
-if command -q projects
-  abbr -a pcd "projects cd"
-  abbr -a pls "projects ls"
-  abbr -a plg "projects lg"
-  abbr -a pcode "projects code"
-  abbr -a pnew "projects new"
-  abbr -a pupdate "projects update"
 end
 
 # git abbreviations
@@ -44,16 +31,6 @@ if command -q terraform
   abbr -a tfp "terraform plan -out=plan.tfplan"
   abbr -a tfa "terraform apply plan.tfplan"
   abbr -a tfip "rm -rf .terraform && terraform init && terraform plan -out=plan.tfplan"
-end
-
-# lab abbreviations
-if command -q lab
-  abbr -a glcv "gl ci view"
-  abbr -a glcc "gl ci create"
-  abbr -a glmc "gl mr create -d -s"
-  abbr -a glma "gl mr approve"
-  abbr -a glmm "gl mr merge"
-  abbr -a glml "gl mr list"
 end
 
 # kubectl abbreviations
@@ -315,20 +292,4 @@ if command -q kubectl
 
   # flux
   abbr -a kfxs "kubectl get fluxconfigs -A -o go-template --template '{{ range \$config := .items }}{{ with \$config }}{{ .metadata.name }}: {{ .status.lastSyncedCommit }}{{ \"\r\n\" }}{{ end }}{{ end }}' | column -t"
-
-  # work-only abbreviations
-  if tags contains work
-    abbr -a kdip "kubectl get secrets | awk 'NR==1{print;next};\$2 ~ /kubernetes.io\/dockerconfigjson/ {print}' | fzf --ansi --header-lines=1 -1 | awk '{print \$1}' | xargs -I{} -o kubectl get secret {} -o yaml | yq -r '.data[\".dockerconfigjson\"]' | base64 -D | jq -r '.auths | keys[] as \$key | .[\$key].auth' | base64 -D"
-  end
-end
-
-# velero abbreviations
-if command -q velero
-  abbr -a v "velero"
-  abbr -a vbg "velero backup get"
-  abbr -a vsg "velero schedule get"
-  abbr -a vbdf "velero backup get | fzf --header-lines=1 | ifne awk '{print \$1}' | xargs -I{} velero backup describe {}"
-  abbr -a vsdf "velero schedule get | fzf --header-lines=1 | ifne awk '{print \$1}' | xargs -I{} velero schedule describe {}"
-  abbr -a vblf "velero backup get | fzf --header-lines=1 | ifne awk '{print \$1}' | xargs -I{} velero backup logs {}"
-  abbr -a vblef "velero backup get | fzf --header-lines=1 | ifne awk '{print \$1}' | xargs -I{} velero backup logs {} | grep -vE 'level=(info|warning)'"
 end

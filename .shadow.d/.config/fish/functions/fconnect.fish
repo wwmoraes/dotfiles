@@ -3,7 +3,7 @@ function fconnect -d "fuzzy connect to a host"
     -exec awk '/^Host (.*\*.*|github.com)/ {next};/^Host/ {print $2}' '{}' \; | \
     sort | \
     uniq | \
-    fzf --print-query --header="HOST" --prompt="Which host you want to connect to? " | tail -n1); or return 2
+    fzf --print-query --header="HOST" --prompt="Which host you want to connect to? " | tail -n1); or return
 
     test -n "$host"; or return 2
 
@@ -29,7 +29,5 @@ function fconnect -d "fuzzy connect to a host"
     end
 
     echo connecting to $host...
-    set LC_CTYPE en_US.UTF-8
-    echo $tool $host -- $extraArgs
     $tool $host -- $extraArgs
 end

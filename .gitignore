@@ -12,9 +12,6 @@
 .shadow.d/.config/fish/functions/bass.fish
 # evanlucas/fish-kubectl-completions
 .shadow.d/.config/fish/completions/kubectl.fish
-# otms61/fish-pet
-.shadow.d/.config/fish/functions/prev.fish
-.shadow.d/.config/fish/functions/pet-select.fish
 # PatrickF1/fzf.fish
 .shadow.d/.config/fish/conf.d/fzf.fish
 .shadow.d/.config/fish/functions/__fzf_*.fish
