@@ -1,0 +1,4 @@
+#!/bin/sh
+
+chezmoi apply ~/.Brewfile
+brew bundle cleanup --global --no-lock

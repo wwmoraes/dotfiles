@@ -588,5 +588,11 @@
     "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml"
   },
   "workbench.editor.empty.hint": "hidden",
-  "workbench.iconTheme": "vscode-icons"
+  "workbench.iconTheme": "vscode-icons",
+  "region-viewer.markers-overrides": {
+    "ruby": {
+      "start": "^\\s*#?region\\b(?<name>.*)",
+      "end": "^\\s*#?endregion\\b"
+    },
+  }
 }

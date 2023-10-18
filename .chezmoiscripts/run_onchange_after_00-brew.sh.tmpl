@@ -1,6 +1,5 @@
 #!/bin/sh
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
-
 # .Brewfile hash: #{{ include (joinPath .chezmoi.homeDir "/.Brewfile") | sha256sum }}
 
 HOMEBREW_PREFIX="#{{ .brewPrefix }}"
@@ -28,16 +27,17 @@ else
 fi
 
 # "load"
+# cspell:disable-next-line
 eval "$(brew shellenv)"
 
 echo "brew: update"
 brew update --force --quiet
 
 echo "brew: bundle"
-brew bundle --global
+brew bundle --global --no-lock
 
 echo "brew: cleanup"
-brew bundle cleanup --global --force
+brew bundle cleanup --global --force --no-lock
 
 # TODO add the brew prefix to the PATH and drop this
 if [ ! -f /usr/local/bin/fish ]; then

@@ -2,14 +2,13 @@
 # .Brewfile hash: {{ include (joinPath .chezmoi.homeDir "/.Brewfile") | sha256sum }}
 
 if string match -q (uname -m | string collect -a) "arm64"
-  # cspell:disable-next-line
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-  alias brew="arch -arm64 /opt/homebrew/bin/brew"
+  alias brew="arch -arm64 {{ .brewPrefix }}/bin/brew"
 else
-  # cspell:disable-next-line
-  eval "$(/usr/local/Homebrew/bin/brew shellenv)"
-  alias brew="/usr/local/Homebrew/bin/brew"
+  alias brew="{{ .brewPrefix }}/bin/brew"
 end
+
+# cspell:disable-next-line
+eval "$(brew shellenv)"
 
 printf "\e[1;33mApplication tagging\e[0m\n"
 
@@ -33,21 +32,17 @@ brew info --cask --json=v2 (brew list --cask -1) | jq -r '.casks[].artifacts[].a
     sudo tag -s 'source:Brew' "/Applications/$artifact"
     continue
   end
-
-  echo "~404~ $artifact"
 end
 
 echo "tagging Store bundles..."
 mas list | sed -E -e 's/[ ]+/ /g' -e 's/^[0-9]+ /\/Applications\//g' -e 's/ \([0-9.]+\)$/.app/g' | while read -l entry
-  sudo tag -s 'source:Store' "$entry"
-  or echo "failed to tag Store bundle $entry"
+  test -d "$entry"; and sudo tag -s 'source:Store' "$entry"
 end
 
 echo "tagging package bundles..."
 brew info --cask --json=v2 (brew list --cask -1) | jq -r '[.casks[].artifacts[]?.uninstall[]?.pkgutil] | flatten | .[]' | sort -u | grep -v null | while read -l package
   # cspell:disable-next-line
   pkgutil --regexp --only-dirs --files $package | grep -iE '(.app|.prefpane)$' | while read -l entry
-    sudo tag -s 'source:Brew' "/$entry"
-    or echo "failed to tag package bundle $entry"
+    test -d "$entry"; and sudo tag -s 'source:Brew' "/$entry"
   end
 end

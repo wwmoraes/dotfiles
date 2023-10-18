@@ -1,6 +1,7 @@
 # only apply on interactive shells
 status --is-interactive; or exit
 
+abbr -a .f chezmoi
 abbr -a lg lazygit
 
 # todo.sh

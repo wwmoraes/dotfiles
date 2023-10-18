@@ -1,0 +1,4 @@
+#!/bin/sh
+
+chezmoi apply ~/.Brewfile
+chezmoi cat ~/.chezmoiscripts/00-brew.sh | sh
