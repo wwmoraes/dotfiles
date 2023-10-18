@@ -1,6 +1,15 @@
 .config/brewfile
 .env
+.env_aab-proxy
+.env_personal
+.env_personal_secrets
 .env_remove
+.env_remove_secrets
+.env_remove_work_secrets
+.env_secrets
+.env_work
+.env_work_secrets
+.gitconfig-secrets
 .local/bin/git-all
 .local/bin/git-allc
 .local/opt/bin
@@ -9,5 +18,5 @@
 .vscode-oss
 go/bin/darwin_amd64
 go/bin/darwin_arm64
-Library/Python/3.10/bin
-Library/Python/3.9/bin
+Library/Python/3.10
+Library/Python/3.9
