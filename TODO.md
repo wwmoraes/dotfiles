@@ -1,3 +1,4 @@
 # To-dos
 
-- [ ] refactor fish variables script
+- [x] refactor fish variables script
+- [ ] move fisher bootstrap to externals
