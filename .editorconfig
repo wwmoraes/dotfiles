@@ -1,3 +1,5 @@
+root = true
+
 [*]
 indent_style = space
 indent_size = 2
@@ -12,16 +14,10 @@ insert_final_newline = false
 [*.json]
 insert_final_newline = false
 
-[*.md]
-trim_trailing_whitespace = false
+[*.mk]
+indent_style = tab
 
 [*.xml]
-insert_final_newline = false
-
-[.vscode/settings.json]
-insert_final_newline = false
-
-[.shadow.d/.config/Code/User/settings.json]
 insert_final_newline = false
 
 [Makefile]

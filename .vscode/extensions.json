@@ -1,17 +1,23 @@
 {
   "recommendations": [
-    "dcasella.i3",
+    "1password.op-vscode",
     "dunstontc.viml",
-    "hangxingliu.vscode-nginx-conf-hint",
+    "editorconfig.editorconfig",
+    "fooxly.workspace",
+    "isirode.better-stronger-toml",
     "jinliming2.vscode-go-template",
     "malmaud.tmux",
     "mikestead.dotenv",
     "oren-trutner.grc-syntax-highlighting",
+    "redhat.vscode-xml",
+    "redhat.vscode-yaml",
+    "santacodes.santacodes-region-viewer",
     "sidneys1.gitconfig",
     "skyapps.fish-vscode",
     "sumneko.lua",
     "tamasfe.even-better-toml",
-    "virgilsisoe.hammerspoon-snippets"
+    "timonwong.shellcheck",
+    "virgilsisoe.hammerspoon-snippets",
   ],
   "unwantedRecommendations": [
     // Microsoft's global recommendations, FML
