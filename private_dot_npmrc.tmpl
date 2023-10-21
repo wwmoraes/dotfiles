@@ -1,0 +1,5 @@
+{{ if .tags.work -}}
+registry = {{ onepasswordRead "op://Work/Nexus RM/npm" }}
+{{ else -}}
+registry = https://registry.npmjs.org/
+{{ end -}}
