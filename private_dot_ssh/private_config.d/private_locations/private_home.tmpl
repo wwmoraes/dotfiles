@@ -1,12 +1,12 @@
-{{- $FQDN := onepasswordRead "op://Personal/Wireless Router/FQDN" -}}
-{{- $stationName := onepasswordRead "op://Personal/Wireless Router/base station name" -}}
+{{- $FQDN := onepasswordRead "op://Home/Wireless Router/FQDN" -}}
+{{- $stationName := onepasswordRead "op://Home/Wireless Router/base station name" -}}
 
 CanonicalizeHostname yes
 CanonicalDomains {{ $FQDN }}
 CanonicalizeMaxDots 0
 
 Host {{ $stationName }}
-  HostName {{ onepasswordRead "op://Personal/Wireless Router/server" }}
+  HostName {{ onepasswordRead "op://Home/Wireless Router/server" }}
   User root
   IdentityFile ~/.ssh/{{ $stationName }}.pub
   IdentitiesOnly yes
