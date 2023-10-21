@@ -1,0 +1,17 @@
+# https://developer.1password.com/docs/ssh/agent/config
+
+[[ssh-keys]]
+item = "Personal"
+vault = "Personal"
+
+[[ssh-keys]]
+item = "Cabuk"
+vault = "Personal"
+
+[[ssh-keys]]
+item = "Router"
+vault = "Home"
+
+[[ssh-keys]]
+item = "Bootstrap"
+vault = "Home"
