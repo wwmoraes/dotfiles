@@ -4,7 +4,6 @@
     "dunstontc.viml",
     "editorconfig.editorconfig",
     "fooxly.workspace",
-    "isirode.better-stronger-toml",
     "jinliming2.vscode-go-template",
     "malmaud.tmux",
     "mikestead.dotenv",
@@ -17,7 +16,7 @@
     "sumneko.lua",
     "tamasfe.even-better-toml",
     "timonwong.shellcheck",
-    "virgilsisoe.hammerspoon-snippets",
+    "virgilsisoe.hammerspoon-snippets"
   ],
   "unwantedRecommendations": [
     // Microsoft's global recommendations, FML
