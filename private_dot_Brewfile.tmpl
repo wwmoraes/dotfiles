@@ -1,4 +1,4 @@
-# cspell:disable
+{{- /* cspell:disable */ -}}
 
 #region tap
 tap "homebrew/bundle"
@@ -127,6 +127,7 @@ vscode "Gruntfuggly.todo-tree"
 vscode "hbenl.vscode-test-explorer"
 vscode "IBM.output-colorizer"
 vscode "iciclesoft.workspacesort"
+vscode "Isirode.better-stronger-toml"
 vscode "JabedHossain.web-preview"
 vscode "James-Yu.latex-workshop"
 vscode "jasonnutter.vscode-codeowners"
@@ -174,6 +175,7 @@ vscode "SantaCodes.santacodes-region-viewer"
 vscode "selcuk-usta.code-complexity-report-generator"
 vscode "sidneys1.gitconfig"
 vscode "skyapps.fish-vscode"
+vscode "StevenChen.vscode-adr-manager"
 vscode "streetsidesoftware.code-spell-checker"
 vscode "sumneko.lua"
 vscode "tamasfe.even-better-toml"
@@ -181,6 +183,7 @@ vscode "thomascsd.vscode-readme-pattern"
 vscode "timonwong.shellcheck"
 vscode "tinygo.vscode-tinygo"
 vscode "TomasHubelbauer.vscode-markdown-table-format"
+vscode "travisthetechie.write-good-linter"
 vscode "vadimcn.vscode-lldb"
 vscode "vilicvane.sensitive-replace"
 vscode "vscode-icons-team.vscode-icons"
@@ -189,6 +192,7 @@ vscode "wix.vscode-import-cost"
 vscode "wmaurer.change-case"
 vscode "xabikos.JavaScriptSnippets"
 vscode "ymotongpoo.licenser"
+vscode "znck.grammarly"
 vscode "zxh404.vscode-proto3"
 #endregion
 
@@ -252,6 +256,7 @@ cask "daisydisk"
 cask "devpod"
 cask "discord"
 cask "dropbox"
+cask "duckduckgo"
 cask "duet"
 cask "hakuneko"
 cask "ivpn"
@@ -319,13 +324,13 @@ vscode "virgilsisoe.hammerspoon-snippets"
 {{- else if .tags.work }}
 
 #region work tap
+tap "Azure/kubelogin"
 tap "FairwindsOps/tap"
 tap "fluxcd/tap"
 tap "hashicorp/tap"
 #endregion
 
 #region work brew
-brew "Azure/kubelogin/kubelogin"
 brew "conftest"
 brew "flux"
 brew "helm"
@@ -333,6 +338,7 @@ brew "helmfile"
 brew "jd"
 brew "krew"
 brew "kubeconform"
+brew "kubelogin"
 brew "kubernetes-cli"
 brew "kustomize"
 brew "minikube"
