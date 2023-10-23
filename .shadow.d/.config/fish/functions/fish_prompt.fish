@@ -9,7 +9,7 @@ function fish_prompt
         -error $last_status \
         -jobs (count (jobs -p)) \
         -modules "user,host,ssh,cwd,git,vgo,goenv,venv,dotenv,direnv,docker,kube" \
-        -modules-right "newline,vi-mode,perms,jobs,exit,root" \
+        -modules-right "newline,perms,jobs,exit,root" \
         -numeric-exit-codes \
         -shell bare \
         -hostname-only-if-ssh
