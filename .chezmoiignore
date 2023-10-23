@@ -55,6 +55,7 @@ Library/Application Support/*
 !Library/Application Support/Code
 !Library/Application Support/lazygit
 !Library/Application Support/xbar
+!Library/Group Containers
 !Library/LaunchAgents
 Library/LaunchAgents/*
 !Library/LaunchAgents/dev.artero.*.plist

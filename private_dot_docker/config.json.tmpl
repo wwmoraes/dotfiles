@@ -5,12 +5,12 @@
   "auths": {
     "https://index.docker.io/v1/": {}
   },
-  "credsStore": "desktop",
+  "credsStore": "{{ eq .chezmoi.os "darwin" | ternary "osxkeychain" "desktop" }}",
   "currentContext": "default",
   "experimental": "disabled",
   "plugins": {
     "-x-cli-hints": {
-      "enabled": "true"
+      "enabled": "false"
     }
   },
   "stackOrchestrator": "swarm"

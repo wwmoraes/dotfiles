@@ -9,10 +9,10 @@
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
   "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
+    "editor.defaultFormatter": "richie5um2.vscode-sort-json"
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
+    "editor.defaultFormatter": "richie5um2.vscode-sort-json"
   },
   "[markdown]": {
     "editor.defaultFormatter": "TomasHubelbauer.vscode-markdown-table-format",
@@ -388,6 +388,12 @@
   "python.analysis.useLibraryCodeForTypes": true,
   "python.languageServer": "Pylance",
   "redhat.telemetry.enabled": true,
+  "region-viewer.markers-overrides": {
+    "ruby": {
+      "end": "^\\s*#?endregion\\b",
+      "start": "^\\s*#?region\\b(?<name>.*)"
+    }
+  },
   "rust-analyzer.inlayHints.chainingHints.enable": false,
   "rust-analyzer.inlayHints.parameterHints.enable": false,
   "rust-analyzer.inlayHints.typeHints.enable": false,
@@ -525,10 +531,12 @@
   },
   "workbench.editor.decorations.badges": true,
   "workbench.editor.decorations.colors": true,
+  "workbench.editor.empty.hint": "hidden",
   "workbench.editor.untitled.hint": "hidden",
   "workbench.editorAssociations": {
     "*.ipynb": "jupyter-notebook"
   },
+  "workbench.iconTheme": "vscode-icons",
   "workbench.settings.applyToAllProfiles": [
     "editor.fontSize",
     "editor.fontFamily",
@@ -577,13 +585,5 @@
     "https://json.schemastore.org/github-workflow.json": "**/.github/workflows/*",
     "https://json.schemastore.org/kustomization.json": "kustomization.yaml",
     "https://yarnpkg.com/configuration/yarnrc.json": ".yarnrc.yml"
-  },
-  "workbench.editor.empty.hint": "hidden",
-  "workbench.iconTheme": "vscode-icons",
-  "region-viewer.markers-overrides": {
-    "ruby": {
-      "start": "^\\s*#?region\\b(?<name>.*)",
-      "end": "^\\s*#?endregion\\b"
-    },
-  },
+  }
 }

@@ -11,9 +11,6 @@ insert_final_newline = true
 [*.html]
 insert_final_newline = false
 
-[*.json]
-insert_final_newline = false
-
 [*.mk]
 indent_style = tab
 
