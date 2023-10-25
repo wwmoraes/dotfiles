@@ -5,14 +5,7 @@ function fish_prompt
   command -q go; and begin
     set -q GOPATH; or set -l GOPATH (go env GOPATH)
     test -x "$GOPATH/bin/powerline-go"; and begin
-      "$GOPATH/bin/powerline-go" \
-        -error $last_status \
-        -jobs (count (jobs -p)) \
-        -modules "user,host,ssh,cwd,git,vgo,goenv,venv,dotenv,direnv,docker,kube" \
-        -modules-right "newline,perms,jobs,exit,root" \
-        -numeric-exit-codes \
-        -shell bare \
-        -hostname-only-if-ssh
+      "$GOPATH/bin/powerline-go" -error $last_status -jobs (count (jobs -p))
       return
     end
   end

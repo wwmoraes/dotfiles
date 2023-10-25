@@ -1,0 +1,26 @@
+{
+  "hostname-only-if-ssh": true,
+  "modules": [
+    "user",
+    "host",
+    "ssh",
+    "cwd",
+    "git",
+    "vgo",
+    "goenv",
+    "venv",
+    "dotenv",
+    "direnv",
+    "docker",
+    "kube"
+  ],
+  "modules-right": [
+    "newline",
+    "perms",
+    "jobs",
+    "exit",
+    "root"
+  ],
+  "numeric-exit-codes": true,
+  "shell": "bare"
+}
