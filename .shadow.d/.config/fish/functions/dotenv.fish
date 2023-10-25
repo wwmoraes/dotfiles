@@ -28,7 +28,7 @@ function dotenv -d '"Sources" (set universal and exports) variables from given d
       set entry (echo -e $entry | string trim -c '-' | string split -m 1 \=)
       set key $entry[1]
 
-      set value (echo -e $entry[2] | string trim -c "'" | tr '\0' '\n' | sed "s|~|$HOME|g")
+      set value (echo -e $entry[2] | string trim -c "'" | tr '\0' '\n' | sed -E "s|(^\|[^\\]+)?~|\1$HOME|g")
 
       if string length -q -- $_flag_unset
         echo "Unsetting "(set_color brcyan)$key(set_color normal)
