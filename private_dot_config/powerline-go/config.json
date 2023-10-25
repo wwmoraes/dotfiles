@@ -22,5 +22,11 @@
     "root"
   ],
   "numeric-exit-codes": true,
+  "path-aliases": {
+    "~": "🏡",
+    "~/.local/share/chezmoi": "🛠️",
+    "~/dev": "💻",
+    "~/workspace": "🏢"
+  },
   "shell": "bare"
 }
