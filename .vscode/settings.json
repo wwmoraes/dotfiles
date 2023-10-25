@@ -67,5 +67,13 @@
     "ssh_config",
     "shellscript"
   ],
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "*dot_docker/*daemon.json*"
+      ],
+      "url": "https://json.schemastore.org/dockerd.json"
+    }
+  ],
   "xml.format.enabled": false
 }
