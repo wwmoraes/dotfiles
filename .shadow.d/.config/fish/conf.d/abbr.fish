@@ -4,6 +4,11 @@
 status --is-interactive; or exit
 
 abbr -a .f chezmoi
+abbr -a .fa "chezmoi apply"
+abbr -a .fc "chezmoi check"
+abbr -a .fe "chezmoi env"
+abbr -a .fl "chezmoi lg"
+abbr -a .fs "chezmoi sync"
 abbr -a lg lazygit
 
 # todo.sh
