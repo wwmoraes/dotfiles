@@ -1,0 +1,5 @@
+#!/usr/bin/env fish
+
+chezmoi apply ~/.config/environment.d/*
+chezmoi apply ~/.config/environment.rm.conf
+dotenv
