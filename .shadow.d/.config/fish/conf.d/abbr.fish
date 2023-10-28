@@ -3,15 +3,20 @@
 # only apply on interactive shells
 status --is-interactive; or exit
 
-abbr -a .f chezmoi
-abbr -a .fa "chezmoi apply"
-abbr -a .fc "chezmoi check"
-abbr -a .fe "chezmoi env"
-abbr -a .fl "chezmoi lg"
-abbr -a .fs "chezmoi sync"
-abbr -a lg lazygit
+# .f (dotfiles) => chezmoi
+if command -q chezmoi
+  abbr -a .f chezmoi
+  abbr -a .fi "chezmoi init"
+  abbr -a .fa "chezmoi apply"
+  abbr -a .fc "chezmoi check"
+  abbr -a .fe "chezmoi env"
+  abbr -a .fl "chezmoi lg"
+  abbr -a .fs "chezmoi sync"
+end
 
-# todo.sh
+# lg => lazygit
+command -q lazygit; and abbr -a lg lazygit
+
 if command -q todo.sh
   abbr -a t "todo.sh"
   abbr -a tp "todo.sh p"
@@ -19,7 +24,6 @@ if command -q todo.sh
   abbr -a tpls "todo.sh p ls"
 end
 
-# git abbreviations
 if command -q git
   abbr -a g "git"
   abbr -a gc "git checkout"
@@ -32,7 +36,6 @@ if command -q git
   abbr -a grr "git rebase --autosquash -i --root"
 end
 
-# terraform abbreviations
 if command -q terraform
   abbr -a tf "terraform"
   abbr -a tfi "rm -rf .terraform && terraform init"
@@ -41,7 +44,6 @@ if command -q terraform
   abbr -a tfip "rm -rf .terraform && terraform init && terraform plan -out=plan.tfplan"
 end
 
-# kubectl abbreviations
 if command -q kubectl
   # base kubectl
   abbr -a k "kubectl"
