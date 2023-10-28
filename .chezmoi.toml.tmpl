@@ -20,10 +20,10 @@ encryption = "gpg"
 [data.me]
   username = {{ onepasswordRead "op://Personal/Me/Contact/username" | quote }}
   personalEmail = {{ onepasswordRead "op://Personal/Me/Contact/email" | quote }}
-  pgpFingerprint = {{ onepasswordRead "op://Personal/fs4mlo7bfmaf6i6hakinlp2kzq/fingerprint" | quote }}
-  pgpSigningKey = {{ onepasswordRead "op://Personal/fs4mlo7bfmaf6i6hakinlp2kzq/identity" | quote }}
+  pgpFingerprint = {{ onepasswordRead "op://Personal/GPG/fingerprint" | quote }}
+  pgpSigningKey = {{ onepasswordRead "op://Personal/GPG/identity" | quote }}
   preferredName = {{ onepasswordRead "op://Personal/Me/preferred name" | quote }}
-  workEmail = {{ onepasswordRead "op://Work/spxhk2guox46dy4m5rohaimcgy/username" | quote }}
+  workEmail = {{ onepasswordRead "op://Work/Microsoft/username" | quote }}
   FQDN = {{ onepasswordRead "op://Personal/Me/FQDN" | quote }}
 
 [data.tags]
