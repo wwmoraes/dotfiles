@@ -306,3 +306,8 @@ if command -q kubectl
   # flux
   abbr -a kfxs "kubectl get fluxconfigs -A -o go-template --template '{{ range \$config := .items }}{{ with \$config }}{{ .metadata.name }}: {{ .status.lastSyncedCommit }}{{ \"\r\n\" }}{{ end }}{{ end }}' | column -t"
 end
+
+if command -q pre-commit
+  abbr -a pcr pre-commit run
+  abbr -a pcra -- pre-commit run --all-files
+end
