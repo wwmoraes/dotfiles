@@ -1,3 +1,6 @@
+{{- $isPersonal := hasSuffix "Cabuk" .chezmoi.hostname -}}
+{{- $isWork := eq "C02DQ36NMD6P" .chezmoi.hostname -}}
+
 encryption = "gpg"
 
 [data]
@@ -24,8 +27,8 @@ encryption = "gpg"
   FQDN = {{ onepasswordRead "op://Personal/Me/FQDN" | quote }}
 
 [data.tags]
-  personal = {{ hasSuffix "Cabuk" .chezmoi.hostname }}
-  work = {{ eq "C02DQ36NMD6P" .chezmoi.hostname }}
+  personal = {{ $isPersonal }}
+  work = {{ $isWork }}
 
 # we control versions here as the externals calculate them on every apply.
 # That's a problem as we hit the GitHub API limits when developing
@@ -54,11 +57,11 @@ encryption = "gpg"
   PACKAGES_PATH = {{ joinPath .chezmoi.sourceDir ".setup.d" "packages" | quote }}
   ARCH = {{ .chezmoi.arch | quote }}
   SYSTEM = {{ .chezmoi.os | quote }}
-  WORK = {{ .tags.work | ternary 1 0 | quote }}
-  PERSONAL = {{ .tags.personal | ternary 1 0 | quote }}
+  WORK = {{ $isWork | ternary 1 0 | quote }}
+  PERSONAL = {{ $isPersonal | ternary 1 0 | quote }}
   HOST = {{ .chezmoi.hostname | quote }}
-  {{- if .tags.personal }}
+  {{- if $isPersonal }}
   TAGS = "personal"
-  {{- else if .tags.work }}
+  {{- else if $isWork }}
   TAGS = "work"
   {{- end }}
