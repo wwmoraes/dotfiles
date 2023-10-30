@@ -1,5 +1,6 @@
 #!/bin/sh
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+# rustup-init hash: #{{ include (joinPath .brewPrefix "bin" "rustup-init") | sha256sum }}
 
 #{{- $sources := list }}
 #{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "rustup.txt") }}
@@ -42,18 +43,31 @@ fi
 
 enterTmp
 
-TARGET=$(rustup target list 2>&1 | awk '/(installed)/ {print $1}' | head -n1)
 INSTALLED="${TMP}/installed"
-rustup component list 2>&1 | awk '/(installed)/ {print $1}' | sed "s/-${TARGET}//" > "${INSTALLED}"
+rustup component list 2>&1 | awk '/(installed)/ {print $1}' > "${INSTALLED}"
 
 getPackages "rustup.txt"
 : "${PACKAGES:?run getPackages to generate}"
 
 ### Install packages
 while read -r PACKAGE; do
-  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%:*}"
-  grep -q "${PACKAGE}" "${INSTALLED}" && continue
+  case "${PACKAGE%%:*}" in
+    -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
+    *) REMOVE=0;;
+  esac
 
-  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE}"
-  rustup component add "${PACKAGE}" --target "${TARGET}"
+  case "${REMOVE}" in
+    1)
+      printf "[\e[91muninstall\e[m] Checking \e[96m%s\e[0m...\n" "${PACKAGE}"
+      grep -q "${PACKAGE}" "${INSTALLED}" || continue
+      printf "[\e[91muninstall\e[m] Uninstalling \e[96m%s\e[0m...\n" "${PACKAGE}"
+      rustup component remove "${PACKAGE}" > /dev/null
+    ;;
+    0)
+      printf "[\e[92m install \e[m] Checking \e[96m%s\e[0m...\n" "${PACKAGE}"
+      grep -q "${PACKAGE}" "${INSTALLED}" && continue
+      printf "[\e[92m install \e[m] Installing \e[96m%s\e[0m...\n" "${PACKAGE}"
+      rustup component add "${PACKAGE}" > /dev/null
+    ;;
+  esac
 done < "${PACKAGES}"
