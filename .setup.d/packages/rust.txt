@@ -1,3 +1,0 @@
-fd-find:fd
-git-brws
-cargo-watch

@@ -15,10 +15,12 @@
 .gitconfig-secrets
 .local/bin/git-all
 .local/bin/git-allc
+.local/bin/plantuml
 .local/opt/bin
 .local/opt/sbin
 .quokka
 .ssh/config.d/profiles
+.step
 .vscode-oss
 .wallaby
 go/bin/darwin_amd64

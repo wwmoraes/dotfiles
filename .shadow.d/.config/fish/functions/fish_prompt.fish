@@ -2,12 +2,9 @@ function fish_prompt
   set -l last_status $status
 
   # try to use powerline-go
-  command -q go; and begin
-    set -q GOPATH; or set -l GOPATH (go env GOPATH)
-    test -x "$GOPATH/bin/powerline-go"; and begin
-      "$GOPATH/bin/powerline-go" -error $last_status -jobs (count (jobs -p))
-      return
-    end
+  command -q powerline-go; and begin
+    powerline-go -error $last_status -jobs (count (jobs -p))
+    return
   end
 
   # almost vanilla from https://github.com/fish-shell/fish-shell/blob/3.1.2/share/functions/fish_prompt.fish

@@ -1,10 +1,9 @@
-github.com/cloudflare/cfssl/cmd/cfssl@latest
-github.com/cloudflare/cfssl/cmd/cfssljson@latest
+-github.com/cloudflare/cfssl/cmd/cfssl@latest
+-github.com/cloudflare/cfssl/cmd/cfssljson@latest
+-github.com/goreleaser/goreleaser@latest
 github.com/cosmtrek/air@latest
 github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
 github.com/google/wire/cmd/wire@latest
-github.com/google/wire/cmd/wire@latest
-github.com/goreleaser/goreleaser@latest
 github.com/hasit/bolter@latest
 github.com/jfeliu007/goplantuml/cmd/goplantuml@latest
 github.com/Khan/genqlient@latest

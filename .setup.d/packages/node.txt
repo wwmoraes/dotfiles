@@ -1,4 +1,3 @@
-lerna
+-write-good
+-xunit-viewer
 syncpack
-write-good
-xunit-viewer

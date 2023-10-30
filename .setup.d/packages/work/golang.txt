@@ -1,2 +1,1 @@
-github.com/swaggo/swag/cmd/swag@latest
-sigs.k8s.io/kind@latest
+-github.com/swaggo/swag/cmd/swag@latest
