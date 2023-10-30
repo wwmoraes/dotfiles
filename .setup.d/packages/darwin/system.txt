@@ -1,5 +1,0 @@
--ykman
--ykpers
-koekeishiya/formulae/skhd:skhd
-mas
-tag

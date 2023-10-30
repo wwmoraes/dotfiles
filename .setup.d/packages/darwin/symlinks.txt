@@ -1,4 +1,0 @@
-~/.config/Code|~/Library/Application Support/Code
-~/.config/Code|~/Library/Application Support/VSCodium
-~/.config/lazygit|~/Library/Application Support/lazygit
-~/Library/Group Containers/2BUA8C4S2C.com.1password/t|~/.1password
