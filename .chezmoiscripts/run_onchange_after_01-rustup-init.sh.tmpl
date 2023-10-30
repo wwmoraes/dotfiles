@@ -1,0 +1,10 @@
+#!/bin/sh
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+#{{- $rustUpInitPath := joinPath .brewPrefix "bin" "rustup-init" }}
+#{{- if stat $rustUpInitPath }}
+# rustup-init hash: #{{ include $rustUpInitPath | sha256sum }}
+#{{- end }}
+
+command -V rustup-init >/dev/null 2>&1 || exit
+
+rustup-init -y -q --no-modify-path

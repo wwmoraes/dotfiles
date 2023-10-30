@@ -1,7 +1,8 @@
+-rust-src
 cargo
+clippy
 rls
-rust-analysis
-#rust-src:rust-src
+rust-analyzer
 rust-std
 rustc
 rustfmt
