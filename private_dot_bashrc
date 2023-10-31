@@ -23,7 +23,7 @@ shopt -s checkwinsize
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-shopt -s globstar
+shopt -s globstar 2>/dev/null
 
 # make less more friendly for non-text input files, see lesspipe(1)
 test -x /usr/bin/lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
@@ -112,21 +112,32 @@ if ! shopt -oq posix; then
   fi
 fi
 
-HOST=$(hostname -s)
-set -a
-# shellcheck disable=SC1091
-test -f "${HOME}/.env" && source "${HOME}/.env"
-# shellcheck disable=SC1091
-test -f "${HOME}/.env_secrets" && source "${HOME}/.env_secrets"
-while IFS= read -r TAG; do
+# remove first
+if [ -f "${HOME}/.config/environment.rm.conf" ]; then
+  while IFS= read -r VARIABLE; do
+    # skip empty lines
+    test -z "${VARIABLE}" && continue
+
+    # skip comment lines
+    test "$(expr "${VARIABLE}" : '#')" -gt 0 && continue
+
+    launchctl unsetenv "${VARIABLE}"
+    unset -v "${VARIABLE}"
+  done < "${HOME}/.config/environment.rm.conf"
+fi
+
+for FILE in "${HOME}/.config/environment.d/"*.conf; do
+  # skip if file does not exist
+  test ! -e "$1" && continue
+
+  # skip if file is not readable
+  test ! -r "$1" && continue
+
+  set -a
   # shellcheck disable=SC1090
-  test -f "${HOME}/.env_${TAG}" && source "${HOME}/.env_${TAG}"
-  # shellcheck disable=SC1090
-  test -f "${HOME}/.env_${TAG}_secrets" && source "${HOME}/.env_${TAG}_secrets"
-done < ~/.tagsrc
-# shellcheck disable=SC1090
-test -f "${HOME}/.env-${HOST}" && source "${HOME}/.env-${HOST}"
-set +a
+  source "${FILE}"
+  set +a
+done
 
 # fzf & bashfu sorcery
 #   lists tmux sessions to attach to
