@@ -11,6 +11,7 @@
 .env_work
 .env_work_secrets
 .files
+.finicky.d.ts
 .gitconfig-os
 .gitconfig-secrets
 .local/bin/git-all

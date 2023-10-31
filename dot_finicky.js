@@ -6,7 +6,7 @@
 /** @type {Applications} */
 const apps = {
   Edge: "com.microsoft.edgemac",
-  Chrome: "com.google.Chrome",
+  // Chrome: "com.google.Chrome",
   Firefox: "org.mozilla.firefox",
   Safari: "com.apple.Safari",
 };
@@ -16,7 +16,7 @@ const browsers = {
   "c02dq36nmd6p.local": {
     main: apps.Edge,
     work: apps.Edge,
-    home: apps.Chrome,
+    home: apps.Firefox,
   },
 };
 
@@ -39,10 +39,20 @@ const getBrowser = (contextName) => (params) => {
 /**
   * @param {string} prefix
   * @returns {import("./.finicky.d").Finicky.Rewrite}
-  */
+*/
 const prefixBGone = (prefix) => ({
   match: ({ urlString }) => urlString.startsWith(prefix),
-  url: ({ urlString }) => new URL(decodeURI(urlString.substring(prefix.length))),
+  url: ({ urlString }) => decodeURIComponent(urlString.substring(prefix.length).replace(/%25/g, "%")),
+});
+
+/**
+ * @param {string} host
+ * @param {string} queryParam
+ * @returns {import("./.finicky.d").Finicky.Rewrite}
+ */
+const redirectBGone = (host, queryParam) => ({
+  match: ({ url }) => url.host.endsWith(host),
+  url: ({ url }) => decodeURIComponent((new URLSearchParams(url.search)).get(queryParam).replace(/%25/g, "%")),
 });
 
 /// <reference path="./.finicky.d.ts" />
@@ -52,12 +62,60 @@ module.exports = {
   rewrite: [
     // cleanup TLDR newsletter links
     prefixBGone("https://tracking.tldrnewsletter.com/CL0/"),
+    // cleanup Outlook redirects
+    redirectBGone("safelinks.protection.outlook.com", "url"),
     // remove tracking query parameters
     {
       match: () => true,
       url: ({ url }) => {
-        const removeKeysStartingWith = ["utm_", "uta_"];
-        const removeKeys = ["fblid", "gclid", "auto_subscribed", "email_source"];
+        const removeKeysStartingWith = [
+          "__hs", // HubSpot
+          "_bta_", // Bronto
+          "_hs", // HubSpot
+          "gdf", // GoDataFeed
+          "hsa_", // HubSpot
+          "matomo_", // Matomo
+          "mc_", // MailChimp
+          "mkt_", // Adobe Marketo
+          "ml_", // MailerLite
+          "mtm_", // Matomo
+          "oly_", // Omeda
+          "piwik_", // Piwik
+          "pk_", // Piwik
+          "trk_", // Listrak
+          "uta_",
+          "utm_", // Google Analytics
+          "vero_", // Vero
+        ];
+        const removeKeys = [
+          "__s", // Drip.com
+          "_ga", // Google Analytics
+          "_ke", // Klaviyo
+          "_openstat", // Yandex
+          "auto_subscribed",
+          "dclid", // Google
+          "dm_i", // dotdigital
+          "ef_id", // Adobe Advertising Cloud
+          "email_source",
+          "epik", // Pinterest
+          "fbclid", // Facebook
+          "fblid",
+          "gclid", // Google AdWords/Analytics
+          "gclsrc", // Google DoubleClick
+          "hsCtaTracking", // HubSpot
+          "igshid", // Instagram
+          "mkwid", // Marin
+          "msclkid", // Microsoft Advertising
+          "pcrid", // Marin
+          "rb_clickid", // Unknown high-entropy
+          "redirect_log_mongo_id", // Springbot
+          "redirect_mongo_id", // Springbot
+          "s_cid", // Adobe Site Catalyst
+          "s_kwcid", // Adobe Analytics
+          "sb_referer_host", // Springbot
+          "wickedid", // Wicked Reports
+          "yclid", // Yandex click ID
+        ];
 
         const search = url.search
           .split("&")
@@ -80,9 +138,7 @@ module.exports = {
     // Work: Azure DevOps
     {
       match: "*dev.azure.com*",
-      /// TODO investigate and contribute to finicky's browser path detection
-      /// to work with apps on the home Applications folder
-      browser: "com.fluidapp.FluidApp2.AzureDevOps"
+      browser: getBrowser("work")
     },
     // Work: Microsoft Teams handler
     {
@@ -121,8 +177,7 @@ module.exports = {
           "com.facebook.archon",
           "ru.keepcoder.Telegram",
           "com.hnc.Discord",
-          "WhatsApp",
-          "com.fluidapp.FluidApp2.LinkedIn"
+          "WhatsApp"
         ].includes(opener.bundleId),
       browser: getBrowser("home")
     },
@@ -130,7 +185,7 @@ module.exports = {
     {
       match: [
         "github.com/wwmoraes*",
-        "*.home.localhost*",
+        "*.local*",
         "*.com.br*",
         "*.thuisbezorgd.nl*",
         "*.krisp.ai*"

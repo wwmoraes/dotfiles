@@ -181,7 +181,7 @@ spoon.SpoonInstall:andUse("Hazel", {
 ---@diagnostic disable-next-line: assign-type-mismatch
 spoon.Hazel = spoon.Hazel
 
-require("modules.finicky")
+-- require("modules.finicky")
 
 -- ### plain init configuration
 
@@ -189,21 +189,6 @@ for _, tag in ipairs(tags) do
   local _, path = pcall(require, string.format("tags.%s", tag))
   logger.d(string.format("loaded %s", path))
 end
-
--- local queryParams = require("data.queryParams")
--- hs.spoons.use("CleanURLs", {
---   ---@type CleanURLsConfig
---   config = {
---     prefixes = {
---       "https://tracking.tldrnewsletter.com/CL0/",
---     },
---     browser = hs.fnutils.partial(spoon.Finicky.open, spoon.Finicky),
---     params = queryParams,
---   },
---   start = false,
--- })
--- ---@type CleanURLs
--- spoon.CleanURLs = spoon.CleanURLs
 
 if not hs.ipc.cliStatus() then
   logger.i("hs CLI not installed, trying to install it")

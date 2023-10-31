@@ -1,4 +1,4 @@
-/// <reference types="finicky" />
+// / <reference types="finicky" />
 
 declare global {
   /** Finicky utility functions available within the configuration */
