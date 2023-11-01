@@ -3,9 +3,13 @@
 set -eum
 trap 'kill 0' INT HUP TERM
 
-: "${HOST:=$(hostname -s)}"
-
 test -x /usr/libexec/path_helper && eval "$(/usr/libexec/path_helper -s)"
+
+safeLaunchctl() {
+  command -v launchctl > /dev/null || return
+
+  launchctl "$@"
+}
 
 processDotenvFile() {
   # skip if file does not exist
@@ -28,8 +32,8 @@ processDotenvFile() {
     value=$(echo "${line#*=}" | sed "s|~|${HOME}|g")
 
     case "${value}" in
-      \'*\') launchctl setenv "${name}" "$(printf "%s" "${value}" | sed -E "s/^'(.*)'$/\1/")";;
-      *) launchctl setenv "${name}" "${value}";;
+      \'*\') safeLaunchctl setenv "${name}" "$(printf "%s" "${value}" | sed -E "s/^'(.*)'$/\1/")";;
+      *) safeLaunchctl setenv "${name}" "${value}";;
     esac
 
   done <"$1"
@@ -43,7 +47,7 @@ while IFS= read -r VARIABLE; do
   # skip comment lines
   test "$(expr "${VARIABLE}" : '#')" -gt 0 && continue
 
-  launchctl unsetenv "${VARIABLE}"
+  safeLaunchctl unsetenv "${VARIABLE}"
   unset -v "${VARIABLE}"
 done < "${HOME}/.config/environment.rm.conf"
 
