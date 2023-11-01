@@ -46,6 +46,13 @@ encryption = "gpg"
 [interpreters.fish]
   command = "fish"
 
+{{- if eq .chezmoi.os "windows" }}
+
+[interpreters.sh]
+command = "bash"
+
+{{- end }}
+
 [scriptEnv]
   # whether to apply MacOS defaults or not
   DEFAULTS = "0"
