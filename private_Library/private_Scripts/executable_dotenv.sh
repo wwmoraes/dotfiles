@@ -50,5 +50,3 @@ done < "${HOME}/.config/environment.rm.conf"
 for FILE in "${HOME}/.config/environment.d/"*.conf; do
   processDotenvFile "${FILE}"
 done
-
-exit 0

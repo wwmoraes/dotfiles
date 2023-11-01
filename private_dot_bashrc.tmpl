@@ -65,10 +65,10 @@ parse_last_retcode() {
   STATUS=$?
   if [ "$1" = "colored" ]; then
     # shellcheck disable=SC2181
-    test ${STATUS} -eq 0 && printf "\e[32m%s\e[39m" "${CHECKMARK}" || printf "\e[31m%s\e[39m" "${CROSSMARK}"
+    test "${STATUS}" -eq 0 && printf "\e[32m%s\e[39m" "${CHECKMARK}" || printf "\e[31m%s\e[39m" "${CROSSMARK}"
   else
     # shellcheck disable=SC2181
-    test ${STATUS} -eq 0 && printf "%s" "${CHECKMARK}" || printf "%s" "${CROSSMARK}"
+    test "${STATUS}" -eq 0 && printf "%s" "${CHECKMARK}" || printf "%s" "${CROSSMARK}"
   fi
 }
 
@@ -112,32 +112,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# remove first
-if [ -f "${HOME}/.config/environment.rm.conf" ]; then
-  while IFS= read -r VARIABLE; do
-    # skip empty lines
-    test -z "${VARIABLE}" && continue
-
-    # skip comment lines
-    test "$(expr "${VARIABLE}" : '#')" -gt 0 && continue
-
-    launchctl unsetenv "${VARIABLE}"
-    unset -v "${VARIABLE}"
-  done < "${HOME}/.config/environment.rm.conf"
-fi
-
-for FILE in "${HOME}/.config/environment.d/"*.conf; do
-  # skip if file does not exist
-  test ! -e "$1" && continue
-
-  # skip if file is not readable
-  test ! -r "$1" && continue
-
-  set -a
-  # shellcheck disable=SC1090
-  source "${FILE}"
-  set +a
-done
+# setup environment variables
+# shellcheck source=private_Library/private_Scripts/executable_dotenv.sh
+. "${HOME}/Library/Scripts/dotenv.sh"
 
 # fzf & bashfu sorcery
 #   lists tmux sessions to attach to
