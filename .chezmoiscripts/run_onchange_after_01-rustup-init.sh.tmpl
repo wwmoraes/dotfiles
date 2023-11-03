@@ -5,6 +5,9 @@
 # rustup-init hash: #{{ include $rustUpInitPath | sha256sum }}
 #{{- end }}
 
+set -eum
+trap 'kill 0' INT HUP TERM
+
 command -V rustup-init >/dev/null 2>&1 || exit
 
 rustup-init -y -q --no-modify-path

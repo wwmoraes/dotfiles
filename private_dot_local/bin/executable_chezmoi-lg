@@ -1,3 +1,6 @@
 #!/usr/bin/env sh
 
+set -eum
+trap 'kill 0' INT HUP TERM
+
 exec lazygit -p "$(chezmoi source-path)"

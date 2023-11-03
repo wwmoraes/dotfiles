@@ -1,4 +1,7 @@
 #!/usr/bin/env sh
 
+set -eum
+trap 'kill 0' INT HUP TERM
+
 chezmoi apply ~/.Brewfile
 brew bundle cleanup --global --no-lock

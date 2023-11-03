@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+set -eum
+trap 'kill 0' INT HUP TERM
+
 command -V pbpaste > /dev/null 2>&1 && { pbpaste "$@"; exit 0; } # MacOS
 command -V xsel > /dev/null 2>&1 && { xsel --output --clipboard "$@"; exit 0; } # Unix/Linux
 command -V xclip > /dev/null 2>&1 && { xclip -out -selection clipboard "$@"; exit 0; } # Unix/Linux

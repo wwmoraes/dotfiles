@@ -2,6 +2,9 @@
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
 # .Brewfile hash: #{{ include (joinPath .chezmoi.homeDir "/.Brewfile") | sha256sum }}
 
+set -eum
+trap 'kill 0' INT HUP TERM
+
 HOMEBREW_PREFIX="#{{ .brewPrefix }}"
 HOMEBREW_REPOSITORY="#{{ .brewRepository }}"
 
