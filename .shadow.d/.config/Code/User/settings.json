@@ -402,16 +402,13 @@
   ],
   "terminal.integrated.automationProfile.linux": {
     "icon": "terminal",
-    "path": "/usr/bin/fish"
+    "path": "fish"
   },
   "terminal.integrated.automationProfile.osx": {
     "icon": "terminal",
-    "path": "/usr/local/bin/fish"
+    "path": "fish"
   },
   "terminal.integrated.enablePersistentSessions": false,
-  "terminal.integrated.env.osx": {
-    "FIG_NEW_SESSION": "1"
-  },
   "terminal.integrated.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "terminal.integrated.persistentSessionReviveProcess": "never",
   "terminal.integrated.profiles.linux": {
@@ -421,15 +418,11 @@
     },
     "fish": {
       "icon": "terminal",
-      "path": "/usr/bin/fish"
+      "path": "fish"
     },
     "pwsh": {
       "icon": "terminal-powershell",
       "path": "pwsh"
-    },
-    "tmux": {
-      "icon": "terminal-tmux",
-      "path": "tmux"
     }
   },
   "terminal.integrated.profiles.osx": {
@@ -444,13 +437,9 @@
     "pwsh": {
       "icon": "terminal-powershell",
       "path": "pwsh"
-    },
-    "tmux": {
-      "icon": "terminal-tmux",
-      "path": "tmux"
     }
   },
-  "terminal.integrated.shellIntegration.enabled": false,
+  "terminal.integrated.shellIntegration.enabled": true,
   "testExplorer.codeLens": false,
   "testExplorer.errorDecoration": false,
   "testExplorer.errorDecorationHover": false,
@@ -532,7 +521,6 @@
   "workbench.editor.decorations.badges": true,
   "workbench.editor.decorations.colors": true,
   "workbench.editor.empty.hint": "hidden",
-  "workbench.editor.untitled.hint": "hidden",
   "workbench.editorAssociations": {
     "*.ipynb": "jupyter-notebook"
   },

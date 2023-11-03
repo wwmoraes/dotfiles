@@ -1,4 +1,4 @@
-#!/bin/fish
+#!/usr/bin/env fish
 # chezmoi:template:left-delimiter="# {{" right-delimiter=}}
 # {{- range $_, $filename := (glob (joinPath .chezmoi.homeDir ".config" "environment.d" "*.conf")) }}
 # # {{ base $filename }} hash: # {{ include $filename | sha256sum }}

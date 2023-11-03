@@ -39,7 +39,5 @@ brew bundle --global --no-lock
 echo "brew: cleanup"
 brew bundle cleanup --global --force --no-lock
 
-# TODO add the brew prefix to the PATH and drop this
-if [ ! -f /usr/local/bin/fish ]; then
-  ln -sf "${HOMEBREW_PREFIX}/bin/fish" /usr/local/bin/fish
-fi
+# remove the old link we had in place due to path issues
+test ! -L /usr/local/bin/fish || unlink /usr/local/bin/fish
