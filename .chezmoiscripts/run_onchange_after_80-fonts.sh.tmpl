@@ -29,5 +29,5 @@ killall fontd
 # Update system font cache
 if _=$(command -V fc-cache >/dev/null 2>&1); then
   printf "Updating font cache...\n"
-  fc-cache -f &
+  fc-cache -f
 fi
