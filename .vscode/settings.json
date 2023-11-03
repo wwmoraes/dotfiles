@@ -41,6 +41,7 @@
     "*dot_editorconfig": "editorconfig",
     "*dot_env*": "dotenv",
     "*dot_gitaliases*": "gitconfig",
+    "*dot_gitcolors*": "gitconfig",
     "*dot_gitconfig*": "gitconfig",
     "*dot_gitcorlors*": "gitconfig",
     "*dot_grc/conf.*": "grc-app",

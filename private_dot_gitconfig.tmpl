@@ -2,14 +2,14 @@
   detachedHead = false
 
 [core]
-  editor = vim
-  pager = cat
-  excludesFile = ~/.gitignore-global
-  attributesfile = ~/.gitattributes
-  precomposeUnicode = true
-  ignorecase = false
+  attributesFile = ~/.gitattributes
   commentChar = auto
+  editor = vim
+  excludesFile = ~/.gitignore-global
   # hooksPath = ~/.local/hooks
+  ignoreCase = false
+  pager = cat
+  preComposeUnicode = true
 
 {{- $helper := "cache" }}
 {{- if eq .chezmoi.os "darwin" }}
@@ -23,7 +23,7 @@
   helper = {{ $helper }}
 
 [diff "plist"]
-  textconv = plist2xml
+  textConv = plist2xml
 
 [diff]
   # Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
@@ -37,17 +37,17 @@
   prune = true
 
 [filter "lfs"]
+  clean = git-lfs clean -- %f
   process = git-lfs filter-process
   required = true
-  clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
 
 [gui]
-  pruneduringfetch = true
+  pruneDuringFetch = true
 
 [help]
   # correct typos
-  autocorrect = 1
+  autoCorrect = 1
 
 # Include files to keep this one lean
 [include]
@@ -91,9 +91,9 @@
 
 # push easily. http://stackoverflow.com/a/23918418/89484
 [push]
-  recurseSubmodules = check
   default = current
   followTags = true
+  recurseSubmodules = check
 
 [rebase]
   autoSquash = true
@@ -105,24 +105,24 @@
 [safe]
   directory = *
 
-[smartgit "submodule"]
-  fetchalways = false
+[smartGit "submodule"]
+  fetchAlways = false
+  initializeNew = true
   update = true
-  initializenew = true
 
 [stash]
   showPatch = true
 
 # https://git-scm.com/docs/git-interpret-trailers
 [trailer "sign"]
-  key = Signed-off-by
-  ifmissing = add
-  ifexists = addIfDifferent
   command = echo \"$(git config user.name) <$(git config user.email)>\"
+  ifExists = addIfDifferent
+  ifMissing = add
+  key = Signed-off-by
 
 [trailer "coauthor"]
   key = Co-authored-by
-  ifexists = addIfDifferent
+  ifExists = addIfDifferent
 
 [url "git://gist.github.com/"]
   insteadOf = "gist:"
@@ -134,5 +134,5 @@
   insteadOf = https://gist.github.com/
 
 [user]
-  name = {{ .me.preferredName }}
   email = git@{{ .me.FQDN }}
+  name = {{ .me.preferredName }}
