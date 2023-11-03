@@ -1,5 +1,7 @@
 {{- /* cspell:disable */ -}}
 
+cask_args appdir: "~/Applications"
+
 #region tap
 tap "homebrew/bundle"
 tap "homebrew/cask"
@@ -10,6 +12,23 @@ tap "knqyf263/pet" # pet
 tap "koekeishiya/formulae" # skhd
 tap "raggi/ale" # openssl-osx-ca
 tap "wwmoraes/tap"
+
+{{- if .tags.personal }}
+tap "anchore/grype"
+tap "anchore/syft"
+tap "avisi-cloud/tools" # structurizr-site-generatr
+tap "lemoony/tap" # snipkit
+tap "tinygo-org/tools"
+tap "vmware-tanzu/carvel" # ytt
+tap "yoheimuta/protolint"
+
+{{- else if .tags.work }}
+tap "Azure/kubelogin"
+tap "FairwindsOps/tap"
+tap "fluxcd/tap"
+tap "hashicorp/tap"
+
+{{- end }}
 #endregion
 
 #region brew
@@ -44,6 +63,7 @@ brew "man-db"
 brew "markdownlint-cli"
 brew "mas"
 brew "moreutils"
+brew "most"
 brew "node"
 brew "openssl-osx-ca"
 brew "pet"
@@ -67,6 +87,67 @@ brew "watchman"
 brew "write-good"
 brew "yamllint"
 brew "yq"
+
+{{- if .tags.personal }}
+brew "asciinema"
+brew "binaryen" # needed by tinygo
+brew "cfengine"
+brew "cfssl"
+brew "doctl"
+brew "exiftool"
+brew "flyctl"
+brew "gh"
+brew "ghcup"
+brew "goreleaser"
+brew "grype"
+brew "haskell-stack"
+brew "hlint"
+brew "hub"
+brew "hugo"
+brew "imapfilter"
+brew "lerna"
+brew "lua"
+brew "luarocks"
+brew "mimirtool"
+brew "mosh"
+brew "protobuf"
+brew "protolint"
+brew "pulumi"
+brew "qpdf"
+brew "redis"
+brew "rustup-init"
+brew "snipkit"
+brew "structurizr-cli"
+brew "structurizr-site-generatr"
+brew "stylelint"
+brew "stylish-haskell"
+brew "syft"
+brew "tinygo"
+brew "trivy"
+brew "ykman"
+brew "ykpers"
+brew "ytt"
+brew "yubico-piv-tool"
+
+{{- else if .tags.work }}
+brew "conftest"
+brew "flux"
+brew "helm"
+brew "helmfile"
+brew "jd"
+brew "krew"
+brew "kubeconform"
+brew "kubelogin"
+brew "kubernetes-cli"
+brew "kustomize"
+brew "minikube"
+brew "opa"
+brew "pluto"
+brew "skopeo"
+brew "sonobuoy"
+brew "vault"
+
+{{- end }}
 #endregion
 
 #region cask
@@ -102,12 +183,89 @@ cask "the-unarchiver"
 cask "uninstallpkg"
 cask "visual-studio-code"
 cask "zap"
+
+{{- if .tags.personal }}
+cask "airtable"
+cask "altair-graphql-client"
+cask "altserver"
+cask "android-file-transfer"
+cask "android-platform-tools"
+cask "balenaetcher"
+cask "calibre"
+cask "cyberduck"
+cask "daisydisk"
+cask "devpod"
+cask "discord"
+cask "dropbox"
+cask "duckduckgo"
+cask "duet"
+cask "hakuneko"
+cask "ivpn"
+cask "keybase"
+cask "kindle"
+cask "lapce"
+cask "launchcontrol"
+cask "launchpad-manager"
+cask "little-snitch"
+cask "mactex-no-gui"
+cask "mate-translate"
+cask "messenger"
+cask "netnewswire"
+cask "numi"
+cask "obs"
+cask "onyx"
+cask "playcover-community"
+cask "redisinsight"
+cask "responsively"
+cask "soulver"
+cask "soundsource"
+cask "spotify"
+cask "sqlitestudio"
+cask "steam"
+cask "synology-drive"
+cask "telegram"
+cask "thingsmacsandboxhelper"
+cask "tiddly"
+cask "whatsapp"
+cask "yattee"
+cask "yubico-yubikey-manager"
+cask "zotero"
+
+{{- else if .tags.work }}
+# cask "breaktimer"
+# cask "dotnet-sdk"
+# cask "google-cloud-sdk"
+# cask "powershell"
+
+{{- end }}
 #endregion
 
 #region mas
 mas "1Password for Safari", id: 1569813296
+mas "StopTheMadness", id: 1376402589
 mas "Tampermonkey", id: 1482490089
 mas "Userscripts-Mac-App", id: 1463298887
+
+{{- if .tags.personal }}
+mas "Apple Configurator", id: 1037126344
+mas "Be Focused Pro", id: 961632517
+mas "DoMarks", id: 1518886084
+mas "Just Press Record", id: 1033342465
+mas "Keynote", id: 409183694
+# mas "Microsoft OneNote", id: 784801555
+mas "Numbers", id: 409203825
+mas "OX Drive", id: 818195014
+mas "Parcel", id: 639968404
+mas "Privacy Redirect", id: 1578144015
+mas "Scenecuts Helper", id: 1540491573
+mas "SwiftoDo Desktop", id: 1143641091
+mas "TestFlight", id: 899247664
+mas "Things", id: 904280696
+mas "Xcode", id: 497799835
+# mas "Yubico Authenticator", id: 1497506650
+
+{{- else if .tags.work }}
+{{- end }}
 #endregion
 
 #region vscode
@@ -211,181 +369,24 @@ vscode "xabikos.JavaScriptSnippets"
 vscode "ymotongpoo.licenser"
 vscode "znck.grammarly"
 vscode "zxh404.vscode-proto3"
-#endregion
 
 {{- if .tags.personal }}
-
-#region personal tap
-tap "anchore/grype"
-tap "anchore/syft"
-tap "avisi-cloud/tools" # structurizr-site-generatr
-tap "lemoony/tap" # snipkit
-tap "tinygo-org/tools"
-tap "vmware-tanzu/carvel" # ytt
-tap "yoheimuta/protolint"
-#endregion
-
-#region personal brew
-brew "asciinema"
-brew "binaryen" # needed by tinygo
-brew "cfengine"
-brew "cfssl"
-brew "doctl"
-brew "exiftool"
-brew "flyctl"
-brew "gh"
-brew "ghcup"
-brew "goreleaser"
-brew "grype"
-brew "haskell-stack"
-brew "hlint"
-brew "hub"
-brew "hugo"
-brew "imapfilter"
-brew "lerna"
-brew "lua"
-brew "luarocks"
-brew "mimirtool"
-brew "mosh"
-brew "protobuf"
-brew "protolint"
-brew "pulumi"
-brew "qpdf"
-brew "redis"
-brew "rustup-init"
-brew "snipkit"
-brew "structurizr-cli"
-brew "structurizr-site-generatr"
-brew "stylelint"
-brew "stylish-haskell"
-brew "syft"
-brew "tinygo"
-brew "trivy"
-brew "ykman"
-brew "ykpers"
-brew "ytt"
-brew "yubico-piv-tool"
-#endregion
-
-#region personal cask
-cask "airtable"
-cask "altair-graphql-client"
-cask "altserver"
-cask "android-file-transfer"
-cask "android-platform-tools"
-cask "balenaetcher"
-cask "calibre"
-cask "cyberduck"
-cask "daisydisk"
-cask "devpod"
-cask "discord"
-cask "dropbox"
-cask "duckduckgo"
-cask "duet"
-cask "hakuneko"
-cask "ivpn"
-cask "keybase"
-cask "kindle"
-cask "lapce"
-cask "launchcontrol"
-cask "launchpad-manager"
-cask "little-snitch"
-cask "mactex-no-gui"
-cask "mate-translate"
-cask "messenger"
-cask "netnewswire"
-cask "obs"
-cask "onyx"
-cask "playcover-community"
-cask "redisinsight"
-cask "responsively"
-cask "soulver"
-cask "soundsource"
-cask "spotify"
-cask "sqlitestudio"
-cask "steam"
-cask "synology-drive"
-cask "telegram"
-cask "thingsmacsandboxhelper"
-cask "tiddly"
-cask "whatsapp"
-cask "yattee"
-cask "yubico-yubikey-manager"
-cask "zotero"
-#endregion
-
-#region personal mas
-mas "Apple Configurator", id: 1037126344
-mas "Be Focused Pro", id: 961632517
-mas "DoMarks", id: 1518886084
-mas "Just Press Record", id: 1033342465
-mas "Keynote", id: 409183694
-mas "Microsoft OneNote", id: 784801555
-mas "Numbers", id: 409203825
-mas "OX Drive", id: 818195014
-mas "Parcel", id: 639968404
-mas "Privacy Redirect", id: 1578144015
-mas "Scenecuts Helper", id: 1540491573
-mas "StopTheMadness", id: 1376402589
-mas "SwiftoDo Desktop", id: 1143641091
-mas "TestFlight", id: 899247664
-mas "Things", id: 904280696
-mas "Xcode", id: 497799835
-mas "Yubico Authenticator", id: 1497506650
-#endregion
-
-#region personal vscode
 vscode "adpyke.vscode-userscript"
 vscode "budparr.language-hugo-vscode"
+vscode "folke.vscode-monorepo-workspace"
 vscode "github.vscode-github-actions"
 vscode "GitHub.vscode-pull-request-github"
 vscode "kaellarkin.hugo-shortcode-syntax"
 vscode "Swellaby.vscode-rust-test-adapter"
 vscode "virgilsisoe.hammerspoon-snippets"
-#endregion
 
 {{- else if .tags.work }}
-
-#region work tap
-tap "Azure/kubelogin"
-tap "FairwindsOps/tap"
-tap "fluxcd/tap"
-tap "hashicorp/tap"
-#endregion
-
-#region work brew
-brew "conftest"
-brew "flux"
-brew "helm"
-brew "helmfile"
-brew "jd"
-brew "krew"
-brew "kubeconform"
-brew "kubelogin"
-brew "kubernetes-cli"
-brew "kustomize"
-brew "minikube"
-brew "opa"
-brew "pluto"
-brew "skopeo"
-brew "sonobuoy"
-brew "vault"
-#endregion
-
-#region work cask
-cask "breaktimer"
-# cask "dotnet-sdk"
-# cask "google-cloud-sdk"
-# cask "powershell"
-#endregion
-
-#region work vscode
 vscode "plex.vscode-regolint"
 vscode "tsandall.opa"
 vscode "Tim-Koehler.helm-intellisense"
 vscode "hashicorp.terraform"
 vscode "ipedrazas.kubernetes-snippets"
 vscode "ms-kubernetes-tools.vscode-kubernetes-tools"
-#endregion
 
 {{- end }}
+#endregion
