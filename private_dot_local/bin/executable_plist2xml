@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 plutil -convert xml1 -o - "$1"
 

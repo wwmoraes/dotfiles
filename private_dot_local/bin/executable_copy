@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 command -V pbcopy > /dev/null 2>&1 && { pbcopy "$@"; exit 0; } # MacOS
 command -V xsel > /dev/null 2>&1 && { xsel --input --clipboard "$@"; exit 0; } # Unix/Linux

@@ -1,6 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 set -eum
+trap 'kill 0' INT HUP TERM
 
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v

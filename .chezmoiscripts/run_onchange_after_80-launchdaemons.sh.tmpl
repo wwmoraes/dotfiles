@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
 
 #{{- range $_, $filename := (glob (joinPath .chezmoi.sourceDir ".global.d" "Library" "LaunchDaemons" "*.plist")) }}
