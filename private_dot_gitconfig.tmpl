@@ -34,6 +34,7 @@
   prompt = false
 
 [fetch]
+  fsckObjects = true
   prune = true
 
 [filter "lfs"]
@@ -99,6 +100,9 @@
   autoSquash = true
   autoStash = true
 
+[receive]
+  fsckObjects = true
+
 # [remote "origin"]
   # fetch = +refs/heads/*:refs/remotes/origin/*
 
@@ -123,6 +127,9 @@
 [trailer "coauthor"]
   key = Co-authored-by
   ifExists = addIfDifferent
+
+[transfer]
+  fsckObjects = true
 
 [url "git://gist.github.com/"]
   insteadOf = "gist:"
