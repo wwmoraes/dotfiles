@@ -6,6 +6,8 @@ trap 'kill 0' INT HUP TERM
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
+printf "\e[1;33m[Darwin] Developer setup\e[0m\n"
+
 # run only on darwin
 test "${CHEZMOI_OS:-}" = "darwin" || exit
 

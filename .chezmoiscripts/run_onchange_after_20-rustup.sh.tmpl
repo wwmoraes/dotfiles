@@ -41,20 +41,18 @@ if ! _=$(command -V rustup >/dev/null 2>&1); then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 fi
 
-enterTmp
+createAndEnterTmpDir
 
-INSTALLED="${TMP}/installed"
+INSTALLED="${PWD}/installed"
 rustup component list 2>&1 | awk '/(installed)/ {print $1}' > "${INSTALLED}"
 
-getPackages "rustup.txt"
-: "${PACKAGES:?run getPackages to generate}"
+getPackagesPipeIntoVariable "rustup.txt" PACKAGES
+FIFO=$(getRandomFifo)
 
 ### Install packages
 while read -r PACKAGE; do
-  case "${PACKAGE%%:*}" in
-    -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
-    *) REMOVE=0;;
-  esac
+  parsePackageForRemoval "${PACKAGE}" > "${FIFO}"
+  read -r REMOVE PACKAGE < "${FIFO}"
 
   case "${REMOVE}" in
     1)

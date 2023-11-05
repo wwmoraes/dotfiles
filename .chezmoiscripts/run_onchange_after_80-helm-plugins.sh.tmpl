@@ -11,6 +11,12 @@
 #{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "work" "helm.txt") }}
 #{{- end }}
 
+#{{- range $_, $source := $sources }}
+#{{- if stat $source }}
+# #{{ $source }} hash: #{{ include $source | sha256sum }}
+#{{- end }}
+#{{- end }}
+
 set -eum
 trap 'kill 0' INT HUP TERM
 
@@ -25,20 +31,23 @@ test "${VERBOSE:-0}" = "1" && set -v
 # shellcheck source=../.setup.d/functions.sh
 . "${DOTFILES_PATH}/.setup.d/functions.sh"
 
-printf "\e[1;34mhelm plugins\e[0m\n"
+h1 "Helm plugins"
 
-enterTmp
+createAndEnterTmpDir
 
-INSTALLED="${TMP}/installed"
+INSTALLED="${PWD}/installed"
 helm plugin list 2>/dev/null | awk 'NR != 1 {print $1}' > "${INSTALLED}"
 
-getPackages "helm.txt"
-: "${PACKAGES:?run getPackages to generate}"
+getPackagesPipeIntoVariable "helm.txt" PACKAGES
 
 while read -r PACKAGE; do
-  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
-  grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
+  printStatus install check "${PACKAGE%%|*}"
+  grep -q "${PACKAGE%%|*}" "${INSTALLED}" && {
+    printStatus install skip "${PACKAGE%%|*}"
+    continue
+  }
 
-  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE%%|*}"
-  helm plugin install "${PACKAGE##*|}"
+  printStatus install execute "${PACKAGE%%|*}"
+  helm plugin install "${PACKAGE##*|}" || status=failure
+  printStatus install "${status:-success}" "${MODULE}"
 done < "${PACKAGES}"

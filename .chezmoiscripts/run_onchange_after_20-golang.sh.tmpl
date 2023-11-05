@@ -33,10 +33,10 @@ test "${VERBOSE:-0}" = "1" && set -v
 # shellcheck source=../.setup.d/functions.sh
 . "${DOTFILES_PATH}/.setup.d/functions.sh"
 
-printf "\e[1;33mGolang packages\e[0m\n"
+h1 "Golang packages"
 
 ### Check package tool
-printf "Checking \e[91mgo\e[0m...\n"
+printCheckingBinary "go"
 # Get manager
 if ! _=$(command -V go >/dev/null 2>&1); then
   GOINSTALL=
@@ -55,46 +55,64 @@ if ! _=$(command -V go >/dev/null 2>&1); then
   curl -fsSL https://raw.githubusercontent.com/wwmoraes/golang-tools-install-script/master/goinstall.sh | bash -s - "${GOINSTALL}"
 fi
 
-printf "Checking go packages on \e[94m%s\e[0m...\n" "${GOPATH}"
+printf "Checking packages in %s...\n" "$(colorPath "${GOPATH}")"
 
-enterTmp
-getPackages "golang.txt"
-: "${PACKAGES:?run getPackages to generate}"
+createAndEnterTmpDir
+
+getPackagesPipeIntoVariable "golang.txt" PACKAGES
+FIFO=$(getRandomFifo)
 
 ### Install packages
-FIFO=$(mktemp -u -t dotfiles-golang-XXXXXX)
-mkfifo -m 0600 "${FIFO}"
-trap 'rm -f "${FIFO}"' EXIT INT TERM
 while read -r PACKAGE; do
-  case "${PACKAGE%%:*}" in
-    -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
-    *) REMOVE=0;;
-  esac
+  parsePackageForRemoval "${PACKAGE}" > "${FIFO}"
+  read -r REMOVE PACKAGE < "${FIFO}"
 
-  echo "${PACKAGE}" > "${FIFO}" &
-  IFS=: read -r PKG BIN < "${FIFO}"
-  echo "${PKG}" > "${FIFO}" &
-  IFS=@ read -r MODULE VERSION < "${FIFO}"
-  : "${VERSION:=latest}"
+  PKG="${PACKAGE%%:*}"
+  BIN="${PACKAGE##*:}"
+  test "${BIN}" = "${PKG}" && unset BIN
+
+  MODULE="${PKG%%@*}"
+  VERSION="${PACKAGE##*@}"
+  test "${VERSION}" = "${MODULE}" && unset VERSION
+
   : "${BIN:=$(basename "${MODULE}")}"
+  : "${VERSION:=latest}"
 
   GOPATH=$(go env GOPATH)
 
   case "${REMOVE}" in
     1)
-      printf "[\e[91muninstall\e[m] Checking \e[96m%s\e[0m\n" "${MODULE}"
-      test -f "${GOPATH:?}/bin/${BIN}" || continue
-      printf "[\e[91muninstall\e[m] Uninstalling \e[95m%s\e[0m\n" "${MODULE}"
-      test -d "${GOPATH:?}/src/${MODULE}" && rm -rf "${GOPATH:?}/src/${MODULE}"
-      test -f "${GOPATH:?}/bin/${BIN}" && rm -rf "${GOPATH:?}/bin/${BIN}"
-      test -d "${GOPATH:?}/pkg/mod/${MODULE}" && rm -rf "${GOPATH:?}/pkg/mod/${MODULE}"
-      test -d "${GOPATH:?}/pkg/mod/cache/download/${MODULE}" && rm -rf "${GOPATH:?}/pkg/mod/cache/download/${MODULE}"
+      printStatus uninstall check "${MODULE}"
+      test -f "${GOPATH:?}/bin/${BIN}" || {
+        printStatus uninstall skip "${MODULE}"
+        continue
+      }
+
+      printStatus uninstall execute "${MODULE}"
+      if [ -d "${GOPATH:?}/src/${MODULE}" ]; then
+        rm -rf "${GOPATH:?}/src/${MODULE}" || status=failure
+      fi
+      if [ -f "${GOPATH:?}/bin/${BIN}" ]; then
+        rm -rf "${GOPATH:?}/bin/${BIN}" || status=failure
+      fi
+      if [ -d "${GOPATH:?}/pkg/mod/${MODULE}" ]; then
+        rm -rf "${GOPATH:?}/pkg/mod/${MODULE}" || status=failure
+      fi
+      if [ -d "${GOPATH:?}/pkg/mod/cache/download/${MODULE}" ]; then
+        rm -rf "${GOPATH:?}/pkg/mod/cache/download/${MODULE}" || status=failure
+      fi
+      printStatus install "${status:-success}" "${MODULE}"
     ;;
     0)
-      printf "[\e[92m install \e[m] Checking \e[96m%s\e[0m\n" "${MODULE}"
-      test -f "${GOPATH:?}/bin/${BIN}" && continue
-      printf "[\e[92m install \e[m] Installing \e[96m%s\e[0m\n" "${MODULE}"
-      env -u GOBIN go install "${MODULE}@${VERSION}" || printf "\e[91mFAILED\e[m to install \e[96m%s\e[0m\n" "${MODULE}" >&2
+      printStatus install check "${MODULE}"
+      test -f "${GOPATH:?}/bin/${BIN}" && {
+        printStatus install skip "${MODULE}"
+        continue
+      }
+
+      printStatus install execute "${MODULE}"
+      env -u GOBIN go install "${MODULE}@${VERSION}" || status=failure
+      printStatus install "${status:-success}" "${MODULE}"
     ;;
   esac
 done < "${PACKAGES}"

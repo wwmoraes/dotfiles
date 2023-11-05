@@ -6,13 +6,14 @@ trap 'kill 0' INT HUP TERM
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
+printf "\e[1;33m[Darwin] User Defaults\e[0m\n"
+
 # run only on darwin
 test "${CHEZMOI_OS:-}" = "darwin" || exit
 
 # skip changing defaults
 test "${DEFAULTS:-0}" = "0" && exit
 
-printf "\e[1;33mDarwin defaults\e[0m\n"
 ## sane defaults on https://github.com/kevinSuttle/macOS-Defaults
 
 ## close system preferences to avoid it overriding any settings done here

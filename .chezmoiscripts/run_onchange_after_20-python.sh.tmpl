@@ -42,21 +42,19 @@ fi
 
 python3 -m pip install --user --upgrade pip
 
-enterTmp
+createAndEnterTmpDir
 
 printf "Listing installed packages...\n"
-INSTALLED="${TMP}/installed"
+INSTALLED="${PWD}/installed"
 python3 -m pip list --user --format freeze | cut -d= -f1 > "${INSTALLED}"
 
-getPackages "pip.txt"
-: "${PACKAGES:?run getPackages to generate}"
+getPackagesPipeIntoVariable "pip.txt" PACKAGES
+FIFO=$(getRandomFifo)
 
 ### Install packages
 while read -r PACKAGE; do
-  case "${PACKAGE%%:*}" in
-    -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
-    *) REMOVE=0;;
-  esac
+  parsePackageForRemoval "${PACKAGE}" > "${FIFO}"
+  read -r REMOVE PACKAGE < "${FIFO}"
 
   case "${REMOVE}" in
     1)

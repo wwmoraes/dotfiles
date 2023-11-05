@@ -11,6 +11,12 @@
 #{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "work" "krew.txt") }}
 #{{- end }}
 
+#{{- range $_, $source := $sources }}
+#{{- if stat $source }}
+# #{{ $source }} hash: #{{ include $source | sha256sum }}
+#{{- end }}
+#{{- end }}
+
 set -eum
 trap 'kill 0' INT HUP TERM
 
@@ -21,18 +27,20 @@ trap 'kill 0' INT HUP TERM
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
+command -v kubectl > /dev/null || exit 0
+command -v kubectl-krew > /dev/null || exit 0
+
 # import common functions
 # shellcheck source=../.setup.d/functions.sh
 . "${DOTFILES_PATH}/.setup.d/functions.sh"
 
-enterTmp
+createAndEnterTmpDir
 
 printf "Listing installed plugins...\n"
-INSTALLED="${TMP}/installed"
+INSTALLED="${PWD}/installed"
 kubectl krew list | cut -d= -f1 > "${INSTALLED}"
 
-getPackages "krew.txt"
-: "${PACKAGES:?run getPackages to generate}"
+getPackagesPipeIntoVariable "krew.txt" PACKAGES
 
 printf "\e[1;33mKrew plugins\e[0m\n"
 

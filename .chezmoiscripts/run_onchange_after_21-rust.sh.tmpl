@@ -31,42 +31,56 @@ test "${VERBOSE:-0}" = "1" && set -v
 # shellcheck source=../.setup.d/functions.sh
 . "${DOTFILES_PATH}/.setup.d/functions.sh"
 
-printf "\e[1;33mRust packages\e[0m\n"
+h1 "Rust packages"
 
 ### Check package tool
-printf "Checking \e[91mrustup\e[0m...\n"
+printCheckingBinary "rustup"
 # Get manager
 if ! _=$(command -V rustup >/dev/null 2>&1); then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 fi
 
-enterTmp
+createAndEnterTmpDir
+
 printf "Listing installed packages...\n"
-INSTALLED="${TMP}/installed"
+INSTALLED="${PWD}/installed"
 cargo install --list | grep ':' | cut -d' ' -f1 > "${INSTALLED}"
 
-getPackages "rust.txt"
-: "${PACKAGES:?run getPackages to generate}"
+getPackagesPipeIntoVariable "rust.txt" PACKAGES
+FIFO=$(getRandomFifo)
 
 ### Install packages
 while read -r PACKAGE; do
-  case "${PACKAGE%%:*}" in
-    -*) REMOVE=1; PACKAGE=${PACKAGE#-*};;
-    *) REMOVE=0;;
-  esac
+  parsePackageForRemoval "${PACKAGE}" > "${FIFO}"
+  read -r REMOVE PACKAGE < "${FIFO}"
+
+  PKG="${PACKAGE%%:*}"
+  BIN="${PACKAGE##*:}"
+  test "${BIN}" = "${PKG}" && unset BIN
+  PACKAGE="${PKG}"
 
   case "${REMOVE}" in
     1)
-      printf "[\e[91muninstall\e[m] Checking \e[96m%s\e[0m\n" "${PACKAGE%%:*}"
-      grep -q "${PACKAGE%%:*}" "${INSTALLED}" || continue
-      printf "[\e[91muninstall\e[m] Uninstalling \e[95m%s\e[0m\n" "${PACKAGE%%:*}"
-      cargo -q uninstall -p "${PACKAGE%%:*}"
+      printStatus uninstall check "${PKG}"
+      grep -q "${PKG}" "${INSTALLED}" || {
+        printStatus uninstall skip "${PKG}"
+        continue
+      }
+
+      printStatus uninstall execute "${PKG}"
+      cargo -q uninstall -p "${PKG}" || status=failure
+      printStatus uninstall "${status:-success}" "${PKG}"
     ;;
     0)
-      printf "[\e[92m install \e[m] Checking \e[96m%s\e[0m\n" "${PACKAGE%%:*}"
-      grep -q "${PACKAGE%%:*}" "${INSTALLED}" && continue
-      printf "[\e[92m install \e[m] Installing \e[96m%s\e[0m\n" "${PACKAGE%%:*}"
-      cargo -q install "${PACKAGE%%:*}"
+      printStatus install check "${PKG}"
+      grep -q "${PKG}" "${INSTALLED}" && {
+        printStatus install skip "${PKG}"
+        continue
+      }
+
+      printStatus install execute "${PKG}"
+      cargo -q install "${PKG}" || status=failure
+      printStatus install "${status:-success}" "${PKG}"
     ;;
   esac
 done < "${PACKAGES}"

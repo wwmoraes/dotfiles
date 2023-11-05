@@ -6,10 +6,14 @@ trap 'kill 0' INT HUP TERM
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
-# run only on darwin
-test "${CHEZMOI_OS:-}" = "darwin" || exit
+# import common functions
+# shellcheck source=../.setup.d/functions.sh
+. "${DOTFILES_PATH}/.setup.d/functions.sh"
 
-printf "\e[1;33mDarwin power management settings\e[0m\n"
+h1 "[Darwin] Power management settings"
+
+# run only on darwin
+test "${CHEZMOI_OS:-}" = "darwin" || exit 0
 
 sudo pmset -a standbydelaylow 900
 sudo pmset -a highstandbythreshold 50
