@@ -25,13 +25,13 @@ printf "Setting fish PATH...\n"
 set -egl PATH
 set -xU PATH $paths
 set -xg PATH $paths
-
-echo "Removing fish user paths..."
-set -elgU fish_user_paths
+set -xU fish_user_paths $paths
+set -xg fish_user_paths $paths
 
 # run only on darwin
-string match -q "$CHEZMOI_OS" "darwin"; or exit
+string match -q "$CHEZMOI_OS" "darwin"; or exit 0
 
+echo "Collecting POSIX path..."
 set -l posixPath (string join ":" $PATH | string collect)
 
 echo "configuring root launchd user path..."
