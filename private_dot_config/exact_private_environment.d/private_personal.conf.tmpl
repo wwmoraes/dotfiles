@@ -10,6 +10,7 @@ PAGER=/opt/homebrew/bin/less
 
 EMAIL={{ .me.personalEmail }}
 DIGITALOCEAN_CONTEXT=default
+FOSSA_API_KEY={{ onepasswordRead "op://Development/FOSSA/token" }}
 PULUMI_ACCESS_TOKEN={{ onepasswordRead "op://Development/Pulumi/credential" }}
 WRANGLER_TOKEN={{ onepasswordRead "op://Development/Wrangler/credential" }}
 
