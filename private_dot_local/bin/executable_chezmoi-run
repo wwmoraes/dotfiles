@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+set -eum
+trap 'kill 0' INT HUP TERM
+
+# load scriptEnv and export the variables
+set -a
+eval "$(chezmoi cat-config \
+  | awk '/\[scriptEnv\]/{found=1} found' \
+  | tail -n +2 \
+  | awk '/^\[/{exit}; 1' \
+  | grep -vE '^[ ]*#' \
+  | grep -vE '^$' \
+  | sed 's/ = /=/g')"
+set +a
+
+SCRIPT="$(mktemp -t chezmoi-run.XXXXXX)"
+trap 'rm -f "${SCRIPT}"' EXIT INT TERM
+
+# expand and execute target script
+chezmoi cat "${HOME}/.chezmoiscripts/$1" > "${SCRIPT}"
+chmod +x "${SCRIPT}"
+
+"${SCRIPT}"

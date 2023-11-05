@@ -9,11 +9,12 @@ abbr -a !! --position anywhere --function bash_last_history_item
 # .f (dotfiles) => chezmoi
 if command -q chezmoi
   abbr -a .f chezmoi
-  abbr -a .fi "chezmoi init"
   abbr -a .fa "chezmoi apply"
   abbr -a .fc "chezmoi check"
   abbr -a .fe "chezmoi env"
+  abbr -a .fi "chezmoi init"
   abbr -a .fl "chezmoi lg"
+  abbr -a .fr "chezmoi run"
   abbr -a .fs "chezmoi sync"
 end
 
