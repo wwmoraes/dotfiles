@@ -103,6 +103,10 @@
 # Find a file path in codebase
   f = "!git ls-files | grep -i"
 
+# list deleted files
+  find-deleted = "!git log --diff-filter=D --summary | grep delete | cut -d' ' -f5- | sort -h"
+  cat-deleted = "!f() { git cat-file -p "$(git log --pretty=%H --diff-filter=AM -1 -- "$1"):$1"; }; f"
+
 # Search/grep your entire codebase for a string:
   grep = grep -Ii
   gr = grep -Ii
