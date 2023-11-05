@@ -54,6 +54,7 @@ CROSSMARK=$(printf "\xE2\x9C\x96")
 RIGHTWARDS_ARROW=$(printf "\xE2\x9E\xBE")
 
 parse_git_branch() {
+  HASCHANGES=
   if [ "$(git status -s 2> /dev/null | wc -l)" -gt 0 ]; then
     HASCHANGES="*"
   fi
@@ -114,7 +115,8 @@ fi
 
 # setup environment variables
 # shellcheck source=private_Library/private_Scripts/executable_dotenv.sh
-. "${HOME}/Library/Scripts/dotenv.sh"
+. "${HOME}/Library/Scripts/dotenv.sh" > /dev/null
+set +eum # restore default shell "looseness"
 
 # fzf & bashfu sorcery
 #   lists tmux sessions to attach to
