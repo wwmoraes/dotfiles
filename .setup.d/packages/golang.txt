@@ -1,5 +1,4 @@
 -github.com/axw/gocov/gocov@latest
--github.com/cosmtrek/air@latest
 -github.com/editorconfig-checker/editorconfig-checker/cmd/editorconfig-checker@latest
 -github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 -github.com/GoogleContainerTools/container-structure-test/cmd/container-structure-test@latest
