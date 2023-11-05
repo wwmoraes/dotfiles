@@ -6,7 +6,7 @@
   },
   "[dockercompose]": {
     "editor.autoIndent": "advanced",
-    "editor.defaultFormatter": "redhat.vscode-yaml"
+    "editor.defaultFormatter": "kennylong.kubernetes-yaml-formatter"
   },
   "[json]": {
     "editor.defaultFormatter": "richie5um2.vscode-sort-json"
@@ -23,7 +23,8 @@
     "editor.formatOnType": true
   },
   "[yaml]": {
-    "editor.defaultFormatter": "redhat.vscode-yaml"
+    "editor.defaultFormatter": "kennylong.kubernetes-yaml-formatter",
+    "editor.formatOnSave": false
   },
   "betterStrongerToml.jsonSchema.associations": [
     {
@@ -387,7 +388,6 @@
   "python.analysis.typeCheckingMode": "basic",
   "python.analysis.useLibraryCodeForTypes": true,
   "python.languageServer": "Pylance",
-  "redhat.telemetry.enabled": true,
   "region-viewer.markers-overrides": {
     "ruby": {
       "end": "^\\s*#?endregion\\b",
