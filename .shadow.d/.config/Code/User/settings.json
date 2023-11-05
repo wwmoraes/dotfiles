@@ -1,5 +1,4 @@
 {
-  "Lua.telemetry.enable": true,
   "[c4]": {
     "editor.formatOnSave": false,
     "editor.formatOnType": false
@@ -7,6 +6,9 @@
   "[dockercompose]": {
     "editor.autoIndent": "advanced",
     "editor.defaultFormatter": "kennylong.kubernetes-yaml-formatter"
+  },
+  "[haskell]": {
+    "editor.defaultFormatter": "vigoo.stylish-haskell"
   },
   "[json]": {
     "editor.defaultFormatter": "richie5um2.vscode-sort-json"
@@ -26,12 +28,6 @@
     "editor.defaultFormatter": "kennylong.kubernetes-yaml-formatter",
     "editor.formatOnSave": false
   },
-  "betterStrongerToml.jsonSchema.associations": [
-    {
-      "pattern": "fly.toml",
-      "schema": "https://json.schemastore.org/fly.json"
-    }
-  ],
   "bookmarks.saveBookmarksInProject": true,
   "bookmarks.useWorkaroundForFormatters": true,
   "breadcrumbs.enabled": true,
@@ -230,6 +226,14 @@
     "azure-pipelines.yaml": "azure-pipelines",
     "azure-pipelines.yml": "azure-pipelines"
   },
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.svn": true,
+    "**/CVS": true,
+    "**/Thumbs.db": true
+  },
   "files.trimFinalNewlines": true,
   "git-graph.dialog.merge.noFastForward": false,
   "git-graph.dialog.merge.squashCommits": true,
@@ -247,12 +251,6 @@
   "go.toolsManagement.autoUpdate": true,
   "go.useLanguageServer": true,
   "go.vetOnSave": "package",
-  "grammarly.config.documentDomain": "business",
-  "grammarly.config.suggestions.ConjunctionAtStartOfSentence": true,
-  "grammarly.config.suggestions.PassiveVoice": true,
-  "grammarly.config.suggestions.PrepositionAtTheEndOfSentence": true,
-  "grammarly.config.suggestions.StylisticFragments": true,
-  "grammarly.config.suggestions.UnnecessaryEllipses": true,
   "gremlins.characters": {
     "2013": {
       "description": "en dash",
@@ -342,6 +340,7 @@
   "http.proxySupport": "fallback",
   "javascript.format.semicolons": "insert",
   "javascript.updateImportsOnFileMove.enabled": "always",
+  "json.format.enable": true,
   "json.schemaDownload.enable": true,
   "json.schemas": [
     {
@@ -400,6 +399,7 @@
   "shellcheck.customArgs": [
     "-x"
   ],
+  "telemetry.telemetryLevel": "error",
   "terminal.integrated.automationProfile.linux": {
     "icon": "terminal",
     "path": "fish"
@@ -508,10 +508,6 @@
   "todo-tree.tree.labelFormat": "${after}",
   "typescript.format.semicolons": "insert",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "vs-kubernetes": {
-    "vs-kubernetes.crd-code-completion": "enabled",
-    "vs-kubernetes.minikube-show-information-expiration": "2023-07-14T12:18:53.263Z"
-  },
   "vsicons.dontShowNewVersionMessage": true,
   "window.nativeTabs": true,
   "window.titleBarStyle": "custom",
