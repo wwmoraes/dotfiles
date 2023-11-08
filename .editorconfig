@@ -8,7 +8,7 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[.vscode/*.json]
+[.vscode/*.json,.shadow.d/.config/Code/User/*.json]
 insert_final_newline = false
 
 [*.html]

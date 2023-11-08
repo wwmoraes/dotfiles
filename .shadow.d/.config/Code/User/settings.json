@@ -401,13 +401,20 @@
   ],
   "telemetry.telemetryLevel": "error",
   "terminal.integrated.automationProfile.linux": {
+    "args": [
+      "-l"
+    ],
     "icon": "terminal",
     "path": "fish"
   },
   "terminal.integrated.automationProfile.osx": {
+    "args": [
+      "-l"
+    ],
     "icon": "terminal",
     "path": "fish"
   },
+  "terminal.integrated.defaultProfile.osx": "fish",
   "terminal.integrated.enablePersistentSessions": false,
   "terminal.integrated.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "terminal.integrated.persistentSessionReviveProcess": "never",
@@ -417,6 +424,9 @@
       "path": "bash"
     },
     "fish": {
+      "args": [
+        "-l"
+      ],
       "icon": "terminal",
       "path": "fish"
     },
@@ -431,6 +441,9 @@
       "path": "bash"
     },
     "fish": {
+      "args": [
+        "-l"
+      ],
       "icon": "terminal",
       "path": "fish"
     },
