@@ -13,7 +13,7 @@ function launch-tmux
   string match -q "screen*" $TERM; and return
 
   # path hack
-  set -xg PATH (launchctl getenv PATH)
+  test (uname -s) = "Darwin"; and set -xg PATH (launchctl getenv PATH)
 
   # tmux not found
   command -v tmux > /dev/null; or return
