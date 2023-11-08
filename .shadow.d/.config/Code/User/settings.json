@@ -401,6 +401,13 @@
   "shellcheck.customArgs": [
     "-x"
   ],
+  "sonarlint.connectedMode.connections.sonarcloud": [
+    {
+      "connectionId": "wwmoraes",
+      "disableNotifications": true,
+      "organizationKey": "wwmoraes"
+    }
+  ],
   "telemetry.telemetryLevel": "error",
   "terminal.integrated.automationProfile.linux": {
     "args": [
