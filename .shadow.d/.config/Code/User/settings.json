@@ -8,7 +8,7 @@
     "editor.defaultFormatter": "kennylong.kubernetes-yaml-formatter"
   },
   "[haskell]": {
-    "editor.defaultFormatter": "vigoo.stylish-haskell"
+    "editor.defaultFormatter": "haskell.haskell"
   },
   "[json]": {
     "editor.defaultFormatter": "richie5um2.vscode-sort-json"
@@ -329,7 +329,9 @@
       "zeroWidth": true
     }
   },
+  "haskell.formattingProvider": "stylish-haskell",
   "haskell.manageHLS": "GHCup",
+  "haskell.plugin.cabal.globalOn": false,
   "haskell.toolchain": {
     "cabal": null,
     "ghc": null,
