@@ -7,9 +7,6 @@
     "editor.autoIndent": "advanced",
     "editor.defaultFormatter": "kennylong.kubernetes-yaml-formatter"
   },
-  "[haskell]": {
-    "editor.defaultFormatter": "haskell.haskell"
-  },
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
@@ -239,15 +236,6 @@
   "git.autofetch": true,
   "gitlens.hovers.annotations.over": "annotation",
   "gitlens.statusBar.enabled": false,
-  "go.coverOnSave": false,
-  "go.delveConfig": {
-    "debugAdapter": "legacy"
-  },
-  "go.lintOnSave": "package",
-  "go.lintTool": "golangci-lint",
-  "go.toolsManagement.autoUpdate": true,
-  "go.useLanguageServer": true,
-  "go.vetOnSave": "package",
   "gremlins.characters": {
     "2013": {
       "description": "en dash",
@@ -326,15 +314,6 @@
       "zeroWidth": true
     }
   },
-  "haskell.formattingProvider": "stylish-haskell",
-  "haskell.manageHLS": "GHCup",
-  "haskell.plugin.cabal.globalOn": false,
-  "haskell.toolchain": {
-    "cabal": null,
-    "ghc": null,
-    "stack": null
-  },
-  "haskell.upgradeGHCup": true,
   "html.format.indentInnerHtml": true,
   "http.proxySupport": "fallback",
   "javascript.format.semicolons": "insert",
@@ -544,7 +523,6 @@
     "[c4]",
     "[dockercompose]",
     "[json]",
-    "[jsonc]",
     "[markdown]",
     "[yaml]",
     "bookmarks.saveBookmarksInProject",

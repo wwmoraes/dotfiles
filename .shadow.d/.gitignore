@@ -1,0 +1,37 @@
+### Fish
+.config/fish/fish_variables
+# fisher
+.config/fish/functions/fisher.fish
+# jorgebucaran/fish-nvm
+.config/fish/conf.d/nvm.fish
+.config/fish/completions/nvm.fish
+.config/fish/functions/nvm.fish
+.config/fish/functions/_nvm_*.fish
+# edc/bass
+.config/fish/functions/__bass.py
+.config/fish/functions/bass.fish
+# evanlucas/fish-kubectl-completions
+.config/fish/completions/kubectl.fish
+# PatrickF1/fzf.fish
+.config/fish/conf.d/fzf.fish
+.config/fish/functions/__fzf_*.fish
+
+### Hammerspoon
+.hammerspoon/Spoons/*
+!.hammerspoon/Spoons/SpoonInstall.spoon
+
+## VSCode
+.config/Code/*
+!.config/Code/User
+.config/Code/User/History
+.config/Code/User/workspaceStorage
+
+## VSCode - Project Manager extension settings
+.config/Code/User/globalStorage/*
+!.config/Code/User/globalStorage/alefragnani.project-manager
+.config/Code/User/globalStorage/alefragnani.project-manager/*
+!.config/Code/User/globalStorage/alefragnani.project-manager/projects.json
+
+## VSCode - profiles' settings
+.config/Code/User/profiles/*/globalStorage
+.config/Code/User/profiles/*/extensions.json

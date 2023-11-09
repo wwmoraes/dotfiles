@@ -1,0 +1,11 @@
+{
+  "go.coverOnSave": false,
+  "go.delveConfig": {
+    "debugAdapter": "legacy"
+  },
+  "go.lintOnSave": "package",
+  "go.lintTool": "golangci-lint",
+  "go.toolsManagement.autoUpdate": true,
+  "go.useLanguageServer": true,
+  "go.vetOnSave": "package"
+}

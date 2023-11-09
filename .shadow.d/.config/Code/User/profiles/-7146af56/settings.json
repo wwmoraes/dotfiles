@@ -1,0 +1,14 @@
+{
+  "[haskell]": {
+    "editor.defaultFormatter": "haskell.haskell"
+  },
+  "haskell.formattingProvider": "stylish-haskell",
+  "haskell.manageHLS": "GHCup",
+  "haskell.plugin.cabal.globalOn": false,
+  "haskell.toolchain": {
+    "cabal": null,
+    "ghc": null,
+    "stack": null
+  },
+  "haskell.upgradeGHCup": true
+}

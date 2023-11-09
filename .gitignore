@@ -1,35 +1,3 @@
-### Fish
-.shadow.d/.config/fish/fish_variables
-# fisher
-.shadow.d/.config/fish/functions/fisher.fish
-# jorgebucaran/fish-nvm
-.shadow.d/.config/fish/conf.d/nvm.fish
-.shadow.d/.config/fish/completions/nvm.fish
-.shadow.d/.config/fish/functions/nvm.fish
-.shadow.d/.config/fish/functions/_nvm_*.fish
-# edc/bass
-.shadow.d/.config/fish/functions/__bass.py
-.shadow.d/.config/fish/functions/bass.fish
-# evanlucas/fish-kubectl-completions
-.shadow.d/.config/fish/completions/kubectl.fish
-# PatrickF1/fzf.fish
-.shadow.d/.config/fish/conf.d/fzf.fish
-.shadow.d/.config/fish/functions/__fzf_*.fish
-
-### Hammerspoon
-.shadow.d/.hammerspoon/Spoons/*
-!.shadow.d/.hammerspoon/Spoons/SpoonInstall.spoon
-
-### VSCode
-.shadow.d/.config/Code/*
-!.shadow.d/.config/Code/User
-.shadow.d/.config/Code/User/globalStorage/*
-!.shadow.d/.config/Code/User/globalStorage/alefragnani.project-manager
-.shadow.d/.config/Code/User/globalStorage/alefragnani.project-manager/*
-!.shadow.d/.config/Code/User/globalStorage/alefragnani.project-manager/projects.json
-.shadow.d/.config/Code/User/History
-.shadow.d/.config/Code/User/workspaceStorage
-
 ### MacOS
 # General
 .DS_Store
