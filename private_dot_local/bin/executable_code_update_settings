@@ -1,0 +1,22 @@
+#!/usr/bin/env fish
+
+function assert_bin -a bin
+  command -v $bin > /dev/null; and return 0
+  echo "error: '$bin' not found"
+  return 2
+end
+
+assert_bin jq; or exit $status
+assert_bin grep; or exit $status
+assert_bin sponge; or exit $status
+
+set -l settingsFile ~/.config/Code/User/settings.json
+test -f $settingsFile; or begin
+  echo "VSCode settings file not found at $settingsFile"
+  exit 2
+end
+
+chezmoi apply ~/.jq
+jq 'include "vscode"; code_settings' $settingsFile | sponge $settingsFile
+
+# vim: ft=fish
