@@ -30,7 +30,7 @@
     "**/pip.conf*": "ini",
     "*.conf.tmpl": "properties",
     "*.fish.tmpl": "fish",
-    "*.json.tmpl": "json",
+    "*.json.tmpl": "jsonc",
     "*.plist": "xml",
     "*.plist.tmpl": "xml",
     "*.sh.tmpl": "shellscript",

@@ -11,7 +11,7 @@
     "editor.defaultFormatter": "haskell.haskell"
   },
   "[json]": {
-    "editor.defaultFormatter": "richie5um2.vscode-sort-json"
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[markdown]": {
     "editor.defaultFormatter": "TomasHubelbauer.vscode-markdown-table-format",

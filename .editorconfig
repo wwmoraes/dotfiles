@@ -11,7 +11,7 @@ insert_final_newline = true
 [*.html]
 insert_final_newline = false
 
-[*.json,*.json.tmpl]
+[*.{json,json.tmpl}]
 insert_final_newline = false
 
 [*.mk]
