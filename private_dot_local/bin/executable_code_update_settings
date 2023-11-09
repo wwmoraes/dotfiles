@@ -7,7 +7,6 @@ function assert_bin -a bin
 end
 
 assert_bin jq; or exit $status
-assert_bin grep; or exit $status
 assert_bin sponge; or exit $status
 
 set -l settingsFile ~/.config/Code/User/settings.json
@@ -17,6 +16,6 @@ test -f $settingsFile; or begin
 end
 
 chezmoi apply ~/.jq
-jq 'include "vscode"; code_settings' $settingsFile | sponge $settingsFile
+~/.jq/vscode $settingsFile | sponge $settingsFile
 
 # vim: ft=fish

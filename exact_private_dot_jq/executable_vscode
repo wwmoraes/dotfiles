@@ -1,4 +1,4 @@
-# vim: ft=jq
+#!/usr/bin/env jq -f
 
 # this returns as an array of files found and loaded;
 # use $exclusions[0] to get the first (and only)
@@ -22,3 +22,7 @@ def code_settings:
   | .["workbench.settings.applyToAllProfiles"]
   |= ($root | code_settings_keys(flatten_exclusions($exclusions[0])))
   ;
+
+code_settings
+
+# vim: ft=jq
