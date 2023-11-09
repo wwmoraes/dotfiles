@@ -15,9 +15,6 @@
     "editor.wordWrap": "wordWrapColumn",
     "editor.wordWrapColumn": 80
   },
-  "[python]": {
-    "editor.formatOnType": true
-  },
   "[yaml]": {
     "editor.defaultFormatter": "kennylong.kubernetes-yaml-formatter",
     "editor.formatOnSave": false
@@ -144,6 +141,7 @@
     "proto",
     "protobuf",
     "pulumi",
+    "Pylance",
     "runtimes",
     "Semigroup",
     "setmetatable",
@@ -360,11 +358,6 @@
   ],
   "projectManager.groupList": true,
   "projectManager.removeCurrentProjectFromList": true,
-  "python.analysis.inlayHints.functionReturnTypes": true,
-  "python.analysis.inlayHints.variableTypes": true,
-  "python.analysis.typeCheckingMode": "basic",
-  "python.analysis.useLibraryCodeForTypes": true,
-  "python.languageServer": "Pylance",
   "region-viewer.markers-overrides": {
     "ruby": {
       "end": "^\\s*#?endregion\\b",
