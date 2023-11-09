@@ -17,10 +17,11 @@ tap "wwmoraes/tap"
 tap "anchore/grype"
 tap "anchore/syft"
 tap "avisi-cloud/tools" # structurizr-site-generatr
-tap "tinygo-org/tools"
-tap "yoheimuta/protolint"
+tap "codeclimate/formulae"
 tap "lemoony/tap" # snipkit
+tap "tinygo-org/tools"
 tap "vmware-tanzu/carvel" # ytt
+tap "yoheimuta/protolint"
 
 {{- else if .tags.work }}
 # tap "Azure/kubelogin"
@@ -93,6 +94,7 @@ brew "asciinema"
 brew "binaryen" # needed by tinygo
 brew "cfengine"
 brew "cfssl"
+brew "codeclimate"
 brew "doctl"
 brew "exiftool"
 brew "flyctl"
