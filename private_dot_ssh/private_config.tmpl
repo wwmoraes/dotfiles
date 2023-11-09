@@ -27,8 +27,14 @@ Host github.com
   IdentityFile ~/.ssh/work.pub
   IdentitiesOnly yes
 
-Host *.abnamro.com
+Host *.aegon.io
   IdentityFile ~/.ssh/work.pub
+  IdentitiesOnly yes
+
+Host bastion
+  HostName {{ onepasswordRead "op://Work/CCAT sonartype-poc VM/hostname" }}
+  User {{ onepasswordRead "op://Work/CCAT sonartype-poc VM/username" }}
+  IdentityFile ~/.ssh/bastion.pub
   IdentitiesOnly yes
 
 {{- end }}
