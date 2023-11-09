@@ -8,9 +8,7 @@
     "go",
     "haskell",
     "python",
-    "rust-analyzer",
-    "shellcheck",
-    "liveshare"
+    "rust-analyzer"
   ],
   "prefix": []
 }
