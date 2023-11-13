@@ -18,3 +18,4 @@
 -wrangler
 -ynpx
 -yo
+syncpack
