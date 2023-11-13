@@ -4,11 +4,11 @@
 PROJECTS_DIR=~/workspace
 GIT_PROJECT_PATHS='~/workspace'
 
-CURL_CA_BUNDLE=/usr/local/etc/openssl@1.1/cert.pem
-REQUESTS_CA_BUNDLE=/usr/local/etc/openssl@1.1/cert.pem
+CURL_CA_BUNDLE={{ .brewPrefix }}/etc/openssl@3/cert.pem
+REQUESTS_CA_BUNDLE={{ .brewPrefix }}/etc/openssl@3/cert.pem
 PYTHONWARNINGS=ignore
 # forces kubelogin to use the Azure CLI token login flow
-NODE_EXTRA_CA_CERTS=/usr/local/etc/openssl@1.1/cert.pem
+NODE_EXTRA_CA_CERTS={{ .brewPrefix }}/etc/openssl@3/cert.pem
 EMAIL={{ .me.workEmail }}
 
 {{- /*
