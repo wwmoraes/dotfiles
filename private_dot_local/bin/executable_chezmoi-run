@@ -3,6 +3,52 @@
 set -eum
 trap 'kill 0' INT HUP TERM
 
+# set chezmoi variables so run stays compatible
+CHEZMOI=1
+CHEZMOI_ARCH="$(chezmoi data | jq -r .chezmoi.arch)"
+CHEZMOI_ARGS="chezmoi run"
+CHEZMOI_CACHE_DIR="$(chezmoi data | jq -r .chezmoi.cacheDir)"
+CHEZMOI_COMMAND=run
+CHEZMOI_CONFIG_FILE="$(chezmoi data | jq -r .chezmoi.configFile)"
+CHEZMOI_EXECUTABLE="$(chezmoi data | jq -r .chezmoi.executable)"
+CHEZMOI_FQDN_HOSTNAME="$(chezmoi data | jq -r .chezmoi.fqdnHostname)"
+CHEZMOI_GID="$(chezmoi data | jq -r .chezmoi.gid)"
+CHEZMOI_GROUP="$(chezmoi data | jq -r .chezmoi.group)"
+CHEZMOI_HOME_DIR="$(chezmoi data | jq -r .chezmoi.homeDir)"
+CHEZMOI_HOSTNAME="$(chezmoi data | jq -r .chezmoi.hostname)"
+CHEZMOI_OS="$(chezmoi data | jq -r .chezmoi.os)"
+CHEZMOI_SOURCE_DIR="$(chezmoi data | jq -r .chezmoi.sourceDir)"
+CHEZMOI_UID="$(chezmoi data | jq -r .chezmoi.uid)"
+CHEZMOI_USERNAME="$(chezmoi data | jq -r .chezmoi.username)"
+CHEZMOI_VERSION_BUILT_BY="$(chezmoi data | jq -r .chezmoi.version.builtBy)"
+CHEZMOI_VERSION_COMMIT="$(chezmoi data | jq -r .chezmoi.version.commit)"
+CHEZMOI_VERSION_DATE="$(chezmoi data | jq -r .chezmoi.version.date)"
+CHEZMOI_VERSION_VERSION="$(chezmoi data | jq -r .chezmoi.version.version)"
+CHEZMOI_WORKING_TREE="$(chezmoi data | jq -r .chezmoi.workingTree)"
+export \
+  CHEZMOI \
+  CHEZMOI_ARCH \
+  CHEZMOI_ARGS \
+  CHEZMOI_CACHE_DIR \
+  CHEZMOI_COMMAND \
+  CHEZMOI_CONFIG_FILE \
+  CHEZMOI_EXECUTABLE \
+  CHEZMOI_FQDN_HOSTNAME \
+  CHEZMOI_GID \
+  CHEZMOI_GROUP \
+  CHEZMOI_HOME_DIR \
+  CHEZMOI_HOSTNAME \
+  CHEZMOI_OS \
+  CHEZMOI_SOURCE_DIR \
+  CHEZMOI_UID \
+  CHEZMOI_USERNAME \
+  CHEZMOI_VERSION_BUILT_BY \
+  CHEZMOI_VERSION_COMMIT \
+  CHEZMOI_VERSION_DATE \
+  CHEZMOI_VERSION_VERSION \
+  CHEZMOI_WORKING_TREE \
+  ;
+
 # load scriptEnv and export the variables
 set -a
 eval "$(chezmoi cat-config \
