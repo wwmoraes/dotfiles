@@ -35,7 +35,7 @@ echo "Collecting POSIX path..."
 set -l posixPath (string join ":" $PATH | string collect)
 
 echo "configuring root launchd user path..."
-# sudo launchctl config system path "${PATH}"
+sudo launchctl config system path "$posixPath"
 sudo launchctl config user path "$posixPath"
 
 echo "configuring launchd user path..."
