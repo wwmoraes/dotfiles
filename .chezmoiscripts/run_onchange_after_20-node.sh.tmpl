@@ -57,10 +57,17 @@ h1 "Yarn global packages"
 createAndEnterTmpDir
 
 INSTALLED="${PWD}/installed"
-jq -r '.dependencies | keys[]' "$(yarn global dir)/package.json" > "${INSTALLED}"
+touch "${INSTALLED}"
+
+GLOBAL_PACKAGES_FILE="$(yarn global dir)/package.json"
+if [ -f "${GLOBAL_PACKAGES_FILE}" ]; then
+  jq -r '.dependencies | keys[]' "${GLOBAL_PACKAGES_FILE}" > "${INSTALLED}"
+fi
 
 getPackagesPipeIntoVariable "node.txt" PACKAGES
 FIFO=$(getRandomFifo)
+
+export NODE_NO_WARNINGS=1
 
 ### Install packages
 while read -r PACKAGE; do
@@ -77,7 +84,7 @@ while read -r PACKAGE; do
 
       printStatus uninstall execute "${PACKAGE}"
       yarn global remove "${PACKAGE}" > /dev/null || status=failure
-      printStatus install "${status:-success}" "${MODULE}"
+      printStatus install "${status:-success}" "${PACKAGE}"
     ;;
     0)
       printStatus install check "${PACKAGE}"
@@ -87,7 +94,7 @@ while read -r PACKAGE; do
       }
 
       printStatus install execute "${PACKAGE}"
-      yarn global add "${PACKAGE}" > /dev/null || status=failure
+      yarn global add -s --non-interactive --no-progress "${PACKAGE}" > /dev/null || status=failure
       printStatus install "${status:-success}" "${PACKAGE}"
     ;;
   esac
