@@ -1,6 +1,10 @@
+#{{- if .tags.personal }}
 #!/usr/bin/env sh
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
-# rustup-init hash: #{{ include (joinPath .brewPrefix "bin" "rustup-init") | sha256sum }}
+#{{- $rustUpInitPath := joinPath .brewPrefix "bin" "rustup-init" }}
+#{{- if stat $rustUpInitPath }}
+# rustup-init hash: #{{ include $rustUpInitPath | sha256sum }}
+#{{- end }}
 
 #{{- $sources := list }}
 #{{- $sources = append $sources (joinPath .chezmoi.sourceDir ".setup.d" "packages" "rustup.txt") }}
@@ -69,3 +73,4 @@ while read -r PACKAGE; do
     ;;
   esac
 done < "${PACKAGES}"
+#{{- end }}
