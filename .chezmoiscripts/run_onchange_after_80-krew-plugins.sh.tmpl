@@ -27,12 +27,15 @@ trap 'kill 0' INT HUP TERM
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
-command -v kubectl > /dev/null || exit 0
-command -v kubectl-krew > /dev/null || exit 0
 
 # import common functions
 # shellcheck source=../.setup.d/functions.sh
 . "${DOTFILES_PATH}/.setup.d/functions.sh"
+
+h1 "Krew plugins"
+
+command -v kubectl > /dev/null || exit 0
+command -v kubectl-krew > /dev/null || exit 0
 
 createAndEnterTmpDir
 
@@ -41,13 +44,34 @@ INSTALLED="${PWD}/installed"
 kubectl krew list | cut -d= -f1 > "${INSTALLED}"
 
 getPackagesPipeIntoVariable "krew.txt" PACKAGES
-
-printf "\e[1;33mKrew plugins\e[0m\n"
+FIFO=$(getRandomFifo)
 
 while read -r PACKAGE; do
-  printf "Checking \e[96m%s\e[0m...\n" "${PACKAGE}"
-  grep -q "${PACKAGE}" "${INSTALLED}" && continue
+  parsePackageForRemoval "${PACKAGE}" > "${FIFO}"
+  read -r REMOVE PACKAGE < "${FIFO}"
 
-  printf "Installing \e[96m%s\e[0m...\n" "${PACKAGE}"
-  kubectl krew install "${PACKAGE}"
+  case "${REMOVE}" in
+    1)
+      printStatus uninstall check "${PACKAGE}"
+      grep -qFx "${PACKAGE}" "${INSTALLED}" || {
+        printStatus uninstall skip "${PACKAGE}"
+        continue
+      }
+
+      printStatus uninstall execute "${PACKAGE}"
+      kubectl krew uninstall "${PACKAGE}" || status=failure
+      printStatus uninstall "${status:-success}" "${PACKAGE}"
+    ;;
+    0)
+      printStatus install check "${PACKAGE}"
+      grep -qFx "${PACKAGE}" "${INSTALLED}" && {
+        printStatus install skip "${PACKAGE}"
+        continue
+      }
+      printStatus install execute "${PACKAGE}"
+      kubectl krew install "${PACKAGE}" || status=failure
+      printStatus install "${status:-success}" "${PACKAGE}"
+    ;;
+  esac
+
 done < "${PACKAGES}"

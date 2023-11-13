@@ -5,6 +5,7 @@
 -konfig
 -kubesec-scan
 -open-svc
+-rbac-view
 -view-utilization
 aws-auth
 ctx
@@ -17,7 +18,6 @@ ns
 pod-logs
 pod-shell
 rbac-lookup
-rbac-view
 status
 who-can
 whoami
