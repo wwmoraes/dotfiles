@@ -1,3 +1,4 @@
+#{{- if .tags.personal }}
 #!/usr/bin/env sh
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
 #{{- $rustUpInitPath := joinPath .brewPrefix "bin" "rustup-init" }}
@@ -16,3 +17,4 @@ printf "\e[1;33mRustup init\e[0m\n"
 command -V rustup-init >/dev/null 2>&1 || exit
 
 rustup-init -y -q --no-modify-path
+#{{- end }}

@@ -1,3 +1,4 @@
+#{{- if .tags.personal }}
 #!/usr/bin/env sh
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
 
@@ -84,3 +85,4 @@ while read -r PACKAGE; do
     ;;
   esac
 done < "${PACKAGES}"
+#{{- end }}
