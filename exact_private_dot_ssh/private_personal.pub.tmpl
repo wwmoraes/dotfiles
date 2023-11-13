@@ -1,1 +1,3 @@
+{{- if .tags.personal }}
 {{- onepasswordRead "op://Personal/Personal/public key" -}}
+{{- end }}

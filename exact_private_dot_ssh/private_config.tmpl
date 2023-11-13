@@ -5,10 +5,10 @@ IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
 {{- $homeMAC := onepasswordRead "op://Home/Wireless Router/MAC/wireless" }}
 
+{{- if .tags.personal }}
+
 Match exec "arp -an | grep -qF {{ $homeMAC }} 2> /dev/null"
   Include config.d/locations/home
-
-{{- if .tags.personal }}
 
 IdentityFile ~/.ssh/personal.pub
 IdentitiesOnly yes
@@ -18,6 +18,8 @@ Host github.com bitbucket.org
   IdentitiesOnly yes
 
 {{- else if .tags.work }}
+
+Include config.d/locations/work
 
 IdentityFile ~/.ssh/work.pub
 IdentitiesOnly yes

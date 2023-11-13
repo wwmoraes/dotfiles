@@ -1,12 +1,14 @@
 # https://developer.1password.com/docs/ssh/agent/config
 
+{{- if .tags.personal }}
+
 [[ssh-keys]]
 item = "Personal"
 vault = "Personal"
 
 [[ssh-keys]]
 item = "Cabuk"
-vault = "Personal"
+vault = "Home"
 
 [[ssh-keys]]
 item = "Router"
@@ -15,3 +17,15 @@ vault = "Home"
 [[ssh-keys]]
 item = "Bootstrap"
 vault = "Home"
+
+{{- else if .tags.work }}
+
+[[ssh-keys]]
+item = "Work ED25519"
+vault = "Work"
+
+[[ssh-keys]]
+item = "CCAT Bastion"
+vault = "Work"
+
+{{- end -}}
