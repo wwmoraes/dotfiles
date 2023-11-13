@@ -176,8 +176,8 @@ printStatus() {
   esac
   shift
 
-  PACKAGE=$(withColor "${FgColorCyan}" "$*")
-  "${FN}" "$(printf "[%s] %s %s" "${GROUP}" "${MESSAGE}" "${PACKAGE}")"
+  __PACKAGE=$(withColor "${FgColorCyan}" "$*")
+  "${FN}" "$(printf "[%s] %s %s" "${GROUP}" "${MESSAGE}" "${__PACKAGE}")"
 }
 
 printCheckingBinary() { printf "Checking %s...\n" "$(colorBin "$1")"; }
