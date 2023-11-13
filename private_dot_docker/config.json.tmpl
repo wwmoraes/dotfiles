@@ -1,17 +1,18 @@
+// chezmoi:template:left-delimiter="// {{" right-delimiter=}}
+// {{- $credsStore := eq .chezmoi.os "darwin" | ternary "osxkeychain" "desktop" -}}
 {
-  "aliases": {
-    "builder": "buildx"
-  },
-  "auths": {
-    "https://index.docker.io/v1/": {}
-  },
-  "credsStore": "{{ eq .chezmoi.os "darwin" | ternary "osxkeychain" "desktop" }}",
-  "currentContext": "default",
-  "experimental": "disabled",
-  "plugins": {
-    "-x-cli-hints": {
-      "enabled": "false"
-    }
-  },
-  "stackOrchestrator": "swarm"
+	"auths": {
+		"https://index.docker.io/v1/": {}
+	},
+	"credsStore": "// {{- $credsStore -}}",
+	"experimental": "disabled",
+	"currentContext": "default",
+	"plugins": {
+		"-x-cli-hints": {
+			"enabled": "false"
+		}
+	},
+	"aliases": {
+		"builder": "buildx"
+	}
 }
