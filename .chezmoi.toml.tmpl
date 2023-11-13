@@ -1,5 +1,5 @@
 {{- $isPersonal := hasSuffix "Cabuk" .chezmoi.hostname -}}
-{{- $isWork := eq "C02DQ36NMD6P" .chezmoi.hostname -}}
+{{- $isWork := eq "M6K9044R43" .chezmoi.hostname -}}
 
 encryption = "gpg"
 
@@ -29,6 +29,10 @@ encryption = "gpg"
 [data.tags]
   personal = {{ $isPersonal }}
   work = {{ $isWork }}
+
+[data.work.features]
+pypiProxy = false
+npmProxy = false
 
 # we control versions here as the externals calculate them on every apply.
 # That's a problem as we hit the GitHub API limits when developing

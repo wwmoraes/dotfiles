@@ -4,19 +4,20 @@
 PROJECTS_DIR=~/workspace
 GIT_PROJECT_PATHS='~/workspace'
 
-# thank you work MITM proxy, very secure :)
-ADAL_PYTHON_SSL_NO_VERIFY=0
-AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=0
 CURL_CA_BUNDLE=/usr/local/etc/openssl@1.1/cert.pem
 REQUESTS_CA_BUNDLE=/usr/local/etc/openssl@1.1/cert.pem
 PYTHONWARNINGS=ignore
+# forces kubelogin to use the Azure CLI token login flow
+NODE_EXTRA_CA_CERTS=/usr/local/etc/openssl@1.1/cert.pem
+EMAIL={{ .me.workEmail }}
+
+{{- /*
+AAD_LOGIN_METHOD=azurecli
+# thank you work MITM proxy, very secure :)
+ADAL_PYTHON_SSL_NO_VERIFY=0
+AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=0
 # Azure CLI defaults
 AZURE_CORE_ONLY_SHOW_ERRORS=1
-# forces kubelogin to use the Azure CLI token login flow
-AAD_LOGIN_METHOD=azurecli
-NODE_EXTRA_CA_CERTS=/usr/local/etc/openssl@1.1/cert.pem
-
-EMAIL={{ .me.workEmail }}
 KERBEROS_PRINCIPAL={{ onepasswordRead "op://Work/Launcher/username" }}
 KERBEROS_REALM={{ onepasswordRead "op://Work/Launcher/website" | trimPrefix "https://" }}
 WORK_INTRANET_HOSTNAME={{ onepasswordRead "op://Work/Launcher/website" | trimPrefix "https://" }}
@@ -31,5 +32,6 @@ AZURE_DEFAULTS_ACR={{ onepasswordRead "op://Work/Azure DevOps/acr" }}
 AZURE_DEFAULTS_LOCATION={{ onepasswordRead "op://Work/Azure DevOps/location" }}
 AZURE_DEVOPS_DEFAULTS_ORGANIZATION={{ onepasswordRead "op://Work/Azure DevOps/website" }}
 AZURE_DEVOPS_DEFAULTS_PROJECT={{ onepasswordRead "op://Work/Azure DevOps/project" }}
+*/}}
 
 {{- end }}

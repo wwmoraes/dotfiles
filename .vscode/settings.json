@@ -19,7 +19,8 @@
   ],
   "cSpell.words": [
     "chezmoi",
-    "endregion"
+    "endregion",
+    "onepassword"
   ],
   "files.associations": {
     "**/*dot_ssh/*config*": "ssh_config",

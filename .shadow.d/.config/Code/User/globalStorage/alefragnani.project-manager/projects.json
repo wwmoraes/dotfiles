@@ -1,13 +1,6 @@
 [
   {
     "enabled": true,
-    "name": "dotfiles",
-    "paths": [],
-    "rootPath": "~/.files",
-    "tags": []
-  },
-  {
-    "enabled": true,
     "name": "dotsecrets",
     "paths": [],
     "rootPath": "~/.secrets",
@@ -15,44 +8,23 @@
   },
   {
     "enabled": true,
-    "name": "Stratus",
-    "paths": [],
-    "rootPath": "~/workspace/Stratus.code-workspace",
-    "tags": []
-  },
-  {
-    "enabled": true,
-    "name": "mcp-tf-module-aks-test",
-    "paths": [],
-    "rootPath": "~/workspace/mcp-tf-module-aks/test",
-    "tags": []
-  },
-  {
-    "enabled": true,
     "name": "dots",
     "paths": [],
-    "rootPath": "/Users/william/dev/dots.code-workspace",
-    "tags": []
-  },
-  {
-    "enabled": true,
-    "name": "CGT",
-    "paths": [],
-    "rootPath": "/Users/william/workspace/CGT.code-workspace",
+    "rootPath": "~/dev/dots.code-workspace",
     "tags": []
   },
   {
     "enabled": true,
     "name": "pets",
     "paths": [],
-    "rootPath": "/Users/william/dev/pets.code-workspace",
+    "rootPath": "~/dev/pets.code-workspace",
     "tags": []
   },
   {
     "enabled": true,
     "name": "chezmoi",
     "paths": [],
-    "rootPath": "/Users/william/.local/share/chezmoi",
+    "rootPath": "~/.local/share/chezmoi",
     "tags": []
   }
 ]
