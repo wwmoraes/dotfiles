@@ -5,18 +5,18 @@
 
 /** @type {Applications} */
 const apps = {
+  Chrome: "com.google.Chrome",
   Edge: "com.microsoft.edgemac",
-  // Chrome: "com.google.Chrome",
   Firefox: "org.mozilla.firefox",
   Safari: "com.apple.Safari",
 };
 
 /** @type {Browsers} */
 const browsers = {
-  "c02dq36nmd6p.local": {
-    main: apps.Edge,
-    work: apps.Edge,
-    home: apps.Firefox,
+  "M6K9044R43": {
+    main: apps.Safari,
+    work: apps.Safari,
+    home: apps.Safari,
   },
 };
 
@@ -87,6 +87,7 @@ module.exports = {
           "utm_", // Google Analytics
           "vero_", // Vero
         ];
+
         const removeKeys = [
           "__s", // Drip.com
           "_ga", // Google Analytics
