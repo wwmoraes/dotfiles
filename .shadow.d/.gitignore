@@ -24,6 +24,7 @@
 .config/Code/*
 !.config/Code/User
 .config/Code/User/History
+.config/Code/User/sync
 .config/Code/User/workspaceStorage
 
 ## VSCode - Project Manager extension settings
