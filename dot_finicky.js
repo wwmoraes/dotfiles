@@ -13,7 +13,7 @@ const apps = {
 
 /** @type {Browsers} */
 const browsers = {
-  "M6K9044R43": {
+  "m6k9044r43.local": {
     main: apps.Safari,
     work: apps.Safari,
     home: apps.Safari,
@@ -32,6 +32,7 @@ const defaultBrowsers = {
  * @returns {import("./.finicky.d").Finicky.BrowserFn}
  * */
 const getBrowser = (contextName) => (params) => {
+  // finicky.log(finicky.getSystemInfo().name);
   const context = browsers[finicky.getSystemInfo().name] || defaultBrowsers;
   return context[contextName];
 };
@@ -55,6 +56,16 @@ const redirectBGone = (host, queryParam) => ({
   url: ({ url }) => decodeURIComponent((new URLSearchParams(url.search)).get(queryParam).replace(/%25/g, "%")),
 });
 
+const suffixBGone = (prefix, suffix) => ({
+  match: ({ urlString }) => urlString.endsWith(suffix),
+  url: ({ urlString }) => decodeURIComponent(urlString.substring(0, urlString.length - suffix.length).replace(/%25/g, "%")),
+});
+
+const matchBGone = (re) => ({
+  match: ({ urlString }) => urlString.match(re),
+  url: ({ urlString }) => decodeURIComponent(urlString.replace(re, "").replace(/%25/g, "%")),
+});
+
 /// <reference path="./.finicky.d.ts" />
 /** @type {import("./.finicky.d").Finicky.Config} */
 module.exports = {
@@ -64,6 +75,9 @@ module.exports = {
     prefixBGone("https://tracking.tldrnewsletter.com/CL0/"),
     // cleanup Outlook redirects
     redirectBGone("safelinks.protection.outlook.com", "url"),
+    // new gimmick: urldefense.com wraps the URL with some hash at the end
+    prefixBGone("https://urldefense.com/v3/__"),
+    matchBGone(/__;!!.*?\$$/),
     // remove tracking query parameters
     {
       match: () => true,
