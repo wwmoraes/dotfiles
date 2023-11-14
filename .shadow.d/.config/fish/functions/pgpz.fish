@@ -9,10 +9,11 @@ function pgpz -a cmd -d "gpg for human beings" -w gpg
 
       for identity in $argv[2..-1]
         echo "exporting $identity..."
-        gpg -o gpg-pubkey-$identity.key.asc --armor --export $identity
-        gpg -o gpg-revoke-$identity.crt.asc --armor --gen-revoke $identity
-        gpg -o gpg-backup-$identity.pgp.asc --armor --export-secret-keys --export-options export-backup $identity
-        gpg -o gpg-privkey-$identity.key.asc --armor --export-secret-keys $identity
+        mkdir "gpg-$identity"
+        gpg -o gpg-$identity/public-key.asc --armor --export $identity
+        gpg -o gpg-$identity/revoke.asc --armor --gen-revoke $identity
+        gpg -o gpg-$identity/backup.asc --armor --export-secret-keys --export-options export-backup $identity
+        gpg -o gpg-$identity/secret-key.asc --armor --export-secret-keys $identityf
       end
     case "" "*"
       gpg $argv
