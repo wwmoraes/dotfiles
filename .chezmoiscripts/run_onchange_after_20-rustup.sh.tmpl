@@ -1,4 +1,4 @@
-#{{- if .tags.personal }}
+#{{- if .tags.personal -}}
 #!/usr/bin/env sh
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
 #{{- $rustUpInitPath := joinPath .brewPrefix "bin" "rustup-init" }}
@@ -73,4 +73,4 @@ while read -r PACKAGE; do
     ;;
   esac
 done < "${PACKAGES}"
-#{{- end }}
+#{{- end -}}
