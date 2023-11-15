@@ -356,6 +356,7 @@
   ],
   "projectManager.groupList": true,
   "projectManager.removeCurrentProjectFromList": true,
+  "redhat.telemetry.enabled": false,
   "region-viewer.markers-overrides": {
     "ruby": {
       "end": "^\\s*#?endregion\\b",
