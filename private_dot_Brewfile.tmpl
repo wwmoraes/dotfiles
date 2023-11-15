@@ -29,6 +29,7 @@ tap "yoheimuta/protolint"
 # tap "FairwindsOps/tap" # pluto
 # tap "fluxcd/tap" # flux
 # tap "hashicorp/tap" # vault
+tap "snyk/tap"
 
 {{- end }}
 #endregion
@@ -134,24 +135,25 @@ brew "ytt"
 brew "yubico-piv-tool"
 
 {{- else if .tags.work }}
+# brew "flux"
+# brew "helmfile"
+# brew "kubelogin"
+# brew "minikube"
+# brew "pluto"
+# brew "sonobuoy"
+# brew "vault"
 brew "awscli"
 brew "conftest"
 brew "eksctl"
-# brew "flux"
 brew "helm"
-# brew "helmfile"
 brew "jd"
 brew "krew"
 brew "kubeconform"
-# brew "kubelogin"
 brew "kubernetes-cli"
 brew "kustomize"
-# brew "minikube"
 brew "opa"
-# brew "pluto"
 brew "skopeo"
-# brew "sonobuoy"
-# brew "vault"
+brew "snyk"
 
 {{- end }}
 #endregion
