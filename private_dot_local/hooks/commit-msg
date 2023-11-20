@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-set -eum
-trap 'kill 0' INT HUP TERM
-
-git interpret-trailers --trim-empty "\$1" > "\$1.new"
-mv "\$1.new" "\$1"

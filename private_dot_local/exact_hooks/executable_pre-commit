@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+command -v pre-commit > /dev/null || {
+  echo "pre-commit not found." 1>&2
+  exit 1
+}
+
+exec pre-commit hook-impl \
+  --config=.pre-commit-config.yaml \
+  --hook-type=pre-commit \
+  --hook-dir "$(cd "$(dirname "$0")" && pwd)" \
+  -- "$@"
