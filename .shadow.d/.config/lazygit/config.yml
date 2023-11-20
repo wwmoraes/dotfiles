@@ -2,7 +2,8 @@ confirmOnQuit: false
 quitOnTopLevelReturn: false
 notARepository: skip
 os:
-  open: 'code -rg {{filename}}'
+  open: "code -rg {{filename}}"
+
 git:
   branchLogCmd: >-
     git log
@@ -19,12 +20,13 @@ git:
       --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
       --abbrev-commit
       --date=relative
+
 customCommands:
   - key: F
-    command: git cz c
+    command: koji
     context: files
     subprocess: true
     # loadingText:
-    description: commit with commitizen
+    description: commit with koji
     # stream: false
     # showOutput: false

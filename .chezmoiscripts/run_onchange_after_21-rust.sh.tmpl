@@ -1,4 +1,3 @@
-#{{- if .tags.personal -}}
 #!/usr/bin/env sh
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
 
@@ -80,9 +79,8 @@ while read -r PACKAGE; do
       }
 
       printStatus install execute "${PKG}"
-      cargo -q install "${PKG}" || status=failure
+      cargo -q install --locked "${PKG}" || status=failure
       printStatus install "${status:-success}" "${PKG}"
     ;;
   esac
 done < "${PACKAGES}"
-#{{- end -}}
