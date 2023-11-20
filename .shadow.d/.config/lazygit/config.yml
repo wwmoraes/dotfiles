@@ -1,6 +1,10 @@
 confirmOnQuit: false
 quitOnTopLevelReturn: false
 notARepository: skip
+
+services:
+  git.us.aegon.com: "github:git.us.aegon.com"
+
 os:
   open: "code -rg {{filename}}"
 
