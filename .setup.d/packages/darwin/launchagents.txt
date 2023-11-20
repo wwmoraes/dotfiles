@@ -1,1 +1,3 @@
+com.dropbox.DropboxMacUpdate.agent
 com.google.keystone.agent
+homebrew.mxcl.openssl-osx-ca
