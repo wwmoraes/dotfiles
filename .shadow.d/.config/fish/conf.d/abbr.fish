@@ -30,6 +30,7 @@ end
 
 if command -q git
   abbr -a g "git"
+  abbr -a gk "koji"
   abbr -a gc "git checkout"
   abbr -a ga "git add --all && git commit --amend --no-edit"
   abbr -a gp "git push"

@@ -1,9 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-command -v koji > /dev/null || {
-  echo "koji not found." 1>&2
-  exit 1
-}
-
-# shellcheck disable=SC2015
+# TODO figure out how to make this work
 exec < /dev/tty && koji --hook || true
