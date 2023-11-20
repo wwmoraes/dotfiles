@@ -363,6 +363,7 @@
       "start": "^\\s*#?region\\b(?<name>.*)"
     }
   },
+  "security.workspace.trust.untrustedFiles": "newWindow",
   "shellcheck.customArgs": [
     "-x"
   ],
@@ -574,7 +575,10 @@
     "projectManager.git.ignoredFolders",
     "projectManager.groupList",
     "projectManager.removeCurrentProjectFromList",
+    "redhat.telemetry.enabled",
     "region-viewer.markers-overrides",
+    "security.workspace.trust.untrustedFiles",
+    "shellcheck.customArgs",
     "sonarlint.connectedMode.connections.sonarcloud",
     "telemetry.telemetryLevel",
     "terminal.integrated.automationProfile.linux",
