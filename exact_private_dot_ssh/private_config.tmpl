@@ -34,8 +34,8 @@ Host *.aegon.io
   IdentitiesOnly yes
 
 Host bastion
-  HostName {{ onepasswordRead "op://Work/CCAT sonartype-poc VM/hostname" }}
-  User {{ onepasswordRead "op://Work/CCAT sonartype-poc VM/username" }}
+  HostName {{ onepasswordRead "op://Work - Aegon/CCAT sonartype-poc VM/hostname" }}
+  User {{ onepasswordRead "op://Work - Aegon/CCAT sonartype-poc VM/username" }}
   IdentityFile ~/.ssh/bastion.pub
   IdentitiesOnly yes
 
