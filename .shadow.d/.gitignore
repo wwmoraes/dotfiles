@@ -20,6 +20,10 @@
 .hammerspoon/Spoons/*
 !.hammerspoon/Spoons/SpoonInstall.spoon
 
+### Lazygit
+.config/lazygit/*
+!.config/lazygit/config.yml
+
 ## VSCode
 .config/Code/*
 !.config/Code/User
