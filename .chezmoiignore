@@ -17,22 +17,11 @@ TODO.md
 .docker/*
 !.docker/config.json
 !.docker/daemon.json
-.gnupg/.?lk0x*
-.gnupg/S.*
-.minikube
-.moby
-.npm
-.pulumi
-.redhat
-.rustup
 .ssh/*.old
 .ssh/control/*
 .ssh/known_hosts
 .stack/*
 !.stack/config.yaml
-.secrets
-.terraform.d
-.tldrc
 .Trash
 .vim/.netrwhist
 .vim/backups
@@ -41,24 +30,5 @@ TODO.md
 .vim/undo
 .vim/viminfo
 .vscode
-.vysor
-.wget-hsts
-.wrangler
-.yarnrc
-
-[A-Za-z]*
-
-!Library
-Library/*
-!Library/Application Support
-Library/Application Support/*
-!Library/Application Support/Code
-!Library/Application Support/lazygit
-!Library/Application Support/xbar
-!Library/Group Containers
-!Library/LaunchAgents
-Library/LaunchAgents/*
-!Library/LaunchAgents/dev.artero.*.plist
-!Library/Scripts
 
 *_history
