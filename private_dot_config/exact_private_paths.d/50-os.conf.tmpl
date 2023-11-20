@@ -1,6 +1,6 @@
 {{- if eq .chezmoi.os "darwin" }}
+/usr/local/sbin
 {{ include "/etc/paths" }}
-{{- /* /usr/local/sbin */}}
 {{- range $_, $pathSource := glob "/etc/paths.d/*" }}
 {{ include $pathSource }}
 {{- end }}
