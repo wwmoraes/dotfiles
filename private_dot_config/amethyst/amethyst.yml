@@ -263,6 +263,9 @@ floating:
 - com.apple.calculator
 - com.apple.finder
 - com.apple.systempreferences
+- com.daskeyboard.q
+
+# TODO window title filter: "Q Signal Center - Das Keyboard"
 
 # Boolean flag determining behavior of the floating list. true if the applications should be floating and all others tiled. false if the applications should be tiled and all others floating (default true).
 floating-is-blacklist: true
