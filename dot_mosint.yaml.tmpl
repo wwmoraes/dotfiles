@@ -1,0 +1,9 @@
+services:
+  breach_directory_api_key: {{ onepasswordRead "op://Personal/Breach Directory API/credential" }}
+  emailrep_api_key: {{ onepasswordRead "op://Personal/EmailRep API/credential" }}
+  hunter_api_key: {{ onepasswordRead "op://Personal/Hunter.io API/credential" }}
+  intelx_api_key: {{ onepasswordRead "op://Personal/IntelX API/credential" }}
+  # haveibeenpwned_api_key: ""
+
+settings:
+  intelx_max_results: 20
