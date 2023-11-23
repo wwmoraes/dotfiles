@@ -36,19 +36,19 @@ test "${VERBOSE:-0}" = "1" && set -v
 printf "\e[1;33mNode\e[0m\n"
 
 printf "Checking %s...\n" "$(colorBin "node")"
-if ! _=$(command -V node >/dev/null 2>&1); then
+if ! _=$(command -v node >/dev/null 2>&1); then
   echo "node not found"
   exit 1
 fi
 
 printf "Checking %s...\n" "$(colorBin "npm")"
-if ! _=$(command -V npm >/dev/null 2>&1); then
+if ! _=$(command -v npm >/dev/null 2>&1); then
   echo "npm not found"
   exit 1
 fi
 
 printf "Checking %s...\n" "$(colorBin "yarn")"
-if ! _=$(command -V yarn >/dev/null 2>&1); then
+if ! _=$(command -v yarn >/dev/null 2>&1); then
   npm i -g yarn
 fi
 

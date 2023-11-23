@@ -40,7 +40,7 @@ printf "\e[1;33mRustup components\e[0m\n"
 ### Check package tool
 printf "Checking \e[91mrustup\e[0m...\n"
 # Get manager
-if ! _=$(command -V rustup >/dev/null 2>&1); then
+if ! _=$(command -v rustup >/dev/null 2>&1); then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 fi
 

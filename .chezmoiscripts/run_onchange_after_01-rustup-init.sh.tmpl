@@ -13,6 +13,9 @@ test "${VERBOSE:-0}" = "1" && set -v
 
 printf "\e[1;33mRustup init\e[0m\n"
 
-command -V rustup-init >/dev/null 2>&1 || exit
+command -v rustup-init >/dev/null 2>&1 || {
+  echo "rustup-init not installed, skipping"
+  exit
+}
 
 rustup-init -y -q --no-modify-path

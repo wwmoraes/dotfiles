@@ -3,11 +3,11 @@
 set -eum
 trap 'kill 0' INT HUP TERM
 
-command -V pbpaste > /dev/null 2>&1 && { pbpaste "$@"; exit 0; } # MacOS
-command -V xsel > /dev/null 2>&1 && { xsel --output --clipboard "$@"; exit 0; } # Unix/Linux
-command -V xclip > /dev/null 2>&1 && { xclip -out -selection clipboard "$@"; exit 0; } # Unix/Linux
-command -V wl-paste > /dev/null 2>&1 && { wl-paste "$@"; exit 0; } # Wayland
-command -V powershell.exe > /dev/null 2>&1 && { powershell.exe Get-Clipboard "$@"; exit 0; } # WSL
+command -v pbpaste > /dev/null 2>&1 && { pbpaste "$@"; exit 0; } # MacOS
+command -v xsel > /dev/null 2>&1 && { xsel --output --clipboard "$@"; exit 0; } # Unix/Linux
+command -v xclip > /dev/null 2>&1 && { xclip -out -selection clipboard "$@"; exit 0; } # Unix/Linux
+command -v wl-paste > /dev/null 2>&1 && { wl-paste "$@"; exit 0; } # Wayland
+command -v powershell.exe > /dev/null 2>&1 && { powershell.exe Get-Clipboard "$@"; exit 0; } # WSL
 
 echo "unable to find any clipboard tool"
 exit 1

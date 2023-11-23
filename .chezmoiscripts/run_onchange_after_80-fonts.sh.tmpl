@@ -14,7 +14,7 @@ test "${VERBOSE:-0}" = "1" && set -v
 printf "\e[1;33mFonts\e[0m\n"
 
 # Update system font cache
-if _=$(command -V fc-cache >/dev/null 2>&1); then
+if _=$(command -v fc-cache >/dev/null 2>&1); then
   printf "Updating font cache...\n"
   fc-cache -f
 fi

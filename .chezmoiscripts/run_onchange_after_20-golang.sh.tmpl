@@ -38,7 +38,7 @@ h1 "Golang packages"
 ### Check package tool
 printCheckingBinary "go"
 # Get manager
-if ! _=$(command -V go >/dev/null 2>&1); then
+if ! _=$(command -v go >/dev/null 2>&1); then
   GOINSTALL=
   case "${SYSTEM}" in
     "darwin")
