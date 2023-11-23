@@ -23,20 +23,3 @@
 ### Lazygit
 .config/lazygit/*
 !.config/lazygit/config.yml
-
-## VSCode
-.config/Code/*
-!.config/Code/User
-.config/Code/User/History
-.config/Code/User/sync
-.config/Code/User/workspaceStorage
-
-## VSCode - Project Manager extension settings
-.config/Code/User/globalStorage/*
-!.config/Code/User/globalStorage/alefragnani.project-manager
-.config/Code/User/globalStorage/alefragnani.project-manager/*
-!.config/Code/User/globalStorage/alefragnani.project-manager/projects.json
-
-## VSCode - profiles' settings
-.config/Code/User/profiles/*/globalStorage
-.config/Code/User/profiles/*/extensions.json
