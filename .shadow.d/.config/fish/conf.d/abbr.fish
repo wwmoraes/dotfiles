@@ -47,6 +47,7 @@ if command -q terraform
   abbr -a tfp "terraform plan -out=plan.tfplan"
   abbr -a tfa "terraform apply plan.tfplan"
   abbr -a tfip "rm -rf .terraform && terraform init && terraform plan -out=plan.tfplan"
+  abbr -a tffu "terraform force-unlock -force"
 end
 
 if command -q kubectl
