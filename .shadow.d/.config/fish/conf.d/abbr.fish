@@ -64,7 +64,7 @@ if command -q kubectl
   abbr -a kpf "kubectl port-forward"
   abbr -a kctx "kubectl ctx"
   abbr -a kns "kubectl ns"
-  abbr -a ksh "kubectl get pods | fzf --ansi --header-lines=1 | awk '{print \$1}' | xargs -o -I% kubectl iexec %"
+  abbr -a ksh " kubectl iexec"
   abbr -a kosvc "kubectl get services | fzf -0 -1 --ansi --header-lines=1 | awk '{print \$1}' | xargs kubectl open-svc"
   abbr -a kgextsvc "kubectl get services | awk '\$5 !~ /<none>/ {\$7=\"\";print}' | column -t"
   abbr -a kgaextsvc "kubectl get services -A | awk '\$5 !~ /<none>/ {\$7=\"\";print}' | column -t"
