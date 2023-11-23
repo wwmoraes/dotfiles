@@ -24,10 +24,7 @@ TODO.md
 !.stack/config.yaml
 .Trash
 .vim/.netrwhist
-.vim/backups
 .vim/plugged
-.vim/swaps
-.vim/undo
 .vim/viminfo
 .vscode
 
