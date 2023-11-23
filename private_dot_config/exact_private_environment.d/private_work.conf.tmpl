@@ -11,6 +11,11 @@ PYTHONWARNINGS=ignore
 NODE_EXTRA_CA_CERTS={{ .brewPrefix }}/etc/openssl@3/cert.pem
 EMAIL={{ .me.workEmail }}
 
+AWS_ACCOUNT_NON_PROD={{ onepasswordRead "op://Work - Aegon/CCAT AWS non-prod/account" }}
+AWS_ROLE_NON_PROD={{ onepasswordRead "op://Work - Aegon/CCAT AWS non-prod/role" }}
+AWS_ACCOUNT_PROD={{ onepasswordRead "op://Work - Aegon/CCAT AWS prod/account" }}
+AWS_ROLE_PROD={{ onepasswordRead "op://Work - Aegon/CCAT AWS prod/role" }}
+
 {{- /*
 AAD_LOGIN_METHOD=azurecli
 # thank you work MITM proxy, very secure :)

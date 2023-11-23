@@ -314,3 +314,8 @@ if command -q pre-commit
   abbr -a pcr pre-commit run
   abbr -a pcra -- pre-commit run --all-files
 end
+
+if command -q awscreds
+  abbr -a awsnp -- awscreds --account "$AWS_ACCOUNT_NON_PROD" --role "$AWS_ROLE_NON_PROD"
+  abbr -a awsp -- awscreds --account "$AWS_ACCOUNT_PROD" --role "$AWS_ROLE_PROD"
+end
