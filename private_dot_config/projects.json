@@ -1,0 +1,20 @@
+[
+  {
+    "enabled": true,
+    "name": "dotsecrets",
+    "paths": [],
+    "rootPath": "~/.secrets",
+    "tags": [
+      "Personal"
+    ]
+  },
+  {
+    "enabled": true,
+    "name": "chezmoi",
+    "paths": [],
+    "rootPath": "~/.local/share/chezmoi",
+    "tags": [
+      "Personal"
+    ]
+  }
+]
