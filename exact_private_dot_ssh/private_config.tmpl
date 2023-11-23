@@ -33,9 +33,15 @@ Host *.aegon.io
   IdentityFile ~/.ssh/work.pub
   IdentitiesOnly yes
 
-Host bastion
-  HostName {{ onepasswordRead "op://Work - Aegon/CCAT sonartype-poc VM/hostname" }}
-  User {{ onepasswordRead "op://Work - Aegon/CCAT sonartype-poc VM/username" }}
+Host tools-bastion
+  HostName {{ onepasswordRead "op://Work - Aegon/CCAT tools bastion/hostname" }}
+  User {{ onepasswordRead "op://Work - Aegon/CCAT tools bastion/username" }}
+  IdentityFile ~/.ssh/bastion.pub
+  IdentitiesOnly yes
+
+Host cloudbees-bastion
+  Hostname {{ onepasswordRead "op://Work - Aegon/CCAT cloudbees bastion/hostname" }}
+  User {{ onepasswordRead "op://Work - Aegon/CCAT cloudbees bastion/username" }}
   IdentityFile ~/.ssh/bastion.pub
   IdentitiesOnly yes
 
