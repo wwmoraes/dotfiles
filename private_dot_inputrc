@@ -1,3 +1,7 @@
+set bell-style visible
+set enable-keypad on
+set mark-directories on
+
 ## SMARTER TAB-COMPLETION (Readline bindings) ##
 
 # Perform file completion in a case insensitive fashion
@@ -50,5 +54,5 @@ set convert-meta off
 
 set colored-stats On
 set completion-prefix-display-length 3
-set show-all-if-unmodified On
+set show-all-if-unmodified on
 set horizontal-scroll-mode off
