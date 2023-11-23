@@ -9,7 +9,12 @@ end
 assert_bin jq; or exit $status
 assert_bin sponge; or exit $status
 
-set -l settingsFile ~/.config/Code/User/settings.json
+{{ if eq .chezmoi.os "darwin" -}}
+set -l settingsFile "$HOME/Library/Application Support/Code/User/settings.json"
+{{ else -}}
+set -l settingsFile "$HOME/.config/Code/User/settings.json"
+{{ end -}}
+
 test -f $settingsFile; or begin
   echo "VSCode settings file not found at $settingsFile"
   exit 2
