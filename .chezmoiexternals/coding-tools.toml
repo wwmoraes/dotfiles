@@ -7,3 +7,8 @@ url = "https://netix.dl.sourceforge.net/project/plantuml/plantuml.jar"
 refreshPeriod = "672h"
 type = "git-repo"
 url = "https://github.com/tmux-plugins/tpm"
+
+[".config/fish/functions/fisher.fish"]
+refreshPeriod = "672h"
+type = "file"
+url = "https://git.io/fisher"
