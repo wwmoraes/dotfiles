@@ -1,3 +1,4 @@
 -azure-cli:az
 -pacparser
 kubesplit
+aegon-aws-creds|git+https://git.us.aegon.com/AGT-DCAT/aegon-aws-creds.git@master
