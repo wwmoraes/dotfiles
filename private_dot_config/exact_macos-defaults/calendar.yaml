@@ -1,0 +1,66 @@
+description: Calendar
+kill: [Calendar, iCal]
+data:
+
+  com.apple.iCal:
+
+    ## Accept privacy policy
+    privacyPaneHasBeenAcknowledgedVersion: 4
+
+    ## Enable the debug menu in iCal (pre-10.8)
+    IncludeDebugMenu: true
+
+    ## Show 7 days
+    "n days of week": 7
+
+    ## Week starts on Sunday
+    "first day of week": 0
+
+    ## In weekly view scroll by week. week = 1, day = 0
+    "scroll by weeks in week view": 1
+
+    ## work day starts at: 540 = 9 a.m.
+    "first minute of work hours": 540
+
+    ## work day ends at: 1.020 = 5 p.m.
+    "last minute of work hours": 1020
+
+    ## Number of hours displayed
+    "number of hours displayed": 10
+
+    ## Default calendar
+    # CalDefaultCalendar -string "UseLastSelectedAsDefaultCalendar"
+
+    ## Invitations of shared calendars in notifications
+    SharedCalendarNotificationsDisabled: true
+
+    ## Invitations in notifications
+    InvitationNotificationsDisabled: false
+
+    ## Show events in year view
+    "Show heat map in Year View": false
+
+    ## Open events in new windows
+    OpenEventsInWindowType: false
+
+    ## Warn before sending invitations
+    WarnBeforeSendingInvitations: false
+
+    ## Show sidebar
+    CalendarSidebarShown: true
+
+    "add holiday calendar": true
+
+    "Default duration in minutes for new event": 30.0
+
+    "display birthdays calendar": true
+
+    "Show time in Month View": true
+
+    "Show Week Numbers": false
+
+    "TimeZone support enabled": true
+
+    ShowDeclinedEvents: false
+
+    TimeToLeaveEnabled: true

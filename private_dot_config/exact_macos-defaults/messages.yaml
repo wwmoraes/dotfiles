@@ -1,0 +1,10 @@
+description: Messages
+kill: [Messages]
+data:
+
+  com.apple.messageshelper.MessageController:
+
+    SOInputLineSettings:
+      automaticQuoteSubstitutionEnabled: false
+      automaticEmojiSubstitutionEnablediMessage: false
+      continuousSpellCheckingEnabled: false

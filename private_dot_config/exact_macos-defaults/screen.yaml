@@ -1,0 +1,19 @@
+description: Screen
+data:
+
+  com.apple.screensaver:
+
+    ## Require password immediately after sleep or screen saver begins
+    askForPassword: 1
+    askForPasswordDelay: 0
+
+  com.apple.screencapture:
+
+    ## Save screenshots to iCloud
+    location: ~/Library/Mobile Documents/com~apple~CloudDocs/Screenshots
+
+    ## Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
+    type: png
+
+    ## Disable shadow in screenshots
+    disable-shadow: true

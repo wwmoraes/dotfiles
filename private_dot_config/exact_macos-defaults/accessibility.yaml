@@ -1,0 +1,10 @@
+description: Accessibility
+data:
+
+  com.apple.Accessibility:
+
+    EnhancedBackgroundContrastEnabled: true
+
+  com.apple.universalaccess: {}
+    ## disable transparency in the menu bar
+    # reduceTransparency: true

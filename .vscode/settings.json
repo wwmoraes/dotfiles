@@ -77,5 +77,8 @@
       ],
       "url": "https://json.schemastore.org/dockerd.json"
     }
-  ]
+  ],
+  "yaml.schemas": {
+    "./.vscode/macos-defaults.schema.json": "*dot_config/*macos-defaults/*.yaml*"
+  }
 }

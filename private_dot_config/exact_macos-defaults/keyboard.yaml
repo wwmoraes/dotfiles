@@ -1,0 +1,17 @@
+description: keyboard
+data:
+
+  NSGlobalDomain:
+
+    ## Set fast keyboard repeat rate
+    InitialKeyRepeat: 15
+    KeyRepeat: 4
+
+    ## Disable press-and-hold for keys in favor of key repeat
+    ApplePressAndHoldEnabled: false
+
+    ## Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
+    AppleKeyboardUIMode: 3
+
+    ## don't blink the caret (the value is in milliseconds)
+    # NSTextInsertionPointBlinkPeriod: 9999999999999999

@@ -1,0 +1,82 @@
+description: Dock
+kill: [Dock]
+data:
+
+  com.apple.dock:
+
+    ## Remove the auto-hiding Dock delay
+    autohide-delay: 0.0
+    autohide-time-modifier: 0
+
+    ## Automatically hide and show the Dock
+    autohide: true
+
+    ## Don't show Dashboard as a Space
+    dashboard-in-overlay: true
+
+    ## Enable spring loading for all Dock items
+    enable-spring-load-actions-on-all-items: true
+
+    ## Speed up Mission Control animations
+    expose-animation-duration: 0.1
+
+    magnification: true
+
+    ## Enable highlight hover effect for the grid view of a stack (Dock)
+    mouse-over-hilite-stack: true
+
+    ## Change minimize/maximize window effect
+    mineffect: genie
+
+    ## Minimize windows into their application's icon
+    minimize-to-application: true
+
+    ## Don't automatically rearrange Spaces based on most recent use
+    mru-spaces: false
+
+    showAppExposeGestureEnabled: true
+
+    ## Show indicator lights for open applications in the Dock
+    show-process-indicators: true
+
+    ## show translucent icons for hidden apps
+    showhidden: yes
+
+    ## Don't show recent applications in Dock
+    show-recents: false
+
+    ## Set the icon size of Dock items to 36 pixels
+    tilesize: 72
+
+    ## Turn off Spaces auto-switching
+    workspaces-auto-swoosh: true
+
+    ## Hot corners
+    ## Possible values:
+    ##  0: no-op
+    ##  2: Mission Control
+    ##  3: Show application windows
+    ##  4: Desktop
+    ##  5: Start screen saver
+    ##  6: Disable screen saver
+    ##  7: Dashboard
+    ## 10: Put display to sleep
+    ## 11: Launchpad
+    ## 12: Notification Center
+    ## 13: Lock Screen
+
+    ## Top left screen corner
+    wvous-tl-corner: 0
+    wvous-tl-modifier: 0
+
+    ## Top right screen corner
+    wvous-tr-corner: 0
+    wvous-tr-modifier: 0
+
+    ## Bottom left screen corner
+    wvous-bl-corner: 0
+    wvous-bl-modifier: 0
+
+    ## Bottom right screen corner
+    wvous-br-corner: 0
+    wvous-br-modifier: 0

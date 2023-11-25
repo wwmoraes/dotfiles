@@ -1,0 +1,17 @@
+description: Terminal
+kill: [Terminal]
+data:
+  com.apple.Terminal:
+
+    ## Only use UTF-8 in Terminal.app
+    StringEncodings:
+    - "4"
+
+    ## Enable Secure Keyboard Entry in Terminal.app
+    ## See: https://security.stackexchange.com/a/47786/8918
+    SecureKeyboardEntry: true
+
+    ## Disable the annoying line marks
+    ShowLineMarks: 0
+
+    Shell: /opt/homebrew/bin/fish

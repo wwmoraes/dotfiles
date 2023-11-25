@@ -6,7 +6,6 @@
 # {{- range $_, $filename := (glob (joinPath .chezmoi.homeDir ".config" "paths.d" "*.conf")) }}
 # # {{ base $filename }} hash: # {{ include $filename | sha256sum }}
 # {{- end }}
-# chezmoi:template:left-delimiter= right-delimiter=
 
 printf "\e[1;34mVariable exports\e[0m\n"
 

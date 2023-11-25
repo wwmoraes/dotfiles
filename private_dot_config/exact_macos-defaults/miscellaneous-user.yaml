@@ -1,0 +1,23 @@
+description: Miscellaneous - User
+data:
+
+  com.apple.ScriptEditor2:
+
+    ## disable auto-save in AppleScript Editor
+    ApplePersistence: false
+
+  com.apple.DiskUtility:
+
+    ## Enable the debug menu in Disk Utility
+    DUDebugMenuEnabled: true
+    advanced-image-options: true
+
+  com.apple.QuickTimePlayerX:
+
+    ## Auto-play videos when opened with QuickTime Player
+    MGPlayMovieOnOpen: true
+
+  com.apple.BluetoothAudioAgent:
+
+    ## Increase sound quality for Bluetooth headphones/headsets
+    Apple Bitpool Min (editable): 40

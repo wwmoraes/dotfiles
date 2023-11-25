@@ -1,0 +1,8 @@
+description: Miscellaneous - Host
+sudo: true
+data:
+
+  /Library/Preferences/com.apple.security.libraryvalidation.plist:
+
+    ## disable library validation
+    DisableLibraryValidation: true

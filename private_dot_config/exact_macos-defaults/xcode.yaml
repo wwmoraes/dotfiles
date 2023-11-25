@@ -1,0 +1,7 @@
+description: Xcode
+data:
+
+  com.apple.dt.Xcode:
+
+    ## Disable Xcode Cloud up-sell
+    XcodeCloudUpsellPromptEnabled: false
