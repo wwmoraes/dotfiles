@@ -14,18 +14,26 @@ TODO.md
 **/*~
 
 .config/fish/fish_variables
+
 .docker/*
 !.docker/config.json
 !.docker/daemon.json
+
 .ssh/*.old
 .ssh/control/*
 .ssh/known_hosts
+.ssh/podman-machine-default
+.ssh/podman-machine-default.pub
+
 .stack/*
 !.stack/config.yaml
+
 .Trash
+
 .vim/.netrwhist
 .vim/plugged
 .vim/viminfo
+
 .vscode
 
 *_history
