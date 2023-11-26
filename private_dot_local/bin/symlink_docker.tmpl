@@ -1,3 +1,6 @@
-{{- if .tags.work -}}
+{{- $podman := lookPath "podman" }}
+{{- if $podman }}
+{{ $podman }}
+{{- else }}
 {{ .chezmoi.homeDir }}/Applications/Docker.app/Contents/Resources/bin/docker
-{{- end -}}
+{{- end }}
