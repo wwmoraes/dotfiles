@@ -21,7 +21,7 @@ function dockr -w docker -a cmd -d "Docker CLI wrapper with extra commands"
   case fsbom
       docker image ls | awk '$1 != "<none>" && $2 != "<none>"' | fzf --header-lines=1 -0 | awk '{print $1":"$2}' | ifne xargs -o -I{} syft $argv[2..-1] {}
   case fexec
-    docker container ls | tail +2 | fzf -m -0 | awk '{print $1}' | ifne xargs -o -I{} -n 1 docker exec -it {} $argv[2..-1]
+    docker container ls | tail -n +2 | fzf -m -0 | awk '{print $1}' | ifne xargs -o -I{} -n 1 docker exec -it {} $argv[2..-1]
   case fscan
     docker image ls | awk '$1 != "<none>" && $2 != "<none>"' | fzf --header-lines=1 -0 | awk '{print $1":"$2}' | ifne xargs -o -I{} grype $argv[2..-1] {}
   case labels
@@ -55,9 +55,9 @@ function dockr -w docker -a cmd -d "Docker CLI wrapper with extra commands"
     case stop
     docker ps | fzf -m --header-lines=1 -0 | awk 'ORS=" " {print $1}' | ifne xargs -n 1 docker stop
   case rmc
-    docker container ls -a | tail +2 | fzf -m -0 | awk '{print $1}' | ifne xargs -I{} -n 1 docker container rm $argv[2..-1] {}
+    docker container ls -a | tail -n +2 | fzf -m -0 | awk '{print $1}' | ifne xargs -I{} -n 1 docker container rm $argv[2..-1] {}
   case rmi
-    docker image ls | tail +2 | fzf -m -0 | awk '$1 == "<none>" || $2 == "<none>" {print $3;next};{print $1":"$2}' | ifne xargs docker rmi $argv[2..-1]
+    docker image ls | tail -n +2 | fzf -m -0 | awk '$1 == "<none>" || $2 == "<none>" {print $3;next};{print $1":"$2}' | ifne xargs docker rmi $argv[2..-1]
   case rmin
     set -l images (docker images | awk '/^<none>[ ]+<none>/ {print $3}')
     if test (count $images) -gt 0
@@ -66,7 +66,7 @@ function dockr -w docker -a cmd -d "Docker CLI wrapper with extra commands"
       echo "there's no <none>:<none> images to remove"
     end
   case rmv
-    docker volume ls | tail +2 | fzf -m -0 | awk '{print $2}' | ifne xargs -n 1 docker volume rm
+    docker volume ls | tail -n +2 | fzf -m -0 | awk '{print $2}' | ifne xargs -n 1 docker volume rm
   case shell
     switch (uname -s | tr '[:upper:]' '[:lower:]')
     case "darwin" "windows"

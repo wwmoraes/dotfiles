@@ -32,7 +32,7 @@ end
 # account subcommand
 function _gcp_account
   set active (gcloud config get-value account | tail -n 1)
-  set selected (gcloud auth list 2> /dev/null | tail +2 | \
+  set selected (gcloud auth list 2> /dev/null | tail -n +2 | \
     awk 'NR==1||$1=="*"{print $2;next};{print $1}' | \
     sed -E "s/($active)/"(set_color yellow)"\1"(set_color normal)"/" | \
     fzf --ansi --header-lines=1 | \
