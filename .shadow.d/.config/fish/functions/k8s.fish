@@ -17,7 +17,13 @@ function k8s -a cmd -d "utilities for Kubernetes management"
     kill $last_pid 2> /dev/null
 
     rm -f $patch_file
+  case finalize-pod
+    set -l resource (kubectl get pods \
+      | fzf --ansi --header-lines=1 \
+      | awk '{print $1}')
+    kubectl delete pod $resource --grace-period=0 --force
   end
 end
 
 complete -xc k8s -n __fish_use_subcommand -a finalize-namespace -d "removes a rogue namespace forcefully"
+complete -xc k8s -n __fish_use_subcommand -a finalize-pod -d "removes a rogue pod forcefully"
