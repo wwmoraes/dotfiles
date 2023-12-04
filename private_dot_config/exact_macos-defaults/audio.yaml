@@ -1,0 +1,40 @@
+description: Audio
+data:
+
+  ## Increase sound quality for Bluetooth headphones/headsets
+  # TODO originally needs sudo, doesn't seem to work since Monterey
+  bluetoothaudiod:
+
+    Enable AptX codec: true
+
+    Enable AAC codec: true
+
+    Apple Bitpool Min: 80
+
+    Apple Bitpool Max: 80
+
+    Apple Initial Bitpool: 80
+
+    Apple Initial Bitpool Min: 80
+
+    Negotiated Bitpool: 80
+
+    Negotiated Bitpool Min: 80
+
+    Negotiated Bitpool Max: 80
+
+  com.apple.BluetoothAudioAgent:
+
+    Apple Bitpool Max (editable): 80
+
+    Apple Bitpool Min (editable): 80
+
+    Apple Initial Bitpool (editable): 80
+
+    Apple Initial Bitpool Min (editable): 80
+
+    Negotiated Bitpool: 80
+
+    Negotiated Bitpool Max: 80
+
+    Negotiated Bitpool Min: 80
