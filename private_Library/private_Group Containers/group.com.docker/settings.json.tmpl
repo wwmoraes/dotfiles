@@ -1,8 +1,10 @@
 // chezmoi:template:left-delimiter="// {{" right-delimiter=}}
+// {{- /* cspell:disable */ -}}
 // {{- $credentialHelper := eq .chezmoi.os "darwin" | ternary "osxkeychain" "desktop" -}}
 {
   "acceptCanaryUpdates": false,
   "activeOrganizationName": "",
+  "allowBetaFeatures": false,
   "allowExperimentalFeatures": false,
   "analyticsEnabled": false,
   "authDeclinedInstallSettings": false,
@@ -11,6 +13,7 @@
   "autoPauseTimeoutSeconds": 30,
   "autoStart": false,
   "backupData": false,
+  "blockDockerLoad": false,
   "containerTerminal": "integrated",
   "cpus": 2,
   "credentialHelper": "docker-credential-// {{- $credentialHelper -}}",
@@ -67,6 +70,7 @@
   "overrideProxyExclude": "",
   "overrideProxyHttp": "",
   "overrideProxyHttps": "",
+  "overrideProxyPAC": "",
   "overrideWindowsDockerdPort": -1,
   "proxyHttpMode": "system",
   "requireVmnetd": false,
@@ -93,7 +97,7 @@
   "useBackgroundIndexing": false,
   "useContainerdSnapshotter": false,
   "useCredentialHelper": true,
-  "useGrpcfuse": true,
+  "useGrpcfuse": false,
   "useNightlyBuildUpdates": false,
   "useResourceSaver": true,
   "useVirtualizationFramework": true,
