@@ -21,7 +21,9 @@
     "chezmoi",
     "endregion",
     "koji",
-    "onepassword"
+    "MADR",
+    "onepassword",
+    "tagsrc"
   ],
   "files.associations": {
     "**/*dot_ssh/*config*": "ssh_config",
