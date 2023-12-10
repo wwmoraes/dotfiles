@@ -1,0 +1,1 @@
+eval (dagger completion fish)
