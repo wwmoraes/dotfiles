@@ -27,6 +27,9 @@ git:
     --date=relative
     --
 
+  commit:
+    signOff: false
+
 customCommands:
   - key: F
     command: koji

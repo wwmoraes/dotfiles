@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-git interpret-trailers --trim-empty "$1" | sponge "$1"
+git interpret-trailers --trailer "sign" --trim-empty "$1" | sponge "$1"
