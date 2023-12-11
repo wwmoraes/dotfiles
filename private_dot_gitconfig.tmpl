@@ -26,8 +26,8 @@
   textConv = plist2xml
 
 [diff]
-  # Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
-  # https://blog.github.com/2018-04-05-git-217-released/
+  ## Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
+  ## https://blog.github.com/2018-04-05-git-217-released/
   colorMoved = zebra
 
 [difftool]
@@ -50,17 +50,17 @@
   pruneDuringFetch = true
 
 [help]
-  # correct typos
+  ## correct typos
   autoCorrect = 1
 
-# Include files to keep this one lean
+## Include files to keep this one lean
 [include]
   path = ~/.gitaliases
   path = ~/.gitcolors
 
 {{- $HOME := .chezmoi.homeDir -}}
 
-# Personal overrides
+## Personal overrides
 [includeIf "gitdir:{{ $HOME }}/.files/"]
   path = .gitconfig-personal
 [includeIf "gitdir:{{ $HOME }}/.local/share/chezmoi/"]
@@ -70,7 +70,7 @@
 [includeIf "gitdir:{{ $HOME }}/dev/**/"]
   path = .gitconfig-personal
 
-# Work overrides
+## Work overrides
 [includeIf "gitdir:{{ $HOME }}/workspace/**/"]
   path = .gitconfig-work
 
@@ -93,7 +93,7 @@
   rebase = true
   ff = only
 
-# push easily. http://stackoverflow.com/a/23918418/89484
+## push easily. http://stackoverflow.com/a/23918418/89484
 [push]
   default = current
   followTags = true
@@ -120,7 +120,7 @@
 [stash]
   showPatch = true
 
-# https://git-scm.com/docs/git-interpret-trailers
+## https://git-scm.com/docs/git-interpret-trailers
 [trailer "sign"]
   command = echo \"$(git config user.name) <$(git config user.email)>\"
   ifExists = addIfDifferent
