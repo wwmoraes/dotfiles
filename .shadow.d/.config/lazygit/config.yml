@@ -1,6 +1,7 @@
 confirmOnQuit: false
-quitOnTopLevelReturn: false
+disableStartupPopups: true
 notARepository: skip
+quitOnTopLevelReturn: false
 
 services:
   git.us.aegon.com: "github:git.us.aegon.com"
