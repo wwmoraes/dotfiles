@@ -8,6 +8,7 @@ services:
 
 os:
   open: "code -rg {{filename}}"
+  editPreset: vscode
 
 git:
   branchLogCmd: >-
