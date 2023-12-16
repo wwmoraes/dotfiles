@@ -1,0 +1,10 @@
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+#{{- if .tags.personal -}}
+
+[".local/bin/talosctl"]
+executable = true
+refreshPeriod = "672h"
+type = "file"
+url = "https://github.com/siderolabs/talos/releases/latest/download/talosctl-#{{ .chezmoi.os }}-#{{ .chezmoi.arch }}"
+
+#{{- end }}
