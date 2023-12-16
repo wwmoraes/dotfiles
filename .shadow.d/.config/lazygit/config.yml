@@ -29,8 +29,11 @@ git:
     --date=relative
     --
 
+  overrideGpg: true
+
   commit:
     signOff: false
+
 
 customCommands:
   - key: F
