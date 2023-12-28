@@ -38,6 +38,7 @@ npmProxy = false
 # That's a problem as we hit the GitHub API limits when developing
 [data.versions]
   calico = "3.26.3" {{- /* (gitHubLatestRelease "projectcalico/calico").TagName | trimPrefix "v" | quote */}}
+  cilium = "0.15.18" {{- /* (gitHubLatestRelease "cilium/cilium-cli").TagName | trimPrefix "v" | quote */}}
   firaCode = "6.2" {{- /* (gitHubLatestRelease "tonsky/FiraCode").TagName | quote */}}
   terraform = {{- output "curl" "-fsSL" "https://releases.hashicorp.com/terraform/" | regexFind "terraform_[0-9.]+<" | trimPrefix "terraform_" | trimSuffix "<" | quote }}
 

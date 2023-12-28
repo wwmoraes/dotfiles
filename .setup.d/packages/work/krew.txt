@@ -8,16 +8,10 @@
 -rbac-view
 -view-utilization
 aws-auth
-ctx
 eksporter
 graph
-iexec
-neat
 node-ssm
-ns
 pod-logs
 pod-shell
 rbac-lookup
 status
-who-can
-whoami
