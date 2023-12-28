@@ -1,0 +1,1 @@
+eval (talosctl completion fish)
