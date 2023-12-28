@@ -23,7 +23,7 @@ encryption = "gpg"
   pgpFingerprint = {{ onepasswordRead "op://Personal/PGP/fingerprint" | quote }}
   pgpSigningKey = {{ onepasswordRead "op://Personal/PGP/identity" | quote }}
   preferredName = {{ onepasswordRead "op://Personal/Me/preferred name" | quote }}
-  workEmail = {{ onepasswordRead "op://Work - Aegon/Microsoft/username" | quote }}
+  workEmail = {{ onepasswordRead "op://Personal/Me/Contact/email" | quote }}
   FQDN = {{ onepasswordRead "op://Personal/Me/FQDN" | quote }}
 
 [data.tags]

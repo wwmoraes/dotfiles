@@ -3,8 +3,8 @@ disableStartupPopups: true
 notARepository: skip
 quitOnTopLevelReturn: false
 
-services:
-  git.us.aegon.com: "github:git.us.aegon.com"
+# services:
+#   git.us.aegon.com: "github:git.us.aegon.com"
 
 os:
   open: "code -rg {{filename}}"
