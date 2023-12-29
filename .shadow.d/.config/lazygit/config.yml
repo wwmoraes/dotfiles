@@ -11,6 +11,7 @@ os:
   editPreset: vscode
 
 git:
+
   branchLogCmd: >-
     git log
     --color
@@ -31,6 +32,8 @@ git:
 
   commit:
     signOff: false
+
+  overrideGpg: true
 
 customCommands:
   - key: F
