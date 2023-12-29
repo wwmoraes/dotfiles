@@ -60,14 +60,14 @@ data:
     ## Show the full URL in the address bar (note: this still hides the scheme)
     ShowFullURLInSmartSearchField: true
 
-    ## Set Safari's home page to favorites
-    HomePage: favorites://
+    ## Set Safari's home page to nothing
+    HomePage: ""
 
-    ## New windows open with: "Homepage"
-    NewWindowBehavior: 0
+    ## New windows open with: "Start Page"
+    NewWindowBehavior: 4
 
-    ## New tabs open with: "Homepage"
-    NewTabBehavior: 0
+    ## New tabs open with: "Start Page"
+    NewTabBehavior: 4
 
     ## Disable Preload Top Hit in the background
     PreloadTopHit: false
