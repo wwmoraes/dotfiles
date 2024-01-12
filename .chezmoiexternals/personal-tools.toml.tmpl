@@ -1,6 +1,12 @@
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
 #{{- if .tags.personal -}}
 
+[".local/bin/cc-test-reporter"]
+executable = true
+refreshPeriod = "672h"
+type = "file"
+url = "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-#{{ .chezmoi.os | lower }}-amd64"
+
 [".local/bin/talosctl"]
 executable = true
 refreshPeriod = "672h"
