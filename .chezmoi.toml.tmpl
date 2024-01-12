@@ -24,7 +24,7 @@ encryption = "gpg"
   pgpSigningKey = {{ onepasswordRead "op://Personal/PGP/identity" | quote }}
   preferredName = {{ onepasswordRead "op://Personal/Me/preferred name" | quote }}
   workEmail = {{ onepasswordRead "op://Personal/Me/Contact/email" | quote }}
-  FQDN = {{ onepasswordRead "op://Personal/Me/FQDN" | quote }}
+  FQDN = {{ onepasswordRead "op://Personal/Me/contact/website" | trimPrefix "https://" | quote }}
 
 [data.tags]
   personal = {{ $isPersonal }}
