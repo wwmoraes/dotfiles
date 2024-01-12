@@ -1,0 +1,7 @@
+[".local/share/fonts"]
+include = ["*.ttf"]
+## Fira Code is stable, last release is from 2021
+# refreshPeriod = "672h"
+# stripComponents = 1
+type = "archive"
+url = "https://www.fontsquirrel.com/fonts/download/Comfortaa"

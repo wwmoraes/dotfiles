@@ -1,11 +1,3 @@
-[".local/share/fonts"]
-include = ["*/*.ttf"]
-## Fira Code is stable, last release is from 2021
-# refreshPeriod = "672h"
-stripComponents = 1
-type = "archive"
-url = "https://github.com/tonsky/FiraCode/releases/download/{{ .versions.firaCode }}/Fira_Code_v{{ .versions.firaCode }}.zip"
-
 [".local/share/fonts/PowerlineSymbols.otf"]
 url = "https://github.com/powerline/powerline/raw/master/font/PowerlineSymbols.otf"
 type = "file"
