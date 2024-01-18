@@ -3,3 +3,9 @@
 
 [user]
   signingKey = {{ .me.pgpSigningKey }}
+
+[sendEmail]
+  smtpEncryption = {{ eqFold "STARTTLS" (onepasswordRead "op://Personal/Artero.dev Email/SMTP/security") | ternary "tls" "ssl" }}
+  smtpServer = {{ onepasswordRead "op://Personal/Artero.dev Email/SMTP/server" }}
+  smtpServerPort = {{ onepasswordRead "op://Personal/Artero.dev Email/SMTP/port" }}
+  smtpUser = {{ onepasswordRead "op://Personal/Artero.dev Email/SMTP/username" }}
