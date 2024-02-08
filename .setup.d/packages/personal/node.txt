@@ -4,6 +4,7 @@
 -create-cloudflare
 -create-react-app
 -create-webextension
+-cspell-cli
 -generator-code
 -generator-web-extension
 -lerna
