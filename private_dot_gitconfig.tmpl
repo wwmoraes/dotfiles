@@ -6,9 +6,9 @@
   commentChar = auto
   editor = vim
   excludesFile = ~/.gitignore-global
-  hooksPath = ~/.local/hooks
+  # hooksPath = ~/.local/hooks
   ignoreCase = false
-  pager = cat
+  pager = delta
   preComposeUnicode = true
 
 {{- $helper := "cache" }}
@@ -22,16 +22,20 @@
 [credential]
   helper = {{ $helper }}
 
+[delta]
+  navigate = true
+  light = false
+
+[diff]
+  colorMoved = default
+
 [diff "plist"]
   textConv = plist2xml
 
-[diff]
-  ## Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
-  ## https://blog.github.com/2018-04-05-git-217-released/
-  colorMoved = zebra
-
 [difftool]
+  guiDefault = auto
   prompt = false
+  trustExitCode = true
 
 [fetch]
   fsckObjects = true
@@ -77,6 +81,9 @@
 [init]
   defaultBranch = master
 
+[interactive]
+  diffFilter = delta --color-only
+
 [log]
   date = relative
 
@@ -85,7 +92,11 @@
 
 [merge]
   autoStash = true
+  conflictStyle = diff3
   ff = only
+
+[mergetool]
+  prompt = false
 
 [protocol]
   ## faster git server communication.
