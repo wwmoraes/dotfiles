@@ -10,12 +10,14 @@
 -markdownlint-cli2
 -minify
 -serve
--stylelint
--stylelint-scss
 -typescript
 -vercel
 -vsce
 -wrangler
 -ynpx
 -yo
+stylelint
+stylelint-config-standard
+stylelint-config-standard-scss
+stylelint-scss
 syncpack
