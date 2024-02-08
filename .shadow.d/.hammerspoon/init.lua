@@ -26,6 +26,7 @@ hs.loadSpoon("SpoonInstall")
 ---@type SpoonInstall
 ---@diagnostic disable-next-line: assign-type-mismatch
 spoon.SpoonInstall = spoon.SpoonInstall
+
 spoon.SpoonInstall.repos.wwmoraes = {
   url = "https://github.com/wwmoraes/spoons",
   desc = "wwmoraes' spoons",
@@ -89,12 +90,13 @@ spoon.SpoonInstall:andUse("Contexts", {
     },
     onWake = {
       open = {
-        apps.Amethyst
+        apps.Amethyst,
       },
     },
     onSleep = {
       kill = {
-        apps.Amethyst
+        apps.Amethyst,
+        apps.AMM,
       },
     },
   },
