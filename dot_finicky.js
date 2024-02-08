@@ -43,7 +43,7 @@ const getBrowser = (contextName) => (params) => {
 */
 const prefixBGone = (prefix) => ({
   match: ({ urlString }) => urlString.startsWith(prefix),
-  url: ({ urlString }) => decodeURIComponent(urlString.substring(prefix.length).replace(/%25/g, "%")),
+  url: ({ urlString }) => decodeURIComponent(urlString.substring(prefix.length).replace(/%25/g, "%")).replaceAll(" ", "%20"),
 });
 
 /**
@@ -63,7 +63,12 @@ const suffixBGone = (prefix, suffix) => ({
 
 const matchBGone = (re) => ({
   match: ({ urlString }) => urlString.match(re),
-  url: ({ urlString }) => decodeURIComponent(urlString.replace(re, "").replace(/%25/g, "%")),
+  url: ({ urlString }) => decodeURIComponent(urlString.replace(re, "").replace(/%25/g, "%")).replaceAll(" ", "%20"),
+});
+
+const defaultPrefix = (prefix) => ({
+  match: ({ urlString }) => !urlString.match(/^[a-z]+:\/\//),
+  url: ({ urlString }) => "https://" + urlString,
 });
 
 /// <reference path="./.finicky.d.ts" />
@@ -75,9 +80,14 @@ module.exports = {
     prefixBGone("https://tracking.tldrnewsletter.com/CL0/"),
     // cleanup Outlook redirects
     redirectBGone("safelinks.protection.outlook.com", "url"),
+    // gotta love those email trackers
+    prefixBGone("https://click.pstmrk.it/3s/"),
+    matchBGone(/\/nqxP\/[^/]{6}\/AQ\/.*/),
     // new gimmick: urldefense.com wraps the URL with some hash at the end
     prefixBGone("https://urldefense.com/v3/__"),
     matchBGone(/__;!!.*?\$$/),
+    // some trackers don't add the protocol to the target URL, so we add https
+    defaultPrefix("https://"),
     // remove tracking query parameters
     {
       match: () => true,
@@ -147,6 +157,18 @@ module.exports = {
           search: search.map((parameter) => parameter.join("=")).join("&"),
         };
       },
+    },
+    // Youtu.be => Yattee
+    {
+      // https://youtu.be/T_O-NeTvUzs?feature=shared
+      match: ({ urlString }) => urlString.startsWith("https://youtu.be"),
+      // https://r.yattee.stream/watch?feature=shared&v=T_O-NeTvUzs
+      url: ({ urlString }) => "https://r.yattee.stream/watch?v=" + urlString.replace(/https:\/\/youtu\.be\/([^\?]+)(\?.*)?/, "$1"),
+    },
+    // Youtube => Yattee
+    {
+      match: ({ url }) => url.host == "youtube.com",
+      url: ({ url }) => "https://r.yattee.stream/watch?v=" + url.search.replace(/.*(v=[^&]+).*/, "$1"),
     }
   ],
   handlers: [
