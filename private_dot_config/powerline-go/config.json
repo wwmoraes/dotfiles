@@ -16,6 +16,7 @@
   ],
   "modules-right": [
     "newline",
+    "nix-shell",
     "perms",
     "jobs",
     "exit",
