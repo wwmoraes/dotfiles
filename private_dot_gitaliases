@@ -1,3 +1,5 @@
+# cspell:disable
+
 [alias]
 # Needed for piping
   git = !exec git
@@ -9,37 +11,15 @@
   amend = commit --amend --all --no-edit
 
 # almost-human aliases
-  hreset = reset --hard
+  nuke = reset --hard
   yolo = push --force
 
 # Shorter versions and true aliases
   s = status
   co = checkout
-  cherrypick = cherry-pick
-  cherry = cherry-pick
-  cp = cherry-pick
+  pick = cherry-pick
   cc = !koji
   k = !koji
-
-# returns how much the current HEAD is from the target branch
-  rel = "!f() { git rev-list --left-right --count HEAD...$1 | sed 's/\t/↑↓/'; }; f"
-
-# Goodies
-  c = commit -am
-  sclone = clone --depth=1
-  df = diff --color --color-words --abbrev
-  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-  diff = diff --word-diff
-  reup = rebase-update # depot_tools specific
-  seek-n-blame = "!f() { git blame $(git log --pretty=%H --diff-filter=AM -1 -- "$1") -- "$1"; }; f"
-  who-deleted = "!f() { git show -s --pretty=medium $(git log --pretty=%H -1 --diff-filter=D -- "$1"); }; f"
-  last-deleted = "!f() { git log --pretty=%H -${1:-1} --diff-filter=D | xargs -n1 git diff-tree --no-commit-id --name-only --diff-filter=D -r | sort -u; }; f"
-
-# Amend and force push :D
-  yolo = !git commit --amend --all --no-edit && git push --force
-
-# show last commit - gotta yolo thinking with your HEAD ;)
-  head = log --pretty=oneline HEAD^..HEAD
 
 # rebase goodies
   r = rebase --autosquash
@@ -47,6 +27,20 @@
   rr = rebase --autosquash --root
   rc = rebase --continue
   ra = rebase --abort
+
+# returns how much the current HEAD is from the target branch
+  rel = "!f() { git rev-list --left-right --count HEAD...$1 | sed 's/\t/↑↓/'; }; f"
+
+# Goodies
+  c = commit -am
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+  reup = rebase-update # depot_tools specific
+  seek-n-blame = "!f() { git blame $(git log --pretty=%H --diff-filter=AM -1 -- "$1") -- "$1"; }; f"
+  who-deleted = "!f() { git show -s --pretty=medium $(git log --pretty=%H -1 --diff-filter=D -- "$1"); }; f"
+  last-deleted = "!f() { git log --pretty=%H -${1:-1} --diff-filter=D | xargs -n1 git diff-tree --no-commit-id --name-only --diff-filter=D -r | sort -u; }; f"
+
+# show last commit - gotta yolo thinking with your HEAD ;)
+  head = log --pretty=oneline HEAD^..HEAD
 
 # Show the diff between the latest commit and the current state
   d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat --color-words"
@@ -115,9 +109,6 @@
 
 # Grep from root folder
   gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
-
-# List all Aliases, and these comments  //  la = "!git config -l | grep alias | cut -c 7-"
-  la = "!cat ~/.gitaliases | sed -n -e '/# Human Aliases/,$p' | grep '^\t\\|\\#'"
 
 # show last tag
   lasttag = describe --tags --abbrev=0
