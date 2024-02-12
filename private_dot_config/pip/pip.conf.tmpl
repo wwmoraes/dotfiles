@@ -1,5 +1,5 @@
-{{- if and .tags.work .work.features.pypiProxy }}
+{{- if and .tags.work .work.proxies.python.enabled }}
 [global]
-index = {{ onepasswordRead "op://Work/Nexus RM/pypi" }}
-index-url = {{ onepasswordRead "op://Work/Nexus RM/pip-simple" }}
+index = {{ .work.proxies.python.index }}
+index-url = {{ .work.proxies.python.indexUrl }}
 {{- end }}

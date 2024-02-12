@@ -9,8 +9,8 @@ test "${VERBOSE:-0}" = "1" && set -v
 
 printf "\e[1;33mBootstrap\e[0m\n"
 
-HOMEBREW_PREFIX="#{{ .brewPrefix }}"
-HOMEBREW_REPOSITORY="#{{ .brewRepository }}"
+HOMEBREW_PREFIX="#{{ .brew.prefix }}"
+HOMEBREW_REPOSITORY="#{{ .brew.repository }}"
 
 # install brew
 command -v brew > /dev/null || {

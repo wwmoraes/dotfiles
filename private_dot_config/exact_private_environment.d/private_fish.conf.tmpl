@@ -3,6 +3,6 @@
 
 GIT_PROJECT_PATHS='~/dev,~/workspace'
 
-DOCKER_HUB_USER={{ onepasswordRead "op://Development/Docker/username" }}
-DOCKER_HUB_TOKEN={{ onepasswordRead "op://Development/Docker/token" }}
-ANSIBLE_GALAXY_TOKEN={{ onepasswordRead "op://Development/Ansible Galaxy/credential" }}
+DOCKER_HUB_USER={{ .personal.docker.user }}
+DOCKER_HUB_TOKEN={{ .personal.tokens.docker }}
+ANSIBLE_GALAXY_TOKEN={{ .personal.tokens.ansibleGalaxy }}

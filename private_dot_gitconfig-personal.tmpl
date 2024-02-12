@@ -2,10 +2,10 @@
   gpgSign = true
 
 [user]
-  signingKey = {{ .me.pgpSigningKey }}
+  signingKey = {{ .pgp.identity }}
 
 [sendEmail]
-  smtpEncryption = {{ eqFold "STARTTLS" (onepasswordRead "op://Personal/Artero.dev Email/SMTP/security") | ternary "tls" "ssl" }}
-  smtpServer = {{ onepasswordRead "op://Personal/Artero.dev Email/SMTP/server" }}
-  smtpServerPort = {{ onepasswordRead "op://Personal/Artero.dev Email/SMTP/port" }}
-  smtpUser = {{ onepasswordRead "op://Personal/Artero.dev Email/SMTP/username" }}
+  smtpEncryption = {{ eqFold "STARTTLS" .personal.smtp.security | ternary "tls" "ssl" }}
+  smtpServer = {{ .personal.smtp.server }}
+  smtpServerPort = {{ .personal.smtp.port }}
+  smtpUser = {{ .personal.smtp.user }}

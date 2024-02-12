@@ -1,19 +1,16 @@
-{{- $FQDN := onepasswordRead "op://Home/Wireless Router/FQDN" -}}
-{{- $stationName := onepasswordRead "op://Home/Wireless Router/base station name" -}}
-
 CanonicalizeHostname yes
-CanonicalDomains {{ $FQDN }}
+CanonicalDomains {{ .networks.home.fqdn }}
 CanonicalizeMaxDots 0
 
-Host {{ $stationName }}
-  HostName {{ onepasswordRead "op://Home/Wireless Router/server" }}
+Host {{ .networks.home.hostname }}
+  HostName {{ .networks.home.ipv4 }}
   User root
-  IdentityFile ~/.ssh/{{ $stationName }}.pub
+  IdentityFile ~/.ssh/{{ .networks.home.hostname }}.pub
   IdentitiesOnly yes
   PubkeyAcceptedKeyTypes +ssh-rsa
   HostKeyAlgorithms=+ssh-rsa
 
-Host *.{{ $FQDN }}
+Host *.{{ .networks.home.fqdn }}
   Ciphers aes128-ctr,aes192-ctr,aes256-ctr
   HostKeyAlgorithms ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-rsa,ssh-dss,ssh-ed25519
   KexAlgorithms ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256

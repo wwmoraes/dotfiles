@@ -32,12 +32,6 @@ if adoPatID == nil or adoPatID:len() <= 0 then
   return
 end
 
-local mcpAdoPatID = os.getenv("MCP_PAT_ID")
-if mcpAdoPatID == nil or mcpAdoPatID:len() <= 0 then
-  logger.e("MCP Azure DevOps PAT ID not set")
-  return
-end
-
 ---@param id string
 ---@return boolean
 local function updateADOToken(id)

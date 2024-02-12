@@ -8,10 +8,10 @@ GIT_PROJECT_PATHS='~/dev'
 MANPAGER=/opt/homebrew/bin/less
 PAGER=/opt/homebrew/bin/less
 
-EMAIL={{ .me.personalEmail }}
+EMAIL={{ .personal.email }}
 DIGITALOCEAN_CONTEXT=default
-FOSSA_API_KEY={{ onepasswordRead "op://Development/FOSSA/token" }}
-PULUMI_ACCESS_TOKEN={{ onepasswordRead "op://Development/Pulumi/credential" }}
-WRANGLER_TOKEN={{ onepasswordRead "op://Development/Wrangler/credential" }}
+FOSSA_API_KEY={{ .personal.tokens.fossa }}
+PULUMI_ACCESS_TOKEN={{ .personal.tokens.pulumi }}
+WRANGLER_TOKEN={{ .personal.tokens.wrangler }}
 
 {{- end }}

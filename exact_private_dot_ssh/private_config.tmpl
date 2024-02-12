@@ -3,11 +3,9 @@ Include config.d/globals/*
 
 IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
-{{- $homeMAC := onepasswordRead "op://Home/Wireless Router/MAC/wireless" }}
-
 {{- if .tags.personal }}
 
-Match exec "arp -an | grep -qF {{ $homeMAC }} 2> /dev/null"
+Match exec "arp -an | grep -qF {{ .networks.home.wireless.mac }} 2> /dev/null"
   Include config.d/locations/home
 
 IdentityFile ~/.ssh/personal.pub

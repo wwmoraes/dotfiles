@@ -9,7 +9,7 @@ cmd = ["fish", "-c"]
 
 [Gist]
 file_name = "pet-snippet.toml"
-access_token = {{ onepasswordRead "op://Development/GitHub CLI/token" | quote }}
+access_token = {{ .personal.tokens.github | quote }}
 gist_id = "a868388843ca3e649d17ba243b813830"
 public = false
 auto_sync = true

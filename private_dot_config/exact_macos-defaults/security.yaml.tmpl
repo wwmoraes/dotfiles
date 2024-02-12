@@ -45,9 +45,9 @@ data:
     SHOWFULLNAME: false
     LoginwindowText: >-
       Found this? Please contact me on
-      {{ onepasswordRead "op://Personal/Me/Contact/email" }}
+      {{ .personal.email }}
       or
-      {{ onepasswordRead "op://Personal/Me/Address/cell" }}
+      {{ .personal.mobile }}
     ## https://discussions.apple.com/thread/253314107
     # DesktopPicture: /Library/Desktop Pictures/Aqua Blue.jpg
     # DesktopPicture: /Library/Caches/com.apple.desktop.admin.png

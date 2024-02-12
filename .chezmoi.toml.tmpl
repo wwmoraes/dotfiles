@@ -1,38 +1,28 @@
 {{- $isPersonal := hasSuffix "Cabuk" .chezmoi.hostname -}}
 {{- $isWork := eq "C5K2C3567F" .chezmoi.hostname -}}
+{{- $ejson := joinPath .chezmoi.sourceDir ".ejson/secrets.json" }}
 
 encryption = "gpg"
 
-[data]
+{{ (ejsonDecrypt $ejson) | toToml }}
+
+[data.brew]
   {{- if eq .chezmoi.os "darwin" }}
   {{- if eq .chezmoi.arch "arm64" }}
-  brewPrefix = "/opt/homebrew"
-  brewRepository = "/opt/homebrew"
+  prefix = "/opt/homebrew"
+  repository = "/opt/homebrew"
   {{- else }}
-  brewPrefix = "/usr/local"
-  brewRepository = "/usr/local/Homebrew"
+  prefix = "/usr/local"
+  repository = "/usr/local/Homebrew"
   {{- end }}
   {{- else }}
-  brewPrefix = "/home/linuxbrew/.linuxbrew"
-  brewRepository = "/home/linuxbrew/.linuxbrew/Homebrew"
+  prefix = "/home/linuxbrew/.linuxbrew"
+  repository = "/home/linuxbrew/.linuxbrew/Homebrew"
   {{- end }}
-
-[data.me]
-  username = {{ onepasswordRead "op://Personal/Me/Contact/username" | quote }}
-  personalEmail = {{ onepasswordRead "op://Personal/Me/Contact/email" | quote }}
-  pgpFingerprint = {{ onepasswordRead "op://Personal/PGP/fingerprint" | quote }}
-  pgpSigningKey = {{ onepasswordRead "op://Personal/PGP/identity" | quote }}
-  preferredName = {{ onepasswordRead "op://Personal/Me/preferred name" | quote }}
-  workEmail = {{ onepasswordRead "op://Personal/Me/Contact/email" | quote }}
-  FQDN = {{ onepasswordRead "op://Personal/Me/contact/website" | trimPrefix "https://" | quote }}
 
 [data.tags]
   personal = {{ $isPersonal }}
   work = {{ $isWork }}
-
-[data.work.features]
-pypiProxy = false
-npmProxy = false
 
 # we control versions here as the externals calculate them on every apply.
 # That's a problem as we hit the GitHub API limits when developing
@@ -42,11 +32,21 @@ npmProxy = false
   firaCode = "6.2" {{- /* (gitHubLatestRelease "tonsky/FiraCode").TagName | quote */}}
   terraform = {{- output "curl" "-fsSL" "https://releases.hashicorp.com/terraform/" | regexFind "terraform_[0-9.]+<" | trimPrefix "terraform_" | trimSuffix "<" | quote }}
 
+[data.work.proxies.node]
+enabled = false
+
+[data.work.proxies.python]
+enabled = false
+
 [diff]
   exclude = ["scripts"]
 
 [gpg]
-  recipient = {{ onepasswordRead "op://Personal/Me/Contact/email" | quote }}
+  recipient = {{ (ejsonDecrypt $ejson).data.personal.email | quote }}
+
+[hooks.init.pre]
+command = "sh"
+args = ["-c", "make -C $CHEZMOI_SOURCE_DIR secrets"]
 
 [interpreters.fish]
   command = "fish"

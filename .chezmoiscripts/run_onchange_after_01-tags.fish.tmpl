@@ -7,9 +7,9 @@ printf "\e[1;33m[Darwin] Application tagging\e[0m\n"
 string match -q "$CHEZMOI_OS" "darwin"; or exit 0
 
 if string match -q (uname -m | string collect -a) "arm64"
-  alias brew="arch -arm64 {{ .brewPrefix }}/bin/brew"
+  alias brew="arch -arm64 {{ .brew.prefix }}/bin/brew"
 else
-  alias brew="{{ .brewPrefix }}/bin/brew"
+  alias brew="{{ .brew.prefix }}/bin/brew"
 end
 
 # cspell:disable-next-line

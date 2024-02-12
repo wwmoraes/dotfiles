@@ -4,17 +4,12 @@
 PROJECTS_DIR=~/workspace
 GIT_PROJECT_PATHS='~/workspace'
 
-CURL_CA_BUNDLE={{ .brewPrefix }}/etc/openssl@3/cert.pem
-REQUESTS_CA_BUNDLE={{ .brewPrefix }}/etc/openssl@3/cert.pem
+CURL_CA_BUNDLE={{ .brew.prefix }}/etc/openssl@3/cert.pem
+REQUESTS_CA_BUNDLE={{ .brew.prefix }}/etc/openssl@3/cert.pem
 PYTHONWARNINGS=ignore
 # forces kubelogin to use the Azure CLI token login flow
-NODE_EXTRA_CA_CERTS={{ .brewPrefix }}/etc/openssl@3/cert.pem
-EMAIL={{ .me.workEmail }}
-
-AWS_ACCOUNT_NON_PROD={{ onepasswordRead "op://Work - Aegon/CCAT AWS non-prod/account" }}
-AWS_ROLE_NON_PROD={{ onepasswordRead "op://Work - Aegon/CCAT AWS non-prod/role" }}
-AWS_ACCOUNT_PROD={{ onepasswordRead "op://Work - Aegon/CCAT AWS prod/account" }}
-AWS_ROLE_PROD={{ onepasswordRead "op://Work - Aegon/CCAT AWS prod/role" }}
+NODE_EXTRA_CA_CERTS={{ .brew.prefix }}/etc/openssl@3/cert.pem
+EMAIL={{ .work.email }}
 
 {{- /*
 AAD_LOGIN_METHOD=azurecli
@@ -23,20 +18,19 @@ ADAL_PYTHON_SSL_NO_VERIFY=0
 AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=0
 # Azure CLI defaults
 AZURE_CORE_ONLY_SHOW_ERRORS=1
-KERBEROS_PRINCIPAL={{ onepasswordRead "op://Work/Launcher/username" }}
-KERBEROS_REALM={{ onepasswordRead "op://Work/Launcher/website" | trimPrefix "https://" }}
-WORK_INTRANET_HOSTNAME={{ onepasswordRead "op://Work/Launcher/website" | trimPrefix "https://" }}
-AZURE_DEVOPS_EXT_PAT_ID={{ onepasswordRead "op://Work/25fpiydjutdtwx3matu6tipngy/username" }}
-AZURE_DEVOPS_EXT_PAT={{ onepasswordRead "op://Work/25fpiydjutdtwx3matu6tipngy/credential" }}
-MCP_PAT_ID={{ onepasswordRead "op://Work/rxvnse655fxunnu6vome4vzrly/username" }}
-GOPRIVATE={{ onepasswordRead "op://Work/Azure DevOps/website" | trimPrefix "https://" }}/*
-GOPROXY={{ onepasswordRead "op://Work/Nexus RM/goproxy" }},https://goproxy.io
-# GOSUMDB={{ onepasswordRead "op://Work/Nexus RM/gosudb" | trimPrefix "https://" }},sum.golang.org
+KERBEROS_PRINCIPAL={{ .work.username }}
+KERBEROS_REALM={{ .work.website | trimPrefix "https://" }}
+WORK_INTRANET_HOSTNAME={{ .work.website | trimPrefix "https://" }}
+AZURE_DEVOPS_EXT_PAT_ID={{ .work.azureDevOps.tokenID }}
+AZURE_DEVOPS_EXT_PAT={{ .work.tokens.azureDevOps }}
+GOPRIVATE={{ .work.azureDevOps.organization | trimPrefix "https://" }}/*
+GOPROXY={{ .work.proxies.golang.goproxy }},https://goproxy.io
+# GOSUMDB={{ .work.proxies.golang.gosumdb | trimPrefix "https://" }},sum.golang.org
 GOSUMDB=off
-AZURE_DEFAULTS_ACR={{ onepasswordRead "op://Work/Azure DevOps/acr" }}
-AZURE_DEFAULTS_LOCATION={{ onepasswordRead "op://Work/Azure DevOps/location" }}
-AZURE_DEVOPS_DEFAULTS_ORGANIZATION={{ onepasswordRead "op://Work/Azure DevOps/website" }}
-AZURE_DEVOPS_DEFAULTS_PROJECT={{ onepasswordRead "op://Work/Azure DevOps/project" }}
+AZURE_DEFAULTS_ACR={{ .work.azure.defaults.containerRegistry }}
+AZURE_DEFAULTS_LOCATION={{ .work.azure.defaults.location }}
+AZURE_DEVOPS_DEFAULTS_ORGANIZATION={{ .work.azureDevOps.organization }}
+AZURE_DEVOPS_DEFAULTS_PROJECT={{ .work.azureDevOps.project }}
 */}}
 
 {{- end }}

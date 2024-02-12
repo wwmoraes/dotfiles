@@ -17,3 +17,15 @@ CONTEXT_FILES = jq -r '.contexts | to_entries | .[].value[]' .vscode/contexts.js
 .PHONY: context
 context:
 	@comm -23 <(${REPOSITORY_FILES}) <(${CONTEXT_FILES})
+
+secrets: .ejson/secrets.json .ejson/keys/6bf53a356a4b8abbc9a41ae2912787e56853e211653bb23d5da4a87ba6c9df6f
+	$(info encrypting payload $<)
+	@ejson encrypt $<
+
+.ejson/secrets.json: .ejson/secrets.tmpl.json
+	$(info injecting secrets from 1Password)
+	@op inject -f -i $< -o $@
+
+.ejson/keys/6bf53a356a4b8abbc9a41ae2912787e56853e211653bb23d5da4a87ba6c9df6f:
+	$(info generating private key)
+	@op read --no-newline "op://Personal/ejson - dotfiles/password" > $@

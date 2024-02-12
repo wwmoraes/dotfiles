@@ -1,15 +1,12 @@
-{{- $firstName := onepasswordRead "op://Personal/Me/first name" | splitList " " | first -}}
-{{- $lastName := onepasswordRead "op://Personal/Me/last name" | splitList " " | last -}}
-{{- $website := onepasswordRead "op://Personal/Me/contact/website" -}}
 BEGIN:VCARD
 VERSION:3.0
-EMAIL:{{ .me.personalEmail }}
-FN:{{ .me.preferredName }}
-KEY;PGP:{{ onepasswordRead "op://Personal/PGP/url" }}
-LOGO:{{ $website }}/thumbnail.png
-N:{{ $lastName }};{{ $firstName }};;;
-PHOTO:{{ $website }}/images/avatar.jpg
-TEL:{{ onepasswordRead "op://Personal/Me/Address/cell" }}
-TITLE:{{ onepasswordRead "op://Personal/Me/occupation" }}
-URL:{{ $website }}
+EMAIL:{{ .personal.email }}
+FN:{{ .personal.name.preferred }}
+KEY;PGP:{{ .pgp.keyUrl }}
+LOGO:{{ .personal.website }}/thumbnail.png
+N:{{ .personal.name.last }};{{ .personal.name.first }};;;
+PHOTO:{{ .personal.website }}/images/avatar.jpg
+TEL:{{ .personal.mobile }}
+TITLE:{{ .work.title }}
+URL:{{ .personal.website }}
 END:VCARD

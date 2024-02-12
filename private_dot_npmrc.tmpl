@@ -1,5 +1,5 @@
-{{ if and .tags.work .work.features.npmProxy -}}
-registry = {{ onepasswordRead "op://Work/Nexus RM/npm" }}
+{{ if and .tags.work .work.proxies.node.enabled -}}
+registry = {{ .work.proxies.node.registry }}
 {{ else -}}
 registry = https://registry.npmjs.org/
 {{ end -}}

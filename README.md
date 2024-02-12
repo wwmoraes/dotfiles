@@ -69,18 +69,38 @@ new shell session.
 Then:
 
 ```shell
-# install chezmoi and apply this repository in one fell swoop
+# install brew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# install ejson
+brew install shopify/shopify/ejson
+```
+
+If the host has a working op CLI:
+
+```shell
+# clone the repository and install chezmoi
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/wwmoraes/dotfiles.git
-# OR install chezmoi through your preferred package manager and then
+# OR install chezmoi from elsewhere and then
 chezmoi init --apply https://github.com/wwmoraes/dotfiles.git
+```
+
+For restricted hosts, namely work devices with poorly configured DPI using
+copy-pasted settings from SO, the op CLI won't work. One known case is with
+Zscaler as it intercepts even the localhost gRPC calls between CLI and the
+daemon, voiding the trusted CA chain used by 1Password. In that case:
+
+```shell
+# generate the encrypted json payload on another host and transfer it to
+# <source-path>/.ejson/secrets.json, then
+make -C "$(chezmoi source-path)" secrets
+export EJSON_KEYDIR="$(chezmoi source-path)/.ejson/keys"
+chezmoi init && chezmoi apply
 ```
 
 After the first successful apply, change the origin to use SSH:
 
 ```shell
-chezmoi cd
-git remote set-url origin git@github.com:wwmoraes/dotfiles.git
-exit # or Ctrl+D
+git -C "$(chezmoi source-path)" remote set-url origin git@github.com:wwmoraes/dotfiles.git
 ```
 
 Enjoy! 🚀

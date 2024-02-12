@@ -1,8 +1,8 @@
 services:
-  breach_directory_api_key: {{ onepasswordRead "op://Personal/Breach Directory API/credential" }}
-  emailrep_api_key: {{ onepasswordRead "op://Personal/EmailRep API/credential" }}
-  hunter_api_key: {{ onepasswordRead "op://Personal/Hunter.io API/credential" }}
-  intelx_api_key: {{ onepasswordRead "op://Personal/IntelX API/credential" }}
+  breach_directory_api_key: {{ .personal.tokens.breachDirectory }}
+  emailrep_api_key: {{ .personal.tokens.emailRep }}
+  hunter_api_key: {{ .personal.tokens.hunterIO }}
+  intelx_api_key: {{ .personal.tokens.intelX }}
   # haveibeenpwned_api_key: ""
 
 settings:
