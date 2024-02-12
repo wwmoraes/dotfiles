@@ -1,63 +1,53 @@
 description: Security
 sudo: true
 data:
-
   # /Library/Preferences/com.apple.alf.plist:
-
   #   allowdownloadsignedenabled: 1
-
   #   ## Turn on the firewall
   #   globalstate: 1
-
   #   ## Disable stealth mode
   #   stealthenabled: 0
-
   #   ## Allow signed apps
   #   allowsignedenabled: 1
-
   /Library/Application Support/CrashReporter/DiagnosticMessagesHistory.plist:
-
     ## Disable sending diagnostics data to apple
     AutoSubmit: false
     SeedAutoSubmit: false
     AutoSubmitVersion: 4
-
     ## Disable sending diagnostics data to developers
     ThirdPartyDataSubmit: false
     ThirdPartyDataSubmitVersion: 4
-
   com.apple.security.authorization:
-
     ## ignore Remote Desktop/DisplayLink for PAM Touch ID
     ## https://apple.stackexchange.com/questions/411497/pam-tid-so-asks-for-password-instead-of-requesting-for-fingerprint-when-docked
     ignoreArd: true
-
   /Library/Preferences/com.apple.security.smartcard.plist:
-
+    Logging: false
+    UserPairing: true
     ## enable more than one smart card/token per user
     oneCardPerUser: false
-
     ## enable smart card user for login and authorization
     allowSmartCard: true
-
+    ## pluginkit -m -p com.apple.ctk-tokens
+    # DisabledTokens: []
+    ## smart card certificate trust behaviour
+    ## 0: Smart card certificate trust isn't required.
+    ## 1: Smart card certificate and chain must be trusted.
+    ## 2: Certificate and chain must be trusted and not receive a revoked status.
+    ## 3: Certificate and chain must be trusted and revocation status is returned valid.
+    checkCertificateTrust: 3
   /Library/Preferences/com.apple.loginwindow:
-
     ## Reveal host info when clicking the clock in the login window
     AdminHostInfo: HostName
-
     ## Disable Login for Hidden User >console
     DisableConsoleAccess: true
-
     GuestEnabled: false
-
     SHOWFULLNAME: false
-
     LoginwindowText: >-
       Found this? Please contact me on
       {{ onepasswordRead "op://Personal/Me/Contact/email" }}
       or
       {{ onepasswordRead "op://Personal/Me/Address/cell" }}
-
     ## https://discussions.apple.com/thread/253314107
     # DesktopPicture: /Library/Desktop Pictures/Aqua Blue.jpg
     # DesktopPicture: /Library/Caches/com.apple.desktop.admin.png
