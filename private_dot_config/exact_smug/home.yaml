@@ -1,0 +1,11 @@
+session: home
+root: ~/dev
+windows:
+- name: dev
+  root: .
+  commands: []
+  layout: tiled
+- name: site
+  root: site
+  commands: []
+  layout: tiled
