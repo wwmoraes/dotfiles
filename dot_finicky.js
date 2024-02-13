@@ -13,7 +13,7 @@ const apps = {
 
 /** @type {Browsers} */
 const browsers = {
-  "m6k9044r43.local": {
+  "C5K2C3567F.local": {
     main: apps.Safari,
     work: apps.Safari,
     home: apps.Safari,
