@@ -21,7 +21,7 @@ data:
     ## ignore Remote Desktop/DisplayLink for PAM Touch ID
     ## https://apple.stackexchange.com/questions/411497/pam-tid-so-asks-for-password-instead-of-requesting-for-fingerprint-when-docked
     ignoreArd: true
-  /Library/Preferences/com.apple.security.smartcard.plist:
+  /Library/Preferences/com.apple.security.smartcard:
     Logging: false
     UserPairing: true
     ## enable more than one smart card/token per user
@@ -36,18 +36,18 @@ data:
     ## 2: Certificate and chain must be trusted and not receive a revoked status.
     ## 3: Certificate and chain must be trusted and revocation status is returned valid.
     checkCertificateTrust: 3
-  /Library/Preferences/com.apple.loginwindow:
+  # /Library/Preferences/com.apple.loginwindow:
     ## Reveal host info when clicking the clock in the login window
-    AdminHostInfo: HostName
+    # AdminHostInfo: HostName
     ## Disable Login for Hidden User >console
-    DisableConsoleAccess: true
-    GuestEnabled: false
-    SHOWFULLNAME: false
-    LoginwindowText: >-
-      Found this? Please contact me on
-      {{ .personal.email }}
-      or
-      {{ .personal.mobile }}
+    # DisableConsoleAccess: true
+    # GuestEnabled: false
+    # SHOWFULLNAME: false
+    # LoginwindowText: >-
+    #   Found this? Please contact me on
+    #   {{ .personal.email }}
+    #   or
+    #   {{ .personal.mobile }}
     ## https://discussions.apple.com/thread/253314107
     # DesktopPicture: /Library/Desktop Pictures/Aqua Blue.jpg
     # DesktopPicture: /Library/Caches/com.apple.desktop.admin.png
