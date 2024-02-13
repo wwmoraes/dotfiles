@@ -1,4 +1,4 @@
-{{ if and .tags.work .work.proxies.node.enabled -}}
+{{ if and .tags.work .work.features.proxies.node.enabled -}}
 registry = {{ .work.proxies.node.registry }}
 {{ else -}}
 registry = https://registry.npmjs.org/

@@ -32,11 +32,9 @@ encryption = "gpg"
   firaCode = "6.2" {{- /* (gitHubLatestRelease "tonsky/FiraCode").TagName | quote */}}
   terraform = {{- output "curl" "-fsSL" "https://releases.hashicorp.com/terraform/" | regexFind "terraform_[0-9.]+<" | trimPrefix "terraform_" | trimSuffix "<" | quote }}
 
-[data.work.proxies.node]
-enabled = false
-
-[data.work.proxies.python]
-enabled = false
+[data.work.features.proxies]
+node.enabled = false
+python.enabled = false
 
 [diff]
   exclude = ["scripts"]

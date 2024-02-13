@@ -18,6 +18,7 @@
 .finicky.d.ts
 .gitconfig-os
 .gitconfig-secrets
+.local/bin/chezmoi-conf
 .local/bin/docker
 .local/bin/docker-credential-osxkeychain
 .local/bin/git-all
