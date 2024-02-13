@@ -21,6 +21,7 @@ context:
 secrets: .ejson/secrets.json .ejson/keys/6bf53a356a4b8abbc9a41ae2912787e56853e211653bb23d5da4a87ba6c9df6f
 	$(info encrypting payload $<)
 	@ejson encrypt $<
+	@op document edit "ejson payload" $< || true
 
 .ejson/secrets.json: .ejson/secrets.tmpl.json
 	$(info injecting secrets from 1Password)
@@ -28,4 +29,4 @@ secrets: .ejson/secrets.json .ejson/keys/6bf53a356a4b8abbc9a41ae2912787e56853e21
 
 .ejson/keys/6bf53a356a4b8abbc9a41ae2912787e56853e211653bb23d5da4a87ba6c9df6f:
 	$(info generating private key)
-	@op read --no-newline "op://Personal/ejson - dotfiles/password" > $@
+	@op read --no-newline "op://Personal/ejson/password" > $@
