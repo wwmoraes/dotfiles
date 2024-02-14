@@ -1,4 +1,4 @@
-require("types.hammerspoon")
+pcall(require, "types.hammerspoon")
 
 local urls = require("helpers.urls")
 local strings = require("helpers.strings")

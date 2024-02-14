@@ -1,4 +1,4 @@
-require("types.hammerspoon")
+pcall(require, "types.hammerspoon")
 
 local logger = hs.logger.new("work", "error")
 
