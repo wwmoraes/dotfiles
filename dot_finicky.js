@@ -14,8 +14,8 @@ const apps = {
 /** @type {Browsers} */
 const browsers = {
   "C5K2C3567F.local": {
-    main: apps.Safari,
-    work: apps.Safari,
+    main: apps.Firefox,
+    work: apps.Firefox,
     home: apps.Safari,
   },
 };
