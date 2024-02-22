@@ -1,5 +1,7 @@
 pcall(require, "types.hammerspoon")
 
+local apps = require("data.apps")
+
 local logger = hs.logger.new("work", "error")
 
 hs.spoons.use("WebWidgets", {
@@ -10,7 +12,7 @@ spoon.WebWidgets = spoon.WebWidgets
 
 -- toggle Microsoft Teams mute
 hs.hotkey.bind(nil, "F19", nil, function()
-  hs.eventtap.event.newKeyEvent({ "cmd", "shift" }, "m", true):post(hs.application.get("com.microsoft.teams"))
+  hs.eventtap.event.newKeyEvent({ "cmd", "shift" }, "m", true):post(hs.application.get(apps.Teams2))
 end)
 
 -- apply all rules on Microsoft Outlook
@@ -92,7 +94,6 @@ hs.network.reachability.forHostName(workIntranetHostname):setCallback(function(s
       refreshKerberosPrincipal(string.format("%s@%s", os.getenv("KERBEROS_PRINCIPAL"), os.getenv("KERBEROS_REALM")))
     end
     updateADOToken(adoPatID)
-    updateADOToken(mcpAdoPatID)
     widgets:start()
     if workVpnIsUp == false then
       hs.urlevent.openURL("hammerspoon://contexts?name=work&action=open")
@@ -113,7 +114,6 @@ end):start()
 -- must not be local, otherwise it'll be garbage collected
 TimeReloader = hs.timer.doAt("09:30", "1d", function()
   updateADOToken(adoPatID)
-  updateADOToken(mcpAdoPatID)
 end, true):start()
 
 logger.v("loaded successfully")

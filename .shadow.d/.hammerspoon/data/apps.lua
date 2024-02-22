@@ -17,6 +17,7 @@ local apps = {
   Safari = "com.apple.Safari",
   Slack = "com.tinyspeck.slackmacgap",
   Teams = "com.microsoft.teams",
+  Teams2 = "com.microsoft.teams2",
   Telegram = "ru.keepcoder.Telegram",
   VSCode = "com.microsoft.vscode",
   VSCodium = "com.vscodium",
