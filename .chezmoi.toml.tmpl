@@ -46,6 +46,18 @@ python.enabled = true
 command = "sh"
 args = ["-c", "make -C $CHEZMOI_SOURCE_DIR secrets"]
 
+{{- if $isWork }}
+
+[hooks.apply.pre]
+command = "/Applications/Privileges.app/Contents/Resources/PrivilegesCLI"
+args = ["--add"]
+
+[hooks.apply.post]
+command = "/Applications/Privileges.app/Contents/Resources/PrivilegesCLI"
+args = ["--remove"]
+
+{{- end }}
+
 [interpreters.fish]
   command = "fish"
 
