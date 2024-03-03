@@ -1,0 +1,6 @@
+description: Gaming
+kill: [Dock]
+data:
+  com.apple.GameController:
+    bluetoothPrefsMenuLongPressAction: 0
+    bluetoothPrefsShareLongPressSystemGestureMode: 1
