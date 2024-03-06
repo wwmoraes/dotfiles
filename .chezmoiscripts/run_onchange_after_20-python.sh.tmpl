@@ -40,7 +40,7 @@ if ! _=$(python3 -m pip -V > /dev/null 2>&1); then
   python3 -m ensurepip
 fi
 
-python3 -m pip install --user --upgrade pip
+python3 -m pip install --user --upgrade pip || true
 
 createAndEnterTmpDir
 
@@ -67,7 +67,7 @@ while read -r PACKAGE; do
       printf "[\e[92m install \e[m] Checking \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
       grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
       printf "[\e[92m install \e[m] Installing \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
-      python3 -m pip install --user -qqq "${PACKAGE##*|}"
+      python3 -m pip install --break-system-packages --user -qqq "${PACKAGE##*|}"
     ;;
   esac
 done < "${PACKAGES}"
