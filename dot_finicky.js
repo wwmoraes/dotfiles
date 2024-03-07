@@ -180,7 +180,7 @@ module.exports = {
     // Work: Microsoft Teams handler
     {
       match: finicky.matchHostnames("teams.microsoft.com"),
-      browser: "com.microsoft.teams",
+      browser: "com.microsoft.teams2",
       url({ url }) {
         return {
           ...url,
@@ -193,7 +193,7 @@ module.exports = {
       match: ({ opener }) =>
         [
           "com.tinyspeck.slackmacgap",
-          "com.microsoft.teams",
+          "com.microsoft.teams2",
           "com.microsoft.Outlook",
         ].includes(opener.bundleId),
       browser: getBrowser("work")
