@@ -86,6 +86,9 @@ module.exports = {
     // new gimmick: urldefense.com wraps the URL with some hash at the end
     prefixBGone("https://urldefense.com/v3/__"),
     matchBGone(/__;!!.*?\$$/),
+    // new gimmick: awstrack wraps the URL with some hash at the end
+    matchBGone(/^https:\/\/.+\.awstrack\.me\/L0\//),
+    matchBGone(/\/[0-9]\/\w{16}-\w{8}-\w{4}-\w{4}-\w{4}-\w{12}-\w{6}\/\S+=[0-9]+$/),
     // some trackers don't add the protocol to the target URL, so we add https
     defaultPrefix("https://"),
     // remove tracking query parameters
