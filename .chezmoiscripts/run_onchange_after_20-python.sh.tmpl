@@ -32,21 +32,19 @@ test "${VERBOSE:-0}" = "1" && set -v
 . "${DOTFILES_PATH}/.setup.d/functions.sh"
 
 printf "\e[1;33mPython3 packages\e[0m\n"
-### Check package tool
-printf "Checking \e[96mpip\e[0m manager...\n"
-if ! _=$(python3 -m pip -V > /dev/null 2>&1); then
-  # curl -fsSLO https://bootstrap.pypa.io/get-pip.py
-  # python3 get-pip.py
-  python3 -m ensurepip
-fi
 
-python3 -m pip install --user --upgrade pip || true
+### Check package tool
+printf "Checking \e[96mpipx\e[0m manager...\n"
+if ! _=$(command -v pipx >/dev/null 2>&1); then
+  echo "pipx not found"
+  exit 1
+fi
 
 createAndEnterTmpDir
 
 printf "Listing installed packages...\n"
 INSTALLED="${PWD}/installed"
-python3 -m pip list --user --format freeze | cut -d= -f1 > "${INSTALLED}"
+pipx list -qq --short | cut -d' ' -f1 > "${INSTALLED}"
 
 getPackagesPipeIntoVariable "pip.txt" PACKAGES
 FIFO=$(getRandomFifo)
@@ -58,16 +56,26 @@ while read -r PACKAGE; do
 
   case "${REMOVE}" in
     1)
-      printf "[\e[91muninstall\e[m] Checking \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
-      grep -q "${PACKAGE%%|*}" "${INSTALLED}" || continue
-      printf "[\e[91muninstall\e[m] Uninstalling \e[95m%s\e[0m\n" "${PACKAGE%%|*}"
-      python3 -m pip uninstall -y -qqq "${PACKAGE##*|}"
+      printStatus uninstall check "${PACKAGE%%|*}"
+      grep -q "${PACKAGE%%|*}" "${INSTALLED}" || {
+        printStatus uninstall skip "${PACKAGE%%|*}"
+        continue
+      }
+
+      printStatus uninstall execute "${PACKAGE%%|*}"
+      pipx uninstall -qq "${PACKAGE##*|}"
+      printStatus uninstall "${status:-success}" "${PACKAGE%%|*}"
     ;;
     0)
-      printf "[\e[92m install \e[m] Checking \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
-      grep -q "${PACKAGE%%|*}" "${INSTALLED}" && continue
-      printf "[\e[92m install \e[m] Installing \e[96m%s\e[0m\n" "${PACKAGE%%|*}"
-      python3 -m pip install --break-system-packages --user -qqq "${PACKAGE##*|}"
+      printStatus install check "${PACKAGE%%|*}"
+      grep -q "${PACKAGE%%|*}" "${INSTALLED}" && {
+        printStatus install skip "${PACKAGE%%|*}"
+        continue
+      }
+
+      printStatus install execute "${PACKAGE%%|*}"
+      pipx install -qq "${PACKAGE##*|}"
+      printStatus install "${status:-success}" "${PACKAGE%%|*}"
     ;;
   esac
 done < "${PACKAGES}"
