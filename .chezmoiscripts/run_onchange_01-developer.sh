@@ -22,3 +22,6 @@ if ! _=$(groups | xargs -n1 | grep -Fx _developer > /dev/null); then
   echo "adding user to group _developer"
   sudo dscl . append /Groups/_developer GroupMembership "$(whoami)"
 fi
+
+echo "configuring taskport privilege"
+security authorizationdb write system.privilege.taskport allow
