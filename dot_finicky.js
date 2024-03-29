@@ -13,7 +13,7 @@ const apps = {
 
 /** @type {Browsers} */
 const browsers = {
-  "NLLM4000559023": {
+  "nllm4000559023.local": {
     main: apps.Firefox,
     work: apps.Firefox,
     home: apps.Safari,
