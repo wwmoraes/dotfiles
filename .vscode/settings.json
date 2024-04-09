@@ -12,19 +12,6 @@
     "~/.shadow.d/.hammerspoon/Spoons",
     "~/dev/spoons"
   ],
-  "cSpell.ignorePaths": [
-    "**/.git/objects/**",
-    ".vscode",
-    ".setup.d/packages/**/*.txt"
-  ],
-  "cSpell.words": [
-    "chezmoi",
-    "endregion",
-    "koji",
-    "MADR",
-    "onepassword",
-    "tagsrc"
-  ],
   "files.associations": {
     "**/*dot_ssh/*config*": "ssh_config",
     "**/*dot_ssh/*config.d/*/*": "ssh_config",
