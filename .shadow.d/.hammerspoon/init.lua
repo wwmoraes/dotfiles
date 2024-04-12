@@ -108,19 +108,19 @@ spoon.SpoonInstall:andUse("Contexts", {
 ---@diagnostic disable-next-line: assign-type-mismatch
 spoon.Contexts = spoon.Contexts
 
-spoon.SpoonInstall:andUse("Meetings", {
-  config = {
-    calendarURL = os.getenv("MEETINGS_CALENDAR_URL") or "",
-    dailyScheduleTime = "09:00",
-    browserBundleID = "org.mozilla.firefox",
-  },
-  hotkeys = "default",
-  start = true,
-  repo = "wwmoraes",
-})
----@type Meetings
----@diagnostic disable-next-line: assign-type-mismatch
-spoon.Meetings = spoon.Meetings
+-- spoon.SpoonInstall:andUse("Meetings", {
+--   config = {
+--     calendarURL = os.getenv("MEETINGS_CALENDAR_URL") or "",
+--     dailyScheduleTime = "09:00",
+--     browserBundleID = "org.mozilla.firefox",
+--   },
+--   hotkeys = "default",
+--   start = true,
+--   repo = "wwmoraes",
+-- })
+-- ---@type Meetings
+-- ---@diagnostic disable-next-line: assign-type-mismatch
+-- spoon.Meetings = spoon.Meetings
 
 spoon.SpoonInstall:andUse("Hazel", {
   ---@type HazelConfig
@@ -192,11 +192,11 @@ for _, tag in ipairs(tags) do
   logger.d(string.format("loaded %s", path))
 end
 
-if not hs.ipc.cliStatus() then
-  logger.i("hs CLI not installed, trying to install it")
-  if hs.ipc.cliInstall() then
-    logger.i("hs CLI installed")
-  else
-    logger.e("failed to install the hs CLI")
-  end
-end
+-- if not hs.ipc.cliStatus() then
+--   logger.i("hs CLI not installed, trying to install it")
+--   if hs.ipc.cliInstall() then
+--     logger.i("hs CLI installed")
+--   else
+--     logger.e("failed to install the hs CLI")
+--   end
+-- end

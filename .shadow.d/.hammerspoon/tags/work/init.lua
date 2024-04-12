@@ -4,23 +4,23 @@ local apps = require("data.apps")
 
 local logger = hs.logger.new("work", "error")
 
-hs.spoons.use("WebWidgets", {
-  loglevel = "error",
-})
----@type WebWidgets
-spoon.WebWidgets = spoon.WebWidgets
+-- hs.spoons.use("WebWidgets", {
+--   loglevel = "error",
+-- })
+-- ---@type WebWidgets
+-- spoon.WebWidgets = spoon.WebWidgets
 
 -- toggle Microsoft Teams mute
-hs.hotkey.bind(nil, "F19", nil, function()
-  hs.eventtap.event.newKeyEvent({ "cmd", "shift" }, "m", true):post(hs.application.get(apps.Teams2))
-end)
+-- hs.hotkey.bind(nil, "F19", nil, function()
+--   hs.eventtap.event.newKeyEvent({ "cmd", "shift" }, "m", true):post(hs.application.get(apps.Teams2))
+-- end)
 
 -- apply all rules on Microsoft Outlook
-hs.hotkey.bind(nil, "F18", nil, function()
-  local success, output, details = hs.osascript.applescriptFromFile(os.getenv("HOME") ..
-    "/Library/Scripts/MSOutlookApplyAllRules.applescript")
-  if success ~= true then logger.e(table.concat(output or {}, "\n"), details) end
-end)
+-- `hs.hotkey.bind(nil, "F18", nil, function()
+--   local success, output, details = hs.osascript.applescriptFromFile(os.getenv("HOME") ..
+--     "/Library/Scripts/MSOutlookApplyAllRules.applescript")
+--   if success ~= true then logger.e(table.concat(output or {}, "\n"), details) end
+-- end)
 
 local workIntranetHostname = os.getenv("WORK_INTRANET_HOSTNAME")
 if workIntranetHostname == nil or workIntranetHostname:len() <= 0 then
@@ -73,11 +73,11 @@ local function shouldRenewKerberos()
   return false
 end
 
-logger.v("loading widgets...")
-local widgets = require("tags.work.widgets")
+-- logger.v("loading widgets...")
+-- local widgets = require("tags.work.widgets")
 
-logger.v("initializing widgets...")
-widgets:init()
+-- logger.v("initializing widgets...")
+-- widgets:init()
 
 logger.v("setting up reachability...")
 --- @type boolean
