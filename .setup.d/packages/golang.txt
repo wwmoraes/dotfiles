@@ -20,6 +20,7 @@ github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
 github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
 github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
 github.com/josharian/impl@latest
+github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest
 github.com/Shopify/ejson/cmd/ejson@latest
 github.com/skalt/git-cc@latest
 github.com/slok/sloth/cmd/sloth@latest
