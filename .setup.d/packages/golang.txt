@@ -28,3 +28,4 @@ github.com/slok/sloth/cmd/sloth@latest
 golang.org/x/pkgsite/cmd/pkgsite@latest
 google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 google.golang.org/protobuf/cmd/protoc-gen-go@latest
+github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
