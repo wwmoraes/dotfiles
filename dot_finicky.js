@@ -3,6 +3,199 @@
 /** @typedef {Record<string,Contexts>} Browsers */
 /** @typedef {Record<string,string>} Applications */
 
+if (typeof URLSearchParams === "undefined" || URLSearchParams === null) {
+  URLSearchParams = class URLSearchParamsPolyfill {
+    /**
+     * @readonly
+     * @type {number}
+     */
+    size;
+
+    /**
+     * @private
+     * @type {Record<string, string[]>}
+     */
+    data;
+
+    /**
+     * @param {string[][] | Record<string, string> | string | URLSearchParams} [init]
+     */
+    constructor(init) {
+      switch (typeof init) {
+        case "string":
+          Object.defineProperty(this, "data", {
+            configurable: false,
+            enumerable: true,
+            value: init.split("&").reduce(
+              /**
+               * @param {Record<string,string[]>} obj
+               */
+              (obj, entry) => {
+                const pair = entry.split("=", 2);
+                let value = obj[pair[0]] || new Array();
+                value.push(pair[1]);
+                obj[pair[0]] = value;
+                return obj;
+              },
+              {},
+            ),
+            writable: false,
+          });
+          break;
+        default:
+          throw new Error("URLSearchParams polyfill supports string init only");
+      }
+
+      Object.defineProperty(this, "size", {
+        configurable: false,
+        enumerable: false,
+        value: Object.keys(this.data).length,
+        writable: false,
+      });
+    }
+
+    /**
+     * Appends a specified key/value pair as a new search parameter.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URLSearchParams/append)
+     * @param {string} name
+     * @param {string} value
+     */
+    append(name, value) {
+      let currentValue = this.data[name] || new Array();
+      currentValue.push(value);
+      this.data[name] = currentValue;
+    }
+
+    /**
+     * Deletes the given search parameter, and its associated value, from the list of all search parameters.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URLSearchParams/delete)
+     * @param {string} name
+     * @param {string} [value]
+     */
+    delete(name, value) {
+      const currentValues = this.data[name];
+      if (typeof currentValues === "undefined" || currentValues === null) {
+        return;
+      }
+
+      if (typeof value !== "undefined" && value !== null) {
+        this.data[name] = currentValues.filter(currentValue => currentValue != value);
+        return;
+      }
+
+      this.data[name] = null;
+    }
+
+    /**
+     * Returns the first value associated to the given search parameter.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URLSearchParams/get)
+     * @param {string} name
+     * @returns {string | null}
+     */
+    get(name) {
+      return (this.data[name] || [])[0] || null;
+    };
+
+    /**
+     * Returns all the values association with a given search parameter.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URLSearchParams/getAll)
+     * @param {string} name
+     * @returns {string[]}
+     */
+    getAll(name) {
+      return this.data[name] || [];
+    }
+
+    /**
+     * Returns a Boolean indicating if such a search parameter exists.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URLSearchParams/has)
+     * @param {string} name
+     * @param {string} [value]
+     * @returns {boolean}
+     */
+    has(name, value) {
+
+    }
+
+    /**
+     * Sets the value associated to a given search parameter to the given value. If there were several values, delete the others.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/URLSearchParams/set)
+     * @param {string} name
+     * @param {string} value
+     */
+    set(name, value) {
+      this.data[name] = [value];
+    }
+
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/URLSearchParams/sort) */
+    sort() {
+
+    }
+
+    /** Returns a string containing a query string suitable for use in a URL. Does not include the question mark.
+     * @returns {string}
+     */
+    toString() {
+      return Object.entries(this.data).map(([key, values]) =>
+        values.map(value => key + "=" + value).join("&")).join("&");
+    }
+
+    /**
+     * @callback forEachCallback
+     * @param {string} value
+     * @param {string} key
+     * @param {URLSearchParams} parent
+     */
+
+    /**
+     * @param {forEachCallback} callbackfn
+     * @param {any} [thisArg]
+     */
+    forEach(callbackfn, thisArg) {
+      Object.entries(this.data).forEach(([key, values]) =>
+        values.forEach(value => callbackfn(value, key, thisArg || this)));
+    }
+
+    /** Returns an array of key, value pairs for every entry in the search params.
+     * @returns {IterableIterator<[string, string]>}
+     */
+    [Symbol.iterator]() {
+      return Object.entries(this.data).map(([key, values]) =>
+        values.map(value => [key, value])).flat(1);
+    }
+
+    /** Returns an array of key, value pairs for every entry in the search params.
+     * @returns {IterableIterator<[string, string]>}
+     */
+    entries() {
+      return Object.entries(this.data).map(([key, values]) =>
+        values.map(value => [key, value])).flat(1);
+    }
+
+    /** Returns a list of keys in the search params. */
+    /**
+     * @returns {IterableIterator<string>}
+     */
+    keys() {
+      return Object.keys(this.data);
+    }
+
+    /** Returns a list of values in the search params. */
+    /**
+     * @returns {IterableIterator<string>}
+     */
+    values() {
+      return Object.values(this.data);
+    }
+  };
+}
+
 /** @type {Applications} */
 const apps = {
   Chrome: "com.google.Chrome",
