@@ -74,10 +74,6 @@
 [includeIf "gitdir:{{ $HOME }}/dev/**/"]
   path = .gitconfig-personal
 
-## Work overrides
-[includeIf "gitdir:{{ $HOME }}/workspace/**/"]
-  path = .gitconfig-work
-
 [init]
   defaultBranch = master
 
@@ -165,3 +161,7 @@
 [user]
   email = git@{{ .personal.website | trimPrefix "https://" }}
   name = {{ .personal.name.preferred }}
+
+## Work overrides
+[includeIf "gitdir:{{ $HOME }}/workspace/**/"]
+  path = .gitconfig-work
