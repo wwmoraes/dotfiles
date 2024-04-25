@@ -64,16 +64,6 @@
 
 {{- $HOME := .chezmoi.homeDir -}}
 
-## Personal overrides
-[includeIf "gitdir:{{ $HOME }}/.files/"]
-  path = .gitconfig-personal
-[includeIf "gitdir:{{ $HOME }}/.local/share/chezmoi/"]
-  path = .gitconfig-personal
-[includeIf "gitdir:{{ $HOME }}/.secrets/"]
-  path = .gitconfig-personal
-[includeIf "gitdir:{{ $HOME }}/dev/**/"]
-  path = .gitconfig-personal
-
 [init]
   defaultBranch = master
 
@@ -161,6 +151,16 @@
 [user]
   email = git@{{ .personal.website | trimPrefix "https://" }}
   name = {{ .personal.name.preferred }}
+
+## Personal overrides
+[includeIf "gitdir:{{ $HOME }}/.files/"]
+  path = .gitconfig-personal
+[includeIf "gitdir:{{ $HOME }}/.local/share/chezmoi/"]
+  path = .gitconfig-personal
+[includeIf "gitdir:{{ $HOME }}/.secrets/"]
+  path = .gitconfig-personal
+[includeIf "gitdir:{{ $HOME }}/dev/**/"]
+  path = .gitconfig-personal
 
 ## Work overrides
 [includeIf "gitdir:{{ $HOME }}/workspace/**/"]
