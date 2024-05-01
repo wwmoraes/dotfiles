@@ -24,4 +24,4 @@ if ! _=$(groups | xargs -n1 | grep -Fx _developer > /dev/null); then
 fi
 
 echo "configuring taskport privilege"
-security authorizationdb write system.privilege.taskport allow
+sudo security authorizationdb write system.privilege.taskport allow
