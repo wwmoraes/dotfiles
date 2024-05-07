@@ -2,9 +2,6 @@ CanonicalizeHostname yes
 CanonicalDomains {{ .networks.home.fqdn }}
 CanonicalizeMaxDots 0
 
-Match exec "arp -an | grep -qF {{ .networks.home.wireless.mac }} 2> /dev/null"
-  Include config.d/locations/home
-
 Host {{ .networks.home.hostname }}
   HostName {{ .networks.home.ipv4 }}
   User root
