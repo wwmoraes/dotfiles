@@ -11,17 +11,6 @@
   pager = delta
   preComposeUnicode = true
 
-{{- $helper := "cache" }}
-{{- if eq .chezmoi.os "darwin" }}
-{{- $helper = "osxkeychain" }}
-{{- else if eq .chezmoi.os "windows" }}
-{{- $helper = "wincred" }}
-{{- else if eq .chezmoi.os "linux" }}
-{{- $helper = "cache" }}
-{{- end }}
-[credential]
-  helper = {{ $helper }}
-
 [delta]
   navigate = true
   light = false

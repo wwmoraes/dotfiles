@@ -1,6 +1,17 @@
 [commit]
   gpgSign = true
 
+{{- $helper := "cache" }}
+{{- if eq .chezmoi.os "darwin" }}
+{{- $helper = "osxkeychain" }}
+{{- else if eq .chezmoi.os "windows" }}
+{{- $helper = "wincred" }}
+{{- else if eq .chezmoi.os "linux" }}
+{{- $helper = "libsecret" }}
+{{- end }}
+[credential]
+  helper = {{ $helper }}
+
 [user]
   signingKey = {{ .pgp.identity }}
 
