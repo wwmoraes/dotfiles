@@ -8,6 +8,6 @@ Cmnd_Alias SAFE_WORK_CMDS = /usr/bin/true "", /usr/bin/renice *, /usr/sbin/taskp
 
 {{ .chezmoi.username }} WORK = PASSWD:SETENV: UNSAFE_WORK_CMDS
 {{ .chezmoi.username }} WORK = NOPASSWD: SAFE_WORK_CMDS
-{{ .chezmoi.username }} WORK = NOPASSWD: /bin/launchctl config user path *
+{{ .chezmoi.username }} WORK = PASSWD: /bin/launchctl config user path *
 
 {{- end }}
