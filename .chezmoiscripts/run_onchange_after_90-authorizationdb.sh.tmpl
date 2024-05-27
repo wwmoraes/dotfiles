@@ -1,0 +1,39 @@
+#!/usr/bin/env sh
+# chezmoi:template:left-delimiter="# {{" right-delimiter=}}
+
+set -eum
+trap 'kill 0' INT HUP TERM
+
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
+printf "\e[1;33mAuthorization DB\e[0m\n"
+
+# run only on darwin
+test "${CHEZMOI_OS:-}" = "darwin" || exit
+
+# https://www.dssw.co.uk/reference/authorization-rights/
+
+sudo security authorizationdb write system.privilege.taskport authenticate-session-owner-or-admin
+
+# {{- if .tags.work }}
+
+# For privileged file operations from within the Finder.
+sudo security authorizationdb write com.apple.desktopservices authenticate-session-owner-or-admin
+sudo security authorizationdb write com.apple.desktopservices.scripted authenticate-session-owner-or-admin
+
+sudo security authorizationdb write com.apple.security.sudo authenticate-session-owner-or-admin
+sudo security authorizationdb write com.apple.uninstalld.uninstall authenticate-session-owner-or-admin
+
+sudo security authorizationdb write system.preferences authenticate-session-owner-or-admin
+sudo security authorizationdb write system.preferences.datetime authenticate-session-owner-or-admin
+sudo security authorizationdb write system.preferences.energysaver authenticate-session-owner-or-admin
+sudo security authorizationdb write system.preferences.network authenticate-session-owner-or-admin
+
+# Used by AuthorizationExecuteWithPrivileges() in programs requesting to run a
+# tool as root (e.g., some installers).
+sudo security authorizationdb write system.privilege.admin authenticate-session-owner-or-admin
+
+sudo security authorizationdb write system.install.software authenticate-session-owner-or-admin
+
+# {{- end }}

@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+# chezmoi:template:left-delimiter="# {{" right-delimiter=}}
+# {{- range $_, $filename := (glob (joinPath .chezmoi.homeDir ".config" "sudoers.d" "*")) }}
+# # {{ base $filename }} hash: # {{ include $filename | sha256sum }}
+# {{- end }}
+
+set -eum
+trap 'kill 0' INT HUP TERM
+
+: "${SUDOERS_PATH:=${HOME}/.config/sudoers.d}"
+
+test "${TRACE:-0}" = "1" && set -x
+test "${VERBOSE:-0}" = "1" && set -v
+
+printf "\e[1;33mSudoers\e[0m\n"
+
+for SUDOERS_FILE in "${SUDOERS_PATH}"/*; do
+  printf "installing \e[91m%s\e[0m...\n" "${SUDOERS_FILE}"
+  visudo -c "${SUDOERS_FILE}" || continue
+  sudo cp "${SUDOERS_FILE}" "/etc/sudoers.d/${USER}-$(basename "${SUDOERS_FILE}")"
+done

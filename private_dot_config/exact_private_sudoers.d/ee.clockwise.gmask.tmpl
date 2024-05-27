@@ -1,0 +1,3 @@
+{{ .chezmoi.username }} ALL = NOPASSWD: /bin/chmod +a user\:{{ .chezmoi.username }}\:allow\ write /etc/hosts
+{{ .chezmoi.username }} ALL = NOPASSWD: /bin/rm -fr /etc/hosts
+{{ .chezmoi.username }} ALL = NOPASSWD: /bin/cp /Users/{{ .chezmoi.username }}/Library/Gas\ Mask/Local/* /etc/hosts

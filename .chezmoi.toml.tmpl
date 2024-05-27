@@ -48,18 +48,18 @@ args = ["-c", "make -C $CHEZMOI_SOURCE_DIR secrets"]
 
 {{- if $isWork }}
 
-[hooks.apply.pre]
-command = "/Applications/Privileges.app/Contents/Resources/PrivilegesCLI"
-args = ["--add"]
+# [hooks.apply.pre]
+# command = "/Applications/Privileges.app/Contents/Resources/PrivilegesCLI"
+# args = ["--add"]
 
-[hooks.apply.post]
-command = "/Applications/Privileges.app/Contents/Resources/PrivilegesCLI"
-args = ["--remove"]
+# [hooks.apply.post]
+# command = "/Applications/Privileges.app/Contents/Resources/PrivilegesCLI"
+# args = ["--remove"]
 
 {{- end }}
 
 [interpreters.fish]
-  command = "fish"
+command = "fish"
 
 {{- if eq .chezmoi.os "windows" }}
 

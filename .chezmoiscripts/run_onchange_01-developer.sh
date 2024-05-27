@@ -26,6 +26,3 @@ if ! _=$(groups | xargs -n1 | grep -Fx _webdeveloper > /dev/null); then
   echo "adding user to group _webdeveloper"
   sudo dscl . append /Groups/_webdeveloper GroupMembership "$(whoami)"
 fi
-
-echo "configuring taskport privilege"
-sudo security authorizationdb write system.privilege.taskport allow

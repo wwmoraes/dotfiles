@@ -1,0 +1,23 @@
+{{- if .tags.work -}}
+### for global installations (default brew setting)
+{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /bin/mkdir -p /Applications
+{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /bin/mv /usr/local/Caskroom/*.app /Applications/*.app
+{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /bin/mv /opt/homebrew/Caskroom/*.app /Applications/*.app
+
+### internally used by brew to (un)install casks
+{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /usr/sbin/installer -pkg /opt/homebrew/Caskroom/*.pkg -target /
+{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /usr/bin/env * /usr/sbin/installer -pkg /usr/local/Caskroom/*.pkg -target /
+{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /usr/bin/env * /usr/sbin/installer -pkg /opt/homebrew/Caskroom/*.pkg -target /
+{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /usr/sbin/pkgutil --forget *
+{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /usr/local/Caskroom/*/*/uninstall.tool
+{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /opt/homebrew/Caskroom/*/*/uninstall.tool
+
+### cleanup permissions
+### TODO this is not secure...
+{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /usr/bin/xargs -0 -- /bin/rm --
+{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /usr/bin/xargs -0 -- /usr/local/Homebrew/Library/Homebrew/cask/utils/rmdir.sh
+
+### tagging
+{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /opt/homebrew/bin/tag -s source\:Store /Applications/*.app
+{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /opt/homebrew/bin/tag -s source\:Store /Applications/*.app
+{{- end }}
