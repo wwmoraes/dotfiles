@@ -17,15 +17,16 @@ github.com/1pkg/gopium@latest
 github.com/1pkg/goutline@latest
 github.com/conventionalcommit/commitlint@latest
 github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
+github.com/google/gnostic/cmd/protoc-gen-openapi@latest
 github.com/google/wire/cmd/wire@latest
 github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
 github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
 github.com/josharian/impl@latest
 github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest
+github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 github.com/Shopify/ejson/cmd/ejson@latest
 github.com/skalt/git-cc@latest
 github.com/slok/sloth/cmd/sloth@latest
 golang.org/x/pkgsite/cmd/pkgsite@latest
 google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 google.golang.org/protobuf/cmd/protoc-gen-go@latest
-github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
