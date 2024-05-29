@@ -20,11 +20,7 @@
     <true />
     <key>WatchPaths</key>
     <array>
-      {{- $files := glob (joinPath .chezmoi.homeDir ".config" "environment.d" "*.conf") }}
-      {{- range $_, $file := $files }}
-      <string>{{ $file }}</string>
-      {{- end }}
-      <string>{{ .chezmoi.homeDir }}/.config/environment.rm.conf</string>
+      <string>{{ .chezmoi.homeDir }}/.config/environment.d/</string>
     </array>
   </dict>
 </plist>
