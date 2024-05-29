@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>AssociatedBundleIdentifiers</key>
+    <string>dev.artero.macosxtended</string>
     <key>Label</key>
     <string>dev.artero.environment</string>
     <key>LimitLoadToSessionType</key>
@@ -12,9 +14,7 @@
     </array>
     <key>ProgramArguments</key>
     <array>
-      <string>/bin/sh</string>
-      <string>-c</string>
-      <string>{{ .chezmoi.homeDir }}/Library/Scripts/dotenv.sh</string>
+      <string>{{ .chezmoi.homeDir }}/Library/Scripts/dev.artero.environment</string>
     </array>
     <key>RunAtLoad</key>
     <true />

@@ -114,8 +114,8 @@ if ! shopt -oq posix; then
 fi
 
 # setup environment variables
-# shellcheck source=private_Library/private_Scripts/executable_dotenv.sh
-. "${HOME}/Library/Scripts/dotenv.sh" > /dev/null
+# shellcheck source=private_Library/exact_private_Scripts/executable_dev.artero.environment
+. "${HOME}/Library/Scripts/dev.artero.environment" > /dev/null
 set +eum # restore default shell "looseness"
 
 # fzf & bashfu sorcery
