@@ -22,7 +22,7 @@ sudo -v
 # while true; sudo -n true; sleep 60; kill -0 "$fish_pid"; or exit; end 2>/dev/null &
 
 printf "\e[1;34mtagging cask bundles...\e[0m\n"
-brew info --cask --json=v2 (brew list --cask -1) | jq -r '.casks[].artifacts[].app // [] | .[] | .target? // .' | while read -l entry
+brew info --cask --json=v2 (brew list --cask -1) | jq -r '[.casks[].artifacts[].app // [], .casks[].artifacts[].uninstall[]?.delete // null] | flatten | .[] | .target? // .' | while read -l entry
   set -l artifact (string split -r -m 1 -f 2 "/" $entry)
   test -n "$artifact"; or set -l artifact $entry
 
