@@ -69,7 +69,7 @@ spoon.SpoonInstall:andUse("Contexts", {
           [7] = true
         },
         applications = {
-          apps.Teams,
+          apps.Teams2,
           apps.Outlook,
           apps.OneDrive,
           apps.AzureDevOps,
