@@ -1,3 +1,5 @@
+# chezmoi:template:left-delimiter="# {{" right-delimiter=}}
+# {{- if .tags.personal }}
 description: Mail
 kill: [Mail]
 data:
@@ -29,3 +31,4 @@ data:
 
     ## Disable automatic spell checking
     SpellCheckingBehavior: NoSpellCheckingEnabled
+# {{- end }}
