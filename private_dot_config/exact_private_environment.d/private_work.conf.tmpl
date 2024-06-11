@@ -10,7 +10,7 @@ PYTHONWARNINGS=ignore
 # forces kubelogin to use the Azure CLI token login flow
 NODE_EXTRA_CA_CERTS={{ .brew.prefix }}/etc/openssl@3/cert.pem
 EMAIL={{ .work.email }}
-WORK_INTRANET_HOSTNAME={{ .work.website | trimPrefix "https://" }}
+WORK_INTRANET_HOSTNAME={{ .work.website | trimPrefix "https://" | splitList "/" | first }}
 AZURE_DEVOPS_EXT_PAT_ID={{ .work.azureDevOps.tokenID }}
 AZURE_DEVOPS_EXT_PAT={{ .work.tokens.azureDevOps }}
 
