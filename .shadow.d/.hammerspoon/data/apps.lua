@@ -16,6 +16,7 @@ local apps = {
   Outlook = "com.microsoft.Outlook",
   Safari = "com.apple.Safari",
   Slack = "com.tinyspeck.slackmacgap",
+  StreamDeck = "com.elgato.StreamDeck",
   Teams = "com.microsoft.teams",
   Teams2 = "com.microsoft.teams2",
   Telegram = "ru.keepcoder.Telegram",

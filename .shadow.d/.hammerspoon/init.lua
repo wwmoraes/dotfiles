@@ -91,12 +91,14 @@ spoon.SpoonInstall:andUse("Contexts", {
     onWake = {
       open = {
         apps.Amethyst,
+        apps.StreamDeck,
       },
     },
     onSleep = {
       kill = {
         apps.Amethyst,
         apps.AMM,
+        apps.StreamDeck,
       },
     },
   },
