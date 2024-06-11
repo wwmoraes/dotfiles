@@ -54,33 +54,41 @@ while read -r PACKAGE; do
   parsePackageForRemoval "${PACKAGE}" > "${FIFO}"
   read -r REMOVE PACKAGE < "${FIFO}"
 
-  PKG="${PACKAGE%%:*}"
-  BIN="${PACKAGE##*:}"
+  FLAGS=""
+  PKG="${PACKAGE%%|*}"
+  BIN="${PACKAGE##*|}"
   test "${BIN}" = "${PKG}" && unset BIN
-  PACKAGE="${PKG}"
+  if [ "${PKG%%://*}" != "${PKG}" ]; then
+    FLAGS="${FLAGS} --git"
+    NAME=${BIN}
+  else
+    FLAGS="${FLAGS} --locked"
+    NAME=${PKG}
+  fi
 
   case "${REMOVE}" in
     1)
-      printStatus uninstall check "${PKG}"
-      grep -q "${PKG}" "${INSTALLED}" || {
-        printStatus uninstall skip "${PKG}"
+      printStatus uninstall check "${NAME}"
+      grep -q "${NAME}" "${INSTALLED}" || {
+        printStatus uninstall skip "${NAME}"
         continue
       }
 
-      printStatus uninstall execute "${PKG}"
-      cargo -q uninstall -p "${PKG}" || status=failure
-      printStatus uninstall "${status:-success}" "${PKG}"
+      printStatus uninstall execute "${NAME}"
+      cargo -q uninstall -p "${NAME}" || status=failure
+      printStatus uninstall "${status:-success}" "${NAME}"
     ;;
     0)
-      printStatus install check "${PKG}"
-      grep -q "${PKG}" "${INSTALLED}" && {
-        printStatus install skip "${PKG}"
+      printStatus install check "${NAME}"
+      grep -q "${NAME}" "${INSTALLED}" && {
+        printStatus install skip "${NAME}"
         continue
       }
 
-      printStatus install execute "${PKG}"
-      cargo -q install --locked "${PKG}" || status=failure
-      printStatus install "${status:-success}" "${PKG}"
+      printStatus install execute "${NAME}"
+      # shellcheck disable=SC2086
+      cargo -q install ${FLAGS} "${PKG}" || status=failure
+      printStatus install "${status:-success}" "${NAME}"
     ;;
   esac
 done < "${PACKAGES}"
