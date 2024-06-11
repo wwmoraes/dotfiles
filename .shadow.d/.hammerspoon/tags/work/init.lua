@@ -1,38 +1,6 @@
 pcall(require, "types.hammerspoon")
 
-local apps = require("data.apps")
-
 local logger = hs.logger.new("work", "error")
-
--- hs.spoons.use("WebWidgets", {
---   loglevel = "error",
--- })
--- ---@type WebWidgets
--- spoon.WebWidgets = spoon.WebWidgets
-
--- toggle Microsoft Teams mute
--- hs.hotkey.bind(nil, "F19", nil, function()
---   hs.eventtap.event.newKeyEvent({ "cmd", "shift" }, "m", true):post(hs.application.get(apps.Teams2))
--- end)
-
--- apply all rules on Microsoft Outlook
--- `hs.hotkey.bind(nil, "F18", nil, function()
---   local success, output, details = hs.osascript.applescriptFromFile(os.getenv("HOME") ..
---     "/Library/Scripts/MSOutlookApplyAllRules.applescript")
---   if success ~= true then logger.e(table.concat(output or {}, "\n"), details) end
--- end)
-
-local workIntranetHostname = os.getenv("WORK_INTRANET_HOSTNAME")
-if workIntranetHostname == nil or workIntranetHostname:len() <= 0 then
-  logger.e("work intranet hostname not set - skipping VPN and widget setup")
-  return
-end
-
-local adoPatID = os.getenv("AZURE_DEVOPS_EXT_PAT_ID")
-if adoPatID == nil or adoPatID:len() <= 0 then
-  logger.e("Azure DevOps PAT ID not set")
-  return
-end
 
 ---@param id string
 ---@return boolean
@@ -73,75 +41,74 @@ local function shouldRenewKerberos()
   return false
 end
 
--- logger.v("loading widgets...")
--- local widgets = require("tags.work.widgets")
-
--- logger.v("initializing widgets...")
--- widgets:init()
-
-logger.v("setting up reachability...")
---- @type boolean
-local workVpnIsUp = nil
-hs.network.reachability.forHostName(workIntranetHostname):setCallback(function(self, flags)
-  local isReachable = (flags & hs.network.reachability.flags.reachable) == hs.network.reachability.flags.reachable
-
-  hs.execute([[fish -c 'aab renice']], true)
-
-  if isReachable and workVpnIsUp ~= true then
-    -- VPN tunnel is up
-    logger.i("VPN is up!")
-    if shouldRenewKerberos() then
-      refreshKerberosPrincipal(string.format("%s@%s", os.getenv("KERBEROS_PRINCIPAL"), os.getenv("KERBEROS_REALM")))
-    end
-    updateADOToken(adoPatID)
-    widgets:start()
-    if workVpnIsUp == false then
-      hs.urlevent.openURL("hammerspoon://contexts?name=work&action=open")
-    end
-    workVpnIsUp = true
-  elseif not isReachable and workVpnIsUp ~= false then
-    -- VPN tunnel is down
-    logger.i("VPN is down!")
-    hs.execute("kdestroy -A")
-    widgets:stop()
-    if workVpnIsUp == true then
-      hs.urlevent.openURL("hammerspoon://contexts?name=work&action=kill")
-    end
-    workVpnIsUp = false
+local function setupVPN()
+  local workIntranetHostname = os.getenv("WORK_INTRANET_HOSTNAME")
+  if workIntranetHostname == nil or workIntranetHostname:len() <= 0 then
+    logger.e("work intranet hostname not set - skipping VPN and widget setup")
+    return
   end
-end):start()
 
--- must not be local, otherwise it'll be garbage collected
-TimeReloader = hs.timer.doAt("09:30", "1d", function()
-  updateADOToken(adoPatID)
-end, true):start()
+  logger.v("setting up reachability...")
+  hs.network.reachability.forHostName(workIntranetHostname):setCallback(function(self, flags)
+    local isReachable = (flags & hs.network.reachability.flags.reachable) == hs.network.reachability.flags.reachable
+
+    hs.execute([[fish -c 'aab renice']], true)
+
+    if isReachable then
+      if shouldRenewKerberos() then
+        refreshKerberosPrincipal(string.format("%s@%s", os.getenv("KERBEROS_PRINCIPAL"), os.getenv("KERBEROS_REALM")))
+      end
+    end
+  end):start()
+end
+
+local function setupMenu()
+  SNG = hs.menubar.new(true)
+  SNG:setIcon(hs.image.imageFromPath(table.concat({
+    hs.configdir,
+    "tags/work",
+    "logo.png"
+  }, "/")):size({ h = 16, w = 16 }), false)
+  SNG:setTooltip("easy AAB")
+  SNG:setMenu({
+    {
+      title = "Open ServiceNow Green item",
+      shortcut = "o",
+      fn = function()
+        local text = hs.pasteboard.readString()
+        if text == nil then
+          local button, text = hs.dialog.textPrompt("ID", "the item identifier number/code")
+          if button ~= "OK" then
+            return
+          end
+        end
+
+        hs.urlevent.openURL("https://servicenow.abnamro.org/text_search_exact_match.do?sysparm_search=" .. text)
+      end
+    }, {
+    title = "-"
+  }, {
+    title = "TODO",
+    disabled = true
+  }
+  })
+end
+
+local function setupPATRenewer()
+  local adoPatID = os.getenv("AZURE_DEVOPS_EXT_PAT_ID")
+  if adoPatID == nil or adoPatID:len() <= 0 then
+    logger.e("Azure DevOps PAT ID not set")
+    return
+  end
+
+  -- must not be local, otherwise it'll be garbage collected
+  TimeReloader = hs.timer.doAt("09:30", "1d", function()
+    updateADOToken(adoPatID)
+  end, true):start()
+end
+
+setupPATRenewer()
+setupVPN()
+setupMenu()
 
 logger.v("loaded successfully")
-
-SNG = hs.menubar.new(true)
-SNG:setIcon(
-  hs.image.imageFromPath(table.concat({ hs.configdir, "tags/work", "logo.png" }, "/")):size({ h = 16, w = 16 })
-  , false)
-SNG:setTooltip("easy AAB")
-SNG:setMenu({
-  {
-    title = "Open ServiceNow Green item",
-    shortcut = "o",
-    fn = function()
-      local text = hs.pasteboard.readString()
-      if text == nil then
-        local button, text = hs.dialog.textPrompt("ID", "the item identifier number/code")
-        if button ~= "OK" then
-          return
-        end
-      end
-
-      hs.urlevent.openURL("https://servicenow.abnamro.org/text_search_exact_match.do?sysparm_search=" .. text)
-    end
-  }, {
-  title = "-"
-}, {
-  title = "TODO",
-  disabled = true
-}
-})

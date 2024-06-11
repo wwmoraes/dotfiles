@@ -110,83 +110,6 @@ spoon.SpoonInstall:andUse("Contexts", {
 ---@diagnostic disable-next-line: assign-type-mismatch
 spoon.Contexts = spoon.Contexts
 
--- spoon.SpoonInstall:andUse("Meetings", {
---   config = {
---     calendarURL = os.getenv("MEETINGS_CALENDAR_URL") or "",
---     dailyScheduleTime = "09:00",
---     browserBundleID = "org.mozilla.firefox",
---   },
---   hotkeys = "default",
---   start = true,
---   repo = "wwmoraes",
--- })
--- ---@type Meetings
--- ---@diagnostic disable-next-line: assign-type-mismatch
--- spoon.Meetings = spoon.Meetings
-
-spoon.SpoonInstall:andUse("Hazel", {
-  ---@type HazelConfig
-  config = {
-    ruleSets = {
-      [os.getenv("HOME") .. "/Downloads/aws-credentials"] = {
-        ---@param path string
-        ---@param flags PathwatcherFlags
-        function(path, flags) return flags.itemCreated end,
-        ---@param path string
-        ---@param flags PathwatcherFlags
-        function(path, flags) return flags.itemIsFile end,
-        ---@param path string
-        ---@param flags PathwatcherFlags
-        function(path, flags)
-          local f = io.open(path, "r")
-          return f ~= nil and io.close(f)
-        end,
-        ---@param path string
-        ---@param flags PathwatcherFlags
-        function(path, flags)
-          local status, err = os.rename(path, os.getenv("HOME") .. "/.aws/credentials")
-          if status then return true end
-          logger.e(err)
-          return false
-        end,
-      },
-      [os.getenv("HOME") .. "/Downloads"] = {
-        ---@param path string
-        ---@param flags PathwatcherFlags
-        function(path, flags)
-          return path:match(".*/.TheUnarchiverTemp0") and flags.itemIsDir == true
-        end,
-        ---@param path string
-        ---@param flags PathwatcherFlags
-        function(path, flags)
-          return path:match(".*/.TheUnarchiverTemp0/.*")
-        end,
-        ---@param path string
-        ---@param flags PathwatcherFlags
-        function(path, flags)
-          return flags.itemModified or flags.itemRemoved
-        end,
-        ---@param path string
-        ---@param flags PathwatcherFlags
-        function(path, flags)
-          if path:match('%.zip$') then
-            hs.task.new("/usr/bin/open", nil, nil, { path }):start()
-            return true
-          end
-          return false
-        end
-      },
-    },
-  },
-  start = true,
-  repo = "wwmoraes",
-})
----@type Hazel
----@diagnostic disable-next-line: assign-type-mismatch
-spoon.Hazel = spoon.Hazel
-
--- require("modules.finicky")
-
 -- ### plain init configuration
 
 for _, tag in ipairs(tags) do
@@ -194,11 +117,11 @@ for _, tag in ipairs(tags) do
   logger.d(string.format("loaded %s", path))
 end
 
--- if not hs.ipc.cliStatus() then
---   logger.i("hs CLI not installed, trying to install it")
---   if hs.ipc.cliInstall() then
---     logger.i("hs CLI installed")
---   else
---     logger.e("failed to install the hs CLI")
---   end
--- end
+if not hs.ipc.cliStatus() then
+  logger.i("hs CLI not installed, trying to install it")
+  if hs.ipc.cliInstall() then
+    logger.i("hs CLI installed")
+  else
+    logger.e("failed to install the hs CLI")
+  end
+end
