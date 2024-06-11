@@ -26,9 +26,11 @@ sudo security authorizationdb write com.apple.security.sudo authenticate-session
 sudo security authorizationdb write com.apple.uninstalld.uninstall authenticate-session-owner-or-admin
 
 sudo security authorizationdb write system.preferences authenticate-session-owner-or-admin
+sudo security authorizationdb write system.preferences.accessibility authenticate-session-owner-or-admin
 sudo security authorizationdb write system.preferences.datetime authenticate-session-owner-or-admin
 sudo security authorizationdb write system.preferences.energysaver authenticate-session-owner-or-admin
 sudo security authorizationdb write system.preferences.network authenticate-session-owner-or-admin
+sudo security authorizationdb write system.preferences.security authenticate-session-owner-or-admin
 
 # Used by AuthorizationExecuteWithPrivileges() in programs requesting to run a
 # tool as root (e.g., some installers).
