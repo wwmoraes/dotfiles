@@ -11,9 +11,18 @@
 	"plugins": {
 		"-x-cli-hints": {
 			"enabled": "false"
+		},
+		"debug": {
+			"hooks": "exec"
+		},
+		"scout": {
+			"hooks": "pull,buildx build"
 		}
 	},
 	"aliases": {
 		"builder": "buildx"
+	},
+	"features": {
+		"hooks": "false"
 	}
 }
