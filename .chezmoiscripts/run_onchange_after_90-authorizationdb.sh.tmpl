@@ -14,28 +14,100 @@ test "${CHEZMOI_OS:-}" = "darwin" || exit
 
 # https://www.dssw.co.uk/reference/authorization-rights/
 
-sudo security authorizationdb write system.privilege.taskport authenticate-session-owner-or-admin
+# Used by task_for_pid(...). Task_for_pid is called by programs requesting full control over another program for things like debugging or performance analysis. This authorization only applies if the requesting and target programs are run by the same user; it will never authorize access to the program of another user.
+sudo security authorizationdb write system.privilege.taskport authenticate-developer
 
 # {{- if .tags.work }}
 
+## Finder
 # For privileged file operations from within the Finder.
 sudo security authorizationdb write com.apple.desktopservices authenticate-session-owner-or-admin
+# For scripting-initiated privileged file operations from within the Finder.
 sudo security authorizationdb write com.apple.desktopservices.scripted authenticate-session-owner-or-admin
 
-sudo security authorizationdb write com.apple.security.sudo authenticate-session-owner-or-admin
-sudo security authorizationdb write com.apple.uninstalld.uninstall authenticate-session-owner-or-admin
-
+## System Preferences
+# Checked by the Admin framework when making changes to certain System Preferences.
 sudo security authorizationdb write system.preferences authenticate-session-owner-or-admin
+# Checked when making changes to the Accessibility Preferences.
 sudo security authorizationdb write system.preferences.accessibility authenticate-session-owner-or-admin
+# Checked by the Admin framework when making changes to the Users & Groups preference pane.
+sudo security authorizationdb write system.preferences.accounts authenticate-session-owner-or-admin
+# Used by Password And Continuity PrefPane to request the user's password.
+sudo security authorizationdb write system.preferences.continuity authenticate-session-owner-or-admin
+# Checked by the Admin framework when making changes to the Date & Time preference pane.
 sudo security authorizationdb write system.preferences.datetime authenticate-session-owner-or-admin
+# Checked by the Admin framework when making changes to the Energy Saver preference pane.
 sudo security authorizationdb write system.preferences.energysaver authenticate-session-owner-or-admin
+# For changing the network location from the Apple menu.
+sudo security authorizationdb write system.preferences.location authenticate-session-owner-or-admin
+# Checked by the Admin framework when making changes to the Network preference pane.
 sudo security authorizationdb write system.preferences.network authenticate-session-owner-or-admin
+# Checked by the Admin framework when changing kernel boot params? Not sure how :P
+# sudo security authorizationdb write system.preferences.nvram authenticate-session-owner-or-admin
+# Checked when making changes to the Parental Controls preference pane.
+# sudo security authorizationdb write system.preferences.parental-controls authenticate-session-owner-or-admin
+# Checked by the Admin framework when making changes to the Printing preference pane.
+sudo security authorizationdb write system.preferences.printing authenticate-session-owner-or-admin
+# Checked by the Admin framework when making changes to the Security preference pane.
 sudo security authorizationdb write system.preferences.security authenticate-session-owner-or-admin
+# Used by Bezel Services to gate IR remote pairing.
+# sudo security authorizationdb write system.preferences.security.remote-pair authenticate-session-owner-or-admin
+# Checked by the Admin framework when making changes to the Sharing preference pane.
+# sudo security authorizationdb write system.preferences.sharing authenticate-session-owner-or-admin
+# Checked by the Admin framework when making changes to the Software Update preference pane.
+# sudo security authorizationdb write system.preferences.softwareupdate authenticate-session-owner-or-admin
+# Checked by the Admin framework when making changes to the Startup Disk preference pane.
+# sudo security authorizationdb write system.preferences.startupdisk authenticate-session-owner-or-admin
+# Checked by the Admin framework when making changes to the Time Machine preference pane.
+# sudo security authorizationdb write system.preferences.timemachine authenticate-session-owner-or-admin
+# For gating modifications to Adobe Version Cue preferences.
+# sudo security authorizationdb write system.preferences.version-cue authenticate-session-owner-or-admin
+
+## App Store
+# Checked when user is installing software from the App Store.
+sudo security authorizationdb write system.install.app-store-software authenticate-session-owner-or-admin
+# Checked when user is installing new software.
+sudo security authorizationdb write system.install.app-store-software.standard-user authenticate-session-owner-or-admin
+
+## Apple software
+# Checked when user is installing Apple-provided software.
+sudo security authorizationdb write system.install.apple-software authenticate-session-owner-or-admin
+# Checked when user is installing new software.
+sudo security authorizationdb write system.install.apple-software.standard-user authenticate-session-owner-or-admin
+
+## Application Sandbox
+# Authorize an app-sandboxed application to install a symlink into /usr/local/bin.
+sudo security authorizationdb write com.apple.app-sandbox.create-symlink authenticate-session-owner-or-admin
+# Authorize an app-sandboxed application to save (overwrite) a file in a privileged location.
+sudo security authorizationdb write com.apple.app-sandbox.replace-file authenticate-session-owner-or-admin
+# Authorize an app-sandboxed application to change permissions on a privileged file.
+sudo security authorizationdb write com.apple.app-sandbox.set-attributes authenticate-session-owner-or-admin
+
+## Rights for Instruments
+sudo security authorizationdb write com.apple.dt.instruments.process.analysis authenticate-session-owner-or-admin
+sudo security authorizationdb write com.apple.dt.instruments.process.kill authenticate-session-owner-or-admin
+
+## Wi-Fi
+sudo security authorizationdb write com.apple.wifi authenticate-session-owner-or-admin
+
+## Other
+# Checked when user is installing new software.
+sudo security authorizationdb write system.install.software authenticate-session-owner-or-admin
+
+# GUI sudo requests
+sudo security authorizationdb write com.apple.security.sudo authenticate-session-owner-or-admin
+
+# uninstall applications
+sudo security authorizationdb write com.apple.uninstalld.uninstall authenticate-session-owner-or-admin
 
 # Used by AuthorizationExecuteWithPrivileges() in programs requesting to run a
 # tool as root (e.g., some installers).
 sudo security authorizationdb write system.privilege.admin authenticate-session-owner-or-admin
 
-sudo security authorizationdb write system.install.software authenticate-session-owner-or-admin
+# Used by the ServiceManagement framework to add a privileged helper tool to the system launchd.
+sudo security authorizationdb write com.apple.ServiceManagement.blesshelper authenticate-session-owner-or-admin
+
+# Used by the ServiceManagement framework to make changes to the system launchd's set of daemons.
+sudo security authorizationdb write com.apple.ServiceManagement.daemons.modify authenticate-session-owner-or-admin
 
 # {{- end }}
