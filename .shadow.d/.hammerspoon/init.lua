@@ -21,11 +21,12 @@ end
 
 ---### third-party spoons configuration
 
-hs.loadSpoon("SpoonInstall")
+---@class RuntimeSpoons
+---@field SpoonInstall SpoonInstall
+---@field Env Env
+---@field Contexts Contexts
 
----@type SpoonInstall
----@diagnostic disable-next-line: assign-type-mismatch
-spoon.SpoonInstall = spoon.SpoonInstall
+hs.loadSpoon("SpoonInstall")
 
 spoon.SpoonInstall.repos.wwmoraes = {
   url = "https://github.com/wwmoraes/spoons",
@@ -49,9 +50,6 @@ spoon.SpoonInstall:andUse("Env", {
   start = true,
   repo = "wwmoraes",
 })
----@type Env
----@diagnostic disable-next-line: assign-type-mismatch
-spoon.Env = spoon.Env
 
 spoon.SpoonInstall:andUse("Contexts", {
   ---@type ContextsConfig
@@ -106,9 +104,6 @@ spoon.SpoonInstall:andUse("Contexts", {
   start = true,
   repo = "wwmoraes",
 })
----@type Contexts
----@diagnostic disable-next-line: assign-type-mismatch
-spoon.Contexts = spoon.Contexts
 
 -- ### plain init configuration
 
