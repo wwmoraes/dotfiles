@@ -88,8 +88,10 @@ spoon.SpoonInstall:andUse("Contexts", {
     },
     onWake = {
       open = {
-        apps.Amethyst,
-        apps.StreamDeck,
+        [apps.Amethyst] = {
+          closeMainWindow = true,
+        },
+        [apps.StreamDeck] = {},
       },
     },
     onSleep = {
