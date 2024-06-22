@@ -23,6 +23,9 @@ secrets: .ejson/secrets.json .ejson/keys/6bf53a356a4b8abbc9a41ae2912787e56853e21
 	@ejson encrypt $<
 	@op document edit "ejson payload" $< || true
 
+debug-secrets:
+	@gron .ejson/secrets.tmpl.json | grep "op://" | sed 's/[";]//g' | xargs -P 0 -I% bash -c 'echo "%" | op inject > /dev/null || echo %'
+
 .ejson/secrets.json: .ejson/secrets.tmpl.json
 	$(info injecting secrets from 1Password)
 	@op inject -f -i $< -o $@
