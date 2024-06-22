@@ -1,4 +1,5 @@
 Host *
+  UseRoaming no
   AddressFamily inet
   IgnoreUnknown UseKeychain,AddKeysToAgent
   UseKeychain yes
@@ -16,4 +17,3 @@ Host *
   TCPKeepAlive yes
   ServerAliveInterval 60
   ServerAliveCountMax 10
-  PreferredAuthentications publickey
