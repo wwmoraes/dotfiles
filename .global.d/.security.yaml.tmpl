@@ -87,6 +87,12 @@ authorizationdb:
   ## Used by the ServiceManagement framework to make changes to the system launchd's set of daemons.
   com.apple.ServiceManagement.daemons.modify: authenticate-session-owner-or-admin
 
+  ### Keychain Access
+  ## Used by the Security framework when you add an item to an unconfigured default keychain.
+  system.keychain.create.loginkc: authenticate-session-owner-or-admin
+  ## Used by Keychain Access when editing a system keychain.
+  system.keychain.modify: authenticate-session-owner-or-admin
+
   ### Wi-Fi
   com.apple.wifi: authenticate-session-owner-or-admin
 
