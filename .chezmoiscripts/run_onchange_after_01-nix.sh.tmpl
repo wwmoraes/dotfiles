@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+#{{- if .tags.personal -}}
 
 set -eum
 trap 'kill 0' INT HUP TERM
@@ -11,10 +13,12 @@ printf "\e[1;33mNix\e[0m\n"
 # skip if nix is installed
 command -v nix >/dev/null 2>&1 && exit
 
-curl -L https://nixos.org/nix/install | sh
+curl -L https://nixos.org/nix/install | sh -s
 
 # force loading on the current shell and bootstrap the installation
 unset __ETC_PROFILE_NIX_SOURCED
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
 nix-shell -p nix-info --run "nix-info -m"
+
+#{{- end -}}

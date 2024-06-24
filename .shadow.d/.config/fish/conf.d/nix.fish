@@ -1,5 +1,6 @@
-# Nix
-if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
-end
-# End Nix
+# don't setup anything if nix is not installed
+command -q nix; or exit
+
+test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'; or exit
+
+source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
