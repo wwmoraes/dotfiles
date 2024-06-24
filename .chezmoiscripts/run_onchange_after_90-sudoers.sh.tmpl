@@ -15,7 +15,10 @@ test "${VERBOSE:-0}" = "1" && set -v
 printf "\e[1;33mSudoers\e[0m\n"
 
 for SUDOERS_FILE in "${SUDOERS_PATH}"/*; do
-  printf "installing \e[91m%s\e[0m...\n" "${SUDOERS_FILE}"
+  TARGET="/etc/sudoers.d/$(basename "${SUDOERS_FILE}")-${USER}"
+
+  printf "installing \e[91m%s\e[0m to \e[91m%s\e[0m...\n" "${SUDOERS_FILE}" "${TARGET}"
+
   visudo -c "${SUDOERS_FILE}" || continue
-  sudo cp "${SUDOERS_FILE}" "/etc/sudoers.d/${USER}-$(basename "${SUDOERS_FILE}")"
+  sudo cp "${SUDOERS_FILE}" "${TARGET}"
 done
