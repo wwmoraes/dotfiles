@@ -20,4 +20,11 @@ refreshPeriod = "672h"
 type = "archive-file"
 url = "https://github.com/cilium/cilium-cli/releases/download/v#{{ .versions.cilium }}/cilium-#{{ .chezmoi.os }}-#{{ .chezmoi.arch }}.tar.gz"
 
+# [".local/bin/devbox"]
+# executable = true
+# path = "devbox"
+# refreshPeriod = "672h"
+# type = "archive-file"
+# url = "https://github.com/jetify-com/devbox/releases/download/#{{ .versions.devbox }}/devbox_#{{ .versions.devbox }}_#{{ .chezmoi.os }}_#{{ .chezmoi.arch }}.tar.gz"
+
 #{{- end }}

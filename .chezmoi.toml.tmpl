@@ -29,6 +29,7 @@ encryption = "gpg"
 [data.versions]
   calico = "3.26.3" {{- /* (gitHubLatestRelease "projectcalico/calico").TagName | trimPrefix "v" | quote */}}
   cilium = "0.15.18" {{- /* (gitHubLatestRelease "cilium/cilium-cli").TagName | trimPrefix "v" | quote */}}
+  devbox = "0.11.1" {{- /* (gitHubLatestRelease "jetify-com/devbox").TagName | quote */}}
   firaCode = "6.2" {{- /* (gitHubLatestRelease "tonsky/FiraCode").TagName | quote */}}
   terraform = {{- output "curl" "-fsSL" "https://releases.hashicorp.com/terraform/" | regexFind "terraform_[0-9.]+<" | trimPrefix "terraform_" | trimSuffix "<" | quote }}
 
