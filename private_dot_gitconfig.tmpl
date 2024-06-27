@@ -62,11 +62,6 @@
   path = ~/.gitaliases
   path = ~/.gitcolors
 
-{{- $HOME := .chezmoi.homeDir -}}
-
-[init]
-  defaultBranch = master
-
 [interactive]
   diffFilter = delta --color-only
 
@@ -153,15 +148,15 @@
   name = {{ .personal.name.preferred }}
 
 ## Personal overrides
-[includeIf "gitdir:{{ $HOME }}/.files/"]
+[includeIf "gitdir:{{ .chezmoi.homeDir }}/.files/"]
   path = .gitconfig-personal
-[includeIf "gitdir:{{ $HOME }}/.local/share/chezmoi/"]
+[includeIf "gitdir:{{ .chezmoi.homeDir }}/.local/share/chezmoi/"]
   path = .gitconfig-personal
-[includeIf "gitdir:{{ $HOME }}/.secrets/"]
+[includeIf "gitdir:{{ .chezmoi.homeDir }}/.secrets/"]
   path = .gitconfig-personal
-[includeIf "gitdir:{{ $HOME }}/dev/**/"]
+[includeIf "gitdir:{{ .chezmoi.homeDir }}/dev/**/"]
   path = .gitconfig-personal
 
 ## Work overrides
-[includeIf "gitdir:{{ $HOME }}/workspace/**/"]
+[includeIf "gitdir:{{ .chezmoi.homeDir }}/workspace/**/"]
   path = .gitconfig-work
