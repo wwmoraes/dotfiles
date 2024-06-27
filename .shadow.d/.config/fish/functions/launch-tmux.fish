@@ -21,7 +21,7 @@ function launch-tmux
   # get active sessions + "defaults"
   set -l activeTmuxSessions (tmux list-sessions -F '#S' 2>/dev/null)
   set -l tmuxSessions (cat "$HOME/.tmux.sessions.conf" 2>/dev/null)
-  set -l smugSessions (ls -1 $HOME/.config/smug/*.yaml 2>/dev/null | ifne xargs basename -s .yaml)
+  set -l smugSessions (ls -1 $HOME/.config/smug/*.yml 2>/dev/null | ifne xargs basename -s .yml)
   set -l sessions (string join \n $activeTmuxSessions $tmuxSessions $smugSessions | sort -u | awk NF)
 
   # offer options
@@ -41,7 +41,7 @@ function launch-tmux
   and exec tmux -u new -A -s "$session" > /dev/null
 
   # create smug session
-  command -v smug > /dev/null && test -f "$HOME/.config/smug/$session.yaml"
+  command -v smug > /dev/null && test -f "$HOME/.config/smug/$session.yml"
   and exec smug "$session" -a
 
   # create new plain session

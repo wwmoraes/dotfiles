@@ -1,3 +1,6 @@
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+#{{- if .tags.personal -}}
+
 session: home
 root: ~/dev
 windows:
@@ -9,3 +12,5 @@ windows:
   root: site
   commands: []
   layout: tiled
+
+#{{- end -}}
