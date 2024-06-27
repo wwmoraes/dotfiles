@@ -1,0 +1,16 @@
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+#{{- if .tags.work -}}
+
+session: work
+root: ~/workspace
+windows:
+- name: workspace
+  root: .
+  commands: []
+  layout: tiled
+- name: PoC
+  root: pcsas-poc-platform-api
+  commands: []
+  layout: tiled
+
+#{{- end -}}
