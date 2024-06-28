@@ -36,14 +36,11 @@ function launch-tmux
   # finally, execute tmux :D
   test -n "$session"; or return
 
-  # join existing session
-  echo $activeTmuxSessions | grep -qFx $session
-  and exec tmux -u new -A -s "$session" > /dev/null
+  # create session using smug if it matches a template
+  echo $activeTmuxSessions | not grep -qFx $session
+  and command -v smug > /dev/null && test -f "$HOME/.config/smug/$session.yml"
+  and smug "$session" -a --detach
 
-  # create smug session
-  command -v smug > /dev/null && test -f "$HOME/.config/smug/$session.yml"
-  and exec smug "$session" -a
-
-  # create new plain session
+  # join or create plain session
   exec tmux -u new -A -s "$session" > /dev/null
 end
