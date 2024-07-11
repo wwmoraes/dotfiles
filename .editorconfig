@@ -23,9 +23,5 @@ insert_final_newline = false
 [Makefile]
 indent_style = tab
 
-# Docker Inc should focus on the config file contents, not its indentation or
-# key order...
 [*docker/config.json*]
-indent_size = 4
-indent_style = tab
-insert_final_newline = false
+insert_final_newline = true
