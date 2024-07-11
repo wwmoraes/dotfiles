@@ -1,0 +1,12 @@
+extends: default
+
+rules:
+  line-length:
+    max: 80
+    level: warning
+
+  indentation: disable
+
+  document-start:
+    present: false
+    level: warning

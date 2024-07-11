@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://json.schemastore.org/lefthook.json
+assert_lefthook_installed: true
+commit-msg:
+  commands:
+    commitlint:
+      run: grep -q "^fixup! " "{1}" || commitlint lint --message "{1}"
+    trailers:
+      run: git interpret-trailers --in-place --trailer "sign" --trim-empty "{1}"
+pre-commit:
+  commands:
+    shellcheck:
+      run: shellcheck -x -s sh {staged_files}
+      glob: '**/*.{sh,sh.tmpl}'
+    markdownlint:
+      run: markdownlint {staged_files}
+      glob: '**.md'
+    editorconfig-checker:
+      run: editorconfig-checker
+      glob: .editorconfig
+    yamllint:
+      run: yamllint {staged_files}
+      glob: '**/*.yaml'
