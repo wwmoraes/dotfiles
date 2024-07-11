@@ -1,5 +1,12 @@
 # cspell:disable
 
+.ansible
+.cache/act
+.cache/actcache
+.cache/codeclimate
+.cache/dhall-haskell
+.cache/pre-commit
+.cache/semgrep-version
 .config/brewfile
 .config/containers
 .config/karabiner
@@ -26,13 +33,20 @@
 .local/bin/plantuml
 .local/opt/bin
 .local/opt/sbin
+.parsec
 .quokka
+.semgrep
 .ssh/config.d/profiles
 .step
 .vscode-oss
 .wallaby
 go/bin/darwin_amd64
 go/bin/darwin_arm64
+Library/Caches/cirrus
+Library/Caches/pip
+Library/Caches/pipx
+Library/Caches/pylint
+Library/Caches/rattler
 Library/LaunchAgents/dev.artero.ssh-add.plist
 Library/Python/3.10
 Library/Python/3.9
