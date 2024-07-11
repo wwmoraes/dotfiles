@@ -19,6 +19,7 @@ if _=$(command -v fc-cache >/dev/null 2>&1); then
   fc-cache -f
 fi
 
+# shellcheck disable=SC2050 # templated value
 if [ "#{{ .chezmoi.os }}" = "darwin" ]; then
   printf "linking font files...\n"
   mkdir -p "${HOME}/Library/Fonts"

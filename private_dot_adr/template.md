@@ -11,14 +11,17 @@ title: ADR Template
 # consulted: {list everyone whose opinions are sought (typically subject-matter experts); and with whom there is a two-way communication}
 # informed: {list everyone who is kept up-to-date on progress; and with whom there is a one-way communication}
 ---
-<!-- we need to disable MD025, because we use the different heading "ADR Template" in the homepage (see above) than it is foreseen in the template -->
+<!-- we need to disable MD025, because we use the different heading "ADR
+Template" in the homepage (see above) than it is foreseen in the template -->
 <!-- markdownlint-disable-next-line MD025 -->
 # {short title of solved problem and solution}
 
 ## Context and Problem Statement
 
-{Describe the context and problem statement, e.g., in free form using two to three sentences or in the form of an illustrative story.
- You may want to articulate the problem in form of a question and add links to collaboration boards or issue management systems.}
+{Describe the context and problem statement, e.g., in free form using two to
+three sentences or in the form of an illustrative story.
+You may want to articulate the problem in form of a question and add links to
+collaboration boards or issue management systems.}
 
 <!-- This is an optional element. Feel free to remove. -->
 ## Decision Drivers
@@ -37,19 +40,23 @@ title: ADR Template
 ## Decision Outcome
 
 Chosen option: "{title of option 1}", because
-{justification. e.g., only option, which meets k.o. criterion decision driver | which resolves force {force} | … | comes out best (see below)}.
+{justification. e.g., only option, which meets k.o. criterion decision driver |
+which resolves force {force} | … | comes out best (see below)}.
 
 <!-- This is an optional element. Feel free to remove. -->
 ### Consequences
 
-* Good, because {positive consequence, e.g., improvement of one or more desired qualities, …}
-* Bad, because {negative consequence, e.g., compromising one or more desired qualities, …}
+* Good, because {positive consequence, e.g., improvement of one or more desired
+qualities, …}
+* Bad, because {negative consequence, e.g., compromising one or more desired
+qualities, …}
 * … <!-- numbers of consequences can vary -->
 
 <!-- This is an optional element. Feel free to remove. -->
 ## Validation
 
-{describe how the implementation of/compliance with the ADR is validated. E.g., by a review or an ArchUnit test}
+{describe how the implementation of/compliance with the ADR is validated. E.g.,
+by a review or an ArchUnit test}
 
 <!-- This is an optional element. Feel free to remove. -->
 ## Pros and Cons of the Options
@@ -79,8 +86,8 @@ Chosen option: "{title of option 1}", because
 <!-- This is an optional element. Feel free to remove. -->
 ## More Information
 
-{You might want to provide additional evidence/confidence for the decision outcome here and/or
- document the team agreement on the decision and/or
- define when this decision when and how the decision should be realized and if/when it should be re-visited and/or
- how the decision is validated.
- Links to other decisions and resources might here appear as well.}
+{You might want to provide additional evidence/confidence for the decision
+outcome here and/or document the team agreement on the decision and/or
+define when this decision when and how the decision should be realized and
+if/when it should be re-visited and/or how the decision is validated.
+Links to other decisions and resources might here appear as well.}

@@ -10,7 +10,7 @@
   ],
   "Lua.workspace.library": [
     "~/.shadow.d/.hammerspoon/Spoons",
-    "~/dev/spoons"
+    "~/dev/spoons",
   ],
   "files.associations": {
     "**/*dot_ssh/*config*": "ssh_config",
@@ -40,8 +40,6 @@
     ".chezmoiremove": "gitignore"
   },
   "files.exclude": {
-    "**/.DS_Store": true,
-    "**/.git": true,
     "**/Code/User/History/**/*": true
   },
   "go-template.languages": [
