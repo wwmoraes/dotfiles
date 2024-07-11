@@ -5,14 +5,9 @@
     "host",
     "ssh",
     "cwd",
-    "git",
-    "vgo",
-    "goenv",
-    "venv",
-    "dotenv",
-    "direnv",
     "docker",
-    "kube"
+    "kube",
+    "git"
   ],
   "modules-right": [
     "newline",
