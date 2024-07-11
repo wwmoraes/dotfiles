@@ -1,2 +1,15 @@
-{{- /* cspell:disable */ -}}
-NEXTDNS_LINK_IP_URL={{ .global.nextDNSLinkIPURL }}
+{{- $BREW_INFOPATH := joinPath .brew.prefix "share" "info" }}
+{{- $BREW_MANPATH := joinPath .brew.prefix "share" "man" }}
+
+{{- $INFOPATH := env "INFOPATH" | trimPrefix ":" | trimSuffix ":" | splitList ":" | uniq -}}
+{{- if not (has $BREW_INFOPATH $INFOPATH) -}}
+{{- $INFOPATH = append $INFOPATH $BREW_INFOPATH -}}
+{{- end -}}
+
+{{- $MANPATH := env "MANPATH" | trimPrefix ":" | trimSuffix ":" | splitList ":" | uniq -}}
+{{- if not (has $BREW_MANPATH $MANPATH) -}}
+{{- $MANPATH = append $MANPATH $BREW_MANPATH -}}
+{{- end -}}
+
+INFOPATH={{ without $INFOPATH "" | join ":" }}
+MANPATH={{ without $MANPATH "" | join ":" }}
