@@ -287,7 +287,6 @@
     ],
     "Tools": [
       "dot_mosint.yaml.tmpl",
-      "private_dot_ansible/galaxy_token.tmpl",
       "private_dot_config/amethyst/amethyst.yml",
       "private_dot_config/powerline-go/config.json",
       "private_dot_config/private_hub.tmpl",
