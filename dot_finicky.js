@@ -207,8 +207,8 @@ const apps = {
 /** @type {Browsers} */
 const browsers = {
   "nllm4000559023.local": {
-    main: apps.Firefox,
-    work: apps.Firefox,
+    main: apps.Safari,
+    work: apps.Edge,
     home: apps.Safari,
   },
 };
@@ -216,7 +216,7 @@ const browsers = {
 /** @type {Contexts} */
 const defaultBrowsers = {
   main: apps.Safari,
-  work: apps.Firefox,
+  work: apps.Safari,
   home: apps.Safari,
 };
 
