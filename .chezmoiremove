@@ -33,6 +33,7 @@
 .local/bin/plantuml
 .local/opt/bin
 .local/opt/sbin
+.local/share/plantuml.jar
 .parsec
 .quokka
 .semgrep
