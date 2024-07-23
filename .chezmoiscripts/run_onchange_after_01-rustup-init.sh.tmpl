@@ -18,4 +18,9 @@ command -v rustup-init >/dev/null 2>&1 || {
   exit
 }
 
+# rustup-init creates this to modify the PATH; we have that in environment.d instead
+if [ -f "${HOME}/.config/fish/conf.d/rustup.fish" ]; then
+  rm "${HOME}/.config/fish/conf.d/rustup.fish"
+fi
+
 rustup-init -y -q --no-modify-path
