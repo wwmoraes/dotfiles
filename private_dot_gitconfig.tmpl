@@ -8,7 +8,7 @@
   excludesFile = ~/.gitignore-global
   # hooksPath = ~/.local/hooks
   ignoreCase = false
-  pager = delta
+  pager = cat
   preComposeUnicode = true
 
 {{- $helper := "cache" }}
@@ -78,6 +78,9 @@
 
 [mergetool]
   prompt = false
+
+[pager]
+  diff = delta
 
 [protocol]
   ## faster git server communication.
