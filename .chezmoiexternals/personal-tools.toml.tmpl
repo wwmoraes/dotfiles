@@ -1,24 +1,18 @@
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
 #{{- if .tags.personal -}}
 
-[".local/bin/cc-test-reporter"]
-executable = true
-refreshPeriod = "672h"
-type = "file"
-url = "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-#{{ .chezmoi.os | lower }}-amd64"
+# [".local/bin/talosctl"]
+# executable = true
+# refreshPeriod = "672h"
+# type = "file"
+# url = "https://github.com/siderolabs/talos/releases/latest/download/talosctl-#{{ .chezmoi.os }}-#{{ .chezmoi.arch }}"
 
-[".local/bin/talosctl"]
-executable = true
-refreshPeriod = "672h"
-type = "file"
-url = "https://github.com/siderolabs/talos/releases/latest/download/talosctl-#{{ .chezmoi.os }}-#{{ .chezmoi.arch }}"
-
-[".local/bin/cilium"]
-executable = true
-path = "cilium"
-refreshPeriod = "672h"
-type = "archive-file"
-url = "https://github.com/cilium/cilium-cli/releases/download/v#{{ .versions.cilium }}/cilium-#{{ .chezmoi.os }}-#{{ .chezmoi.arch }}.tar.gz"
+# [".local/bin/cilium"]
+# executable = true
+# path = "cilium"
+# refreshPeriod = "672h"
+# type = "archive-file"
+# url = "https://github.com/cilium/cilium-cli/releases/download/v#{{ .versions.cilium }}/cilium-#{{ .chezmoi.os }}-#{{ .chezmoi.arch }}.tar.gz"
 
 # [".local/bin/devbox"]
 # executable = true
