@@ -1,5 +1,3 @@
-# cspell:disable
-
 # only apply on interactive shells
 status --is-interactive; or exit
 

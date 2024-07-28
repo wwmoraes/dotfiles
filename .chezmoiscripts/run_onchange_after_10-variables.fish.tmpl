@@ -41,9 +41,7 @@ sudo launchctl config system path "$posixPath"
 sudo launchctl config user path "$posixPath"
 
 echo "configuring launchd user path..."
-# cspell:disable-next-line
 launchctl setenv PATH "$posixPath"
 
 echo "killing Dock to reload paths..."
-# cspell:disable-next-line
 killall Dock

@@ -11,8 +11,6 @@ if string match -q (uname -m | string collect -a) "arm64"
 else
   alias brew="{{ .brew.prefix }}/bin/brew"
 end
-
-# cspell:disable-next-line
 eval (brew shellenv)
 
 ## Ask for the administrator password upfront
@@ -44,7 +42,6 @@ end
 
 printf "\e[1;34mtagging package bundles...\e[0m\n"
 brew info --cask --json=v2 (brew list --cask -1) | jq -r '[.casks[].artifacts[]?.uninstall[]?.pkgutil] | flatten | .[]' | sort -u | grep -v null | while read -l package
-  # cspell:disable-next-line
   pkgutil --regexp --only-dirs --files $package | grep -iE '(.app|.prefpane)$' | while read -l entry
     test -d "$entry"; and sudo tag -s 'source:Brew' "/$entry"
   end

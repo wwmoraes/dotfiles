@@ -16,34 +16,27 @@ h1 "[Darwin] Power management settings"
 test "${CHEZMOI_OS:-}" = "darwin" || exit 0
 
 echo "setting: Disable machine sleep while charging"
-# cspell:disable-next-line
 sudo pmset -c sleep 0
 
 echo "setting: Set machine sleep to 5 minutes on battery"
-# cspell:disable-next-line
 sudo pmset -b sleep 5
 
 echo "setting: Sleep the display after 15 minutes"
-# cspell:disable-next-line
 sudo pmset -a displaysleep 2
 
 echo "setting: Enable lid wake-up"
-# cspell:disable-next-line
 sudo pmset -a lidwake 1
 
 echo "setting: Restart automatically on power loss"
-# cspell:disable-next-line
 sudo pmset -a autorestart 1
 
 ## 0: Disable hibernation (speeds up entering sleep mode)
 ## 3: Copy RAM to disk so the system state can still be restored in case of a
 ##    power failure.
 echo "setting: Hibernation mode"
-# cspell:disable-next-line
 sudo pmset -a hibernatemode 0
 
 echo "setting: Set standby delay to 24 hours (default is 1 hour)"
-# cspell:disable-next-line
 sudo pmset -a standbydelay 86400
 
 sudo pmset -a standbydelaylow 900

@@ -1,5 +1,3 @@
-# cspell:disable
-
 [alias]
 # Needed for piping
   git = !exec git

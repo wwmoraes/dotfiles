@@ -1,5 +1,3 @@
-# cspell:disable
-
 .ansible
 .cache/act
 .cache/actcache
