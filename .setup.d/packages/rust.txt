@@ -1,3 +1,5 @@
+-cocogitto
+-hadolint-sarif
+-https://github.com/asciinema/agg|agg
 -koji
-cocogitto
-https://github.com/asciinema/agg|agg
+-sarif-fmt
