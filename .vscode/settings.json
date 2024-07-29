@@ -9,6 +9,8 @@
     "~/.hammerspoon"
   ],
   "Lua.workspace.library": [
+    "/opt/homebrew/share/nvim/runtime/lua/vim",
+    "~/.local/share/nvim/site/pack/paqs/start",
     "~/.shadow.d/.hammerspoon/Spoons",
     "~/dev/spoons",
   ],
