@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
-#{{- if .tags.personal }}
 
 set -eum
 trap 'kill 0' INT HUP TERM
@@ -29,5 +28,3 @@ unset __ETC_PROFILE_NIX_SOURCED
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
 nix-shell -p nix-info --run "nix-info -m"
-
-#{{- end }}

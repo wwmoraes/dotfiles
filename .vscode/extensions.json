@@ -12,7 +12,8 @@
     "sumneko.lua",
     "tamasfe.even-better-toml",
     "timonwong.shellcheck",
-    "virgilsisoe.hammerspoon-snippets"
+    "virgilsisoe.hammerspoon-snippets",
+    "arrterian.nix-env-selector"
   ],
   "unwantedRecommendations": [
     // Microsoft's global recommendations, FML

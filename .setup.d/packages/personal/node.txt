@@ -17,8 +17,8 @@
 -wrangler
 -ynpx
 -yo
-stylelint
-stylelint-config-standard
-stylelint-config-standard-scss
-stylelint-scss
-syncpack
+# stylelint
+# stylelint-config-standard
+# stylelint-config-standard-scss
+# stylelint-scss
+# syncpack
