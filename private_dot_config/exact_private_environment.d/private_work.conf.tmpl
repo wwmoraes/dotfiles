@@ -3,33 +3,36 @@
 PROJECTS_DIR=~/workspace
 GIT_PROJECT_PATHS='~/workspace'
 
-CURL_CA_BUNDLE={{ .brew.prefix }}/etc/openssl@3/cert.pem
-REQUESTS_CA_BUNDLE={{ .brew.prefix }}/etc/openssl@3/cert.pem
 PYTHONWARNINGS=ignore
-# forces kubelogin to use the Azure CLI token login flow
+
+CURL_CA_BUNDLE={{ .brew.prefix }}/etc/openssl@3/cert.pem
+NIX_SSL_CERT_FILE={{ .brew.prefix }}/etc/openssl@3/cert.pem
 NODE_EXTRA_CA_CERTS={{ .brew.prefix }}/etc/openssl@3/cert.pem
+REQUESTS_CA_BUNDLE={{ .brew.prefix }}/etc/openssl@3/cert.pem
+
 EMAIL={{ .work.email }}
 WORK_INTRANET_HOSTNAME={{ .work.website | trimPrefix "https://" | splitList "/" | first }}
 AZURE_DEVOPS_EXT_PAT_ID={{ .work.azureDevOps.tokenID }}
+
+# Thank you CISO for not allowing me to use a vault solution that asks my
+# password or biometry to access this instead of using an environment variable.
+# So much for enterprise security eh?
 AZURE_DEVOPS_EXT_PAT={{ .work.tokens.azureDevOps }}
 
-{{- /*
-AAD_LOGIN_METHOD=azurecli
-# thank you work MITM proxy, very secure :)
-ADAL_PYTHON_SSL_NO_VERIFY=0
-AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=0
 # Azure CLI defaults
 AZURE_CORE_ONLY_SHOW_ERRORS=1
+
+# Azure DevOps CLI defaults
+AZURE_DEVOPS_DEFAULTS_ORGANIZATION={{ .work.azureDevOps.organization }}
+AZURE_DEVOPS_DEFAULTS_PROJECT={{ .work.azureDevOps.project }}
+
+{{- /*
 KERBEROS_PRINCIPAL={{ .work.username }}
 KERBEROS_REALM={{ .work.website | trimPrefix "https://" }}
 GOPRIVATE={{ .work.azureDevOps.organization | trimPrefix "https://" }}/*
 GOPROXY={{ .work.proxies.golang.goproxy }},https://goproxy.io
 # GOSUMDB={{ .work.proxies.golang.gosumdb | trimPrefix "https://" }},sum.golang.org
 GOSUMDB=off
-AZURE_DEFAULTS_ACR={{ .work.azure.defaults.containerRegistry }}
-AZURE_DEFAULTS_LOCATION={{ .work.azure.defaults.location }}
-AZURE_DEVOPS_DEFAULTS_PROJECT={{ .work.azureDevOps.project }}
 */}}
-AZURE_DEVOPS_DEFAULTS_ORGANIZATION={{ .work.azureDevOps.organization }}
 
 {{- end }}
