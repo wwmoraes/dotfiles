@@ -22,4 +22,7 @@ Cmnd_Alias SAFE_WORK_CMDS = /usr/bin/true "", /usr/bin/renice *, /usr/sbin/taskp
 {{ .chezmoi.username }} WORK = NOPASSWD: SAFE_WORK_CMDS
 {{ .chezmoi.username }} WORK = PASSWD: /bin/launchctl config user path *
 
+### why wouldn't I be able to change the ownership of my own fucking files?
+{{ .chezmoi.username }} WORK = NOPASSWD:SETENV: /usr/sbin/chown -R {{ .chezmoi.username }}\:{{ .chezmoi.group }} /Users/{{ .chezmoi.username }}/*
+
 {{- end }}

@@ -1,3 +1,1 @@
 {{ .chezmoi.username }} ALL = (ALL) PASSWD:ALL
-### why wouldn't I be able to change the ownership of my own fucking files?
-{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /usr/sbin/chown -R {{ .chezmoi.username }}\:{{ .chezmoi.group }} /Users/{{ .chezmoi.username }}/*
