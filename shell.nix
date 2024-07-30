@@ -19,8 +19,15 @@ in
   }
 }: with pkgs; mkShell {
   packages = [
-    git
+    bash
     chezmoi
+    editorconfig-checker
+    fish
+    git
+    markdownlint-cli
+    shellcheck
     unstable._1password
+    unstable.lazygit
+    yamllint
   ];
 }

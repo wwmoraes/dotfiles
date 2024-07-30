@@ -40,5 +40,7 @@ in
     # protolint
     # sonobuoy
     # vault
+
+    unstable.lazygit
   ];
 }

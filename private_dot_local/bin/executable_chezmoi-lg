@@ -3,4 +3,4 @@
 set -eum
 trap 'kill 0' INT HUP TERM
 
-exec lazygit -p "$(chezmoi source-path)"
+exec direnv exec "$(chezmoi source-path)" lazygit -p "$(chezmoi source-path)"
