@@ -1,4 +1,0 @@
--@pnp/cli-microsoft365
--@pnp/office365-cli
--azurite
--xunit-viewer

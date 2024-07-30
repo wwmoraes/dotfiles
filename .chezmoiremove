@@ -8,6 +8,7 @@
 .config/brewfile
 .config/containers
 .config/karabiner
+.config/yarn
 .editorconfig
 .env
 .env_aab-proxy

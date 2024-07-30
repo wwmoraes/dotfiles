@@ -1,3 +1,0 @@
--@devcontainers/cli
--commitizen
--write-good
