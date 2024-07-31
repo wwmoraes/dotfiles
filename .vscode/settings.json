@@ -12,7 +12,7 @@
     "/opt/homebrew/share/nvim/runtime/lua/vim",
     "~/.local/share/nvim/site/pack/paqs/start",
     "~/.shadow.d/.hammerspoon/Spoons",
-    "~/dev/spoons",
+    "~/dev/spoons"
   ],
   "files.associations": {
     "**/*dot_ssh/*config*": "ssh_config",
@@ -24,6 +24,7 @@
     "*.conf.tmpl": "properties",
     "*.fish.tmpl": "fish",
     "*.json.tmpl": "jsonc",
+    "*.nix.tmpl": "nix",
     "*.plist": "xml",
     "*.plist.tmpl": "xml",
     "*.sh.tmpl": "shellscript",
@@ -67,6 +68,7 @@
       "url": "https://json.schemastore.org/dockerd.json"
     }
   ],
+  "nixEnvSelector.nixFile": "${workspaceFolder}/shell.nix",
   "yaml.schemas": {
     "./.vscode/macos-defaults.schema.json": "*dot_config/*macos-defaults/*.yaml*"
   }
