@@ -17,13 +17,15 @@ printf "\e[1;33m[Darwin] Nix-darwin\e[0m\n"
 test "${CHEZMOI_OS:-}" = "darwin" || exit
 
 # skip if nix-darwin is installed
-command -v darwin-rebuild >/dev/null 2>&1 && exit
+if [ ! -f /run/current-system/sw/bin/darwin-rebuild ]; then
+  createAndEnterTmpDir
 
-createAndEnterTmpDir
+  nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
 
-nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-
-yes | ./result/bin/darwin-installer
+  yes | ./result/bin/darwin-installer
+fi
 
 /run/current-system/sw/bin/darwin-rebuild activate
-/run/current-system/sw/bin/darwin-rebuild switch
+/run/current-system/sw/bin/darwin-rebuild switch || {
+  echo "Please restart the machine after loading the environment variables so launchd inherits them"
+}
