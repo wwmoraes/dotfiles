@@ -1,13 +1,16 @@
 SHELL := /usr/bin/env bash
 
 REPOSITORY_FILES = find ${PWD} \
+	-not -path '*/.direnv/*' \
+	-not -path '*/.DS_Store' \
+	-not -path '*/.ejson/keys/*' \
+	-not -path '*/.ejson/secrets.json' \
 	-not -path '*/.git/*' \
 	-not -path '*/.tmp/*' \
 	-not -path '*/fish/*bass*' \
 	-not -path '*/fish/*fzf*' \
-	-not -path '*/fish/completions/kubectl*' \
 	-not -path '*/fish/*nvm*' \
-	-not -path '*/.DS_Store' \
+	-not -path '*/fish/completions/kubectl*' \
 	-type f \
 	| sed "s|${PWD}/||g" \
 	| sort -u
@@ -17,6 +20,10 @@ CONTEXT_FILES = jq -r '.contexts | to_entries | .[].value[]' .vscode/contexts.js
 .PHONY: context
 context:
 	@comm -23 <(${REPOSITORY_FILES}) <(${CONTEXT_FILES})
+
+.PHONY: context-cleanup
+context-cleanup:
+	@comm -13 <(${REPOSITORY_FILES}) <(${CONTEXT_FILES})
 
 secrets: .ejson/secrets.json .ejson/keys/6bf53a356a4b8abbc9a41ae2912787e56853e211653bb23d5da4a87ba6c9df6f
 	$(info encrypting payload $<)
