@@ -25,4 +25,5 @@ nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
 
 yes | ./result/bin/darwin-installer
 
-darwin-rebuild activate
+/run/current-system/sw/bin/darwin-rebuild activate
+/run/current-system/sw/bin/darwin-rebuild switch
