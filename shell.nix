@@ -22,11 +22,12 @@ in
     bash
     chezmoi
     editorconfig-checker
+    # ejson
     fish
-    git
+    # git
     markdownlint-cli
     shellcheck
-    unstable._1password
+    # unstable._1password
     unstable.lazygit
     yamllint
   ];
