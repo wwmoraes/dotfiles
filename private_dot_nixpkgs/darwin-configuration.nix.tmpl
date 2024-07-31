@@ -6,6 +6,10 @@
     vim
   ];
 
+  environment.variables = {
+    NIX_SSL_CERT_FILE = "{{ .brew.prefix }}/etc/openssl@3/cert.pem";
+  };
+
   nix.settings.trusted-users = [
     "@_developer"
     "@admin"
@@ -15,6 +19,14 @@
   nix.configureBuildUsers = true;
 
   nix.nrBuildUsers = 32;
+
+  launchd.daemons = {
+    "org.nixos.nix-daemon" = {
+      serviceConfig.EnvironmentVariables = {
+        NIX_SSL_CERT_FILE = "{{ .brew.prefix }}/etc/openssl@3/cert.pem";
+      };
+    };
+  };
 
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
