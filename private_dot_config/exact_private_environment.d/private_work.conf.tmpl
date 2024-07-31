@@ -9,6 +9,7 @@ CURL_CA_BUNDLE={{ .brew.prefix }}/etc/openssl@3/cert.pem
 NIX_SSL_CERT_FILE={{ .brew.prefix }}/etc/openssl@3/cert.pem
 NODE_EXTRA_CA_CERTS={{ .brew.prefix }}/etc/openssl@3/cert.pem
 REQUESTS_CA_BUNDLE={{ .brew.prefix }}/etc/openssl@3/cert.pem
+SSL_CERT_FILE={{ .brew.prefix }}/etc/openssl@3/cert.pem
 
 EMAIL={{ .work.email }}
 WORK_INTRANET_HOSTNAME={{ .work.website | trimPrefix "https://" | splitList "/" | first }}
