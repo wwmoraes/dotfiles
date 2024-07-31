@@ -1,0 +1,52 @@
+# source files to ignore during apply
+.direnv/*
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+LICENSE
+Makefile
+README.md
+SECURITY.md
+shell.nix
+TODO.md
+
+# target files to hide from the unmanaged command
+.config/fish/fish_variables
+.docker/*
+.ssh/*.old
+.ssh/control/*
+.ssh/known_hosts
+.stack/*
+.Trash
+.vim/.netrwhist
+.vim/plugged
+.vim/undo
+.vim/viminfo
+*_history
+**/.DS_Store
+**/*.log
+**/*~
+dev
+go
+Movies
+Music
+Pictures
+Public
+workspace
+Zotero
+
+# specific paths we're interested to control
+!.docker/config.json
+!.docker/daemon.json
+!.stack/config.yaml
+!.vim/undo/.keep
+!dev/shell.nix
+!workspace/shell.nix
+
+{{- if .tags.work }}
+
+# work ignores
+Library/Application Support/OneDrive
+OneDrive*
+versasec
+
+{{- end }}

@@ -24,6 +24,7 @@
 .finicky.d.ts
 .gitconfig-os
 .gitconfig-secrets
+.gnupg_pre_2.1
 .local/bin/calicoctl
 .local/bin/cc-test-reporter
 .local/bin/chezmoi-conf
@@ -61,3 +62,9 @@ Library/Caches/rattler
 Library/LaunchAgents/dev.artero.ssh-add.plist
 Library/Python/3.10
 Library/Python/3.9
+
+{{- if .tags.personal }}
+
+Library/Application Support/OneDrive
+
+{{- end }}
