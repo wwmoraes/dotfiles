@@ -16,8 +16,3 @@
 ### TODO this is not secure...
 {{ .chezmoi.username }} ALL = PASSWD:SETENV: /usr/bin/xargs -0 -- /bin/rm --
 {{ .chezmoi.username }} ALL = PASSWD:SETENV: /usr/bin/xargs -0 -- /usr/local/Homebrew/Library/Homebrew/cask/utils/rmdir.sh
-
-### tagging
-{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /opt/homebrew/bin/tag -s source\:Store /Applications/*.app
-{{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /opt/homebrew/bin/tag -s source\:Store /Applications/*.app
-{{- end }}
