@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+# darwin-configuration.nix hash: #{{ include (joinPath .chezmoi.homeDir ".nixpkgs" "darwin-configuration.nix") | sha256sum }}
 
 set -eum
 trap 'kill 0' INT HUP TERM
@@ -23,9 +24,10 @@ if [ ! -f /run/current-system/sw/bin/darwin-rebuild ]; then
   nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
 
   yes | ./result/bin/darwin-installer
+
+  /run/current-system/sw/bin/darwin-rebuild activate
 fi
 
-/run/current-system/sw/bin/darwin-rebuild activate
 /run/current-system/sw/bin/darwin-rebuild switch || {
   echo "Please restart the machine after loading the environment variables so launchd inherits them"
 }
