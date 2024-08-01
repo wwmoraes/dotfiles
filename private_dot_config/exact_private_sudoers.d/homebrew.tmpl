@@ -1,4 +1,3 @@
-{{- if .tags.work -}}
 ### for global installations (default brew setting)
 {{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /bin/mkdir -p /Applications
 {{ .chezmoi.username }} ALL = NOPASSWD:SETENV: /bin/mv /usr/local/Caskroom/*.app /Applications/*.app
