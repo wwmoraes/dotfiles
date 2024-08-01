@@ -1,5 +1,0 @@
--cocogitto
--hadolint-sarif
--https://github.com/asciinema/agg|agg
--koji
--sarif-fmt

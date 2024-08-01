@@ -1,6 +1,0 @@
--cargo-watch
--fd-find:fd
--git-brws
--wasm-pack
--worker-build
--wrangler

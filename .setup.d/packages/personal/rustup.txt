@@ -1,8 +1,0 @@
--cargo
--clippy
--rls
--rust-analyzer
--rust-src
--rust-std
--rustc
--rustfmt

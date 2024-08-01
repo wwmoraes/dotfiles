@@ -268,12 +268,6 @@
       "private_dot_config/pip/pip.conf.tmpl"
     ],
     "Rust": [
-      ".chezmoiscripts/run_onchange_after_05-rustup-init.sh.tmpl",
-      ".chezmoiscripts/run_onchange_after_20-rustup.sh.tmpl",
-      ".chezmoiscripts/run_onchange_after_21-rust.sh.tmpl",
-      ".setup.d/packages/personal/rust.txt",
-      ".setup.d/packages/personal/rustup.txt",
-      ".setup.d/packages/rust.txt",
       "private_dot_config/exact_private_paths.d/90-cargo.conf.tmpl"
     ],
     "SSH": [
