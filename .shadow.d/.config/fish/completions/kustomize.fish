@@ -1,3 +1,5 @@
+command -q kustomize; or exit
+
 complete -ec kustomize
 
 complete -xc kustomize -s h -l help -d "help for kustomize"

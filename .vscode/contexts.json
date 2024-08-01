@@ -25,7 +25,6 @@
       ".chezmoiscripts/run_onchange_90-pmset.sh",
       ".chezmoiscripts/run_onchange_after_00-brew.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_00-git-sparse.sh.tmpl",
-      ".chezmoiscripts/run_onchange_after_05-tags.fish.tmpl",
       ".chezmoiscripts/run_onchange_after_10-variables.fish.tmpl",
       ".chezmoiscripts/run_onchange_after_80-fonts.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_80-helm-plugins.sh.tmpl",
@@ -50,6 +49,7 @@
       "private_dot_local/bin/executable_chezmoi-env",
       "private_dot_local/bin/executable_chezmoi-lg",
       "private_dot_local/bin/executable_chezmoi-run",
+      "private_dot_local/bin/executable_chezmoi-switch",
       "private_dot_local/bin/executable_chezmoi-sync",
       "private_dot_tagsrc.tmpl"
     ],
@@ -101,8 +101,10 @@
       ".vscode/macos-defaults.schema.json"
     ],
     "Direnv": [
+      "private_dev/dot_envrc",
       "private_dot_config/direnv/direnv.toml",
-      "private_dot_config/direnv/direnvrc"
+      "private_dot_config/direnv/direnvrc",
+      "private_workspace/dot_envrc"
     ],
     "Docker": [
       "private_dot_config/exact_private_environment.d/private_docker.conf.tmpl",
@@ -133,11 +135,9 @@
     "Fish": [
       ".shadow.d/.config/fish/completions/aws.fish",
       ".shadow.d/.config/fish/completions/az.fish",
-      ".shadow.d/.config/fish/completions/dagger.fish",
       ".shadow.d/.config/fish/completions/git.fish",
       ".shadow.d/.config/fish/completions/helm.fish",
       ".shadow.d/.config/fish/completions/kustomize.fish",
-      ".shadow.d/.config/fish/completions/lab.fish",
       ".shadow.d/.config/fish/completions/macos-defaults.fish",
       ".shadow.d/.config/fish/completions/op.fish",
       ".shadow.d/.config/fish/completions/talosctl.fish",
@@ -161,7 +161,6 @@
       ".shadow.d/.config/fish/functions/fish_right_prompt.fish",
       ".shadow.d/.config/fish/functions/fish_user_key_bindings.fish",
       ".shadow.d/.config/fish/functions/fkill.fish",
-      ".shadow.d/.config/fish/functions/gcp.fish",
       ".shadow.d/.config/fish/functions/golang.fish",
       ".shadow.d/.config/fish/functions/k8s.fish",
       ".shadow.d/.config/fish/functions/launch-tmux.fish",
@@ -171,12 +170,11 @@
       ".shadow.d/.config/fish/functions/restart.fish",
       ".shadow.d/.config/fish/functions/sarcasm.fish",
       ".shadow.d/.config/fish/functions/watchrun.fish",
-      ".shadow.d/.config/fish/functions/work.fish",
-      ".shadow.d/.config/fish/functions/zz.fish",
       "private_dot_config/exact_private_environment.d/private_fish.conf.tmpl",
       "private_dot_config/symlink_fish.tmpl"
     ],
     "GPG": [
+      "private_dot_gnupg/.chezmoiignore",
       "private_dot_gnupg/private_dirmngr.conf",
       "private_dot_gnupg/private_gpg-agent.conf.tmpl",
       "private_dot_gnupg/private_gpg.conf.tmpl"
@@ -305,7 +303,6 @@
       "private_dot_config/exact_private_sudoers.d/ee.clockwise.gmask.tmpl",
       "private_dot_config/exact_private_sudoers.d/homebrew.tmpl",
       "private_dot_config/exact_private_sudoers.d/mas.tmpl",
-      "private_dot_config/exact_private_sudoers.d/sudo.tmpl",
       "private_dot_config/exact_private_sudoers.d/work.tmpl"
     ],
     "Tmux": [

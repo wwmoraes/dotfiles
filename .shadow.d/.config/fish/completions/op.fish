@@ -1,3 +1,5 @@
+command -q op; or exit
+
 function __op_seen_subcommand_of
   return (__fish_seen_subcommand_of $argv || __fish_seen_subcommand_of help $argv)
 end

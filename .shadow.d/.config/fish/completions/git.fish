@@ -1,3 +1,5 @@
+command -q git; or exit
+
 complete -ec git
 
 ### Vanilla git commands

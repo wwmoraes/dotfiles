@@ -1,3 +1,5 @@
+command -q helm; or exit
+
 complete -ec helm
 
 complete -xc helm -s h -l help -d "help for helm"

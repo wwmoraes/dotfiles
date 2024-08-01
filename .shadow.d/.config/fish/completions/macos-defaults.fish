@@ -1,4 +1,6 @@
-complete -c macos-defaults -n "__fish_use_subcommand" -s d -l dry-run -d 'Don’t actually run anything'
+command -q macos-defaults; or exit
+
+complete -c macos-defaults -n "__fish_use_subcommand" -s d -l dry-run -d 'Don\'t actually run anything'
 complete -c macos-defaults -n "__fish_use_subcommand" -s v -l verbose -d 'More output per occurrence'
 complete -c macos-defaults -n "__fish_use_subcommand" -s q -l quiet -d 'Less output per occurrence'
 complete -c macos-defaults -n "__fish_use_subcommand" -s h -l help -d 'Print help'
