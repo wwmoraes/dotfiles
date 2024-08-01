@@ -136,7 +136,6 @@
       ".shadow.d/.config/fish/completions/dagger.fish",
       ".shadow.d/.config/fish/completions/git.fish",
       ".shadow.d/.config/fish/completions/helm.fish",
-      ".shadow.d/.config/fish/completions/hub.fish",
       ".shadow.d/.config/fish/completions/kustomize.fish",
       ".shadow.d/.config/fish/completions/lab.fish",
       ".shadow.d/.config/fish/completions/macos-defaults.fish",

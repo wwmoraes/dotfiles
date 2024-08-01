@@ -36,7 +36,6 @@ in mkShell {
     # fd
     # flyctl
     # gcc
-    # gh
     # go-task
     # graphviz
     # gron
@@ -45,7 +44,6 @@ in mkShell {
     # hadolint
     # haskellPackages.ghcup
     # hlint
-    # hub
     # imagemagick
     # imapfilter
     # inetutils
