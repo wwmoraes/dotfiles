@@ -1,48 +1,141 @@
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
 { config, pkgs, ... }:
-{
+rec {
+  imports = [
+    #{{- if .tags.personal }}
+    ~/.nixpkgs/darwin/home-configuration.nix
+    #{{- else if .tags.work }}
+    ~/.nixpkgs/darwin/work-configuration.nix
+    #{{- end }}
+  ];
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    (fortune.override { withOffensive = true; })
+    adrs
+    bat
+    coreutils
+    delta
+    direnv
+    dive
     fish
+    fswatch
+    fzf
+    gawk
+    git
+    gnupg
+    grc
+    jq
     lazygit
+    lefthook
+    less
+    man
+    neo-cowsay
+    moreutils
+    pet
     powerline-go
+    skhd
+    smug
+    tlrc
     tmux
     vim
   ];
 
+  homebrew.taps = [
+    "dsully/tap" # macos-defaults
+    "homebrew/bundle"
+    "homebrew/services"
+    "raggi/ale" # openssl-osx-ca
+    "wwmoraes/tap"
+  ];
+
+  homebrew.brews = [
+    "macos-defaults"
+    "openssl-osx-ca"
+    ## TODO wire unstable src then move those to systemPackages
+    "chezmoi"
+  ];
+
+  homebrew.casks = [
+    "1password-cli"
+    "1password"
+    "amethyst"
+    "anytype"
+    "appcleaner"
+    "automatic-mouse-mover"
+    "bartender"
+    "bruno"
+    "das-keyboard-q"
+    "displaylink-login-screen-ext"
+    "displaylink-manager"
+    "docker"
+    "elgato-stream-deck"
+    "finicky"
+    "flux"
+    "gas-mask"
+    "gimp"
+    "gpg-suite-no-mail"
+    "hammerspoon"
+    "jabra-direct"
+    "jtool2"
+    "kitty"
+    "launchpad-manager"
+    "spotify"
+    "suspicious-package"
+    "the-unarchiver"
+    "thingsmacsandboxhelper"
+    "uninstallpkg"
+    "visual-studio-code"
+    "xbar"
+    "zap"
+    "zotero"
+  ];
+
+  homebrew.masApps = {
+    "1Password for Safari" = 1569813296;
+    "DoMarks" = 1518886084;
+    "StopTheMadness" = 1376402589;
+    "Tampermonkey" = 1482490089;
+    "Things" = 904280696;
+    "Userscripts-Mac-App" = 1463298887;
+  };
+
   environment.variables = {
+    EDITOR = "vim";
     NIX_SSL_CERT_FILE = "{{ .brew.prefix }}/etc/openssl@3/cert.pem";
   };
 
+  homebrew.enable = true;
+  homebrew.caskArgs = {
+    appdir = "~/Applications";
+  };
+  homebrew.onActivation = {
+    autoUpdate = true;
+    upgrade = true;
+    cleanup = "uninstall"; # "uninstall", "zap"
+  };
+
+  launchd.daemons = {
+    "org.nixos.nix-daemon" = {
+      serviceConfig.EnvironmentVariables = {
+        NIX_SSL_CERT_FILE = environment.variables.NIX_SSL_CERT_FILE;
+      };
+    };
+  };
+
+  nix.configureBuildUsers = true;
+  nix.nrBuildUsers = 32;
+  nix.package = pkgs.nix;
   nix.settings.trusted-users = [
     "@_developer"
     "@admin"
     "root"
   ];
 
-  nix.configureBuildUsers = true;
-
-  nix.nrBuildUsers = 32;
-
-  launchd.daemons = {
-    "org.nixos.nix-daemon" = {
-      serviceConfig.EnvironmentVariables = {
-        NIX_SSL_CERT_FILE = "{{ .brew.prefix }}/etc/openssl@3/cert.pem";
-      };
-    };
-  };
-
-  # Use a custom configuration.nix location.
-  # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
-  # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
-
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
-  # nix.package = pkgs.nix;
-
-  # Create /etc/zshrc that loads the nix-darwin environment.
-  # programs.zsh.enable = true;  # default shell on catalina
   programs.fish.enable = true;
+
+  services.nix-daemon.enable = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog

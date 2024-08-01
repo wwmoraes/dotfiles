@@ -1,0 +1,76 @@
+{ config, pkgs, ... }:
+rec {
+  environment.systemPackages = with pkgs; [
+    neovim
+  ];
+
+  homebrew.taps = [
+    "lemoony/tap" # snipkit
+  ];
+
+  homebrew.brews = [
+    "cfengine"
+    "snipkit"
+  ];
+
+  homebrew.casks = [
+    "airbuddy"
+    "airtable"
+    "android-file-transfer"
+    "android-platform-tools"
+    "app-cleaner" # Nektony App Cleaner & Uninstaller
+    "balenaetcher"
+    "calibre"
+    "chromium"
+    "clickup"
+    "daisydisk"
+    "discord"
+    "dropbox"
+    "duckduckgo"
+    "duet"
+    "fluor"
+    "fossa"
+    "hakuneko"
+    "image2icon"
+    "inkscape"
+    "ivpn"
+    "keybase"
+    "kindle"
+    "launchcontrol"
+    "little-snitch"
+    "macpass"
+    "mactex-no-gui"
+    "mate-translate"
+    "messenger"
+    "netnewswire"
+    "onyx"
+    "plex"
+    "raspberry-pi-imager"
+    "resilio-sync"
+    "signal"
+    "soundsource"
+    "sqlitestudio"
+    "steam"
+    "telegram"
+    "tiddly"
+    "whatsapp@beta"
+    "yattee"
+    "yubico-yubikey-manager"
+  ];
+
+  homebrew.masApps = {
+    "Apple Configurator" = 1037126344;
+    "Be Focused Pro" = 961632517;
+    "Just Press Record" = 1033342465;
+    "Keynote" = 409183694;
+    "Numbers" = 409203825;
+    "OX Drive" = 818195014;
+    "Parcel" = 639968404;
+    "Privacy Redirect" = 1578144015;
+    "Scenecuts Helper" = 1540491573;
+    "SwiftoDo Desktop" = 1143641091;
+    "TestFlight" = 899247664;
+    "Xcode" = 497799835;
+    # "Yubico Authenticator" = 1497506650;
+  };
+}

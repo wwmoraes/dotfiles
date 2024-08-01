@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
-# .Brewfile hash: #{{ include (joinPath .chezmoi.homeDir "/.Brewfile") | sha256sum }}
 
 set -eum
 trap 'kill 0' INT HUP TERM
@@ -36,15 +35,3 @@ fi
 
 # "load"
 eval "$(brew shellenv)"
-
-echo "brew: update"
-brew update --quiet --auto-update
-
-echo "brew: bundle"
-brew bundle --global --no-lock
-
-echo "brew: cleanup"
-brew bundle cleanup --global --force --no-lock
-
-# remove the old link we had in place due to path issues
-test ! -L /usr/local/bin/fish || unlink /usr/local/bin/fish

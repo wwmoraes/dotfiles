@@ -1,0 +1,20 @@
+{ config, pkgs, ... }:
+rec {
+  environment.systemPackages = with pkgs; [
+    azure-cli
+  ];
+
+  homebrew.taps = [
+  ];
+
+  homebrew.brews = [
+  ];
+
+  homebrew.casks = [
+    "firefox"
+  ];
+
+  homebrew.masApps = {
+    # "Microsoft OneNote" = 784801555;
+  };
+}
