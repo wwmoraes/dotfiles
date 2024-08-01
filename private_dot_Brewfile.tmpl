@@ -29,7 +29,6 @@ brew "coreutils"
 brew "cowsay"
 brew "direnv"
 brew "dive"
-brew "fish"
 brew "fortune"
 brew "fswatch"
 brew "fzf"
@@ -49,15 +48,12 @@ brew "mas"
 brew "moreutils"
 brew "openssl-osx-ca"
 brew "pet"
-brew "powerline-go"
 brew "python3" # required by graphviz, man-db, structurizr-cli, structurizr-site-generatr and vim
 brew "rustup-init"
 brew "skhd"
 brew "smug"
 brew "tag"
 brew "tldr"
-brew "tmux"
-brew "vim"
 
 {{- if .tags.personal }}
 brew "cfengine"
@@ -66,6 +62,7 @@ brew "neovim"
 
 {{- else if .tags.work }}
 brew "azure-cli"
+brew "fish"
 brew "graphviz" # required by structurizr-site-generatr
 brew "structurizr-cli"
 brew "structurizr-site-generatr"
