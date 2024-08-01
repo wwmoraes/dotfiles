@@ -1,6 +1,0 @@
-#2to3|https://github.com/helm/helm-2to3.git
-## Plugins needed by helmfile
-diff|https://github.com/databus23/helm-diff.git
-helm-git|https://github.com/aslafy-z/helm-git.git
-s3|https://github.com/hypnoglow/helm-s3.git
-secrets|https://github.com/jkroepke/helm-secrets.git
