@@ -10,15 +10,11 @@ let
     url = "https://github.com/NixOS/nixpkgs/archive/a14c5d651cee9ed70f9cd9e83f323f1e531002db.tar.gz";
     sha256 = "1b2dwbqm5vdr7rmxbj5ngrxm7sj5r725rqy60vnlirbbwks6aahb";
   };
-in
-{
-  pkgs ? import nixpkgs {
-    config.packageOverrides = pkgs: {
-      unstable = import nixpkgs-unstable {};
-    };
-  }
-}: with pkgs; mkShell {
-  packages = [
+  pkgs = import nixpkgs {};
+  unstable = import nixpkgs-unstable {};
+  inherit (pkgs) mkShell;
+in mkShell {
+  packages = with pkgs; [
     bash
     chezmoi
     editorconfig-checker
