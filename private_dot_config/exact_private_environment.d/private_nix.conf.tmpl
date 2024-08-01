@@ -3,6 +3,7 @@
 {{- $paths := list -}}
 {{- $paths = append $paths "/nix/var/nix/profiles/per-user/root/channels" -}}
 {{- $paths = append $paths (joinPath .chezmoi.homeDir ".nix-defexpr/channels") -}}
+{{- $paths = append $paths (joinPath .chezmoi.homeDir "dev/kaizen/default.nix" | printf "kaizen=%s") -}}
 {{- $paths = append $paths (joinPath .chezmoi.homeDir ".nixpkgs/darwin-configuration.nix" | printf "darwin-config=%s") -}}
 
 {{- range $_, $path := $paths -}}
