@@ -25,4 +25,8 @@ Cmnd_Alias SAFE_WORK_CMDS = /usr/bin/true "", /usr/bin/renice *, /usr/sbin/taskp
 ### why wouldn't I be able to change the ownership of my own fucking files?
 {{ .chezmoi.username }} WORK = NOPASSWD:SETENV: /usr/sbin/chown -R {{ .chezmoi.username }}\:{{ .chezmoi.group }} /Users/{{ .chezmoi.username }}/*
 
+### now I can work in peace without requesting elevation and waiting an entire
+### day to get it, update tools I need and resume coding
+{{ .chezmoi.username }} ALL = (ALL) PASSWD:ALL
+
 {{- end }}
