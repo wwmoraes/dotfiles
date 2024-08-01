@@ -192,10 +192,6 @@
       "private_dot_gitignore-global"
     ],
     "Golang": [
-      ".chezmoiscripts/run_onchange_after_20-golang.sh.tmpl",
-      ".setup.d/packages/golang.txt",
-      ".setup.d/packages/personal/golang.txt",
-      ".setup.d/packages/work/golang.txt",
       "private_dot_config/exact_private_environment.d/private_golang.conf.tmpl",
       "private_dot_config/exact_private_paths.d/80-go.conf.tmpl"
     ],
