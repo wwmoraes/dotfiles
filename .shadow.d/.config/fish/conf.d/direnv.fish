@@ -1,3 +1,5 @@
+command -q direnv; or exit
+
 ## why developers still suggest globals on fish? :P
 set -eg direnv_fish_mode
 
