@@ -60,6 +60,9 @@
     "ssh_config",
     "shellscript"
   ],
+  "go-template.patterns": [
+    "**/*.tmpl"
+  ],
   "json.schemas": [
     {
       "fileMatch": [
