@@ -1,7 +1,6 @@
 cask_args appdir: "~/Applications"
 
 #region tap
-tap "avisi-cloud/tools" # structurizr-site-generatr
 tap "dsully/tap" # macos-defaults
 tap "homebrew/bundle"
 # tap "homebrew/cask-versions"
@@ -17,6 +16,7 @@ tap "lemoony/tap" # snipkit
 tap "nextdns/tap"
 
 {{- else if .tags.work }}
+tap "avisi-cloud/tools" # structurizr-site-generatr
 
 {{- end }}
 #endregion
@@ -37,7 +37,7 @@ brew "gawk"
 brew "git-delta"
 brew "git"
 brew "gnupg"
-brew "graphviz" # required by structurizr-site-generatr
+
 brew "grc"
 brew "jq"
 brew "lazygit"
@@ -54,8 +54,6 @@ brew "python3" # required by graphviz, man-db, structurizr-cli, structurizr-site
 brew "rustup-init"
 brew "skhd"
 brew "smug"
-brew "structurizr-cli"
-brew "structurizr-site-generatr"
 brew "tag"
 brew "tldr"
 brew "tmux"
@@ -67,8 +65,10 @@ brew "snipkit"
 brew "neovim"
 
 {{- else if .tags.work }}
-brew "asyncapi"
 brew "azure-cli"
+brew "graphviz" # required by structurizr-site-generatr
+brew "structurizr-cli"
+brew "structurizr-site-generatr"
 
 {{- end }}
 #endregion
