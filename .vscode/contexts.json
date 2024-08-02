@@ -27,7 +27,6 @@
       ".chezmoiscripts/run_onchange_after_00-git-sparse.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_10-variables.fish.tmpl",
       ".chezmoiscripts/run_onchange_after_80-fonts.sh.tmpl",
-      ".chezmoiscripts/run_onchange_after_80-helm-plugins.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_80-launchagents.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_80-launchdaemons.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_90-authorizationdb.sh.tmpl",
@@ -39,13 +38,11 @@
       ".setup.d/functions.sh",
       ".setup.d/packages/darwin/brew-services.txt",
       ".setup.d/packages/darwin/launchagents.txt",
-      ".setup.d/packages/work/helm.txt",
       ".shadow.d/.config/fish/completions/chezmoi.fish",
       "private_dot_local/bin/executable_chezmoi-check",
       "private_dot_local/bin/executable_chezmoi-env",
       "private_dot_local/bin/executable_chezmoi-lg",
       "private_dot_local/bin/executable_chezmoi-run",
-      "private_dot_local/bin/executable_chezmoi-switch",
       "private_dot_local/bin/executable_chezmoi-sync",
       "private_dot_tagsrc.tmpl"
     ],
@@ -54,7 +51,6 @@
       ".global.d/Library/LaunchDaemons/dev.artero.limit.maxfiles.plist",
       ".global.d/Library/LaunchDaemons/dev.artero.limit.maxproc.plist",
       ".global.d/Library/LaunchDaemons/dev.artero.sysctl.plist",
-      "private_dot_Brewfile.tmpl",
       "private_dot_config/exact_macos-defaults/gaming.yaml",
       "private_dot_config/exact_private_environment.d/private_homebrew.conf.tmpl",
       "private_dot_config/exact_private_paths.d/40-homebrew.conf.tmpl",
@@ -97,10 +93,8 @@
       ".vscode/macos-defaults.schema.json"
     ],
     "Direnv": [
-      "private_dev/dot_envrc",
       "private_dot_config/direnv/direnv.toml",
-      "private_dot_config/direnv/direnvrc",
-      "private_workspace/dot_envrc"
+      "private_dot_config/direnv/direnvrc"
     ],
     "Docker": [
       "private_dot_config/exact_private_environment.d/private_docker.conf.tmpl",
@@ -156,6 +150,7 @@
       ".shadow.d/.config/fish/functions/fish_prompt.fish",
       ".shadow.d/.config/fish/functions/fish_right_prompt.fish",
       ".shadow.d/.config/fish/functions/fish_user_key_bindings.fish",
+      ".shadow.d/.config/fish/functions/fisher.fish",
       ".shadow.d/.config/fish/functions/fkill.fish",
       ".shadow.d/.config/fish/functions/golang.fish",
       ".shadow.d/.config/fish/functions/k8s.fish",
@@ -244,12 +239,12 @@
     "Nix": [
       ".chezmoiscripts/run_onchange_after_01-nix.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_02-nix-darwin.sh.tmpl",
-      "private_dev/shell.nix",
       "private_dot_config/exact_private_paths.d/30-nix.conf.tmpl",
       "private_dot_config/nix/nix.conf.tmpl",
       "private_dot_config/nixpkgs/config.nix",
       "private_dot_nixpkgs/darwin-configuration.nix.tmpl",
-      "private_workspace/shell.nix",
+      "private_dot_nixpkgs/exact_darwin/home-configuration.nix.tmpl",
+      "private_dot_nixpkgs/exact_darwin/work-configuration.nix.tmpl",
       "shell.nix"
     ],
     "Node": [
