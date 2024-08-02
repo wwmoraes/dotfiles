@@ -16,10 +16,14 @@ rec {
     (fortune.override { withOffensive = true; })
     adrs
     bat
+    comfortaa # TODO configure fonts
     coreutils
     delta
     direnv
     dive
+    envsubst
+    fira-code # TODO configure fonts
+    fira-code-symbols # TODO configure fonts
     fish
     fswatch
     fzf
@@ -32,13 +36,16 @@ rec {
     lefthook
     less
     man
+    montserrat # TODO configure fonts
     moreutils
     neo-cowsay
     nix-direnv
     pet
     powerline-go
+    powerline-symbols # TODO configure fonts
     skhd
     smug
+    source-code-pro # TODO configure fonts
     tlrc
     tmux
     tmuxPlugins.continuum
@@ -110,7 +117,7 @@ rec {
 
   environment.variables = {
     EDITOR = "vim";
-    NIX_SSL_CERT_FILE = "{{ .brew.prefix }}/etc/openssl@3/cert.pem";
+    NIX_SSL_CERT_FILE = "#{{ .brew.prefix }}/etc/openssl@3/cert.pem";
   };
 
   homebrew.enable = true;

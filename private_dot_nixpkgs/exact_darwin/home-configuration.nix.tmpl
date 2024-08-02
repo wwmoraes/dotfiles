@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 rec {
   environment.systemPackages = with pkgs; [
+    # cilium-cli
     neovim
+    talosctl
   ];
 
   homebrew.taps = [
