@@ -30,7 +30,6 @@
       ".chezmoiscripts/run_onchange_after_80-helm-plugins.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_80-launchagents.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_80-launchdaemons.sh.tmpl",
-      ".chezmoiscripts/run_onchange_after_80-tmux-plugins.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_90-authorizationdb.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_90-defaults.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_90-sudoers.sh.tmpl",
@@ -295,7 +294,7 @@
     "Tmux": [
       "private_dot_config/exact_private_environment.d/private_tmux.conf.tmpl",
       "private_dot_tmux.conf.tmpl",
-      "private_dot_tmux.plugins.conf",
+      "private_dot_tmux.plugins.conf.tmpl",
       "private_dot_tmux.sessions.conf",
       "private_dot_tmux.status.conf",
       "private_executable_dot_tmux.sh"
