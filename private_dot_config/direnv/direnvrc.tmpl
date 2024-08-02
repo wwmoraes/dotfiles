@@ -1,0 +1,3 @@
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+#{{- $nixDirenvPath := output "nix-build" "<darwin>" "-A" "pkgs.nix-direnv" "--no-out-link" | trimAll "\r\n" -}}
+source #{{ joinPath $nixDirenvPath "share" "nix-direnv" "direnvrc" }}
