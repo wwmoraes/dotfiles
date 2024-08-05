@@ -27,8 +27,6 @@
       ".chezmoiscripts/run_onchange_before_00-bootstrap.sh.tmpl",
       ".ejson/.gitignore",
       ".ejson/secrets.tmpl.json",
-      ".setup.d/functions.sh",
-      ".setup.d/packages/darwin/brew-services.txt",
       ".shadow.d/.config/fish/completions/chezmoi.fish",
       "private_dot_local/bin/executable_chezmoi-check",
       "private_dot_local/bin/executable_chezmoi-env",
@@ -336,4 +334,3 @@
       "TODO.md"
     ]
   }
-}
