@@ -1,11 +1,11 @@
 {{- $isPersonal := hasSuffix "Cabuk" .chezmoi.hostname -}}
 {{- $isWork := eq "NLLM4000559023" .chezmoi.hostname -}}
-{{- $ejson := joinPath .chezmoi.sourceDir ".ejson/secrets.json" -}}
+{{- $ejsonDict := joinPath .chezmoi.sourceDir ".ejson/secrets.json" | ejsonDecrypt -}}
 {{- $nixBuildBin := lookPath "nix-build" | default "/run/current-system/sw/bin/nix-build" -}}
 
 encryption = "gpg"
 
-{{ (ejsonDecrypt $ejson) | toToml }}
+{{ $ejsonDict | toToml }}
 
 [data.brew]
   {{- if eq .chezmoi.os "darwin" }}
@@ -39,15 +39,6 @@ sessionist = {{ output $nixBuildBin "<nixpkgs>" "-A" "tmuxPlugins.sessionist" "-
   personal = {{ $isPersonal }}
   work = {{ $isWork }}
 
-# we control versions here as the externals calculate them on every apply.
-# That's a problem as we hit the GitHub API limits when developing
-[data.versions]
-  calico = "3.26.3" {{- /* (gitHubLatestRelease "projectcalico/calico").TagName | trimPrefix "v" | quote */}}
-  cilium = "0.15.18" {{- /* (gitHubLatestRelease "cilium/cilium-cli").TagName | trimPrefix "v" | quote */}}
-  devbox = "0.11.1" {{- /* (gitHubLatestRelease "jetify-com/devbox").TagName | quote */}}
-  firaCode = "6.2" {{- /* (gitHubLatestRelease "tonsky/FiraCode").TagName | quote */}}
-  terraform = {{- output "curl" "-fsSL" "https://releases.hashicorp.com/terraform/" | regexFind "terraform_[0-9.]+<" | trimPrefix "terraform_" | trimSuffix "<" | quote }}
-
 [data.work.features.proxies]
 node.enabled = false
 python.enabled = true
@@ -56,40 +47,18 @@ python.enabled = true
   exclude = ["scripts"]
 
 [gpg]
-  recipient = {{ (ejsonDecrypt $ejson).data.personal.email | quote }}
+  recipient = {{ $ejsonDict.data.personal.email | quote }}
 
 [hooks.init.pre]
-command = "direnv"
+command = "task"
 args = [
-  "exec",
-  {{ .chezmoi.sourceDir | quote }},
-  "task",
   "-d",
   {{ .chezmoi.sourceDir | quote }},
   "secrets"
 ]
 
-{{- if $isWork }}
-
-# [hooks.apply.pre]
-# command = "/Applications/Privileges.app/Contents/Resources/PrivilegesCLI"
-# args = ["--add"]
-
-# [hooks.apply.post]
-# command = "/Applications/Privileges.app/Contents/Resources/PrivilegesCLI"
-# args = ["--remove"]
-
-{{- end }}
-
 [interpreters.fish]
 command = "fish"
-
-{{- if eq .chezmoi.os "windows" }}
-
-[interpreters.sh]
-command = "bash"
-
-{{- end }}
 
 [scriptEnv]
   # whether to apply MacOS defaults or not
