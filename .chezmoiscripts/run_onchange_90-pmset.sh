@@ -6,11 +6,7 @@ trap 'kill 0' INT HUP TERM
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
-# import common functions
-# shellcheck source=../.setup.d/functions.sh
-. "${DOTFILES_PATH}/.setup.d/functions.sh"
-
-h1 "[Darwin] Power management settings"
+printf "\e[93m%s\e[m\n" "[Darwin] Power management settings"
 
 # run only on darwin
 test "${CHEZMOI_OS:-}" = "darwin" || exit 0

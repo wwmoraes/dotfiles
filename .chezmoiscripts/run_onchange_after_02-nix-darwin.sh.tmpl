@@ -8,10 +8,6 @@ trap 'kill 0' INT HUP TERM
 test "${TRACE:-0}" = "1" && set -x
 test "${VERBOSE:-0}" = "1" && set -v
 
-# import common functions
-# shellcheck source=../.setup.d/functions.sh
-. "${DOTFILES_PATH}/.setup.d/functions.sh"
-
 printf "\e[1;33m[Darwin] Nix-darwin\e[0m\n"
 
 # run only on darwin
@@ -19,7 +15,10 @@ test "${CHEZMOI_OS:-}" = "darwin" || exit
 
 # skip if nix-darwin is installed
 if [ ! -f /run/current-system/sw/bin/darwin-rebuild ]; then
-  createAndEnterTmpDir
+  TMP=$(mktemp -d)
+  OLD_PWD="${PWD}"
+  cd "${TMP}" || exit
+  trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
 
   nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
 
