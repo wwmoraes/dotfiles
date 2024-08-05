@@ -1,0 +1,96 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: 3
+
+vars:
+  EJSON_KEY_ID: 6bf53a356a4b8abbc9a41ae2912787e56853e211653bb23d5da4a87ba6c9df6f
+
+tasks:
+  default:
+    cmds:
+    - echo "TODO"
+    silent: true
+  validate-secrets:
+    desc: Checks and reports invalid secret references in the ejson template.
+    cmd: >-
+      gron .ejson/secrets.tmpl.json
+      | grep "op://"
+      | sed 's/[";]//g'
+      | xargs -P 0 -I% bash -c 'echo "%" | op inject > /dev/null || echo %'
+  secrets:
+    vars:
+      SOURCE: .ejson/secrets.tmpl.json
+      TARGET: .ejson/secrets.json
+    cmds:
+    - op inject -f -i {{ .SOURCE | q }} -o {{ .TARGET | q }}
+    - ejson encrypt .ejson/secrets.json
+    - op document edit "ejson payload" .ejson/secrets.json || true
+    deps:
+    - key:Personal/ejson/password:{{ .EJSON_KEY_ID }}
+    sources:
+    - '{{ .SOURCE }}'
+    generates:
+    - '{{ .TARGET }}'
+  key:
+    desc: Extracts a local of the ejson key.
+    deps:
+    - key:Personal/ejson/password:{{ .EJSON_KEY_ID }}
+  key:*:*:
+    label: key:{{ index .MATCH 0 }}:{{ index .MATCH 1 }}
+    vars:
+      REF: 'op://{{ index .MATCH 0 }}'
+      TARGET: '{{ joinPath .EJSON_KEYDIR (index .MATCH 1) }}'
+    cmds:
+    - mkdir -p {{ .EJSON_KEYDIR | q }}
+    - >-
+      op read --force --no-newline
+      --file-mode 0600
+      --out-file {{ .TARGET | q }}
+      {{ .REF | q }}
+    status:
+    - test -f {{ .TARGET | q }}
+  context:missing:
+    desc: Lists entries in the repository that aren't in any context.
+    cmd:
+      task: context:default
+      vars:
+        COMM_ARGS: "-23"
+  context:cleanup:
+    desc: Lists entries in a context that don't exist in the repository anymore.
+    cmd:
+      task: context:default
+      vars:
+        COMM_ARGS: "-13"
+  context:default:
+    internal: true
+    silent: true
+    vars:
+      COMM_ARGS: '{{ .COMM_ARGS | default "" }}'
+      TMPDIR:
+        sh: mktemp -d
+      REPOSITORY_FILES_PATH: '{{ joinPath .TMPDIR "repository-files" }}'
+      CONTEXT_FILES_PATH: '{{ joinPath .TMPDIR "context-files" }}'
+    cmds:
+    - defer: rm -rf {{ .TMPDIR | q }}
+    - >-
+      find {{ .ROOT_DIR | q }}
+      -not -path '*/.direnv/*'
+      -not -path '*/.DS_Store'
+      -not -path '*/.ejson/keys/*'
+      -not -path '*/.ejson/secrets.json'
+      -not -path '*/.git/*'
+      -not -path '*/.task/checksum/*'
+      -not -path '*/.task/timestamp/*'
+      -not -path '*/.tmp/*'
+      -not -path '*/fish/*bass*'
+      -not -path '*/fish/*fzf*'
+      -not -path '*/fish/*nvm*'
+      -not -path '*/fish/completions/kubectl*'
+      -type f
+      | sed "s|{{ .ROOT_DIR }}/||g"
+      | sort -u > {{ .REPOSITORY_FILES_PATH | q }}
+    - >-
+      jq -r '.contexts
+      | to_entries
+      | .[].value[]' {{ joinPath .ROOT_DIR ".vscode" "contexts.json" | q }}
+      | sort -u > {{ .CONTEXT_FILES_PATH | q }}
+    - comm {{ .COMM_ARGS }} {{ .REPOSITORY_FILES_PATH | q }} {{ .CONTEXT_FILES_PATH | q }}

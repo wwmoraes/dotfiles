@@ -59,8 +59,15 @@ python.enabled = true
   recipient = {{ (ejsonDecrypt $ejson).data.personal.email | quote }}
 
 [hooks.init.pre]
-command = "sh"
-args = ["-c", "make -C $CHEZMOI_SOURCE_DIR secrets"]
+command = "direnv"
+args = [
+  "exec",
+  {{ .chezmoi.sourceDir | quote }},
+  "task",
+  "-d",
+  {{ .chezmoi.sourceDir | quote }},
+  "secrets"
+]
 
 {{- if $isWork }}
 

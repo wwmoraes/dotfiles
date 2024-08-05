@@ -317,6 +317,7 @@
       ".lefthook.yaml",
       ".shadow.d/.gitignore",
       ".shellcheckrc",
+      ".task/.gitignore",
       ".vscode/contexts.json",
       ".vscode/extensions.json",
       ".vscode/settings.json",
@@ -324,7 +325,7 @@
       "CODE_OF_CONDUCT.md",
       "CONTRIBUTING.md",
       "LICENSE",
-      "Makefile",
+      "Taskfile.yaml",
       "README.md",
       "SECURITY.md",
       "TODO.md"
