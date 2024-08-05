@@ -69,7 +69,6 @@ rec {
     pam-reattach
     pet
     powerline-go
-    skhd
     smug
     tlrc
     tmux
@@ -304,7 +303,12 @@ rec {
   programs.fish.useBabelfish = true;
   programs.fish.babelfishPackage = pkgs.babelfish;
 
-  services.skhd.enable = true;
+  security.pki.certificateFiles = [
+    "#{{ .brew.prefix }}/etc/openssl@3/cert.pem"
+    # "/etc/ssl/certs/ca-certificates.crt"
+    # "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+  ];
+
   services.nix-daemon.enable = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
