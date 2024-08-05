@@ -1,6 +1,11 @@
 #!/usr/bin/env sh
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
 # darwin-configuration.nix hash: #{{ include (joinPath .chezmoi.homeDir ".nixpkgs" "darwin-configuration.nix") | sha256sum }}
+#{{- if .tags.personal }}
+# home-configuration.nix hash: #{{ include (joinPath .chezmoi.homeDir ".nixpkgs" "darwin" "home-configuration.nix") | sha256sum }}
+#{{- else if .tags.work }}
+# work-configuration.nix hash: #{{ include (joinPath .chezmoi.homeDir ".nixpkgs" "darwin" "work-configuration.nix") | sha256sum }}
+#{{- end }}
 
 set -eum
 trap 'kill 0' INT HUP TERM
