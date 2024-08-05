@@ -14,17 +14,9 @@ command -v nix >/dev/null 2>&1 && exit
 
 curl -L https://nixos.org/nix/install | sh -s
 
-TRUSTED_USERS_LINE="trusted-users = ${USER}"
-if ! grep -qFx "${TRUSTED_USERS_LINE}" /etc/nix/nix.conf; then
-  echo "configuring '${USER}' as nix trusted user..."
-  echo "trusted-users = ${USER}" | tee -a /etc/nix/nix.conf > /dev/null
-
-  echo "restarting the nix-daemon..."
-  sudo launchctl kickstart -k system/org.nixos.nix-daemon
-fi
-
 # force loading on the current shell and bootstrap the installation
 unset __ETC_PROFILE_NIX_SOURCED
+. /nix/var/nix/profiles/default/etc/profile.d/nix.sh
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
 nix-shell -p nix-info --run "nix-info -m"

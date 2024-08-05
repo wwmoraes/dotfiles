@@ -160,9 +160,57 @@ rec {
   };
 
   launchd.daemons = {
-    "org.nixos.nix-daemon" = {
-      serviceConfig.EnvironmentVariables = {
-        NIX_SSL_CERT_FILE = environment.variables.NIX_SSL_CERT_FILE;
+    "dev.artero.limit.maxfiles" = {
+      serviceConfig = {
+        Label = "dev.artero.limit.maxfiles";
+        ProgramArguments = [
+          "launchctl"
+          "limit"
+          "maxfiles"
+          "1048576"
+          "1048576"
+        ];
+        RunAtLoad = true;
+      };
+    };
+    "dev.artero.limit.maxproc" = {
+      serviceConfig = {
+        Label = "dev.artero.limit.maxproc";
+        ProgramArguments = [
+          "launchctl"
+          "limit"
+          "maxproc"
+          "65536"
+          "65536"
+        ];
+        RunAtLoad = true;
+      };
+    };
+    "dev.artero.sysctl" = {
+      serviceConfig = {
+        Label = "dev.artero.sysctl";
+        ProgramArguments = [
+          "/usr/sbin/sysctl"
+          "kern.maxfiles=1048576"
+          "kern.maxfilesperproc=65536"
+        ];
+        RunAtLoad = true;
+      };
+    };
+    nix-daemon = {
+      serviceConfig = {
+        EnvironmentVariables = {
+          NIX_GIT_SSL_CAINFO = environment.variables.NIX_GIT_SSL_CAINFO;
+          NIX_SSL_CERT_FILE = environment.variables.NIX_SSL_CERT_FILE;
+        };
+      };
+    };
+  };
+  launchd.user.agents = {
+    "homebrew.mxcl.openssl-osx-ca" = {
+      serviceConfig = {
+        Label = "homebrew.mxcl.openssl-osx-ca";
+        StartInterval = 604800;
       };
     };
   };
