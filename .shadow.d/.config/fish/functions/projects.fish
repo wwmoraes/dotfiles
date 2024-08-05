@@ -1,5 +1,5 @@
-set -q PROJECTS_DIR; or set -U PROJECTS_DIR $HOME/dev
-set -q PROJECTS_ORIGIN; or set -U PROJECTS_ORIGIN "git@github.com:wwmoraes/%s.git"
+set -q PROJECTS_DIR; or set -xg PROJECTS_DIR $HOME/dev
+set -q PROJECTS_ORIGIN; or set -xg PROJECTS_ORIGIN "git@github.com:wwmoraes/%s.git"
 
 function __projects_fish_complete_directories -d "Complete directory prefixes" --argument-names comp desc
     if not set -q desc[1]

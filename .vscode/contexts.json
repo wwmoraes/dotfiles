@@ -21,7 +21,6 @@
       ".chezmoiscripts/run_onchange_90-pmset.sh",
       ".chezmoiscripts/run_onchange_after_00-brew.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_00-git-sparse.sh.tmpl",
-      ".chezmoiscripts/run_onchange_after_10-variables.fish.tmpl",
       ".chezmoiscripts/run_onchange_after_80-launchagents.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_80-launchdaemons.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_90-authorizationdb.sh.tmpl",
@@ -92,7 +91,6 @@
       "private_dot_config/direnv/direnvrc"
     ],
     "Docker": [
-      "private_dot_config/exact_private_environment.d/private_docker.conf.tmpl",
       "private_dot_docker/config.json.tmpl",
       "private_Library/private_Group Containers/group.com.docker/settings.json.tmpl",
       "private_dot_docker/daemon.json.tmpl",
@@ -100,13 +98,7 @@
     ],
     "Environment": [
       "private_dot_config/environment.rm.conf.tmpl",
-      "private_dot_config/exact_private_environment.d/private_ejson.conf.tmpl",
-      "private_dot_config/exact_private_environment.d/private_fzf.conf.tmpl",
-      "private_dot_config/exact_private_environment.d/private_gcloud.conf.tmpl",
       "private_dot_config/exact_private_environment.d/private_global.conf.tmpl",
-      "private_dot_config/exact_private_environment.d/private_nix-darwin.conf.tmpl",
-      "private_dot_config/exact_private_environment.d/private_personal.conf.tmpl",
-      "private_dot_config/exact_private_environment.d/private_unix.conf.tmpl",
       "private_dot_config/exact_private_environment.d/private_work.conf.tmpl",
       "private_dot_config/exact_private_paths.d/00-local.conf.tmpl",
       "private_dot_config/exact_private_paths.d/50-os.conf.tmpl",

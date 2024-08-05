@@ -131,9 +131,22 @@ rec {
     "Userscripts-Mac-App" = 1463298887;
   };
 
-  environment.variables = {
+  environment.variables = launchd.user.envVariables // {
     EDITOR = "vim";
-    NIX_SSL_CERT_FILE = "#{{ .brew.prefix }}/etc/openssl@3/cert.pem";
+    FZF_COMPLETE = "1";
+    FZF_DEFAULT_OPTS = "--height=50% --layout=reverse";
+    FZF_LEGACY_KEYBINDINGS = "0";
+    FZF_REVERSE_ISEARCH_OPTS = ''--preview-window=up:10 --preview=\"bat {}\" --height=50%'';
+    LESS = "-isRMFX +Gg --tilde";
+    LSCOLORS = "exfxcxdxbxegedabagacad";
+    MANPAGER = "less";
+    VISUAL = "code";
+    NIX_REMOTE = "daemon";
+    PAGER = "less";
+    SUDO_EDITOR = "vim";
+    NIX_USER_PROFILE_DIR = "/nix/var/nix/profiles/per-user/$USER";
+    PROJECTS_ORIGIN = "git@github.com:wwmoraes/%s.git";
+    SSH_AUTH_SOCK = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
   };
 
   homebrew.enable = true;
@@ -152,6 +165,23 @@ rec {
         NIX_SSL_CERT_FILE = environment.variables.NIX_SSL_CERT_FILE;
       };
     };
+  };
+  launchd.user.envVariables = {
+    CURL_CA_BUNDLE = "${config.homebrew.brewPrefix}/etc/openssl@3/cert.pem";
+    NIX_SSL_CERT_FILE = "${config.homebrew.brewPrefix}/etc/openssl@3/cert.pem";
+    NIX_GIT_SSL_CAINFO = "${config.homebrew.brewPrefix}/etc/openssl@3/cert.pem";
+    NODE_EXTRA_CA_CERTS = "${config.homebrew.brewPrefix}/etc/openssl@3/cert.pem";
+    REQUESTS_CA_BUNDLE = "${config.homebrew.brewPrefix}/etc/openssl@3/cert.pem";
+    SSL_CERT_FILE = "${config.homebrew.brewPrefix}/etc/openssl@3/cert.pem";
+    LANG = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
+    LC_COLLATE = "en_US.UTF-8";
+    LC_CTYPE = "en_US.UTF-8";
+    LC_MESSAGES = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
+    EDITOR = "";
   };
 
   nix.configureBuildUsers = true;
