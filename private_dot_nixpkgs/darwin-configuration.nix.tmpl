@@ -9,11 +9,18 @@ rec {
     #{{- end }}
   ];
 
+  nixpkgs.overlays = [
+    (self: super: {
+      fortune = super.fortune.override {
+        withOffensive = true;
+      };
+    })
+  ];
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     # tmuxPlugins.vim-tmux-focus-events # TODO configure in vim
-    (fortune.override { withOffensive = true; })
     adrs
     bat
     coreutils
@@ -22,6 +29,7 @@ rec {
     dive
     envsubst
     fish
+    fortune
     fswatch
     fzf
     gawk
