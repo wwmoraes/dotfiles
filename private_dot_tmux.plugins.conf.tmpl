@@ -1,7 +1,4 @@
-{{- $plugins := list "resurrect" "continuum" "copycat" "yank" "sessionist" }}
-{{- range $_, $pluginName := $plugins }}
-{{- $packageName := printf "pkgs.tmuxPlugins.%s" $pluginName }}
-{{- $packageRoot := output "nix-build" "<darwin>" "-A" $packageName "--no-out-link" | trimAll "\r\n" }}
+{{- range $pluginName, $packageRoot := .nix.roots.tmuxPlugins }}
 {{- $pluginPath := joinPath $packageRoot "share" "tmux-plugins" $pluginName (printf "%s.tmux" $pluginName) }}
 run-shell '{{ $pluginPath }}'
 {{- end }}

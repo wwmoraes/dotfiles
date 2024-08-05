@@ -28,6 +28,12 @@ pinentryBundlePath = {{ output "mdfind" "kMDItemCFBundleIdentifier" "=" "org.gpg
 
 [data.nix.roots]
 nixDirenv = {{ output $nixBuildBin "<nixpkgs>" "-A" "nix-direnv" "--no-out-link" | trimAll "\r\n" | quote }}
+[data.nix.roots.tmuxPlugins]
+resurrect = {{ output $nixBuildBin "<nixpkgs>" "-A" "tmuxPlugins.resurrect" "--no-out-link" | trimAll "\r\n" | quote }}
+continuum = {{ output $nixBuildBin "<nixpkgs>" "-A" "tmuxPlugins.continuum" "--no-out-link" | trimAll "\r\n" | quote }}
+copycat = {{ output $nixBuildBin "<nixpkgs>" "-A" "tmuxPlugins.copycat" "--no-out-link" | trimAll "\r\n" | quote }}
+yank = {{ output $nixBuildBin "<nixpkgs>" "-A" "tmuxPlugins.yank" "--no-out-link" | trimAll "\r\n" | quote }}
+sessionist = {{ output $nixBuildBin "<nixpkgs>" "-A" "tmuxPlugins.sessionist" "--no-out-link" | trimAll "\r\n" | quote }}
 
 [data.tags]
   personal = {{ $isPersonal }}

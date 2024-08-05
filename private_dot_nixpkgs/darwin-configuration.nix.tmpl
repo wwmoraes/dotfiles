@@ -48,12 +48,14 @@ rec {
     source-code-pro # TODO configure fonts
     tlrc
     tmux
-    tmuxPlugins.continuum
-    tmuxPlugins.copycat
-    tmuxPlugins.resurrect
-    tmuxPlugins.sessionist
-    tmuxPlugins.yank
     vim
+  ] ++ (with pkgs.tmuxPlugins; [
+    continuum
+    copycat
+    resurrect
+    sessionist
+    yank
+  ]);
   ];
 
   homebrew.taps = [
