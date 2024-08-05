@@ -1,4 +1,6 @@
 function k8s -a cmd -d "utilities for Kubernetes management"
+  command -q kubectl; or echo "kubectl is not installed" && return
+
   switch "$cmd"
   # TODO create kubectl plugin
   case finalize-namespace

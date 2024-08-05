@@ -32,12 +32,12 @@ function dotenv -d '"Sources" (set universal and exports) variables from given d
 
       if string length -q -- $_flag_unset
         echo "Unsetting "(set_color brcyan)$key(set_color normal)
-        set -egU $key
+        set -eglU $key
         launchctl unsetenv $key
       else
         echo "Setting "(set_color brcyan)$key(set_color normal)
-        set -egl $key
-        set -xU $key $value
+        set -elU $key
+        set -xg $key $value
         launchctl setenv $key $value
       end
     end

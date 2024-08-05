@@ -2,22 +2,22 @@ set -q PROJECTS_DIR; or set -xg PROJECTS_DIR $HOME/dev
 set -q PROJECTS_ORIGIN; or set -xg PROJECTS_ORIGIN "git@github.com:wwmoraes/%s.git"
 
 function __projects_fish_complete_directories -d "Complete directory prefixes" --argument-names comp desc
-    if not set -q desc[1]
-        set desc Directory
-    end
+  if not set -q desc[1]
+    set desc Directory
+  end
 
-    if not set -q comp[1]
-        set comp (commandline -ct)
-    end
+  if not set -q comp[1]
+    set comp (commandline -ct)
+  end
 
-    # HACK: We call into the file completions by using a non-existent command.
-    # If we used e.g. `ls`, we'd run the risk of completing its options or another kind of argument.
-    # But since we default to file completions, if something doesn't have another completion...
-    set -l dirs (complete -C"nonexistentcommandooheehoohaahaahdingdongwallawallabingbang $comp" | string match -r '.*/$' | xargs -I% expr "%" : "$comp\(.*\)")
+  # HACK: We call into the file completions by using a non-existent command.
+  # If we used e.g. `ls`, we'd run the risk of completing its options or another kind of argument.
+  # But since we default to file completions, if something doesn't have another completion...
+  set -l dirs (complete -C"nonexistentcommandooheehoohaahaahdingdongwallawallabingbang $comp" | string match -r '.*/$' | xargs -I% expr "%" : "$comp\(.*\)")
 
-    if set -q dirs[1]
-        printf "%s\t$desc\n" $dirs
-    end
+  if set -q dirs[1]
+    printf "%s\t$desc\n" $dirs
+  end
 end
 
 # projects main command

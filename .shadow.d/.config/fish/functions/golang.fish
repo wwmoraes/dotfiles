@@ -1,4 +1,6 @@
 function golang -a cmd -d "go wrapper with commands that Google forgot" -w go
+  command -q go; or echo "go is not installed" && return
+
   switch "$cmd"
   case install
     env -u GOBIN go install $argv[2]
@@ -10,7 +12,7 @@ function golang -a cmd -d "go wrapper with commands that Google forgot" -w go
   case unget
     test (count $argv) -lt 2; and echo "usage: g $argv[1] [packages]" && return 1
 
-    echo go: removing $argv[2]
+    echo "go: removing $argv[2]"
 
     # thank you go-import-redirector for the brilliant idea of having a HTTP meta header redirection
     set -l package (curl -sSL $argv[2] | gawk 'match($0, /go-import content=.* git https:\/\/(.*)"/, m) {print m[1]}')

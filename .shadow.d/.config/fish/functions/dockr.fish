@@ -1,9 +1,6 @@
 function dockr -w docker -a cmd -d "Docker CLI wrapper with extra commands"
   command -q docker; or echo "docker is not installed" && return
-  command -q awk; or echo "awk is not installed" && return
-  command -q tail; or echo "tail is not installed" && return
   command -q fzf; or echo "fzf is not installed" && return
-  command -q xargs; or echo "xargs is not installed" && return
 
   switch "$cmd"
   case context

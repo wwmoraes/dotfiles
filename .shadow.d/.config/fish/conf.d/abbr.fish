@@ -1,9 +1,6 @@
 # only apply on interactive shells
 status --is-interactive; or exit
 
-# Bash compatibility
-abbr -a !! --position anywhere --function bash_last_history_item
-
 # .f (dotfiles) => chezmoi
 if command -q chezmoi
   abbr -a .f chezmoi

@@ -1,4 +1,7 @@
 function fconnect -d "fuzzy connect to a host"
+  command -q fzf; or echo "fzf is not installed" && return
+  command -q ssh; or echo "ssh is not installed" && return
+
   set -l host (find -L ~/.ssh -type f \
     -exec awk '/^Host (.*\*.*|github.com)/ {next};/^Host/ {print $2}' '{}' \; | \
     sort | \
@@ -19,7 +22,10 @@ function fconnect -d "fuzzy connect to a host"
     and set tool ssh -tt
 
     string match -qr -- "mosh/?.*" $connType
-    and set tool mosh --ssh="ssh -tt" --no-ssh-pty
+    and begin
+      command -q mosh; or echo "mosh is not installed" && return
+      set tool mosh --ssh="ssh -tt" --no-ssh-pty
+    end
 
     string match -q -- "*/tmux" $connType; and begin
       # echo -n "tmux session name: "

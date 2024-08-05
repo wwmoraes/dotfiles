@@ -1,4 +1,6 @@
 function watchrun -d "watch for file changes and run command on events"
+  command -q fswatch; or echo "fswatch is not installed" && return
+
   if test (count $argv) -lt 1
     echo "usage: "(status function)" <command>"
     echo "usage: "(status function)" <path> <command>"

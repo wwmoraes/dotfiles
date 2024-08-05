@@ -1,4 +1,3 @@
-complete -ec pkg
 function pkg -a cmd -w pkgutil -d "MacOS package management made easy"
   command -q pkgutil; or echo "pkgutil is not installed" && return
 
@@ -42,6 +41,8 @@ function pkg -a cmd -w pkgutil -d "MacOS package management made easy"
       pkgutil $argv
   end
 end
+
+complete -ec pkg
 
 complete -xc pkg -n __fish_use_subcommand -a list -d "lists all installed packages"
 

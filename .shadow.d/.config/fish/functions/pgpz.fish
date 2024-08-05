@@ -1,4 +1,6 @@
 function pgpz -a cmd -d "gpg for human beings" -w gpg
+  command -q gpg; or echo "gpg is not installed" && return
+
   switch "$cmd"
     case "export"
       test (count $argv[2..-1]) -lt 1

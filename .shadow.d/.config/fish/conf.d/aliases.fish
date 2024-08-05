@@ -6,7 +6,7 @@ if command -q grc
 end
 
 if command -q op
-  alias brew="op plugin run -- brew"
-  alias doctl="op plugin run -- doctl"
-  alias pulumi="op plugin run -- pulumi"
+  command -q brew; and alias brew="op plugin run -- brew"
+  command -q doctl; and alias doctl="op plugin run -- doctl"
+  command -q pulumi; and alias pulumi="op plugin run -- pulumi"
 end
