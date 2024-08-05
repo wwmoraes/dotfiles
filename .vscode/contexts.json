@@ -25,7 +25,6 @@
       ".ejson/.gitignore",
       ".ejson/secrets.tmpl.json",
       ".shadow.d/.config/fish/completions/chezmoi.fish",
-      "private_dot_local/bin/executable_chezmoi-check",
       "private_dot_local/bin/executable_chezmoi-env",
       "private_dot_local/bin/executable_chezmoi-lg",
       "private_dot_local/bin/executable_chezmoi-run",
@@ -34,12 +33,9 @@
     "Darwin": [
       ".global.d/.security.yaml.tmpl",
       "private_dot_config/exact_macos-defaults/gaming.yaml",
-      "private_dot_config/exact_private_paths.d/40-homebrew.conf.tmpl",
       "private_dot_local/bin/executable_plist2xml",
       "private_dot_skhdrc",
-      "private_Library/exact_private_Scripts/executable_dev.artero.environment",
-      "private_Library/private_Contacts/me.vcf.tmpl",
-      "private_Library/private_LaunchAgents/dev.artero.environment.plist.tmpl"
+      "private_Library/private_Contacts/me.vcf.tmpl"
     ],
     "Defaults": [
       "private_dot_config/exact_macos-defaults/accessibility.yaml",
@@ -85,9 +81,9 @@
     "Environment": [
       "private_dot_config/environment.rm.conf.tmpl",
       "private_dot_config/exact_private_environment.d/private_global.conf.tmpl",
+      "private_dot_config/exact_private_environment.d/private_home.conf.tmpl",
       "private_dot_config/exact_private_environment.d/private_work.conf.tmpl",
-      "private_dot_config/exact_private_paths.d/00-local.conf.tmpl",
-      "private_dot_config/exact_private_paths.d/50-os.conf.tmpl"
+      "private_dot_local/bin/symlink_littlesnitch.tmpl"
     ],
     "Finicky": [
       ".finicky.d.ts",
@@ -97,12 +93,10 @@
       ".shadow.d/.config/fish/completions/aws.fish",
       ".shadow.d/.config/fish/completions/az.fish",
       ".shadow.d/.config/fish/completions/git.fish",
-      ".shadow.d/.config/fish/completions/helm.fish",
       ".shadow.d/.config/fish/completions/kustomize.fish",
       ".shadow.d/.config/fish/completions/macos-defaults.fish",
       ".shadow.d/.config/fish/completions/op.fish",
       ".shadow.d/.config/fish/completions/talosctl.fish",
-      ".shadow.d/.config/fish/completions/yarn.fish",
       ".shadow.d/.config/fish/conf.d/abbr.fish",
       ".shadow.d/.config/fish/conf.d/aliases.fish",
       ".shadow.d/.config/fish/conf.d/direnv.fish",
@@ -110,18 +104,14 @@
       ".shadow.d/.config/fish/conf.d/kitty.fish",
       ".shadow.d/.config/fish/conf.d/nix.fish",
       ".shadow.d/.config/fish/config.fish",
-      ".shadow.d/.config/fish/fish_plugins",
       ".shadow.d/.config/fish/fish_variables",
       ".shadow.d/.config/fish/functions/__fish_seen_subcommand_of.fish",
-      ".shadow.d/.config/fish/functions/bash_last_history_item.fish",
       ".shadow.d/.config/fish/functions/dockr.fish",
       ".shadow.d/.config/fish/functions/dotenv.fish",
       ".shadow.d/.config/fish/functions/fconnect.fish",
       ".shadow.d/.config/fish/functions/fish_greeting.fish",
       ".shadow.d/.config/fish/functions/fish_prompt.fish",
-      ".shadow.d/.config/fish/functions/fish_right_prompt.fish",
       ".shadow.d/.config/fish/functions/fish_user_key_bindings.fish",
-      ".shadow.d/.config/fish/functions/fisher.fish",
       ".shadow.d/.config/fish/functions/fkill.fish",
       ".shadow.d/.config/fish/functions/golang.fish",
       ".shadow.d/.config/fish/functions/k8s.fish",
@@ -152,9 +142,6 @@
       "private_dot_gitconfig.tmpl",
       "private_dot_gitignore-global"
     ],
-    "Golang": [
-      "private_dot_config/exact_private_paths.d/80-go.conf.tmpl"
-    ],
     "Grc": [
       "private_dot_grc/bins.txt",
       "private_dot_grc/conf.dockerstats",
@@ -180,11 +167,9 @@
       "symlink_dot_hammerspoon.tmpl"
     ],
     "Haskell": [
-      "private_dot_config/exact_private_paths.d/90-cabal.conf.tmpl",
       "private_dot_stack/config.yaml.tmpl"
     ],
     "Kitty": [
-      "private_dot_config/exact_private_paths.d/60-kitty.conf.tmpl",
       "private_dot_config/kitty/kitty.conf.tmpl",
       "private_dot_config/kitty/overrides.conf.tmpl"
     ],
@@ -206,7 +191,6 @@
       ".chezmoiscripts/run_onchange_after_01-nix.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_02-nix-darwin.sh.tmpl",
       "dot_nix-channels",
-      "private_dot_config/exact_private_paths.d/30-nix.conf.tmpl",
       "private_dot_config/nix/nix.conf.tmpl",
       "private_dot_config/nixpkgs/config.nix",
       "private_dot_nixpkgs/darwin-configuration.nix.tmpl",
@@ -223,9 +207,6 @@
     ],
     "Python": [
       "private_dot_config/pip/pip.conf.tmpl"
-    ],
-    "Rust": [
-      "private_dot_config/exact_private_paths.d/90-cargo.conf.tmpl"
     ],
     "SSH": [
       "exact_private_dot_ssh/private_bootstrap.pub.tmpl",
@@ -316,3 +297,4 @@
       "TODO.md"
     ]
   }
+}

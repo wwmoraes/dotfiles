@@ -18,7 +18,6 @@
     "**/*dot_ssh/*config*": "ssh_config",
     "**/*dot_ssh/*config.d/*/*": "ssh_config",
     "**/*environment.d/*.conf*": "dotenv",
-    "**/*paths.d/*.conf*": "properties",
     "**/environment.rm.conf*": "properties",
     "**/pip.conf*": "ini",
     "*.conf.tmpl": "properties",
