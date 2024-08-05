@@ -17,18 +17,21 @@ let
   inherit (pkgs) mkShell;
 in mkShell {
   packages = with pkgs; [
-    # unstable._1password
     bash
     chezmoi
     editorconfig-checker
     fish
     git
     go-task
-    kaizen.ejson
-    kaizen.go-commitlint
+    gron
     markdownlint-cli
     shellcheck
-    unstable.lazygit
     yamllint
-  ];
+  ] ++ (with unstable; [
+    # _1password
+    lazygit
+  ]) ++ (with kaizen; [
+    ejson
+    go-commitlint
+  ]);
 }
