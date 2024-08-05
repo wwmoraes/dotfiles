@@ -43,7 +43,9 @@
     ".chezmoiremove": "gitignore"
   },
   "files.exclude": {
-    "**/Code/User/History/**/*": true
+    "**/Code/User/History/**/*": true,
+    ".direnv": true,
+    ".task/checksum": true
   },
   "go-template.languages": [
     "ini",
