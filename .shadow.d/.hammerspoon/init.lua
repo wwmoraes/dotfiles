@@ -22,7 +22,7 @@ end
 
 ---@class RuntimeSpoons
 ---@field SpoonInstall SpoonInstall
----@field Env Env
+-- -@field Env Env
 ---@field Contexts Contexts
 
 hs.loadSpoon("SpoonInstall")
@@ -45,10 +45,10 @@ spoon.SpoonInstall:andUse("ReloadConfiguration", {
 
 ---### development spoons configuration
 
-spoon.SpoonInstall:andUse("Env", {
-  start = true,
-  repo = "wwmoraes",
-})
+-- spoon.SpoonInstall:andUse("Env", {
+--   start = true,
+--   repo = "wwmoraes",
+-- })
 
 spoon.SpoonInstall:andUse("Contexts", {
   ---@type ContextsConfig
