@@ -17,6 +17,17 @@ rec {
     })
   ];
 
+  environment.etc = {
+    "pam.d/sudo_local" = {
+      # sudo_local: local config file which survives system update and is included for sudo
+      enable = true;
+      text = ''
+        auth optional   ${pkgs.pam-reattach}/lib/pam/pam_reattach.so
+        auth sufficient pam_tid.so
+      '';
+    };
+  };
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
@@ -44,6 +55,7 @@ rec {
     moreutils
     neo-cowsay
     nix-direnv
+    pam-reattach
     pet
     powerline-go
     skhd
