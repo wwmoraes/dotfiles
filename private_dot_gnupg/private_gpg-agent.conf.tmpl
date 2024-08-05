@@ -5,8 +5,7 @@ max-cache-ttl 7200
 allow-preset-passphrase
 
 {{- if eq .chezmoi.os "darwin" }}
-{{- $bundlePath := output "mdfind" "kMDItemCFBundleIdentifier" "=" "org.gpgtools.pinentry-mac" | trimAll "\n" }}
-pinentry-program {{ $bundlePath }}/Contents/MacOS/pinentry-mac
+pinentry-program {{ .darwin.pinentryBundlePath }}/Contents/MacOS/pinentry-mac
 {{- else }}
 pinentry-program {{ lookPath "pinentry" }}
 {{- end }}

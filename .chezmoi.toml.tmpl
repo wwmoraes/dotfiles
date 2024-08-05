@@ -20,6 +20,11 @@ encryption = "gpg"
   repository = "/home/linuxbrew/.linuxbrew/Homebrew"
   {{- end }}
 
+{{- if eq .chezmoi.os "darwin" }}
+[data.darwin]
+pinentryBundlePath = {{ output "mdfind" "kMDItemCFBundleIdentifier" "=" "org.gpgtools.pinentry-mac" | trimAll "\r\n" | quote }}
+{{- end }}
+
 [data.tags]
   personal = {{ $isPersonal }}
   work = {{ $isWork }}
