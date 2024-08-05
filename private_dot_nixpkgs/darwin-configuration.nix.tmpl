@@ -73,7 +73,12 @@ rec {
     tlrc
     tmux
     vim
-  ] ++ (with pkgs.tmuxPlugins; [
+  ] ++ (with pkgs.fishPlugins; [
+    fzf
+    grc
+    sponge
+    transient-fish
+  ]) ++ (with pkgs.tmuxPlugins; [
     continuum
     copycat
     resurrect
