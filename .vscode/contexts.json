@@ -12,15 +12,12 @@
     "Chezmoi": [
       ".chezmoi.toml.tmpl",
       ".chezmoiexternals/coding-tools.toml.tmpl",
-      ".chezmoiexternals/personal-tools.toml.tmpl",
-      ".chezmoiexternals/work-tools.toml.tmpl",
       ".chezmoiignore.tmpl",
       ".chezmoiremove.tmpl",
       ".chezmoiscripts/run_onchange_01-developer.sh",
       ".chezmoiscripts/run_onchange_80-less-termcap.sh",
       ".chezmoiscripts/run_onchange_90-pmset.sh",
       ".chezmoiscripts/run_onchange_after_00-brew.sh.tmpl",
-      ".chezmoiscripts/run_onchange_after_00-git-sparse.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_90-authorizationdb.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_90-defaults.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_90-sudoers.sh.tmpl",
@@ -32,13 +29,11 @@
       "private_dot_local/bin/executable_chezmoi-env",
       "private_dot_local/bin/executable_chezmoi-lg",
       "private_dot_local/bin/executable_chezmoi-run",
-      "private_dot_local/bin/executable_chezmoi-sync",
-      "private_dot_tagsrc.tmpl"
+      "private_dot_local/bin/executable_chezmoi-sync"
     ],
     "Darwin": [
       ".global.d/.security.yaml.tmpl",
       "private_dot_config/exact_macos-defaults/gaming.yaml",
-      "private_dot_config/exact_private_environment.d/private_homebrew.conf.tmpl",
       "private_dot_config/exact_private_paths.d/40-homebrew.conf.tmpl",
       "private_dot_local/bin/executable_plist2xml",
       "private_dot_skhdrc",
@@ -80,13 +75,12 @@
     ],
     "Direnv": [
       "private_dot_config/direnv/direnv.toml",
-      "private_dot_config/direnv/direnvrc"
+      "private_dot_config/direnv/direnvrc.tmpl"
     ],
     "Docker": [
       "private_dot_docker/config.json.tmpl",
       "private_Library/private_Group Containers/group.com.docker/settings.json.tmpl",
-      "private_dot_docker/daemon.json.tmpl",
-      "private_dot_config/exact_private_paths.d/90-docker.conf.tmpl"
+      "private_dot_docker/daemon.json.tmpl"
     ],
     "Environment": [
       "private_dot_config/environment.rm.conf.tmpl",
@@ -138,7 +132,6 @@
       ".shadow.d/.config/fish/functions/restart.fish",
       ".shadow.d/.config/fish/functions/sarcasm.fish",
       ".shadow.d/.config/fish/functions/watchrun.fish",
-      "private_dot_config/exact_private_environment.d/private_fish.conf.tmpl",
       "private_dot_config/symlink_fish.tmpl"
     ],
     "GPG": [
@@ -160,7 +153,6 @@
       "private_dot_gitignore-global"
     ],
     "Golang": [
-      "private_dot_config/exact_private_environment.d/private_golang.conf.tmpl",
       "private_dot_config/exact_private_paths.d/80-go.conf.tmpl"
     ],
     "Grc": [
@@ -173,7 +165,10 @@
     "Hammerspoon": [
       ".shadow.d/.hammerspoon/data/apps.lua",
       ".shadow.d/.hammerspoon/data/queryParams.lua",
-      ".shadow.d/.hammerspoon/data/tags.lua",
+      ".shadow.d/.hammerspoon/environment/home.lua",
+      ".shadow.d/.hammerspoon/environment/work/init.lua",
+      ".shadow.d/.hammerspoon/environment/work/logo.png",
+      ".shadow.d/.hammerspoon/environment/work/widgets.lua",
       ".shadow.d/.hammerspoon/helpers/logger.lua",
       ".shadow.d/.hammerspoon/helpers/strings.lua",
       ".shadow.d/.hammerspoon/helpers/urls.lua",
@@ -182,10 +177,6 @@
       ".shadow.d/.hammerspoon/Spoons/ReloadConfiguration.spoon/init.lua",
       ".shadow.d/.hammerspoon/Spoons/SpoonInstall.spoon/docs.json",
       ".shadow.d/.hammerspoon/Spoons/SpoonInstall.spoon/init.lua",
-      ".shadow.d/.hammerspoon/tags/personal.lua",
-      ".shadow.d/.hammerspoon/tags/work/init.lua",
-      ".shadow.d/.hammerspoon/tags/work/logo.png",
-      ".shadow.d/.hammerspoon/tags/work/widgets.lua",
       "symlink_dot_hammerspoon.tmpl"
     ],
     "Haskell": [
@@ -206,7 +197,6 @@
       "private_dot_config/symlink_lazygit.tmpl"
     ],
     "Neovim": [
-      "private_dot_config/exact_private_environment.d/private_nix.conf.tmpl",
       "private_dot_config/exact_private_nvim/exact_autoload/cmp.lua",
       "private_dot_config/exact_private_nvim/exact_autoload/go.lua",
       "private_dot_config/exact_private_nvim/exact_autoload/lsp.lua",
@@ -215,6 +205,7 @@
     "Nix": [
       ".chezmoiscripts/run_onchange_after_01-nix.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_02-nix-darwin.sh.tmpl",
+      "dot_nix-channels",
       "private_dot_config/exact_private_paths.d/30-nix.conf.tmpl",
       "private_dot_config/nix/nix.conf.tmpl",
       "private_dot_config/nixpkgs/config.nix",
@@ -262,17 +253,11 @@
       "private_dot_config/exact_private_sudoers.d/work.tmpl"
     ],
     "Tmux": [
-      "private_dot_config/exact_private_environment.d/private_tmux.conf.tmpl",
       "private_dot_tmux.conf.tmpl",
       "private_dot_tmux.plugins.conf.tmpl",
       "private_dot_tmux.sessions.conf",
       "private_dot_tmux.status.conf",
       "private_executable_dot_tmux.sh"
-    ],
-    "Todo.txt": [
-      "private_dot_todo/actions/executable_p",
-      "private_dot_todo/actions/executable_w",
-      "private_dot_todo/executable_config"
     ],
     "Tools": [
       "dot_mosint.yaml.tmpl",
