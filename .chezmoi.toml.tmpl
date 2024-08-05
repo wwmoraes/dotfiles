@@ -1,6 +1,7 @@
 {{- $isPersonal := hasSuffix "Cabuk" .chezmoi.hostname -}}
 {{- $isWork := eq "NLLM4000559023" .chezmoi.hostname -}}
-{{- $ejson := joinPath .chezmoi.sourceDir ".ejson/secrets.json" }}
+{{- $ejson := joinPath .chezmoi.sourceDir ".ejson/secrets.json" -}}
+{{- $nixBuildBin := lookPath "nix-build" | default "/run/current-system/sw/bin/nix-build" -}}
 
 encryption = "gpg"
 
@@ -24,6 +25,9 @@ encryption = "gpg"
 [data.darwin]
 pinentryBundlePath = {{ output "mdfind" "kMDItemCFBundleIdentifier" "=" "org.gpgtools.pinentry-mac" | trimAll "\r\n" | quote }}
 {{- end }}
+
+[data.nix.roots]
+nixDirenv = {{ output $nixBuildBin "<nixpkgs>" "-A" "nix-direnv" "--no-out-link" | trimAll "\r\n" | quote }}
 
 [data.tags]
   personal = {{ $isPersonal }}
