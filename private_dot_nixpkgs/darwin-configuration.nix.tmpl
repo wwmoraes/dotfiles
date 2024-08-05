@@ -26,6 +26,14 @@ rec {
         auth sufficient pam_tid.so
       '';
     };
+    "sudoers.d/darwin-#{{ .chezmoi.username }}" = {
+      enable = true;
+      text = ''
+        #{{ .chezmoi.username }} ALL = NOPASSWD: /bin/rm -rf /Library/Developer/CommandLineTools
+        #{{ .chezmoi.username }} ALL = NOPASSWD: /usr/bin/xcode-select --install
+        #{{ .chezmoi.username }} ALL = NOPASSWD: /usr/sbin/DevToolsSecurity -enable
+      '';
+    };
   };
 
   # List packages installed in system profile. To search by name, run:
