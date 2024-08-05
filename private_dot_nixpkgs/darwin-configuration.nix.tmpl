@@ -33,6 +33,7 @@ rec {
   environment.systemPackages = with pkgs; [
     # tmuxPlugins.vim-tmux-focus-events # TODO configure in vim
     adrs
+    babelfish
     bat
     coreutils
     delta
@@ -285,6 +286,8 @@ rec {
   ];
 
   programs.fish.enable = true;
+  programs.fish.useBabelfish = true;
+  programs.fish.babelfishPackage = pkgs.babelfish;
 
   services.skhd.enable = true;
   services.nix-daemon.enable = true;
