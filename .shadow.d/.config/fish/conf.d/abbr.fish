@@ -1,31 +1,19 @@
 # only apply on interactive shells
 status --is-interactive; or exit
 
-# .f (dotfiles) => chezmoi
-if command -q chezmoi
-  abbr -a .f chezmoi
-  abbr -a .fa "chezmoi apply"
-  abbr -a .fc "chezmoi check"
-  abbr -a .fe "chezmoi env"
-  abbr -a .fi "chezmoi init"
-  abbr -a .fl "chezmoi lg"
-  abbr -a .fr "chezmoi run"
-  abbr -a .fs "chezmoi sync"
-end
+abbr -a .f chezmoi
+abbr -a .fa "chezmoi apply"
+abbr -a .fc "chezmoi check"
+abbr -a .fe "chezmoi env"
+abbr -a .fi "chezmoi init"
+abbr -a .fl "chezmoi lg"
+abbr -a .fr "chezmoi run"
+abbr -a .fs "chezmoi sync"
 
-# lg => lazygit
-command -q lazygit; and abbr -a lg lazygit
-
-if command -q todo.sh
-  abbr -a t "todo.sh"
-  abbr -a tp "todo.sh p"
-  abbr -a tpa "todo.sh p a"
-  abbr -a tpls "todo.sh p ls"
-end
+abbr -a lg lazygit
 
 if command -q git
   abbr -a g "git"
-  abbr -a gk "koji"
   abbr -a gc "git checkout"
   abbr -a ga "git add --all && git commit --amend --no-edit"
   abbr -a gp "git push"
@@ -34,15 +22,6 @@ if command -q git
   abbr -a gd "git d"
   abbr -a gr "git rebase --autosquash -i"
   abbr -a grr "git rebase --autosquash -i --root"
-end
-
-if command -q terraform
-  abbr -a tf "terraform"
-  abbr -a tfi "rm -rf .terraform && terraform init"
-  abbr -a tfp "terraform plan -out=plan.tfplan"
-  abbr -a tfa "terraform apply plan.tfplan"
-  abbr -a tfip "rm -rf .terraform && terraform init && terraform plan -out=plan.tfplan"
-  abbr -a tffu "terraform force-unlock -force"
 end
 
 if command -q kubectl
@@ -303,14 +282,4 @@ if command -q kubectl
 
   # flux
   # abbr -a kfxs "kubectl get fluxconfigs -A -o go-template --template '{{ range \$config := .items }}{{ with \$config }}{{ .metadata.name }}: {{ .status.lastSyncedCommit }}{{ \"\r\n\" }}{{ end }}{{ end }}' | column -t"
-end
-
-if command -q pre-commit
-  abbr -a pcr pre-commit run
-  abbr -a pcra -- pre-commit run --all-files
-end
-
-if command -q awscreds
-  abbr -a awsnp -- awscreds --account "$AWS_ACCOUNT_NON_PROD" --role "$AWS_ROLE_NON_PROD"
-  abbr -a awsp -- awscreds --account "$AWS_ACCOUNT_PROD" --role "$AWS_ROLE_PROD"
 end

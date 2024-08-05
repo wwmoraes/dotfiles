@@ -10,3 +10,5 @@ if command -q op
   command -q doctl; and alias doctl="op plugin run -- doctl"
   command -q pulumi; and alias pulumi="op plugin run -- pulumi"
 end
+
+alias chezmoi="direnv exec ~/.local/share/chezmoi chezmoi"
