@@ -3,7 +3,6 @@ pcall(require, "types.hammerspoon")
 hs.notify.withdrawAll()
 
 local logger = require("helpers.logger")
-local tags = require("data.tags")
 local apps = require("data.apps")
 
 hs.application.enableSpotlightForNameSearches(true)
@@ -109,9 +108,12 @@ spoon.SpoonInstall:andUse("Contexts", {
 
 -- ### plain init configuration
 
-for _, tag in ipairs(tags) do
-  local _, path = pcall(require, string.format("tags.%s", tag))
+local environment = os.getenv("ENVIRONMENT")
+if environment ~= "" then
+  local _, path = pcall(require, string.format("environment.%s", environment))
   logger.d(string.format("loaded %s", path))
+else
+  logger.w("no ENVIRONMENT set")
 end
 
 if not hs.ipc.cliStatus() then

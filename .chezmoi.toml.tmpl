@@ -90,16 +90,3 @@ command = "bash"
   # general script debug
   TRACE = "0"
   VERBOSE = "0"
-  # legacy package management
-  DOTFILES_PATH = {{ .chezmoi.sourceDir | quote }}
-  PACKAGES_PATH = {{ joinPath .chezmoi.sourceDir ".setup.d" "packages" | quote }}
-  ARCH = {{ .chezmoi.arch | quote }}
-  SYSTEM = {{ .chezmoi.os | quote }}
-  WORK = {{ $isWork | ternary 1 0 | quote }}
-  PERSONAL = {{ $isPersonal | ternary 1 0 | quote }}
-  HOST = {{ .chezmoi.hostname | quote }}
-  {{- if $isPersonal }}
-  TAGS = "personal"
-  {{- else if $isWork }}
-  TAGS = "work"
-  {{- end }}
