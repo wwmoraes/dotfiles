@@ -191,6 +191,11 @@ rec {
   homebrew.enable = true;
   homebrew.caskArgs = {
     appdir = "~/Applications";
+    no_quarantine = true;
+  };
+  homebrew.global = {
+    autoUpdate = false;
+    lockfiles = false;
   };
   homebrew.onActivation = {
     autoUpdate = true;
