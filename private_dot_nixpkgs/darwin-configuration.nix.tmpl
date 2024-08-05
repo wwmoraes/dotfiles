@@ -86,11 +86,11 @@ rec {
     # "#{{ .chezmoi.homeDir }}/.nix-profile/bin"
     # "/run/current-system/sw/bin"
     # "/nix/var/nix/profiles/default/bin"
-    "${config.homebrew.brewPrefix}/bin"
-    "${config.homebrew.brewPrefix}/sbin"
-    "${config.homebrew.brewPrefix}/opt/coreutils/libexec/gnubin"
-    "${config.homebrew.brewPrefix}/opt/openjdk/bin"
-    "#{{ .chezmoi.homeDir }}/Applications/kitty.app/Contents/MacOS"
+    # "${config.homebrew.brewPrefix}/bin"
+    # "${config.homebrew.brewPrefix}/sbin"
+    # "${config.homebrew.brewPrefix}/opt/coreutils/libexec/gnubin"
+    # "${config.homebrew.brewPrefix}/opt/openjdk/bin"
+    # "#{{ .chezmoi.homeDir }}/Applications/kitty.app/Contents/MacOS"
     "#{{ .chezmoi.homeDir }}/go/bin"
     "#{{ .chezmoi.homeDir }}/.cabal/bin"
     "#{{ .chezmoi.homeDir }}/.cargo/bin"
@@ -265,13 +265,13 @@ rec {
       };
     };
   };
-  launchd.user.envVariables = {
-    CURL_CA_BUNDLE = "${config.homebrew.brewPrefix}/etc/openssl@3/cert.pem";
-    NIX_SSL_CERT_FILE = "${config.homebrew.brewPrefix}/etc/openssl@3/cert.pem";
-    NIX_GIT_SSL_CAINFO = "${config.homebrew.brewPrefix}/etc/openssl@3/cert.pem";
-    NODE_EXTRA_CA_CERTS = "${config.homebrew.brewPrefix}/etc/openssl@3/cert.pem";
-    REQUESTS_CA_BUNDLE = "${config.homebrew.brewPrefix}/etc/openssl@3/cert.pem";
-    SSL_CERT_FILE = "${config.homebrew.brewPrefix}/etc/openssl@3/cert.pem";
+  launchd.user.envVariables = rec {
+    CURL_CA_BUNDLE = SSL_CERT_FILE;
+    NIX_SSL_CERT_FILE = SSL_CERT_FILE;
+    NIX_GIT_SSL_CAINFO = SSL_CERT_FILE;
+    NODE_EXTRA_CA_CERTS = SSL_CERT_FILE;
+    REQUESTS_CA_BUNDLE = SSL_CERT_FILE;
+    SSL_CERT_FILE = builtins.toString (/. + "${config.homebrew.brewPrefix}/../etc/openssl@3/cert.pem");
     LANG = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
     LC_COLLATE = "en_US.UTF-8";
