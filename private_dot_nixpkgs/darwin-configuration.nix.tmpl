@@ -50,6 +50,22 @@ rec {
     sessionist
     yank
   ]);
+
+  environment.systemPath = [
+    "#{{ .chezmoi.homeDir }}/.local/bin"
+    # "#{{ .chezmoi.homeDir }}/.nix-profile/bin"
+    # "/run/current-system/sw/bin"
+    # "/nix/var/nix/profiles/default/bin"
+    "${config.homebrew.brewPrefix}/bin"
+    "${config.homebrew.brewPrefix}/sbin"
+    "${config.homebrew.brewPrefix}/opt/coreutils/libexec/gnubin"
+    "${config.homebrew.brewPrefix}/opt/openjdk/bin"
+    "#{{ .chezmoi.homeDir }}/Applications/kitty.app/Contents/MacOS"
+    "#{{ .chezmoi.homeDir }}/go/bin"
+    "#{{ .chezmoi.homeDir }}/.cabal/bin"
+    "#{{ .chezmoi.homeDir }}/.cargo/bin"
+  ];
+
   # TODO configure fonts
   fonts.packages = with pkgs; [
     comfortaa
@@ -233,6 +249,13 @@ rec {
   };
 
   nix.configureBuildUsers = true;
+  nix.nixPath = [
+    { kaizen = "$HOME/dev/kaizen"; }
+    { darwin-config = "${config.environment.darwinConfig}"; }
+    { darwin = "$HOME/.nix-defexpr/channels/darwin"; }
+    { nixpkgs = "/nix/var/nix/profiles/per-user/root/channels/nixpkgs"; }
+    "/nix/var/nix/profiles/per-user/root/channels"
+  ];
   nix.nrBuildUsers = 32;
   nix.package = pkgs.nix;
   nix.settings.trusted-users = [

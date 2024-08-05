@@ -93,9 +93,7 @@
       "private_dot_config/exact_private_environment.d/private_global.conf.tmpl",
       "private_dot_config/exact_private_environment.d/private_work.conf.tmpl",
       "private_dot_config/exact_private_paths.d/00-local.conf.tmpl",
-      "private_dot_config/exact_private_paths.d/50-os.conf.tmpl",
-      "private_dot_config/exact_private_paths.d/90-krew.conf.tmpl",
-      "private_dot_config/exact_private_paths.d/91-gcloud.conf.tmpl"
+      "private_dot_config/exact_private_paths.d/50-os.conf.tmpl"
     ],
     "Finicky": [
       ".finicky.d.ts",
@@ -192,7 +190,6 @@
     ],
     "Haskell": [
       "private_dot_config/exact_private_paths.d/90-cabal.conf.tmpl",
-      "private_dot_config/exact_private_paths.d/90-ghcup.conf.tmpl",
       "private_dot_stack/config.yaml.tmpl"
     ],
     "Kitty": [
@@ -234,7 +231,6 @@
       "private_dot_local/bin/executable_paste"
     ],
     "Python": [
-      "private_dot_config/exact_private_paths.d/98-python.conf.tmpl",
       "private_dot_config/pip/pip.conf.tmpl"
     ],
     "Rust": [

@@ -27,24 +27,3 @@ command -v brew > /dev/null || {
     ln -sf "${HOMEBREW_REPOSITORY}/bin/brew" "${HOMEBREW_PREFIX}/bin/brew"
   fi
 }
-
-# remove the old link we had in place due to path issues
-test ! -L /usr/local/bin/fish || unlink /usr/local/bin/fish
-
-# skip if fish is found
-command -v fish > /dev/null && exit 0
-
-# force to work in arm64 mode on Apple Silicon
-if [ "${CHEZMOI_OS:-}" = "darwin" ] && [ "$(uname -m)" = "arm64" ]; then
-  # shellcheck disable=SC2139 # we want it to expand now, not later
-  alias brew="arch -arm64 ${HOMEBREW_PREFIX}/bin/brew"
-else
-  # shellcheck disable=SC2139 # we want it to expand now, not later
-  alias brew="${HOMEBREW_PREFIX}/bin/brew"
-fi
-
-# "load"
-eval "$(brew shellenv)"
-
-echo "installing fish"
-brew install --quiet fish
