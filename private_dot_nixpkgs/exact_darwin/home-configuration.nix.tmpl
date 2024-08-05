@@ -5,7 +5,19 @@ rec {
     # cilium-cli
     neovim
     talosctl
-  ];
+  ] ++ (with pkgs.vimPlugins; [
+    cmp-buffer
+    cmp-cmdline
+    cmp-nvim-lsp
+    cmp-path
+    cmp-treesitter
+    completion-treesitter
+    nvim-cmp
+    nvim-lspconfig
+    nvim-treesitter
+    go-nvim
+    vscode-nvim
+  ]);
 
   homebrew.taps = [
     "lemoony/tap" # snipkit
