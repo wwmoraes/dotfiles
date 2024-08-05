@@ -110,8 +110,3 @@ printf "\e[1;34mMiscellaneous\e[0m\n"
 
 ## purges 'Open With' duplicates + reloads environment variables
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
-
-if ! grep -qE '^auth[ ]+sufficient[ ]+pam_tid.so$' /etc/pam.d/sudo; then
-  echo "enabling Touch ID for sudo"
-  echo "auth       sufficient     pam_tid.so" | sudo tee -a /etc/pam.d/sudo
-fi
