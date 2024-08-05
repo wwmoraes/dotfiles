@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
 
-direnv exec ~/.local/share/chezmoi chezmoi apply ~/.config/environment.d/*
-direnv exec ~/.local/share/chezmoi chezmoi apply ~/.config/environment.rm.conf
+chezmoi apply ~/.config/environment.d/*
+chezmoi apply ~/.config/environment.rm.conf
 dotenv

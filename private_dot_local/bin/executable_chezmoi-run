@@ -51,7 +51,7 @@ export \
 
 # load scriptEnv and export the variables
 set -a
-eval "$(direnv exec ~/.local/share/chezmoi chezmoi cat-config \
+eval "$(chezmoi cat-config \
   | awk '/\[scriptEnv\]/{found=1} found' \
   | tail -n +2 \
   | awk '/^\[/{exit}; 1' \
@@ -64,7 +64,7 @@ SCRIPT="$(mktemp -t chezmoi-run.XXXXXX)"
 trap 'rm -f "${SCRIPT}"' EXIT INT TERM
 
 # expand and execute target script
-direnv exec ~/.local/share/chezmoi chezmoi cat "${HOME}/.chezmoiscripts/$1" > "${SCRIPT}"
+chezmoi cat "${HOME}/.chezmoiscripts/$1" > "${SCRIPT}"
 chmod +x "${SCRIPT}"
 
 "${SCRIPT}"

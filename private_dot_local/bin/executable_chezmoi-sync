@@ -3,5 +3,5 @@
 set -eum
 trap 'kill 0' INT HUP TERM
 
-direnv exec ~/.local/share/chezmoi chezmoi apply ~/.config/nix ~/.config/nixpkgs ~/.nixpkgs
+chezmoi apply ~/.config/nix ~/.config/nixpkgs ~/.nixpkgs
 darwin-rebuild switch
