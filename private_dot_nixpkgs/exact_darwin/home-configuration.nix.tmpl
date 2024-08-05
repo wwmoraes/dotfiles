@@ -92,7 +92,6 @@ rec {
   environment.variables = launchd.user.envVariables;
 
   launchd.user.envVariables = {
-    EMAIL = "#{{ .personal.email }}";
     ENVIRONMENT = "home";
     PROJECTS_DIR = "~/dev";
   };

@@ -33,7 +33,6 @@ rec {
   environment.variables = launchd.user.envVariables;
 
   launchd.user.envVariables = {
-    EMAIL = "#{{ .work.email }}";
     ENVIRONMENT = "work";
     PROJECTS_DIR = "~/workspace";
     PYTHONWARNINGS = "ignore";

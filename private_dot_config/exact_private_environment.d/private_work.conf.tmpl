@@ -1,5 +1,7 @@
 {{- if .tags.work }}
 
+EMAIL="{{ .work.email }}"
+
 WORK_INTRANET_HOSTNAME={{ .work.website | trimPrefix "https://" | splitList "/" | first }}
 AZURE_DEVOPS_EXT_PAT_ID={{ .work.azureDevOps.tokenID }}
 
