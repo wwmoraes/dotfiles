@@ -82,18 +82,31 @@ rec {
   ]);
 
   environment.systemPath = [
-    "#{{ .chezmoi.homeDir }}/.local/bin"
-    # "#{{ .chezmoi.homeDir }}/.nix-profile/bin"
+    "$HOME/.local/bin"
+    # "$HOME/Applications/kitty.app/Contents/MacOS"
+    "$HOME/go/bin"
+    # "$HOME/.cabal/bin"
+    # "$HOME/.cargo/bin"
+    # "$HOME/.nix-profile/bin"
     # "/run/current-system/sw/bin"
     # "/nix/var/nix/profiles/default/bin"
     # "${config.homebrew.brewPrefix}/bin"
     # "${config.homebrew.brewPrefix}/sbin"
     # "${config.homebrew.brewPrefix}/opt/coreutils/libexec/gnubin"
     # "${config.homebrew.brewPrefix}/opt/openjdk/bin"
-    # "#{{ .chezmoi.homeDir }}/Applications/kitty.app/Contents/MacOS"
-    "#{{ .chezmoi.homeDir }}/go/bin"
-    "#{{ .chezmoi.homeDir }}/.cabal/bin"
-    "#{{ .chezmoi.homeDir }}/.cargo/bin"
+    "/usr/local/sbin"
+    #{{- range $_, $line := (include "/etc/paths" | trimAll "\r\n" | splitList "\n") }}
+    #{{- if not (contains " " $line) }}
+    #{{- $line | quote | nindent 4 }}
+    #{{- end }}
+    #{{- end }}
+    #{{- range $_, $pathSource := glob "/etc/paths.d/*" }}
+    #{{- range $_, $line := (include $pathSource | trimAll "\r\n" | splitList "\n") }}
+    #{{- if not (contains " " $line) }}
+    #{{- $line | quote | nindent 4 }}
+    #{{- end }}
+    #{{- end }}
+    #{{- end }}
   ];
 
   # TODO configure fonts
