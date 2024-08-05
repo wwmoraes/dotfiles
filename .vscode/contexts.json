@@ -12,10 +12,6 @@
     "Chezmoi": [
       ".chezmoi.toml.tmpl",
       ".chezmoiexternals/coding-tools.toml.tmpl",
-      ".chezmoiexternals/fonts.comfortaa.toml",
-      ".chezmoiexternals/fonts.firacode.toml",
-      ".chezmoiexternals/fonts.montserrat.toml",
-      ".chezmoiexternals/fonts.toml",
       ".chezmoiexternals/personal-tools.toml.tmpl",
       ".chezmoiexternals/work-tools.toml.tmpl",
       ".chezmoiignore.tmpl",
@@ -26,7 +22,6 @@
       ".chezmoiscripts/run_onchange_after_00-brew.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_00-git-sparse.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_10-variables.fish.tmpl",
-      ".chezmoiscripts/run_onchange_after_80-fonts.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_80-launchagents.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_80-launchdaemons.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_90-authorizationdb.sh.tmpl",

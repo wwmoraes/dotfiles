@@ -16,14 +16,11 @@ rec {
     (fortune.override { withOffensive = true; })
     adrs
     bat
-    comfortaa # TODO configure fonts
     coreutils
     delta
     direnv
     dive
     envsubst
-    fira-code # TODO configure fonts
-    fira-code-symbols # TODO configure fonts
     fish
     fswatch
     fzf
@@ -36,16 +33,13 @@ rec {
     lefthook
     less
     man
-    montserrat # TODO configure fonts
     moreutils
     neo-cowsay
     nix-direnv
     pet
     powerline-go
-    powerline-symbols # TODO configure fonts
     skhd
     smug
-    source-code-pro # TODO configure fonts
     tlrc
     tmux
     vim
@@ -56,7 +50,27 @@ rec {
     sessionist
     yank
   ]);
+  # TODO configure fonts
+  fonts.packages = with pkgs; [
+    comfortaa
+    fira-code
+    fira-code-symbols
+    montserrat
+    powerline-fonts
+    powerline-symbols
+    source-code-pro
   ];
+
+  /** TODO update font caches
+    printf "Updating font cache...\n"
+    fc-cache -f
+
+    printf "refreshing font database...\n"
+    atsutil databases -removeUser
+
+    printf "reloading font daemon...\n"
+    killall fontd || true
+  */
 
   homebrew.taps = [
     "dsully/tap" # macos-defaults
