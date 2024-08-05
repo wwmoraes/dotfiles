@@ -1,4 +1,4 @@
-# William's Dotfiles 2.0
+# William's Dotfiles 3.0
 
 ## Table of Contents
 
@@ -12,18 +12,21 @@
 Dotfiles for all sorts of tools and configurations. Templates are minimal for
 sanity's sake.
 
-What will you find in this repository? As I moved to chezmoi, I do abuse some of
-its mechanisms such as:
+What will you find in this repository? On V2 I adopted to chezmoi, and on V3 I
+adopted nix. I use both still, but the latter took over some logic:
 
 - fetch external resources (`.chezmoiexternals`)
-  - **coding tools**: TPM (Tmux Package Manager), PlantUML jar
-  - **fonts**: Fira Code, Powerline symbols, Source Code Pro for Powerline
-  - **work tools**: `calicoctl` and `terraform` on specific versions
+  - ~~**coding tools**: TPM (Tmux Package Manager), PlantUML jar~~
+  - ~~**fonts**: Fira Code, Powerline symbols, Source Code Pro for Powerline~~
+  - ~~**work tools**: `calicoctl` and `terraform` on specific versions~~
 - scripting for last-mile setup (`.chezmoiscripts`)
 - ignored dot-folders
   - `.global.d`: system-wide configuration
-  - `.setup.d`: non-brew packages and utility functions
-  - `.shadow.d`: symlinked content. Fish shell, VSCode, Hammerspoon
+    - mostly gone; pending only a way to manage authorizationdb with nix
+  - ~~`.setup.d`: non-brew packages and utility functions~~
+    - fully gone! No more maintenance for those scripts 😄
+  - `.shadow.d`: symlinked content. Fish shell, ~~VSCode~~, Hammerspoon
+    - mostly the same; some will migrate to nix
 
 The rest are `private_*` files and folders that chezmoi will apply relative to
 the home directory, or repository-related content that's ignored like this
@@ -35,22 +38,33 @@ I work on Unix environments, more specifically MacOS. The setup files follow the
 numeric prefix to ensure their order + chezmoi keywords to trigger then at
 specific moments. Here's the (incomplete) workflow sequence.
 
+Pre-apply:
+
+- `00-bootstrap`: installs homebrew; runs only once
+
 During apply:
 
-- `00-developer`: MacOS-specific. Enables developer mode and group membership
+- `01-developer`: MacOS-specific. Enables developer mode and group membership
 - `80-less-termcap`: generates `~/.lesskey` with terminal-dependant key codes
-- `90-defaults`: MacOS-specific. Sets dozens of application and system settings
 - `90-pmset`: MacOS-specific. Power management settings
 
 Post-apply:
 
-- `00-brew`: Installs/updates Homebrew. Then runs the bundle and cleanup
-- `10-variables`: Loads universal env vars in Fish + sets up the PATH
-- `20-golang`/`20-node`/`21-rust`/etc: Manages packages from different languages
-- `80-fonts`: MacOS-specific. Links font files and refreshes the font database
-- `80-*-plugins`: Installs plugins for tools like `helm` and `krew`
-- `80-launchAgents`: MacOS-specific. Manages 3rd-party launch agents
-- `80-launchDaemons`: MacOS-specific. Installs launch daemons from `.global.d`
+Mostly gone. Now nix manages the packages, variables, fonts, tool plugins and
+daemons.
+
+- ~~`00-brew`: Installs/updates Homebrew. Then runs the bundle and cleanup~~
+- `01-nix`: installs nix
+- `02-nix-darwin`: installs nix-darwin and apply changes on configuration
+- ~~`10-variables`: Loads universal env vars in Fish + sets up the PATH~~
+- ~~`20-golang`/`20-node`/`21-rust`/etc: Manages packages from different languages~~
+- ~~`80-fonts`: MacOS-specific. Links font files and refreshes the font database~~
+- ~~`80-*-plugins`: Installs plugins for tools like `helm` and `krew`~~
+- ~~`80-launchAgents`: MacOS-specific. Manages 3rd-party launch agents~~
+- ~~`80-launchDaemons`: MacOS-specific. Installs launch daemons from `.global.d`~~
+- `90-authorizationdb`: MacOS-specific. Configures the Authorization DB
+- `90-defaults`: MacOS-specific. Sets dozens of application and system settings
+- `90-sudoers`: configures sudoers snippets
 
 Most scripts have the `onchange` prefix + a comment at the top to generate the
 checksum of the files they work it. This allows chezmoi to skip running it on
@@ -58,7 +72,7 @@ apply if there's no changes on their dependencies.
 
 ## Getting Started
 
-- Install 1Password 8 and sign-on
+- Install 1Password 8 and sign-in
 - Install 1Password v2 CLI
 - enable the CLI integration on 1Password
 
@@ -114,9 +128,10 @@ configured when you install chezmoi, use and abuse it!
 After the first successful apply, you'll have extra sub-commands available
 thanks to chezmoi's ["plugin" system][chezmoi-plugins]. Here's some of them:
 
-- `check`: applies `~/.Brewfile` then dry-runs `brew bundle` to report changes
+- ~~`check`: applies `~/.Brewfile` then dry-runs `brew bundle` to report changes~~
 - `env`: applies `~/.config/environment.d` then loads the env vars in Fish
 - `lg`: runs `lazygit` on the chezmoi source directory
+- `run`: executes an individual chezmoi script directly
 - `sync`: applies `~/.Brewfile` then runs the `00-brew` script to apply changes
 
 [chezmoi-command-overview]: https://www.chezmoi.io/user-guide/command-overview/
