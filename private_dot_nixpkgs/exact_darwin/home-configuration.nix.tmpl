@@ -93,7 +93,7 @@ rec {
 
   launchd.user.envVariables = {
     ENVIRONMENT = "home";
-    PROJECTS_DIR = "~/dev";
+    PROJECTS_DIR = "$HOME/dev";
   };
 
   services.skhd.enable = true;
