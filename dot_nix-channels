@@ -1,0 +1,3 @@
+https://github.com/LnL7/nix-darwin/archive/master.tar.gz darwin
+https://github.com/NixOS/nixpkgs/archive/refs/tags/24.05.tar.gz nixpkgs
+https://github.com/NixOS/nixpkgs/archive/a14c5d651cee9ed70f9cd9e83f323f1e531002db.tar.gz unstable
