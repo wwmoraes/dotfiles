@@ -1,6 +1,7 @@
-{{- $littleSnitch := "/Applications/Little Snitch.app/Contents/Components/littlesnitch" -}}
 {{- if eq .chezmoi.os "darwin" -}}
-{{- if eq (lstat $littleSnitch).type "file" -}}
-{{ $littleSnitch }}
-{{- end -}}
+  {{- $littleSnitch := "/Applications/Little Snitch.app/Contents/Components/littlesnitch" -}}
+  {{- $littleSnitchInfo := lstat $littleSnitch -}}
+  {{- if and $littleSnitchInfo (eq $littleSnitchInfo.type "file") -}}
+    {{ $littleSnitch }}
+  {{- end -}}
 {{- end -}}
