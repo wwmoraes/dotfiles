@@ -95,10 +95,10 @@ rec {
     # "$HOME/.nix-profile/bin"
     # "/run/current-system/sw/bin"
     # "/nix/var/nix/profiles/default/bin"
-    # "${config.homebrew.brewPrefix}/bin"
-    # "${config.homebrew.brewPrefix}/sbin"
-    # "${config.homebrew.brewPrefix}/opt/coreutils/libexec/gnubin"
-    # "${config.homebrew.brewPrefix}/opt/openjdk/bin"
+    config.homebrew.brewPrefix
+    (builtins.toString (/. + "${config.homebrew.brewPrefix}/../sbin"))
+    (builtins.toString (/. + "${config.homebrew.brewPrefix}/../opt/coreutils/libexec/gnubin"))
+    (builtins.toString (/. + "${config.homebrew.brewPrefix}/../opt/openjdk/bin"))
     "/usr/local/sbin"
     #{{- range $_, $line := (include "/etc/paths" | trimAll "\r\n" | splitList "\n") }}
     #{{- if not (contains " " $line) }}
