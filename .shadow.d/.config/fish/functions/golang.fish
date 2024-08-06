@@ -48,5 +48,3 @@ function golang -a cmd -d "go wrapper with commands that Google forgot" -w go
     go $argv
   end
 end
-
-complete -xc golang -n __fish_use_subcommand -a unget -d "removes dependencies and its build artifacts"

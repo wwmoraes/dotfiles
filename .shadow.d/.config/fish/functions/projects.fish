@@ -1,25 +1,6 @@
 set -q PROJECTS_DIR; or set -xg PROJECTS_DIR $HOME/dev
 set -q PROJECTS_ORIGIN; or set -xg PROJECTS_ORIGIN "git@github.com:wwmoraes/%s.git"
 
-function __projects_fish_complete_directories -d "Complete directory prefixes" --argument-names comp desc
-  if not set -q desc[1]
-    set desc Directory
-  end
-
-  if not set -q comp[1]
-    set comp (commandline -ct)
-  end
-
-  # HACK: We call into the file completions by using a non-existent command.
-  # If we used e.g. `ls`, we'd run the risk of completing its options or another kind of argument.
-  # But since we default to file completions, if something doesn't have another completion...
-  set -l dirs (complete -C"nonexistentcommandooheehoohaahaahdingdongwallawallabingbang $comp" | string match -r '.*/$' | xargs -I% expr "%" : "$comp\(.*\)")
-
-  if set -q dirs[1]
-    printf "%s\t$desc\n" $dirs
-  end
-end
-
 # projects main command
 function projects -a cmd -d "projects repository management"
   set -e argv[1]
@@ -75,8 +56,6 @@ function _projects_new
   curl -fsSL https://gist.github.com/wwmoraes/75dc66767a9f487c8235c5423027f69c/raw/setup.sh | sh -s -- "$projectDir"
   printf "%-"(tput cols)"s\n" "[$printProjectName] created on $printProjectDir"
 end
-complete -xc projects -n __fish_use_subcommand -a new -d "creates a project directory and initialize git on it"
-complete -xc projects -n '__fish_seen_subcommand_from new' -a ""
 
 # code subcommand
 function _projects_code
@@ -98,8 +77,6 @@ function _projects_code
       end
   end
 end
-complete -xc projects -n __fish_use_subcommand -a code -d "open project on VSCode"
-complete -xc projects -n '__fish_seen_subcommand_from code' -a "(__projects_fish_complete_directories $PROJECTS_DIR/)"
 
 # lg subcommand
 function _projects_lg
@@ -119,8 +96,6 @@ function _projects_lg
   end
   lazygit -p $PROJECTS_DIR/$argv[1]
 end
-complete -xc projects -n __fish_use_subcommand -a lg -d "open lazygit for a project"
-complete -xc projects -n '__fish_seen_subcommand_from lg' -a "(__projects_fish_complete_directories $PROJECTS_DIR/)"
 
 # cd subcommand
 function _projects_cd
@@ -143,8 +118,6 @@ function _projects_cd
       return 1
   end
 end
-complete -xc projects -n __fish_use_subcommand -a cd -d "go to the projects or a specific project directory"
-complete -xc projects -n '__fish_seen_subcommand_from cd' -a "(__projects_fish_complete_directories $PROJECTS_DIR/)"
 
 function _projects_ls
   test -d $PROJECTS_DIR; or begin
@@ -155,7 +128,6 @@ function _projects_ls
   ls -1 $PROJECTS_DIR
   find $PROJECTS_DIR -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort
 end
-complete -xc projects -n __fish_use_subcommand -a ls -d "list projects"
 
 function _projects_update
   set -l project $argv[1]
@@ -174,4 +146,3 @@ function _projects_update
   test -n "$description"; and echo "$description" > "$projectDir/.git/description"
   curl -fsSL https://gist.github.com/wwmoraes/75dc66767a9f487c8235c5423027f69c/raw/setup.sh | sh -s -- "$projectDir"
 end
-complete -xc projects -n __fish_use_subcommand -a update -d "update project files"
