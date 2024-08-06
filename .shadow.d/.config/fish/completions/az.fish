@@ -1,7 +1,5 @@
 command -q az; or exit
 
-complete -ec az
-
 function __fish_az_complete
   set -x _ARGCOMPLETE 1
   set -x _ARGCOMPLETE_DFS \t

@@ -1,7 +1,5 @@
 command -q git; or exit
 
-complete -ec git
-
 ### Vanilla git commands
 ## Git high-level commands
 # Git main porcelain commands

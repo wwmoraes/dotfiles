@@ -1,7 +1,5 @@
 command -q aws; or exit
 
-complete -ec aws
-
 function __fish_complete_aws
   command -q aws_completer; or return
 

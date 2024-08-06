@@ -1,7 +1,5 @@
 command -q kustomize; or exit
 
-complete -ec kustomize
-
 complete -xc kustomize -s h -l help -d "help for kustomize"
 complete -xc kustomize -l kubeconfig -a "(__fish_complete_path ~/.kube/config Kubeconfig)" -d "Paths to a kubeconfig. Only required if out-of-cluster."
 

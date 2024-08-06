@@ -1,7 +1,5 @@
 command -q macos-defaults; or exit
 
-complete -ec macos-defaults
-
 complete -c macos-defaults -n "__fish_use_subcommand" -s d -l dry-run -d 'Don\'t actually run anything'
 complete -c macos-defaults -n "__fish_use_subcommand" -s v -l verbose -d 'More output per occurrence'
 complete -c macos-defaults -n "__fish_use_subcommand" -s q -l quiet -d 'Less output per occurrence'

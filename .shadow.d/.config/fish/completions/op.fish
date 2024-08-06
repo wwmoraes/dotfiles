@@ -6,7 +6,6 @@ end
 
 set -l categories "'Login' 'Bank Account' 'Membership' 'Server' 'Secure Note' 'Database' 'Outdoor License' 'Social Security Number' 'Credit Card' 'Driver License' 'Passport' 'Software License' 'Identity' 'Email Account' 'Reward Program' 'Wireless Router'"
 
-complete -ec op
 # root flags
 complete -fc op -n '__fish_no_arguments' -s v -l version -d "version for op"
 # global flags
