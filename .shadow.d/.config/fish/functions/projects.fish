@@ -46,7 +46,6 @@ function projects -a cmd -d "projects repository management"
       echo "Unknown option $cmd"
   end
 end
-complete -ec projects
 
 # create subcommand
 function _projects_new
