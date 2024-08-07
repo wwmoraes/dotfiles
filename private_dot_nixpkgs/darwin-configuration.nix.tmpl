@@ -44,7 +44,6 @@ rec {
     bat
     coreutils
     delta
-    direnv
     dive
     docker
     docker-credential-helpers
@@ -64,7 +63,6 @@ rec {
     man
     moreutils
     neo-cowsay
-    nix-direnv
     nixd
     pam-reattach
     pet
@@ -317,6 +315,11 @@ rec {
   programs.fish.enable = true;
   programs.fish.useBabelfish = true;
   programs.fish.babelfishPackage = pkgs.babelfish;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    silent = true;
+  };
 
   programs.tmux = {
     defaultCommand = "${pkgs.fish}/bin/fish -l";
