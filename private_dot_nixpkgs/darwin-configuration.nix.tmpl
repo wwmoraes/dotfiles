@@ -40,7 +40,6 @@ rec {
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     # tmuxPlugins.vim-tmux-focus-events # TODO configure in vim
-    babelfish
     bat
     coreutils
     delta
@@ -48,7 +47,6 @@ rec {
     docker
     docker-credential-helpers
     envsubst
-    fish
     fortune
     fswatch
     fzf
@@ -312,13 +310,21 @@ rec {
     "root"
   ];
 
-  programs.fish.enable = true;
-  programs.fish.useBabelfish = true;
-  programs.fish.babelfishPackage = pkgs.babelfish;
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
     silent = true;
+  };
+
+  programs.fish = {
+    babelfishPackage = pkgs.babelfish;
+    enable = true;
+    useBabelfish = true;
+    vendor = {
+      completions.enable = true;
+      config.enable = true;
+      functions.enable = true;
+    };
   };
 
   programs.tmux = {
