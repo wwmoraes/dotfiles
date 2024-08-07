@@ -1,4 +1,0 @@
-{{- range $pluginName, $packageRoot := .nix.roots.tmuxPlugins }}
-{{- $pluginPath := joinPath $packageRoot "share" "tmux-plugins" $pluginName (printf "%s.tmux" $pluginName) }}
-run-shell '{{ $pluginPath }}'
-{{- end }}

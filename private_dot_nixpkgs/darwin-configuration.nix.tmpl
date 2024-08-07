@@ -71,7 +71,6 @@ rec {
     powerline-go
     smug
     tlrc
-    tmux
     vim
   ] ++ (with pkgs.fishPlugins; [
     # fzf
@@ -318,6 +317,91 @@ rec {
   programs.fish.enable = true;
   programs.fish.useBabelfish = true;
   programs.fish.babelfishPackage = pkgs.babelfish;
+
+  programs.tmux = {
+    defaultCommand = "${pkgs.fish}/bin/fish -l";
+    enable = true;
+    enableFzf = true;
+    enableMouse = true;
+    # TODO move to external file
+    extraConfig = ''
+      set -as terminal-features 'xterm*:extkeys'
+      set -g @shell_mode 'vi'
+      set -g @yank_action 'copy-pipe'
+      set -g @yank_selection 'clipboard'
+      set -g @yank_selection_mouse 'clipboard'
+      set -g allow-rename on
+      set -g alternate-screen on
+      set -g base-index 1
+      set -g bell-action none
+      set -g default-shell ${pkgs.fish}/bin/fish
+      set -g default-terminal "screen-256color"
+      set -g display-time 3000
+      set -g exit-empty off
+      set -g exit-unattached off
+      set -g focus-events on
+      set -g history-limit 50000
+      set -g renumber-windows on
+      set -g set-clipboard on
+      set -g set-titles on
+      set -g status-interval 5
+      set -g status-keys vi
+      set -g visual-activity on
+      set -g visual-bell on
+      set -g visual-silence on
+      set -s escape-time 0
+      set -s extended-keys on
+      setw -g aggressive-resize on
+      setw -g automatic-rename on
+      setw -g clock-mode-style 24
+      setw -g mode-keys vi
+      setw -g monitor-activity on
+      setw -g monitor-bell on
+      setw -g monitor-silence 60
+      setw -g pane-base-index 1
+      setw -g xterm-keys on
+
+      bind '"' split-window -h -c '#{pane_current_path}'
+      bind %   split-window -v -c '#{pane_current_path}'
+      bind C   new-session
+      bind c   new-window -c '#{pane_current_path}'
+      bind h   select-pane -L
+      bind j   select-pane -D
+      bind k   select-pane -U
+      bind l   select-pane -R
+      bind s   split-window -v -c '#{pane_current_path}'
+      bind S   switch-client -l
+      bind v   split-window -h -c '#{pane_current_path}'
+      bind r   source-file /etc/tmux.conf \; display "configuration reloaded"
+      bind C-y set synchronize-panes \; display "Sync #{?synchronize-panes,ON,OFF}"
+      bind C-l clear-history \; display "history cleared"
+
+      bind -n C-M-h swap-window -t -1\; select-window -t -1
+      bind -n C-M-l swap-window -t +1\; select-window -t +1
+      bind -n M-h   select-pane -L
+      bind -n M-j   select-pane -D
+      bind -n M-k   select-pane -U
+      bind -n M-l   select-pane -R
+
+      bind-key -T copy-mode    MouseDragEnd1Pane send-keys -X copy-pipe pbcopy
+      bind-key -T copy-mode-vi !                 send-keys -X copy-pipe "tr -d '\n' | pbcopy"
+      bind-key -T copy-mode-vi C-j               send-keys -X copy-pipe
+      bind-key -T copy-mode-vi M-y               send-keys -X copy-pipe-and-cancel "pbcopy; tmux paste-buffer"
+      bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe pbcopy
+      bind-key -T copy-mode-vi p                 send-keys -X copy-pipe "tmux paste-buffer"
+      bind-key -T copy-mode-vi v                 send-keys -X begin-selection
+      bind-key -T copy-mode-vi Y                 send-keys -X copy-pipe "tmux paste-buffer"
+      bind-key -T copy-mode-vi y                 send-keys -X copy-pipe pbcopy
+
+      run-shell '${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux'
+      run-shell '${pkgs.tmuxPlugins.copycat}/share/tmux-plugins/copycat/copycat.tmux'
+      run-shell '${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux'
+      run-shell '${pkgs.tmuxPlugins.sessionist}/share/tmux-plugins/sessionist/sessionist.tmux'
+      run-shell '${pkgs.tmuxPlugins.yank}/share/tmux-plugins/yank/yank.tmux'
+
+      source-file -q ~/.tmux.conf
+    '';
+  };
 
   security.pki.certificateFiles = [
     "#{{ .brew.prefix }}/etc/openssl@3/cert.pem"

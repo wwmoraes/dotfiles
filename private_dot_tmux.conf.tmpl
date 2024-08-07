@@ -1,150 +1,16 @@
-# tmux messages are displayed for 3 seconds
-set -g display-time 3000
-
-# refresh 'status-left' and 'status-right' more often
-set -g status-interval 5
-
-# don't exit the server with no active sessions
-set -g exit-empty off
-
-# don't exit the server with no attached clients
-set -g exit-unattached off
-
-# pass through events to applications
-set -g focus-events on
-
-# accepts escape sequence and sets terminal clipboard
-set -g set-clipboard on
-
-# super useful when using "grouped sessions" and multi-monitor setup
-setw -g aggressive-resize on
-
-
-### Server options
-# Set terminal color
-set -g default-terminal screen-256color
-
-# make delay shorter
-set -sg escape-time 0
-
-
-### Session options
-# Set windows to be 1-indexed
-set -g base-index 1
-
-# Set action on a bell in a window when monitor-bell is on
-set -g bell-action none
-
-# Set default shell
-set -g default-shell {{ lookPath "fish" }}
-
-# Raises history limit
-set -g history-limit 50000
-
-# Enable mouse mode
-set -g mouse on
-
-# Attempt to set the client terminal title using the tsl and fsl terminfo(5) entries if they exist
-set -g set-titles on
-
-# Renumber windows when one is closed
-set -g renumber-windows on
-
-# Use vi or emacs-style key bindings in the status line, for example at the command prompt
-set -g status-keys vi
-
-# display a message instead of sending a bell when activity occurs
-set -g visual-activity on
-
-# display a message on a bell in a window
-set -g visual-bell on
-
-# prints a message after the interval has expired on a given window instead of sending a bell
-set -g visual-silence on
-
-
-### Window options
-# Control automatic window renaming
-setw -g automatic-rename on
-
-# Set clock hour format
-setw -g clock-mode-style 24
-
-# Use vi key bindings in copy mode
-setw -g mode-keys vi
-
-# Monitor for activity in the window
-setw -g monitor-activity on
-
-# Monitor for a bell in the window
-setw -g monitor-bell on
-
-# Monitor for silence (no activity) in the window
-setw -g monitor-silence 60
-
-# Like base-index, but set the starting index for pane numbers
-setw -g pane-base-index 1
-
-# generate xterm-style function key sequences;
-#  these have a number included to indicate modifiers such as Shift, Alt or Ctrl
-setw -g xterm-keys on
-
-
-### Pane options
-# Allow programs in the pane to change the window name using a terminal escape sequence
-set -g allow-rename on
-
-# programs running inside the pane may use the terminal alternate screen feature
-set -g alternate-screen on
-
-
-### Bindings
-# reload config file
-bind r source-file ~/.tmux.conf \; display "configuration reloaded"
-
-# synchronize all panes in a window
-bind C-y set synchronize-panes \; display "Sync #{?synchronize-panes,ON,OFF}"
-
-# Bind new and split window commands so the pane starts in the current pane directory
-bind -T prefix c new-window -c "#{pane_current_path}"
-bind -T prefix '"' split-window -c "#{pane_current_path}"
-bind -T prefix % split-window -h -c "#{pane_current_path}"
-
-# Clear the history
-bind -n C-M-k clear-history \; display "history cleared"
-
-# Move window left/right with Ctrl-Meta-Arrow/Ctrl-Meta-[hl]
-bind -n C-M-h swap-window -t -1\; select-window -t -1
 bind -n C-M-Left swap-window -t -1\; select-window -t -1
-bind -n C-M-l swap-window -t +1\; select-window -t +1
 bind -n C-M-Right swap-window -t +1\; select-window -t +1
-
-# switch panes using Alt-arrow/Alt-[hjkl] without prefix
-bind -n M-h select-pane -L
 bind -n M-Left select-pane -L
-bind -n M-l select-pane -R
 bind -n M-Right select-pane -R
-bind -n M-k select-pane -U
 bind -n M-Up select-pane -U
-bind -n M-j select-pane -D
 bind -n M-Down select-pane -D
+
+## fuck prefix2, we ball :D
+bind -n ` switch-client -Tprefix
+bind-key -T prefix ` send-prefix
+bind -n § switch-client -Tprefix
+bind-key -T prefix § send-prefix
 
 # Load split configuration files before the plugins kick in, as they modify
 # settings to inject functionality
 source-file ~/.tmux.status.conf
-
-# boot script, originally used to start powerline
-run-shell '~/.tmux.sh'
-
-### Miscellaneous
-source-file ~/.tmux.plugins.conf
-
-# tmux-yank
-set -g @yank_selection 'clipboard'
-set -g @yank_selection_mouse 'clipboard' # use clipboard insted of primary
-set -g @yank_action 'copy-pipe' # copy without cancelling selection
-set -g @shell_mode 'vi' # needed for tmux 2.3-
-
-# forcefully unbind common patterns used externally
-unbind -n C-k
-unbind -n C-l
