@@ -24,7 +24,9 @@ in mkShell {
     git
     go-task
     gron
+    lefthook
     markdownlint-cli
+    nixd
     shellcheck
     yamllint
   ] ++ (with unstable; [
