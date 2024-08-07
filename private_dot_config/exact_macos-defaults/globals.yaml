@@ -3,18 +3,6 @@ data:
 
   NSGlobalDomain:
 
-    ## Disable light / dark mode automatic switching
-    AppleInterfaceStyleSwitchesAutomatically: false
-
-    ## Dark mode yes please
-    AppleInterfaceStyle: Dark
-
-    ## only show scrollbar when scrolling
-    AppleShowScrollBars: WhenScrolling
-
-    ## always prefer tabs when opening documents
-    AppleWindowTabbingMode: always
-
     ## Disable animations when opening and closing windows
     NSAutomaticWindowAnimationsEnabled: false
 
@@ -28,7 +16,6 @@ data:
     AppleShowAllExtensions: false
 
     ## Set language and text formats
-    AppleLanguages: [en-NL, en-GB. pt-BR]
     AppleLocale: en_GB@currency=EUR
     AppleMeasurementUnits: Centimeters
     AppleMetricUnits: true

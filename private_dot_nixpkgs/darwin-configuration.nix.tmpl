@@ -424,6 +424,65 @@ rec {
 
   services.nix-daemon.enable = true;
 
+  system.defaults = {
+    ActivityMonitor = {
+      IconType = 5;
+      OpenMainWindow = true;
+      ShowCategory = 100;
+      SortColumn = "CPUUsage";
+      SortDirection = 0;
+    };
+    NSGlobalDomain = {
+      AppleInterfaceStyle = "Dark";
+      AppleInterfaceStyleSwitchesAutomatically = false;
+      AppleShowScrollBars = "WhenScrolling";
+      AppleWindowTabbingMode = "always";
+    };
+    SoftwareUpdate = {
+      AutomaticallyInstallMacOSUpdates = true;
+    };
+    CustomSystemPreferences = {};
+    CustomUserPreferences = {
+      "com.apple.appstore" = {
+        ## Enable Debug Menu in the Mac App Store
+        ShowDebugMenu = true;
+        ## Enable the WebKit Developer Tools in the Mac App Store
+        WebKitDeveloperExtras = true;
+      };
+      "com.apple.Accessibility" = {
+        EnhancedBackgroundContrastEnabled = 1;
+      };
+      "com.apple.commerce" = {
+        ## Turn on app auto-update
+        AutoUpdate = true;
+        ## Disable the App Store to reboot machine on macOS updates
+        AutoUpdateRestartRequired = false;
+      };
+      "com.apple.SoftwareUpdate" = {
+        ## Enable the automatic update check
+        AutomaticCheckEnabled = true;
+        ## Download newly available updates in background
+        AutomaticDownload = 1;
+        ## Don't download apps purchased on other Macs
+        ConfigDataInstall = 0;
+        ## Install System data files & security updates
+        CriticalUpdateInstall = 1;
+        ## Check for software updates daily, not just once per week
+        ScheduleFrequency = 1;
+      };
+      # "com.apple.universalaccess" = {
+      #   reduceTransparency = 1;
+      # };
+      NSGlobalDomain = {
+        AppleLanguages = [
+          "en-NL"
+          "en-GB"
+          "pt-BR"
+        ];
+      };
+    };
+  };
+
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
