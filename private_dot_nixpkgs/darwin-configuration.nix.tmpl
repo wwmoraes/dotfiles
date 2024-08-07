@@ -191,21 +191,23 @@ rec {
   };
 
   environment.variables = launchd.user.envVariables // {
+    CGO_ENABLED = "0";
     EDITOR = "vim";
     FZF_COMPLETE = "1";
     FZF_DEFAULT_OPTS = "--height=50% --layout=reverse";
     FZF_LEGACY_KEYBINDINGS = "0";
     FZF_REVERSE_ISEARCH_OPTS = ''--preview-window=up:10 --preview=\"bat {}\" --height=50%'';
+    GOPATH = "$HOME/.go";
     LESS = "-isRMFX +Gg --tilde";
     LSCOLORS = "exfxcxdxbxegedabagacad";
     MANPAGER = "less";
-    VISUAL = "code";
     NIX_REMOTE = "daemon";
-    PAGER = "less";
-    SUDO_EDITOR = "vim";
     NIX_USER_PROFILE_DIR = "/nix/var/nix/profiles/per-user/$USER";
+    PAGER = "less";
     PROJECTS_ORIGIN = "git@github.com:wwmoraes/%s.git";
     SSH_AUTH_SOCK = "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+    SUDO_EDITOR = "vim";
+    VISUAL = "code";
   };
 
   homebrew.enable = true;
@@ -293,7 +295,7 @@ rec {
     LC_MONETARY = "en_US.UTF-8";
     LC_NUMERIC = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
-    EDITOR = "";
+    NIX_PATH = config.nix.nixPath;
   };
 
   nix.configureBuildUsers = true;
