@@ -10,35 +10,7 @@ rec {
     #{{- end }}
   ];
 
-  nixpkgs.overlays = [
-    (self: super: {
-      fortune = super.fortune.override {
-        withOffensive = true;
-      };
-    })
-  ];
-
-  environment.etc = {
-    "pam.d/sudo_local" = {
-      # sudo_local: local config file which survives system update and is included for sudo
-      enable = true;
-      text = ''
-        auth optional   ${pkgs.pam-reattach}/lib/pam/pam_reattach.so
-        auth sufficient pam_tid.so
-      '';
-    };
-    "sudoers.d/darwin-#{{ .chezmoi.username }}" = {
-      enable = true;
-      text = ''
-        #{{ .chezmoi.username }} ALL = NOPASSWD: /bin/rm -rf /Library/Developer/CommandLineTools
-        #{{ .chezmoi.username }} ALL = NOPASSWD: /usr/bin/xcode-select --install
-        #{{ .chezmoi.username }} ALL = NOPASSWD: /usr/sbin/DevToolsSecurity -enable
-      '';
-    };
-  };
-
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
+  #region packages
   environment.systemPackages = (with pkgs; [
     # tmuxPlugins.vim-tmux-focus-events # TODO configure in vim
     bat
@@ -79,38 +51,6 @@ rec {
     yank
   ]);
 
-  environment.systemPath = [
-    "$HOME/.local/bin"
-    # "$HOME/Applications/kitty.app/Contents/MacOS"
-    "$HOME/go/bin"
-    # "$HOME/.cabal/bin"
-    # "$HOME/.cargo/bin"
-    # "$HOME/.nix-profile/bin"
-    # "/run/current-system/sw/bin"
-    # "/nix/var/nix/profiles/default/bin"
-    config.homebrew.brewPrefix
-    (builtins.toString (/. + "${config.homebrew.brewPrefix}/../sbin"))
-    (builtins.toString (/. + "${config.homebrew.brewPrefix}/../opt/coreutils/libexec/gnubin"))
-    (builtins.toString (/. + "${config.homebrew.brewPrefix}/../opt/openjdk/bin"))
-    "/usr/local/sbin"
-    #{{- range $_, $line := (include "/etc/paths" | trimAll "\r\n" | splitList "\n") }}
-    #{{- if not (contains " " $line) }}
-    #{{- $line | quote | nindent 4 }}
-    #{{- end }}
-    #{{- end }}
-    #{{- range $_, $pathSource := glob "/etc/paths.d/*" }}
-    #{{- range $_, $line := (include $pathSource | trimAll "\r\n" | splitList "\n") }}
-    #{{- if not (contains " " $line) }}
-    #{{- $line | quote | nindent 4 }}
-    #{{- end }}
-    #{{- end }}
-    #{{- end }}
-  ];
-
-  environment.manPath = [
-    "$HOME/.nix-profile/share/man"
-  ];
-
   # TODO configure fonts
   fonts.packages = with pkgs; [
     comfortaa
@@ -120,25 +60,6 @@ rec {
     powerline-fonts
     powerline-symbols
     source-code-pro
-  ];
-
-  /** TODO update font caches
-    printf "Updating font cache...\n"
-    fc-cache -f
-
-    printf "refreshing font database...\n"
-    atsutil databases -removeUser
-
-    printf "reloading font daemon...\n"
-    killall fontd || true
-  */
-
-  homebrew.taps = [
-    "dsully/tap" # macos-defaults
-    "homebrew/bundle"
-    "homebrew/services"
-    "raggi/ale" # openssl-osx-ca
-    "wwmoraes/tap"
   ];
 
   homebrew.brews = [
@@ -190,6 +111,57 @@ rec {
     "Userscripts-Mac-App" = 1463298887;
   };
 
+  homebrew.taps = [
+    "dsully/tap" # macos-defaults
+    "homebrew/bundle"
+    "homebrew/services"
+    "raggi/ale" # openssl-osx-ca
+    "wwmoraes/tap"
+  ];
+
+  nixpkgs.overlays = [
+    (self: super: {
+      fortune = super.fortune.override {
+        withOffensive = true;
+      };
+    })
+  ];
+  #endregion
+
+  #region environment variables
+
+  environment.manPath = [
+    "$HOME/.nix-profile/share/man"
+  ];
+
+  environment.systemPath = [
+    "$HOME/.local/bin"
+    # "$HOME/Applications/kitty.app/Contents/MacOS"
+    "$HOME/go/bin"
+    # "$HOME/.cabal/bin"
+    # "$HOME/.cargo/bin"
+    # "$HOME/.nix-profile/bin"
+    # "/run/current-system/sw/bin"
+    # "/nix/var/nix/profiles/default/bin"
+    config.homebrew.brewPrefix
+    (builtins.toString (/. + "${config.homebrew.brewPrefix}/../sbin"))
+    (builtins.toString (/. + "${config.homebrew.brewPrefix}/../opt/coreutils/libexec/gnubin"))
+    (builtins.toString (/. + "${config.homebrew.brewPrefix}/../opt/openjdk/bin"))
+    "/usr/local/sbin"
+    #{{- range $_, $line := (include "/etc/paths" | trimAll "\r\n" | splitList "\n") }}
+    #{{- if not (contains " " $line) }}
+    #{{- $line | quote | nindent 4 }}
+    #{{- end }}
+    #{{- end }}
+    #{{- range $_, $pathSource := glob "/etc/paths.d/*" }}
+    #{{- range $_, $line := (include $pathSource | trimAll "\r\n" | splitList "\n") }}
+    #{{- if not (contains " " $line) }}
+    #{{- $line | quote | nindent 4 }}
+    #{{- end }}
+    #{{- end }}
+    #{{- end }}
+  ];
+
   environment.variables = launchd.user.envVariables // {
     CGO_ENABLED = "0";
     EDITOR = "vim";
@@ -210,19 +182,53 @@ rec {
     VISUAL = "code";
   };
 
-  homebrew.enable = true;
-  homebrew.caskArgs = {
-    appdir = "~/Applications";
-    no_quarantine = true;
+  launchd.user.envVariables = rec {
+    CURL_CA_BUNDLE = SSL_CERT_FILE;
+    NIX_SSL_CERT_FILE = SSL_CERT_FILE;
+    NIX_GIT_SSL_CAINFO = SSL_CERT_FILE;
+    NODE_EXTRA_CA_CERTS = SSL_CERT_FILE;
+    REQUESTS_CA_BUNDLE = SSL_CERT_FILE;
+    SSL_CERT_FILE = builtins.toString (/. + "${config.homebrew.brewPrefix}/../etc/openssl@3/cert.pem");
+    LANG = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
+    LC_COLLATE = "en_US.UTF-8";
+    LC_CTYPE = "en_US.UTF-8";
+    LC_MESSAGES = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
+    NIX_PATH = config.nix.nixPath;
   };
-  homebrew.global = {
-    autoUpdate = false;
-    lockfiles = false;
-  };
-  homebrew.onActivation = {
-    autoUpdate = true;
-    upgrade = true;
-    cleanup = "uninstall"; # "uninstall", "zap"
+
+  nix.nixPath = [
+    { kaizen = "$HOME/dev/kaizen"; }
+    { darwin-config = "${config.environment.darwinConfig}"; }
+    { darwin = "$HOME/.nix-defexpr/channels/darwin"; }
+    { nixpkgs = "/nix/var/nix/profiles/per-user/root/channels/nixpkgs"; }
+    "/nix/var/nix/profiles/per-user/root/channels"
+  ];
+
+  #endregion
+
+  #region files
+
+  environment.etc = {
+    "pam.d/sudo_local" = {
+      # sudo_local: local config file which survives system update and is included for sudo
+      enable = true;
+      text = ''
+        auth optional   ${pkgs.pam-reattach}/lib/pam/pam_reattach.so
+        auth sufficient pam_tid.so
+      '';
+    };
+    "sudoers.d/darwin-#{{ .chezmoi.username }}" = {
+      enable = true;
+      text = ''
+        #{{ .chezmoi.username }} ALL = NOPASSWD: /bin/rm -rf /Library/Developer/CommandLineTools
+        #{{ .chezmoi.username }} ALL = NOPASSWD: /usr/bin/xcode-select --install
+        #{{ .chezmoi.username }} ALL = NOPASSWD: /usr/sbin/DevToolsSecurity -enable
+      '';
+    };
   };
 
   launchd.daemons = {
@@ -272,6 +278,7 @@ rec {
       };
     };
   };
+
   launchd.user.agents = {
     "homebrew.mxcl.openssl-osx-ca" = {
       serviceConfig = {
@@ -280,39 +287,47 @@ rec {
       };
     };
   };
-  launchd.user.envVariables = rec {
-    CURL_CA_BUNDLE = SSL_CERT_FILE;
-    NIX_SSL_CERT_FILE = SSL_CERT_FILE;
-    NIX_GIT_SSL_CAINFO = SSL_CERT_FILE;
-    NODE_EXTRA_CA_CERTS = SSL_CERT_FILE;
-    REQUESTS_CA_BUNDLE = SSL_CERT_FILE;
-    SSL_CERT_FILE = builtins.toString (/. + "${config.homebrew.brewPrefix}/../etc/openssl@3/cert.pem");
-    LANG = "en_US.UTF-8";
-    LC_ALL = "en_US.UTF-8";
-    LC_COLLATE = "en_US.UTF-8";
-    LC_CTYPE = "en_US.UTF-8";
-    LC_MESSAGES = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-    NIX_PATH = config.nix.nixPath;
+
+  #endregion
+
+  /** TODO update font caches
+    printf "Updating font cache...\n"
+    fc-cache -f
+
+    printf "refreshing font database...\n"
+    atsutil databases -removeUser
+
+    printf "reloading font daemon...\n"
+    killall fontd || true
+  */
+
+  homebrew = {
+    enable = true;
+    caskArgs = {
+      appdir = "~/Applications";
+      no_quarantine = true;
+    };
+    global = {
+      autoUpdate = false;
+      lockfiles = false;
+    };
+    onActivation = {
+      autoUpdate = true;
+      upgrade = true;
+      cleanup = "uninstall"; # "uninstall", "zap"
+    };
   };
 
-  nix.configureBuildUsers = true;
-  nix.nixPath = [
-    { kaizen = "$HOME/dev/kaizen"; }
-    { darwin-config = "${config.environment.darwinConfig}"; }
-    { darwin = "$HOME/.nix-defexpr/channels/darwin"; }
-    { nixpkgs = "/nix/var/nix/profiles/per-user/root/channels/nixpkgs"; }
-    "/nix/var/nix/profiles/per-user/root/channels"
-  ];
-  nix.nrBuildUsers = 32;
-  nix.package = pkgs.nix;
-  nix.settings.trusted-users = [
-    "@_developer"
-    "@admin"
-    "root"
-  ];
+  nix = {
+    configureBuildUsers = true;
+    nrBuildUsers = 32;
+    package = pkgs.nix;
+    settings.trusted-users = [
+      "@_developer"
+      "@admin"
+      "root"
+    ];
+  };
 
   programs.direnv = {
     enable = true;

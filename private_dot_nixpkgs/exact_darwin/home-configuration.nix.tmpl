@@ -1,11 +1,12 @@
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
 { config, lib, pkgs, ... }:
 rec {
-  environment.systemPackages = with pkgs; [
+  #region packages
+  environment.systemPackages = (with pkgs; [
     # cilium-cli
     neovim
     talosctl
-  ] ++ (with pkgs.vimPlugins; [
+  ]) ++ (with pkgs.vimPlugins; [
     cmp-buffer
     cmp-cmdline
     cmp-nvim-lsp
@@ -18,10 +19,6 @@ rec {
     go-nvim
     vscode-nvim
   ]);
-
-  homebrew.taps = [
-    "lemoony/tap" # snipkit
-  ];
 
   homebrew.brews = [
     "cfengine"
@@ -89,12 +86,19 @@ rec {
     # "Yubico Authenticator" = 1497506650;
   };
 
+  homebrew.taps = [
+    "lemoony/tap" # snipkit
+  ];
+  #endregion
+
+  #region environment variables
   environment.variables = launchd.user.envVariables;
 
   launchd.user.envVariables = {
     ENVIRONMENT = "home";
     PROJECTS_DIR = "$HOME/dev";
   };
+  #endregion
 
   services.skhd.enable = true;
 
