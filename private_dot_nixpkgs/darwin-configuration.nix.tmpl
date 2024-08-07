@@ -2,6 +2,7 @@
 { config, lib, pkgs, ... }:
 rec {
   imports = [
+    ./modules
     #{{- if .tags.personal }}
     ~/.nixpkgs/darwin/home-configuration.nix
     #{{- else if .tags.work }}
@@ -107,6 +108,10 @@ rec {
     #{{- end }}
     #{{- end }}
     #{{- end }}
+  ];
+
+  environment.manPath = [
+    "$HOME/.nix-profile/share/man"
   ];
 
   # TODO configure fonts
