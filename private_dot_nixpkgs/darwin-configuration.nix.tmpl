@@ -4,9 +4,9 @@ rec {
   imports = [
     ./modules
     #{{- if .tags.personal }}
-    ~/.nixpkgs/darwin/home-configuration.nix
+    ./darwin/home-configuration.nix
     #{{- else if .tags.work }}
-    ~/.nixpkgs/darwin/work-configuration.nix
+    ./darwin/work-configuration.nix
     #{{- end }}
   ];
 
@@ -39,7 +39,7 @@ rec {
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
     # tmuxPlugins.vim-tmux-focus-events # TODO configure in vim
     bat
     coreutils
@@ -66,7 +66,7 @@ rec {
     smug
     tlrc
     vim
-  ] ++ (with pkgs.fishPlugins; [
+  ]) ++ (with pkgs.fishPlugins; [
     # fzf
     grc
     sponge
