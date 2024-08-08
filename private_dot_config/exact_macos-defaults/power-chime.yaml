@@ -1,8 +1,0 @@
-description: Power Chime
-kill: [PowerChime]
-data:
-
-  com.apple.PowerChime:
-
-    ## disable chime when connected to power
-    ChimeOnAllHardware: false

@@ -63,7 +63,6 @@ rec {
   ];
 
   homebrew.brews = [
-    "macos-defaults"
     "openssl-osx-ca"
   ];
 
@@ -112,7 +111,6 @@ rec {
   };
 
   homebrew.taps = [
-    "dsully/tap" # macos-defaults
     "homebrew/bundle"
     "homebrew/services"
     "raggi/ale" # openssl-osx-ca
@@ -448,31 +446,288 @@ rec {
       SortColumn = "CPUUsage";
       SortDirection = 0;
     };
-    NSGlobalDomain = {
-      AppleInterfaceStyle = "Dark";
-      AppleInterfaceStyleSwitchesAutomatically = false;
-      AppleShowScrollBars = "WhenScrolling";
-      AppleWindowTabbingMode = "always";
+    alf = {
+      allowdownloadsignedenabled = 1;
+      allowsignedenabled = 1;
+      globalstate = 1;
+      loggingenabled = 1;
+      stealthenabled = 1;
     };
-    SoftwareUpdate = {
-      AutomaticallyInstallMacOSUpdates = true;
-    };
-    CustomSystemPreferences = {};
     CustomUserPreferences = {
+      bluetoothaudiod = {
+        "AAC Bitrate" = 320;
+        "AAC max packet size" = 644;
+        "Apple Bitpool Max" = 80;
+        "Apple Bitpool Min" = 80;
+        "Apple Initial Bitpool Min" = 80;
+        "Apple Initial Bitpool" = 80;
+        "Enable AAC codec" = true;
+        "Enable AptX codec" = true;
+        "Negotiated Bitpool Max" = 80;
+        "Negotiated Bitpool Min" = 80;
+        "Negotiated Bitpool" = 80;
+      };
+      "com.apple.Accessibility" = {
+        EnhancedBackgroundContrastEnabled = 1;
+      };
+      "com.apple.AddressBook" = {
+        ABNameSortingFormat = "sortingFirstName sortingLastName";
+        ABShowDebugMenu = true;
+        ABDefaultAddressCountryCode = "nl";
+      };
+      "com.apple.AppleMultitouchTrackpad" = {
+        TrackpadFiveFingerPinchGesture = 2;
+        TrackpadFourFingerHorizSwipeGesture = 2;
+        TrackpadFourFingerPinchGesture = 2;
+        TrackpadFourFingerVertSwipeGesture = 2;
+        TrackpadHandResting = true;
+        TrackpadHorizScroll = 1;
+        TrackpadMomentumScroll = true;
+        TrackpadPinch = 1;
+        TrackpadRotate = 1;
+        TrackpadScroll = true;
+        TrackpadThreeFingerVertSwipeGesture = 2;
+        TrackpadTwoFingerDoubleTapGesture = 1;
+        TrackpadTwoFingerFromRightEdgeSwipeGesture = 3;
+      };
       "com.apple.appstore" = {
         ## Enable Debug Menu in the Mac App Store
         ShowDebugMenu = true;
         ## Enable the WebKit Developer Tools in the Mac App Store
         WebKitDeveloperExtras = true;
       };
-      "com.apple.Accessibility" = {
-        EnhancedBackgroundContrastEnabled = 1;
+      "com.apple.assistant.support" = {
+        "Assistant Enabled" = false;
+      };
+      "com.apple.BluetoothAudioAgent" = {
+        "Apple Bitpool Max (editable)" = 80;
+        "Apple Bitpool Min (editable)" = 80;
+        "Apple Initial Bitpool (editable)" = 80;
+        "Apple Initial Bitpool Min (editable)" = 80;
+        "Negotiated Bitpool Max" = 80;
+        "Negotiated Bitpool Min" = 80;
+        "Negotiated Bitpool" = 80;
+        "Stream - Flush Ring on Packet Drop (editable)" = 0;
+        "Stream - Max Outstanding Packets (editable)" = 16;
+        "Stream Resume Delay" = "0.75";
       };
       "com.apple.commerce" = {
         ## Turn on app auto-update
         AutoUpdate = true;
         ## Disable the App Store to reboot machine on macOS updates
         AutoUpdateRestartRequired = false;
+      };
+      "com.apple.CrashReporter" = {
+        DialogType = "none";
+      };
+      "com.apple.desktopservices" = {
+        DSDontWriteNetworkStores = true;
+        DSDontWriteUSBStores = true;
+        UseBareEnumeration = true;
+      };
+      "com.apple.DiskUtility" = {
+        advanced-image-options = true;
+        DUDebugMenuEnabled = true;
+      };
+      "com.apple.dock" = {
+        # TODO contribute to system.defaults.dock
+        showAppExposeGestureEnabled = true;
+        workspaces-auto-swoosh = true;
+        wvous-bl-modifier = 0;
+        wvous-br-modifier = 0;
+        wvous-tl-modifier = 0;
+        wvous-tr-modifier = 0;
+      };
+      "com.apple.driver.AppleBluetoothMultitouch.trackpad" = system.defaults.trackpad // system.defaults.CustomUserPreferences."com.apple.AppleMultitouchTrackpad";
+      "com.apple.dt.Xcode" = {
+        XcodeCloudUpsellPromptEnabled = false;
+      };
+      "com.apple.finder" = rec {
+        _FXSortFoldersFirst = true;
+        DesktopViewSettings = FK_StandardViewSettings;
+        DisableAllAnimations = true;
+        FinderSpawnTab = false;
+        FK_StandardViewSettings = {
+          IconViewSettings = {
+            arrangeBy = "grid";
+            gridSpacing = 1.0;
+            iconSize = 64.0;
+            showItemInfo = true;
+            # labelOnBottom = false;
+          };
+        };
+        FXEnableRemoveFromICloudDriveWarning = false;
+        FXInfoPanesExpanded = {
+          General = true;
+          MetaData = false;
+          Name = true;
+          OpenWith = true;
+          Preview = false;
+          Privileges = false;
+        };
+        NewWindowTarget = "PfHm";
+        NewWindowTargetIsHome = true;
+        NewWindowTargetPath = ""; # NewWindowTargetPath: "file://${HOME}/"
+        OpenWindowForNewRemovableDisk = true;
+        QLEnableTextSelection = true;
+        ShowExternalHardDrivesOnDesktop = true;
+        ShowHardDrivesOnDesktop = false;
+        ShowMountedServersOnDesktop = false;
+        ShowRecentTags = false;
+        ShowRemovableMediaOnDesktop = true;
+        StandardViewSettings = FK_StandardViewSettings;
+        WarnOnEmptyTrash = false;
+      };
+      "com.apple.frameworks.diskimages" = {
+        auto-open-ro-root = true;
+        auto-open-rw-root = true;
+        skip-verify = true;
+        skip-verify-locked = true;
+        skip-verify-remote = true;
+      };
+      "com.apple.GameController" = {
+        bluetoothPrefsMenuLongPressAction = 0;
+        bluetoothPrefsShareLongPressSystemGestureMode = 1;
+      };
+      "com.apple.helpviewer" = {
+        DevMode = true;
+      };
+      "com.apple.iCal" = {
+        privacyPaneHasBeenAcknowledgedVersion = 4;
+        IncludeDebugMenu = true;
+        "n days of week" = 7;
+        "first day of week" = 0;
+        "scroll by weeks in week view" = 1;
+        "first minute of work hours" = 540;
+        "last minute of work hours" = 1020;
+        "number of hours displayed" = 10;
+        SharedCalendarNotificationsDisabled = true;
+        InvitationNotificationsDisabled = false;
+        "Show heat map in Year View" = false;
+        OpenEventsInWindowType = false;
+        WarnBeforeSendingInvitations = false;
+        CalendarSidebarShown = true;
+        "add holiday calendar" = true;
+        "Default duration in minutes for new event" = 30.0;
+        "display birthdays calendar" = true;
+        "Show time in Month View" = true;
+        "Show Week Numbers" = false;
+        "TimeZone support enabled" = true;
+        ShowDeclinedEvents = false;
+        TimeToLeaveEnabled = true;
+      };
+      "com.apple.ImageCapture" = {
+        disableHotPlug = true;
+      };
+      "com.apple.messageshelper.MessageController" = {
+        SOInputLineSettings = {
+          automaticEmojiSubstitutionEnablediMessage = false;
+          automaticQuoteSubstitutionEnabled = false;
+          continuousSpellCheckingEnabled = false;
+        };
+      };
+      "com.apple.NetworkBrowser" = {
+        BrowseAllInterfaces = true;
+      };
+      "com.apple.PowerChime" = {
+        ChimeOnAllHardware = false;
+      };
+      "com.apple.print.PrintingPrefs" = {
+        "Quit When Finished" = true;
+      };
+      "com.apple.QuickTimePlayerX" = {
+        MGPlayMovieOnOpen = true;
+      };
+      "com.apple.Safari" = {
+        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback" = false;
+        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled" = false;
+        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
+        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2HyperlinkAuditingEnabled" = false;
+        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled" = false;
+        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles" = false;
+        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically" = false;
+        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2PluginsEnabled" = true;
+        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks" = true;
+        "WebKitPreferences.allowsPictureInPictureMediaPlayback" = true;
+        "WebKitPreferences.applePayCapabilityDisclosureAllowed" = true;
+        "WebKitPreferences.applePayEnabled" = true;
+        "WebKitPreferences.developerExtrasEnabled" = true;
+        "WebKitPreferences.hiddenPageDOMTimerThrottlingAutoIncreases" = true;
+        "WebKitPreferences.invisibleMediaAutoplayNotPermitted" = true;
+        "WebKitPreferences.javaScriptCanOpenWindowsAutomatically" = true;
+        "WebKitPreferences.needsStorageAccessFromFileURLsQuirk" = false;
+        "WebKitPreferences.pushAPIEnabled" = true;
+        "WebKitPreferences.shouldAllowUserInstalledFonts" = false;
+        "WebKitPreferences.shouldSuppressKeyboardInputDuringProvisionalNavigation" = true;
+        AlwaysRestoreSessionAtLaunch = true;
+        AlwaysShowTabBar = true;
+        AutoFillCreditCardData = false;
+        AutoFillFromAddressBook = false;
+        AutoFillFromiCloudKeychain = false;
+        AutoFillMiscellaneousForms = false;
+        AutoFillPasswords = false;
+        AutoOpenSafeDownloads = false;
+        CanPromptForPushNotifications = false;
+        Command1Through9SwitchesTabs = false;
+        CommandClickMakesTabs = true;
+        DebugSnapshotsUpdatePolicy = 2;
+        DownloadsClearingPolicy = 0;
+        ExtensionsEnabled = true;
+        FindOnPageMatchesWordStartsOnly = false;
+        HomePage = "";
+        IncludeDevelopMenu = true;
+        IncludeInternalDebugMenu = true;
+        InstallExtensionUpdatesAutomatically = true;
+        NewTabBehavior = 4;
+        NewWindowBehavior = 4;
+        OpenNewTabsInFront = false;
+        PreloadTopHit = false;
+        ProxiesInBookmarksBar = [];
+        ReadingListSaveArticlesOfflineAutomatically = false;
+        SearchProviderShortName = "DuckDuckGo";
+        SendDoNotTrackHTTPHeader = false;
+        ShowCloudTabsInFavorites = false;
+        ShowFavoritesBar = true;
+        ShowFrequentlyVisitedSites = false;
+        ShowFullURLInSmartSearchField = true;
+        ShowHighlightsInFavorites = false;
+        ShowIconsInTabs = true;
+        ShowPrivacyReportInFavorites = false;
+        ShowReadingListInFavorites = false;
+        ShowRecentlyClosedTabsPreferenceKey = false;
+        ShowSidebarInNewWindows = false;
+        ShowSidebarInTopSites = true;
+        ShowSiriSuggestionsPreference = false;
+        ShowTabGroupFavoritesPreferenceKey = false;
+        SuppressSearchSuggestions = true;
+        UniversalSearchEnabled = false;
+        WarnAboutFraudulentWebsites = false;
+        WebAutomaticSpellingCorrectionEnabled = false;
+        WebContinuousSpellCheckingEnabled = true;
+        WebKitDeveloperExtrasEnabledPreferenceKey = true;
+        WebKitInitialTimedLayoutDelay = 0.25;
+        WebKitJavaEnabled = false;
+        WebKitJavaScriptCanOpenWindowsAutomatically = false;
+        WebKitMediaPlaybackAllowsInline = false;
+        WebKitPluginsEnabled = true;
+        WebKitRespectStandardStyleKeyEquivalents = true;
+        WebKitStorageBlockingPolicy = 1;
+        WebKitTabToLinksPreferenceKey = true;
+        WebsiteSpecificSearchEnabled = false;
+      };
+      "com.apple.SafariTechnologyPreview" = {
+        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback" = false;
+        WebKitMediaPlaybackAllowsInline = false;
+      };
+      "com.apple.ScriptEditor2" = {
+        ApplePersistence = false;
+      };
+      "com.apple.security.authorization" = {
+        ignoreArd = true;
+      };
+      "com.apple.Siri" = {
+        StatusMenuVisible = false;
+        VoiceTriggerUserEnabled = false;
       };
       "com.apple.SoftwareUpdate" = {
         ## Enable the automatic update check
@@ -486,16 +741,240 @@ rec {
         ## Check for software updates daily, not just once per week
         ScheduleFrequency = 1;
       };
+      "com.apple.spotlight" = {
+        orderedItems = [
+          { enabled = 1; name = "APPLICATIONS"; }
+          { enabled = 1; name = "MENU_EXPRESSION"; }
+          { enabled = 1; name = "MENU_CONVERSION"; }
+          { enabled = 1; name = "MENU_DEFINITION"; }
+          { enabled = 1; name = "SYSTEM_PREFS"; }
+          { enabled = 1; name = "BOOKMARKS"; }
+          { enabled = 1; name = "DIRECTORIES"; }
+          { enabled = 0; name = "PDF"; }
+          { enabled = 0; name = "FONTS"; }
+          { enabled = 0; name = "DOCUMENTS"; }
+          { enabled = 0; name = "MESSAGES"; }
+          { enabled = 0; name = "CONTACT"; }
+          { enabled = 0; name = "EVENT_TODO"; }
+          { enabled = 0; name = "IMAGES"; }
+          { enabled = 0; name = "MUSIC"; }
+          { enabled = 0; name = "MOVIES"; }
+          { enabled = 0; name = "PRESENTATIONS"; }
+          { enabled = 0; name = "SPREADSHEETS"; }
+          { enabled = 0; name = "SOURCE"; }
+          { enabled = 0; name = "MENU_OTHER"; }
+          { enabled = 0; name = "MENU_WEBSEARCH"; }
+          { enabled = 0; name = "MENU_SPOTLIGHT_SUGGESTIONS"; }
+        ];
+        showedFTE = 1;
+        showedLearnMore = 1;
+      };
+      "com.apple.systemuiserver" = {
+        "NSStatusItem Visible com.apple.menuextra.appleuser" = false;
+        "NSStatusItem Visible com.apple.menuextra.bluetooth" = false;
+        "NSStatusItem Visible com.apple.menuextra.clock" = false;
+        "NSStatusItem Visible com.apple.menuextra.TimeMachine" = true;
+        "NSStatusItem Visible com.apple.menuextra.volume" = false;
+        dontAutoLoad = [
+          "/System/Library/CoreServices/Menu Extras/AirPort.menu"
+          "/System/Library/CoreServices/Menu Extras/VPN.menu"
+          "/System/Library/CoreServices/Menu Extras/WWAN.menu"
+          # "/System/Library/CoreServices/Menu Extras/Clock.menu"
+          # "/System/Library/CoreServices/Menu Extras/Displays.menu"
+          # "/System/Library/CoreServices/Menu Extras/DwellControl.menu"
+          # "/System/Library/CoreServices/Menu Extras/Eject.menu"
+          # "/System/Library/CoreServices/Menu Extras/ExpressCard.menu"
+          # "/System/Library/CoreServices/Menu Extras/GamePolicyExtra.menu"
+          # "/System/Library/CoreServices/Menu Extras/PPP.menu"
+          # "/System/Library/CoreServices/Menu Extras/PPPoE.menu"
+          # "/System/Library/CoreServices/Menu Extras/SafeEjectGPUExtra.menu"
+          # "/System/Library/CoreServices/Menu Extras/User.menu"
+          # "/System/Library/CoreServices/Menu Extras/Volume.menu"
+        ];
+        menuExtras = [
+          "/System/Library/CoreServices/Menu Extras/TimeMachine.menu"
+        ];
+      };
+      "com.apple.Terminal" = {
+        SecureKeyboardEntry = true;
+        Shell = "${pkgs.fish}/bin/fish";
+        ShowLineMarks = 0;
+        StringEncodings = ["4"];
+      };
+      "com.apple.TextEdit" = {
+        PlainTextEncoding = 4;
+        PlainTextEncodingForWrite = 4;
+        RichText = 0;
+      };
+      "com.apple.TextInputMenu" = {
+        visible = false;
+      };
+      "com.apple.TimeMachine" = {
+        DoNotOfferNewDisksForBackup = true;
+      };
       # "com.apple.universalaccess" = {
       #   reduceTransparency = 1;
       # };
       NSGlobalDomain = {
-        AppleLanguages = [
-          "en-NL"
-          "en-GB"
-          "pt-BR"
+        ## TODO com.apple.finder.SyncExtensions
+        AppleEnableMenuBarTransparency = false;
+        AppleLanguages = ["en-NL" "en-GB" "pt-BR"];
+        AppleLocale = "en_GB@currency=EUR";
+        CGFontRenderingFontSmoothingDisabled = false;
+        NSAllowContinuousSpellChecking = false;
+        NSPersonNameDefaultDisplayNameOrder = 1;
+        QLPanelAnimationDuration = 0;
+        WebKitDeveloperExtras = true;
+      };
+      "com.google.Chrome.canary" = system.defaults.CustomUserPreferences."org.chromium.Chromium";
+      "com.google.Chrome" = system.defaults.CustomUserPreferences."org.chromium.Chromium";
+      "org.chromium.Chromium" = {
+        AppleEnableMouseSwipeNavigateWithScrolls = false;
+        AppleEnableSwipeNavigateWithScrolls = false;
+        DisablePrintPreview = true;
+        PMPrintingExpandedStateForPrint2 = true;
+      };
+    };
+    CustomSystemPreferences = {
+      "'/Library/Application Support/CrashReporter/DiagnosticMessagesHistory'" = {
+        AutoSubmit = false;
+        SeedAutoSubmit = false;
+        AutoSubmitVersion = 4;
+        ThirdPartyDataSubmit = false;
+        ThirdPartyDataSubmitVersion = 4;
+      };
+      "/Library/Preferences/com.apple.iokit.AmbientLightSensor" = {
+        "Automatic Display Enabled" = false;
+      };
+      "/Library/Preferences/com.apple.loginwindow" = {
+        AdminHostInfo = "HostName";
+      };
+      "/Library/Preferences/com.apple.security.libraryvalidation" = {
+        DisableLibraryValidation = true;
+      };
+      "/Library/Preferences/com.apple.security.smartcard" = {
+        allowSmartCard = true;
+        checkCertificateTrust = 3;
+        DisabledTokens = []; ## pluginkit -m -p com.apple.ctk-tokens
+        # Logging = false;
+        # oneCardPerUser = false;
+        UserPairing = true;
+      };
+      "/Library/Preferences/com.apple.TimeMachine" = {
+        AutoBackup = true;
+        AutoBackupInterval = 86400;
+        ExcludeByPath = [];
+        # MobileBackups = false;
+        RequiresACPower = true;
+        SkipPaths = [
+          "~/Applications"
+          "~/Cloud"
+          "~/Desktop"
+          "~/dev"
+          "~/Downloads"
+          "~/go"
+          "~/Zotero"
         ];
       };
+      "/Library/Preferences/com.apple.windowserver" = {
+        DisplayResolutionEnabled = true;
+      };
+    };
+    dock = {
+      autohide = true;
+      autohide-delay = 0.0;
+      autohide-time-modifier = 0.0;
+      dashboard-in-overlay = true;
+      enable-spring-load-actions-on-all-items = true;
+      expose-animation-duration = 0.1;
+      magnification = true;
+      mineffect = "genie";
+      minimize-to-application = true;
+      mouse-over-hilite-stack = true;
+      mru-spaces = false;
+      show-process-indicators = true;
+      show-recents = false;
+      showhidden = true;
+      tilesize = 72;
+      wvous-bl-corner = null;
+      wvous-br-corner = null;
+      wvous-tl-corner = null;
+      wvous-tr-corner = null;
+    };
+    finder = {
+      _FXShowPosixPathInTitle = false;
+      AppleShowAllFiles = false;
+      FXDefaultSearchScope = "SCcf";
+      FXEnableExtensionChangeWarning = false;
+      FXPreferredViewStyle = "Nlsv";
+      ShowPathbar = true;
+      ShowStatusBar = true;
+    };
+    LaunchServices = {
+      LSQuarantine = false;
+    };
+    loginwindow = {
+      DisableConsoleAccess = true;
+      GuestEnabled = false;
+      PowerOffDisabledWhileLoggedIn = true;
+      RestartDisabledWhileLoggedIn = true;
+      ShutDownDisabledWhileLoggedIn = true;
+      LoginwindowText = ''
+        Found this? Please contact me on #{{ .personal.email }} or #{{ .personal.mobile }}
+      '';
+    };
+    NSGlobalDomain = {
+      "com.apple.mouse.tapBehavior" = 1;
+      "com.apple.sound.beep.feedback" = 0;
+      "com.apple.springing.delay" = 0.0;
+      "com.apple.springing.enabled" = true;
+      # NSTextInsertionPointBlinkPeriod = 9999999999999999;
+      AppleFontSmoothing = 1;
+      AppleInterfaceStyle = "Dark";
+      AppleInterfaceStyleSwitchesAutomatically = false;
+      AppleKeyboardUIMode = 3;
+      AppleMeasurementUnits = "Centimeters";
+      AppleMetricUnits = 1;
+      ApplePressAndHoldEnabled = false;
+      AppleShowAllExtensions = false;
+      AppleShowScrollBars = "WhenScrolling";
+      AppleWindowTabbingMode = "always";
+      InitialKeyRepeat = 15;
+      KeyRepeat = 4;
+      NSAutomaticCapitalizationEnabled = false;
+      NSAutomaticDashSubstitutionEnabled = false;
+      NSAutomaticPeriodSubstitutionEnabled = false;
+      NSAutomaticQuoteSubstitutionEnabled = false;
+      NSAutomaticSpellingCorrectionEnabled = false;
+      NSAutomaticWindowAnimationsEnabled = false;
+      NSDisableAutomaticTermination = true;
+      NSDocumentSaveNewDocumentsToCloud = false;
+      NSNavPanelExpandedStateForSaveMode = true;
+      NSNavPanelExpandedStateForSaveMode2 = true;
+      NSScrollAnimationEnabled = true;
+      NSTableViewDefaultSizeMode = 2;
+      NSTextShowsControlCharacters = true;
+      NSUseAnimatedFocusRing = false;
+      NSWindowResizeTime = 0.001;
+      PMPrintingExpandedStateForPrint = true;
+      PMPrintingExpandedStateForPrint2 = true;
+    };
+    screencapture = {
+      disable-shadow = true;
+      location = "~/Library/Mobile Documents/com~apple~CloudDocs/Screenshots";
+      type = "png";
+    };
+    screensaver = {
+      askForPassword = true;
+      askForPasswordDelay = 0;
+    };
+    SoftwareUpdate = {
+      AutomaticallyInstallMacOSUpdates = true;
+    };
+    trackpad = {
+      Clicking = false;
+      TrackpadRightClick = true;
+      TrackpadThreeFingerTapGesture = 2;
     };
   };
 

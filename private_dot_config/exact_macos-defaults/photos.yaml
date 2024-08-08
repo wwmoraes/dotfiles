@@ -1,9 +1,0 @@
-description: Photos
-current_host: true
-kill: [ImageCapture, Photos]
-data:
-
-  com.apple.ImageCapture:
-
-    ## Prevent Photos from opening automatically when devices are plugged in
-    disableHotPlug: true

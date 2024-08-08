@@ -104,5 +104,26 @@ rec {
 
   services.skhd.enable = true;
 
+  system.defaults = {
+    CustomUserPreferences = {
+      "com.apple.mail" = {
+        AddressesIncludeNameOnPasteboard = false;
+        ConversationViewSortDescending = true;
+        DisableInlineAttachmentViewing = true;
+        DisableReplyAnimations = true;
+        DisableSendAnimations = true;
+        DraftsViewerAttributes = {
+          DisplayInThreadedMode = "yes";
+          SortedDescending = "no";
+          SortOrder = "received-date";
+        };
+        NSUserKeyEquivalents = {
+          Send = "@\\U21a9";
+        };
+        SpellCheckingBehavior = "NoSpellCheckingEnabled";
+      };
+    };
+  };
+
   time.timeZone = "Europe/Amsterdam";
 }

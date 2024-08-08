@@ -1,8 +1,6 @@
 #!/usr/bin/env sh
 # chezmoi:template:left-delimiter="# {{" right-delimiter=}}
-# {{- range $_, $filename := (glob (joinPath .chezmoi.homeDir ".config" "macos-defaults" "*.yaml")) }}
-# # {{ base $filename }} hash: # {{ include $filename | sha256sum }}
-# {{- end }}
+# chezmoi.toml hash: # {{ include (joinPath .chezmoi.homeDir ".config" "chezmoi" "chezmoi.toml") | sha256sum }}
 
 set -eum
 trap 'kill 0' INT HUP TERM
@@ -17,11 +15,6 @@ test "${CHEZMOI_OS:-}" = "darwin" || exit
 
 # skip changing defaults
 test "${DEFAULTS:-0}" = "0" && exit
-
-## sane defaults on https://github.com/kevinSuttle/macOS-Defaults
-macos-defaults apply ~/.config/macos-defaults
-
-test "${DEFAULTS:-0}" = "1" && exit
 
 ## Ask for the administrator password upfront
 sudo -v

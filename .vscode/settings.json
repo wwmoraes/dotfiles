@@ -72,8 +72,5 @@
       "url": "https://json.schemastore.org/dockerd.json"
     }
   ],
-  "nixEnvSelector.nixFile": "${workspaceFolder}/shell.nix",
-  "yaml.schemas": {
-    "./.vscode/macos-defaults.schema.json": "*dot_config/*macos-defaults/*.yaml*"
-  }
+  "nixEnvSelector.nixFile": "${workspaceFolder}/shell.nix"
 }
