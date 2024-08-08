@@ -7,17 +7,16 @@
       "private_dot_config/private_1Password/private_ssh/private_agent.toml.tmpl"
     ],
     "ADR": [
+      ".shadow.d/.config/fish/completions/adrgen.fish",
       "private_dot_adr/template.md"
     ],
     "Chezmoi": [
       ".chezmoi.toml.tmpl",
-      ".chezmoiexternals/coding-tools.toml.tmpl",
       ".chezmoiignore.tmpl",
       ".chezmoiremove.tmpl",
       ".chezmoiscripts/run_onchange_01-developer.sh",
       ".chezmoiscripts/run_onchange_80-less-termcap.sh",
       ".chezmoiscripts/run_onchange_90-pmset.sh",
-      ".chezmoiscripts/run_onchange_after_00-brew.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_90-authorizationdb.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_90-defaults.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_90-sudoers.sh.tmpl",
@@ -32,6 +31,7 @@
     ],
     "Darwin": [
       ".global.d/.security.yaml.tmpl",
+      ".shadow.d/.config/fish/completions/pkg.fish",
       "private_dot_local/bin/executable_plist2xml",
       "private_dot_skhdrc",
       "private_Library/private_Contacts/me.vcf.tmpl"
@@ -41,9 +41,10 @@
       "private_dot_config/direnv/direnvrc.tmpl"
     ],
     "Docker": [
+      ".shadow.d/.config/fish/completions/dockr.fish",
       "private_dot_docker/config.json.tmpl",
-      "private_Library/private_Group Containers/group.com.docker/settings.json.tmpl",
-      "private_dot_docker/daemon.json.tmpl"
+      "private_dot_docker/daemon.json.tmpl",
+      "private_Library/private_Group Containers/group.com.docker/settings.json.tmpl"
     ],
     "Environment": [
       "private_dot_config/environment.rm.conf.tmpl",
@@ -62,6 +63,7 @@
       ".shadow.d/.config/fish/completions/git.fish",
       ".shadow.d/.config/fish/completions/kustomize.fish",
       ".shadow.d/.config/fish/completions/op.fish",
+      ".shadow.d/.config/fish/completions/projects.fish",
       ".shadow.d/.config/fish/completions/talosctl.fish",
       ".shadow.d/.config/fish/conf.d/abbr.fish",
       ".shadow.d/.config/fish/conf.d/aliases.fish",
@@ -108,6 +110,9 @@
       "private_dot_gitconfig.tmpl",
       "private_dot_gitignore-global"
     ],
+    "Golang": [
+      ".shadow.d/.config/fish/completions/golang.fish"
+    ],
     "Grc": [
       "private_dot_grc/bins.txt",
       "private_dot_grc/conf.dockerstats",
@@ -139,6 +144,9 @@
       "private_dot_config/kitty/kitty.conf.tmpl",
       "private_dot_config/kitty/overrides.conf.tmpl"
     ],
+    "Kubernetes": [
+      ".shadow.d/.config/fish/completions/k8s.fish"
+    ],
     "Lazygit": [
       ".shadow.d/.config/lazygit/config.yml",
       ".shadow.d/.config/lazygit/state.yml",
@@ -162,6 +170,8 @@
       "private_dot_nixpkgs/darwin-configuration.nix.tmpl",
       "private_dot_nixpkgs/exact_darwin/home-configuration.nix.tmpl",
       "private_dot_nixpkgs/exact_darwin/work-configuration.nix.tmpl",
+      "private_dot_nixpkgs/exact_modules/default.nix",
+      "private_dot_nixpkgs/exact_modules/manpath.nix",
       "shell.nix"
     ],
     "Node": [
@@ -201,10 +211,8 @@
     ],
     "Tmux": [
       "private_dot_tmux.conf.tmpl",
-      "private_dot_tmux.plugins.conf.tmpl",
       "private_dot_tmux.sessions.conf",
-      "private_dot_tmux.status.conf",
-      "private_executable_dot_tmux.sh"
+      "private_dot_tmux.status.conf"
     ],
     "Tools": [
       "dot_mosint.yaml.tmpl",
@@ -231,6 +239,7 @@
       "private_dot_vimrc"
     ],
     "Work": [
+      "exact_private_dot_ssh/private_work-rsa.pub.tmpl",
       "private_dot_local/bin/executable_twistcli-scan.tmpl"
     ],
     "Xbar": [

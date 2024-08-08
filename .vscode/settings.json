@@ -44,7 +44,11 @@
   "files.exclude": {
     "**/Code/User/History/**/*": true,
     ".direnv": true,
-    ".task/checksum": true
+    ".task/checksum": true,
+    "LICENSE": true,
+    "SECURITY.md": true,
+    "CONTRIBUTING.md": true,
+    "CODE_OF_CONDUCT.md": true
   },
   "go-template.languages": [
     "ini",
