@@ -4,4 +4,4 @@ set -eum
 trap 'kill 0' INT HUP TERM
 
 chezmoi apply ~/.config/nix ~/.config/nixpkgs ~/.nixpkgs
-darwin-rebuild switch
+darwin-rebuild switch "$@"

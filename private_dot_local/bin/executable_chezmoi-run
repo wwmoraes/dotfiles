@@ -67,4 +67,4 @@ trap 'rm -f "${SCRIPT}"' EXIT INT TERM
 chezmoi cat "${HOME}/.chezmoiscripts/$1" > "${SCRIPT}"
 chmod +x "${SCRIPT}"
 
-"${SCRIPT}"
+"${SCRIPT}" "$@"
