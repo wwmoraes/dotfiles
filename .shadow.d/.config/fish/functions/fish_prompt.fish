@@ -1,5 +1,7 @@
 function fish_prompt
-  set -l last_status $status
+  set -q __fish_last_status
+  and set -l last_status $__fish_last_status
+  or set -l last_status 0
 
   # try to use powerline-go
   command -q powerline-go; and begin
@@ -31,4 +33,9 @@ function fish_prompt
   set -l prompt_status (__fish_print_pipestatus " [" "]" "|" (set_color $fish_color_status) (set_color --bold $fish_color_status) $last_status)
 
   echo -n -s (set_color $fish_color_user) "$USER" $normal @ (set_color $color_host) (prompt_hostname) $normal ' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal $prompt_status $suffix " "
+end
+
+# needed with direnv so the powerline prompt gets the original status
+function __fish_store_last_status --on-event fish_postexec
+  set -g __fish_last_status $status
 end
