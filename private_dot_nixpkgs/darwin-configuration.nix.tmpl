@@ -443,15 +443,11 @@ in rec {
   programs.tmux = {
     defaultCommand = "${pkgs.fish}/bin/fish -l";
     enable = true;
-    enableFzf = true;
+    enableFzf = false;
     enableMouse = true;
     # TODO move to external file
     extraConfig = ''
       set -as terminal-features 'xterm*:extkeys'
-      set -g @shell_mode 'vi'
-      set -g @yank_action 'copy-pipe'
-      set -g @yank_selection 'clipboard'
-      set -g @yank_selection_mouse 'clipboard'
       set -g allow-rename on
       set -g alternate-screen on
       set -g base-index 1
@@ -505,24 +501,37 @@ in rec {
       bind -n M-k   select-pane -U
       bind -n M-l   select-pane -R
 
-      bind-key -T copy-mode    MouseDragEnd1Pane send-keys -X copy-pipe pbcopy
-      bind-key -T copy-mode-vi !                 send-keys -X copy-pipe "tr -d '\n' | pbcopy"
-      bind-key -T copy-mode-vi C-j               send-keys -X copy-pipe
-      bind-key -T copy-mode-vi M-y               send-keys -X copy-pipe-and-cancel "pbcopy; tmux paste-buffer"
-      bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe pbcopy
-      bind-key -T copy-mode-vi p                 send-keys -X copy-pipe "tmux paste-buffer"
-      bind-key -T copy-mode-vi v                 send-keys -X begin-selection
-      bind-key -T copy-mode-vi Y                 send-keys -X copy-pipe "tmux paste-buffer"
-      bind-key -T copy-mode-vi y                 send-keys -X copy-pipe pbcopy
-
-      run-shell '${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux'
-      run-shell '${pkgs.tmuxPlugins.copycat}/share/tmux-plugins/copycat/copycat.tmux'
-      run-shell '${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux'
-      run-shell '${pkgs.tmuxPlugins.sessionist}/share/tmux-plugins/sessionist/sessionist.tmux'
-      run-shell '${pkgs.tmuxPlugins.yank}/share/tmux-plugins/yank/yank.tmux'
+      ## Cmd-s prepends sudo in fish
+      unbind -n M-s
+      bind -n S-s run-shell "tmux split-window -p 40 'tmux send-keys -t #{pane_id} \"$(/nix/store/hdfxz5h6kzkl3vgbbfv1l7x0ryahx26n-fzf-tmux-session)\"'"
 
       source-file -q ~/.tmux.conf
     '';
+    tmuxOptions = {
+      no-cancel-copy.text = ''
+        bind-key -T copy-mode    MouseDragEnd1Pane send-keys -X copy-pipe pbcopy
+        bind-key -T copy-mode-vi !                 send-keys -X copy-pipe "tr -d '\n' | pbcopy"
+        bind-key -T copy-mode-vi C-j               send-keys -X copy-pipe
+        bind-key -T copy-mode-vi M-y               send-keys -X copy-pipe-and-cancel "pbcopy; tmux paste-buffer"
+        bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe pbcopy
+        bind-key -T copy-mode-vi p                 send-keys -X copy-pipe "tmux paste-buffer"
+        bind-key -T copy-mode-vi v                 send-keys -X begin-selection
+        bind-key -T copy-mode-vi Y                 send-keys -X copy-pipe "tmux paste-buffer"
+        bind-key -T copy-mode-vi y                 send-keys -X copy-pipe pbcopy
+      '';
+      plugins.text = ''
+        set -g @shell_mode 'vi'
+        set -g @yank_action 'copy-pipe'
+        set -g @yank_selection 'clipboard'
+        set -g @yank_selection_mouse 'clipboard'
+
+        run-shell '${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux'
+        run-shell '${pkgs.tmuxPlugins.copycat}/share/tmux-plugins/copycat/copycat.tmux'
+        run-shell '${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux'
+        run-shell '${pkgs.tmuxPlugins.sessionist}/share/tmux-plugins/sessionist/sessionist.tmux'
+        run-shell '${pkgs.tmuxPlugins.yank}/share/tmux-plugins/yank/yank.tmux'
+      '';
+    };
   };
 
   security.pki.certificateFiles = [
