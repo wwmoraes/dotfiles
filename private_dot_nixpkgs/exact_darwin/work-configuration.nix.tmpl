@@ -42,7 +42,7 @@ rec {
     ## So much for enterprise security eh?
     AZURE_DEVOPS_EXT_PAT = "#{{ .work.tokens.azureDevOps }}";
     AZURE_DEVOPS_EXT_PAT_ID = "#{{ .work.azureDevOps.tokenID }}";
-    EMAIL = "{{ .work.email }}";
+    EMAIL = "#{{ .work.email }}";
     GOPRIVATE = ''#{{ .work.azureDevOps.organization | trimPrefix "https://" | trimAll "/" }}/*'';
     GOPROXY = ''#{{ .work.proxies.golang.goproxy }},https://goproxy.io'';
     GOSUMDB = ''#{{ .work.proxies.golang.gosumdb | trimPrefix "https://" }},sum.golang.org'';
