@@ -2,20 +2,20 @@
 { config, lib, pkgs, ... }:
 rec {
   #region packages
-  environment.systemPackages = (with pkgs; [
-    # calicoctl
-    # terraform
-    # kubectl-neat
-    # kubectl-who-can
-    # kubectl-whoami
-    # kubectx # TODO alias as kubectl-ctx + update fish abbr
-    # kubens # TODO alias as kubectl-ns + update fish abbr
-    # kubernetes-helmPlugins.helm-diff
-    # kubernetes-helmPlugins.helm-git
-    # kubernetes-helmPlugins.helm-s3
-    # kubernetes-helmPlugins.helm-secrets
-    azure-cli
-  ]);
+  environment.systemPackages = [
+    # pkgs.calicoctl
+    # pkgs.terraform
+    # pkgs.kubectl-neat
+    # pkgs.kubectl-who-can
+    # pkgs.kubectl-whoami
+    # pkgs.kubectx # TODO alias as kubectl-ctx + update fish abbr
+    # pkgs.kubens # TODO alias as kubectl-ns + update fish abbr
+    # pkgs.kubernetes-helmPlugins.helm-diff
+    # pkgs.kubernetes-helmPlugins.helm-git
+    # pkgs.kubernetes-helmPlugins.helm-s3
+    # pkgs.kubernetes-helmPlugins.helm-secrets
+    pkgs.azure-cli
+  ];
 
   homebrew.brews = [
   ];

@@ -11,36 +11,36 @@ rec {
   ];
 
   #region packages
-  environment.systemPackages = (with pkgs; [
-    # tmuxPlugins.vim-tmux-focus-events # TODO configure in vim
-    bat
-    coreutils
-    delta
-    # dive
-    # docker
-    # docker-credential-helpers
-    envsubst
-    fortune
-    fswatch
-    fzf
-    gawk
-    git
-    gnupg
-    grc
-    jq
-    lazygit
-    less
-    moreutils
-    neo-cowsay
-    nixd
-    pam-reattach
-    pet
-    powerline-go
-    smug
-    tlrc
-    vim
-  ]) ++ (with pkgs.fishPlugins; [
+  environment.systemPackages = [
+    # pkgs.dive
+    # pkgs.docker
+    # pkgs.docker-credential-helpers
+    pkgs.bat
+    pkgs.coreutils
+    pkgs.delta
+    pkgs.envsubst
+    pkgs.fortune
+    pkgs.fswatch
+    pkgs.fzf
+    pkgs.gawk
+    pkgs.git
+    pkgs.gnupg
+    pkgs.grc
+    pkgs.jq
+    pkgs.lazygit
+    pkgs.less
+    pkgs.moreutils
+    pkgs.neo-cowsay
+    pkgs.nixd
+    pkgs.pam-reattach
+    pkgs.pet
+    pkgs.powerline-go
+    pkgs.smug
+    pkgs.tlrc
+    pkgs.vim
+  ] ++ (with pkgs.fishPlugins; [
     # fzf
+    # vim-tmux-focus-events # TODO configure in vim
     grc
     sponge
     transient-fish

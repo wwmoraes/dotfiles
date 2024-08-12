@@ -2,11 +2,11 @@
 { config, lib, pkgs, ... }:
 rec {
   #region packages
-  environment.systemPackages = (with pkgs; [
-    # cilium-cli
-    neovim
-    talosctl
-  ]) ++ (with pkgs.vimPlugins; [
+  environment.systemPackages = [
+    # plgs.cilium-cli
+    pkgs.neovim
+    pkgs.talosctl
+  ] ++ (with pkgs.vimPlugins; [
     cmp-buffer
     cmp-cmdline
     cmp-nvim-lsp
