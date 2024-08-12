@@ -2,8 +2,10 @@
 with lib;
 let
   cfg = config.system;
-  writeAuthorizationDB = key: value:
-    "security authorizationdb write ${key} ${value}";
+  writeAuthorizationDB = key: value: ''
+    echo -n "${key} => ${value}: "
+    security authorizationdb write ${key} ${value}
+  '';
   authorizationDBToList = attrs:
     mapAttrsToList writeAuthorizationDB (filterAttrs (n: v: v != null) attrs);
 in {
