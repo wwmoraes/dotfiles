@@ -1,8 +1,0 @@
-{{- $BREW_INFOPATH := joinPath .brew.prefix "share" "info" }}
-
-{{- $INFOPATH := env "INFOPATH" | trimPrefix ":" | trimSuffix ":" | splitList ":" | uniq -}}
-{{- if not (has $BREW_INFOPATH $INFOPATH) -}}
-{{- $INFOPATH = append $INFOPATH $BREW_INFOPATH -}}
-{{- end -}}
-
-INFOPATH={{ without $INFOPATH "" | join ":" }}

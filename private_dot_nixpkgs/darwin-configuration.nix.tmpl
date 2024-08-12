@@ -131,6 +131,10 @@ in rec {
 
   #region environment variables
 
+  environment.infoPath = [
+    (builtins.toString (/. + "${config.homebrew.brewPrefix}/../share/info"))
+  ];
+
   environment.manPath = [
     "$HOME/.nix-profile/share/man"
     (builtins.toString (/. + "${config.homebrew.brewPrefix}/../share/man"))
