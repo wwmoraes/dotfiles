@@ -132,6 +132,7 @@ rec {
 
   environment.manPath = [
     "$HOME/.nix-profile/share/man"
+    (builtins.toString (/. + "${config.homebrew.brewPrefix}/../share/man"))
   ];
 
   environment.systemPath = [
