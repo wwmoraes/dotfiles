@@ -535,7 +535,7 @@ in rec {
   };
 
   security.pki.certificateFiles = [
-    "#{{ .brew.prefix }}/etc/openssl@3/cert.pem"
+    (builtins.toString (/. + "${config.homebrew.brewPrefix}/../etc/openssl@3/cert.pem"))
     # "/etc/ssl/certs/ca-certificates.crt"
     # "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
   ];
