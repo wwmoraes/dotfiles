@@ -24,6 +24,7 @@ in mkShell {
     git
     go-task
     gron
+    jq
     lefthook
     markdownlint-cli
     nixd
