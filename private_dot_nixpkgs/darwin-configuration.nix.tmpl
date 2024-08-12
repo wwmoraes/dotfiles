@@ -542,6 +542,15 @@ in rec {
 
   services.nix-daemon.enable = true;
 
+  system.authorizationDB = {
+    ## Used by task_for_pid(...). Task_for_pid is called by programs requesting full
+    ## control over another program for things like debugging or performance
+    ## analysis. This authorization only applies if the requesting and target
+    ## programs are run by the same user; it will never authorize access to the
+    ## program of another user.
+    "system.privilege.taskport" = "authenticate-developer";
+  };
+
   system.defaults = {
     ActivityMonitor = {
       IconType = 5;
