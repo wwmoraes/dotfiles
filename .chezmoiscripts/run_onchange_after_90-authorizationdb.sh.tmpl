@@ -18,5 +18,7 @@ test "${CHEZMOI_OS:-}" = "darwin" || exit
 
 # security settings
 # {{- range $key, $value := get (fromYaml $template) "authorizationdb" }}
+# shellcheck disable=SC2154,SC2250
+echo "Writing # {{ $key }} => # {{ $value }}"
 sudo security authorizationdb write # {{ $key }} # {{ $value }}
 # {{- end }}
