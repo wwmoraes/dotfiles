@@ -66,7 +66,7 @@ local function setupMenu()
   SNG = hs.menubar.new(true)
   SNG:setIcon(hs.image.imageFromPath(table.concat({
     hs.configdir,
-    "tags/work",
+    "environment/work",
     "logo.png"
   }, "/")):size({ h = 16, w = 16 }), false)
   SNG:setTooltip("easy AAB")
