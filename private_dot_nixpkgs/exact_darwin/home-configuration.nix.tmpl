@@ -92,7 +92,9 @@ rec {
   #endregion
 
   #region environment variables
-  environment.variables = launchd.user.envVariables;
+  environment.variables = launchd.user.envVariables // {
+    EMAIL = "#{{ .personal.email }}";
+  };
 
   launchd.user.envVariables = {
     ENVIRONMENT = "home";

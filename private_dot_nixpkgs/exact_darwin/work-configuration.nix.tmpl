@@ -33,7 +33,24 @@ rec {
   #endregion
 
   #region environment variables
-  environment.variables = launchd.user.envVariables;
+  environment.variables = launchd.user.envVariables // {
+    AZURE_CORE_ONLY_SHOW_ERRORS = "1";
+    AZURE_DEVOPS_DEFAULTS_ORGANIZATION = "#{{ .work.azureDevOps.organization }}";
+    AZURE_DEVOPS_DEFAULTS_PROJECT = "#{{ .work.azureDevOps.project }}";
+    ## Thank you CISO for not allowing me to use a vault solution that asks my
+    ## password or biometry to access this instead of using an environment variable.
+    ## So much for enterprise security eh?
+    AZURE_DEVOPS_EXT_PAT = "#{{ .work.tokens.azureDevOps }}";
+    AZURE_DEVOPS_EXT_PAT_ID = "#{{ .work.azureDevOps.tokenID }}";
+    EMAIL = "{{ .work.email }}";
+    GOPRIVATE = ''#{{ .work.azureDevOps.organization | trimPrefix "https://" | trimAll "/" }}/*'';
+    GOPROXY = ''#{{ .work.proxies.golang.goproxy }},https://goproxy.io'';
+    GOSUMDB = ''#{{ .work.proxies.golang.gosumdb | trimPrefix "https://" }},sum.golang.org'';
+    # GOSUMDB = "off";
+    # KERBEROS_PRINCIPAL = "#{{ .work.username }}";
+    # KERBEROS_REALM = ''#{{ .work.website | trimPrefix "https://" }}'';
+    WORK_INTRANET_HOSTNAME = ''#{{ .work.website | trimPrefix "https://" | splitList "/" | first }}'';
+  };
 
   launchd.user.envVariables = {
     ENVIRONMENT = "work";
