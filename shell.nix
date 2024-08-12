@@ -16,7 +16,7 @@ let
   }) { inherit pkgs; };
   inherit (pkgs) mkShell;
 in mkShell {
-  packages = with pkgs; [
+  packages = (with pkgs; [
     bash
     chezmoi
     editorconfig-checker
@@ -27,10 +27,9 @@ in mkShell {
     jq
     lefthook
     markdownlint-cli
-    nixd
     shellcheck
     yamllint
-  ] ++ (with unstable; [
+  ]) ++ (with unstable; [
     # _1password
     lazygit
   ]) ++ (with kaizen; [
