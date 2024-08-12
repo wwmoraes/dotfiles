@@ -344,6 +344,22 @@ rec {
       config.enable = true;
       functions.enable = true;
     };
+    shellInit = ''
+      ## ensure we load nix and nix-daemon, then direnv if applicable
+
+      test -e /nix/var/nix/profiles/default/etc/profile.d/nix.fish;
+      and source /nix/var/nix/profiles/default/etc/profile.d/nix.fish
+
+      test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish;
+      and source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+
+      # early exit in nix-daemon.fish leaves function defined
+      functions -e add_path
+
+      command -q direnv
+      and test -e .envrc
+      and direnv reload
+    '';
     interactiveShellInit = ''
       # not a tty session
       tty -s; or return
