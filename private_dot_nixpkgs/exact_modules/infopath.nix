@@ -4,6 +4,10 @@ let
   cfg = config.environment;
   makeDrvInfoPath = concatMapStringsSep ":" (p: if isDerivation p then "${p}/info" else p);
 in {
+  meta.maintainers = [
+    maintainers.wwmoraes or "wwmoraes"
+  ];
+
   options = {
     environment.infoPath = mkOption {
       type = types.listOf (types.either types.path types.str);

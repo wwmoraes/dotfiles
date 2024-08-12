@@ -9,6 +9,10 @@ let
   authorizationDBToList = attrs:
     mapAttrsToList writeAuthorizationDB (filterAttrs (n: v: v != null) attrs);
 in {
+  meta.maintainers = [
+    maintainers.wwmoraes or "wwmoraes"
+  ];
+
   options = {
     system.authorizationDB = mkOption {
       type = types.attrsOf types.str;

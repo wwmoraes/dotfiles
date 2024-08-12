@@ -18,6 +18,10 @@ let
     do = path: lists.flatten (map readAbsPathsFromFile (readDirRegularFiles path));
   in lists.optionals (pathExists path) (do path);
 in {
+  meta.maintainers = [
+    maintainers.wwmoraes or "wwmoraes"
+  ];
+
   options = {
     environment.manPath = mkOption {
       type = types.listOf (types.either types.path types.str);
