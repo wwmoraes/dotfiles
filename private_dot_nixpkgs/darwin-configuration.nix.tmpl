@@ -1,6 +1,7 @@
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
-{ config, lib, pkgs, ... }:
-rec {
+{ config, lib, pkgs, ... }: let
+  unstable = import <unstable> {};
+in rec {
   imports = [
     ./modules
     #{{- if .tags.personal }}
@@ -38,6 +39,7 @@ rec {
     pkgs.smug
     pkgs.tlrc
     pkgs.vim
+    unstable.mactop
   ] ++ (with pkgs.fishPlugins; [
     # fzf
     # vim-tmux-focus-events # TODO configure in vim
