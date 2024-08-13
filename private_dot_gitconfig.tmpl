@@ -147,7 +147,7 @@
   insteadOf = https://gist.github.com/
 
 [user]
-  email = git@{{ .personal.website | trimPrefix "https://" }}
+  email = {{ .personal.gitEmail }}
   name = {{ .personal.name.preferred }}
 
 ## Personal overrides
