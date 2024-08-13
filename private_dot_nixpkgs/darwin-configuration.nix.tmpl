@@ -4,9 +4,9 @@
 in rec {
   imports = [
     ./modules
-    #{{- if .tags.personal }}
+    #{{- if .environment.home }}
     ./darwin/home-configuration.nix
-    #{{- else if .tags.work }}
+    #{{- else if .environment.work }}
     ./darwin/work-configuration.nix
     #{{- end }}
   ];

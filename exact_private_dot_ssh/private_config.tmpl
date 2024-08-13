@@ -8,11 +8,11 @@ IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 #   Include config.d/locations/home
 */ -}}
 
-{{- if .tags.personal }}
+{{- if .environment.home }}
 
 Include config.d/locations/home
 
-{{- else if .tags.work }}
+{{- else if .environment.work }}
 
 Include config.d/locations/work
 

@@ -1,5 +1,5 @@
-{{- $isPersonal := hasSuffix "Cabuk" .chezmoi.hostname -}}
-{{- $isWork := eq "NLLM4000559023" .chezmoi.hostname -}}
+{{- $environmentChoices := list "home" "work" -}}
+{{- $environment := promptChoiceOnce .environment "name" "What environment is this host on" $environmentChoices -}}
 
 {{- $pinentry := lookPath "pinentry-tty" -}}
 {{- if eq .chezmoi.os "darwin" -}}
@@ -16,10 +16,10 @@ encryption = "gpg"
 
 {{ $ejsonDict | toToml }}
 
-
-[data.tags]
-  personal = {{ $isPersonal }}
-  work = {{ $isWork }}
+[data.environment]
+name = {{ $environment | quote }}
+home = {{ eq $environment "home" }}
+work = {{ eq $environment "work" }}
 
 [data.work.features.proxies]
 node.enabled = false
@@ -51,8 +51,4 @@ command = {{ $pinentry | quote }}
   # general script debug
   TRACE = "0"
   VERBOSE = "0"
-  {{- if $isPersonal }}
-  ENVIRONMENT = "home"
-  {{- else if $isWork }}
-  ENVIRONMENT = "work"
-  {{- end }}
+  ENVIRONMENT = {{ $environment | quote }}

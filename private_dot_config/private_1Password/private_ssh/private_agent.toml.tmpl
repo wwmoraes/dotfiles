@@ -1,6 +1,6 @@
 # https://developer.1password.com/docs/ssh/agent/config
 
-{{- if .tags.personal }}
+{{- if .environment.home }}
 
 [[ssh-keys]]
 item = "Home"
@@ -18,7 +18,7 @@ vault = "Home"
 item = "Bootstrap"
 vault = "Home"
 
-{{- else if .tags.work }}
+{{- else if .environment.work }}
 
 [[ssh-keys]]
 item = "Work RSA"
