@@ -333,11 +333,14 @@ in rec {
     configureBuildUsers = true;
     nrBuildUsers = 32;
     package = pkgs.nix;
-    settings.trusted-users = [
-      "@_developer"
-      "@admin"
-      "root"
-    ];
+    settings = {
+      sandbox = true;
+      trusted-users = [
+        "@_developer"
+        "@admin"
+        "root"
+      ];
+    };
   };
 
   programs.direnv = {
