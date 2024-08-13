@@ -1,6 +1,11 @@
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
-{ config, lib, pkgs, ... }:
-rec {
+{ config
+, lib
+, pkgs
+, ...
+}: let
+  unstable = import <unstable> {};
+in rec {
   #region packages
   environment.systemPackages = [
     # pkgs.calicoctl
@@ -14,7 +19,7 @@ rec {
     # pkgs.kubernetes-helmPlugins.helm-git
     # pkgs.kubernetes-helmPlugins.helm-s3
     # pkgs.kubernetes-helmPlugins.helm-secrets
-    pkgs.azure-cli
+    unstable.azure-cli
   ];
 
   homebrew.brews = [
