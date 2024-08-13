@@ -9,8 +9,20 @@ test "${VERBOSE:-0}" = "1" && set -v
 
 printf "\e[1;33mBootstrap\e[0m\n"
 
-HOMEBREW_PREFIX="#{{ .brew.prefix }}"
-HOMEBREW_REPOSITORY="#{{ .brew.repository }}"
+#{{- $prefix := "/home/linuxbrew/.linuxbrew" }}
+#{{- $repository := "/home/linuxbrew/.linuxbrew/Homebrew" }}
+#{{- if eq .chezmoi.os "darwin" }}
+  #{{- if eq .chezmoi.arch "arm64" }}
+    #{{- $prefix = "/opt/homebrew" }}
+    #{{- $repository = "/opt/homebrew" }}
+  #{{- else }}
+    #{{- $prefix = "/usr/local" }}
+    #{{- $repository = "/usr/local/Homebrew" }}
+  #{{- end }}
+#{{- end }}
+
+#{{ printf "HOMEBREW_PREFIX=%s" ($prefix | quote) }}
+#{{ printf "HOMEBREW_REPOSITORY=%s" ($prefix | quote) }}
 
 # install brew
 command -v brew > /dev/null || {

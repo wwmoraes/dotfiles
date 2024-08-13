@@ -16,19 +16,6 @@ encryption = "gpg"
 
 {{ $ejsonDict | toToml }}
 
-[data.brew]
-  {{- if eq .chezmoi.os "darwin" }}
-  {{- if eq .chezmoi.arch "arm64" }}
-  prefix = "/opt/homebrew"
-  repository = "/opt/homebrew"
-  {{- else }}
-  prefix = "/usr/local"
-  repository = "/usr/local/Homebrew"
-  {{- end }}
-  {{- else }}
-  prefix = "/home/linuxbrew/.linuxbrew"
-  repository = "/home/linuxbrew/.linuxbrew/Homebrew"
-  {{- end }}
 
 [data.tags]
   personal = {{ $isPersonal }}
