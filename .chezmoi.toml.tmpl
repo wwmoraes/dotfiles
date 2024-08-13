@@ -1,5 +1,5 @@
 {{- $environmentChoices := list "home" "work" -}}
-{{- $environment := promptChoiceOnce .environment "name" "What environment is this host on" $environmentChoices -}}
+{{- $environment := promptChoiceOnce . "environment.name" "What environment is this host on" $environmentChoices -}}
 
 {{- $pinentry := lookPath "pinentry-tty" -}}
 {{- if eq .chezmoi.os "darwin" -}}
