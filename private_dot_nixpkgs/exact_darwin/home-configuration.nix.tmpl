@@ -218,6 +218,16 @@ rec {
         ];
       };
     };
+    loginwindow = {
+      DisableConsoleAccess = true;
+      GuestEnabled = false;
+      PowerOffDisabledWhileLoggedIn = true;
+      RestartDisabledWhileLoggedIn = true;
+      ShutDownDisabledWhileLoggedIn = true;
+      LoginwindowText = ''
+        Found this? Please contact me on #{{ .personal.email }} or #{{ .personal.mobile }}
+      '';
+    };
   };
 
   time.timeZone = "Europe/Amsterdam";

@@ -941,16 +941,6 @@ in rec {
     LaunchServices = {
       LSQuarantine = false;
     };
-    loginwindow = {
-      DisableConsoleAccess = true;
-      GuestEnabled = false;
-      PowerOffDisabledWhileLoggedIn = true;
-      RestartDisabledWhileLoggedIn = true;
-      ShutDownDisabledWhileLoggedIn = true;
-      LoginwindowText = ''
-        Found this? Please contact me on #{{ .personal.email }} or #{{ .personal.mobile }}
-      '';
-    };
     NSGlobalDomain = {
       "com.apple.mouse.tapBehavior" = 1;
       "com.apple.sound.beep.feedback" = 0;
