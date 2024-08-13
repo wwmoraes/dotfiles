@@ -148,7 +148,6 @@ in rec {
   environment.systemPath = lib.mkMerge [
     (lib.mkBefore [
       "$HOME/.local/bin"
-      # "$HOME/Applications/kitty.app/Contents/MacOS"
       "$HOME/.nix-profile/bin"
       "$HOME/go/bin"
       # "$HOME/.cabal/bin"
