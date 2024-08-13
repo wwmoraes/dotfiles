@@ -246,6 +246,32 @@ in rec {
     };
   };
 
+  launchd.user.agents = {
+    "dev.artero.environment" = {
+      script = let
+        home = builtins.getEnv "HOME";
+        launchctlEnv = key: value:
+          if value != null
+          then "launchctl setenv ${key} ${lib.escapeShellArg (builtins.replaceStrings ["$HOME" "\${HOME}"] [home home] value)}"
+          else "launchctl unsetenv ${key}";
+      in lib.concatStringsSep "\n" [
+        (lib.concatStringsSep "\n" (lib.mapAttrsToList launchctlEnv config.launchd.user.envVariables))
+        "/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
+      ];
+      serviceConfig = {
+        Label = "dev.artero.environment";
+        LimitLoadToSessionType = [
+          "Aqua"
+          "StandardIO"
+          "Background"
+        ];
+        RunAtLoad = true;
+        # StandardErrorPath = (/. + (builtins.getEnv "HOME") + /Library/Logs/dev.artero.environment.err.log);
+        # StandardOutPath = (/. + (builtins.getEnv "HOME") + /Library/Logs/dev.artero.environment.out.log);
+      };
+    };
+  };
+
   launchd.daemons = {
     "dev.artero.limit.maxfiles" = {
       serviceConfig = {
