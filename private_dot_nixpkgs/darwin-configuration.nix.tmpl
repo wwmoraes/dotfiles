@@ -149,31 +149,28 @@ in rec {
     (lib.mkBefore [
       "$HOME/.local/bin"
       # "$HOME/Applications/kitty.app/Contents/MacOS"
+      "$HOME/.nix-profile/bin"
       "$HOME/go/bin"
       # "$HOME/.cabal/bin"
       # "$HOME/.cargo/bin"
-      # "$HOME/.nix-profile/bin"
-    ])
-    # "/run/current-system/sw/bin"
-    # "/nix/var/nix/profiles/default/bin"
-    (lib.mkAfter [
       config.homebrew.brewPrefix
       (builtins.toString (/. + "${config.homebrew.brewPrefix}/../sbin"))
       (builtins.toString (/. + "${config.homebrew.brewPrefix}/../opt/coreutils/libexec/gnubin"))
-      (builtins.toString (/. + "${config.homebrew.brewPrefix}/../opt/openjdk/bin"))
-      # "/usr/local/sbin"
-      # #{{- range $_, $line := (include "/etc/paths" | trimAll "\r\n" | splitList "\n") }}
-      # #{{- if not (contains " " $line) }}
-      # #{{- $line | quote | nindent 4 }}
-      # #{{- end }}
-      # #{{- end }}
-      # #{{- range $_, $pathSource := glob "/etc/paths.d/*" }}
-      # #{{- range $_, $line := (include $pathSource | trimAll "\r\n" | splitList "\n") }}
-      # #{{- if not (contains " " $line) }}
-      # #{{- $line | quote | nindent 4 }}
-      # #{{- end }}
-      # #{{- end }}
-      # #{{- end }}
+    ])
+    (lib.mkAfter [
+      "/usr/local/sbin"
+      #{{- range $_, $line := (include "/etc/paths" | trimAll "\r\n" | splitList "\n") }}
+      #{{- if not (contains " " $line) }}
+      #{{- $line | quote | nindent 6 }}
+      #{{- end }}
+      #{{- end }}
+      #{{- range $_, $pathSource := glob "/etc/paths.d/*" }}
+      #{{- range $_, $line := (include $pathSource | trimAll "\r\n" | splitList "\n") }}
+      #{{- if not (contains " " $line) }}
+      #{{- $line | quote | nindent 6 }}
+      #{{- end }}
+      #{{- end }}
+      #{{- end }}
     ])
   ];
 
