@@ -1,5 +1,9 @@
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
-{ config, lib, pkgs, ... }: let
+{ config
+, lib
+, pkgs
+, ...
+}: let
   unstable = import <unstable> {};
 in rec {
   imports = [

@@ -1,5 +1,10 @@
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
-{ config, lib, pkgs, ... }:
+{ config
+, lib
+, pkgs
+, ...
+}:
+
 rec {
   #region packages
   environment.systemPackages = [
