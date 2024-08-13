@@ -4,10 +4,6 @@ max-cache-ttl 7200
 # allows gpg-preset-passphrase to seed gpg-agent's passphrase internal cache
 allow-preset-passphrase
 
-{{- if eq .chezmoi.os "darwin" }}
-pinentry-program {{ .darwin.pinentryBundlePath }}/Contents/MacOS/pinentry-mac
-{{- else }}
-pinentry-program {{ lookPath "pinentry" }}
-{{- end }}
+pinentry-program {{ .chezmoi.config.pinentry.command }}
 
 enable-ssh-support

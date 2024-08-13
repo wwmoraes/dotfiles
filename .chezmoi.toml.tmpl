@@ -1,5 +1,15 @@
 {{- $isPersonal := hasSuffix "Cabuk" .chezmoi.hostname -}}
 {{- $isWork := eq "NLLM4000559023" .chezmoi.hostname -}}
+
+{{- $pinentry := lookPath "pinentry-tty" -}}
+{{- if eq .chezmoi.os "darwin" -}}
+  {{- with (output "mdfind" "kMDItemCFBundleIdentifier" "=" "org.gpgtools.pinentry-mac" | trimAll "\r\n") -}}
+    {{- if . -}}
+      {{- $pinentry = joinPath . "Contents/MacOS/pinentry-mac" -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
 {{- $ejsonDict := joinPath .chezmoi.sourceDir ".ejson/secrets.json" | ejsonDecrypt -}}
 
 encryption = "gpg"
@@ -19,11 +29,6 @@ encryption = "gpg"
   prefix = "/home/linuxbrew/.linuxbrew"
   repository = "/home/linuxbrew/.linuxbrew/Homebrew"
   {{- end }}
-
-{{- if eq .chezmoi.os "darwin" }}
-[data.darwin]
-pinentryBundlePath = {{ output "mdfind" "kMDItemCFBundleIdentifier" "=" "org.gpgtools.pinentry-mac" | trimAll "\r\n" | quote }}
-{{- end }}
 
 [data.tags]
   personal = {{ $isPersonal }}
@@ -49,6 +54,9 @@ args = [
 
 [interpreters.fish]
 command = "fish"
+
+[pinentry]
+command = {{ $pinentry | quote }}
 
 [scriptEnv]
   # whether to apply MacOS defaults or not
