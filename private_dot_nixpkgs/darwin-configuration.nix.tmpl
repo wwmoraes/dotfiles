@@ -1022,6 +1022,25 @@ in rec {
     };
   };
 
+  system.pmset = {
+    all = {
+      autorestart = 1;
+      displaysleep = 2;
+      hibernatemode = 0;
+      highstandbythreshold = 50;
+      lidwake = 1;
+      standbydelay = 0;
+      standbydelayhigh = 3600;
+      standbydelaylow = 900;
+    };
+    battery = {
+      sleep = 5;
+    };
+    charger = {
+      sleep = 0;
+    };
+  };
+
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
