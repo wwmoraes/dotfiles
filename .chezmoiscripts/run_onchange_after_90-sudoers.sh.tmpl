@@ -22,6 +22,12 @@ for SUDOERS_FILE in "${SUDOERS_PATH}"/*; do
   printf "installing \e[91m%s\e[0m to \e[91m%s\e[0m...\n" "${SUDOERS_FILE}" "${TARGET}"
 
   visudo -c "${SUDOERS_FILE}" || continue
+  if [ -L "${TARGET}" ]; then
+    echo "found linked target, unlinking it..."
+    sudo cp "${SUDOERS_FILE}" "${TARGET}.tmp"
+    sudo unlink "${SUDOERS_FILE}"
+    sudo mv "${TARGET}.tmp" "${TARGET}"
+  fi
   sudo cp "${SUDOERS_FILE}" "${TARGET}"
 done
 
