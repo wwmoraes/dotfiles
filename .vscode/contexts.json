@@ -33,7 +33,6 @@
       ".global.d/.security.yaml.tmpl",
       ".shadow.d/.config/fish/completions/pkg.fish",
       "private_dot_local/bin/executable_plist2xml",
-      "private_dot_skhdrc",
       "private_Library/private_Contacts/me.vcf.tmpl"
     ],
     "Direnv": [
