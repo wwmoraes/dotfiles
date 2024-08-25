@@ -55,12 +55,12 @@ in rec {
     # KERBEROS_PRINCIPAL = "#{{ .work.username }}";
     # KERBEROS_REALM = ''#{{ .work.website | trimPrefix "https://" }}'';
     WORK_INTRANET_HOSTNAME = ''#{{ .work.website | trimPrefix "https://" | splitList "/" | first }}'';
+    PROJECTS_DIR = "$HOME/workspace";
+    PYTHONWARNINGS = "ignore";
   };
 
   launchd.user.envVariables = {
     ENVIRONMENT = "work";
-    PROJECTS_DIR = "$HOME/workspace";
-    PYTHONWARNINGS = "ignore";
   };
   #endregion
 

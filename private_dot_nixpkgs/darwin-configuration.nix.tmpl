@@ -181,6 +181,14 @@ in rec {
     FZF_LEGACY_KEYBINDINGS = "0";
     FZF_REVERSE_ISEARCH_OPTS = ''--preview-window=up:10 --preview=\"bat {}\" --height=50%'';
     GOPATH = "$HOME/.go";
+    LANG = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
+    LC_COLLATE = "en_US.UTF-8";
+    LC_CTYPE = "en_US.UTF-8";
+    LC_MESSAGES = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
     LESS = "-isRMFX --tilde +Gg";
     LSCOLORS = "exfxcxdxbxegedabagacad";
     MANPAGER = "less";
@@ -200,14 +208,6 @@ in rec {
     NODE_EXTRA_CA_CERTS = SSL_CERT_FILE;
     REQUESTS_CA_BUNDLE = SSL_CERT_FILE;
     SSL_CERT_FILE = builtins.toString (/. + "${config.homebrew.brewPrefix}/../etc/openssl@3/cert.pem");
-    LANG = "en_US.UTF-8";
-    LC_ALL = "en_US.UTF-8";
-    LC_COLLATE = "en_US.UTF-8";
-    LC_CTYPE = "en_US.UTF-8";
-    LC_MESSAGES = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
   };
 
   nix.nixPath = [

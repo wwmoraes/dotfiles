@@ -99,11 +99,11 @@ rec {
   #region environment variables
   environment.variables = launchd.user.envVariables // {
     EMAIL = "#{{ .personal.email }}";
+    PROJECTS_DIR = "$HOME/dev";
   };
 
   launchd.user.envVariables = {
     ENVIRONMENT = "home";
-    PROJECTS_DIR = "$HOME/dev";
   };
   #endregion
 
