@@ -234,7 +234,8 @@ in rec {
   };
 
   system.activationScripts.postActivation.text = ''
-    echo 'd *' | mailx > /dev/null 2>&1
+    printf >&2 'cleaning up root mail...\n'
+    echo 'd *' | mailx > /dev/null 2>&1 || true
   '';
 
   launchd.user.agents = {
