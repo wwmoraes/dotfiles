@@ -455,9 +455,9 @@ in rec {
       test -n "$session"; or return
 
       # create session using smug if it matches a template
-      command -v smug /dev/null
+      command -v smug > /dev/null
       and echo $activeTmuxSessions | not grep -qFx $session
-      and command -v smug > /dev/null && test -f "$HOME/.config/smug/$session.yml"
+      and test -f "$HOME/.config/smug/$session.yml"
       and smug "$session" -a --detach
 
       # join or create plain session
