@@ -184,7 +184,7 @@ in rec {
     LESS = "-isRMFX --tilde +Gg";
     LSCOLORS = "exfxcxdxbxegedabagacad";
     MANPAGER = "less";
-    NIX_REMOTE = "daemon";
+    NIX_PATH = config.nix.nixPath;
     NIX_USER_PROFILE_DIR = "/nix/var/nix/profiles/per-user/$USER";
     PAGER = "less";
     PROJECTS_ORIGIN = "git@github.com:wwmoraes/%s.git";
@@ -208,7 +208,6 @@ in rec {
     LC_MONETARY = "en_US.UTF-8";
     LC_NUMERIC = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
-    NIX_PATH = config.nix.nixPath;
   };
 
   nix.nixPath = [
@@ -233,6 +232,10 @@ in rec {
       '';
     };
   };
+
+  system.activationScripts.postActivation.text = ''
+    echo 'd *' | mailx > /dev/null 2>&1
+  '';
 
   launchd.user.agents = {
     "dev.artero.environment" = {
@@ -298,14 +301,6 @@ in rec {
         RunAtLoad = true;
       };
     };
-    nix-daemon = {
-      serviceConfig = {
-        EnvironmentVariables = {
-          NIX_GIT_SSL_CAINFO = environment.variables.NIX_GIT_SSL_CAINFO;
-          NIX_SSL_CERT_FILE = environment.variables.NIX_SSL_CERT_FILE;
-        };
-      };
-    };
   };
 
   launchd.user.agents = {
@@ -348,15 +343,19 @@ in rec {
   };
 
   nix = {
-    configureBuildUsers = true;
-    nrBuildUsers = 32;
+    useDaemon = false;
+    distributedBuilds = false;
+    configureBuildUsers = false;
     package = pkgs.nix;
     settings = {
       sandbox = true;
+      allowed-users = [
+        "william"
+      ];
       trusted-users = [
         "@_developer"
         "@admin"
-        "root"
+        "william"
       ];
     };
   };
@@ -566,7 +565,7 @@ in rec {
     # "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
   ];
 
-  services.nix-daemon.enable = true;
+  services.nix-daemon.enable = false;
 
   system.authorizationDB = {
     ## Used by task_for_pid(...). Task_for_pid is called by programs requesting full
