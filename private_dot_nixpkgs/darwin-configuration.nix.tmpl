@@ -100,11 +100,11 @@ in rec {
     "launchpad-manager"
     "spotify"
     "suspicious-package"
+    "swiftbar"
     "the-unarchiver"
     "thingsmacsandboxhelper"
     "uninstallpkg"
     "visual-studio-code"
-    "xbar"
     "zap"
     "zotero"
   ];
@@ -604,6 +604,18 @@ in rec {
         "Negotiated Bitpool Max" = 80;
         "Negotiated Bitpool Min" = 80;
         "Negotiated Bitpool" = 80;
+      };
+      "com.ameba.SwiftBar" = let
+        rootFolder = (builtins.toString (/. + home + "/Library/Application Support/SwiftBar"));
+      in {
+        DisableBashWrapper = true;
+        MakePluginExecutable = false;
+        NSNavLastRootDirectory = rootFolder;
+        PluginDebugMode = true;
+        PluginDeveloperMode = true;
+        PluginDirectory = rootFolder + "/plugins";
+        StealthMode = true;
+        StreamablePluginDebugOutput = false;
       };
       "com.apple.Accessibility" = {
         EnhancedBackgroundContrastEnabled = 1;

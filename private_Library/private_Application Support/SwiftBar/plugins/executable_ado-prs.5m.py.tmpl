@@ -1,4 +1,6 @@
-#!/usr/local/bin/python3.10
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+#{{- if .environment.work -}}
+#!/usr/bin/env python3
 
 #  <xbar.title>Azure DevOps Pull Requests</xbar.title>
 #  <xbar.version>0.0.1</xbar.version>
@@ -104,3 +106,4 @@ print(f"Last update: {lastUpdate} | disabled=true | size=10")
 [print(entry) for entry in entries]
 print("---")
 print("Refresh | refresh=true key=CmdOrCtrl+r")
+#{{- end -}}
