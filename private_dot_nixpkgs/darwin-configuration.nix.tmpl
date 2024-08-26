@@ -5,6 +5,7 @@
 , ...
 }: let
   unstable = import <unstable> {};
+  home = builtins.getEnv "HOME";
 in rec {
   imports = [
     ./modules
