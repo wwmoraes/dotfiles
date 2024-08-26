@@ -7,8 +7,8 @@ vars:
 tasks:
   default:
     cmds:
-    - echo "TODO"
-    silent: true
+    - task: secrets
+    - task: checksum
   validate-secrets:
     desc: Checks and reports invalid secret references in the ejson template.
     cmd: >-
@@ -16,6 +16,15 @@ tasks:
       | grep "op://"
       | sed 's/[";]//g'
       | xargs -P 0 -I% bash -c 'echo "%" | op inject > /dev/null || echo %'
+  checksum:
+    desc: Update the saved checksum in the password vault.
+    method: timestamp
+    cmd: >-
+      op item edit
+      "ejson payload"
+      "task checksum=$(cat .task/checksum/secrets)"
+    sources:
+    - .task/checksum/secrets
   secrets:
     vars:
       SOURCE: .ejson/secrets.tmpl.json
