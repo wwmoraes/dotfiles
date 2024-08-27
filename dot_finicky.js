@@ -235,8 +235,8 @@ const apps = {
 
 /** @type {Browsers} */
 const browsers = {
-    main: apps.Safari,
   "nllm4000559023": {
+    main: apps.Edge,
     work: apps.Edge,
     home: apps.Safari,
   },
