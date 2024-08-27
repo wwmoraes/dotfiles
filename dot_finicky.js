@@ -235,8 +235,8 @@ const apps = {
 
 /** @type {Browsers} */
 const browsers = {
-  "nllm4000559023.local": {
     main: apps.Safari,
+  "nllm4000559023": {
     work: apps.Edge,
     home: apps.Safari,
   },
@@ -254,8 +254,8 @@ const defaultBrowsers = {
  * @returns {import("./.finicky.d").Finicky.BrowserFn}
  * */
 const getBrowser = (contextName) => (params) => {
-  // finicky.log(finicky.getSystemInfo().name);
-  const context = browsers[finicky.getSystemInfo().name] || defaultBrowsers;
+  // finicky.log(finicky.getSystemInfo().name.split(".")[0]);
+  const context = browsers[finicky.getSystemInfo().name.split(".")[0]] || defaultBrowsers;
   return context[contextName];
 };
 
