@@ -206,6 +206,17 @@ rec {
       };
     };
     CustomSystemPreferences = {
+      "/Library/Preferences/com.apple.loginwindow" = {
+        AdminHostInfo = "HostName";
+      };
+      "/Library/Preferences/com.apple.security.smartcard" = {
+        allowSmartCard = true;
+        checkCertificateTrust = 3;
+        DisabledTokens = []; ## pluginkit -m -p com.apple.ctk-tokens
+        # Logging = false;
+        # oneCardPerUser = false;
+        UserPairing = true;
+      };
       "/Library/Preferences/com.apple.TimeMachine" = {
         AutoBackup = true;
         AutoBackupInterval = 86400;
@@ -224,9 +235,14 @@ rec {
       };
     };
     loginwindow = {
+      DisableConsoleAccess = true;
+      GuestEnabled = false;
       LoginwindowText = ''
         Found this? Please contact me on #{{ .personal.email }} or #{{ .personal.mobile }}
       '';
+      PowerOffDisabledWhileLoggedIn = false;
+      RestartDisabledWhileLoggedIn = false;
+      ShutDownDisabledWhileLoggedIn = false;
     };
   };
 

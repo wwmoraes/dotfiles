@@ -921,19 +921,8 @@ in rec {
       "/Library/Preferences/com.apple.iokit.AmbientLightSensor" = {
         "Automatic Display Enabled" = false;
       };
-      "/Library/Preferences/com.apple.loginwindow" = {
-        AdminHostInfo = "HostName";
-      };
       "/Library/Preferences/com.apple.security.libraryvalidation" = {
         DisableLibraryValidation = true;
-      };
-      "/Library/Preferences/com.apple.security.smartcard" = {
-        allowSmartCard = true;
-        checkCertificateTrust = 3;
-        DisabledTokens = []; ## pluginkit -m -p com.apple.ctk-tokens
-        # Logging = false;
-        # oneCardPerUser = false;
-        UserPairing = true;
       };
       "/Library/Preferences/com.apple.windowserver" = {
         DisplayResolutionEnabled = true;
@@ -971,13 +960,6 @@ in rec {
     };
     LaunchServices = {
       LSQuarantine = false;
-    };
-    loginwindow = {
-      DisableConsoleAccess = true;
-      GuestEnabled = false;
-      PowerOffDisabledWhileLoggedIn = false;
-      RestartDisabledWhileLoggedIn = false;
-      ShutDownDisabledWhileLoggedIn = false;
     };
     NSGlobalDomain = {
       "com.apple.mouse.tapBehavior" = 1;
