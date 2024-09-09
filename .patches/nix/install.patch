@@ -6,7 +6,7 @@
 <         INSTALL_MODE=no-daemon;;
 < esac
 ---
-> INSTALL_MODE=no-daemon;;
+> INSTALL_MODE=no-daemon
 62,65d56
 <             if [ "$(uname -s)" = "Darwin" ]; then
 <                 printf '\e[1;31mError: --no-daemon installs are no-longer supported on Darwin/macOS!\e[0m\n' >&2
