@@ -20,6 +20,47 @@ else
   cd "${TMP}" || exit
   trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
 
+  case "$(uname -s).$(uname -m)" in
+    Darwin.x86_64)
+      hash=94d06a6140f2625c25507980a466430d451ad9f06254b1711c520dd5860e80ce
+      system=x86_64-darwin
+      ;;
+    Darwin.arm64|Darwin.aarch64)
+      hash=df643c46279381801594f707960485221b5bbfdcbefd96e8a5dc1c4286ab999e
+      system=aarch64-darwin
+      ;;
+    *)
+      echo "sorry, there is no binary distribution of Nix for your platform" >&2
+      exit 1
+      ;;
+  esac
+
+  url=https://releases.nixos.org/nix/nix-2.24.3/nix-2.24.3-${system}.tar.xz
+  tarball=nix-2.24.3-${system}.tar.xz
+  echo "downloading Nix 2.24.3 binary tarball for ${system} from '${url}'..."
+  curl -fL "${url}" -o "${tarball}"
+
+  hash2="$(sha256sum -b "${tarball}" | cut -c1-64)"
+  if [ "${hash}" != "${hash2}" ]; then
+    echo "SHA-256 hash mismatch in '${url}'; expected ${hash}, got ${hash2}" >&2
+    exit 1
+  fi
+
+  mkdir -p unpack
+  tar -xJf "${tarball}" -C unpack
+
+  script=$(echo unpack/*/install)
+
+  test -e "${script}" || {
+    echo "installation script is missing from the binary tarball!" >&2
+    exit 1
+  }
+
+  patch "${script}" < "${CHEZMOI_SOURCE_DIR}/.patches/nix/install.patch"
+
+  export INVOKED_FROM_INSTALL_IN=1
+  "${script}" "$@"
+
   # convert to a single-user install
   if grep -q "build-users-group" /etc/nix/nix.conf; then
     # remove the build-users-group from the global nix configuration, otherwise
@@ -37,8 +78,6 @@ else
     unset NIX_REMOTE # no daemon
   fi
 fi
-
-
 
 # force loading on the current shell and bootstrap the installation
 unset __ETC_PROFILE_NIX_SOURCED
