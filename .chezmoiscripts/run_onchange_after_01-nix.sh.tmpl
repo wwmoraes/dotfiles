@@ -50,6 +50,7 @@ else
   tar -xJf "${tarball}" -C unpack
 
   script=$(echo unpack/*/install)
+  volume_script=$(echo unpack/*/create-darwin-volume.sh)
 
   test -e "${script}" || {
     echo "installation script is missing from the binary tarball!" >&2
@@ -59,7 +60,8 @@ else
   patch "${script}" < "${CHEZMOI_SOURCE_DIR}/.patches/nix/install.patch"
 
   export INVOKED_FROM_INSTALL_IN=1
-  "${script}" "$@"
+  "${volume_script}"
+  "${script}"
 
   # convert to a single-user install
   if grep -q "build-users-group" /etc/nix/nix.conf; then
