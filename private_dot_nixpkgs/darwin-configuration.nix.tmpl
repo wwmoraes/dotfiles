@@ -342,6 +342,7 @@ in rec {
     package = pkgs.nix;
     settings = {
       sandbox = true;
+      ssl-cert-file = config.launchd.user.envVariables.NIX_SSL_CERT_FILE;
       allowed-users = [
         "william"
       ];
