@@ -1,0 +1,50 @@
+theme = "dark_plus"
+
+[editor]
+bufferline = "multiple"
+cursorline = true
+mouse = true
+rulers = [80, 120]
+true-color = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+git-ignore = true
+
+[editor.gutters]
+layout = ["diff", "diagnostics", "line-numbers", "spacer"]
+
+[editor.gutters.line-numbers]
+min-width = 1
+
+[editor.indent-guides]
+render = true
+character = "┆"
+skip-levels = 1
+
+[editor.lsp]
+display-messages = true
+
+[editor.statusline]
+left = ["mode", "spinner", "version-control", "file-name"]
+
+[keys.normal]
+p = "paste_clipboard_before"
+X = ["extend_line_up", "extend_to_line_bounds"]
+y = "yank_main_selection_to_clipboard"
+
+[keys.normal.b]
+c = ":buffer-close"
+q = ":quit"
+
+# [keys.normal.space]
+# c = ":buffer-close"
+# q = ":quit"
+
+[keys.select]
+X = ["extend_line_up", "extend_to_line_bounds"]

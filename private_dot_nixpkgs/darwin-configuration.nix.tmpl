@@ -38,7 +38,6 @@ in rec {
     pkgs.less
     pkgs.moreutils
     pkgs.neo-cowsay
-    pkgs.nixd
     pkgs.pam-reattach
     pkgs.pet
     pkgs.pinentry-tty
@@ -47,6 +46,20 @@ in rec {
     pkgs.tlrc
     pkgs.vim
     unstable.mactop
+  ] ++ [
+    ## helix editor + common LSPs
+    unstable.helix
+    unstable.vscode-langservers-extracted
+    unstable.yaml-language-server
+    unstable.docker-compose-language-service
+    unstable.dockerfile-language-server-nodejs
+    unstable.typescript-language-server
+    unstable.texlab
+    unstable.lua-language-server
+    unstable.nil
+    unstable.buf-language-server
+    unstable.taplo
+    unstable.bash-language-server
   ] ++ (with pkgs.fishPlugins; [
     # fzf
     # vim-tmux-focus-events # TODO configure in vim
