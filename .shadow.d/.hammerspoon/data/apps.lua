@@ -24,6 +24,11 @@ local apps = {
   VSCodium = "com.vscodium",
   WhatsApp = "WhatsApp",
   XBar = "com.xbarapp.app",
+  Mail = "com.apple.mail",
+  Things = "com.culturedcode.ThingsMac",
+  Zotero = "org.zotero.zotero",
+  Anytype = "com.anytype.anytype",
+  DoMarks = "com.random-projects.domarks",
 }
 
 return apps

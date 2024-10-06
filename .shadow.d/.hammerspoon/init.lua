@@ -80,9 +80,23 @@ spoon.SpoonInstall:andUse("Contexts", {
       development = {
         title = "Development",
         applications = {
-          apps.VSCodium,
+          apps.VSCode,
           apps.Kitty,
         }
+      },
+      ---@type ContextEntry
+      personal = {
+        title = "Personal",
+        applications = {
+          apps.VSCode,
+          apps.Kitty,
+          apps.Mail,
+          apps.Things,
+          apps.Zotero,
+          apps.Anytype,
+          apps.DoMarks,
+          apps.Safari,
+        },
       },
     },
     onWake = {
