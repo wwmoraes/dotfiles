@@ -25,7 +25,7 @@ printf "\e[1;33mBootstrap\e[0m\n"
 #{{ printf "HOMEBREW_REPOSITORY=%s" ($prefix | quote) }}
 
 # install brew
-command -v brew > /dev/null || {
+command -v "${HOMEBREW_PREFIX}/bin/brew" > /dev/null || {
   # clone
   if [ ! -d "${HOMEBREW_REPOSITORY}" ]; then
     echo "cloning brew"
