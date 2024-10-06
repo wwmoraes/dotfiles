@@ -190,6 +190,7 @@ in rec {
     LC_MONETARY = "en_US.UTF-8";
     LC_NUMERIC = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
+    HOMEBREW_CASK_OPTS = "--appdir=~/Applications --keyboard-layoutdir=${lib.escapeShellArg "~/Library/Keyboard Layouts"} --no-quarantine";
     LESS = "-isRMFX --tilde +Gg";
     LSCOLORS = "exfxcxdxbxegedabagacad";
     MANPAGER = "less";
@@ -326,12 +327,13 @@ in rec {
       no_quarantine = true;
     };
     global = {
-      autoUpdate = false;
+      autoUpdate = true;
+      brewfile = true;
       lockfiles = false;
     };
     onActivation = {
-      autoUpdate = true;
-      upgrade = true;
+      autoUpdate = false;
+      upgrade = false;
       cleanup = "uninstall"; # "uninstall", "zap"
     };
   };
