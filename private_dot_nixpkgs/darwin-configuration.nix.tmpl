@@ -164,9 +164,9 @@ in rec {
     (lib.mkBefore [
       "$HOME/.local/bin"
       "$HOME/.nix-profile/bin"
-      "$HOME/go/bin"
-      # "$HOME/.cabal/bin"
-      # "$HOME/.cargo/bin"
+      "$HOME/.go/bin"
+      "$HOME/.cargo/bin"
+      "$HOME/.cabal/bin"
       config.homebrew.brewPrefix
       (builtins.toString (/. + "${config.homebrew.brewPrefix}/../sbin"))
       (builtins.toString (/. + "${config.homebrew.brewPrefix}/../opt/coreutils/libexec/gnubin"))
