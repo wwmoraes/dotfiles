@@ -1,0 +1,5 @@
+{{- $bin := joinPath .chezmoi.homeDir "/Applications/kitty.app/Contents/MacOS/kitten" -}}
+{{- $binInfo := lstat $bin -}}
+{{- if and $binInfo (eq $binInfo.type "file") -}}
+  {{ $bin }}
+{{- end -}}
