@@ -122,12 +122,12 @@ spoon.SpoonInstall:andUse("Contexts", {
 
 -- ### plain init configuration
 
-local environment = os.getenv("ENVIRONMENT")
+local environment = os.getenv("DOT_ENVIRONMENT")
 if environment ~= "" then
   local _, path = pcall(require, string.format("environment.%s", environment))
   logger.d(string.format("loaded %s", path))
 else
-  logger.w("no ENVIRONMENT set")
+  logger.w("no DOT_ENVIRONMENT set")
 end
 
 if not hs.ipc.cliStatus() then
