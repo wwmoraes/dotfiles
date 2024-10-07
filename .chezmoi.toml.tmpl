@@ -3,10 +3,10 @@
 
 {{- $pinentry := lookPath "pinentry-tty" -}}
 {{- if eq .chezmoi.os "darwin" -}}
-  {{- with (output "mdfind" "kMDItemCFBundleIdentifier" "=" "org.gpgtools.pinentry-mac" | trimAll "\r\n") -}}
-    {{- if . -}}
-      {{- $pinentry = joinPath . "Contents/MacOS/pinentry-mac" -}}
-    {{- end -}}
+  {{- $bin := "/usr/local/MacGPG2/libexec/pinentry-mac.app/Contents/MacOS/pinentry-mac" -}}
+  {{- $binInfo := lstat $bin -}}
+  {{- if and $binInfo (eq $binInfo.type "file") -}}
+      {{- $pinentry = $bin -}}
   {{- end -}}
 {{- end -}}
 
