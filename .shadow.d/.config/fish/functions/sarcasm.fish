@@ -1,9 +1,9 @@
 function sarcasm -d "transforms text into the supreme form"
-  argparse 'i/invert' -- $argv[2..-1]
+  argparse 'i/invert' -- $argv
 
   set -l casing (test (string length -- "$_flag_invert") -gt 0; echo $status)
 
-  set content "$argv[2..-1]"
+  set content "$argv[1..-1]"
   # use stdin if no args were given
   string match -qa "" "$content"; and read content
 
