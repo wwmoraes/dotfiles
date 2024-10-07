@@ -14,19 +14,22 @@ Defaults:{{ .chezmoi.username }} setenv
 
 ### using a graphical application that assigns you to the wheel group to be able
 ### to sudo is so retarded that I decided to risk myself :D
-Host_Alias WORK = {{ .chezmoi.hostname | lower }}
-Cmnd_Alias UNSAFE_WORK_CMDS = /usr/bin/su, /bin/cp *
-Cmnd_Alias SAFE_WORK_CMDS = /usr/bin/true "", /usr/bin/renice *, /usr/sbin/taskpolicy *
+# Host_Alias WORK = {{ .chezmoi.hostname | lower }}
+# Cmnd_Alias UNSAFE_WORK_CMDS = /usr/bin/su, /bin/cp *
+# Cmnd_Alias SAFE_WORK_CMDS = /usr/bin/true "", /usr/bin/renice *, /usr/sbin/taskpolicy *
 
-{{ .chezmoi.username }} WORK = PASSWD: UNSAFE_WORK_CMDS
-{{ .chezmoi.username }} WORK = NOPASSWD: SAFE_WORK_CMDS
-{{ .chezmoi.username }} WORK = PASSWD: /bin/launchctl config user path *
+# {{ .chezmoi.username }} WORK = PASSWD: UNSAFE_WORK_CMDS
+# {{ .chezmoi.username }} WORK = NOPASSWD: SAFE_WORK_CMDS
+# {{ .chezmoi.username }} WORK = PASSWD: /bin/launchctl config user path *
 
 ### why wouldn't I be able to change the ownership of my own fucking files?
-{{ .chezmoi.username }} WORK = NOPASSWD:SETENV: /usr/sbin/chown -R {{ .chezmoi.username }}\:{{ .chezmoi.group }} /Users/{{ .chezmoi.username }}/*
+# {{ .chezmoi.username }} WORK = SETENV: /usr/sbin/chown -R {{ .chezmoi.username }}\:{{ .chezmoi.group }} /Users/{{ .chezmoi.username }}/*
 
 ### now I can work in peace without requesting elevation and waiting an entire
 ### day to get it, update tools I need and resume coding
 {{ .chezmoi.username }} ALL = (ALL) PASSWD:ALL
+{{ .chezmoi.username }} ALL = PASSWD: /usr/bin/sfltool *
+{{ .chezmoi.username }} ALL = PASSWD: /usr/sbin/dseditgroup -o edit -a {{ .chezmoi.username }} -t user admin
+{{ .chezmoi.username }} ALL = PASSWD: /usr/sbin/dseditgroup -o edit -d {{ .chezmoi.username }} -t user admin
 
 {{- end }}
