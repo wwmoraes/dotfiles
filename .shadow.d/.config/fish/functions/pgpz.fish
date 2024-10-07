@@ -15,7 +15,7 @@ function pgpz -a cmd -d "gpg for human beings" -w gpg
         gpg -o gpg-$identity/public-key.asc --armor --export $identity
         gpg -o gpg-$identity/revoke.asc --armor --gen-revoke $identity
         gpg -o gpg-$identity/backup.asc --armor --export-secret-keys --export-options export-backup $identity
-        gpg -o gpg-$identity/secret-key.asc --armor --export-secret-keys $identityf
+        gpg -o gpg-$identity/secret-key.asc --armor --export-secret-keys $identity
       end
     case "" "*"
       gpg $argv
