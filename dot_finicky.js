@@ -255,7 +255,7 @@ const defaultBrowsers = {
  * */
 const getBrowser = (contextName) => (params) => {
   // finicky.log(finicky.getSystemInfo().name.split(".")[0]);
-  const context = browsers[finicky.getSystemInfo().name.split(".")[0]] || defaultBrowsers;
+  const context = browsers[finicky.getSystemInfo().name.split(".")[0].toLowerCase()] || defaultBrowsers;
   return context[contextName];
 };
 
