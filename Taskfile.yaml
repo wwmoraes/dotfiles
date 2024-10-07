@@ -22,7 +22,7 @@ tasks:
     cmd: >-
       op item edit
       "ejson payload"
-      "task checksum=$(cat .task/checksum/secrets)"
+      "task checksum=$(cat .task/checksum/secrets)" || true
     sources:
     - .task/checksum/secrets
   secrets:
@@ -30,7 +30,7 @@ tasks:
       SOURCE: .ejson/secrets.tmpl.json
       TARGET: .ejson/secrets.json
     cmds:
-    - op inject -f -i {{ .SOURCE | q }} -o {{ .TARGET | q }}
+    - op inject -f -i {{ .SOURCE | q }} -o {{ .TARGET | q }} || true
     - ejson encrypt .ejson/secrets.json
     - op document edit "ejson payload" .ejson/secrets.json || true
     deps:
