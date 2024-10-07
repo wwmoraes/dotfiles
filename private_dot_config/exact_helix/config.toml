@@ -38,7 +38,7 @@ p = "paste_clipboard_before"
 X = ["extend_line_up", "extend_to_line_bounds"]
 y = "yank_main_selection_to_clipboard"
 
-[keys.normal.b]
+[keys.normal.","]
 c = ":buffer-close"
 q = ":quit"
 
