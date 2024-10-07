@@ -35,6 +35,7 @@ left = ["mode", "spinner", "version-control", "file-name"]
 
 [keys.normal]
 A-q = ":reflow"
+C-g = [":new", ":insert-output lazygit", ":redraw", ":buffer-close"]
 p = "paste_clipboard_before"
 X = ["extend_line_up", "extend_to_line_bounds"]
 y = "yank_main_selection_to_clipboard"
