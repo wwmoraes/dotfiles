@@ -1,0 +1,3 @@
+{{- if .environment.work }}
+{{- .sshKeys.work.private | b64dec -}}
+{{- end }}
