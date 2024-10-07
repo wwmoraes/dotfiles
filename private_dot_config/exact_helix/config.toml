@@ -41,8 +41,10 @@ X = ["extend_line_up", "extend_to_line_bounds"]
 y = "yank_main_selection_to_clipboard"
 
 [keys.normal.","]
+"," = "keep_primary_selection"
 c = ":buffer-close"
 q = ":quit"
+r = ":config-reload"
 
 # [keys.normal.space]
 # c = ":buffer-close"
