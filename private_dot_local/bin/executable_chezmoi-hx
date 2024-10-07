@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+exec direnv exec ~/.local/share/chezmoi hx -w ~/.local/share/chezmoi

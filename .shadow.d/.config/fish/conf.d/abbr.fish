@@ -9,7 +9,7 @@ abbr -a .fi "chezmoi init"
 abbr -a .fl "chezmoi lg"
 abbr -a .fr "chezmoi run"
 abbr -a .fs "chezmoi sync"
-abbr -a .fx "hx -w ~/.local/share/chezmoi"
+abbr -a .fx "chezmoi hx"
 
 abbr -a lg lazygit
 
