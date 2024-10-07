@@ -108,7 +108,7 @@ local function setupPATRenewer()
 end
 
 setupPATRenewer()
-setupVPN()
+-- setupVPN()
 setupMenu()
 
 logger.v("loaded successfully")
