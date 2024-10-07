@@ -12,56 +12,60 @@ printf "\e[1;33mNix\e[0m\n"
 # skip if nix is installed
 command -v nix >/dev/null 2>&1 && exit
 
-if [ "${CHEZMOI_OS:-}" != "darwin" ]; then
-  curl -L https://nixos.org/nix/install | sh -s
-else
-  TMP=$(mktemp -d)
-  OLD_PWD="${PWD}"
-  cd "${TMP}" || exit
-  trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
+curl -L https://nixos.org/nix/install | sh -s
 
-  case "$(uname -s).$(uname -m)" in
-    Darwin.x86_64)
-      hash=94d06a6140f2625c25507980a466430d451ad9f06254b1711c520dd5860e80ce
-      system=x86_64-darwin
-      ;;
-    Darwin.arm64|Darwin.aarch64)
-      hash=df643c46279381801594f707960485221b5bbfdcbefd96e8a5dc1c4286ab999e
-      system=aarch64-darwin
-      ;;
-    *)
-      echo "sorry, there is no binary distribution of Nix for your platform" >&2
-      exit 1
-      ;;
-  esac
+if [ "${CHEZMOI_OS:-}" = "darwin" ]; then
+  # TMP=$(mktemp -d)
+  # OLD_PWD="${PWD}"
+  # cd "${TMP}" || exit
+  # trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
 
-  url=https://releases.nixos.org/nix/nix-2.24.3/nix-2.24.3-${system}.tar.xz
-  tarball=nix-2.24.3-${system}.tar.xz
-  echo "downloading Nix 2.24.3 binary tarball for ${system} from '${url}'..."
-  curl -fL "${url}" -o "${tarball}"
+  # case "$(uname -s).$(uname -m)" in
+  #   Darwin.x86_64)
+  #     hash=94d06a6140f2625c25507980a466430d451ad9f06254b1711c520dd5860e80ce
+  #     system=x86_64-darwin
+  #     ;;
+  #   Darwin.arm64|Darwin.aarch64)
+  #     hash=df643c46279381801594f707960485221b5bbfdcbefd96e8a5dc1c4286ab999e
+  #     system=aarch64-darwin
+  #     ;;
+  #   *)
+  #     echo "sorry, there is no binary distribution of Nix for your platform" >&2
+  #     exit 1
+  #     ;;
+  # esac
 
-  hash2="$(sha256sum -b "${tarball}" | cut -c1-64)"
-  if [ "${hash}" != "${hash2}" ]; then
-    echo "SHA-256 hash mismatch in '${url}'; expected ${hash}, got ${hash2}" >&2
-    exit 1
-  fi
+  # url=https://releases.nixos.org/nix/nix-2.24.3/nix-2.24.3-${system}.tar.xz
+  # tarball=nix-2.24.3-${system}.tar.xz
+  # echo "downloading Nix 2.24.3 binary tarball for ${system} from '${url}'..."
+  # curl -fL "${url}" -o "${tarball}"
 
-  mkdir -p unpack
-  tar -xJf "${tarball}" -C unpack
+  # hash2="$(shasum -a 256 -b "${tarball}" | cut -c1-64)"
+  # if [ "${hash}" != "${hash2}" ]; then
+  #   echo "SHA-256 hash mismatch in '${url}'; expected ${hash}, got ${hash2}" >&2
+  #   exit 1
+  # fi
 
-  script=$(echo unpack/*/install)
-  volume_script=$(echo unpack/*/create-darwin-volume.sh)
+  # mkdir -p unpack
+  # tar -xJf "${tarball}" -C unpack
 
-  test -e "${script}" || {
-    echo "installation script is missing from the binary tarball!" >&2
-    exit 1
-  }
+  # script=$(echo unpack/*/install)
 
-  patch "${script}" < "${CHEZMOI_SOURCE_DIR}/.patches/nix/install.patch"
+  # test -e "${script}" || {
+  #   echo "installation script is missing from the binary tarball!" >&2
+  #   exit 1
+  # }
 
-  export INVOKED_FROM_INSTALL_IN=1
-  "${volume_script}"
-  "${script}"
+  # patch "${script}" < "${CHEZMOI_SOURCE_DIR}/.patches/nix/install.patch"
+
+  # test -d /nix || {
+  #   volume_script=$(echo unpack/*/create-darwin-volume.sh)
+  #   "${volume_script}"
+  #   sudo chown $(id -u) /nix
+  # }
+
+  # export INVOKED_FROM_INSTALL_IN=1
+  # "${script}"
 
   # convert to a single-user install
   if grep -q "build-users-group" /etc/nix/nix.conf; then
@@ -77,6 +81,10 @@ else
     # cleanup the daemon
     sudo launchctl bootout system/org.nixos.nix-daemon || true
     sudo rm /Library/LaunchDaemons/org.nixos.nix-daemon.plist || true
+    sudo dscl . -delete /Groups/nixbld
+    for u in $(sudo dscl . -list /Users | grep _nixbld); do
+      sudo dscl . -delete /Users/$u
+    done
     unset NIX_REMOTE # no daemon
   fi
 fi

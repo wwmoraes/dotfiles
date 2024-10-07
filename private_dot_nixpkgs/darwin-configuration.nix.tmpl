@@ -319,6 +319,7 @@ in rec {
 
     printf "refreshing font database...\n"
     atsutil databases -removeUser
+    sudo atsutil databases -remove
 
     printf "reloading font daemon...\n"
     killall fontd || true

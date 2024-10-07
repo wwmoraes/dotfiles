@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+export HOMEBREW_PREFIX=/opt/homebrew
+export HOMEBREW_REPOSITORY=/opt/homebrew
+export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+
+export SSL_CERT_FILE=/opt/homebrew/etc/openssl@3/cert.pem
+export CURL_CA_BUNDLE=${SSL_CERT_FILE}
+export NODE_EXTRA_CA_CERTS=${SSL_CERT_FILE}
+export REQUESTS_CA_BUNDLE=${SSL_CERT_FILE}
+
+export PATH="$HOME"/.local/bin:/nix/var/nix/profiles/system/sw/bin:/nix/var/nix/profiles/default/bin:${HOMEBREW_PREFIX}/bin:"$PATH"
+export NIX_PATH="kaizen=${HOME}/dev/kaizen:darwin-config=${HOME}/.nixpkgs/darwin-configuration.nix:darwin=${HOME}/.nix-defexpr/channels/darwin:unstable=${HOME}/.nix-defexpr/channels/unstable:nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixpkgs:/nix/var/nix/profiles/per-user/root/channels"
+
+unset __ETC_PROFILE_NIX_SOURCED
+source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
+source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+
+export NIX_SSL_CERT_FILE=${SSL_CERT_FILE}
+export NIX_GIT_SSL_CAINFO=${SSL_CERT_FILE}
+
+echo Done!
