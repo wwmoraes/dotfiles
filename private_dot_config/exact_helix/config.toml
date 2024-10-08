@@ -1,11 +1,18 @@
 theme = "dark_plus"
 
 [editor]
-bufferline = "multiple"
+bufferline = "always"
 cursorline = true
+middle-click-paste = true
 mouse = true
 rulers = [80, 120]
+shell = ["fish", "-c"]
 true-color = true
+text-width = 120
+
+# [editor.auto-save]
+# focus-lost = true
+# after-delay.enable = true
 
 [editor.cursor-shape]
 insert = "bar"
@@ -14,41 +21,47 @@ select = "underline"
 
 [editor.file-picker]
 hidden = false
-git-ignore = true
 
 [editor.gutters]
 layout = ["diff", "diagnostics", "line-numbers", "spacer"]
 
 [editor.gutters.line-numbers]
-min-width = 1
+min-width = 3
 
 [editor.indent-guides]
-render = true
 character = "┆"
+render = true
 skip-levels = 1
 
 [editor.lsp]
 display-messages = true
+display-inlay-hints = true
 
 [editor.statusline]
-left = ["mode", "spinner", "version-control", "file-name"]
+center = ["file-name", "read-only-indicator", "file-modification-indicator"]
+left = ["mode", "spinner", "version-control", "workspace-diagnostics"]
+mode.insert = "INSERT"
+mode.normal = "NORMAL"
+mode.select = "SELECT"
+right = ["file-type", "diagnostics", "selections", "register", "position", "file-encoding"]
+separator = "|"
 
 [keys.normal]
+"A-," = "goto_previous_buffer"
+"A-." = "goto_next_buffer"
+"A-/" = "repeat_last_motion"
+"A-w" = ":buffer-close"
 A-q = ":reflow"
 C-g = [":new", ":insert-output lazygit", ":redraw", ":buffer-close"]
-p = "paste_clipboard_before"
 X = ["extend_line_up", "extend_to_line_bounds"]
+p = "paste_clipboard_before"
 y = "yank_main_selection_to_clipboard"
 
 [keys.normal.","]
 "," = "keep_primary_selection"
 c = ":buffer-close"
 q = ":quit"
-r = ":config-reload"
-
-# [keys.normal.space]
-# c = ":buffer-close"
-# q = ":quit"
+r = [":sh chezmoi apply ~/.config/helix", ":config-reload"]
 
 [keys.select]
 X = ["extend_line_up", "extend_to_line_bounds"]
