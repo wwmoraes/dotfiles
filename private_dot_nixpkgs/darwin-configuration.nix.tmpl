@@ -215,6 +215,7 @@ in rec {
     REQUESTS_CA_BUNDLE = SSL_CERT_FILE;
     # SSL_CERT_FILE = builtins.toString (/. + "${config.homebrew.brewPrefix}/../etc/openssl@3/cert.pem");
     SSL_CERT_FILE =  "/opt/homebrew/etc/ca-certificates/cert.pem";
+    # SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
   };
 
   nix.nixPath = [
@@ -560,6 +561,11 @@ in rec {
       '';
     };
   };
+
+  security.pki.certificateFiles = [
+    # (/. + "${config.homebrew.brewPrefix}/../etc/openssl@3/cert.pem")
+    "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+  ];
 
   services.nix-daemon.enable = false;
 
