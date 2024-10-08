@@ -3,12 +3,13 @@ theme = "dark_plus"
 [editor]
 bufferline = "always"
 cursorline = true
+idle-timeout = 0
 middle-click-paste = true
 mouse = true
 rulers = [80, 120]
 shell = ["fish", "-c"]
-true-color = true
 text-width = 120
+true-color = true
 
 # [editor.auto-save]
 # focus-lost = true
@@ -37,6 +38,10 @@ skip-levels = 1
 display-messages = true
 display-inlay-hints = true
 
+[editor.soft-wrap]
+enable = true
+wrap-at-text-width = true
+
 [editor.statusline]
 center = ["file-name", "read-only-indicator", "file-modification-indicator"]
 left = ["mode", "spinner", "version-control", "workspace-diagnostics"]
@@ -46,6 +51,9 @@ mode.select = "SELECT"
 right = ["file-type", "diagnostics", "selections", "register", "position", "file-encoding"]
 separator = "|"
 
+[keys.insert]
+S-tab = "move_parent_node_start"
+
 [keys.normal]
 "A-," = "goto_previous_buffer"
 "A-." = "goto_next_buffer"
@@ -53,8 +61,10 @@ separator = "|"
 "A-w" = ":buffer-close"
 A-q = ":reflow"
 C-g = [":new", ":insert-output lazygit", ":redraw", ":buffer-close"]
+S-tab = "move_parent_node_start"
 X = ["extend_line_up", "extend_to_line_bounds"]
 p = "paste_clipboard_before"
+tab = "move_parent_node_end"
 y = "yank_main_selection_to_clipboard"
 
 [keys.normal.","]
@@ -62,6 +72,9 @@ y = "yank_main_selection_to_clipboard"
 c = ":buffer-close"
 q = ":quit"
 r = [":sh chezmoi apply ~/.config/helix", ":config-reload"]
+s = ":pipe sort"
 
 [keys.select]
+S-tab = "extend_parent_node_start"
 X = ["extend_line_up", "extend_to_line_bounds"]
+tab = "extend_parent_node_end"
