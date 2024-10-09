@@ -68,13 +68,17 @@ S-tab = "move_parent_node_start"
 "A-k" = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
 "A-up" = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
 "A-w" = ":buffer-close"
+# P = ":clipboard-paste-before"
+# R = ":clipboard-paste-replace"
+# Y = ":clipboard-yank"
+# d = [":clipboard-yank-join", "delete_selection"]
+# p = ":clipboard-paste-after"
+# y = ":clipboard-yank-join"
 A-q = ":reflow"
 C-g = [":new", ":insert-output lazygit", ":redraw", ":buffer-close"]
 S-tab = "move_parent_node_start"
 X = ["extend_line_up", "extend_to_line_bounds"]
-p = "paste_clipboard_before"
 tab = "move_parent_node_end"
-y = "yank_main_selection_to_clipboard"
 
 [keys.normal.","]
 "," = "keep_primary_selection"
@@ -84,6 +88,12 @@ r = [":sh chezmoi apply ~/.config/helix", ":config-reload"]
 s = ":pipe sort"
 
 [keys.select]
+# P = ":clipboard-paste-before"
+# R = ":clipboard-paste-replace"
+# Y = ":clipboard-yank"
+# d = [":clipboard-yank-join", "delete_selection"]
+# p = ":clipboard-paste-after"
+# y = ":clipboard-yank-join"
 S-tab = "extend_parent_node_start"
 X = ["extend_line_up", "extend_to_line_bounds"]
 tab = "extend_parent_node_end"
