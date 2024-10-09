@@ -1,6 +1,10 @@
 IdentityFile ~/.ssh/work.pub
 IdentitiesOnly yes
 
+Host *
+  UseKeychain yes
+  AddKeysToAgent yes
+
 Host github.com
   IdentityFile ~/.ssh/work.pub
   IdentitiesOnly yes
