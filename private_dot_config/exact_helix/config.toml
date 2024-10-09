@@ -8,7 +8,7 @@ middle-click-paste = true
 mouse = true
 rulers = [80, 120]
 shell = ["fish", "-c"]
-text-width = 120
+text-width = 80
 true-color = true
 
 # [editor.auto-save]
@@ -40,7 +40,6 @@ display-inlay-hints = true
 
 [editor.soft-wrap]
 enable = true
-wrap-at-text-width = true
 
 [editor.statusline]
 center = ["file-name", "read-only-indicator", "file-modification-indicator"]
