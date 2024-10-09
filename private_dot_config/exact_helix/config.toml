@@ -55,15 +55,16 @@ separator = "|"
 S-tab = "move_parent_node_start"
 
 [keys.normal]
+";" = "command_mode"
 "A-," = "goto_previous_buffer"
 "A-." = "goto_next_buffer"
 "A-/" = "repeat_last_motion"
 "A-J" = ["extend_to_line_bounds", "yank", "paste_after"]
-"A-S-down" = ["extend_to_line_bounds", "yank", "paste_after"]
 "A-K" = ["extend_to_line_bounds", "yank", "paste_before"]
+"A-S-down" = ["extend_to_line_bounds", "yank", "paste_after"]
 "A-S-up" = ["extend_to_line_bounds", "yank", "paste_before"]
-"A-j" = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 "A-down" = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+"A-j" = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 "A-k" = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
 "A-up" = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
 "A-w" = ":buffer-close"
