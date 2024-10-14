@@ -10,6 +10,7 @@ abbr -a .fl "chezmoi lg"
 abbr -a .fr "chezmoi run"
 abbr -a .fs "chezmoi sync"
 abbr -a .fx "chezmoi hx"
+abbr -a .hx "hx -w ."
 
 abbr -a lg lazygit
 
