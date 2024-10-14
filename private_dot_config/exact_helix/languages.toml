@@ -76,7 +76,7 @@ indent = { tab-width = 2, unit = "\t" }
 name = "fish"
 scope = "source.fish"
 injection-regex = "fish"
-file-types = ["fish"]
+file-types = ["fish", { glob = "*.fish.tmpl" }]
 shebangs = ["fish"]
 comment-token = "#"
 auto-format = true
@@ -108,7 +108,7 @@ indent = { tab-width = 2, unit = "  " }
 [[language]]
 name = "git-config"
 scope = "source.gitconfig"
-file-types = [{ glob = ".gitmodules" }, { glob = ".gitconfig" }, { glob = ".git/config" }, { glob = ".config/git/config" }]
+file-types = [{ glob = ".gitmodules" }, { glob = ".gitconfig" }, { glob = ".git/config" }, { glob = ".config/git/config" }, { glob = "*gitconfig*" }]
 injection-regex = "git-config"
 comment-token = "#"
 # customization
@@ -134,5 +134,15 @@ comment-token = "#"
 # customization
 indent = { tab-width = 2, unit = "  " }
 grammar = "sh"
+
+[[language]]
+name = "nix"
+scope = "source.nix"
+injection-regex = "nix"
+file-types = ["nix", { glob = "*.nix.tmpl" }]
+shebangs = []
+comment-token = "#"
+language-servers = [ "nil", "nixd" ]
+indent = { tab-width = 2, unit = "  " }
 
 # TODO plantUML support (https://github.com/ptdewey/plantuml-lsp)
