@@ -1,6 +1,7 @@
 // chezmoi:template:left-delimiter="// {{" right-delimiter=}}
 // {{- $credentialHelper := eq .chezmoi.os "darwin" | ternary "osxkeychain" "desktop" -}}
 {
+  "IPv4Only": false,
   "IPv6Only": false,
   "acceptCanaryUpdates": false,
   "activeOrganizationName": "",
@@ -32,6 +33,7 @@
   "desktopTerminalEnabled": false,
   "devEnvironmentsEnabled": false,
   "disableHardwareAcceleration": false,
+  "disableLocalEngine": false,
   "disableUpdate": false,
   "diskFlush": "",
   "diskSizeMiB": 38147,
@@ -46,6 +48,7 @@
   "dockerBinInstallPath": "user",
   "dockerDebugDefaultEnabled": false,
   "dogfoodFeatureFlagsEnabled": false,
+  "eciDockerSocketAllowDerivedImages": true,
   "eciDockerSocketCmdList": [],
   "eciDockerSocketCmdListType": "deny",
   "eciDockerSocketImgList": [],
@@ -72,6 +75,7 @@
   "kubernetesEnabled": false,
   "kubernetesImagesRepository": "",
   "kubernetesInitialInstallPerformed": false,
+  "kubernetesMode": "",
   "kubernetesNodesCount": 0,
   "lastContainerdSnapshotterEnable": null,
   "lastLoginDate": 0,
@@ -132,6 +136,7 @@
   "vpnKitMaxPortIdleTime": 300,
   "vpnKitTransparentProxy": true,
   "vpnkitCIDR": "192.168.65.0/24",
+  "wslDiskCompactionThresholdGb": 0,
   "wslEnableGrpcfuse": false,
   "wslEngineEnabled": false,
   "wslInstallMode": "installLatestWsl",
