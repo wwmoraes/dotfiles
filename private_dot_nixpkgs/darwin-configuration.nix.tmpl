@@ -44,7 +44,7 @@ in rec {
     pkgs.powerline-go
     pkgs.smug
     pkgs.tlrc
-    pkgs.vim
+    # pkgs.vim
     unstable.mactop
   ] ++ [
     ## helix editor + common LSPs
@@ -181,7 +181,7 @@ in rec {
 
   environment.variables = launchd.user.envVariables // {
     CGO_ENABLED = "0";
-    EDITOR = "vim";
+    EDITOR = "hx";
     FZF_COMPLETE = "1";
     FZF_DEFAULT_OPTS = "--height=50% --layout=reverse";
     FZF_LEGACY_KEYBINDINGS = "0";
@@ -203,7 +203,7 @@ in rec {
     NIX_USER_PROFILE_DIR = "/nix/var/nix/profiles/per-user/$USER";
     PAGER = "less";
     PROJECTS_ORIGIN = "git@github.com:wwmoraes/%s.git";
-    SUDO_EDITOR = "vim";
+    SUDO_EDITOR = "hx";
     VISUAL = "code";
   };
 
