@@ -84,7 +84,7 @@ tab = "move_parent_node_end"
 c = ":buffer-close"
 q = ":quit"
 r = [":sh chezmoi apply ~/.config/helix", ":config-reload"]
-s = ":pipe sort"
+s = ["split_selection_on_newline", ":sort", "merge_selections"]
 
 [keys.select]
 # P = ":clipboard-paste-before"
