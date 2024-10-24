@@ -9,6 +9,7 @@ rec {
   #region packages
   environment.systemPackages = [
     # plgs.cilium-cli
+    pkgs.cachix
     pkgs.neovim
     pkgs.talosctl
   ] ++ (with pkgs.vimPlugins; [
