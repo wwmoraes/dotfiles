@@ -39,7 +39,7 @@ comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = [ "gopls", "golangci-lint-lsp" ]
 # customization
-indent = { tab-width = 2, unit = "  " }
+indent = { tab-width = 2, unit = "\t" }
 formatter = { command = "goimports" }
 
 [[language]]
@@ -59,7 +59,7 @@ block-comment-tokens = [
 language-servers = [ "rust-analyzer" ]
 persistent-diagnostic-sources = ["rustc", "clippy"]
 # customization
-indent = { tab-width = 2, unit = "  " }
+indent = { tab-width = 2, unit = "\t" }
 formatter = { command = "rustfmt" }
 
 [[language]]
@@ -82,7 +82,7 @@ comment-token = "#"
 auto-format = true
 # formatter = { command = "fish_indent" }
 # customization
-indent = { tab-width = 2, unit = "  " }
+indent = { tab-width = 2, unit = "\t" }
 
 [[language]]
 name = "latex"
@@ -92,7 +92,7 @@ file-types = ["tex", "sty", "cls", "Rd", "bbx", "cbx"]
 comment-token = "%"
 language-servers = [ "texlab" ]
 # customization
-indent = { tab-width = 2, unit = "  " }
+indent = { tab-width = 2, unit = "\t" }
 
 [[language]]
 name = "bibtex"
@@ -103,7 +103,7 @@ comment-token = "%"
 language-servers = [ "texlab" ]
 auto-format = true
 # customization
-indent = { tab-width = 2, unit = "  " }
+indent = { tab-width = 2, unit = "\t" }
 
 [[language]]
 name = "git-config"
@@ -112,7 +112,7 @@ file-types = [{ glob = ".gitmodules" }, { glob = ".gitconfig" }, { glob = ".git/
 injection-regex = "git-config"
 comment-token = "#"
 # customization
-indent = { tab-width = 2, unit = "  " }
+indent = { tab-width = 2, unit = "\t" }
 
 [[language]]
 name = "dot"
@@ -123,7 +123,7 @@ comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = [ "dot-language-server" ]
 # customization
-indent = { tab-width = 2, unit = "  " }
+indent = { tab-width = 2, unit = "\t" }
 
 [[language]]
 name = "env"
@@ -132,7 +132,7 @@ file-types = [{ glob = ".env" }, { glob = ".env.*" }, { glob = ".envrc" }, { glo
 injection-regex = "env"
 comment-token = "#"
 # customization
-indent = { tab-width = 2, unit = "  " }
+indent = { tab-width = 2, unit = "\t" }
 grammar = "sh"
 
 [[language]]
@@ -143,7 +143,7 @@ file-types = ["nix", { glob = "*.nix.tmpl" }]
 shebangs = []
 comment-token = "#"
 language-servers = [ "nil", "nixd" ]
-indent = { tab-width = 2, unit = "  " }
+indent = { tab-width = 2, unit = "\t" }
 
 [[language]]
 name = "json"
@@ -177,7 +177,7 @@ file-types = [
 ]
 language-servers = [ "vscode-json-language-server" ]
 auto-format = true
-indent = { tab-width = 2, unit = "  " }
+indent = { tab-width = 2, unit = "\t" }
 
 [[language]]
 name = "nix"
@@ -187,6 +187,6 @@ file-types = ["nix", { glob = "*.nix.tmpl" }]
 shebangs = []
 comment-token = "#"
 language-servers = [ "nil", "nixd" ]
-indent = { tab-width = 2, unit = "  " }
+indent = { tab-width = 2, unit = "\t" }
 
 # TODO plantUML support (https://github.com/ptdewey/plantuml-lsp)
