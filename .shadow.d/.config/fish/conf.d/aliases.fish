@@ -13,3 +13,4 @@ if command -q op
 end
 
 alias chezmoi="direnv exec ~/.local/share/chezmoi chezmoi"
+alias dive="env DOCKER_HOST=(docker context inspect -f '{{ .Endpoints.docker.Host }}') dive"
