@@ -209,8 +209,8 @@ in rec {
 
   launchd.user.envVariables = rec {
     CURL_CA_BUNDLE = SSL_CERT_FILE;
-    NIX_SSL_CERT_FILE = SSL_CERT_FILE;
     NIX_GIT_SSL_CAINFO = SSL_CERT_FILE;
+    NIX_SSL_CERT_FILE = SSL_CERT_FILE;
     NODE_EXTRA_CA_CERTS = SSL_CERT_FILE;
     REQUESTS_CA_BUNDLE = SSL_CERT_FILE;
     SSL_CERT_FILE = builtins.toString (/. + "${config.homebrew.brewPrefix}/../etc/openssl@3/cert.pem");
@@ -350,11 +350,14 @@ in rec {
     configureBuildUsers = false;
     package = pkgs.nix;
     settings = {
-      sandbox = true;
-      # ssl-cert-file = config.launchd.user.envVariables.NIX_SSL_CERT_FILE;
       allowed-users = [
         "william"
       ];
+      extra-sandbox-paths = [
+        (toString (/. + config.launchd.user.envVariables.NIX_SSL_CERT_FILE))
+      ];
+      sandbox = true;
+      ssl-cert-file = config.launchd.user.envVariables.NIX_SSL_CERT_FILE;
       substituters = [
         "https://wwmoraes.cachix.org"
         "https://nix-community.cachix.org"
