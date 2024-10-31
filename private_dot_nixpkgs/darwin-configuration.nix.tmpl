@@ -217,7 +217,6 @@ in rec {
   };
 
   nix.nixPath = [
-    { kaizen = "$HOME/dev/kaizen"; }
     { darwin-config = "${config.environment.darwinConfig}"; }
     { darwin = "$HOME/.nix-defexpr/channels/darwin"; }
     { nixpkgs = "/nix/var/nix/profiles/per-user/root/channels/nixpkgs"; }
