@@ -10,21 +10,8 @@ rec {
   environment.systemPackages = [
     # plgs.cilium-cli
     pkgs.cachix
-    pkgs.neovim
     pkgs.talosctl
-  ] ++ (with pkgs.vimPlugins; [
-    cmp-buffer
-    cmp-cmdline
-    cmp-nvim-lsp
-    cmp-path
-    cmp-treesitter
-    completion-treesitter
-    nvim-cmp
-    nvim-lspconfig
-    nvim-treesitter
-    go-nvim
-    vscode-nvim
-  ]);
+  ];
 
   homebrew.brews = [
     "cfengine"

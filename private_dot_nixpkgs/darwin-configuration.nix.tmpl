@@ -44,7 +44,6 @@ in rec {
     pkgs.powerline-go
     pkgs.smug
     pkgs.tlrc
-    # pkgs.vim
     unstable.mactop
   ] ++ [
     ## helix editor + common LSPs
@@ -62,7 +61,6 @@ in rec {
     unstable.bash-language-server
   ] ++ (with pkgs.fishPlugins; [
     # fzf
-    # vim-tmux-focus-events # TODO configure in vim
     grc
     sponge
     transient-fish
@@ -204,7 +202,7 @@ in rec {
     PAGER = "less";
     PROJECTS_ORIGIN = "git@github.com:wwmoraes/%s.git";
     SUDO_EDITOR = "hx";
-    VISUAL = "code";
+    VISUAL = "hx";
   };
 
   launchd.user.envVariables = rec {
