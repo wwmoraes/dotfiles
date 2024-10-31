@@ -103,3 +103,14 @@ tasks:
       | .[].value[]' {{ joinPath .ROOT_DIR ".vscode" "contexts.json" | q }}
       | sort -u > {{ .CONTEXT_FILES_PATH | q }}
     - comm {{ .COMM_ARGS }} {{ .REPOSITORY_FILES_PATH | q }} {{ .CONTEXT_FILES_PATH | q }}
+  macos:fix:
+    desc: Applies cleanup commands to solve system preference problems in MacOS.
+    summary: >-
+      Removes system preferences files to try and solve a mysterious issue where
+      the System Settings app stops loading. The logs are as good as none.
+    cmds:
+    - rm ~/Library/Preferences/com.apple.systempreferences.plist || true
+    - rm ~/Library/Application\ Scripts/com.apple.systempreferences.* || true
+    - rm ~/Library/Group\ Containers/com.apple.systempreferences.* || true
+    - rm ~/Library/Caches/com.apple.systempreferences || true
+    - sudo rm -rfv /Library/Caches/com.apple.iconservices.store
