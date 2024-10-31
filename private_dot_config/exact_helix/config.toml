@@ -79,6 +79,8 @@ A-q = ":reflow"
 C-g = [":new", ":insert-output lazygit", ":redraw", ":buffer-close"]
 S-tab = "move_parent_node_start"
 X = ["extend_line_up", "extend_to_line_bounds"]
+a = ["append_mode", "collapse_selection"]
+i = ["insert_mode", "collapse_selection"]
 ins = "insert_mode"
 tab = "move_parent_node_end"
 
@@ -88,6 +90,12 @@ c = ":buffer-close"
 q = ":quit"
 r = [":sh chezmoi apply ~/.config/helix", ":config-reload"]
 s = ["split_selection_on_newline", ":sort", "merge_selections"]
+
+[keys.normal."["]
+j = "jump_backward"
+
+[keys.normal."]"]
+j = "jump_forward"
 
 [keys.select]
 # P = ":clipboard-paste-before"
