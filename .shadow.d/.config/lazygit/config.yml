@@ -2,19 +2,16 @@ confirmOnQuit: false
 disableStartupPopups: true
 notARepository: skip
 quitOnTopLevelReturn: false
-
 # services:
+#   cbsp-abnamro@dev.azure.com: "azuredevops:dev.azure.com"
 #   git.us.aegon.com: "github:git.us.aegon.com"
-
 os:
-
   edit: hx -- '{{filename}}'
   editAtLine: hx -- '{{filename}}:{{line}}'
   editAtLineAndWait: hx -- '{{filename}}:{{line}}'
   openDirInEditor: hx -w '{{dir}}'
   open: hx -- '{{filename}}'
 git:
-
   branchLogCmd: >-
     git log
     --color
@@ -23,7 +20,6 @@ git:
     --abbrev-commit
     --date=relative {{branchName}}
     --
-
   allBranchesLogCmd: >-
     git log
     --color
@@ -32,18 +28,6 @@ git:
     --abbrev-commit
     --date=relative
     --
-
   commit:
     signOff: false
-
   overrideGpg: true
-
-customCommands:
-  - key: F
-    command: koji
-    context: files
-    subprocess: true
-    # loadingText:
-    description: commit with koji
-    # stream: false
-    # showOutput: false
