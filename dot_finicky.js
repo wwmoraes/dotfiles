@@ -405,6 +405,12 @@ module.exports = {
     {
       match: ({ urlString }) => urlString.startsWith("https://mandrillapp.com/track/click/"),
       url: fuckOffMandrill,
+    },
+    {
+      // https://realm-group-holdings-limited.app.loxo.co/agencies/11114/email_tracking/click?id=197135213&url=https%3A%2F%2Fdocs.google.com%2Fdocument%2Fd%2F1JLYlq2f4pwksRTO61r4-Dlnu9LIjn3ToV66pS2qvabA%2Fedit
+      match: ({ url }) => url.host == "realm-group-holdings-limited.app.loxo.co"
+        && url.pathname.includes("/email_tracking/"),
+      url: ({ url }) => decodeURIComponent((new URLSearchParams(url.search)).get("url")),
     }
   ],
   handlers: [
