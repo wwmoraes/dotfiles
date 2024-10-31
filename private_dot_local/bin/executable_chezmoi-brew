@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+set -eum
+trap 'kill 0' INT HUP TERM
+
+brew update
+brew bundle --cleanup
