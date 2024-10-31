@@ -345,6 +345,10 @@ in rec {
   nix = {
     useDaemon = false;
     distributedBuilds = false;
+    extraOptions = ''
+      extra-experimental-features = nix-command flakes
+      accept-flake-config = true
+    '';
     configureBuildUsers = false;
     package = pkgs.nix;
     settings = {
