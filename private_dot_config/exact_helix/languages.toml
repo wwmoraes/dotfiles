@@ -79,8 +79,8 @@ injection-regex = "fish"
 file-types = ["fish", { glob = "*.fish.tmpl" }]
 shebangs = ["fish"]
 comment-token = "#"
-auto-format = true
-# formatter = { command = "fish_indent" }
+auto-format = false
+formatter = { command = "" }
 # customization
 indent = { tab-width = 2, unit = "\t" }
 
