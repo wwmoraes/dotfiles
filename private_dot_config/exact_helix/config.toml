@@ -1,7 +1,9 @@
 theme = "dark_plus"
 
 [editor]
+auto-save = true
 bufferline = "always"
+cursorcolumn = true
 cursorline = true
 idle-timeout = 0
 middle-click-paste = true
@@ -42,12 +44,12 @@ display-inlay-hints = true
 enable = true
 
 [editor.statusline]
-center = ["file-name", "read-only-indicator", "file-modification-indicator"]
-left = ["mode", "spinner", "version-control", "workspace-diagnostics"]
+center = ["file-name", "separator", "version-control", "read-only-indicator", "file-modification-indicator"]
+left = ["mode", "spinner", "workspace-diagnostics", "diagnostics"]
 mode.insert = "INSERT"
 mode.normal = "NORMAL"
 mode.select = "SELECT"
-right = ["file-type", "diagnostics", "selections", "register", "position", "file-encoding"]
+right = ["file-type", "selections", "register", "position", "file-encoding"]
 separator = "|"
 
 [keys.insert]
@@ -77,6 +79,7 @@ A-q = ":reflow"
 C-g = [":new", ":insert-output lazygit", ":redraw", ":buffer-close"]
 S-tab = "move_parent_node_start"
 X = ["extend_line_up", "extend_to_line_bounds"]
+ins = "insert_mode"
 tab = "move_parent_node_end"
 
 [keys.normal.","]
