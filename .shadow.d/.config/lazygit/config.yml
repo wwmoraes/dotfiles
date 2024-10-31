@@ -7,9 +7,12 @@ quitOnTopLevelReturn: false
 #   git.us.aegon.com: "github:git.us.aegon.com"
 
 os:
-  open: "code -rg {{filename}}"
-  editPreset: vscode
 
+  edit: hx -- '{{filename}}'
+  editAtLine: hx -- '{{filename}}:{{line}}'
+  editAtLineAndWait: hx -- '{{filename}}:{{line}}'
+  openDirInEditor: hx -w '{{dir}}'
+  open: hx -- '{{filename}}'
 git:
 
   branchLogCmd: >-
