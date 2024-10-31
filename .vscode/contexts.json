@@ -154,12 +154,6 @@
       "private_dot_config/jesseduffield/symlink_lazygit.tmpl",
       "private_dot_config/symlink_lazygit.tmpl"
     ],
-    "Neovim": [
-      "private_dot_config/exact_private_nvim/exact_autoload/cmp.lua",
-      "private_dot_config/exact_private_nvim/exact_autoload/go.lua",
-      "private_dot_config/exact_private_nvim/exact_autoload/lsp.lua",
-      "private_dot_config/exact_private_nvim/init.lua"
-    ],
     "Nix": [
       ".chezmoiscripts/run_onchange_after_01-nix.sh.tmpl",
       ".chezmoiscripts/run_onchange_after_02-nix-darwin.sh.tmpl",
@@ -228,14 +222,6 @@
       "exact_private_dot_jq/vscode_exclusions.json",
       "private_dot_config/projects.json",
       "private_dot_local/bin/executable_code_update_settings.tmpl"
-    ],
-    "Vim": [
-      "private_dot_vim/autoload/plug.vim",
-      "private_dot_vim/backups/.keep",
-      "private_dot_vim/ftplugin/fish.vim",
-      "private_dot_vim/swaps/.keep",
-      "private_dot_vim/undo/.keep",
-      "private_dot_vimrc"
     ],
     "Work": [
       "exact_private_dot_ssh/private_work-rsa.pub.tmpl",

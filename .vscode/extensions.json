@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "dunstontc.viml",
     "editorconfig.editorconfig",
     "fooxly.workspace",
     "jinliming2.vscode-go-template",
@@ -16,6 +15,7 @@
     "arrterian.nix-env-selector"
   ],
   "unwantedRecommendations": [
+    "dunstontc.viml",
     // Microsoft's global recommendations, FML
     "dbaeumer.jshint",
     "donjayamanne.githistory",
