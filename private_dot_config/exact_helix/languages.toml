@@ -80,8 +80,8 @@ file-types = ["fish", { glob = "*.fish.tmpl" }]
 shebangs = ["fish"]
 comment-token = "#"
 auto-format = false
-formatter = { command = "" }
 # customization
+formatter = { command = "" }
 indent = { tab-width = 2, unit = "\t" }
 
 [[language]]
