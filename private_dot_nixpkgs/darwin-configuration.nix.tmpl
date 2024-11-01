@@ -269,45 +269,45 @@ in rec {
     };
   };
 
-  launchd.daemons = {
-    "dev.artero.limit.maxfiles" = {
-      serviceConfig = {
-        Label = "dev.artero.limit.maxfiles";
-        ProgramArguments = [
-          "launchctl"
-          "limit"
-          "maxfiles"
-          "1048576"
-          "1048576"
-        ];
-        RunAtLoad = true;
-      };
-    };
-    "dev.artero.limit.maxproc" = {
-      serviceConfig = {
-        Label = "dev.artero.limit.maxproc";
-        ProgramArguments = [
-          "launchctl"
-          "limit"
-          "maxproc"
-          "65536"
-          "65536"
-        ];
-        RunAtLoad = true;
-      };
-    };
-    "dev.artero.sysctl" = {
-      serviceConfig = {
-        Label = "dev.artero.sysctl";
-        ProgramArguments = [
-          "/usr/sbin/sysctl"
-          "kern.maxfiles=1048576"
-          "kern.maxfilesperproc=65536"
-        ];
-        RunAtLoad = true;
-      };
-    };
-  };
+  # launchd.daemons = {
+  #   "dev.artero.limit.maxfiles" = {
+  #     serviceConfig = {
+  #       Label = "dev.artero.limit.maxfiles";
+  #       ProgramArguments = [
+  #         "launchctl"
+  #         "limit"
+  #         "maxfiles"
+  #         "1048576"
+  #         "1048576"
+  #       ];
+  #       RunAtLoad = true;
+  #     };
+  #   };
+  #   "dev.artero.limit.maxproc" = {
+  #     serviceConfig = {
+  #       Label = "dev.artero.limit.maxproc";
+  #       ProgramArguments = [
+  #         "launchctl"
+  #         "limit"
+  #         "maxproc"
+  #         "65536"
+  #         "65536"
+  #       ];
+  #       RunAtLoad = true;
+  #     };
+  #   };
+  #   "dev.artero.sysctl" = {
+  #     serviceConfig = {
+  #       Label = "dev.artero.sysctl";
+  #       ProgramArguments = [
+  #         "/usr/sbin/sysctl"
+  #         "kern.maxfiles=1048576"
+  #         "kern.maxfilesperproc=65536"
+  #       ];
+  #       RunAtLoad = true;
+  #     };
+  #   };
+  # };
 
   #endregion
 
