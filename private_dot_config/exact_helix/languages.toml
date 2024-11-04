@@ -179,14 +179,15 @@ language-servers = [ "vscode-json-language-server" ]
 auto-format = true
 indent = { tab-width = 2, unit = "\t" }
 
+
 [[language]]
-name = "nix"
-scope = "source.nix"
-injection-regex = "nix"
-file-types = ["nix", { glob = "*.nix.tmpl" }]
-shebangs = []
-comment-token = "#"
-language-servers = [ "nil", "nixd" ]
+name = "kdl"
+scope = "source.kdl"
+file-types = ["kdl"]
+comment-token = "//"
+block-comment-tokens = { start = "/*", end = "*/" }
+injection-regex = "kdl"
+# customization
 indent = { tab-width = 2, unit = "\t" }
 
 # TODO plantUML support (https://github.com/ptdewey/plantuml-lsp)
