@@ -44,6 +44,7 @@ in rec {
     pkgs.powerline-go
     pkgs.smug
     pkgs.tlrc
+    pkgs.zellij
     unstable.mactop
   ] ++ [
     ## helix editor + common LSPs
@@ -449,6 +450,9 @@ in rec {
 
       # already inside a tmux session
       string match -q "screen*" $TERM; and return
+
+      # inside a zellij session
+      set -Sq ZELLIJ; and return
 
       # tmux not found
       command -v tmux > /dev/null; or return
