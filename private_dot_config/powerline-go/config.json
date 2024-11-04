@@ -20,7 +20,7 @@
   "numeric-exit-codes": true,
   "path-aliases": {
     "~": "🏡",
-    "~/.local/share/chezmoi": "🛠️",
+    "~/.local/share/chezmoi": "🧰",
     "~/dev": "💻",
     "~/workspace": "🏢"
   },
