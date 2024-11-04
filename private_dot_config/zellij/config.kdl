@@ -155,6 +155,7 @@ keybinds clear-defaults=true {
         bind "v" { NewPane "Right"; SwitchToMode "Normal"; }
         bind "x" { CloseFocus; SwitchToMode "Normal"; }
         bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+        bind "§" { SwitchToMode "Normal"; }
     }
     shared_except "locked" {
         bind "Ctrl g" { SwitchToMode "Locked"; }
@@ -195,6 +196,7 @@ keybinds clear-defaults=true {
     shared_except "tmux" "locked" {
         bind "Ctrl b" { SwitchToMode "Tmux"; }
         bind "`" { SwitchToMode "Tmux"; }
+        bind "§" { SwitchToMode "Tmux"; }
     }
 }
 
