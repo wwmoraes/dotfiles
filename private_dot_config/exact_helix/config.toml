@@ -44,12 +44,28 @@ display-inlay-hints = true
 enable = true
 
 [editor.statusline]
-center = ["file-name", "separator", "version-control", "read-only-indicator", "file-modification-indicator"]
-left = ["mode", "spinner", "workspace-diagnostics", "diagnostics"]
+center = [
+  "version-control",
+  "file-name",
+  "read-only-indicator",
+  "file-modification-indicator",
+]
+left = [
+  "mode",
+  "spinner",
+  "workspace-diagnostics",
+  "diagnostics",
+]
 mode.insert = "INSERT"
 mode.normal = "NORMAL"
 mode.select = "SELECT"
-right = ["file-type", "selections", "register", "position", "file-encoding"]
+right = [
+  "file-type",
+  "selections",
+  "register",
+  "position",
+  "file-encoding",
+]
 separator = "|"
 
 [keys.insert]
