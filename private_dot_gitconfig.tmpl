@@ -8,7 +8,7 @@
   excludesFile = ~/.gitignore-global
   # hooksPath = ~/.local/hooks
   ignoreCase = false
-  pager = cat
+  pager = delta
   preComposeUnicode = true
 
 {{- $helper := "cache" }}
@@ -27,10 +27,15 @@
   helper = {{ $helper }}
 
 [delta]
-  navigate = true
+  dark = true
   light = false
+  line-numbers = true
+  navigate = true
+  side-by-side = true
+  syntax-theme = Visual Studio Dark+
 
 [diff]
+  algorithm = histogram
   colorMoved = default
 
 [diff "plist"]
@@ -80,7 +85,7 @@
 
 [merge]
   autoStash = true
-  conflictStyle = diff3
+  conflictStyle = zdiff3
   ff = only
 
 [mergetool]
