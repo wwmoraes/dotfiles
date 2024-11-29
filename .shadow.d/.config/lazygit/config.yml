@@ -6,11 +6,11 @@ quitOnTopLevelReturn: false
 #   cbsp-abnamro@dev.azure.com: "azuredevops:dev.azure.com"
 #   git.us.aegon.com: "github:git.us.aegon.com"
 os:
-  edit: hx -- '{{filename}}'
-  editAtLine: hx -- '{{filename}}:{{line}}'
-  editAtLineAndWait: hx -- '{{filename}}:{{line}}'
-  openDirInEditor: hx -w '{{dir}}'
-  open: hx -- '{{filename}}'
+  edit: hx -- "{{filename}}"
+  editAtLine: hx -- "{{filename}}:{{line}}"
+  editAtLineAndWait: hx -- "{{filename}}:{{line}}"
+  openDirInEditor: hx -w "{{dir}}"
+  open: hx -- "{{filename}}"
 git:
   branchLogCmd: >-
     git log
