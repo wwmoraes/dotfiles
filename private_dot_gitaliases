@@ -49,6 +49,9 @@
 # Commit staged changes into specific commit w/o opening editor
   fixit = "!f() { git commit --fixup=$1; GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash $1~1; }; f"
 
+# Automatically squashes fixup commits
+  fixall = "!f() { COUNT=$(git rev-list --left-right --count $(git branch --show-current)...$(git rev-parse --abbrev-ref --symbolic-full-name @{u}) | xargs | cut -d' ' -f1); git rebase --autosquash HEAD~$COUNT; }; f"
+
 # remove changes
   scraplastcommit = reset --hard HEAD^
 

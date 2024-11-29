@@ -16,14 +16,6 @@ abbr -a lg lazygit
 
 if command -q git
   abbr -a g "git"
-  abbr -a gc "git checkout"
-  abbr -a ga "git add --all && git commit --amend --no-edit"
-  abbr -a gp "git push"
-  abbr -a gg "git push --force"
-  abbr -a gs "git s -s"
-  abbr -a gd "git d"
-  abbr -a gr "git rebase --autosquash -i"
-  abbr -a grr "git rebase --autosquash -i --root"
 end
 
 if command -q kubectl
