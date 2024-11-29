@@ -187,6 +187,7 @@ comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
 injection-regex = "kdl"
 # customization
+formatter = { command = "" }
 indent = { tab-width = 2, unit = "\t" }
 
 [[language]]
