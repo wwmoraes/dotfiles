@@ -179,7 +179,6 @@ language-servers = [ "vscode-json-language-server" ]
 auto-format = true
 indent = { tab-width = 2, unit = "\t" }
 
-
 [[language]]
 name = "kdl"
 scope = "source.kdl"
@@ -189,5 +188,19 @@ block-comment-tokens = { start = "/*", end = "*/" }
 injection-regex = "kdl"
 # customization
 indent = { tab-width = 2, unit = "\t" }
+
+[[language]]
+name = "rego"
+scope = "source.rego"
+roots = [".regal/config.yaml"]
+file-types = ["rego"]
+indent = { tab-width = 2, unit = "\t" }
+comment-token = "#"
+language-servers = [ { name = "regal" } ]
+
+[language-server.regal]
+command = "regal"
+args = ["language-server"]
+config = { provideFormatter = true }
 
 # TODO plantUML support (https://github.com/ptdewey/plantuml-lsp)
