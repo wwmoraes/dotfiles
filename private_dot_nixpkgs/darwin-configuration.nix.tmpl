@@ -258,7 +258,8 @@ in rec {
           else "launchctl unsetenv ${key}";
       in lib.concatStringsSep "\n" [
         (lib.concatStringsSep "\n" (lib.mapAttrsToList launchctlEnv config.launchd.user.envVariables))
-        "/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
+        ## nuclear option that takes quite a few secs; not needed usually
+        # "/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
       ];
       serviceConfig = {
         Label = "dev.artero.environment";
@@ -350,8 +351,8 @@ in rec {
     useDaemon = false;
     distributedBuilds = false;
     extraOptions = ''
-      extra-experimental-features = nix-command flakes
       accept-flake-config = true
+      extra-experimental-features = nix-command flakes
     '';
     configureBuildUsers = false;
     package = pkgs.nix;
@@ -365,14 +366,12 @@ in rec {
       sandbox = true;
       ssl-cert-file = config.launchd.user.envVariables.NIX_SSL_CERT_FILE;
       substituters = [
-        "https://wwmoraes.cachix.org"
-        "https://nix-community.cachix.org"
-        # "https://cache.nixos.org"
+        "https://wwmoraes.cachix.org/"
+        "https://nix-community.cachix.org/"
       ];
       trusted-public-keys = [
         "wwmoraes.cachix.org-1:N38Kgu19R66Jr62aX5rS466waVzT5p/Paq1g6uFFVyM="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        # "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
       trusted-users = [
         "@_developer"
