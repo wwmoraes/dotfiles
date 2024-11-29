@@ -293,13 +293,30 @@ rec {
         # MobileBackups = false;
         RequiresACPower = true;
         SkipPaths = [
+          "~/.cabal"
+          "~/.cache"
+          "~/.cargo"
+          "~/.go"
+          "~/.gradle"
+          "~/.local/share/containers"
+          "~/.minikube"
+          "~/.npm"
+          "~/.pulumi/plugins"
+          "~/.rustup"
+          "~/.sonarlint"
+          "~/.vscode/extensions"
           "~/Applications"
           "~/Cloud"
           "~/Desktop"
-          "~/dev"
           "~/Downloads"
-          "~/go"
+          "~/Library/Caches"
+          "~/Library/CloudStorage"
+          "~/Library/Containers"
+          "~/Library/Developer"
+          "~/Library/Group Containers"
           "~/Zotero"
+          "~/dev"
+          "~/go"
         ];
       };
       "'/Library/Application Support/CrashReporter/DiagnosticMessagesHistory'" = {
