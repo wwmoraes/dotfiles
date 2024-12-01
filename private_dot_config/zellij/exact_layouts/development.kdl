@@ -11,17 +11,21 @@ layout {
 
   tab name="IDE" focus=true hide_floating_panes=true split_direction="vertical" {
     pane stacked=true {
+      pane command="direnv" name="lazygit" {
+        args "exec" "." "lazygit"
+        start_suspended true
+      }
       pane command="direnv" name="helix" expanded=true {
         args "exec" "." "hx" "-w" "."
         start_suspended false
       }
-      pane command="direnv" name="lazygit" {
-        args "exec" "." "lazygit"
-        start_suspended false
-      }
     }
     pane stacked=true {
-      pane
+      pane command="direnv" name="yazi" {
+        args "exec" "." "yazi"
+        start_suspended true
+      }
+      pane expanded=true
     }
   }
 }
