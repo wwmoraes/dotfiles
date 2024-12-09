@@ -210,4 +210,13 @@ command = "regal"
 args = ["language-server"]
 config = { provideFormatter = true }
 
+[[language]]
+name = "sql"
+scope = "source.sql"
+file-types = ["sql", "dsql"]
+comment-token = "--"
+block-comment-tokens = { start = "/*", end = "*/" }
+indent = { tab-width = 2, unit = "\t" }
+injection-regex = "sql"
+
 # TODO plantUML support (https://github.com/ptdewey/plantuml-lsp)
