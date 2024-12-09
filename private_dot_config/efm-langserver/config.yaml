@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mattn/efm-langserver/refs/heads/master/schema.json
+version: 2
+root-markers:
+- .git
+lint-debounce: 1s
+
+tools:
+  golangci-lint: &golangci-lint
+    lint-command: golangci-lint run
+    lint-stdin: true
+    lint-workspace: true
+    format-stdin: true
+    root-markers:
+    - .golangci.yaml
+
+languages:
+  go:
+  - <<: *golangci-lint

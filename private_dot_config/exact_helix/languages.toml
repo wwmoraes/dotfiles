@@ -1,5 +1,8 @@
 ## upstream: https://github.com/helix-editor/helix/blob/master/languages.toml
 
+[language-server.efm]
+command = "efm-langserver"
+
 [language-server.yaml-language-server.config.yaml.format]
 enable = true
 
@@ -37,7 +40,10 @@ roots = ["go.work", "go.mod"]
 auto-format = true
 comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
-language-servers = [ "gopls", "golangci-lint-lsp" ]
+language-servers = [
+  "gopls",
+  { name = "efm", only-features = [ "diagnostics", "format" ] },
+]
 # customization
 indent = { tab-width = 2, unit = "\t" }
 formatter = { command = "goimports" }

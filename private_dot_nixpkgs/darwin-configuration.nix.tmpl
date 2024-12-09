@@ -53,18 +53,19 @@ in rec {
     pkgs.zellij
   ] ++ [
     ## helix editor + common LSPs
-    unstable.helix
-    unstable.vscode-langservers-extracted
-    unstable.yaml-language-server
+    unstable.bash-language-server
+    unstable.buf-language-server
     unstable.docker-compose-language-service
     unstable.dockerfile-language-server-nodejs
-    unstable.typescript-language-server
-    unstable.texlab
+    unstable.efm-langserver
+    unstable.helix
     unstable.lua-language-server
     unstable.nil
-    unstable.buf-language-server
     unstable.taplo
-    unstable.bash-language-server
+    unstable.texlab
+    unstable.typescript-language-server
+    unstable.vscode-langservers-extracted
+    unstable.yaml-language-server
   ] ++ (with pkgs.fishPlugins; [
     # fzf
     grc
