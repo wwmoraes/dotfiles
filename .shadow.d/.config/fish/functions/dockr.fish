@@ -48,7 +48,7 @@ function dockr -w docker -a cmd -d "Docker CLI wrapper with extra commands"
       end
     end
   case reclaim
-    docker run --privileged --pid=host justincormack/nsenter1 /sbin/fstrim /var/lib/docker
+    docker run --rm --privileged --pid=host justincormack/nsenter1 /sbin/fstrim /var/lib/docker
     case stop
     docker ps | fzf -m --header-lines=1 -0 | awk 'ORS=" " {print $1}' | ifne xargs -n 1 docker stop
   case rmc
