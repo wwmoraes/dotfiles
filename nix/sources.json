@@ -1,0 +1,38 @@
+{
+    "NUR": {
+        "branch": "master",
+        "description": "Nix User Repository: User contributed nix packages [maintainer=@Pandapip1]",
+        "homepage": "https://nur.nix-community.org/",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "7157696d339786020c39077ba12bef77d4873794",
+        "sha256": "1bm008w26abrk6hz6y2nqazdhq87zzdyayvq7pl4h58ssh6mx3j2",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/NUR/archive/7157696d339786020c39077ba12bef77d4873794.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "24.05",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "63dacb46bf939521bdc93981b4cbb7ecb58427a0",
+        "sha256": "1lr1h35prqkd1mkmzriwlpvxcb34kmhc9dnr48gkm8hh089hifmx",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/63dacb46bf939521bdc93981b4cbb7ecb58427a0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "unstable": {
+        "branch": "master",
+        "description": "Nix Packages collection & NixOS",
+        "homepage": "",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f730d660faf288de802abb811ab051a21a702080",
+        "sha256": "14fqp3jir8qk0bgqng6n801gmkrcmpqmaxw85h5pv6rrkz5npmcn",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/f730d660faf288de802abb811ab051a21a702080.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
