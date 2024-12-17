@@ -8,7 +8,10 @@ status --is-interactive; or return
 # VSCode terminal
 string match -q "vscode" $TERM_PROGRAM; and return
 
-# already inside a tmux session
+# Apple Terminal.app
+string match -q "Apple_Terminal" $TERM_PROGRAM; and return
+
+# inside a tmux session
 string match -q "screen*" $TERM; and return
 
 # inside a zellij session
