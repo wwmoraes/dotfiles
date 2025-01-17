@@ -12,15 +12,15 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
-        "branch": "24.05",
+        "branch": "nixpkgs-24.11-darwin",
         "description": "Nix Packages collection",
         "homepage": null,
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "63dacb46bf939521bdc93981b4cbb7ecb58427a0",
-        "sha256": "1lr1h35prqkd1mkmzriwlpvxcb34kmhc9dnr48gkm8hh089hifmx",
+        "rev": "5a141918f8b3ea128746881b6c099a6df569a51e",
+        "sha256": "0znax0rinm081k0mhr71kvmj0spv55xwa8w4zrnm7s5s45q9lr0w",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/63dacb46bf939521bdc93981b4cbb7ecb58427a0.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/5a141918f8b3ea128746881b6c099a6df569a51e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "unstable": {
