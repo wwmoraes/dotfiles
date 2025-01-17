@@ -19,8 +19,8 @@ end
 
 complete -xc projects -n __fish_use_subcommand -a new -d "creates a project directory and initialize git on it"
 complete -xc projects -n '__fish_seen_subcommand_from new' -a ""
-complete -xc projects -n __fish_use_subcommand -a code -d "open project on VSCode"
-complete -xc projects -n '__fish_seen_subcommand_from code' -a "(__projects_fish_complete_directories $PROJECTS_DIR/)"
+complete -xc projects -n __fish_use_subcommand -a dev -d "open project in a new Zellij tab using the development layout"
+complete -xc projects -n '__fish_seen_subcommand_from dev' -a "(__projects_fish_complete_directories $PROJECTS_DIR/)"
 complete -xc projects -n __fish_use_subcommand -a lg -d "open lazygit for a project"
 complete -xc projects -n '__fish_seen_subcommand_from lg' -a "(__projects_fish_complete_directories $PROJECTS_DIR/)"
 complete -xc projects -n __fish_use_subcommand -a cd -d "go to the projects or a specific project directory"
