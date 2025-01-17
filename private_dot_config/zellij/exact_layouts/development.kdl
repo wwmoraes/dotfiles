@@ -9,7 +9,7 @@ layout {
     }
   }
 
-  tab name="IDE" focus=true hide_floating_panes=true split_direction="vertical" {
+  tab focus=true hide_floating_panes=true split_direction="vertical" {
     pane stacked=true {
       pane command="direnv" name="lazygit" {
         args "exec" "." "lazygit"
