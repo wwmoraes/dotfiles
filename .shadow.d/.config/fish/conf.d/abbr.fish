@@ -14,6 +14,15 @@ abbr -a .hx "hx -w ."
 
 abbr -a lg lazygit
 
+abbr -a .z "zellij action new-tab -c ~/.local/share/chezmoi/ -l development -n dot"
+
+if command -q zellij
+  abbr -a zri "zellij run -i"
+  abbr -a zfm "zellij run -i -n yazi -- direnv exec . yazi"
+  abbr -a zhx "zellij run -i -n helix -- direnv exec . hx -w ."
+  abbr -a zlg "zellij run -i -n lazygit -- direnv exec . lazygit"
+end
+
 if command -q git
   abbr -a g "git"
 end
