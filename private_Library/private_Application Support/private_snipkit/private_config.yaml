@@ -1,0 +1,23 @@
+version: 1.2.0
+config:
+  style:
+    theme: simple
+  editor: ""
+  defaultRootCommand: "" # If not set, the help text will be shown.
+  fuzzySearch: true
+  # How secrets like access tokens are stored (see https://lemoony.github.io/snipkit/latest/configuration/overview/#secret-storage).
+  secretStorage: ""
+  scripts:
+    shell: ""
+    parameterMode: REPLACE
+    removeComments: false
+    execConfirm: false
+    execPrint: false
+  assistant:
+    saveMode: NEVER
+  manager:
+    pet:
+      enabled: true
+      libraryPaths:
+      - "{{ .chezmoi.homeDir }}/.config/pet/snippet.toml"
+      includeTags: []
