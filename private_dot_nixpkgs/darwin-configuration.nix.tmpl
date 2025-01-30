@@ -27,6 +27,7 @@ in rec {
     pkgs.docker-credential-helpers
     pkgs.envsubst
     pkgs.expect
+    pkgs.fd
     pkgs.fortune
     pkgs.fswatch
     pkgs.fzf
@@ -45,6 +46,7 @@ in rec {
     pkgs.pam-reattach
     pkgs.pinentry-tty
     pkgs.powerline-go
+    pkgs.ripgrep
     pkgs.smug
     pkgs.tlrc
     pkgs.yazi
@@ -101,6 +103,7 @@ in rec {
     "anytype"
     "automatic-mouse-mover"
     "bartender"
+    "betterzip"
     "bruno"
     "das-keyboard-q"
     "displaylink-login-screen-ext"
@@ -118,6 +121,10 @@ in rec {
     "jtool2"
     "kitty"
     "launchpad-manager"
+    "provisionql"
+    "qlcolorcode"
+    "qlmarkdown"
+    "qlvideo"
     "spotify"
     "suspicious-package"
     "swiftbar"
@@ -249,6 +256,8 @@ in rec {
   system.activationScripts.postActivation.text = ''
     printf >&2 'cleaning up root mail...\n'
     echo 'd *' | mailx > /dev/null 2>&1 || true
+    printf >&2 'reloading quicklook plugins...\n'
+    qlmanage -r
   '';
 
   launchd.user.agents = {
