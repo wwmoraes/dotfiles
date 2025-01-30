@@ -1,5 +1,7 @@
 set -U GO_TASK_PROGNAME task
 
+complete -e task
+
 function __task_get_tasks --description "Prints all available tasks with their description"
   # Read the list of tasks (and potential errors)
   task --list-all 2>&1 | read -lz rawOutput
