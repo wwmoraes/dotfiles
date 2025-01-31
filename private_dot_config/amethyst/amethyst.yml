@@ -15,37 +15,37 @@
 
 # layouts - Ordered list of layouts to use by layout key (default tall, wide, fullscreen, and column).
 layouts:
-  - fullscreen
-  - tall
-  - wide
-  - column
-  - bsp
-  # - tall-right
-  # - two-pane
-  # - middle-wide
-  # - 3column-left
-  # - 3column-middle
-  # - 3column-right
-  # - 4column-left
-  # - 4column-right
-  # - row
-  # - floating
-  # - widescreen-tall
-  # - widescreen-tall-right
+- fullscreen
+- tall
+- wide
+- column
+- bsp
+# - tall-right
+# - two-pane
+# - middle-wide
+# - 3column-left
+# - 3column-middle
+# - 3column-right
+# - 4column-left
+# - 4column-right
+# - row
+# - floating
+# - widescreen-tall
+# - widescreen-tall-right
 
 # First mod (default option + shift).
 mod1:
-  - option
-  - shift
-  # - control
-  # - command
+- option
+- shift
+# - control
+# - command
 
 # Second mod (default option + shift + control).
 mod2:
-  - option
-  - shift
-  - control
-  # - command
+- option
+- shift
+- control
+# - command
 
 # Commands:
 # special key values
