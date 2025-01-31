@@ -10,11 +10,16 @@ in rec {
   environment.systemPackages = [
     # pkgs.calicoctl
     # pkgs.terraform
-    # pkgs.kubectl-neat
+    pkgs.kubectl-neat
     # pkgs.kubectl-who-can
     # pkgs.kubectl-whoami
-    # pkgs.kubectx # TODO alias as kubectl-ctx + update fish abbr
-    # pkgs.kubens # TODO alias as kubectl-ns + update fish abbr
+    (pkgs.kubectx.overrideAttrs (prev: {
+      # TODO create wrapper derivations to fully leverage upstream cache
+      postInstall = (prev.postInstall or "") + ''
+        mv $out/bin/kubectx $out/bin/kubectl-ctx
+        mv $out/bin/kubens $out/bin/kubectl-ns
+      ''; 
+    }))
     # pkgs.kubernetes-helmPlugins.helm-diff
     # pkgs.kubernetes-helmPlugins.helm-git
     # pkgs.kubernetes-helmPlugins.helm-s3
