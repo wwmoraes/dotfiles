@@ -1,27 +1,11 @@
-// chezmoi:template:left-delimiter="// {{" right-delimiter=}}
-// {{- $credsStore := eq .chezmoi.os "darwin" | ternary "osxkeychain" "desktop" -}}
-{
-	"auths": {
-		"https://index.docker.io/v1/": {}
-	},
-	"credsStore": "// {{- $credsStore -}}",
-	"experimental": "disabled",
-	"currentContext": "desktop-linux",
-	"plugins": {
-		"-x-cli-hints": {
-			"enabled": "false"
-		},
-		"debug": {
-			"hooks": "exec"
-		},
-		"scout": {
-			"hooks": "pull,buildx build"
-		}
-	},
-	"aliases": {
-		"builder": "buildx"
-	},
-	"features": {
-		"hooks": "false"
-	}
-}
+{{- /* chezmoi:template:format-indent="\t" */ -}}
+
+{{- $credsStore := eq .chezmoi.os "darwin" | ternary "osxkeychain" "desktop" -}}
+
+{{- $config := merge .docker.config (dict "credsStore" $credsStore) -}}
+
+{{- with dig .environment.name "docker" "config" "" . -}}
+{{- $config = merge $config . -}}
+{{- end -}}
+
+{{- $config | toPrettyJson "\t" -}}
