@@ -25,6 +25,14 @@ work = {{ eq $environment "work" }}
 node.enabled = false
 python.enabled = true
 
+{{- with .work.docker.auths }}
+
+[data.work.docker.config.auths]
+{{- range $_, $auth := splitList "," . }}
+"{{- $auth -}}" = {}
+{{- end }}
+{{- end }}
+
 [diff]
   exclude = ["scripts"]
 
