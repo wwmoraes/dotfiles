@@ -9,4 +9,6 @@ PHOTO:{{ .personal.website }}/images/avatar.jpg
 TEL:{{ .personal.mobile }}
 TITLE:{{ .work.title }}
 URL:{{ .personal.website }}
+{{- $address := splitList ", " .personal.address }}
+ADR;TYPE=home:;;;{{ $address | initial | last }};;;{{ $address | last }}
 END:VCARD
