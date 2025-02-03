@@ -253,9 +253,11 @@ const defaultBrowsers = {
  * @param {Context} contextName
  * @returns {import("./.finicky.d").Finicky.BrowserFn}
  * */
-const getBrowser = (contextName) => (params) => {
-  // finicky.log(finicky.getSystemInfo().name.split(".")[0]);
-  const context = browsers[finicky.getSystemInfo().name.split(".")[0].toLowerCase()] || defaultBrowsers;
+const getBrowser = (contextName) => (_) => {
+  finicky.log(finicky.getSystemInfo().localizedName.split(".")[0]);
+
+  const context = browsers[finicky.getSystemInfo().localizedName.split(".")[0].toLowerCase()] || defaultBrowsers;
+
   return context[contextName];
 };
 
