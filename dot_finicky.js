@@ -280,19 +280,44 @@ const redirectBGone = (host, queryParam) => ({
   url: ({ url }) => decodeURIComponent((new URLSearchParams(url.search)).get(queryParam).replace(/%25/g, "%")),
 });
 
-const suffixBGone = (prefix, suffix) => ({
+/**
+ * @param {string} suffix
+ * @returns {import("./.finicky.d").Finicky.Rewrite}
+ */
+const suffixBGone = (suffix) => ({
   match: ({ urlString }) => urlString.endsWith(suffix),
   url: ({ urlString }) => decodeURIComponent(urlString.substring(0, urlString.length - suffix.length).replace(/%25/g, "%")),
 });
 
+/**
+ * @param {string|RegExp} re
+ * @returns {import("./.finicky.d").Finicky.Rewrite}
+ */
 const matchBGone = (re) => ({
   match: ({ urlString }) => urlString.match(re),
   url: ({ urlString }) => decodeURIComponent(urlString.replace(re, "").replace(/%25/g, "%")).replaceAll(" ", "%20"),
 });
 
-const defaultPrefix = (prefix) => ({
+/**
+ * @param {string} prefix
+ * @returns {import("./.finicky.d").Finicky.Rewrite}
+ */
+const log = (prefix) => ({
+  match: () => true,
+  url: (params) => {
+    finicky.log(prefix + ": " + params.urlString);
+
+    return params.url;
+  },
+});
+
+/**
+ * @param {string} protocol
+ * @returns {import("./.finicky.d").Finicky.Rewrite}
+ */
+const defaultProtocol = (protocol) => ({
   match: ({ urlString }) => !urlString.match(/^[a-z]+:\/\//),
-  url: ({ urlString }) => "https://" + urlString,
+  url: ({ urlString }) => protocol + "://" + urlString,
 });
 
 /**
@@ -306,6 +331,8 @@ const fuckOffMandrill = ({ url }) =>
 module.exports = {
   defaultBrowser: getBrowser("main"),
   rewrite: [
+    // log("pre-rewrite"),
+    redirectBGone("statics.teams.cdn.office.net", "url"),
     // cleanup TLDR newsletter links
     prefixBGone("https://tracking.tldrnewsletter.com/CL0/"),
     // cleanup Outlook redirects
@@ -320,7 +347,7 @@ module.exports = {
     matchBGone(/^https:\/\/.+\.awstrack\.me\/L0\//),
     matchBGone(/\/[0-9]\/\w{16}-\w{8}-\w{4}-\w{4}-\w{4}-\w{12}-\w{6}\/\S+=[0-9]+$/),
     // some trackers don't add the protocol to the target URL, so we add https
-    defaultPrefix("https://"),
+    defaultProtocol("https"),
     // remove tracking query parameters
     {
       match: () => true,
@@ -413,7 +440,8 @@ module.exports = {
       match: ({ url }) => url.host == "realm-group-holdings-limited.app.loxo.co"
         && url.pathname.includes("/email_tracking/"),
       url: ({ url }) => decodeURIComponent((new URLSearchParams(url.search)).get("url")),
-    }
+    },
+    // log("post-rewrite"),
   ],
   handlers: [
     // Work: Azure DevOps
@@ -445,6 +473,7 @@ module.exports = {
     // Work: specific domains
     {
       match: [
+        "*.office.net",
         "*.abnamro.com*",
         "*.abnamro.org*",
         "https://portal.azure.com*",
