@@ -51,5 +51,5 @@ else
 	# zellij not found
 	command -v zellij > /dev/null; or return
 	
-	exec zellij -l welcome
+	exec zellij
 end

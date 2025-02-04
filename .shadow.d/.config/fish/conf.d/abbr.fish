@@ -21,6 +21,7 @@ if command -q zellij
   abbr -a zfm "zellij run -i -n yazi -- direnv exec . yazi"
   abbr -a zhx "zellij run -i -n helix -- direnv exec . hx -w ."
   abbr -a zlg "zellij run -i -n lazygit -- direnv exec . lazygit"
+  abbr -a zdev "zellij action new-tab -l development -c"
 end
 
 if command -q git
