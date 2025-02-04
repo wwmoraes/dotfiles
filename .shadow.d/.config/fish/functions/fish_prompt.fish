@@ -5,7 +5,8 @@ function fish_prompt
 
   # try to use powerline-go
   command -q powerline-go; and begin
-    powerline-go -error $last_status -jobs (count (jobs -p))
+  	set duration (math -s6 "$CMD_DURATION / 1000")
+    powerline-go -duration $duration -error $last_status -jobs (count (jobs -p))
     return
   end
 

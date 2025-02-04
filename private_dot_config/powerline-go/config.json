@@ -1,4 +1,8 @@
 {
+  "cwd-max-depth": 3,
+  "cwd-max-dir-size": 8,
+  "duration-low-precision": true,
+  "duration-min": "0.6",
   "hostname-only-if-ssh": true,
   "modules": [
     "user",
@@ -11,11 +15,30 @@
   ],
   "modules-right": [
     "newline",
+    "duration",
     "nix-shell",
     "perms",
     "jobs",
     "exit",
     "root"
+  ],
+  "priority": [
+    "newline",
+    "jobs",
+    "exit",
+    "user",
+    "host",
+    "ssh",
+    "cwd",
+    "root",
+    "nix-shell",
+    "dotenv",
+    "goenv",
+    "perms",
+    "git",
+    "duration",
+    "docker",
+    "kube"
   ],
   "numeric-exit-codes": true,
   "path-aliases": {
