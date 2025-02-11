@@ -194,6 +194,7 @@ in rec {
 
   environment.variables = launchd.user.envVariables // {
     CGO_ENABLED = "0";
+    DOCKER_HOST = "unix://$HOME/.docker/run/docker.sock";
     EDITOR = "hx";
     FZF_COMPLETE = "1";
     FZF_DEFAULT_OPTS = "--height=50% --layout=reverse";
