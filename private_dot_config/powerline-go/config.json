@@ -1,6 +1,5 @@
 {
   "cwd-max-depth": 3,
-  "cwd-max-dir-size": 8,
   "duration-low-precision": true,
   "duration-min": "0.6",
   "hostname-only-if-ssh": true,
