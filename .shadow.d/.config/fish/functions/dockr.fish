@@ -12,7 +12,7 @@ function dockr -w docker -a cmd -d "Docker CLI wrapper with extra commands"
     ' | docker build --load -q -f - -t $tag . > /dev/null
 
     docker create --name $tag $tag /bin/true > /dev/null
-    docker export $tag | tar -tf - 'context/*' | sed 's|^context/||g' | grep --color=never .
+    docker export $tag | tar -tf - --wildcards 'context/*' | sed 's|^context/||g' | grep --color=never .
     docker container rm $tag > /dev/null
     docker image rm $tag > /dev/null
   case fsbom
