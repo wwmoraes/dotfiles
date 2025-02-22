@@ -66,6 +66,9 @@ function _projects_dev
 
   switch (count $argv)
     case 0
+      set -l projects (fd --type d --max-depth 1 "" $PROJECTS_DIR --exec basename | sort -u | fzf -m)
+      and _projects_dev $projects
+    case 0
       zellij action new-tab -c $PROJECTS_DIR -l development -n (basename $PROJECTS_DIR)
     case "*"
       for project in $argv

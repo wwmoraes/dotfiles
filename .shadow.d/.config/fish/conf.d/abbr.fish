@@ -1,6 +1,8 @@
 # only apply on interactive shells
 status --is-interactive; or exit
 
+abbr -a .d "projects dev"
+
 abbr -a .f chezmoi
 abbr -a .fa "chezmoi apply"
 abbr -a .fc "chezmoi check"
