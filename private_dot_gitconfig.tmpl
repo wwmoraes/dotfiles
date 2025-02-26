@@ -1,15 +1,26 @@
 [advice]
   detachedHead = false
 
+[branch]
+  sort = -committerdate
+
+[column]
+  ui = auto
+
+[commit]
+  verbose = true
+
 [core]
   attributesFile = ~/.gitattributes
   commentChar = auto
   editor = hx
   excludesFile = ~/.gitignore-global
+  fsMonitor = true
   # hooksPath = ~/.local/hooks
   ignoreCase = false
   pager = delta
   preComposeUnicode = true
+  untrackedCache = true
 
 [delta]
   dark = true
@@ -21,8 +32,10 @@
 
 [diff]
   algorithm = histogram
-  colorMoved = default
+  colorMoved = plain
   guitool = opendiff
+  mnemonicPrefix = true
+  renames = true
 
 [diff "plist"]
   textConv = plist2xml
@@ -33,8 +46,10 @@
   trustExitCode = true
 
 [fetch]
+  all = true
   fsckObjects = true
   prune = true
+  pruneTags = true
 
 [filter "lfs"]
   clean = git-lfs clean -- %f
@@ -49,13 +64,15 @@
   pruneDuringFetch = true
 
 [help]
-  ## correct typos
-  autoCorrect = 1
+  autoCorrect = prompt
 
 ## Include files to keep this one lean
 [include]
   path = ~/.gitaliases
   path = ~/.gitcolors
+
+[init]
+  defaultBranch = main
 
 [interactive]
   diffFilter = delta --color-only
@@ -93,7 +110,7 @@
 ## push easily. http://stackoverflow.com/a/23918418/89484
 [push]
   autoSetupRemote = true
-  default = current
+  default = simple
   followTags = true
   recurseSubmodules = check
 
@@ -107,6 +124,10 @@
 
 # [remote "origin"]
   # fetch = +refs/heads/*:refs/remotes/origin/*
+
+[rerere]
+  autoUpdate = true
+  enabled = true
 
 [safe]
   directory = *
@@ -122,6 +143,9 @@
 
 [stash]
   showPatch = true
+
+[tag]
+  sort = version:refname
 
 ## https://git-scm.com/docs/git-interpret-trailers
 [trailer "sign"]
