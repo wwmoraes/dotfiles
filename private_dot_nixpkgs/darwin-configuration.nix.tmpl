@@ -221,6 +221,51 @@ in rec {
     VISUAL = "hx";
   };
 
+  launchd.user.agents = {
+    # https://gist.github.com/paultheman/808be117d447c490a29d6405975d41bd
+    # https://hidutil-generator.netlify.app/
+    "dev.artero.hidutil.BTRemoteShutter" = {
+      serviceConfig = {
+        Label = "dev.artero.hidutil.BTRemoteShutter";
+        LaunchEvents = {
+          "com.apple.iokit.matching" = {
+            "com.apple.bluetooth.hostController" = {
+              IOMatchLaunchStream = true;
+              IOProviderClass = "IOBluetoothHCIController";
+              idProduct = 12850; # 0x3232
+              idVendor = 1452; # 0x5ac
+            };
+          };
+        };
+        # hidutil property --matching '{"VendorID":1452,"ProductID":12850}' --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingDst":30064771152,"HIDKeyboardModifierMappingSrc":30064771112},{"HIDKeyboardModifierMappingDst":30064771151,"HIDKeyboardModifierMappingSrc":51539607785}]}''
+        # hidutil property --matching '{"ProductID":12850,"VendorID":1452}' --get "UserKeyMapping"
+        ProgramArguments = [
+          "/usr/bin/hidutil"
+          "property"
+          "--matching"
+          (builtins.toJSON {
+            VendorID = 1452; # 0x5ac
+            ProductID = 12850; # 0x3232
+          })
+          "--set"
+          (builtins.toJSON {
+            UserKeyMapping = [
+              {
+                HIDKeyboardModifierMappingSrc = 30064771112; # 0x700000028 return_or_enter
+                HIDKeyboardModifierMappingDst = 30064771152; # 0x700000050 left_arrow
+              }
+              {
+                HIDKeyboardModifierMappingSrc = 51539607785; # 0xC000000E9 volume_increment
+                HIDKeyboardModifierMappingDst = 30064771151; # 0x70000004F right_arrow
+              }
+            ];
+          })
+        ];
+        RunAtLoad = true;
+      };
+    };
+  };
+
   launchd.user.envVariables = rec {
     CURL_CA_BUNDLE = SSL_CERT_FILE;
     NIX_GIT_SSL_CAINFO = SSL_CERT_FILE;
