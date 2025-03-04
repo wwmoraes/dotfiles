@@ -944,6 +944,11 @@ in rec {
       TrackpadRightClick = true;
       TrackpadThreeFingerTapGesture = 2;
     };
+    WindowManager = {
+      AppWindowGroupingBehavior = false; # one at a time
+      EnableTiledWindowMargins = false; # removes margin from tiling
+      GloballyEnabled = false; # disables stage manager
+    };
   };
 
   system.pmset = {
