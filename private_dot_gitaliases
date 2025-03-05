@@ -160,3 +160,7 @@
   subrm = "!f(){ git submodule deinit -f $1; git rm -rf $1 || true; rm -rf .git/modules/$1; git config -f .git/config --remove-section submodule.$1; git config -f .gitmodules --remove-section submodule.$1 || true; }; f"
 
   authors = shortlog --summary --numbered --email --all
+
+  fdiff = "!f() { git diff --name-only --color=always $@ | fzf -m --ansi --preview \"git diff $@ --color=always -- {-1}\" | ifne xargs git diff $@ --; }; f"
+
+  review = "!f() { BRANCHES=$(git branch --no-column --all --format=\"%(refname:lstrip=2)\") && BASE=$(echo $BRANCHES | tr ' ' '\n' | fzf --prompt='Base branch: ') && TARGET=$(echo $BRANCHES | tr ' ' '\n' | fzf --prompt='Target branch: ') && echo \"git fdiff $BASE..$TARGET\" && git fdiff $BASE..$TARGET; }; f"
