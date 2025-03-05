@@ -101,7 +101,6 @@ spoon.SpoonInstall:andUse("Contexts", {
     },
     onWake = {
       open = {
-        [apps.Amethyst] = {},
         [apps.StreamDeck] = {
           arguments = { "--runinbk" },
         },
@@ -109,7 +108,6 @@ spoon.SpoonInstall:andUse("Contexts", {
     },
     onSleep = {
       kill = {
-        apps.Amethyst,
         apps.AMM,
         apps.StreamDeck,
       },

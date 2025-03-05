@@ -24,7 +24,6 @@ function work -a cmd -d "work utilities so I can stay productive"
         'Elgato Stream Deck' \
         'Gas Mask' \
         'Keeper Password Manager' \
-        Amethyst \
         amm \
         Finicky \
         Flux \

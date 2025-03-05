@@ -1,5 +1,4 @@
 local apps = {
-  Amethyst = "com.amethyst.Amethyst",
   AMM = "com.pg.amm",
   AzureDevOps = "com.fluidapp.FluidApp2.AzureDevOps",
   Chrome = "com.google.Chrome",
