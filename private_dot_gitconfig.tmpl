@@ -15,7 +15,9 @@
   commentChar = auto
   editor = hx
   excludesFile = ~/.gitignore-global
-  fsMonitor = true
+  ## git's simple IPC does not provide stdin and stdout, which causes tools that
+  ## poorly handle their absence to crash; a notable example is yamllint
+  # fsMonitor = true
   # hooksPath = ~/.local/hooks
   ignoreCase = false
   pager = delta
