@@ -133,9 +133,6 @@ function launchTmux {
   # skip non-interactive sessions
   test "${-#*i}" != "$-" || return
 
-  # skip VSCode terminal
-  test "${TERM_PROGRAM#*vscode}" != "${TERM_PROGRAM}" && return
-
   # skip if on a tmux session
   test -n "${TMUX}" && return
 

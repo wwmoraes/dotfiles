@@ -66,20 +66,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
-### VSCode
-
-.vscode/*
-!.vscode/contexts.json
-!.vscode/extensions.json
-!.vscode/launch.json
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/*.code-snippets
-!.vscode/*.schema.json
-
-# Local History for Visual Studio Code
-.history/
-
-# Built Visual Studio Code Extensions
-*.vsix

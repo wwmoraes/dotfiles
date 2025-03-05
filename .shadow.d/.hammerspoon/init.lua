@@ -71,7 +71,6 @@ spoon.SpoonInstall:andUse("Contexts", {
           apps.OneDrive,
           apps.AzureDevOps,
           apps.Edge,
-          apps.VSCode,
           apps.Kitty,
           apps.Keeper,
           apps.XBar,
@@ -80,7 +79,6 @@ spoon.SpoonInstall:andUse("Contexts", {
       development = {
         title = "Development",
         applications = {
-          apps.VSCode,
           apps.Kitty,
         }
       },
@@ -88,7 +86,6 @@ spoon.SpoonInstall:andUse("Contexts", {
       personal = {
         title = "Personal",
         applications = {
-          apps.VSCode,
           apps.Kitty,
           apps.Mail,
           apps.Things,

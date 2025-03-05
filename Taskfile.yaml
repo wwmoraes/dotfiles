@@ -57,52 +57,6 @@ tasks:
       {{ .REF | q }}
     status:
     - test -f {{ .TARGET | q }}
-  context:missing:
-    desc: Lists entries in the repository that aren't in any context.
-    cmd:
-      task: context:default
-      vars:
-        COMM_ARGS: "-23"
-  context:cleanup:
-    desc: Lists entries in a context that don't exist in the repository anymore.
-    cmd:
-      task: context:default
-      vars:
-        COMM_ARGS: "-13"
-  context:default:
-    internal: true
-    silent: true
-    vars:
-      COMM_ARGS: '{{ .COMM_ARGS | default "" }}'
-      TMPDIR:
-        sh: mktemp -d
-      REPOSITORY_FILES_PATH: '{{ joinPath .TMPDIR "repository-files" }}'
-      CONTEXT_FILES_PATH: '{{ joinPath .TMPDIR "context-files" }}'
-    cmds:
-    - defer: rm -rf {{ .TMPDIR | q }}
-    - >-
-      find {{ .ROOT_DIR | q }}
-      -not -path '*/.direnv/*'
-      -not -path '*/.DS_Store'
-      -not -path '*/.ejson/keys/*'
-      -not -path '*/.ejson/secrets.json'
-      -not -path '*/.git/*'
-      -not -path '*/.task/checksum/*'
-      -not -path '*/.task/timestamp/*'
-      -not -path '*/.tmp/*'
-      -not -path '*/fish/*bass*'
-      -not -path '*/fish/*fzf*'
-      -not -path '*/fish/*nvm*'
-      -not -path '*/fish/completions/kubectl*'
-      -type f
-      | sed "s|{{ .ROOT_DIR }}/||g"
-      | sort -u > {{ .REPOSITORY_FILES_PATH | q }}
-    - >-
-      jq -r '.contexts
-      | to_entries
-      | .[].value[]' {{ joinPath .ROOT_DIR ".vscode" "contexts.json" | q }}
-      | sort -u > {{ .CONTEXT_FILES_PATH | q }}
-    - comm {{ .COMM_ARGS }} {{ .REPOSITORY_FILES_PATH | q }} {{ .CONTEXT_FILES_PATH | q }}
   macos:fix:
     desc: Applies cleanup commands to solve system preference problems in MacOS.
     summary: >-

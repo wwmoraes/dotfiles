@@ -5,9 +5,6 @@ test -t 0; or return
 # non-interactive session
 status --is-interactive; or return
 
-# VSCode terminal
-string match -q "vscode" $TERM_PROGRAM; and return
-
 # Apple Terminal.app
 string match -q "Apple_Terminal" $TERM_PROGRAM; and return
 
