@@ -48,5 +48,9 @@ else
 	# zellij not found
 	command -v zellij > /dev/null; or return
 	
-	exec zellij
+	# remove dead session as zellij fails to ressurrect it
+	zellij list-sessions --no-formatting | rg "^main\b"
+	or zellij delete-session main
+
+	exec zellij attach -c main
 end
