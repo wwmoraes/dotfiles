@@ -300,8 +300,15 @@ in rec {
   system.activationScripts.postActivation.text = ''
     printf >&2 'cleaning up root mail...\n'
     echo 'd *' | mailx > /dev/null 2>&1 || true
+
     printf >&2 'reloading quicklook plugins...\n'
     qlmanage -r
+
+    printf >&2 'reloading system settings...\n'
+    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
+    printf >&2 'reloading preferences...\n'
+    killall cfprefsd
   '';
 
   launchd.user.agents = {
@@ -947,6 +954,63 @@ in rec {
       EnableTiledWindowMargins = false; # removes margin from tiling
       GloballyEnabled = false; # disables stage manager
     };
+  };
+
+  system.hotkeys = {hotkey, actions, keys, modifiers}: {
+    "${actions.FocusMenuBar}"        = hotkey true keys.F2 (modifiers.Fn + modifiers.Control);
+    "${actions.FocusDock}"           = hotkey true keys.F3 (modifiers.Fn + modifiers.Control);
+    "${actions.FocusWindow}"         = hotkey true keys.F4 (modifiers.Fn + modifiers.Control);
+    "${actions.FocusWindowToolbar}"  = hotkey true keys.F5 (modifiers.Fn + modifiers.Control);
+    # "11"  = hotkey true keys.F6 (modifiers.Fn + modifiers.Control);
+    # "12"  = hotkey true keys.F1 (modifiers.Fn + modifiers.Control);
+    # "13"  = hotkey true keys.F7 (modifiers.Fn + modifiers.Control);
+    # "15"  = hotkey false keys.Number8 (modifiers.Option + modifiers.Command);
+    # "17"  = hotkey false 61 24 (modifiers.Option + modifiers.Command);
+    # "19"  = hotkey false 45 27 (modifiers.Option + modifiers.Command);
+    # "21"  = hotkey true keys.Number8 (modifiers.Control + modifiers.Option + modifiers.Command);
+    # "23"  = hotkey false 92 42 (modifiers.Option + modifiers.Command);
+    # "25"  = hotkey true 46 47 (modifiers.Control + modifiers.Option + modifiers.Command);
+    # "26"  = hotkey true 44 43 (modifiers.Control + modifiers.Option + modifiers.Command);
+    # "27"  = hotkey true 96 50 modifiers.Command;
+    # "28"  = hotkey true 51 20 (modifiers.Shift + modifiers.Command);
+    # "29"  = hotkey true 51 20 (modifiers.Shift + modifiers.Control + modifiers.Command);
+    # "30"  = hotkey true 52 21 (modifiers.Shift + modifiers.Command);
+    # "31"  = hotkey true 52 21 (modifiers.Shift + modifiers.Control + modifiers.Command);
+    # "32"  = hotkey false 126 (modifiers.Fn + modifiers.Control);
+    # "33"  = { enabled = false; };
+    # "34"  = hotkey false 126 (modifiers.Fn + modifiers.Shift + modifiers.Control);
+    # "35"  = { enabled = false; };
+    # "36"  = { enabled = false; };
+    # "37"  = { enabled = false; };
+    # "45"  = { enabled = false; };
+    # "47"  = { enabled = false; };
+    # "48"  = { enabled = false; };
+    # "49"  = { enabled = false; };
+    # "52"  = hotkey false 100 2 (modifiers.Option + modifiers.Command);
+    # "57"  = hotkey true 100 (modifiers.Fn + modifiers.Control);
+    # "59"  = hotkey true 96 (modifiers.Fn + modifiers.Command);
+    # "60"  = hotkey true 96 50 (modifiers.Shift + modifiers.Control);
+    # "61"  = hotkey false 32 49 (modifiers.Control + modifiers.Option);
+    # "64"  = hotkey true 49 modifiers.Command;
+    # "65"  = hotkey true 49 (modifiers.Option + modifiers.Command);
+    "79"  = hotkey false keys.LeftArrow (modifiers.Shift + modifiers.Option);
+    "80"  = hotkey false keys.LeftArrow (modifiers.Shift + modifiers.Control + modifiers.Option);
+    "81"  = hotkey false keys.RightArrow (modifiers.Shift + modifiers.Option);
+    "82"  = hotkey false keys.RightArrow (modifiers.Shift + modifiers.Control + modifiers.Option);
+    # "98"  = hotkey true 47 44 (modifiers.Shift + modifiers.Command);
+    # "118" = hotkey false 18 modifiers.Control;
+    # "119" = hotkey false 19 modifiers.Control;
+    # "160" = hotkey false keys.None modifiers.None;
+    # "162" = hotkey true keys.F5 (modifiers.Fn + modifiers.Option + modifiers.Command);
+    # "163" = hotkey false keys.None modifiers.None;
+    # "164" = { enabled = true; value = { parameters = [ 262144 4294705151 ]; type = "modifiers"; }; };
+    # "175" = hotkey false keys.None modifiers.None;
+    # "179" = hotkey false keys.None modifiers.None;
+    # "181" = hotkey true 54 22 (modifiers.Shift + modifiers.Command);
+    # "182" = hotkey true 54 22 (modifiers.Shift + modifiers.Control + modifiers.Command);
+    # "184" = hotkey true 53 23 (modifiers.Shift + modifiers.Command);
+    # "190" = hotkey true 113 12 modifiers.Fn;
+    # "222" = hotkey true keys.None modifiers.None;
   };
 
   system.pmset = {
