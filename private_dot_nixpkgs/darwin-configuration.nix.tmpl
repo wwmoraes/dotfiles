@@ -169,12 +169,14 @@ in rec {
       "$HOME/.go/bin"
       "$HOME/.cargo/bin"
       "$HOME/.cabal/bin"
+    ])
+    (lib.mkAfter [
       config.homebrew.brewPrefix
       (builtins.toString (/. + "${config.homebrew.brewPrefix}/../sbin"))
       (builtins.toString (/. + "${config.homebrew.brewPrefix}/../opt/coreutils/libexec/gnubin"))
-    ])
-    (lib.mkAfter [
+      ## TODO deduplicate entries
       "/usr/local/sbin"
+      ## TODO use plain nix to read file and expand list
       #{{- range $_, $line := (include "/etc/paths" | trimAll "\r\n" | splitList "\n") }}
       #{{- if not (contains " " $line) }}
       #{{- $line | quote | nindent 6 }}
@@ -212,11 +214,13 @@ in rec {
     LSCOLORS = "exfxcxdxbxegedabagacad";
     MANPAGER = "less";
     NIX_PATH = config.nix.nixPath;
+    NIX_PROFILES = "/nix/var/nix/profiles/default $HOME/.nix-profile";
     NIX_USER_PROFILE_DIR = "/nix/var/nix/profiles/per-user/$USER";
     PAGER = "less";
     PROJECTS_ORIGIN = "git@github.com:wwmoraes/%s.git";
     SUDO_EDITOR = "hx";
     VISUAL = "hx";
+    XDG_DATA_DIRS = lib.mkForce "/usr/local/share:/usr/share:$HOME/.nix-profile/share:/run/current-system/sw/share:/nix/var/nix/profiles/default/share";
   };
 
   launchd.user.agents = {

@@ -2,6 +2,9 @@
 tty -s; or return
 test -t 0; or return
 
+# non-login session
+status --is-login; or return
+
 # non-interactive session
 status --is-interactive; or return
 
