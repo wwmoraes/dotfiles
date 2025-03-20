@@ -463,8 +463,6 @@ in rec {
       config.enable = true;
       functions.enable = true;
     };
-    shellInit = (builtins.readFile ./scripts/shellInit.fish);
-    interactiveShellInit = (builtins.readFile ./scripts/interactiveShellInit.fish);
   };
 
   programs.tmux = {
