@@ -37,6 +37,52 @@ git:
     pager: >-
       delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
 customCommands:
+- key: b
+  command: tig blame -- {{.SelectedFile.Name}}
+  context: files
+  description: blame file at tree
+  subprocess: true
+- key: b
+  command: tig blame {{.SelectedSubCommit.Sha}} -- {{.SelectedCommitFile.Name}}
+  context: commitFiles
+  description: blame file at revision
+  subprocess: true
+- key: B
+  command: tig blame -- {{.SelectedCommitFile.Name}}
+  context: commitFiles
+  description: blame file at tree
+  subprocess: true
+- key: D
+  command: tig show {{.SelectedSubCommit.Sha}}
+  context: subCommits
+  description: Show commit diff
+  subprocess: true
+- key: D
+  command: tig show {{.SelectedLocalBranch.Name}}
+  context: localBranches
+  description: Show branch diff
+  subprocess: true
+- key: D
+  command: tig show {{.SelectedRemoteBranch.RemoteName}}/{{.SelectedRemoteBranch.Name}}
+  context: remoteBranches
+  description: Show branch diff
+  subprocess: true
+- key: h
+  command: tig {{.SelectedSubCommit.Sha}} -- {{.SelectedCommitFile.Name}}
+  context: commitFiles
+  description: Show file commit history
+  subprocess: true
+- key: h
+  command: tig -- {{.SelectedFile.Name}}
+  context: files
+  description: Show file commit history
+  subprocess: true
+- key: M
+  command: git mergetool {{ .SelectedFile.Name }}
+  context: files
+  description: Open file in git merge tool
+  loadingText: opening git mergetool
+  subprocess: true
 - key: Y
   context: global
   description: YOLO changes
@@ -47,7 +93,7 @@ customCommands:
   - type: confirm
     title: YOLO!
     body: Are you sure you want to amend last commit and force-push it?
-- key: x
+- key: "<c-c>"
   context: global
   prompts:
   - type: menu
@@ -90,23 +136,23 @@ customCommands:
   - type: input
     title: Is there a scope?
     key: Scope
-    initialValue: ''
+    initialValue: ""
   - type: menu
     title: Is it a breaking change?
     key: Breaking
     options:
-    - value: "false"
-      description: "No"
-    - value: "true"
+    - value: ""
+      description: "no"
+    - value: "!"
       description: "YES"
   - type: input
     title: Commit summary
     key: Summary
   command: >-
-    git commit -e -m "
+    git commit --edit --message="
     {{- .Form.Type -}}
     {{- with .Form.Scope -}}({{ . }}){{- end -}}
-    {{- if eq .Form.Breaking "true" -}}!{{- end -}}
+    {{- .Form.Breaking -}}
     : {{ .Form.Summary -}}
     "
   loadingText: creating commit

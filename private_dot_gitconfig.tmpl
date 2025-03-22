@@ -1,8 +1,10 @@
 [advice]
   detachedHead = false
+  skippedCherryPicks = false
 
 [branch]
   sort = -committerdate
+  autoSetupRebase = always
 
 [column]
   ui = auto
@@ -60,7 +62,12 @@
   smudge = git-lfs smudge -- %f
 
 [format]
+  coverFromDescription = auto
+  coverLetter = auto
+  outputDirectory = patches
   signOff = true
+  thread = shallow
+  useAutoBase = true
 
 [gui]
   pruneDuringFetch = true
@@ -93,8 +100,10 @@
   conflictStyle = zdiff3
   ff = only
   guitool = opendiff
+  tool = tkdiff
 
 [mergetool]
+  hideResolved = true
   prompt = false
 
 [pager]

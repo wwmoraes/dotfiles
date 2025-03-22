@@ -12,8 +12,14 @@
 [credential]
   helper = {{ $helper }}
 
+[gpg]
+  format = openpgp
+
 [init]
   defaultBranch = main
+
+[tag]
+  gpgSign = true
 
 [user]
   signingKey = {{ .pgp.identity }}
