@@ -73,12 +73,6 @@ in rec {
     grc
     sponge
     transient-fish
-  ]) ++ (with pkgs.tmuxPlugins; [
-    continuum
-    copycat
-    resurrect
-    sessionist
-    yank
   ]);
 
   # TODO configure fonts
@@ -462,112 +456,6 @@ in rec {
       completions.enable = true;
       config.enable = true;
       functions.enable = true;
-    };
-  };
-
-  programs.tmux = {
-    enable = true;
-    enableFzf = false;
-    enableMouse = true;
-    # TODO move to external file
-    extraConfig = ''
-      set -as terminal-features 'xterm*:extkeys'
-      set -g allow-rename on
-      set -g alternate-screen on
-      set -g base-index 1
-      set -g bell-action none
-      set -g default-shell ${pkgs.fish}/bin/fish
-      set -g default-terminal "screen-256color"
-      set -g display-time 3000
-      set -g exit-empty off
-      set -g exit-unattached off
-      set -g focus-events on
-      set -g history-limit 50000
-      set -g renumber-windows on
-      set -g set-clipboard on
-      set -g set-titles on
-      set -g status-interval 5
-      set -g status-keys vi
-      set -g visual-activity on
-      set -g visual-bell on
-      set -g visual-silence on
-      set -s escape-time 0
-      set -s extended-keys on
-      setw -g aggressive-resize on
-      setw -g automatic-rename on
-      setw -g clock-mode-style 24
-      setw -g mode-keys vi
-      setw -g monitor-activity on
-      setw -g monitor-bell on
-      setw -g monitor-silence 60
-      setw -g pane-base-index 1
-      setw -g xterm-keys on
-
-      bind %   split-window -v -c '#{pane_current_path}'
-      bind '"' split-window -h -c '#{pane_current_path}'
-      bind C   new-session
-      bind C-l clear-history \; display "history cleared"
-      bind C-y set synchronize-panes \; display "Sync #{?synchronize-panes,ON,OFF}"
-      bind S   switch-client -l
-      bind c   new-window -c '#{pane_current_path}'
-      bind h   select-pane -L
-      bind j   select-pane -D
-      bind k   select-pane -U
-      bind l   select-pane -R
-      bind r   source-file /etc/tmux.conf \; display "configuration reloaded"
-      bind s   split-window -v -c '#{pane_current_path}'
-      bind v   split-window -h -c '#{pane_current_path}'
-
-      bind -n C-Down      select-pane -D
-      bind -n C-Left      select-pane -L
-      bind -n C-M-Left    swap-window -t -1\; select-window -t -1
-      bind -n C-M-Right   swap-window -t +1\; select-window -t +1
-      bind -n C-M-h       swap-window -t -1\; select-window -t -1
-      bind -n C-M-l       swap-window -t +1\; select-window -t +1
-      bind -n C-Right     select-pane -R
-      bind -n C-S-h       select-pane -L
-      bind -n C-S-j       select-pane -D
-      bind -n C-S-k       select-pane -U
-      bind -n C-S-l       select-pane -R
-      bind -n C-Up        select-pane -U
-
-      ## Fish: Cmd-s prepends sudo
-      unbind -n M-s
-
-      ## Helix: VSCode-style bindings
-      unbind -n M-Down
-      unbind -n M-Left
-      unbind -n M-Right
-      unbind -n M-Up
-      
-      bind -n S-s run-shell "tmux split-window -p 40 'tmux send-keys -t #{pane_id} \"$(/nix/store/hdfxz5h6kzkl3vgbbfv1l7x0ryahx26n-fzf-tmux-session)\"'"
-
-      source-file -q ~/.tmux.conf
-    '';
-    tmuxOptions = {
-      no-cancel-copy.text = ''
-        bind-key -T copy-mode    MouseDragEnd1Pane send-keys -X copy-pipe pbcopy
-        bind-key -T copy-mode-vi !                 send-keys -X copy-pipe "tr -d '\n' | pbcopy"
-        bind-key -T copy-mode-vi C-j               send-keys -X copy-pipe
-        bind-key -T copy-mode-vi M-y               send-keys -X copy-pipe-and-cancel "pbcopy; tmux paste-buffer"
-        bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe pbcopy
-        bind-key -T copy-mode-vi p                 send-keys -X copy-pipe "tmux paste-buffer"
-        bind-key -T copy-mode-vi v                 send-keys -X begin-selection
-        bind-key -T copy-mode-vi Y                 send-keys -X copy-pipe "tmux paste-buffer"
-        bind-key -T copy-mode-vi y                 send-keys -X copy-pipe pbcopy
-      '';
-      plugins.text = ''
-        set -g @shell_mode 'vi'
-        set -g @yank_action 'copy-pipe'
-        set -g @yank_selection 'clipboard'
-        set -g @yank_selection_mouse 'clipboard'
-
-        run-shell '${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux'
-        run-shell '${pkgs.tmuxPlugins.copycat}/share/tmux-plugins/copycat/copycat.tmux'
-        run-shell '${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux'
-        run-shell '${pkgs.tmuxPlugins.sessionist}/share/tmux-plugins/sessionist/sessionist.tmux'
-        run-shell '${pkgs.tmuxPlugins.yank}/share/tmux-plugins/yank/yank.tmux'
-      '';
     };
   };
 

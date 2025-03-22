@@ -120,53 +120,31 @@ fi
 
 set +eum # restore default shell "looseness"
 
-# fzf & bashfu sorcery
-#   lists tmux sessions to attach to
-#   allows creating sessions by using the fzf query
-#   falls back to main session if something goes wrong (e.g. no fzf installed)
+# skip non-tty sessions
+tty -s || return
+test -t 0 || return
 
-function launchTmux {
-  # skip non-tty sessions
-  tty -s || return
-  test -t 0 || return
+# skip non-login sessions
+shopt -q login_shell || return
 
-  # skip non-interactive sessions
-  test "${-#*i}" != "$-" || return
+# skip non-interactive sessions
+test "${-#*i}" != "$-" || return
 
-  # skip if on a tmux session
-  test -n "${TMUX}" && return
+command -q direnv && test -e .envrc && direnv reload || true
 
-  # skip if on a screen session
-  test "${TERM#*screen}" != "${TERM}" && return
+# skip if in Apple Terminal.app
+test "${TERM_PROGRAM}" != "Apple_Terminal" || return
 
-  # returns if there's no tmux bin
-  command -v tmux > /dev/null || return
+# skip if inside a tmux/GNU screen session
+test "${TERM#*screen}" != "${TERM}" && return
 
-  tmuxSessionList() {
-    # TODO use mapfile or read -a instead
-    # shellcheck disable=SC2207
-    sessions=("main" $(tmux list-sessions -F '#S' 2>/dev/null) $(find -L "${HOME}/.config/smug" -mindepth 1 -maxdepth 1 -name "*.yaml" -exec basename -s .yaml {} \; 2> /dev/null))
-    printf '%s\n' "${sessions[@]}" | sort | uniq | awk NF
-  }
+# skip if inside a zellij session
+test -z "${ZELLIJ+x}" || return
 
-  # check if fzf exists only once
-  if _=$(command -v fzf > /dev/null); then
-    session=$(tmuxSessionList | \
-      fzf --print-query --reverse -0 | \
-      tail -n1)
-  else
-    printf "tmux sessions: %s\n" "$(tmuxSessionList | xargs)"
-    printf "tmux session name: "
-    read -r session
-  fi
+# zellij not found
+command -v zellij > /dev/null || return
 
-    test -n "${session}" || return
+# remove dead session as zellij fails to ressurrect it
+zellij list-sessions --no-formatting | rg "^main\b" || zellij delete-session main
 
-    if command -v smug > /dev/null && [ -f "${HOME}/.config/smug/${session}.yaml" ]; then
-      exec smug "${session}" -a
-    else
-      exec tmux -u new -A -s "${session}" > /dev/null
-    fi
-}
-
-launchTmux
+exec zellij attach -c main
