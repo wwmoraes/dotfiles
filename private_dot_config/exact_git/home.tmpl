@@ -14,14 +14,14 @@
 
 [gpg]
   format = openpgp
-
-[init]
-  defaultBranch = main
+  program = gpg2
 
 [tag]
   gpgSign = true
 
 [user]
+  email = {{ .personal.gitEmail }}
+  name = {{ .personal.name.preferred }}
   signingKey = {{ .pgp.identity }}
 
 [sendEmail]

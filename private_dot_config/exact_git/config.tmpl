@@ -1,3 +1,5 @@
+# chezmoi:template:left-delimiter="#{{" right-delimiter=}}
+
 [advice]
   detachedHead = false
   skippedCherryPicks = false
@@ -13,14 +15,14 @@
   verbose = true
 
 [core]
-  attributesFile = ~/.gitattributes
+  attributesFile = ~/.config/git/attributes
   commentChar = auto
   editor = hx
-  excludesFile = ~/.gitignore-global
+  excludesFile = ~/.config/git/ignore
   ## git's simple IPC does not provide stdin and stdout, which causes tools that
   ## poorly handle their absence to crash; a notable example is yamllint
   # fsMonitor = true
-  # hooksPath = ~/.local/hooks
+  # hooksPath = ~/.config/git/hooks
   ignoreCase = false
   pager = delta
   preComposeUnicode = true
@@ -69,6 +71,10 @@
   thread = shallow
   useAutoBase = true
 
+[gpg]
+  format = openpgp
+  program = gpg2
+
 [gui]
   pruneDuringFetch = true
 
@@ -77,8 +83,37 @@
 
 ## Include files to keep this one lean
 [include]
-  path = ~/.gitaliases
-  path = ~/.gitcolors
+  path = ~/.config/git/aliases
+  path = ~/.config/git/colors
+
+#{{- if .environment.home }}
+
+[include]
+  path = ~/.config/git/home
+
+#{{- else if .environment.work }}
+
+[include]
+  path = ~/.config/git/work
+
+[includeIf "hasconfig:remote.*.url:https://github.com/**"]
+  path = ~/.config/git/home-roaming
+
+#{{- end }}
+
+## Home overrides
+# [includeIf "gitdir:#{{ .chezmoi.homeDir }}/.files/"]
+#   path = ~/.config/git/home
+# [includeIf "gitdir:#{{ .chezmoi.homeDir }}/.local/share/chezmoi/"]
+#   path = ~/.config/git/home
+# [includeIf "gitdir:#{{ .chezmoi.homeDir }}/.secrets/"]
+#   path = ~/.config/git/home
+# [includeIf "gitdir:#{{ .chezmoi.homeDir }}/dev/**/"]
+#   path = ~/.config/git/home
+
+## Work overrides
+# [includeIf "gitdir:#{{ .chezmoi.homeDir }}/workspace/**/"]
+#   path = ~/.config/git/work
 
 [init]
   defaultBranch = main
@@ -93,7 +128,7 @@
   scissors = true
 
 [mailmap]
-  file = ~/.mailmap
+  file = ~/.config/git/mailmap
 
 [merge]
   autoStash = true
@@ -160,7 +195,7 @@
 
 ## https://git-scm.com/docs/git-interpret-trailers
 [trailer "sign"]
-  command = echo \"$(git config user.name) <$(git config user.email)>\"
+  command = echo "$(git config user.name) <$(git config user.email)>"
   ifExists = addIfDifferent
   ifMissing = add
   key = Signed-off-by
@@ -180,21 +215,3 @@
 
 [url "git@gist.github.com:"]
   insteadOf = https://gist.github.com/
-
-[user]
-  email = {{ .personal.gitEmail }}
-  name = {{ .personal.name.preferred }}
-
-## Personal overrides
-[includeIf "gitdir:{{ .chezmoi.homeDir }}/.files/"]
-  path = .gitconfig-personal
-[includeIf "gitdir:{{ .chezmoi.homeDir }}/.local/share/chezmoi/"]
-  path = .gitconfig-personal
-[includeIf "gitdir:{{ .chezmoi.homeDir }}/.secrets/"]
-  path = .gitconfig-personal
-[includeIf "gitdir:{{ .chezmoi.homeDir }}/dev/**/"]
-  path = .gitconfig-personal
-
-## Work overrides
-[includeIf "gitdir:{{ .chezmoi.homeDir }}/workspace/**/"]
-  path = .gitconfig-work
