@@ -1,16 +1,4 @@
-function __fish_add_path --argument-names new_path
-	if type -q fish_add_path
-		# fish 3.2.0 or newer
-		fish_add_path --prepend --global $new_path
-	else
-		# older versions of fish
-		if not contains $new_path $fish_user_paths
-			set --global fish_user_paths $new_path $fish_user_paths
-		end
-	end
-end
-
-function __fish_unique_values
+function __fish_unique_values --description "removes duplicate values, keeping its first occurrence in order"
 	set --local temp_values
 
 	for value in $argv
@@ -27,13 +15,14 @@ function __fish_in_nix_shell --on-variable IN_NIX_SHELL
 
   test (count $packages) -gt 0; or return
 
-  __fish_add_path $packages/bin
+  fish_add_path --global --prepend $packages/bin
 
   ## reset the complete path with non-nix store entries
   set --local temp_fish_complete_path (string match --invert --regex "/nix/store/[\w.-]+/.*" $fish_complete_path)
   ## prepend nix store complete paths
   set --append temp_fish_complete_path \
     $packages/etc/fish/completions \
+    $packages/share/fish/completions \
     $packages/share/fish/vendor_completions.d \
     ;
   set --global fish_complete_path (__fish_unique_values $temp_fish_complete_path)
@@ -43,6 +32,7 @@ function __fish_in_nix_shell --on-variable IN_NIX_SHELL
   ## prepend nix store function paths
   set --append temp_fish_function_path \
     $packages/etc/fish/functions \
+    $packages/share/fish/functions \
     $packages/share/fish/vendor_functions.d \
     ;
   set --global fish_function_path (__fish_unique_values $temp_fish_function_path)
