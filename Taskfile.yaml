@@ -68,3 +68,7 @@ tasks:
     - rm ~/Library/Group\ Containers/com.apple.systempreferences.* || true
     - rm ~/Library/Caches/com.apple.systempreferences || true
     - sudo rm -rfv /Library/Caches/com.apple.iconservices.store
+  unmanaged:
+    cmds:
+    - chezmoi apply
+    - chezmoi unmanaged

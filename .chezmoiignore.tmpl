@@ -1,3 +1,6 @@
+## TODO manage workflow services
+Library/Services
+
 # source files to ignore during apply
 .direnv/*
 nix
@@ -11,35 +14,151 @@ Taskfile.yaml
 TODO.md
 
 # target files to hide from the unmanaged command
+**/*.log
+**/*~
+**/.DS_Store
+*_history
+.Trash
+.cabal
+.cache
+.cargo
+.cfagent
+.config/chezmoi
 .config/fish/fish_variables
 .docker/*
+.dropbox
+.fly/*
+.go
+.kube/*
+.local/share
+.moby/trust
+.npm
+.pulumi
+.rustup
 .ssh/*.old
+.ssh/1Password
 .ssh/control/*
 .ssh/known_hosts
 .stack/*
-.Trash
+.tldrc
 .vim/.netrwhist
 .vim/plugged
 .vim/undo
 .vim/viminfo
-*_history
-**/.DS_Store
-**/*.log
-**/*~
-dev
-go
+Applications
+Cloud
+Desktop
+Documents
+Downloads
+Library/Accessibility
+Library/Accounts
+Library/AppleMediaServices
+Library/Application Scripts
+Library/Application Support/*
+Library/Assistant
+Library/Audio
+Library/Biome
+Library/Caches
+Library/Calendars
+Library/CallServices
+Library/CloudStorage
+Library/Colors
+Library/Contacts/*
+Library/ContainerManager
+Library/Containers
+Library/Cookies
+Library/CoreFollowUp
+Library/DES
+Library/Daemon Containers
+Library/DataAccess
+Library/DataDeliveryServices
+Library/Developer
+Library/Dictionaries
+Library/DoNotDisturb
+Library/Dropbox
+Library/DuetExpertCenter
+Library/Finance
+Library/FontCollections
+Library/Fonts
+Library/Frameworks
+Library/FrontBoard
+Library/Group Containers/*
+Library/GroupContainersAlias
+Library/HTTPStorages
+Library/HomeKit
+Library/IdentityServices
+Library/IntelligencePlatform
+Library/Intents
+Library/Keyboard
+Library/KeyboardServices
+Library/Keychains
+Library/LanguageModeling
+Library/LaunchAgents
+Library/LockdownMode
+Library/Logs
+Library/Mail
+Library/Maps
+Library/Messages
+Library/Metadata
+Library/Mobile Documents
+Library/MobileDevice
+Library/News
+Library/Passes
+Library/PersonalizationPortrait
+Library/Photos
+Library/Preferences
+Library/Python
+Library/QuickLook
+Library/Reminders
+Library/ResponseKit
+Library/Safari
+Library/Saved Application State
+Library/Screen Savers
+Library/Sharing
+Library/Shortcuts
+Library/Speech
+Library/Spelling
+Library/Spotlight
+Library/StatusKit
+Library/Stickers
+Library/Suggestions
+Library/SyncedPreferences
+Library/Translation
+Library/Trial
+Library/UnifiedAssetFramework
+Library/Weather
+Library/WebKit
+Library/com.apple.*
+Library/homeenergyd
+Library/iTunes
+Library/texlive
 Movies
 Music
 Pictures
 Public
-workspace
 Zotero
+dev
+go
+workspace
+
+# specific subpaths
+!.gnupg
+.gnupg/.*lk0x*
+!Library/Group Containers/group.com.docker
+Library/Group Containers/group.com.docker/*
+!Library/Group Containers/group.com.docker/settings.json
 
 # specific paths we're interested to control
 !.docker/config.json
 !.docker/daemon.json
+!.kube/config
 !.stack/config.yaml
 !.vim/undo/.keep
+!Library/Application Support/SwiftBar
+!Library/Application Support/jesseduffield
+!Library/Application Support/lazygit
+!Library/Application Support/snipkit
+!Library/Contacts/me.vcf
 !dev/shell.nix
 !workspace/shell.nix
 
