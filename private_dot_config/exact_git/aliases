@@ -25,6 +25,7 @@
   rr = rebase --autosquash --root
   rc = rebase --continue
   ra = rebase --abort
+  resign = rebase --exec 'git commit --amend --no-edit --no-verify --gpg-sign' --interactive
 
 # returns how much the current HEAD is from the target branch
   rel = "!f() { git rev-list --left-right --count HEAD...$1 | sed 's/\t/↑↓/'; }; f"
@@ -40,7 +41,7 @@
   last-deleted = "!f() { git log --pretty=%H -${1:-1} --diff-filter=D | xargs -n1 git diff-tree --no-commit-id --name-only --diff-filter=D -r | sort -u; }; f"
 
 # show last commit - gotta yolo thinking with your HEAD ;)
-  head = log --pretty=oneline HEAD^..HEAD
+  head = log --pretty=oneline --show-signature HEAD^..HEAD
 
 # Show the diff between the latest commit and the current state
   d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat --color-words"
