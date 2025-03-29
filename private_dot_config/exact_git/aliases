@@ -16,8 +16,6 @@
   s = status
   co = checkout
   pick = cherry-pick
-  cc = !koji
-  k = !koji
 
 # rebase goodies
   r = rebase --autosquash
