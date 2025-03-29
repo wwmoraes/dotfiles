@@ -37,7 +37,6 @@ in rec {
     pkgs.gnupg
     pkgs.grc
     pkgs.jq
-    pkgs.less
     pkgs.moreutils
     pkgs.neo-cowsay
     pkgs.niv
@@ -206,7 +205,7 @@ in rec {
     LC_MONETARY = "en_GB.UTF-8";
     LC_NUMERIC = "en_GB.UTF-8";
     LC_TIME = "en_GB.UTF-8";
-    LESS = "-isRMFX --tilde +Gg";
+    LESS = "-isRMSFX --tilde";
     LSCOLORS = "exfxcxdxbxegedabagacad";
     MANPAGER = "less";
     NIX_PATH = config.nix.nixPath;
