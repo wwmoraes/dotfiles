@@ -1,31 +1,31 @@
 [commit]
-  gpgSign = true
+	gpgSign = true
 
 {{- $helper := "cache" }}
 {{- if eq .chezmoi.os "darwin" }}
-  {{- $helper = "osxkeychain" }}
+	{{- $helper = "osxkeychain" }}
 {{- else if eq .chezmoi.os "windows" }}
-  {{- $helper = "wincred" }}
+	{{- $helper = "wincred" }}
 {{- else if eq .chezmoi.os "linux" }}
-  {{- $helper = "libsecret" }}
+	{{- $helper = "libsecret" }}
 {{- end }}
 [credential]
-  helper = {{ $helper }}
+	helper = {{ $helper }}
 
 [gpg]
-  format = openpgp
-  program = gpg2
+	format = openpgp
+	program = gpg2
 
 [tag]
-  gpgSign = true
+	gpgSign = true
 
 [user]
-  email = {{ .personal.gitEmail }}
-  name = {{ .personal.name.preferred }}
-  signingKey = {{ .pgp.identity }}
+	email = {{ .personal.gitEmail }}
+	name = {{ .personal.name.preferred }}
+	signingKey = {{ .pgp.identity }}
 
 [sendEmail]
-  smtpEncryption = {{ eqFold "STARTTLS" .personal.smtp.security | ternary "tls" "ssl" }}
-  smtpServer = {{ .personal.smtp.server }}
-  smtpServerPort = {{ .personal.smtp.port }}
-  smtpUser = {{ .personal.smtp.user }}
+	smtpEncryption = {{ eqFold "STARTTLS" .personal.smtp.security | ternary "tls" "ssl" }}
+	smtpServer = {{ .personal.smtp.server }}
+	smtpServerPort = {{ .personal.smtp.port }}
+	smtpUser = {{ .personal.smtp.user }}

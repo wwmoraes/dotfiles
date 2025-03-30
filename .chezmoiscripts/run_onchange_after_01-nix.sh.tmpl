@@ -15,29 +15,29 @@ command -v nix >/dev/null 2>&1 && exit
 curl -L https://nixos.org/nix/install | sh -s
 
 if [ "${CHEZMOI_OS:-}" = "darwin" ]; then
-  # convert to a single-user install
-  if grep -q "build-users-group" /etc/nix/nix.conf; then
-    # remove the build-users-group from the global nix configuration, otherwise
-    # it tries to use the daemon socket
-    awk '/^build-users-group/ {next};1' /etc/nix/nix.conf > nix.conf
-    # extra cleanup so nix-info reports correctly multi-user = no
-    sed -i'' -E 's/^(cores =).*/\1 0/' nix.conf
-    sed -i'' -E 's/^(builders =).*/\1/' nix.conf
-    # shellcheck disable=SC2002
-    cat nix.conf | sudo tee "$(realpath /etc/nix/nix.conf)"
-    # ensure the current user is part of the _developer group
-    sudo dscl . append /Groups/_developer GroupMembership "$(whoami)"
-    # hostile takeover! :D
-    sudo chown -R "$(id -u):_developer" /nix
-    # cleanup the daemon
-    sudo launchctl bootout system/org.nixos.nix-daemon || true
-    sudo rm /Library/LaunchDaemons/org.nixos.nix-daemon.plist || true
-    sudo dscl . -delete /Groups/nixbld
-    for u in $(sudo dscl . -list /Users | grep _nixbld); do
-      sudo dscl . -delete "/Users/${u}"
-    done
-    unset NIX_REMOTE # no daemon
-  fi
+	# convert to a single-user install
+	if grep -q "build-users-group" /etc/nix/nix.conf; then
+		# remove the build-users-group from the global nix configuration, otherwise
+		# it tries to use the daemon socket
+		awk '/^build-users-group/ {next};1' /etc/nix/nix.conf > nix.conf
+		# extra cleanup so nix-info reports correctly multi-user = no
+		sed -i'' -E 's/^(cores =).*/\1 0/' nix.conf
+		sed -i'' -E 's/^(builders =).*/\1/' nix.conf
+		# shellcheck disable=SC2002
+		cat nix.conf | sudo tee "$(realpath /etc/nix/nix.conf)"
+		# ensure the current user is part of the _developer group
+		sudo dscl . append /Groups/_developer GroupMembership "$(whoami)"
+		# hostile takeover! :D
+		sudo chown -R "$(id -u):_developer" /nix
+		# cleanup the daemon
+		sudo launchctl bootout system/org.nixos.nix-daemon || true
+		sudo rm /Library/LaunchDaemons/org.nixos.nix-daemon.plist || true
+		sudo dscl . -delete /Groups/nixbld
+		for u in $(sudo dscl . -list /Users | grep _nixbld); do
+			sudo dscl . -delete "/Users/${u}"
+		done
+		unset NIX_REMOTE # no daemon
+	fi
 fi
 
 # force loading on the current shell and bootstrap the installation

@@ -10,18 +10,18 @@ test "${VERBOSE:-0}" = "1" && set -v
 printf "\e[1;33mCleanup\e[0m\n"
 
 if false; then
-  sudo rm -rfv /Library/Caches/com.apple.iconservices.store || true
+	sudo rm -rfv /Library/Caches/com.apple.iconservices.store || true
 
-  rm -rfv ~/Library/Application\ Scripts/com.apple.systempreferences* || true
-  rm -rfv ~/Library/Caches/com.apple.systemsettings.menucache || true
-  rm -rfv ~/Library/Containers/com.apple.systempreferences* || true
-  rm -rfv ~/Library/Group\ Containers/com.apple.systempreferences.cache || true
-  rm -rfv ~/Library/Preferences/com.apple.systempreferences.plist || true
-  rm -rfv ~/Library/Preferences/com.apple.systemsettings.extensions.plist || true
-  rm -rfv ~/Library/Saved\ Application\ State/com.apple.systempreferences.savedState || true
-  rm -rfv ~/Library/Caches/com.apple.preferencepanes.usercache || true
+	rm -rfv ~/Library/Application\ Scripts/com.apple.systempreferences* || true
+	rm -rfv ~/Library/Caches/com.apple.systemsettings.menucache || true
+	rm -rfv ~/Library/Containers/com.apple.systempreferences* || true
+	rm -rfv ~/Library/Group\ Containers/com.apple.systempreferences.cache || true
+	rm -rfv ~/Library/Preferences/com.apple.systempreferences.plist || true
+	rm -rfv ~/Library/Preferences/com.apple.systemsettings.extensions.plist || true
+	rm -rfv ~/Library/Saved\ Application\ State/com.apple.systempreferences.savedState || true
+	rm -rfv ~/Library/Caches/com.apple.preferencepanes.usercache || true
 
-  killall cfprefsd
+	killall cfprefsd
 
-  /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
+	/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 fi

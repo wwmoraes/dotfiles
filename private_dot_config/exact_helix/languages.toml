@@ -24,10 +24,10 @@ url = "https://json.schemastore.org/package.json"
 
 [[language-server.vscode-json-language-server.config.json.schemas]]
 fileMatch = [
-  "*.azure-pipelines.yaml",
-  "*.azure-pipelines.yml",
-  "azure-pipelines.yaml",
-  "azure-pipelines.yml"
+	"*.azure-pipelines.yaml",
+	"*.azure-pipelines.yml",
+	"azure-pipelines.yaml",
+	"azure-pipelines.yml"
 ]
 url = "https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"
 
@@ -41,8 +41,8 @@ auto-format = true
 comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = [
-  "gopls",
-  { name = "efm", only-features = [ "diagnostics", "format" ] },
+	"gopls",
+	{ name = "efm", only-features = [ "diagnostics", "format" ] },
 ]
 # customization
 indent = { tab-width = 2, unit = "\t" }
@@ -58,9 +58,9 @@ shebangs = ["rust-script", "cargo"]
 auto-format = true
 comment-tokens = ["//", "///", "//!"]
 block-comment-tokens = [
-  { start = "/*", end = "*/" },
-  { start = "/**", end = "*/" },
-  { start = "/*!", end = "*/" },
+	{ start = "/*", end = "*/" },
+	{ start = "/**", end = "*/" },
+	{ start = "/*!", end = "*/" },
 ]
 language-servers = [ "rust-analyzer" ]
 persistent-diagnostic-sources = ["rustc", "clippy"]
@@ -156,30 +156,30 @@ name = "json"
 scope = "source.json"
 injection-regex = "json"
 file-types = [
-  "json",
-  "arb",
-  "ipynb",
-  "geojson",
-  "gltf",
-  "webmanifest",
-  { glob = "flake.lock" },
-  { glob = ".babelrc" },
-  { glob = ".bowerrc" },
-  { glob = ".jscrc" },
-  "js.map",
-  "ts.map",
-  "css.map",
-  { glob = ".jslintrc" },
-  "jsonl",
-  "jsonld",
-  { glob = ".vuerc" },
-  { glob = "composer.lock" },
-  { glob = ".watchmanconfig" },
-  "avsc",
-  { glob = ".prettierrc" },
-  "ldtk",
-  "ldtkl",
-  { glob = "*.json.tmpl" },
+	"json",
+	"arb",
+	"ipynb",
+	"geojson",
+	"gltf",
+	"webmanifest",
+	{ glob = "flake.lock" },
+	{ glob = ".babelrc" },
+	{ glob = ".bowerrc" },
+	{ glob = ".jscrc" },
+	"js.map",
+	"ts.map",
+	"css.map",
+	{ glob = ".jslintrc" },
+	"jsonl",
+	"jsonld",
+	{ glob = ".vuerc" },
+	{ glob = "composer.lock" },
+	{ glob = ".watchmanconfig" },
+	"avsc",
+	{ glob = ".prettierrc" },
+	"ldtk",
+	"ldtkl",
+	{ glob = "*.json.tmpl" },
 ]
 language-servers = [ "vscode-json-language-server" ]
 auto-format = true

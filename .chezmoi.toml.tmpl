@@ -3,11 +3,11 @@
 
 {{- $pinentry := lookPath "pinentry-tty" -}}
 {{- if eq .chezmoi.os "darwin" -}}
-  {{- $bin := "/usr/local/MacGPG2/libexec/pinentry-mac.app/Contents/MacOS/pinentry-mac" -}}
-  {{- $binInfo := lstat $bin -}}
-  {{- if and $binInfo (eq $binInfo.type "file") -}}
-      {{- $pinentry = $bin -}}
-  {{- end -}}
+	{{- $bin := "/usr/local/MacGPG2/libexec/pinentry-mac.app/Contents/MacOS/pinentry-mac" -}}
+	{{- $binInfo := lstat $bin -}}
+	{{- if and $binInfo (eq $binInfo.type "file") -}}
+			{{- $pinentry = $bin -}}
+	{{- end -}}
 {{- end -}}
 
 {{- $ejsonDict := joinPath .chezmoi.sourceDir ".ejson/secrets.json" | ejsonDecrypt -}}
@@ -34,16 +34,16 @@ python.enabled = true
 {{- end }}
 
 [diff]
-  exclude = ["scripts"]
+	exclude = ["scripts"]
 
 [gpg]
-  recipient = {{ $ejsonDict.data.personal.email | quote }}
+	recipient = {{ $ejsonDict.data.personal.email | quote }}
 
 [hooks.init.pre]
 command = "task"
 args = [
-  "-d",
-  {{ .chezmoi.sourceDir | quote }},
+	"-d",
+	{{ .chezmoi.sourceDir | quote }},
 ]
 
 [interpreters.fish]
@@ -53,9 +53,9 @@ command = "fish"
 command = {{ $pinentry | quote }}
 
 [scriptEnv]
-  # whether to apply MacOS defaults or not
-  DEFAULTS = "0"
-  # general script debug
-  TRACE = "0"
-  VERBOSE = "0"
-  DOT_ENVIRONMENT = {{ $environment | quote }}
+	# whether to apply MacOS defaults or not
+	DEFAULTS = "0"
+	# general script debug
+	TRACE = "0"
+	VERBOSE = "0"
+	DOT_ENVIRONMENT = {{ $environment | quote }}

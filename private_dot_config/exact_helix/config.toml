@@ -45,26 +45,26 @@ enable = true
 
 [editor.statusline]
 center = [
-  "version-control",
-  "file-name",
-  "read-only-indicator",
-  "file-modification-indicator",
+	"version-control",
+	"file-name",
+	"read-only-indicator",
+	"file-modification-indicator",
 ]
 left = [
-  "mode",
-  "spinner",
-  "workspace-diagnostics",
-  "diagnostics",
+	"mode",
+	"spinner",
+	"workspace-diagnostics",
+	"diagnostics",
 ]
 mode.insert = "INSERT"
 mode.normal = "NORMAL"
 mode.select = "SELECT"
 right = [
-  "file-type",
-  "selections",
-  "register",
-  "position",
-  "file-encoding",
+	"file-type",
+	"selections",
+	"register",
+	"position",
+	"file-encoding",
 ]
 separator = "|"
 

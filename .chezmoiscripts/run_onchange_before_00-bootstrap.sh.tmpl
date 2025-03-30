@@ -12,13 +12,13 @@ printf "\e[1;33mBootstrap\e[0m\n"
 #{{- $prefix := "/home/linuxbrew/.linuxbrew" }}
 #{{- $repository := "/home/linuxbrew/.linuxbrew/Homebrew" }}
 #{{- if eq .chezmoi.os "darwin" }}
-  #{{- if eq .chezmoi.arch "arm64" }}
-    #{{- $prefix = "/opt/homebrew" }}
-    #{{- $repository = "/opt/homebrew" }}
-  #{{- else }}
-    #{{- $prefix = "/usr/local" }}
-    #{{- $repository = "/usr/local/Homebrew" }}
-  #{{- end }}
+	#{{- if eq .chezmoi.arch "arm64" }}
+		#{{- $prefix = "/opt/homebrew" }}
+		#{{- $repository = "/opt/homebrew" }}
+	#{{- else }}
+		#{{- $prefix = "/usr/local" }}
+		#{{- $repository = "/usr/local/Homebrew" }}
+	#{{- end }}
 #{{- end }}
 
 #{{ printf "HOMEBREW_PREFIX=%s" ($prefix | quote) }}
@@ -26,16 +26,16 @@ printf "\e[1;33mBootstrap\e[0m\n"
 
 # install brew
 command -v "${HOMEBREW_PREFIX}/bin/brew" > /dev/null || {
-  # clone
-  if [ ! -d "${HOMEBREW_REPOSITORY}" ]; then
-    echo "cloning brew"
-    git clone https://github.com/Homebrew/brew "${HOMEBREW_REPOSITORY}"
-    chmod -R go-w "${HOMEBREW_PREFIX}/share/zsh"
-    chmod -R go-w "${HOMEBREW_PREFIX}/share/fish"
-  fi
+	# clone
+	if [ ! -d "${HOMEBREW_REPOSITORY}" ]; then
+		echo "cloning brew"
+		git clone https://github.com/Homebrew/brew "${HOMEBREW_REPOSITORY}"
+		chmod -R go-w "${HOMEBREW_PREFIX}/share/zsh"
+		chmod -R go-w "${HOMEBREW_PREFIX}/share/fish"
+	fi
 
-  # link the binary
-  if [ "${HOMEBREW_PREFIX}" != "${HOMEBREW_REPOSITORY}" ]; then
-    ln -sf "${HOMEBREW_REPOSITORY}/bin/brew" "${HOMEBREW_PREFIX}/bin/brew"
-  fi
+	# link the binary
+	if [ "${HOMEBREW_PREFIX}" != "${HOMEBREW_REPOSITORY}" ]; then
+		ln -sf "${HOMEBREW_REPOSITORY}/bin/brew" "${HOMEBREW_PREFIX}/bin/brew"
+	fi
 }

@@ -13,16 +13,16 @@ test "${CHEZMOI_OS:-}" = "darwin" || exit
 
 # enable developer mode to bypass authorization requests
 if ! _=$(/usr/sbin/DevToolsSecurity -status | grep -Fx "Developer mode is currently enabled." > /dev/null); then
-  echo "enabling developer mode on this system"
-  sudo /usr/sbin/DevToolsSecurity -enable
+	echo "enabling developer mode on this system"
+	sudo /usr/sbin/DevToolsSecurity -enable
 fi
 
 # add current user to the developer group
 if ! _=$(groups | xargs -n1 | grep -Fx _developer > /dev/null); then
-  echo "adding user to group _developer"
-  sudo dscl . append /Groups/_developer GroupMembership "$(whoami)"
+	echo "adding user to group _developer"
+	sudo dscl . append /Groups/_developer GroupMembership "$(whoami)"
 fi
 if ! _=$(groups | xargs -n1 | grep -Fx _webdeveloper > /dev/null); then
-  echo "adding user to group _webdeveloper"
-  sudo dscl . append /Groups/_webdeveloper GroupMembership "$(whoami)"
+	echo "adding user to group _webdeveloper"
+	sudo dscl . append /Groups/_webdeveloper GroupMembership "$(whoami)"
 fi

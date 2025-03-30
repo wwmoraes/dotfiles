@@ -1,29 +1,29 @@
 # so much color
 [color]
-  ui = auto
+	ui = auto
 
 [color "branch"]
-  current = yellow reverse
-  local = yellow
-  remote = green
+	current = yellow reverse
+	local = yellow
+	remote = green
 
 [color "diff"]
-  commit = green bold
-  frag = magenta bold
-  meta = yellow bold
-  new = green bold
-  newMoved = cyan
-  old = red bold
-  oldMoved = blue
-  whitespace = red reverse
+	commit = green bold
+	frag = magenta bold
+	meta = yellow bold
+	new = green bold
+	newMoved = cyan
+	old = red bold
+	oldMoved = blue
+	whitespace = red reverse
 
 [color "diff-highlight"]
-  newHighlight = "green bold 22"
-  newNormal = "green bold"
-  oldHighlight = "red bold 52"
-  oldNormal = red bold
+	newHighlight = "green bold 22"
+	newNormal = "green bold"
+	oldHighlight = "red bold 52"
+	oldNormal = red bold
 
 [color "status"]
-  added = yellow
-  changed = green
-  untracked = cyan
+	added = yellow
+	changed = green
+	untracked = cyan

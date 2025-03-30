@@ -1,103 +1,103 @@
 # chezmoi:template:left-delimiter="#{{" right-delimiter=}}
 
 [advice]
-  detachedHead = false
-  skippedCherryPicks = false
+	detachedHead = false
+	skippedCherryPicks = false
 
 [branch]
-  sort = -committerdate
-  autoSetupRebase = always
+	sort = -committerdate
+	autoSetupRebase = always
 
 [column]
-  ui = auto
+	ui = auto
 
 [commit]
-  verbose = true
+	verbose = true
 
 [core]
-  attributesFile = ~/.config/git/attributes
-  commentChar = auto
-  editor = hx
-  excludesFile = ~/.config/git/ignore
-  ## git's simple IPC does not provide stdin and stdout, which causes tools that
-  ## poorly handle their absence to crash; a notable example is yamllint
-  # fsMonitor = true
-  # hooksPath = ~/.config/git/hooks
-  ignoreCase = false
-  pager = less
-  preComposeUnicode = true
-  untrackedCache = true
+	attributesFile = ~/.config/git/attributes
+	commentChar = auto
+	editor = hx
+	excludesFile = ~/.config/git/ignore
+	## git's simple IPC does not provide stdin and stdout, which causes tools that
+	## poorly handle their absence to crash; a notable example is yamllint
+	# fsMonitor = true
+	# hooksPath = ~/.config/git/hooks
+	ignoreCase = false
+	pager = less
+	preComposeUnicode = true
+	untrackedCache = true
 
 [delta]
-  dark = true
-  light = false
-  line-numbers = true
-  navigate = true
-  syntax-theme = Visual Studio Dark+
-  tabs = 2
+	dark = true
+	light = false
+	line-numbers = true
+	navigate = true
+	syntax-theme = Visual Studio Dark+
+	tabs = 2
 
 [diff]
-  algorithm = histogram
-  colorMoved = plain
-  guitool = opendiff
-  mnemonicPrefix = true
-  renames = true
+	algorithm = histogram
+	colorMoved = plain
+	guitool = opendiff
+	mnemonicPrefix = true
+	renames = true
 
 [diff "plist"]
-  textConv = plist2xml
+	textConv = plist2xml
 
 [difftool]
-  guiDefault = auto
-  prompt = false
-  trustExitCode = true
+	guiDefault = auto
+	prompt = false
+	trustExitCode = true
 
 [fetch]
-  all = true
-  fsckObjects = true
-  prune = true
-  pruneTags = true
+	all = true
+	fsckObjects = true
+	prune = true
+	pruneTags = true
 
 [filter "lfs"]
-  clean = git-lfs clean -- %f
-  process = git-lfs filter-process
-  required = true
-  smudge = git-lfs smudge -- %f
+	clean = git-lfs clean -- %f
+	process = git-lfs filter-process
+	required = true
+	smudge = git-lfs smudge -- %f
 
 [format]
-  coverFromDescription = auto
-  coverLetter = auto
-  outputDirectory = patches
-  signOff = true
-  thread = shallow
-  useAutoBase = true
+	coverFromDescription = auto
+	coverLetter = auto
+	outputDirectory = patches
+	signOff = true
+	thread = shallow
+	useAutoBase = true
 
 [gpg]
-  format = openpgp
-  program = gpg2
+	format = openpgp
+	program = gpg2
 
 [gui]
-  pruneDuringFetch = true
+	pruneDuringFetch = true
 
 [help]
-  autoCorrect = prompt
+	autoCorrect = prompt
 
 ## Include files to keep this one lean
 [include]
-  path = ~/.config/git/aliases
-  path = ~/.config/git/colors
+	path = ~/.config/git/aliases
+	path = ~/.config/git/colors
 
 #{{- if .environment.home }}
 
 [include]
-  path = ~/.config/git/home
+	path = ~/.config/git/home
 
 #{{- else if .environment.work }}
 
 [include]
-  path = ~/.config/git/work
+	path = ~/.config/git/work
 
 [includeIf "hasconfig:remote.*.url:https://github.com/**"]
-  path = ~/.config/git/home-roaming
+	path = ~/.config/git/home-roaming
 
 #{{- end }}
 
@@ -116,103 +116,103 @@
 #   path = ~/.config/git/work
 
 [init]
-  defaultBranch = main
+	defaultBranch = main
 
 [interactive]
-  diffFilter = delta --color-only
+	diffFilter = delta --color-only
 
 [log]
-  date = relative
+	date = relative
 
 [mailInfo]
-  scissors = true
+	scissors = true
 
 [mailmap]
-  file = ~/.config/git/mailmap
+	file = ~/.config/git/mailmap
 
 [merge]
-  autoStash = true
-  conflictStyle = zdiff3
-  ff = only
-  guitool = opendiff
-  tool = tkdiff
+	autoStash = true
+	conflictStyle = zdiff3
+	ff = only
+	guitool = opendiff
+	tool = tkdiff
 
 [mergetool]
-  hideResolved = true
-  prompt = false
+	hideResolved = true
+	prompt = false
 
 [pager]
-  blame = delta
-  diff = delta
+	blame = delta
+	diff = delta
 
 [protocol]
-  ## faster git server communication.
-  ## like a LOT faster. https://opensource.googleblog.com/2018/05/introducing-git-protocol-version-2.html
-  version = 2
+	## faster git server communication.
+	## like a LOT faster. https://opensource.googleblog.com/2018/05/introducing-git-protocol-version-2.html
+	version = 2
 
 [pull]
-  rebase = true
-  ff = true
+	rebase = true
+	ff = true
 
 ## push easily. http://stackoverflow.com/a/23918418/89484
 [push]
-  autoSetupRemote = true
-  default = simple
-  followTags = true
-  recurseSubmodules = check
+	autoSetupRemote = true
+	default = simple
+	followTags = true
+	recurseSubmodules = check
 
 [rebase]
-  autoSquash = true
-  autoStash = true
-  updateRefs = true
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
 
 [receive]
-  fsckObjects = true
+	fsckObjects = true
 
 # [remote "origin"]
-  # fetch = +refs/heads/*:refs/remotes/origin/*
+	# fetch = +refs/heads/*:refs/remotes/origin/*
 
 [rerere]
-  autoUpdate = true
-  enabled = true
+	autoUpdate = true
+	enabled = true
 
 [safe]
-  directory = *
+	directory = *
 
 [sendEmail]
-  annotate = yes
-  chainReplyTo = false
+	annotate = yes
+	chainReplyTo = false
 
 [smartGit "submodule"]
-  fetchAlways = false
-  initializeNew = true
-  update = true
+	fetchAlways = false
+	initializeNew = true
+	update = true
 
 [stash]
-  showPatch = true
+	showPatch = true
 
 [tag]
-  sort = version:refname
+	sort = version:refname
 
 ## https://git-scm.com/docs/git-interpret-trailers
 [trailer "sign"]
-  command = echo "$(git config user.name) <$(git config user.email)>"
-  ifExists = addIfDifferent
-  ifMissing = add
-  key = Signed-off-by
+	command = echo "$(git config user.name) <$(git config user.email)>"
+	ifExists = addIfDifferent
+	ifMissing = add
+	key = Signed-off-by
 
 [trailer "coauthor"]
-  key = Co-authored-by
-  ifExists = addIfDifferent
+	key = Co-authored-by
+	ifExists = addIfDifferent
 
 [transfer]
-  fsckObjects = true
+	fsckObjects = true
 
 [url "git://gist.github.com/"]
-  insteadOf = "gist:"
+	insteadOf = "gist:"
 
 [url "git@github.com:"]
-  insteadOf = git://github
+	insteadOf = git://github
 
 [url "git@gist.github.com:"]
-  insteadOf = https://gist.github.com/
+	insteadOf = https://gist.github.com/

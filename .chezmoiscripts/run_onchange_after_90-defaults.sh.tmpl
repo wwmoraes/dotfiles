@@ -105,10 +105,10 @@ printf "\e[1;34mMiscellaneous\e[0m\n"
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 
 if [ "${DOT_ENVIRONMENT}" = "work" ]; then
-  echo "allowing _developer members to change system preferences"
-  # shellcheck disable=SC2024
-  sudo security authorizationdb read system.preferences > /tmp/system.preferences.plist
-  sudo defaults write /tmp/system.preferences.plist group _developer
-  # shellcheck disable=SC2024
-  sudo security authorizationdb write system.preferences < /tmp/system.preferences.plist
+	echo "allowing _developer members to change system preferences"
+	# shellcheck disable=SC2024
+	sudo security authorizationdb read system.preferences > /tmp/system.preferences.plist
+	sudo defaults write /tmp/system.preferences.plist group _developer
+	# shellcheck disable=SC2024
+	sudo security authorizationdb write system.preferences < /tmp/system.preferences.plist
 fi

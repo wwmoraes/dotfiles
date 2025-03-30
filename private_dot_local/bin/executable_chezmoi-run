@@ -26,38 +26,38 @@ CHEZMOI_VERSION_DATE="$(chezmoi data | jq -r .chezmoi.version.date)"
 CHEZMOI_VERSION_VERSION="$(chezmoi data | jq -r .chezmoi.version.version)"
 CHEZMOI_WORKING_TREE="$(chezmoi data | jq -r .chezmoi.workingTree)"
 export \
-  CHEZMOI \
-  CHEZMOI_ARCH \
-  CHEZMOI_ARGS \
-  CHEZMOI_CACHE_DIR \
-  CHEZMOI_COMMAND \
-  CHEZMOI_CONFIG_FILE \
-  CHEZMOI_EXECUTABLE \
-  CHEZMOI_FQDN_HOSTNAME \
-  CHEZMOI_GID \
-  CHEZMOI_GROUP \
-  CHEZMOI_HOME_DIR \
-  CHEZMOI_HOSTNAME \
-  CHEZMOI_OS \
-  CHEZMOI_SOURCE_DIR \
-  CHEZMOI_UID \
-  CHEZMOI_USERNAME \
-  CHEZMOI_VERSION_BUILT_BY \
-  CHEZMOI_VERSION_COMMIT \
-  CHEZMOI_VERSION_DATE \
-  CHEZMOI_VERSION_VERSION \
-  CHEZMOI_WORKING_TREE \
-  ;
+	CHEZMOI \
+	CHEZMOI_ARCH \
+	CHEZMOI_ARGS \
+	CHEZMOI_CACHE_DIR \
+	CHEZMOI_COMMAND \
+	CHEZMOI_CONFIG_FILE \
+	CHEZMOI_EXECUTABLE \
+	CHEZMOI_FQDN_HOSTNAME \
+	CHEZMOI_GID \
+	CHEZMOI_GROUP \
+	CHEZMOI_HOME_DIR \
+	CHEZMOI_HOSTNAME \
+	CHEZMOI_OS \
+	CHEZMOI_SOURCE_DIR \
+	CHEZMOI_UID \
+	CHEZMOI_USERNAME \
+	CHEZMOI_VERSION_BUILT_BY \
+	CHEZMOI_VERSION_COMMIT \
+	CHEZMOI_VERSION_DATE \
+	CHEZMOI_VERSION_VERSION \
+	CHEZMOI_WORKING_TREE \
+	;
 
 # load scriptEnv and export the variables
 set -a
 eval "$(chezmoi cat-config \
-  | awk '/\[scriptEnv\]/{found=1} found' \
-  | tail -n +2 \
-  | awk '/^\[/{exit}; 1' \
-  | grep -vE '^[ ]*#' \
-  | grep -vE '^$' \
-  | sed 's/ = /=/g')"
+	| awk '/\[scriptEnv\]/{found=1} found' \
+	| tail -n +2 \
+	| awk '/^\[/{exit}; 1' \
+	| grep -vE '^[ ]*#' \
+	| grep -vE '^$' \
+	| sed 's/ = /=/g')"
 set +a
 
 SCRIPT="$(mktemp -t chezmoi-run.XXXXXX)"

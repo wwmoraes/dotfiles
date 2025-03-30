@@ -23,18 +23,18 @@ test "${CHEZMOI_OS:-}" = "darwin" || exit
 
 # skip if nix-darwin is installed
 if [ ! -f /run/current-system/sw/bin/darwin-rebuild ]; then
-  TMP=$(mktemp -d)
-  OLD_PWD="${PWD}"
-  cd "${TMP}" || exit
-  trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
+	TMP=$(mktemp -d)
+	OLD_PWD="${PWD}"
+	cd "${TMP}" || exit
+	trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
 
-  nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+	nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
 
-  yes | ./result/bin/darwin-installer
+	yes | ./result/bin/darwin-installer
 
-  /run/current-system/sw/bin/darwin-rebuild activate
+	/run/current-system/sw/bin/darwin-rebuild activate
 fi
 
 /run/current-system/sw/bin/darwin-rebuild switch || {
-  echo "Please restart the machine after loading the environment variables so launchd inherits them"
+	echo "Please restart the machine after loading the environment variables so launchd inherits them"
 }

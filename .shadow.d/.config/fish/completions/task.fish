@@ -3,19 +3,19 @@ set -U GO_TASK_PROGNAME task
 complete -e task
 
 function __task_get_tasks --description "Prints all available tasks with their description"
-  # Read the list of tasks (and potential errors)
-  task --list-all 2>&1 | read -lz rawOutput
+	# Read the list of tasks (and potential errors)
+	task --list-all 2>&1 | read -lz rawOutput
 
-  # Return on non-zero exit code (for cases when there is no Taskfile found or etc.)
-  if test $status -ne 0
-    return
-  end
+	# Return on non-zero exit code (for cases when there is no Taskfile found or etc.)
+	if test $status -ne 0
+		return
+	end
 
-  # Grab names and descriptions (if any) of the tasks
-  set -l output (echo $rawOutput | sed -e '1d; s/\* \(.*\):\s*\(.*\)\s*(aliases.*/\1\t\2/' -e 's/\* \(.*\):\s*\(.*\)/\1\t\2/'| string split0)
-  if test $output
-    echo $output
-  end
+	# Grab names and descriptions (if any) of the tasks
+	set -l output (echo $rawOutput | sed -e '1d; s/\* \(.*\):\s*\(.*\)\s*(aliases.*/\1\t\2/' -e 's/\* \(.*\):\s*\(.*\)/\1\t\2/'| string split0)
+	if test $output
+		echo $output
+	end
 end
 
 complete -c task -d 'Runs the specified task(s). Falls back to the "default" task if no task name was specified, or lists all tasks if an unknown task name was

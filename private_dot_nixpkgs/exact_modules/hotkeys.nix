@@ -5,35 +5,35 @@
 with lib;
 let
 	cfg = config.lib.hotkeys;
-  standardHotkey = enabled: key: modifiers: {
-    enabled = enabled;
-    value = {
-      parameters = [key.ascii key.code modifiers];
-      type = "standard";
-    };
-  };
-  addHotkeyScript = action: hotkey: ''
-    defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add ${action} "{ enabled = ${trivial.boolToString (hotkey.enabled or false)}; value = { parameters = (${concatStringsSep "," (map (x: toString x) (hotkey.value.parameters or []))}); type = '${hotkey.value.type or "standard"}'; }; }"
-  '';
-  hotkeysToScript = attrs:
-    mapAttrsToList addHotkeyScript (filterAttrs (n: v: v != null) attrs);
+	standardHotkey = enabled: key: modifiers: {
+		enabled = enabled;
+		value = {
+			parameters = [key.ascii key.code modifiers];
+			type = "standard";
+		};
+	};
+	addHotkeyScript = action: hotkey: ''
+		defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add ${action} "{ enabled = ${trivial.boolToString (hotkey.enabled or false)}; value = { parameters = (${concatStringsSep "," (map (x: toString x) (hotkey.value.parameters or []))}); type = '${hotkey.value.type or "standard"}'; }; }"
+	'';
+	hotkeysToScript = attrs:
+		mapAttrsToList addHotkeyScript (filterAttrs (n: v: v != null) attrs);
 in {
-  meta.maintainers = [
-    maintainers.wwmoraes or "wwmoraes"
-  ];
+	meta.maintainers = [
+		maintainers.wwmoraes or "wwmoraes"
+	];
 
-  options = {
-    # <action:int> = {
-    #   enabled = true;
-    #   value = {
-    #     parameters = [
-    #       <ASCII:int>
-    #       <keyCode:int>
-    #       <modifiers:int>
-    #     ];
-    #     type = "standard";
-    #   };
-    # };
+	options = {
+		# <action:int> = {
+		#   enabled = true;
+		#   value = {
+		#     parameters = [
+		#       <ASCII:int>
+		#       <keyCode:int>
+		#       <modifiers:int>
+		#     ];
+		#     type = "standard";
+		#   };
+		# };
 		system.hotkeys = mkOption {
 			description = "Configures global shortcuts";
 			type = types.nullOr (types.oneOf [
@@ -68,8 +68,8 @@ in {
 				options = {
 					enabled = mkOption {
 						type = types.bool;
-			      default = false;
-			      description = "Enables this hotkey for use. It still configures regardless.";
+						default = false;
+						description = "Enables this hotkey for use. It still configures regardless.";
 					};
 					value = mkOption {
 						type = types.nullOr HotkeyValue;
@@ -79,7 +79,7 @@ in {
 			};
 		};
 
-    # https://github.com/NUIKit/CGSInternal/blob/master/CGSHotKeys.h
+		# https://github.com/NUIKit/CGSInternal/blob/master/CGSHotKeys.h
 		actions = {
 			/*   7 */ FocusMenuBar = "7"; # Move focus to the menu bar
 			/*   8 */ FocusDock = "8"; # Move focus to the dock
@@ -94,9 +94,9 @@ in {
 			/*  79 */ MoveResizeHalvesLeft = "79";
 			/* 222 */ ToggleStageManager = "222";
 		};
-		
-    # key codes: https://eastmanreference.com/complete-list-of-applescript-key-codes
-    # also https://gist.github.com/jfortin42/68a1fcbf7738a1819eb4b2eef298f4f8
+
+		# key codes: https://eastmanreference.com/complete-list-of-applescript-key-codes
+		# also https://gist.github.com/jfortin42/68a1fcbf7738a1819eb4b2eef298f4f8
 		keys = {
 			None = { ascii = 65535; code = 65535; };
 
@@ -216,60 +216,60 @@ in {
 			/* non-ascii 126 */ UpArrow =        { ascii = 65535; code = 126; };
 		};
 
-    # modifiers: https://gist.github.com/stephancasas/74c4621e2492fb875f0f42778d432973
-    # also https://github.com/phracker/MacOSX-SDKs/blob/master/MacOSX10.6.sdk/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HIToolbox.framework/Versions/A/Headers/Events.h
-    #        0 | 0x000000 => None
-    #    65536 | 0x010000 => AlphaShift (NX_ALPHASHIFTMASK)
-    #   131072 | 0x020000 => Shift (NX_SHIFTMASK)
-    #   262144 | 0x040000 => Control (NX_CONTROLMASK)
-    #   524288 | 0x080000 => Option (NX_ALTERNATEMASK)
-    #  1048576 | 0x100000 => Command (NX_COMMANDMASK)
-    #  2097152 | 0x200000 => NumPad (NX_NUMERICPADMASK)
-    #  4194304 | 0x400000 => Help (NX_HELPMASK)
-    #  8388608 | 0x800000 => Fn (NX_SECONDARYFNMASK)
-    #
-    # In dec/hex:
-    #        0 | 0x000000 => ModNone
-    # xxxxxxxx | 0x010000 => ModAlphaShift
-    #   131072 | 0x020000 => ModShift
-    #   262144 | 0x040000 => ModControl
-    #   393216 | 0x060000 => ModShift + ModControl
-    #   524288 | 0x080000 => ModOption
-    #   655360 | 0x0A0000 => ModShift + ModOption
-    #   786432 | 0x0C0000 => ModControl + ModOption
-    #   917504 | 0x0E0000 => ModShift + ModControl + ModOption
-    #  1048576 | 0x100000 => ModCommand
-    #  1179648 | 0x120000 => ModShift + ModCommand
-    #  1310720 | 0x140000 => ModControl + ModCommand
-    #  1441792 | 0x160000 => ModShift + ModControl + ModCommand
-    #  1572864 | 0x180000 => ModOption + ModCommand
-    #  1703936 | 0x1A0000 => ModShift + ModOption + ModCommand
-    #  1835008 | 0x1C0000 => ModControl + ModOption + ModCommand
-    #  1966080 | 0x1E0000 => ModShift + ModControl + ModOption + ModCommand
-    # xxxxxxxx | 0x200000 => ModNumPad
-    # xxxxxxxx | 0x400000 => ModHelp
-    #  8388608 | 0x800000 => ModFn 
-    #  8519680 | 0x820000 => ModFn + ModShift
-    #  8650752 | 0x840000 => ModFn + ModControl
-    #  8781824 | 0x860000 => ModFn + ModShift + ModControl
-    #  8912896 | 0x880000 => ModFn + ModOption
-    #  9043968 | 0x8A0000 => ModFn + ModShift + ModOption
-    #  9175040 | 0x8C0000 => ModFn + ModControl + ModOption
-    #  9306112 | 0x8E0000 => ModFn + ModShift + ModControl + ModOption
-    #  9437184 | 0x900000 => ModFn + ModCommand
-    #  9568256 | 0x920000 => ModFn + ModShift + ModCommand
-    #  9699328 | 0x940000 => ModFn + ModControl + ModCommand
-    #  9830400 | 0x960000 => ModFn + ModShift + ModControl + ModCommand
-    #  9961472 | 0x980000 => ModFn + ModOption + ModCommand
-    # 10092544 | 0x9A0000 => ModFn + ModShift + ModOption + ModCommand
-    # 10223616 | 0x9C0000 => ModFn + ModControl + ModOption + ModCommand
-    # 10354688 | 0x9E0000 => ModFn + ModShift + ModControl + ModOption + ModCommand
+		# modifiers: https://gist.github.com/stephancasas/74c4621e2492fb875f0f42778d432973
+		# also https://github.com/phracker/MacOSX-SDKs/blob/master/MacOSX10.6.sdk/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HIToolbox.framework/Versions/A/Headers/Events.h
+		#        0 | 0x000000 => None
+		#    65536 | 0x010000 => AlphaShift (NX_ALPHASHIFTMASK)
+		#   131072 | 0x020000 => Shift (NX_SHIFTMASK)
+		#   262144 | 0x040000 => Control (NX_CONTROLMASK)
+		#   524288 | 0x080000 => Option (NX_ALTERNATEMASK)
+		#  1048576 | 0x100000 => Command (NX_COMMANDMASK)
+		#  2097152 | 0x200000 => NumPad (NX_NUMERICPADMASK)
+		#  4194304 | 0x400000 => Help (NX_HELPMASK)
+		#  8388608 | 0x800000 => Fn (NX_SECONDARYFNMASK)
+		#
+		# In dec/hex:
+		#        0 | 0x000000 => ModNone
+		# xxxxxxxx | 0x010000 => ModAlphaShift
+		#   131072 | 0x020000 => ModShift
+		#   262144 | 0x040000 => ModControl
+		#   393216 | 0x060000 => ModShift + ModControl
+		#   524288 | 0x080000 => ModOption
+		#   655360 | 0x0A0000 => ModShift + ModOption
+		#   786432 | 0x0C0000 => ModControl + ModOption
+		#   917504 | 0x0E0000 => ModShift + ModControl + ModOption
+		#  1048576 | 0x100000 => ModCommand
+		#  1179648 | 0x120000 => ModShift + ModCommand
+		#  1310720 | 0x140000 => ModControl + ModCommand
+		#  1441792 | 0x160000 => ModShift + ModControl + ModCommand
+		#  1572864 | 0x180000 => ModOption + ModCommand
+		#  1703936 | 0x1A0000 => ModShift + ModOption + ModCommand
+		#  1835008 | 0x1C0000 => ModControl + ModOption + ModCommand
+		#  1966080 | 0x1E0000 => ModShift + ModControl + ModOption + ModCommand
+		# xxxxxxxx | 0x200000 => ModNumPad
+		# xxxxxxxx | 0x400000 => ModHelp
+		#  8388608 | 0x800000 => ModFn
+		#  8519680 | 0x820000 => ModFn + ModShift
+		#  8650752 | 0x840000 => ModFn + ModControl
+		#  8781824 | 0x860000 => ModFn + ModShift + ModControl
+		#  8912896 | 0x880000 => ModFn + ModOption
+		#  9043968 | 0x8A0000 => ModFn + ModShift + ModOption
+		#  9175040 | 0x8C0000 => ModFn + ModControl + ModOption
+		#  9306112 | 0x8E0000 => ModFn + ModShift + ModControl + ModOption
+		#  9437184 | 0x900000 => ModFn + ModCommand
+		#  9568256 | 0x920000 => ModFn + ModShift + ModCommand
+		#  9699328 | 0x940000 => ModFn + ModControl + ModCommand
+		#  9830400 | 0x960000 => ModFn + ModShift + ModControl + ModCommand
+		#  9961472 | 0x980000 => ModFn + ModOption + ModCommand
+		# 10092544 | 0x9A0000 => ModFn + ModShift + ModOption + ModCommand
+		# 10223616 | 0x9C0000 => ModFn + ModControl + ModOption + ModCommand
+		# 10354688 | 0x9E0000 => ModFn + ModShift + ModControl + ModOption + ModCommand
 		modifiers = {
-      None = 0;
+			None = 0;
 			AlphaShift = 65536;
-      Shift = 131072;
+			Shift = 131072;
 			Control = 262144;
-      Option = 524288;
+			Option = 524288;
 			Command = 1048576;
 			NumPad = 2097152;
 			Help = 4194304;
@@ -278,11 +278,11 @@ in {
 	};
 
 	# config.system.defaults.CustomUserPreferences."com.apple.symbolichotkeys".AppleSymbolicHotKeys = config.system.hotkeys;
-  config.system.activationScripts.extraActivation.text = mkMerge [''
-    # hotkeys
-    echo >&2 "configuring system hotkeys..."
-    ${concatStringsSep "\n" (hotkeysToScript (deepSeq config.system.hotkeys config.system.hotkeys))}
+	config.system.activationScripts.extraActivation.text = mkMerge [''
+		# hotkeys
+		echo >&2 "configuring system hotkeys..."
+		${concatStringsSep "\n" (hotkeysToScript (deepSeq config.system.hotkeys config.system.hotkeys))}
 		# No-op that updates a system in-memory cache. Needed for reload to work.
 		defaults read com.apple.symbolichotkeys.plist > /dev/null
-  ''];
+	''];
 }

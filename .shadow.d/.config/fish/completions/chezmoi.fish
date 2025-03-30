@@ -3,7 +3,7 @@ command -q chezmoi; or exit
 chezmoi completion fish | source
 
 function __chezmoi_scripts
-  printf "%s\tChezmoi Script\n" (chezmoi managed ~/.chezmoiscripts/ | xargs -n1 basename)
+	printf "%s\tChezmoi Script\n" (chezmoi managed ~/.chezmoiscripts/ | xargs -n1 basename)
 end
 
 complete -xc chezmoi -n '__fish_use_subcommand' -a env -d "Updates environment variables"

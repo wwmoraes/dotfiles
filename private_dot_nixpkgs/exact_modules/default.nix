@@ -1,9 +1,9 @@
 {
-  imports = [
-    ./authorizationdb.nix
-    ./hotkeys.nix
-    ./infopath.nix
-    ./manpath.nix
-    ./pmset.nix
-  ];
+	imports = [
+		./authorizationdb.nix
+		./hotkeys.nix
+		./infopath.nix
+		./manpath.nix
+		./pmset.nix
+	];
 }

@@ -6,18 +6,18 @@ command -q grc; or exit
 
 # create the grc wrapper functions for the enabled binaries
 for executable in (cat ~/.grc/bins.txt | grep -v ":false")
-  command -q $executable; or continue
+	command -q $executable; or continue
 
-  function $executable --inherit-variable executable --wraps=$executable
-    if isatty 1
-      grc $executable $argv
-    else
-      eval command $executable $argv
-    end
-  end
+	function $executable --inherit-variable executable --wraps=$executable
+		if isatty 1
+			grc $executable $argv
+		else
+			eval command $executable $argv
+		end
+	end
 end
 
 # remove the wrapper function for explicitly disabled binaries
 for executable in (cat ~/.grc/bins.txt | grep ":false" | cut -d: -f1)
-  functions -e $executable
+	functions -e $executable
 end

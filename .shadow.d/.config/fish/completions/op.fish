@@ -1,7 +1,7 @@
 command -q op; or exit
 
 function __op_seen_subcommand_of
-  return (__fish_seen_subcommand_of $argv || __fish_seen_subcommand_of help $argv)
+	return (__fish_seen_subcommand_of $argv || __fish_seen_subcommand_of help $argv)
 end
 
 set -l categories "'Login' 'Bank Account' 'Membership' 'Server' 'Secure Note' 'Database' 'Outdoor License' 'Social Security Number' 'Credit Card' 'Driver License' 'Passport' 'Software License' 'Identity' 'Email Account' 'Reward Program' 'Wireless Router'"

@@ -1,20 +1,20 @@
 [commit]
-  gpgSign = false
+	gpgSign = false
 
 [core]
-  commentChar = |
+	commentChar = |
 
 [credential]
-  helper = manager
-  useHttpPath = true
+	helper = manager
+	useHttpPath = true
 
 [diff]
-  # SSNS is so bloated that even the sane defaults aren't enough
-  renameLimit = 16384
+	# SSNS is so bloated that even the sane defaults aren't enough
+	renameLimit = 16384
 
 # [url "https://<pat>@dev.azure.com"]
 #   insteadOf = https://dev.azure.com
 
 [user]
-  email = {{ .work.email }}
-  name = {{ .personal.name.preferred }}
+	email = {{ .work.email }}
+	name = {{ .personal.name.preferred }}

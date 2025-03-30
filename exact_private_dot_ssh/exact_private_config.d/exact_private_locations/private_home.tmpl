@@ -1,37 +1,37 @@
 IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
 Host github.com bitbucket.org
-  IdentityFile ~/.ssh/home.pub
-  IdentitiesOnly yes
+	IdentityFile ~/.ssh/home.pub
+	IdentitiesOnly yes
 
 # https://blog.stribik.technology/2015/01/04/secure-secure-shell.html
 Host *.{{ .networks.home.fqdn }}
-  IdentityFile ~/.ssh/home.pub
-  IdentitiesOnly yes
-  CanonicalizeHostname yes
-  CanonicalDomains {{ .networks.home.fqdn }}
-  CanonicalizeMaxDots 0
-  # ssh -Q cipher
-  Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
-  # ssh -Q kex
-  KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
-  # ssh -Q mac
-  MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
-  # ssh -Q key
-  HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
-  PubkeyAcceptedKeyTypes ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
-  PreferredAuthentications publickey
+	IdentityFile ~/.ssh/home.pub
+	IdentitiesOnly yes
+	CanonicalizeHostname yes
+	CanonicalDomains {{ .networks.home.fqdn }}
+	CanonicalizeMaxDots 0
+	# ssh -Q cipher
+	Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+	# ssh -Q kex
+	KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+	# ssh -Q mac
+	MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
+	# ssh -Q key
+	HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
+	PubkeyAcceptedKeyTypes ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
+	PreferredAuthentications publickey
 
 Host gateway gateway.{{ .networks.home.fqdn }}
-  HostName 172.16.0.1
-  User kilavasun
-  IdentityFile ~/.ssh/router.pub
-  IdentitiesOnly yes
+	HostName 172.16.0.1
+	User kilavasun
+	IdentityFile ~/.ssh/router.pub
+	IdentitiesOnly yes
 
 Host router router.{{ .networks.home.fqdn }}
-  HostName 172.16.0.3
-  User root
-  IdentityFile ~/.ssh/router.pub
-  IdentitiesOnly yes
-  # PubkeyAcceptedKeyTypes +ssh-rsa
-  # HostKeyAlgorithms=+ssh-rsa
+	HostName 172.16.0.3
+	User root
+	IdentityFile ~/.ssh/router.pub
+	IdentitiesOnly yes
+	# PubkeyAcceptedKeyTypes +ssh-rsa
+	# HostKeyAlgorithms=+ssh-rsa

@@ -6,354 +6,354 @@
 }:
 
 rec {
-  #region packages
-  environment.systemPackages = [
-    # pkgs.cilium-cli
-    pkgs.cachix
-    pkgs.talosctl
-  ];
+	#region packages
+	environment.systemPackages = [
+		# pkgs.cilium-cli
+		pkgs.cachix
+		pkgs.talosctl
+	];
 
-  homebrew.brews = [
-    # "cfengine"
-    # "qcachegrind"
-    "snipkit"
-  ];
+	homebrew.brews = [
+		# "cfengine"
+		# "qcachegrind"
+		"snipkit"
+	];
 
-  homebrew.casks = [
-    "1password"
-    "1password-cli"
-    "airbuddy"
-    "airtable"
-    "android-file-transfer"
-    "android-platform-tools"
-    "app-cleaner" # Nektony App Cleaner & Uninstaller
-    "appcleaner"
-    "balenaetcher"
-    "calibre"
-    "chromium"
-    "cyberduck"
-    "discord"
-    "dropbox"
-    "duckduckgo"
-    "duet"
-    "fluor"
-    "hakuneko"
-    "image2icon"
-    "inkscape"
-    "keybase"
-    "knockknock"
-    "launchcontrol"
-    "little-snitch"
-    "macpass"
-    "mactex-no-gui"
-    "mate-translate"
-    "messenger"
-    "netnewswire"
-    "onyx"
-    "plex"
-    "plex-htpc"
-    "raspberry-pi-imager"
-    "resilio-sync"
-    "signal"
-    "soulver"
-    "soundsource"
-    "sqlitestudio"
-    "steam"
-    "telegram"
-    "thingsmacsandboxhelper"
-    "tiddly"
-    "yattee"
-    "yubico-yubikey-manager"
-    "zoom"
-    "zotero@beta"
-  ];
+	homebrew.casks = [
+		"1password"
+		"1password-cli"
+		"airbuddy"
+		"airtable"
+		"android-file-transfer"
+		"android-platform-tools"
+		"app-cleaner" # Nektony App Cleaner & Uninstaller
+		"appcleaner"
+		"balenaetcher"
+		"calibre"
+		"chromium"
+		"cyberduck"
+		"discord"
+		"dropbox"
+		"duckduckgo"
+		"duet"
+		"fluor"
+		"hakuneko"
+		"image2icon"
+		"inkscape"
+		"keybase"
+		"knockknock"
+		"launchcontrol"
+		"little-snitch"
+		"macpass"
+		"mactex-no-gui"
+		"mate-translate"
+		"messenger"
+		"netnewswire"
+		"onyx"
+		"plex"
+		"plex-htpc"
+		"raspberry-pi-imager"
+		"resilio-sync"
+		"signal"
+		"soulver"
+		"soundsource"
+		"sqlitestudio"
+		"steam"
+		"telegram"
+		"thingsmacsandboxhelper"
+		"tiddly"
+		"yattee"
+		"yubico-yubikey-manager"
+		"zoom"
+		"zotero@beta"
+	];
 
-  homebrew.masApps = { 
-    "1Password for Safari" = 1569813296;
-    "Apple Configurator" = 1037126344;
-    "Be Focused Pro" = 961632517;
-    "CCMenu" = 603117688;
-    "DoMarks" = 1518886084;
-    "GarageBand" = 682658836;
-    "Just Press Record" = 1033342465;
-    "Keynote" = 409183694;
-    "Numbers" = 409203825;
-    "OX Drive" = 818195014;
-    "Parcel" = 639968404;
-    "Privacy Redirect" = 1578144015;
-    "StopTheMadness" = 1376402589;
-    "Supernote Partner" = 1494992020;
-    # "SwiftoDo Desktop" = 1143641091;
-    "Tampermonkey Classic" = 1482490089;
-    "TestFlight" = 899247664;
-    "Things" = 904280696;
-    "Userscripts-Mac-App" = 1463298887;
-    "WireGuard" = 1451685025;
-    "Xcode" = 497799835;
-    "uBlacklist for Safari" = 1547912640;
-    # "Yubico Authenticator" = 1497506650;
-  };
+	homebrew.masApps = {
+		"1Password for Safari" = 1569813296;
+		"Apple Configurator" = 1037126344;
+		"Be Focused Pro" = 961632517;
+		"CCMenu" = 603117688;
+		"DoMarks" = 1518886084;
+		"GarageBand" = 682658836;
+		"Just Press Record" = 1033342465;
+		"Keynote" = 409183694;
+		"Numbers" = 409203825;
+		"OX Drive" = 818195014;
+		"Parcel" = 639968404;
+		"Privacy Redirect" = 1578144015;
+		"StopTheMadness" = 1376402589;
+		"Supernote Partner" = 1494992020;
+		# "SwiftoDo Desktop" = 1143641091;
+		"Tampermonkey Classic" = 1482490089;
+		"TestFlight" = 899247664;
+		"Things" = 904280696;
+		"Userscripts-Mac-App" = 1463298887;
+		"WireGuard" = 1451685025;
+		"Xcode" = 497799835;
+		"uBlacklist for Safari" = 1547912640;
+		# "Yubico Authenticator" = 1497506650;
+	};
 
-  homebrew.taps = [
-    "lemoony/tap" # snipkit
-  ];
-  #endregion
+	homebrew.taps = [
+		"lemoony/tap" # snipkit
+	];
+	#endregion
 
-  #region environment variables
+	#region environment variables
 
-  environment.variables = launchd.user.envVariables // {
-    EMAIL = "#{{ .personal.email }}";
-    PROJECTS_DIR = "$HOME/dev";
-    SSH_AUTH_SOCK = "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
-  };
+	environment.variables = launchd.user.envVariables // {
+		EMAIL = "#{{ .personal.email }}";
+		PROJECTS_DIR = "$HOME/dev";
+		SSH_AUTH_SOCK = "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+	};
 
-  launchd.user.envVariables = {
-    DOT_ENVIRONMENT = "home";
-  };
+	launchd.user.envVariables = {
+		DOT_ENVIRONMENT = "home";
+	};
 
-  #endregion
+	#endregion
 
-  #region files
+	#region files
 
-  launchd.user.agents = {
-    "homebrew.mxcl.openssl-osx-ca" = {
-      serviceConfig = {
-        Label = "homebrew.mxcl.openssl-osx-ca";
-        StartInterval = 604800;
-      };
-    };
-  };
+	launchd.user.agents = {
+		"homebrew.mxcl.openssl-osx-ca" = {
+			serviceConfig = {
+				Label = "homebrew.mxcl.openssl-osx-ca";
+				StartInterval = 604800;
+			};
+		};
+	};
 
-  #endregion
+	#endregion
 
-  services.skhd.enable = false;
+	services.skhd.enable = false;
 
-  system.defaults = {
-    alf = {
-      allowdownloadsignedenabled = 1;
-      allowsignedenabled = 1;
-      globalstate = 1;
-      loggingenabled = 1;
-      stealthenabled = 1;
-    };
-    CustomUserPreferences = {
-      bluetoothaudiod = {
-        "AAC Bitrate" = 320;
-        "AAC max packet size" = 644;
-        "Apple Bitpool Max" = 80;
-        "Apple Bitpool Min" = 80;
-        "Apple Initial Bitpool Min" = 80;
-        "Apple Initial Bitpool" = 80;
-        "Enable AAC codec" = true;
-        "Enable AptX codec" = true;
-        "Negotiated Bitpool Max" = 80;
-        "Negotiated Bitpool Min" = 80;
-        "Negotiated Bitpool" = 80;
-      };
-      "com.apple.appstore" = {
-        ## Enable Debug Menu in the Mac App Store
-        ShowDebugMenu = true;
-        ## Enable the WebKit Developer Tools in the Mac App Store
-        WebKitDeveloperExtras = true;
-      };
-      "com.apple.BluetoothAudioAgent" = {
-        "Apple Bitpool Max (editable)" = 80;
-        "Apple Bitpool Min (editable)" = 80;
-        "Apple Initial Bitpool (editable)" = 80;
-        "Apple Initial Bitpool Min (editable)" = 80;
-        "Negotiated Bitpool Max" = 80;
-        "Negotiated Bitpool Min" = 80;
-        "Negotiated Bitpool" = 80;
-        "Stream - Flush Ring on Packet Drop (editable)" = 0;
-        "Stream - Max Outstanding Packets (editable)" = 16;
-        "Stream Resume Delay" = "0.75";
-      };
-      "com.apple.commerce" = {
-        ## Turn on app auto-update
-        AutoUpdate = true;
-        ## Disable the App Store to reboot machine on macOS updates
-        AutoUpdateRestartRequired = false;
-      };
-      "com.apple.mail" = {
-        AddressesIncludeNameOnPasteboard = false;
-        ConversationViewSortDescending = true;
-        DisableInlineAttachmentViewing = true;
-        DisableReplyAnimations = true;
-        DisableSendAnimations = true;
-        DraftsViewerAttributes = {
-          DisplayInThreadedMode = "yes";
-          SortedDescending = "no";
-          SortOrder = "received-date";
-        };
-        NSUserKeyEquivalents = {
-          Send = "@\\U21a9";
-        };
-        SpellCheckingBehavior = "NoSpellCheckingEnabled";
-      };
-      "com.apple.Safari" = {
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback" = false;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled" = false;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2HyperlinkAuditingEnabled" = false;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled" = false;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles" = false;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically" = false;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2PluginsEnabled" = true;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks" = true;
-        "WebKitPreferences.allowsPictureInPictureMediaPlayback" = true;
-        "WebKitPreferences.applePayCapabilityDisclosureAllowed" = true;
-        "WebKitPreferences.applePayEnabled" = true;
-        "WebKitPreferences.developerExtrasEnabled" = true;
-        "WebKitPreferences.hiddenPageDOMTimerThrottlingAutoIncreases" = true;
-        "WebKitPreferences.invisibleMediaAutoplayNotPermitted" = true;
-        "WebKitPreferences.javaScriptCanOpenWindowsAutomatically" = true;
-        "WebKitPreferences.needsStorageAccessFromFileURLsQuirk" = false;
-        "WebKitPreferences.pushAPIEnabled" = true;
-        "WebKitPreferences.shouldAllowUserInstalledFonts" = false;
-        "WebKitPreferences.shouldSuppressKeyboardInputDuringProvisionalNavigation" = true;
-        AlwaysRestoreSessionAtLaunch = true;
-        AlwaysShowTabBar = true;
-        AutoFillCreditCardData = false;
-        AutoFillFromAddressBook = false;
-        AutoFillFromiCloudKeychain = false;
-        AutoFillMiscellaneousForms = false;
-        AutoFillPasswords = false;
-        AutoOpenSafeDownloads = false;
-        CanPromptForPushNotifications = false;
-        Command1Through9SwitchesTabs = false;
-        CommandClickMakesTabs = true;
-        DebugSnapshotsUpdatePolicy = 2;
-        DownloadsClearingPolicy = 0;
-        ExtensionsEnabled = true;
-        FindOnPageMatchesWordStartsOnly = false;
-        HomePage = "";
-        IncludeDevelopMenu = true;
-        IncludeInternalDebugMenu = true;
-        InstallExtensionUpdatesAutomatically = true;
-        NewTabBehavior = 4;
-        NewWindowBehavior = 4;
-        OpenNewTabsInFront = false;
-        PreloadTopHit = false;
-        ProxiesInBookmarksBar = [];
-        ReadingListSaveArticlesOfflineAutomatically = false;
-        SearchProviderShortName = "DuckDuckGo";
-        SendDoNotTrackHTTPHeader = false;
-        ShowCloudTabsInFavorites = false;
-        ShowFavoritesBar = true;
-        ShowFrequentlyVisitedSites = false;
-        ShowFullURLInSmartSearchField = true;
-        ShowHighlightsInFavorites = false;
-        ShowIconsInTabs = true;
-        ShowPrivacyReportInFavorites = false;
-        ShowReadingListInFavorites = false;
-        ShowRecentlyClosedTabsPreferenceKey = false;
-        ShowSidebarInNewWindows = false;
-        ShowSidebarInTopSites = true;
-        ShowSiriSuggestionsPreference = false;
-        ShowTabGroupFavoritesPreferenceKey = false;
-        SuppressSearchSuggestions = true;
-        UniversalSearchEnabled = false;
-        WarnAboutFraudulentWebsites = false;
-        WebAutomaticSpellingCorrectionEnabled = false;
-        WebContinuousSpellCheckingEnabled = true;
-        WebKitDeveloperExtrasEnabledPreferenceKey = true;
-        WebKitInitialTimedLayoutDelay = 0.25;
-        WebKitJavaEnabled = false;
-        WebKitJavaScriptCanOpenWindowsAutomatically = false;
-        WebKitMediaPlaybackAllowsInline = false;
-        WebKitPluginsEnabled = true;
-        WebKitRespectStandardStyleKeyEquivalents = true;
-        WebKitStorageBlockingPolicy = 1;
-        WebKitTabToLinksPreferenceKey = true;
-        WebsiteSpecificSearchEnabled = false;
-      };
-      "com.apple.systemuiserver" = {
-        "NSStatusItem Visible com.apple.menuextra.TimeMachine" = true;
-        menuExtras = [
-          "/System/Library/CoreServices/Menu Extras/TimeMachine.menu"
-        ];
-      };
-    };
-    CustomSystemPreferences = {
-      "/Library/Preferences/com.apple.loginwindow" = {
-        AdminHostInfo = "HostName";
-        TALLogoutSavesState = false;
-      };
-      "/Library/Preferences/com.apple.security.smartcard" = {
-        allowSmartCard = true;
-        checkCertificateTrust = 3;
-        DisabledTokens = []; ## pluginkit -m -p com.apple.ctk-tokens
-        # Logging = false;
-        # oneCardPerUser = false;
-        UserPairing = true;
-      };
-      "/Library/Preferences/com.apple.TimeMachine" = {
-        AutoBackup = true;
-        AutoBackupInterval = 86400;
-        ExcludeByPath = [];
-        # MobileBackups = false;
-        RequiresACPower = true;
-        SkipPaths = [
-          "~/.cabal"
-          "~/.cache"
-          "~/.cargo"
-          "~/.go"
-          "~/.gradle"
-          "~/.local/share/containers"
-          "~/.minikube"
-          "~/.npm"
-          "~/.pulumi/plugins"
-          "~/.rustup"
-          "~/.sonarlint"
-          "~/Applications"
-          "~/Cloud"
-          "~/Desktop"
-          "~/Downloads"
-          "~/Library/Caches"
-          "~/Library/CloudStorage"
-          "~/Library/Containers"
-          "~/Library/Developer"
-          "~/Library/Group Containers"
-          "~/Zotero"
-          "~/dev"
-          "~/go"
-        ];
-      };
-      "'/Library/Application Support/CrashReporter/DiagnosticMessagesHistory'" = {
-        AutoSubmit = false;
-        SeedAutoSubmit = false;
-        AutoSubmitVersion = 4;
-        ThirdPartyDataSubmit = false;
-        ThirdPartyDataSubmitVersion = 4;
-      };
-      "/Library/Preferences/com.apple.iokit.AmbientLightSensor" = {
-        "Automatic Display Enabled" = false;
-      };
-      "/Library/Preferences/com.apple.security.libraryvalidation" = {
-        DisableLibraryValidation = true;
-      };
-      "/Library/Preferences/com.apple.windowserver" = {
-        DisplayResolutionEnabled = true;
-      };
-    };
-    loginwindow = {
-      DisableConsoleAccess = true;
-      GuestEnabled = false;
-      LoginwindowText = ''
-        Found this? Please contact me on #{{ .personal.email }} or #{{ .personal.mobile }}
-      '';
-      PowerOffDisabledWhileLoggedIn = false;
-      RestartDisabledWhileLoggedIn = false;
-      ShutDownDisabledWhileLoggedIn = false;
-    };
-    screensaver = {
-      askForPassword = true;
-      askForPasswordDelay = 0;
-    };
-    SoftwareUpdate = {
-      AutomaticallyInstallMacOSUpdates = true;
-    };
-  };
+	system.defaults = {
+		alf = {
+			allowdownloadsignedenabled = 1;
+			allowsignedenabled = 1;
+			globalstate = 1;
+			loggingenabled = 1;
+			stealthenabled = 1;
+		};
+		CustomUserPreferences = {
+			bluetoothaudiod = {
+				"AAC Bitrate" = 320;
+				"AAC max packet size" = 644;
+				"Apple Bitpool Max" = 80;
+				"Apple Bitpool Min" = 80;
+				"Apple Initial Bitpool Min" = 80;
+				"Apple Initial Bitpool" = 80;
+				"Enable AAC codec" = true;
+				"Enable AptX codec" = true;
+				"Negotiated Bitpool Max" = 80;
+				"Negotiated Bitpool Min" = 80;
+				"Negotiated Bitpool" = 80;
+			};
+			"com.apple.appstore" = {
+				## Enable Debug Menu in the Mac App Store
+				ShowDebugMenu = true;
+				## Enable the WebKit Developer Tools in the Mac App Store
+				WebKitDeveloperExtras = true;
+			};
+			"com.apple.BluetoothAudioAgent" = {
+				"Apple Bitpool Max (editable)" = 80;
+				"Apple Bitpool Min (editable)" = 80;
+				"Apple Initial Bitpool (editable)" = 80;
+				"Apple Initial Bitpool Min (editable)" = 80;
+				"Negotiated Bitpool Max" = 80;
+				"Negotiated Bitpool Min" = 80;
+				"Negotiated Bitpool" = 80;
+				"Stream - Flush Ring on Packet Drop (editable)" = 0;
+				"Stream - Max Outstanding Packets (editable)" = 16;
+				"Stream Resume Delay" = "0.75";
+			};
+			"com.apple.commerce" = {
+				## Turn on app auto-update
+				AutoUpdate = true;
+				## Disable the App Store to reboot machine on macOS updates
+				AutoUpdateRestartRequired = false;
+			};
+			"com.apple.mail" = {
+				AddressesIncludeNameOnPasteboard = false;
+				ConversationViewSortDescending = true;
+				DisableInlineAttachmentViewing = true;
+				DisableReplyAnimations = true;
+				DisableSendAnimations = true;
+				DraftsViewerAttributes = {
+					DisplayInThreadedMode = "yes";
+					SortedDescending = "no";
+					SortOrder = "received-date";
+				};
+				NSUserKeyEquivalents = {
+					Send = "@\\U21a9";
+				};
+				SpellCheckingBehavior = "NoSpellCheckingEnabled";
+			};
+			"com.apple.Safari" = {
+				"com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback" = false;
+				"com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled" = false;
+				"com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
+				"com.apple.Safari.ContentPageGroupIdentifier.WebKit2HyperlinkAuditingEnabled" = false;
+				"com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled" = false;
+				"com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles" = false;
+				"com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically" = false;
+				"com.apple.Safari.ContentPageGroupIdentifier.WebKit2PluginsEnabled" = true;
+				"com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks" = true;
+				"WebKitPreferences.allowsPictureInPictureMediaPlayback" = true;
+				"WebKitPreferences.applePayCapabilityDisclosureAllowed" = true;
+				"WebKitPreferences.applePayEnabled" = true;
+				"WebKitPreferences.developerExtrasEnabled" = true;
+				"WebKitPreferences.hiddenPageDOMTimerThrottlingAutoIncreases" = true;
+				"WebKitPreferences.invisibleMediaAutoplayNotPermitted" = true;
+				"WebKitPreferences.javaScriptCanOpenWindowsAutomatically" = true;
+				"WebKitPreferences.needsStorageAccessFromFileURLsQuirk" = false;
+				"WebKitPreferences.pushAPIEnabled" = true;
+				"WebKitPreferences.shouldAllowUserInstalledFonts" = false;
+				"WebKitPreferences.shouldSuppressKeyboardInputDuringProvisionalNavigation" = true;
+				AlwaysRestoreSessionAtLaunch = true;
+				AlwaysShowTabBar = true;
+				AutoFillCreditCardData = false;
+				AutoFillFromAddressBook = false;
+				AutoFillFromiCloudKeychain = false;
+				AutoFillMiscellaneousForms = false;
+				AutoFillPasswords = false;
+				AutoOpenSafeDownloads = false;
+				CanPromptForPushNotifications = false;
+				Command1Through9SwitchesTabs = false;
+				CommandClickMakesTabs = true;
+				DebugSnapshotsUpdatePolicy = 2;
+				DownloadsClearingPolicy = 0;
+				ExtensionsEnabled = true;
+				FindOnPageMatchesWordStartsOnly = false;
+				HomePage = "";
+				IncludeDevelopMenu = true;
+				IncludeInternalDebugMenu = true;
+				InstallExtensionUpdatesAutomatically = true;
+				NewTabBehavior = 4;
+				NewWindowBehavior = 4;
+				OpenNewTabsInFront = false;
+				PreloadTopHit = false;
+				ProxiesInBookmarksBar = [];
+				ReadingListSaveArticlesOfflineAutomatically = false;
+				SearchProviderShortName = "DuckDuckGo";
+				SendDoNotTrackHTTPHeader = false;
+				ShowCloudTabsInFavorites = false;
+				ShowFavoritesBar = true;
+				ShowFrequentlyVisitedSites = false;
+				ShowFullURLInSmartSearchField = true;
+				ShowHighlightsInFavorites = false;
+				ShowIconsInTabs = true;
+				ShowPrivacyReportInFavorites = false;
+				ShowReadingListInFavorites = false;
+				ShowRecentlyClosedTabsPreferenceKey = false;
+				ShowSidebarInNewWindows = false;
+				ShowSidebarInTopSites = true;
+				ShowSiriSuggestionsPreference = false;
+				ShowTabGroupFavoritesPreferenceKey = false;
+				SuppressSearchSuggestions = true;
+				UniversalSearchEnabled = false;
+				WarnAboutFraudulentWebsites = false;
+				WebAutomaticSpellingCorrectionEnabled = false;
+				WebContinuousSpellCheckingEnabled = true;
+				WebKitDeveloperExtrasEnabledPreferenceKey = true;
+				WebKitInitialTimedLayoutDelay = 0.25;
+				WebKitJavaEnabled = false;
+				WebKitJavaScriptCanOpenWindowsAutomatically = false;
+				WebKitMediaPlaybackAllowsInline = false;
+				WebKitPluginsEnabled = true;
+				WebKitRespectStandardStyleKeyEquivalents = true;
+				WebKitStorageBlockingPolicy = 1;
+				WebKitTabToLinksPreferenceKey = true;
+				WebsiteSpecificSearchEnabled = false;
+			};
+			"com.apple.systemuiserver" = {
+				"NSStatusItem Visible com.apple.menuextra.TimeMachine" = true;
+				menuExtras = [
+					"/System/Library/CoreServices/Menu Extras/TimeMachine.menu"
+				];
+			};
+		};
+		CustomSystemPreferences = {
+			"/Library/Preferences/com.apple.loginwindow" = {
+				AdminHostInfo = "HostName";
+				TALLogoutSavesState = false;
+			};
+			"/Library/Preferences/com.apple.security.smartcard" = {
+				allowSmartCard = true;
+				checkCertificateTrust = 3;
+				DisabledTokens = []; ## pluginkit -m -p com.apple.ctk-tokens
+				# Logging = false;
+				# oneCardPerUser = false;
+				UserPairing = true;
+			};
+			"/Library/Preferences/com.apple.TimeMachine" = {
+				AutoBackup = true;
+				AutoBackupInterval = 86400;
+				ExcludeByPath = [];
+				# MobileBackups = false;
+				RequiresACPower = true;
+				SkipPaths = [
+					"~/.cabal"
+					"~/.cache"
+					"~/.cargo"
+					"~/.go"
+					"~/.gradle"
+					"~/.local/share/containers"
+					"~/.minikube"
+					"~/.npm"
+					"~/.pulumi/plugins"
+					"~/.rustup"
+					"~/.sonarlint"
+					"~/Applications"
+					"~/Cloud"
+					"~/Desktop"
+					"~/Downloads"
+					"~/Library/Caches"
+					"~/Library/CloudStorage"
+					"~/Library/Containers"
+					"~/Library/Developer"
+					"~/Library/Group Containers"
+					"~/Zotero"
+					"~/dev"
+					"~/go"
+				];
+			};
+			"'/Library/Application Support/CrashReporter/DiagnosticMessagesHistory'" = {
+				AutoSubmit = false;
+				SeedAutoSubmit = false;
+				AutoSubmitVersion = 4;
+				ThirdPartyDataSubmit = false;
+				ThirdPartyDataSubmitVersion = 4;
+			};
+			"/Library/Preferences/com.apple.iokit.AmbientLightSensor" = {
+				"Automatic Display Enabled" = false;
+			};
+			"/Library/Preferences/com.apple.security.libraryvalidation" = {
+				DisableLibraryValidation = true;
+			};
+			"/Library/Preferences/com.apple.windowserver" = {
+				DisplayResolutionEnabled = true;
+			};
+		};
+		loginwindow = {
+			DisableConsoleAccess = true;
+			GuestEnabled = false;
+			LoginwindowText = ''
+				Found this? Please contact me on #{{ .personal.email }} or #{{ .personal.mobile }}
+			'';
+			PowerOffDisabledWhileLoggedIn = false;
+			RestartDisabledWhileLoggedIn = false;
+			ShutDownDisabledWhileLoggedIn = false;
+		};
+		screensaver = {
+			askForPassword = true;
+			askForPasswordDelay = 0;
+		};
+		SoftwareUpdate = {
+			AutomaticallyInstallMacOSUpdates = true;
+		};
+	};
 
-  time.timeZone = "Europe/Amsterdam";
+	time.timeZone = "Europe/Amsterdam";
 }
