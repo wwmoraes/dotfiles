@@ -20,3 +20,5 @@ pre-commit:
     yamllint:
       run: yamllint {staged_files}
       glob: '**/*.yaml'
+    gitleaks:
+      run: gitleaks git --pre-commit --redact --staged --verbose

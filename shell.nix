@@ -16,6 +16,7 @@ in mkShell {
     editorconfig-checker
     fish
     git
+    gitleaks
     go-task
     gron
     jq
