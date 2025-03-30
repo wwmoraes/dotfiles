@@ -13,6 +13,7 @@ in mkShell {
 	packages = (with pkgs; [
 		bash
 		chezmoi
+		delta
 		editorconfig-checker
 		fish
 		git

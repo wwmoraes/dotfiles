@@ -34,7 +34,8 @@ python.enabled = true
 {{- end }}
 
 [diff]
-	exclude = ["scripts"]
+pager = "delta"
+exclude = ["scripts"]
 
 [gpg]
 	recipient = {{ $ejsonDict.data.personal.email | quote }}
