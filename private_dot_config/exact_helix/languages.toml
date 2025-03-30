@@ -114,7 +114,7 @@ indent = { tab-width = 2, unit = "\t" }
 [[language]]
 name = "git-config"
 scope = "source.gitconfig"
-file-types = [{ glob = ".gitmodules" }, { glob = ".gitconfig" }, { glob = ".git/config" }, { glob = ".config/git/config" }, { glob = "*gitconfig*" }]
+file-types = [{ glob = ".gitmodules" }, { glob = ".gitconfig" }, { glob = ".git/config" }, { glob = ".config/git/*" }]
 injection-regex = "git-config"
 comment-token = "#"
 # customization
