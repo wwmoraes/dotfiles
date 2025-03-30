@@ -38,7 +38,7 @@ pager = "delta"
 exclude = ["scripts"]
 
 [gpg]
-	recipient = {{ $ejsonDict.data.personal.email | quote }}
+recipient = {{ $ejsonDict.data.personal.email | quote }}
 
 [hooks.init.pre]
 command = "task"
@@ -54,9 +54,19 @@ command = "fish"
 command = {{ $pinentry | quote }}
 
 [scriptEnv]
-	# whether to apply MacOS defaults or not
-	DEFAULTS = "0"
-	# general script debug
-	TRACE = "0"
-	VERBOSE = "0"
-	DOT_ENVIRONMENT = {{ $environment | quote }}
+# whether to apply MacOS defaults or not
+DEFAULTS = "0"
+# general script debug
+TRACE = "0"
+VERBOSE = "0"
+DOT_ENVIRONMENT = {{ $environment | quote }}
+
+[[textconv]]
+pattern = "**/*.json"
+command = "jq"
+args = ["--sort-keys"]
+
+[[textconv]]
+pattern = "**/*.{yml,yaml}"
+command = "yq"
+args = ["'sort_keys(..)'"]

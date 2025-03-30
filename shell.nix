@@ -28,5 +28,6 @@ in mkShell {
 		shellcheck
 		unstable.lazygit
 		yamllint
+		yq-go
 	]);
 }
