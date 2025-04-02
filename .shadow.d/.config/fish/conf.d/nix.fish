@@ -43,7 +43,6 @@ function __fish_in_nix_shell --on-variable IN_NIX_SHELL
 	set --append temp_MANPATH $packages/share/man
 	set --global MANPATH (__fish_unique_values $temp_MANPATH)
 
-	echo "configuring INFOPATH paths"
 	## reset the INFOPATH with non-nix store entries
 	set --local temp_INFOPATH (string match --invert --regex "/nix/store/[\w.-]+/.*" $INFOPATH)
 	## prepend nix store INFOPATH paths
