@@ -199,7 +199,7 @@
 
 ## https://git-scm.com/docs/git-interpret-trailers
 [trailer "sign"]
-	command = echo "$(git config user.name) <$(git config user.email)>"
+	cmd = echo \"$(git config user.name) <$(git config user.email)>\"
 	ifExists = addIfDifferent
 	ifMissing = add
 	key = Signed-off-by
