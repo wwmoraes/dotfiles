@@ -339,9 +339,12 @@ rec {
 		loginwindow = {
 			DisableConsoleAccess = true;
 			GuestEnabled = false;
-			LoginwindowText = ''
-				Found this? Please contact me on #{{ .personal.email }} or #{{ .personal.mobile }}
-			'';
+			LoginwindowText = (lib.concatStringsSep " " [
+				"Found this? Please contact me on"
+				"#{{ .personal.email }}"
+				"or"
+				"#{{ .personal.mobile }}"
+			]);
 			PowerOffDisabledWhileLoggedIn = false;
 			RestartDisabledWhileLoggedIn = false;
 			ShutDownDisabledWhileLoggedIn = false;
