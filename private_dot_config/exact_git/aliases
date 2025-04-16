@@ -165,3 +165,5 @@
 	fdiff = "!f() { git diff --name-only --color=always $@ | fzf -m --ansi --preview \"git diff $@ --color=always -- {-1}\" | ifne xargs git diff $@ --; }; f"
 
 	review = "!f() { BRANCHES=$(git branch --no-column --all --format=\"%(refname:lstrip=2)\") && BASE=$(echo $BRANCHES | tr ' ' '\n' | fzf --prompt='Base branch: ') && TARGET=$(echo $BRANCHES | tr ' ' '\n' | fzf --prompt='Target branch: ') && echo \"git fdiff $BASE..$TARGET\" && git fdiff $BASE..$TARGET; }; f"
+
+	author = "!f() { CONTENT=$(test -n \"$1\" && git log --author=\"$1\" --pretty=\"%aN <%aE>\" -1); echo \"${CONTENT:-$(git config user.name) <$(git config user.email)>}\"; }; f"
