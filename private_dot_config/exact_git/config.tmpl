@@ -144,6 +144,13 @@
 	hideResolved = true
 	prompt = false
 
+[notes]
+	displayRef = refs/notes/*
+	rewriteRef = refs/notes/commits
+
+[notes "commits"]
+	mergeStrategy = cat_sort_uniq
+
 [pager]
 	blame = delta
 	diff = delta
@@ -172,8 +179,11 @@
 [receive]
 	fsckObjects = true
 
-# [remote "origin"]
-	# fetch = +refs/heads/*:refs/remotes/origin/*
+[remote "origin"]
+	fetch = +refs/heads/*:refs/remotes/origin/*
+	fetch = +refs/notes/*:refs/notes/*
+	push = refs/heads/*:refs/heads/*
+	push = refs/notes/*:refs/notes/*
 
 [rerere]
 	autoUpdate = true
