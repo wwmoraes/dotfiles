@@ -198,15 +198,66 @@
 	sort = version:refname
 
 ## https://git-scm.com/docs/git-interpret-trailers
+
+[trailer "ack"]
+	cmd = git author
+	ifExists = addIfDifferent
+	ifMissing = add
+	key = Acknowledged-by
+
+[trailer "coauthor"]
+	cmd = git author
+	ifExists = addIfDifferent
+	ifMissing = add
+	key = Co-authored-by
+
+[trailer "helper"]
+	cmd = git author
+	ifExists = addIfDifferent
+	ifMissing = add
+	key = Helped-by
+
+[trailer "mentor"]
+	cmd = git author
+	ifExists = addIfDifferent
+	ifMissing = add
+	key = Mentored-by
+
+[trailer "reporter"]
+	cmd = git author
+	ifExists = addIfDifferent
+	ifMissing = add
+	key = Reported-by
+
+[trailer "requester"]
+	cmd = git author
+	ifExists = addIfDifferent
+	ifMissing = add
+	key = Requested-by
+
+[trailer "reviewer"]
+	cmd = git author
+	ifExists = addIfDifferent
+	ifMissing = add
+	key = Reviewed-by
+
 [trailer "sign"]
 	cmd = git author
 	ifExists = addIfDifferent
 	ifMissing = add
 	key = Signed-off-by
 
-[trailer "coauthor"]
-	key = Co-authored-by
+[trailer "tester"]
+	cmd = git author
 	ifExists = addIfDifferent
+	ifMissing = add
+	key = Tested-by
+
+[trailer "thanks"]
+	cmd = git author
+	ifExists = addIfDifferent
+	ifMissing = add
+	key = Thanks-to
 
 [transfer]
 	fsckObjects = true
