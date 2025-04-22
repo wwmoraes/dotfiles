@@ -11,15 +11,15 @@ command -q tabs; and tabs -2
 tty -s; or return
 test -t 0; or return
 
+command -q direnv
+and test -e .envrc
+and direnv reload
+
 # skip non-login sessions
 status --is-login; or return
 
 # skip non-interactive sessions
 status --is-interactive; or return
-
-command -q direnv
-and test -e .envrc
-and direnv reload
 
 # skip if in Apple Terminal.app
 string match -q "Apple_Terminal" $TERM_PROGRAM; and return
