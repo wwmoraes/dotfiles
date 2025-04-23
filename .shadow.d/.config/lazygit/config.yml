@@ -87,7 +87,7 @@ customCommands:
   context: global
   description: YOLO changes
   command: >-
-    git commit --amend --all --no-edit && git push --force
+    git commit --amend --all --no-edit && git push --force-with-lease
   loadingText: YOLO'ing...
   prompts:
   - type: confirm
