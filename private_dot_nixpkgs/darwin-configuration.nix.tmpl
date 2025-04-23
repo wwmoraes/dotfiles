@@ -193,11 +193,26 @@ in rec {
 		DOCKER_HOST = "unix://$HOME/.docker/run/docker.sock";
 		EDITOR = "hx";
 		FZF_COMPLETE = "1";
-		FZF_DEFAULT_OPTS = "--height=50% --layout=reverse";
+		FZF_DEFAULT_OPTS = (lib.concatStringsSep " " [
+			"--bind ctrl-b:preview-page-up"
+			"--bind ctrl-d:preview-down"
+			"--bind ctrl-f:preview-page-down"
+			"--bind ctrl-u:preview-up"
+			"--height=50%"
+			"--layout=reverse"
+		]);
 		FZF_LEGACY_KEYBINDINGS = "0";
-		FZF_REVERSE_ISEARCH_OPTS = ''--preview-window=up:10 --preview=\"bat {}\" --height=50%'';
+		FZF_REVERSE_ISEARCH_OPTS = (lib.concatStringsSep " " [
+			"--height=50%"
+			"--preview-window=up:10"
+			"--preview='bat {}'"
+		]);
 		GOPATH = "$HOME/.go";
-		HOMEBREW_CASK_OPTS = "--appdir=~/Applications --keyboard-layoutdir=${lib.escapeShellArg "~/Library/Keyboard Layouts"} --no-quarantine";
+		HOMEBREW_CASK_OPTS = (lib.concatStringsSep " " [
+			"--appdir=$HOME/Applications"
+			"--keyboard-layoutdir='$HOME/Library/Keyboard Layouts'"
+			"--no-quarantine"
+		]);
 		LANG = "en_GB.UTF-8";
 		LC_ALL = "en_GB.UTF-8";
 		LC_COLLATE = "en_GB.UTF-8";
@@ -210,13 +225,22 @@ in rec {
 		LSCOLORS = "exfxcxdxbxegedabagacad";
 		MANPAGER = "less";
 		NIX_PATH = config.nix.nixPath;
-		NIX_PROFILES = "/nix/var/nix/profiles/default $HOME/.nix-profile";
+		NIX_PROFILES = (lib.concatStringsSep " " [
+			"/nix/var/nix/profiles/default"
+			"$HOME/.nix-profile"
+		]);
 		NIX_USER_PROFILE_DIR = "/nix/var/nix/profiles/per-user/$USER";
 		PAGER = "less";
 		PROJECTS_ORIGIN = "git@github.com:wwmoraes/%s.git";
 		SUDO_EDITOR = "hx";
 		VISUAL = "hx";
-		XDG_DATA_DIRS = lib.mkForce "/usr/local/share:/usr/share:$HOME/.nix-profile/share:/run/current-system/sw/share:/nix/var/nix/profiles/default/share";
+		XDG_DATA_DIRS = lib.mkForce (lib.concatStringsSep ":" [
+			"/usr/local/share"
+			"/usr/share"
+			"$HOME/.nix-profile/share"
+			"/run/current-system/sw/share"
+			"/nix/var/nix/profiles/default/share"
+		]);
 	};
 
 	launchd.user.agents = {
