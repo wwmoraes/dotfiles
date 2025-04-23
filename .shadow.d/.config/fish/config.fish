@@ -4,16 +4,16 @@ and source /etc/fish/setEnvironment.fish
 test -f /etc/fish/config.fish
 and source /etc/fish/config.fish
 
+command -q direnv
+and test -e .envrc
+and direnv reload
+
 # configure TTY tab stops
 command -q tabs; and tabs -2
 
 # skip non-tty sessions
 tty -s; or return
 test -t 0; or return
-
-command -q direnv
-and test -e .envrc
-and direnv reload
 
 # skip non-login sessions
 status --is-login; or return
