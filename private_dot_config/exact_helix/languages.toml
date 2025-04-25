@@ -230,4 +230,27 @@ comment-token = "#"
 language-servers = ["ruff", "jedi", "pylsp"]
 indent = { tab-width = 2, unit = "\t" }
 
+[[language]]
+name = "dockerfile"
+scope = "source.dockerfile"
+injection-regex = "docker|dockerfile"
+roots = ["Dockerfile", "Containerfile"]
+file-types = [
+	"Dockerfile",
+	{ glob = "Dockerfile" },
+	{ glob = "Dockerfile.*" },
+	"dockerfile",
+	{ glob = "dockerfile" },
+	{ glob = "dockerfile.*" },
+	"Containerfile",
+	{ glob = "Containerfile" },
+	{ glob = "Containerfile.*" },
+	"containerfile",
+	{ glob = "containerfile" },
+	{ glob = "containerfile.*" },
+]
+comment-token = "#"
+indent = { tab-width = 2, unit = "\t" }
+language-servers = [ "docker-langserver" ]
+
 # TODO plantUML support (https://github.com/ptdewey/plantuml-lsp)
