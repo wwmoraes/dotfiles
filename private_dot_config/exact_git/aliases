@@ -10,6 +10,7 @@
 
 # almost-human aliases
 	nuke = reset --hard
+	please = push --force-with-lease
 	yolo = push --force
 
 # Shorter versions and true aliases
@@ -33,7 +34,6 @@
 # Goodies
 	c = commit -am
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-	reup = rebase-update # depot_tools specific
 	seek-n-blame = "!f() { git blame $(git log --pretty=%H --diff-filter=AM -1 -- "$1") -- "$1"; }; f"
 	who-deleted = "!f() { git show -s --pretty=medium $(git log --pretty=%H -1 --diff-filter=D -- "$1"); }; f"
 	last-deleted = "!f() { git log --pretty=%H -${1:-1} --diff-filter=D | xargs -n1 git diff-tree --no-commit-id --name-only --diff-filter=D -r | sort -u; }; f"
@@ -152,9 +152,6 @@
 # fuzzy reset back to prior commit
 	freset = !HASH=`git log --pretty=oneline | head -n 50 | fzf` && git reset --soft `echo ${HASH} | awk '{ print $1 }'`^
 
-# update hooks
-	hooks = "!f() { local templateDir=$(git config --get --path init.templatedir); local gitDir=$(git rev-parse --git-dir); rsync --archive --verbose --compress --cvs-exclude \"$templateDir/hooks/\" \"$gitDir/hooks\" --delete; }; f"
-
 # purge a file from history (BEWARE: this option REWRITES all commits)
 	purge = "!f() { git filter-branch --force --index-filter \"git rm --cached --ignore-unmatch "$1"\" --prune-empty --tag-name-filter cat -- --all; }; f"
 
@@ -170,3 +167,5 @@
 	review = "!f() { BRANCHES=$(git branch --no-column --all --format=\"%(refname:lstrip=2)\") && BASE=$(echo $BRANCHES | tr ' ' '\n' | fzf --prompt='Base branch: ') && TARGET=$(echo $BRANCHES | tr ' ' '\n' | fzf --prompt='Target branch: ') && echo \"git fdiff $BASE..$TARGET\" && git fdiff $BASE..$TARGET; }; f"
 
 	author = "!f() { CONTENT=$(test -n \"$1\" && git log --author=\"$1\" --pretty=\"%aN <%aE>\" -1); echo \"${CONTENT:-$(git config user.name) <$(git config user.email)>}\"; }; f"
+
+	notes-push = push origin 'refs/notes/*'
