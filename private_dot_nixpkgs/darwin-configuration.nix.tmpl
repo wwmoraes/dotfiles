@@ -762,9 +762,13 @@ in rec {
 			"com.apple.TimeMachine" = {
 				DoNotOfferNewDisksForBackup = true;
 			};
-			# "com.apple.universalaccess" = {
-			#   reduceTransparency = 1;
-			# };
+			"com.apple.universalaccess" = {
+				"com.apple.custommenu.apps" = [
+					# "net.kovidgoyal.kitty"
+					"NSGlobalDomain"
+				];
+				# reduceTransparency = 1;
+			};
 			NSGlobalDomain = {
 				## TODO com.apple.finder.SyncExtensions
 				AppleEnableMenuBarTransparency = false;
@@ -773,6 +777,28 @@ in rec {
 				CGFontRenderingFontSmoothingDisabled = false;
 				NSAllowContinuousSpellChecking = false;
 				NSPersonNameDefaultDisplayNameOrder = 1;
+				## command = @
+				## control = ^
+				## option = ~
+				## shift = $
+				NSUserKeyEquivalents = {
+					"Enter Full Screen" = "@^f";
+					"Return to Previous Size" = "";
+					Bottom = "^$\\U2193";
+			    "Bottom &amp; Quarters" = "";
+			    "Bottom &amp; Top" = "~^$\\U2193";
+			    "Left &amp; Quarters" = "";
+			    "Left &amp; Right" = "~^$\\U2190";
+			    "Right &amp; Left" = "~^$\\U2192";
+			    "Right &amp; Quarters" = "";
+			    "Top &amp; Bottom" = "~^$\\U2191";
+			    "Top &amp; Quarters" = "";
+			    Centre = "^$c";
+			    Fill = "^$f";
+			    Left = "^$\\U2190";
+			    Right = "^$\\U2192";
+			    Top = "^$\\U2191";
+				};
 				QLPanelAnimationDuration = 0;
 				WebKitDeveloperExtras = true;
 			};
