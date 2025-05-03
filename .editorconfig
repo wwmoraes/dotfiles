@@ -9,9 +9,6 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 ## file types that must use space indentation
-[*.{json,json.tmpl}]
-indent_style = space
-
 [*.{md,md.tmpl}]
 indent_style = space
 
