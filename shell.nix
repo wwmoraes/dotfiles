@@ -10,24 +10,25 @@
 	};
 	inherit (pkgs) mkShell;
 in mkShell {
-	packages = (with pkgs; [
-		bash
-		chezmoi
-		delta
-		editorconfig-checker
-		fish
-		git
-		gitleaks
-		go-task
-		gron
-		jq
-		lefthook
-		markdownlint-cli
-		nur.repos.wwmoraes.ejson
-		nur.repos.wwmoraes.go-commitlint
-		shellcheck
-		unstable.lazygit
-		yamllint
-		yq-go
-	]);
+	packages = [
+		pkgs.bash
+		pkgs.chezmoi
+		pkgs.delta
+		pkgs.editorconfig-checker
+		pkgs.fish
+		pkgs.gitleaks
+		pkgs.go-task
+		pkgs.gron
+		pkgs.jq
+		pkgs.lefthook
+		pkgs.markdownlint-cli
+		pkgs.nur.repos.wwmoraes.ejson
+		pkgs.nur.repos.wwmoraes.go-commitlint
+		pkgs.shellcheck
+		pkgs.sops
+		pkgs.unstable.git
+		pkgs.unstable.lazygit
+		pkgs.yamllint
+		pkgs.yq-go
+	];
 }

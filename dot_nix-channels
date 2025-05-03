@@ -1,4 +1,4 @@
 https://github.com/LnL7/nix-darwin/archive/nix-darwin-24.11.tar.gz darwin
-https://github.com/NixOS/nixpkgs/archive/8420c1f518f45aa0d46248ab2590cebfcb611560.tar.gz unstable
-https://github.com/NixOS/nixpkgs/archive/nixpkgs-24.11-darwin.tar.gz nixpkgs
-https://github.com/nix-community/NUR/archive/7157696d339786020c39077ba12bef77d4873794.tar.gz nur
+https://github.com/NixOS/nixpkgs/archive/395178e287fa9f63205b4d117d67241eef34866c.tar.gz unstable
+https://github.com/NixOS/nixpkgs/archive/refs/tags/24.11.tar.gz nixpkgs
+https://github.com/nix-community/NUR/archive/b30c245e2c44c7352a27485bfd5bc483df660f0e.tar.gz nur
