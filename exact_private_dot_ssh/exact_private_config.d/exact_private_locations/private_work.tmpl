@@ -1,16 +1,5 @@
-IdentityFile ~/.ssh/work.pub
-IdentitiesOnly yes
-
-Host *
-	UseKeychain yes
-	AddKeysToAgent yes
-
-Host github.com
-	IdentityFile ~/.ssh/work.pub
-	IdentitiesOnly yes
-
 Host cocodev cocodev.{{ .networks.work.pcs.domain }}
 	HostName cocodev.{{ .networks.work.pcs.domain }}
+	IdentitiesOnly yes
 	IdentityFile ~/.ssh/work.pub
 	User {{ .work.username | lower }}
-	IdentitiesOnly yes

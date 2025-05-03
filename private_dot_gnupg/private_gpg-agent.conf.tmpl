@@ -1,5 +1,8 @@
-default-cache-ttl 600
-max-cache-ttl 7200
+# https://github.com/drduh/YubiKey-Guide/blob/master/config/gpg-agent.conf
+# https://www.gnupg.org/documentation/manuals/gnupg/Agent-Options.html
+
+default-cache-ttl 60
+max-cache-ttl 120
 
 # allows gpg-preset-passphrase to seed gpg-agent's passphrase internal cache
 allow-preset-passphrase

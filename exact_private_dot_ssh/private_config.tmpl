@@ -1,11 +1,6 @@
 ### Global include
 Include config.d/globals/*
 
-{{- /*
-# Match exec "arp -an | grep -qF {{ .networks.home.wireless.mac }} 2> /dev/null"
-#   Include config.d/locations/home
-*/ -}}
-
 {{- if .environment.home }}
 
 Include config.d/locations/home

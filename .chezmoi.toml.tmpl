@@ -38,7 +38,7 @@ pager = "delta"
 exclude = ["scripts"]
 
 [gpg]
-recipient = {{ $ejsonDict.data.personal.email | quote }}
+recipient = {{ $secrets.data.personal.email | quote }}
 
 [hooks.init.pre]
 command = "task"

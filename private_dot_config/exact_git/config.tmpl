@@ -16,6 +16,7 @@
 
 [commit]
 	verbose = true
+	gpgSign = true
 
 [core]
 	attributesFile = ~/.config/git/attributes
@@ -76,7 +77,7 @@
 
 [gpg]
 	format = openpgp
-	program = gpg2
+	program = gpg
 
 [gui]
 	pruneDuringFetch = true
@@ -204,6 +205,7 @@
 
 [tag]
 	sort = version:refname
+	gpgSign = true
 
 ## https://git-scm.com/docs/git-interpret-trailers
 
@@ -278,3 +280,6 @@
 
 [url "git@gist.github.com:"]
 	insteadOf = https://gist.github.com/
+
+[user]
+	signingKey = #{{ .pgp.fingerprint }}

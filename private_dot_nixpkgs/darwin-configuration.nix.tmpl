@@ -232,6 +232,7 @@ in rec {
 		NIX_USER_PROFILE_DIR = "/nix/var/nix/profiles/per-user/$USER";
 		PAGER = "less";
 		PROJECTS_ORIGIN = "git@github.com:wwmoraes/%s.git";
+		SSH_AUTH_SOCK = "$HOME/.gnupg/S.gpg-agent.ssh";
 		SUDO_EDITOR = "hx";
 		VISUAL = "hx";
 		XDG_DATA_DIRS = lib.mkForce (lib.concatStringsSep ":" [
@@ -244,6 +245,17 @@ in rec {
 	};
 
 	launchd.user.agents = {
+		"dev.artero.gnupg.gpg-agent" = {
+			serviceConfig = {
+				Label = "dev.artero.gnupg.gpg-agent";
+				RunAtLoad = true;
+				KeepAlive = false;
+				ProgramArguments = [
+					"${pkgs.gnupg}/bin/gpg-connect-agent"
+					"/bye"
+				];
+			};
+		};
 		# https://gist.github.com/paultheman/808be117d447c490a29d6405975d41bd
 		# https://hidutil-generator.netlify.app/
 		"dev.artero.hidutil.BTRemoteShutter" = {

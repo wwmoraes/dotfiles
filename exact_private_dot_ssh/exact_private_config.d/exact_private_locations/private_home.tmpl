@@ -1,13 +1,5 @@
-IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-
-Host github.com bitbucket.org
-	IdentityFile ~/.ssh/home.pub
-	IdentitiesOnly yes
-
 # https://blog.stribik.technology/2015/01/04/secure-secure-shell.html
 Host *.{{ .networks.home.fqdn }}
-	IdentityFile ~/.ssh/home.pub
-	IdentitiesOnly yes
 	CanonicalizeHostname yes
 	CanonicalDomains {{ .networks.home.fqdn }}
 	CanonicalizeMaxDots 0
@@ -25,13 +17,9 @@ Host *.{{ .networks.home.fqdn }}
 Host gateway gateway.{{ .networks.home.fqdn }}
 	HostName 172.16.0.1
 	User kilavasun
-	IdentityFile ~/.ssh/router.pub
-	IdentitiesOnly yes
 
 Host router router.{{ .networks.home.fqdn }}
 	HostName 172.16.0.3
 	User root
-	IdentityFile ~/.ssh/router.pub
-	IdentitiesOnly yes
 	# PubkeyAcceptedKeyTypes +ssh-rsa
 	# HostKeyAlgorithms=+ssh-rsa

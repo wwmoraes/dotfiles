@@ -1,6 +1,3 @@
-[commit]
-	gpgSign = true
-
 {{- $helper := "cache" }}
 {{- if eq .chezmoi.os "darwin" }}
 	{{- $helper = "osxkeychain" }}
@@ -12,20 +9,12 @@
 [credential]
 	helper = {{ $helper }}
 
-[gpg]
-	format = openpgp
-	program = gpg2
-
 [push]
 	negotiate = true
-
-[tag]
-	gpgSign = true
 
 [user]
 	email = {{ .personal.gitEmail }}
 	name = {{ .personal.name.preferred }}
-	signingKey = {{ .pgp.identity }}
 
 [sendEmail]
 	smtpEncryption = {{ eqFold "STARTTLS" .personal.smtp.security | ternary "tls" "ssl" }}

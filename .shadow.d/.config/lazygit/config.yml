@@ -13,6 +13,7 @@ os:
   openDirInEditor: hx -w "{{dir}}"
   open: hx -- "{{filename}}"
 git:
+  autoFetch: false
   branchLogCmd: >-
     git log
     --color
