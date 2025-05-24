@@ -1,0 +1,35 @@
+[pull]
+show_list_post_pull = true
+
+[request_review]
+verify_isolation = true
+
+[integrate]
+verify_isolation = true
+prompt_for_reassurance = false
+pull_after_integrate = true
+
+[fetch]
+show_upstream_patches_after_fetch = true
+
+[branch]
+verify_isolation = true
+push_to_remote = true
+
+[list]
+add_extra_patch_info = true
+extra_patch_info_length = 10
+reverse_order = false
+alternate_patch_series_colors = true
+# patch_background.color # default No Color so have commented out
+patch_background.alternate_color.RGB = [58, 58, 58]
+patch_foreground.color.RGB = [248, 153, 95]
+#patch_foreground.alternate_color # default No Color so have commented out
+patch_index.color.RGB = [237, 199, 99]
+# patch_index.alternate_color # default No Color so have commented out
+patch_sha.color.RGB = [157, 208, 108]
+# patch_sha.alternate_color # default No Color so have commented out
+# patch_summary.color # default No Color so have commented out
+# patch_summary.alternate_color # default No Color so have commented out
+patch_extra_info.color.RGB = [109, 202, 231]
+# patch_extra_info.alternate_color # default No Color so have commented out
