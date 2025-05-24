@@ -10,11 +10,17 @@
 	{{- end -}}
 {{- end -}}
 
-{{- $ejsonDict := joinPath .chezmoi.sourceDir ".ejson/secrets.json" | ejsonDecrypt -}}
+## two-step bootstrapping as the config is parsed only once
+{{- $secrets := dict }}
+{{- if eq .chezmoi.config.secret.command "sops" }}
+{{- $secrets = mergeOverwrite $secrets (secretJSON (joinPath .chezmoi.homeDir "dev" "dotsecrets" "global.yaml")) }}
+{{- $secrets = mergeOverwrite $secrets (secretJSON (joinPath .chezmoi.homeDir "dev" "dotsecrets" "home.yaml")) }}
+{{- $secrets = mergeOverwrite $secrets (secretJSON (joinPath .chezmoi.homeDir "dev" "dotsecrets" "work.yaml")) }}
+{{- end }}
 
 encryption = "gpg"
 
-{{ $ejsonDict | toToml }}
+{{ $secrets | toToml }}
 
 [data.environment]
 name = {{ $environment | quote }}
@@ -25,7 +31,7 @@ work = {{ eq $environment "work" }}
 node.enabled = false
 python.enabled = true
 
-{{- with .work.docker.auths }}
+{{- with $secrets.data.work.docker.auths }}
 
 [data.work.docker.config.auths]
 {{- range $_, $auth := splitList "," . }}
@@ -60,6 +66,10 @@ DEFAULTS = "0"
 TRACE = "0"
 VERBOSE = "0"
 DOT_ENVIRONMENT = {{ $environment | quote }}
+
+[secret]
+command = "sops"
+args = ["decrypt", "--output-type", "json"]
 
 [[textconv]]
 pattern = "**/*.json"
