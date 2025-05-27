@@ -12,6 +12,9 @@ printf "\e[1;33mNix\e[0m\n"
 # skip if nix is installed
 command -v nix >/dev/null 2>&1 && exit
 
+## https://github.com/NixOS/nix/issues/10892
+export NIX_FIRST_BUILD_UID=351
+
 curl -L https://nixos.org/nix/install | sh -s
 
 if [ "${CHEZMOI_OS:-}" = "darwin" ]; then
