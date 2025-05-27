@@ -1,5 +1,3 @@
 Host cocodev cocodev.{{ .networks.work.pcs.domain }}
 	HostName cocodev.{{ .networks.work.pcs.domain }}
-	IdentitiesOnly yes
-	IdentityFile ~/.ssh/work.pub
 	User {{ .work.username | lower }}
