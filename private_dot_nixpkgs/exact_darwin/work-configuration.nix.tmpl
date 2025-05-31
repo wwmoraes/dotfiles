@@ -3,9 +3,7 @@
 , lib
 , pkgs
 , ...
-}: let
-	unstable = import <unstable> {};
-in rec {
+}: rec {
 	#region packages
 	environment.systemPackages = [
 		# pkgs.calicoctl
@@ -24,8 +22,8 @@ in rec {
 		# pkgs.kubernetes-helmPlugins.helm-git
 		# pkgs.kubernetes-helmPlugins.helm-s3
 		# pkgs.kubernetes-helmPlugins.helm-secrets
-		(unstable.azure-cli.withExtensions [
-			unstable.azure-cli-extensions.azure-devops
+		(pkgs.unstable.azure-cli.withExtensions [
+			pkgs.unstable.azure-cli-extensions.azure-devops
 		])
 	];
 
@@ -56,9 +54,6 @@ in rec {
 		# AZURE_DEVOPS_EXT_PAT = "#{{ .work.tokens.azureDevOps }}";
 		# AZURE_DEVOPS_EXT_PAT_ID = "#{{ .work.azureDevOps.tokenID }}";
 		EMAIL = "#{{ .work.email }}";
-		GOPRIVATE = ''#{{ .work.azureDevOps.organization | trimPrefix "https://" | trimAll "/" }}/*'';
-		GOPROXY = ''#{{ .work.proxies.golang.goproxy }},https://goproxy.io,direct'';
-		GOSUMDB = ''sum.golang.org #{{ .work.proxies.golang.gosumdb }}'';
 		# KERBEROS_PRINCIPAL = "#{{ .work.username }}";
 		# KERBEROS_REALM = ''#{{ .work.website | trimPrefix "https://" }}'';
 		# WORK_INTRANET_HOSTNAME = ''#{{ .work.website | trimPrefix "https://" | splitList "/" | first }}'';

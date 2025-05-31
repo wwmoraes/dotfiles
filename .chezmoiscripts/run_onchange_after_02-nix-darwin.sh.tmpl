@@ -22,19 +22,18 @@ printf "\e[1;33m[Darwin] Nix-darwin\e[0m\n"
 test "${CHEZMOI_OS:-}" = "darwin" || exit
 
 # skip if nix-darwin is installed
-if [ ! -f /run/current-system/sw/bin/darwin-rebuild ]; then
+if [ ! -f /run/current-system/sw/bin/darwin-version ]; then
 	TMP=$(mktemp -d)
 	OLD_PWD="${PWD}"
 	cd "${TMP}" || exit
 	trap 'cd "${OLD_PWD}"; rm -rf "${TMP}"' EXIT
 
-	nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-
-	yes | ./result/bin/darwin-installer
-
-	/run/current-system/sw/bin/darwin-rebuild activate
+	nix-channel --add https://github.com/nix-darwin/nix-darwin/archive/nix-darwin-25.05.tar.gz darwin
 fi
 
-/run/current-system/sw/bin/darwin-rebuild switch || {
-	echo "Please restart the machine after loading the environment variables so launchd inherits them"
-}
+systemConfig=$(nix-build '<darwin>' \
+	--show-trace \
+	--no-out-link \
+	-A system)
+nix-env -p /nix/var/nix/profiles/system --set "${systemConfig}"
+sudo "${systemConfig}/activate"

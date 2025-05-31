@@ -36,8 +36,9 @@ in {
 	};
 	config = {
 		environment.manPath = mkMerge [
-			(mkOrder 1200 (readAbsPathsFromFile "/etc/manpaths"))
-			(mkOrder 1300 (readAbsPathsFromDir "/etc/manpaths.d"))
+			(lib.mkBefore (map (s: s+"/share/man") cfg.profiles))
+			(mkOrder 2000 (readAbsPathsFromFile "/etc/manpaths"))
+			(mkOrder 1500 (readAbsPathsFromDir "/etc/manpaths.d"))
 		];
 
 		environment.variables = {
