@@ -5,11 +5,9 @@ declare global {
 	export const finicky: Finicky.API;
 }
 
-export module Finicky {
+export namespace Finicky {
 	/** Finicky global API available on user-land configuration script */
 	export interface API {
-		/** logs a string to the finicky console */
-		log: (message: string) => void;
 		/** display a notification */
 		notify: (title: string, subtitle: string) => void;
 		/** get the battery status */

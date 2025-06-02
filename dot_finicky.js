@@ -119,7 +119,16 @@ if (typeof URLSearchParams === "undefined" || URLSearchParams === null) {
 		 * @returns {boolean}
 		 */
 		has(name, value) {
+			const got = this.data[name];
+			if (typeof got !== "object" || typeof got[0] !== "string") {
+				return false;
+			}
 
+			if (typeof value !== "string") {
+				return true;
+			}
+
+			return got[0] == value;
 		}
 
 		/**
@@ -254,7 +263,7 @@ const defaultBrowsers = {
  * @returns {import("./.finicky.d").Finicky.BrowserFn}
  * */
 const getBrowser = (contextName) => (_) => {
-	finicky.log(finicky.getSystemInfo().localizedName.split(".")[0]);
+	console.log(finicky.getSystemInfo().localizedName.split(".")[0]);
 
 	const context = browsers[finicky.getSystemInfo().localizedName.split(".")[0].toLowerCase()] || defaultBrowsers;
 
@@ -305,7 +314,7 @@ const matchBGone = (re) => ({
 const log = (prefix) => ({
 	match: () => true,
 	url: (params) => {
-		finicky.log(prefix + ": " + params.urlString);
+		console.log(prefix + ": " + params.urlString);
 
 		return params.url;
 	},
@@ -328,7 +337,7 @@ const fuckOffMandrill = ({ url }) =>
 
 /// <reference path="./.finicky.d.ts" />
 /** @type {import("./.finicky.d").Finicky.Config} */
-module.exports = {
+export default {
 	defaultBrowser: getBrowser("main"),
 	rewrite: [
 		// log("pre-rewrite"),
