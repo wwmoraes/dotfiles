@@ -1,4 +1,0 @@
-Host github.com bitbucket.org
-	ControlMaster auto
-	ControlPersist 120
-	User git

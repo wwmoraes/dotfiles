@@ -1,0 +1,18 @@
+[default]
+extend-ignore-identifiers-re = ["LESS_TERMCAP_[a-z]{2}"]
+extend-ignore-words-re = []
+extend-ignore-re = []
+
+[default.extend-identifiers]
+automaticEmojiSubstitutionEnablediMessage = "automaticEmojiSubstitutionEnablediMessage"
+## GPG's fingerprint colon format
+fpr = "fpr"
+
+[default.extend-words]
+
+[files]
+extend-exclude = [
+  "*.asc",
+  "settings/common/home/programs/helix/default-languages.toml",
+  "settings/common/programs/finicky/finicky.js",
+]

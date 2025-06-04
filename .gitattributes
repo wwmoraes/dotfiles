@@ -1,0 +1,4 @@
+## filtering SOPS is a security risk when used with sops-nix as nix copies the
+## file from the repo to the store, which is decrypted by the smudge filter
+# secrets.yaml filter=sops
+secrets.yaml diff=sops-yaml

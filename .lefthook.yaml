@@ -1,24 +1,42 @@
-# yaml-language-server: $schema=https://json.schemastore.org/lefthook.json
-assert_lefthook_installed: true
+# yaml-language-server: $schema=https://raw.githubusercontent.com/evilmartians/lefthook/master/schema.json
+assert_lefthook_installed: false
+applypatch-msg:
+  jobs:
+  - name: commits
+    run: grep -q "^fixup! " "{1}" || cog verify --file "{1}"
 commit-msg:
-  commands:
-    commitlint:
-      run: grep -q "^fixup! " "{1}" || commitlint lint --message "{1}"
-    trailers:
-      run: git interpret-trailers --in-place --trailer "sign" --trim-empty "{1}"
+  parallel: true
+  jobs:
+  - name: commits
+    run: grep -q "^fixup! " "{1}" || cog verify --file "{1}"
+  - name: trailers
+    run: git interpret-trailers --in-place --trailer signer --trailer patch-stack --trim-empty "{1}"
 pre-commit:
-  commands:
-    shellcheck:
-      run: shellcheck -x -s sh {staged_files}
-      glob: '**/*.{sh,sh.tmpl}'
-    markdownlint:
-      run: markdownlint {staged_files}
-      glob: '**.md'
-    editorconfig-checker:
-      run: editorconfig-checker
-      glob: .editorconfig
-    yamllint:
-      run: yamllint {staged_files}
-      glob: '**/*.yaml'
-    gitleaks:
-      run: gitleaks git --pre-commit --redact --staged --verbose
+  parallel: true
+  jobs:
+  - name: lefthook
+    run: lefthook validate
+    glob: '.lefthook*.{yml,yaml}'
+  - name: check
+    run: nix flake check
+  - name: editorconfig
+    run: editorconfig-checker {staged_files}
+    file_types: [text]
+  - name: yaml
+    run: yamllint {staged_files}
+    glob: '**.{yml,yaml}'
+  - name: leaks
+    run: gitleaks git --pre-commit --redact --staged --verbose --no-banner --log-level warn
+    file_types: [text]
+pre-push:
+  parallel: true
+  jobs:
+  - name: commits
+    run: cog check
+  - name: build
+    run: task build
+  - name: secrets
+    run: >-
+      test "$(git show HEAD:secrets.yaml
+      | sops filestatus --input-type yaml /dev/stdin)" = '{"encrypted":true}'
+    glob: secrets.yaml

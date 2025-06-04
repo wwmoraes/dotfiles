@@ -1,5 +1,0 @@
-{{ if and .environment.work .work.features.proxies.node.enabled -}}
-registry = {{ .work.proxies.node.registry }}
-{{ else -}}
-registry = https://registry.npmjs.org/
-{{ end -}}

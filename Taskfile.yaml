@@ -1,76 +1,223 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: 3
-
-vars:
-  EJSON_KEY_ID: 6bf53a356a4b8abbc9a41ae2912787e56853e211653bb23d5da4a87ba6c9df6f
-
 tasks:
-  default:
+  configure:
+    status:
+    - test "$(git config --local --get include.path)" = "../.gitconfig"
     cmds:
+    - git config --local include.path ../.gitconfig
+    - rm .git/hooks/* || true
+    - cog install-hook --all --overwrite
+  switch:
+    deps:
     - task: secrets
-    - task: checksum
+    cmds:
+    - sudo darwin-rebuild switch --no-remote --flake .
+  build:
+    vars:
+      HOSTNAME:
+        sh: scutil --get LocalHostName
+    cmd:
+      task: build:{{ .HOSTNAME }}
+  build:all:
+    cmds:
+    - task: build:M1Cabuk
+    - task: build:NLLM4000559023
+  build:M1Cabuk:
+    cmd: nix build --no-link .#darwinConfigurations.M1Cabuk.system
+    sources:
+    - hosts/M1Cabuk/**
+    - modules/**
+    - overlays/**
+    - settings/common/**
+    - settings/personal/**
+    - users/william/personal/**
+    - users/william/share/**
+    - flake.lock
+    - flake.nix
+    - secrets.yaml
+  build:NLLM4000559023:
+    cmd: nix build --no-link .#darwinConfigurations.NLLM4000559023.system
+    sources:
+    - hosts/NLLM4000559023/**
+    - modules/**
+    - overlays/**
+    - settings/common/**
+    - settings/work/**
+    - users/william/work/**
+    - users/william/share/**
+    - flake.lock
+    - flake.nix
+    - secrets.yaml
+  run:
+    cmds:
+    - >-
+      git add --intent-to-add
+      hosts
+      modules
+      overlays
+      pgp
+      scripts
+      settings
+      secrets.yaml
+    - nix run {{ .ROOT_DIR | q }}
+    - sudo chown -R william:_developer /nix/var/log /nix/var/nix
+    - sudo chown william:_developer /nix/store/*.lock
+  setup-card:
+    cmds:
+    # - op run --env-file=scripts/gpg-card-setup.env -- sh scripts/gpg-card-setup.sh
+    - nix run nixpkgs#yubikey-manager -- openpgp keys set-touch --force att cached
+    - nix run nixpkgs#yubikey-manager -- openpgp keys set-touch --force aut cached
+    - nix run nixpkgs#yubikey-manager -- openpgp keys set-touch --force enc cached
+    - nix run nixpkgs#yubikey-manager -- openpgp keys set-touch --force sig cached
+    - nix run nixpkgs#yubikey-manager -- openpgp info
+    - nix run nixpkgs#yubikey-manager -- openpgp keys info att
+    - nix run nixpkgs#yubikey-manager -- openpgp keys info aut
+    - nix run nixpkgs#yubikey-manager -- openpgp keys info enc
+    - nix run nixpkgs#yubikey-manager -- openpgp keys info sig
   check:
-    cmd: lefthook run pre-commit
+    desc: Runs hooks checks in the repository.
+    silent: true
+    cmd: lefthook run pre-commit --no-tty {{ .CLI_ARGS }}
+  check:all:
+    cmds:
+    - cmd: gitleaks dir --redact --verbose --no-banner
+    - task: check
+      vars:
+        CLI_ARGS: --all-files --force
   validate-secrets:
-    desc: Checks and reports invalid secret references in the ejson template.
+    desc: Checks and reports invalid secret references in the template.
     cmd: >-
-      gron .ejson/secrets.tmpl.json
+      gron secrets.yaml.gotmpl
       | grep "op://"
       | sed 's/[";]//g'
       | xargs -P 0 -I% bash -c 'echo "%" | op inject > /dev/null || echo %'
-  checksum:
-    desc: Update the saved checksum in the password vault.
-    method: timestamp
-    cmd: >-
-      op item edit
-      "ejson payload"
-      "task checksum=$(cat .task/checksum/secrets)" || true
-    sources:
-    - .task/checksum/secrets
-  secrets:
-    vars:
-      SOURCE: .ejson/secrets.tmpl.json
-      TARGET: .ejson/secrets.json
-    cmds:
-    - op inject -f -i {{ .SOURCE | q }} -o {{ .TARGET | q }} || true
-    - ejson encrypt .ejson/secrets.json
-    - op document edit "ejson payload" .ejson/secrets.json || true
-    deps:
-    - key:Personal/ejson/password:{{ .EJSON_KEY_ID }}
-    sources:
-    - '{{ .SOURCE }}'
-    generates:
-    - '{{ .TARGET }}'
-  key:
-    desc: Extracts a local of the ejson key.
-    deps:
-    - key:Personal/ejson/password:{{ .EJSON_KEY_ID }}
-  key:*:*:
-    label: key:{{ index .MATCH 0 }}:{{ index .MATCH 1 }}
-    vars:
-      REF: 'op://{{ index .MATCH 0 }}'
-      TARGET: '{{ joinPath .EJSON_KEYDIR (index .MATCH 1) }}'
-    cmds:
-    - mkdir -p {{ .EJSON_KEYDIR | q }}
-    - >-
-      op read --force --no-newline
-      --file-mode 0600
-      --out-file {{ .TARGET | q }}
-      {{ .REF | q }}
-    status:
-    - test -f {{ .TARGET | q }}
   macos:fix:
     desc: Applies cleanup commands to solve system preference problems in MacOS.
     summary: >-
       Removes system preferences files to try and solve a mysterious issue where
       the System Settings app stops loading. The logs are as good as none.
     cmds:
-    - rm ~/Library/Preferences/com.apple.systempreferences.plist || true
-    - rm ~/Library/Application\ Scripts/com.apple.systempreferences.* || true
-    - rm ~/Library/Group\ Containers/com.apple.systempreferences.* || true
-    - rm ~/Library/Caches/com.apple.systempreferences || true
-    - sudo rm -rfv /Library/Caches/com.apple.iconservices.store
-  unmanaged:
+    - rm -rfv ~/Library/Application\ Scripts/com.apple.systempreferences.* || true
+    - rm -rfv ~/Library/Caches/com.apple.preferencepanes.usercache || true
+    - rm -rfv ~/Library/Caches/com.apple.systempreferences || true
+    - rm -rfv ~/Library/Caches/com.apple.systemsettings.menucache || true
+    - rm -rfv ~/Library/Containers/com.apple.systempreferences* || true
+    - rm -rfv ~/Library/Group\ Containers/com.apple.systempreferences.* || true
+    - rm -rfv ~/Library/Preferences/com.apple.systempreferences.plist || true
+    - rm -rfv ~/Library/Preferences/com.apple.systemsettings.extensions.plist || true
+    - rm -rfv ~/Library/Saved\ Application\ State/com.apple.systempreferences.savedState || true
+    - sudo rm -rfv /Library/Caches/com.apple.iconservices.store || true
+    - killall cfprefsd
+    - /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
+  secrets:
+    vars:
+      INPUT: secrets.yaml.gotmpl
+      OUTPUT: secrets.yaml
+    silent: true
+    cmd: |-
+      if command -v op | grep -q .; then
+        op inject --force \
+        --in-file {{ .INPUT | q }} \
+        | sops encrypt \
+        --filename-override {{ .OUTPUT | q }} \
+        --output {{ .OUTPUT | q }}
+      else
+        echo "1password not found, skipping secrets update"
+      fi
+    sources:
+    - '{{ .INPUT }}'
+    generates:
+    - '{{ .OUTPUT }}'
+  update-helix:
+    requires:
+      vars:
+      - USER
+    vars:
+      HOSTNAME:
+        sh: scutil --get LocalHostName
+      VERSION:
+        sh: nix eval --raw .#darwinConfigurations.{{ .HOSTNAME }}.config.home-manager.users.{{ .USER }}.programs.helix.package.version
+      URL: https://github.com/helix-editor/helix/raw/refs/tags/{{ .VERSION }}/languages.toml
+      OUTPUT: settings/programs/helix/default-languages.toml
     cmds:
-    - chezmoi apply
-    - chezmoi unmanaged
+    - echo "# Sourced from {{ .URL }}. DO NOT EDIT." > {{ .OUTPUT | q }}
+    - curl -fsSL {{ .URL | q }} >> {{ .OUTPUT | q }}
+  pre-add:
+    cmd: git add -N external hosts modules settings
+  bootstrap:
+    vars:
+      NIX_FLAGS: >-
+        --option ssl-cert-file /etc/ssl/cert.pem
+        --extra-experimental-features "nix-command flakes"
+        --option accept-flake-config true
+        --option build-users-group ""
+    cmd: |-
+      unset CURL_CA_BUNDLE
+      unset GIT_SSL_CAINFO
+      unset NIX_GIT_SSL_CAINFO
+      unset NIX_SSL_CERT_FILE
+      unset NODE_EXTRA_CA_CERTS
+      unset REQUESTS_CA_BUNDLE
+      unset SSL_CERT_FILE
+      unset SYSTEM_CERTIFICATE_PATH
+      printenv
+    # nix build {{ .NIX_FLAGS }} --no-link .#darwinConfigurations.M1Cabuk.system
+    # systemPath=$(nix build {{ .NIX_FLAGS }} --print-out-paths --no-link .#darwinConfigurations.M1Cabuk.system)
+    # echo "system path: $systemPath"
+    # sudo "${systemPath}/activate"
+    # sudo nix --option ssl-cert-file /etc/ssl/cert.pem --option accept-flake-config true run .#darwin-rebuild -- switch --impure --no-remote --flake .
+    # nix-store --option ssl-cert-file /etc/ssl/cert.pem --repair-path /nix/store/8ivrpmp3arvxbr6imdwm2d28q9cjsqvi-bash-5.2p37
+  docker-desktop-diff:
+    ignore_error: true
+    cmd: >-
+      diff --color=always <(jq --sort-keys . ~/Library/Group\ Containers/group.com.docker/settings-store.json) <(jq --sort-keys . ~/Library/Group\ Containers/group.com.docker/settings-store.json.bkp)
+  backups:list:
+    desc: Lists home-manager backup files.
+    cmd: fd --hidden --no-ignore --type f --extension bkp "" ~
+  backups:clean:
+    desc: Removes home-manager backup files.
+    cmd: fd --hidden --no-ignore --type f --extension bkp --exec rm -vf \; "" ~
+  backups:diff:
+    desc: Compares home-manager backup files and removes selected files.
+    silent: true
+    interactive: true
+    cmd: >-
+      fd --hidden --no-ignore --type f --extension bkp "" ~
+      | fzf -m --preview
+      'diff --text --unified {} "$(dirname {})/$(basename -s .bkp {})"'
+      | ifne xargs -I% rm '%'
+  clean:
+    vars:
+      RM_RECURSIVE: >-
+        ~/.adr
+        ~/.config/chezmoi
+        ~/.config/environment.rm.conf
+        ~/.config/git/aliases
+        ~/.config/git/colors
+        ~/.config/git/home
+        ~/.config/git/home-roaming
+        ~/.config/git/work
+        ~/.config/hub
+        ~/.config/nixpkgs/config.nix
+        ~/.config/projects.json
+        ~/.config/smug
+        ~/.config/sudoers.d
+        ~/.lesshst
+        ~/.lesskey
+        ~/.local/hooks
+        ~/.local/share/karabiner
+        ~/.mosint.yaml
+        ~/.nixpkgs
+        ~/.profile
+        ~/.ssh/config.d
+        ~/.zcompdump
+        ~/.zshenv
+        ~/.zshrc
+      RMDIRS: >-
+        ~/.config/*
+        ~/.local/*
+        ~/.local/share/*
+    cmds:
+    - rm -rf {{ .RM_RECURSIVE }} 2> /dev/null || true
+    - rmdir --parents {{ .RMDIRS }} 2> /dev/null || true

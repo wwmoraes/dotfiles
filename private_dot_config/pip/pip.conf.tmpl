@@ -1,5 +1,0 @@
-{{- if and .environment.work .work.features.proxies.python.enabled }}
-[global]
-index = {{ .work.proxies.python.index }}
-index-url = {{ .work.proxies.python.indexUrl }}
-{{- end }}

@@ -1,0 +1,9 @@
+[diff "sops-yaml"]
+	textconv = yq 'sort_keys(..) | del(.sops.lastmodified) | del(.sops.mac)'
+	cachetextconv = true
+# 	textconv = sops decrypt
+
+# [filter "sops"]
+# 	required = true
+# 	smudge = sops decrypt --filename-override '%f' /dev/stdin
+# 	clean = sops encrypt --filename-override '%f' /dev/stdin

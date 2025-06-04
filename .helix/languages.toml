@@ -1,8 +1,0 @@
-[[language]]
-name = "git-config"
-scope = "source.gitconfig"
-file-types = [{ glob = "private_dot_config/exact_git/*" }]
-injection-regex = "git-config"
-comment-token = "#"
-# customization
-indent = { tab-width = 2, unit = "\t" }

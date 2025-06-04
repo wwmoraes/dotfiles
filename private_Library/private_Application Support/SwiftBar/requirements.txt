@@ -1,3 +1,0 @@
-azure-devops==6.0.0b4
-keyring==23.8.2
-termcolor==1.1.0

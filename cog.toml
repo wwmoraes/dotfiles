@@ -1,0 +1,36 @@
+#:schema https://raw.githubusercontent.com/cocogitto/cocogitto/refs/heads/main/website/public/cog-schema.json
+
+branch_whitelist = ["main"]
+from_latest_tag = true
+post_bump_hooks = ["git push", "git push {{version}}"]
+pre_bump_hooks = ["task check:all --silent --output prefixed"]
+tag_prefix = "v"
+
+[changelog]
+authors = [{signature = "William Artero", username = "wwmoraes"}]
+owner = "wwmoraes"
+package_template = "package_remote"
+path = "CHANGELOG.md"
+remote = "github.com"
+repository = "dotsecrets"
+template = "remote"
+
+[git_hooks]
+applypatch-msg.script = """lefthook run applypatch-msg "$@""""
+commit-msg.script = """lefthook run commit-msg "$@""""
+fsmonitor-watchman.script = """lefthook run fsmonitor-watchman "$@""""
+post-applypatch.script = """lefthook run post-applypatch "$@""""
+post-checkout.script = """lefthook run post-checkout "$@""""
+post-commit.script = """lefthook run post-commit "$@""""
+post-index-change.script = """lefthook run post-index-change "@""""
+post-merge.script = """lefthook run post-merge "$@""""
+post-rewrite.script = """lefthook run post-rewrite "@""""
+pre-applypatch.script = """lefthook run pre-applypatch "$@""""
+pre-auto-gc.script = """lefthook run pre-auto-gc "@""""
+pre-commit.script = """lefthook run pre-commit "$@""""
+pre-merge-commit.script = """lefthook run pre-merge-commit "$@""""
+pre-prepare-commit-msg.script = """lefthook run prepare-commit-msg "$@""""
+pre-push.script = """lefthook run pre-push "$@""""
+pre-rebase.script = """lefthook run pre-rebase "$@""""
+sendemail-validate.script = """lefthook run sendemail-validate "@""""
+

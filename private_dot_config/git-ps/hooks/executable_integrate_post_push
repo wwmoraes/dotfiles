@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-set -eum
-
-exec 2>>".git-ps/logs/$(basename "$0").log"
-
-echo >&2 "$(date --utc +%FT%T.%3NZ) $(basename "$0") $*"

@@ -1,7 +1,0 @@
-{{- if .environment.home }}
-{ authToken =
-		"{{ .personal.tokens.cachix }}"
-, hostname = "https://cachix.org"
-, binaryCaches = [] : List { name : Text, secretKey : Text }
-}
-{{- end }}
