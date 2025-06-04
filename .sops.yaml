@@ -1,3 +1,7 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/chri11g6/sops-schema/refs/heads/master/sops.schema.json
+stores:
+  yaml:
+    indent: 2
 creation_rules:
 - pgp: >-
     6BDD2952FA19C458B9F76BE4ED705C2C5A7C9AE3!,

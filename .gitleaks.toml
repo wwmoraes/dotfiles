@@ -1,0 +1,6 @@
+[[allowlists]]
+description = "upstream content"
+paths = ['''settings/common/home/programs/helix/default-languages\.toml''']
+
+[extend]
+useDefault = true

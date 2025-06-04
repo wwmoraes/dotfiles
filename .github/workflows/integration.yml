@@ -1,0 +1,31 @@
+name: Integration
+on:
+  push:
+    branches:
+    - master
+    - trunk
+jobs:
+  integrate:
+    strategy:
+      fail-fast: false
+      matrix:
+        system:
+        - aarch64-darwin
+        - aarch64-linux
+        include:
+        - system: aarch64-darwin
+          os: macos-latest
+        - system: aarch64-linux
+          os: ubuntu-24.04-arm
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.system }}
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+    - name: direnv nix
+      uses: JRMurr/direnv-nix-action@v4.2.0
+      with:
+        install-nix: true
+        cache-store: true
+    - name: run steps
+      run: om ci

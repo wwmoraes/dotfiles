@@ -1,22 +1,47 @@
-root = true
-
 [*]
 charset = utf-8
 end_of_line = lf
 indent_size = 2
 indent_style = tab
 insert_final_newline = true
+tab_width = 2
 trim_trailing_whitespace = true
 
-## file types that must use space indentation
-[*.{md,md.tmpl}]
-indent_style = space
+## 2-width tab convention
 
-[*.{yml,yaml,yml.tmpl,yaml.tmpl}]
+## 4-width tab convention
+[Makefile]
+indent_size = tab
+indent_style = tab
+tab_width = 4
+
+## 2 spaces convention
+[*.{json,nix,toml,yaml,yaml.gotmpl,yml}]
+indent_size = 2
 indent_style = space
+tab_width = 2
+
+## 4 spaces convention
+[*.fish]
+indent_size = 4
+indent_style = space
+tab_width = 4
+
+## formatted automatically by treefmt
+[*.md]
+indent_size = unset
+indent_style = unset
+tab_width = unset
 
 ## generated content
-[nix/sources.{json,nix}]
+[flake.lock]
+generated_code = true
+indent_size = unset
+indent_style = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+
+[settings/common/home/programs/hammerspoon/scripts/Spoons/*.spoon/**/*]
 generated_code = true
 indent_size = unset
 indent_style = unset

@@ -9,139 +9,71 @@
 
 ## About
 
-Dotfiles for all sorts of tools and configurations. Templates are minimal for
-sanity's sake.
+Batteries-included configuration of hosts and programs. This is the third
+generation of it, now using Nix.
 
-What will you find in this repository? On V2 I adopted to chezmoi, and on V3 I
-adopted nix. I use both still, but the latter took over some logic:
+For what is worth: the previous iteration used chezmoi, which is an excellent
+tool and I *fully recommend it*. My decision to switch to Nix happened because:
 
-- fetch external resources (`.chezmoiexternals`)
-  - ~~**coding tools**: TPM (Tmux Package Manager), PlantUML jar~~
-  - ~~**fonts**: Fira Code, Powerline symbols, Source Code Pro for Powerline~~
-  - ~~**work tools**: `calicoctl` and `terraform` on specific versions~~
-- scripting for last-mile setup (`.chezmoiscripts`)
-- ignored dot-folders
-  - `.global.d`: system-wide configuration
-    - mostly gone; pending only a way to manage authorizationdb with nix
-  - ~~`.setup.d`: non-brew packages and utility functions~~
-    - fully gone! No more maintenance for those scripts 😄
-  - `.shadow.d`: symlinked content. Fish shell, ~~VSCode~~, Hammerspoon
-    - mostly the same; some will migrate to nix
-
-The rest are `private_*` files and folders that chezmoi will apply relative to
-the home directory, or repository-related content that's ignored like this
-readme file.
-
-### Scripts
-
-I work on Unix environments, more specifically MacOS. The setup files follow the
-numeric prefix to ensure their order + chezmoi keywords to trigger then at
-specific moments. Here's the (incomplete) workflow sequence.
-
-Pre-apply:
-
-- `00-bootstrap`: installs homebrew; runs only once
-
-During apply:
-
-- `01-developer`: MacOS-specific. Enables developer mode and group membership
-- `80-less-termcap`: generates `~/.lesskey` with terminal-dependant key codes
-- `90-pmset`: MacOS-specific. Power management settings
-
-Post-apply:
-
-Mostly gone. Now nix manages the packages, variables, fonts, tool plugins and
-daemons.
-
-- ~~`00-brew`: Installs/updates Homebrew. Then runs the bundle and cleanup~~
-- `01-nix`: installs nix
-- `02-nix-darwin`: installs nix-darwin and apply changes on configuration
-- ~~`10-variables`: Loads universal env vars in Fish + sets up the PATH~~
-- ~~`20-golang`/`20-node`/`21-rust`/etc: Manages packages from different languages~~
-- ~~`80-fonts`: MacOS-specific. Links font files and refreshes the font database~~
-- ~~`80-*-plugins`: Installs plugins for tools like `helm` and `krew`~~
-- ~~`80-launchAgents`: MacOS-specific. Manages 3rd-party launch agents~~
-- ~~`80-launchDaemons`: MacOS-specific. Installs launch daemons from `.global.d`~~
-- `90-authorizationdb`: MacOS-specific. Configures the Authorization DB
-- `90-defaults`: MacOS-specific. Sets dozens of application and system settings
-- `90-sudoers`: configures sudoers snippets
-
-Most scripts have the `onchange` prefix + a comment at the top to generate the
-checksum of the files they work it. This allows chezmoi to skip running it on
-apply if there's no changes on their dependencies.
+- I felt a bit disgruntled with all the long folders and file names due to
+  [source state attributes](https://www.chezmoi.io/reference/source-state-attributes/)
+- some programs I use have many distinct paths to configure its elements (I'm
+  looking at you, Docker Desktop). Thus finding where to configure what became
+  tedious
+- my work environment doesn't allow me to use many tools such as a decent
+  password manager for runtime secret expansion. That made my original secrets
+  management using 1Password less portable, forcing me to use ejson (now sops)
+- I'm already familiar with Nix since I adopted it on all my projects to manage
+  its dependencies and environment instead of dev containers BS
 
 ## Getting Started
 
-- Install 1Password 8 and sign-in
-- Install 1Password v2 CLI
-- enable the CLI integration on 1Password
-
-You may also sign-on through the CLI directly and skip the main application.
-This setup is less optimal as you need to re-authenticate with password on each
-new shell session.
-
-Then:
+Fully remote:
 
 ```shell
-# install brew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-# install ejson
-brew install shopify/shopify/ejson
+## install nix using your preferred method, then run
+sudo nix \
+  --option accept-flake-config true run github:wwmoraes/dotfiles#darwin-rebuild \
+  -- switch --impure --no-remote --flake .
+
+## after that use this for future switches
+sudo darwin-rebuild switch --impure --no-remote --flake .
+
+## OR from this repository root
+nix run .
+
+## Enjoy! 🚀
 ```
 
-If the host has a working op CLI:
+Some enterprise environments use MITM proxies with poorly configured CAs on
+hosts, breaking tools like curl. In such cases its best to clone/download a
+copy of this repository and use its scripts to temporarily dump the certificates
+from the OS certificate store to get past the first setup. Make sure the host
+configuration contains your enterprise CAs so future runs work without this.
+Those can be found in `settings/work/security/pki/certificates`.
 
 ```shell
-# clone the repository and install chezmoi
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/wwmoraes/dotfiles.git
-# OR install chezmoi from elsewhere and then
-chezmoi init --apply https://github.com/wwmoraes/dotfiles.git
+## clone this repository, then run
+./scripts/setup-nix.sh
+
+## bootstrap it by running
+./scripts/bootstrap.sh
+
+## after that use this for future switches
+sudo darwin-rebuild switch --impure --no-remote --flake .
+
+## OR from this repository root
+nix run .
+
+## Enjoy! 🚀
 ```
-
-For restricted hosts, namely work devices with poorly configured DPI using
-copy-pasted settings from SO, the op CLI won't work. One known case is with
-Zscaler as it intercepts even the localhost gRPC calls between CLI and the
-daemon, voiding the trusted CA chain used by 1Password. In that case:
-
-```shell
-# generate the encrypted json payload on another host and transfer it to
-# <source-path>/.ejson/secrets.json, then
-make -C "$(chezmoi source-path)" secrets
-export EJSON_KEYDIR="$(chezmoi source-path)/.ejson/keys"
-chezmoi init && chezmoi apply
-```
-
-After the first successful apply, change the origin to use SSH:
-
-```shell
-git -C "$(chezmoi source-path)" remote set-url origin git@github.com:wwmoraes/dotfiles.git
-```
-
-Enjoy! 🚀
 
 ## Usage
 
-Check the [upstream chezmoi][chezmoi-command-overview] documentation for all
-commands, or use the `--help` for more. Shells also have autocompletion
-configured when you install chezmoi, use and abuse it!
+Check upstream sources:
 
-After the first successful apply, you'll have extra sub-commands available
-thanks to chezmoi's ["plugin" system][chezmoi-plugins]. Here's some of them:
-
-- ~~`check`: applies `~/.Brewfile` then dry-runs `brew bundle` to report changes~~
-- `env`: applies `~/.config/environment.d` then loads the env vars in Fish
-- `lg`: runs `lazygit` on the chezmoi source directory
-- `run`: executes an individual chezmoi script directly
-- `sync`: applies `~/.Brewfile` then runs the `00-brew` script to apply changes
-
-[chezmoi-command-overview]: https://www.chezmoi.io/user-guide/command-overview/
-[chezmoi-plugins]: https://www.chezmoi.io/reference/plugins/
-
-## FAQ
-
-> **Question**: Why is there a mix of sh/bash and fish scripts?
-
-**Answer:** I need a POSIX shell available on my hosts to bootstrap everything.
-I use it to install `brew` and run it at least once. It installs most of my
-tools, including other shells. This also means that any scripts that run before
-or during the apply step should be POSIX-compliant.
+- [functions](https://noogle.dev)
+- [home-manager option search](https://home-manager-options.extranix.com/)
+- [nix-darwin option search](https://options.nix-darwin.uz/)
+- [package search](https://search.nixos.org/packages)
+- [NixOS option search](https://search.nixos.org/options)

@@ -1,8 +1,0 @@
-#!/usr/bin/env sh
-
-set -eum
-trap 'kill 0' INT HUP TERM
-
-exec plutil -convert xml1 -o - "$1"
-
-# vim: ft=sh

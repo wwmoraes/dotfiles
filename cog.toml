@@ -1,0 +1,65 @@
+#:schema https://raw.githubusercontent.com/cocogitto/cocogitto/refs/heads/main/website/public/cog-schema.json
+
+branch_whitelist = ["main"]
+from_latest_tag = true
+post_bump_hooks = ["git push", "git push {{version}}"]
+pre_bump_hooks = ["./.git/hooks/pre-commit"]
+tag_prefix = "v"
+
+[changelog]
+authors = [{signature = "William Artero", username = "wwmoraes"}]
+owner = "wwmoraes"
+package_template = "package_remote"
+path = "CHANGELOG.md"
+remote = "github.com"
+repository = "dotsecrets"
+template = "remote"
+
+# [git_hooks]
+# fsmonitor-watchman.script = """lefthook run fsmonitor-watchman "$@""""
+# post-applypatch.script = """lefthook run post-applypatch "$@""""
+# post-checkout.script = """lefthook run post-checkout "$@""""
+# post-commit.script = """lefthook run post-commit "$@""""
+# post-index-change.script = """lefthook run post-index-change "@""""
+# post-merge.script = """lefthook run post-merge "$@""""
+# post-rewrite.script = """lefthook run post-rewrite "@""""
+# pre-applypatch.script = """lefthook run pre-applypatch "$@""""
+# pre-auto-gc.script = """lefthook run pre-auto-gc "@""""
+# pre-merge-commit.script = """lefthook run pre-merge-commit "$@""""
+# pre-rebase.script = """lefthook run pre-rebase "$@""""
+# sendemail-validate.script = """lefthook run sendemail-validate "@""""
+
+[git_hooks.applypatch-msg]
+script = """#!/usr/bin/env sh
+set -eu
+grep -q "^fixup! " "$1" || cog verify --file "$1"
+"""
+
+[git_hooks.pre-prepare-commit-msg]
+script = """#!/usr/bin/env sh
+set -eu
+git interpret-trailers --in-place --trailer signer --trailer patch-stack --trim-empty "$1"
+"""
+
+[git_hooks.commit-msg]
+script = """#!/usr/bin/env sh
+set -eu
+grep -q "^fixup! " "$1" || cog verify --file "$1"
+git interpret-trailers --in-place --trailer signer --trailer patch-stack --trim-empty "$1"
+"""
+
+[git_hooks.pre-commit]
+script = """#!/usr/bin/env sh
+set -eu
+nix flake check
+editorconfig-checker
+gitleaks git --pre-commit --redact --staged --verbose --no-banner --log-level warn
+"""
+
+[git_hooks.pre-push]
+script = """#!/usr/bin/env sh
+set -eu
+cog check
+test "$(git show HEAD:secrets.yaml | sops filestatus --input-type yaml /dev/stdin)" = '{"encrypted":true}'
+make all
+"""

@@ -1,9 +1,5 @@
 ## false positives
-Taskfile.yaml:generic-api-key:5
-## old commit content
-.env-work:generic-api-key:1
-.systems/darwin/MTMR/Library/Application Support/MTMR/items.json:generic-api-key:128
-.systems/darwin/MTMR/Library/Application Support/MTMR/items.json:generic-api-key:31
-bash/.bash_profile:generic-api-key:16
-bash/.bashrc:generic-api-key:128
-environment/.env:generic-api-key:63
+settings/work/home/programs/git.nix:generic-api-key:29
+users/william/share/home/programs/git.nix:generic-api-key:15
+users/william/share/home/programs/gpg/default.nix:generic-api-key:11
+users/william/share/home/programs/gpg/default.nix:generic-api-key:14

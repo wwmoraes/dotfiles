@@ -1,7 +1,0 @@
-[General]
-snippetfile = "~/.config/pet/snippet.toml"
-editor = "hx"
-column = 80
-selectcmd = "fzf --ansi"
-sortby = "description"
-cmd = ["fish", "-c"]
