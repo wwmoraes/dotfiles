@@ -1,5 +1,7 @@
 ## false positives
 Taskfile.yaml:generic-api-key:5
+settings/common/programs/gpg.nix:generic-api-key:58
+settings/common/programs/gpg.nix:generic-api-key:112
 ## old commit content
 .env-work:generic-api-key:1
 .systems/darwin/MTMR/Library/Application Support/MTMR/items.json:generic-api-key:128

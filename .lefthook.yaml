@@ -11,6 +11,8 @@ pre-commit:
     shellcheck:
       run: shellcheck -x -s sh {staged_files}
       glob: '**/*.{sh,sh.tmpl}'
+      exclude:
+      - external/*.sh
     markdownlint:
       run: markdownlint {staged_files}
       glob: '**.md'

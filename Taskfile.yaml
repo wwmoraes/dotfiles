@@ -1,64 +1,34 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: 3
 
-vars:
-  EJSON_KEY_ID: 6bf53a356a4b8abbc9a41ae2912787e56853e211653bb23d5da4a87ba6c9df6f
-
 tasks:
   default:
     cmds:
     - task: secrets
-    - task: checksum
+    - task: apply
+  apply:
+    cmds:
+    - sudo darwin-rebuild switch --no-remote --flake .
+  setup-card:
+    cmds:
+    - nix run nixpkgs#yubikey-manager -- openpgp keys set-touch --force att cached
+    - nix run nixpkgs#yubikey-manager -- openpgp keys set-touch --force aut cached
+    - nix run nixpkgs#yubikey-manager -- openpgp keys set-touch --force enc cached
+    - nix run nixpkgs#yubikey-manager -- openpgp keys set-touch --force sig cached
+    - nix run nixpkgs#yubikey-manager -- openpgp info
+    - nix run nixpkgs#yubikey-manager -- openpgp keys info att
+    - nix run nixpkgs#yubikey-manager -- openpgp keys info aut
+    - nix run nixpkgs#yubikey-manager -- openpgp keys info enc
+    - nix run nixpkgs#yubikey-manager -- openpgp keys info sig
   check:
     cmd: lefthook run pre-commit
   validate-secrets:
-    desc: Checks and reports invalid secret references in the ejson template.
+    desc: Checks and reports invalid secret references in the template.
     cmd: >-
-      gron .ejson/secrets.tmpl.json
+      gron external/secrets.yaml.gotmpl
       | grep "op://"
       | sed 's/[";]//g'
       | xargs -P 0 -I% bash -c 'echo "%" | op inject > /dev/null || echo %'
-  checksum:
-    desc: Update the saved checksum in the password vault.
-    method: timestamp
-    cmd: >-
-      op item edit
-      "ejson payload"
-      "task checksum=$(cat .task/checksum/secrets)" || true
-    sources:
-    - .task/checksum/secrets
-  secrets:
-    vars:
-      SOURCE: .ejson/secrets.tmpl.json
-      TARGET: .ejson/secrets.json
-    cmds:
-    - op inject -f -i {{ .SOURCE | q }} -o {{ .TARGET | q }} || true
-    - ejson encrypt .ejson/secrets.json
-    - op document edit "ejson payload" .ejson/secrets.json || true
-    deps:
-    - key:Personal/ejson/password:{{ .EJSON_KEY_ID }}
-    sources:
-    - '{{ .SOURCE }}'
-    generates:
-    - '{{ .TARGET }}'
-  key:
-    desc: Extracts a local of the ejson key.
-    deps:
-    - key:Personal/ejson/password:{{ .EJSON_KEY_ID }}
-  key:*:*:
-    label: key:{{ index .MATCH 0 }}:{{ index .MATCH 1 }}
-    vars:
-      REF: 'op://{{ index .MATCH 0 }}'
-      TARGET: '{{ joinPath .EJSON_KEYDIR (index .MATCH 1) }}'
-    cmds:
-    - mkdir -p {{ .EJSON_KEYDIR | q }}
-    - >-
-      op read --force --no-newline
-      --file-mode 0600
-      --out-file {{ .TARGET | q }}
-      {{ .REF | q }}
-    status:
-    - test -f {{ .TARGET | q }}
   macos:fix:
     desc: Applies cleanup commands to solve system preference problems in MacOS.
     summary: >-
@@ -74,3 +44,33 @@ tasks:
     cmds:
     - chezmoi apply
     - chezmoi unmanaged
+  secrets:
+    vars:
+      INPUT: external/secrets.yaml.gotmpl
+      OUTPUT: external/secrets.yaml
+    cmd: >-
+      op inject --force
+      --in-file {{ .INPUT | q }}
+      | sops encrypt
+      --filename-override {{ .OUTPUT | q }}
+      --output {{ .OUTPUT | q }}
+    sources:
+    - '{{ .INPUT }}'
+    generates:
+    - '{{ .OUTPUT }}'
+  update-helix:
+    requires:
+      vars:
+      - USER
+    vars:
+      HOSTNAME:
+        sh: scutil --get LocalHostName
+      VERSION:
+        sh: nix eval --raw .#darwinConfigurations.{{ .HOSTNAME }}.config.home-manager.users.{{ .USER }}.programs.helix.package.version
+      URL: https://github.com/helix-editor/helix/raw/refs/tags/{{ .VERSION }}/languages.toml
+      OUTPUT: settings/programs/helix-languages.toml
+    cmds:
+    - echo "# Sourced from {{ .URL }}. DO NOT EDIT." > {{ .OUTPUT | q }}
+    - curl -fsSL {{ .URL | q }} >> {{ .OUTPUT | q }}
+  pre-add:
+    cmd: git add -N external hosts modules settings 

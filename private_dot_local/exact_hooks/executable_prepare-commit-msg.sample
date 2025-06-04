@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-
-# TODO figure out how to make this work
-exec < /dev/tty && koji --hook || true

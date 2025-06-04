@@ -1,5 +1,3 @@
-root = true
-
 [*]
 charset = utf-8
 end_of_line = lf
@@ -15,8 +13,35 @@ indent_style = space
 [*.{yml,yaml,yml.tmpl,yaml.tmpl}]
 indent_style = space
 
+[external/*]
+indent_size = unset
+indent_style = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+
 ## generated content
+[flake.lock]
+generated_code = true
+indent_size = unset
+indent_style = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+
 [nix/sources.{json,nix}]
+generated_code = true
+indent_size = unset
+indent_style = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+
+[private_dot_hammerspoon/Spoons/*.spoon/**/*]
+generated_code = true
+indent_size = unset
+indent_style = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+
+[private_dot_hammerspoon/Spoons/*.spoon/**/*]
 generated_code = true
 indent_size = unset
 indent_style = unset

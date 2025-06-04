@@ -89,26 +89,5 @@ printf "\e[1;34mTime Machine\e[0m\n"
 echo "setting: thin local Time Machine snapshots"
 hash tmutil > /dev/null 2>&1 && sudo tmutil thinlocalsnapshots / 1000000000 1 > /dev/null 2>&1
 
-################################################################################
-printf "\e[1;34mSecurity\e[0m\n"
-
-echo "setting: allow apps from anywhere"
-sudo spctl --master-enable
-
-################################################################################
-printf "\e[1;34mMiscellaneous\e[0m\n"
-
 ## disable system integrity protection on fs, nvram and debug
 # csrutil enable --without fs --without nvram --without debug
-
-## purges 'Open With' duplicates + reloads environment variables
-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
-
-if [ "${DOT_ENVIRONMENT}" = "work" ]; then
-	echo "allowing _developer members to change system preferences"
-	# shellcheck disable=SC2024
-	sudo security authorizationdb read system.preferences > /tmp/system.preferences.plist
-	sudo defaults write /tmp/system.preferences.plist group _developer
-	# shellcheck disable=SC2024
-	sudo security authorizationdb write system.preferences < /tmp/system.preferences.plist
-fi

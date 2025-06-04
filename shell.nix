@@ -22,12 +22,11 @@ in mkShell {
 		pkgs.jq
 		pkgs.lefthook
 		pkgs.markdownlint-cli
-		pkgs.nur.repos.wwmoraes.ejson
 		pkgs.nur.repos.wwmoraes.go-commitlint
 		pkgs.shellcheck
-		pkgs.sops
 		pkgs.unstable.git
 		pkgs.unstable.lazygit
+		pkgs.unstable.sops
 		pkgs.yamllint
 		pkgs.yq-go
 	];

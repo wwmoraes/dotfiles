@@ -85,8 +85,6 @@ Then:
 ```shell
 # install brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-# install ejson
-brew install shopify/shopify/ejson
 ```
 
 If the host has a working op CLI:
@@ -104,10 +102,6 @@ Zscaler as it intercepts even the localhost gRPC calls between CLI and the
 daemon, voiding the trusted CA chain used by 1Password. In that case:
 
 ```shell
-# generate the encrypted json payload on another host and transfer it to
-# <source-path>/.ejson/secrets.json, then
-make -C "$(chezmoi source-path)" secrets
-export EJSON_KEYDIR="$(chezmoi source-path)/.ejson/keys"
 chezmoi init && chezmoi apply
 ```
 

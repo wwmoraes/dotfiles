@@ -1,5 +1,85 @@
 # To-dos
 
+- [ ] create minimal gnupg home derivation for sops
+- [ ] modularise darwin-rebuild OR patch upstream
+- [ ] incorporate Ctrl+R in my workflow (fuzzy history selector)
+- [ ] incorporate Ctrl+F in my workflow (fuzzy file selector)
+- [ ] incorporate Ctrl+V in my workflow (fuzzy change directory)
+- [ ] try ripgrep-all
+- [ ] try <https://github.com/eza-community/eza>
+- [ ] cleanup home-manager *.bkp
+- [ ] try new tinted/base16/base24 themes
+  - [ ] catppuccin macchiato
+  - [ ] tomorrow night
+  - [ ] twilight
+  - [ ] solarized dark
+  - [ ] one dark
+- [ ] flake commands
+  - [ ] yubikey card setup
+  - [ ] pgp management
+  - [x] gpg card switch
+- [x] try home-manager CLI
+  - FLAKE_CONFIG_URI=darwinConfigurations.M1Cabuk.config.home-manager.users.william.home
+- [ ] LS_COLORS
+  - <https://github.com/trapd00r/LS_COLORS/blob/master/README.markdown#installation>
+  - <https://github.com/sharkdp/lscolors>
+- [ ] nix shell integration
+  - <https://discourse.nixos.org/t/using-nix-develop-opens-bash-instead-of-zsh/25075/18>
+  - <https://github.com/MercuryTechnologies/nix-your-shell>
+- [ ] test stylix <https://nix-community.github.io/stylix/installation.html>
+
+## Flakes migration
+
+### Port
+
+Hierarchy sample: <https://nixos-and-flakes.thiscute.world/nixos-with-flakes/modularize-the-configuration>
+
+- [ ] bash
+- [ ] cachix
+- [ ] chezmoi scripts
+- [ ] docker desktop
+- [ ] efm-langserver
+- [ ] finicky
+- [ ] fish
+  - [ ] completions
+  - [ ] configurations
+  - [ ] functions
+- [ ] git hooks
+- [ ] git-ps
+- [ ] grc
+- [ ] hammerspoon
+- [ ] haskell stack
+- [ ] pet
+- [ ] plist2xml
+- [ ] python/pip
+- [ ] sudoers.d (derive from NixOS' security.sudo.configFile)
+- [ ] zellij layouts
+- [ ] zsh
+- [ ] inputrc
+- [ ] npm
+
+### Remove
+
+- [ ] adr
+
+## Flake migration instructions
+
+First run:
+
+```shell
+sudo nix \
+  --option accept-flake-config true run .#darwin-rebuild
+  -- switch --impure --no-remote --flake .
+```
+
+following runs:
+
+```shell
+sudo darwin-rebuild switch --impure --no-remote --flake .
+```
+
+## OLD
+
 - [ ] `chezmoi init` as bootstrap
   - <https://www.chezmoi.io/user-guide/advanced/install-your-password-manager-on-init/>
 - [ ] configure ADR to use MADR template

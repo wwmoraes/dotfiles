@@ -15,6 +15,7 @@
 .cache/semgrep_version
 .cache/winetricks
 .ccnet
+.config/1Password/ssh/agent.toml
 .config/OpenRGB
 .config/amethyst
 .config/brewfile
@@ -23,20 +24,30 @@
 .config/deezer-desktop
 .config/direnv/nix-direnv
 .config/environment.d
+.config/fish/conf.d/abbr.fish
+.config/fish/conf.d/aliases.fish
+.config/fish/conf.d/grc.fish
+.config/fish/conf.d/nix.fish
+.config/fish/conf.d/xdg.fish
 .config/gcloud
 .config/grammarly-languageserver
 .config/gtk-2.0
 .config/itad
+.config/jesseduffield
 .config/jgit
 .config/karabiner
+.config/kitty/overrides.conf
 .config/lnav
 .config/macos-defaults
+.config/nix/nix.conf
+.config/nixpkgs/config.nix
 .config/nvim
 .config/paths.d
+.config/projects.json
+.config/smug
 .config/sqlitestudio.old
 .config/tmux
 .config/yarn
-.editorconfig
 .env
 .env_aab-proxy
 .env_personal
@@ -77,6 +88,8 @@
 .local/bin/cc-test-reporter
 .local/bin/chezmoi-check
 .local/bin/chezmoi-conf
+.local/bin/chezmoi-run
+.local/bin/chezmoi-shell
 .local/bin/chezmoi-switch
 .local/bin/chezmoi-up
 .local/bin/chezmoi-upgrade
@@ -87,8 +100,10 @@
 .local/bin/docker-credential-osxkeychain
 .local/bin/git-all
 .local/bin/git-allc
+.local/bin/kitten
 .local/bin/pixi
 .local/bin/plantuml
+.local/bin/plist2xml
 .local/bin/talosctl
 .local/bin/terraform
 .local/google-cloud-sdk
@@ -106,6 +121,11 @@
 .mono
 .ngrok
 .ngrok2
+.nixpkgs/darwin
+.nixpkgs/darwin-configuration.nix
+.nixpkgs/hosts
+.nixpkgs/modules
+.nixpkgs/settings
 .openjfx
 .openshot_qt
 .ops
@@ -116,7 +136,18 @@
 .semgrep
 .skhdrc
 .sonarlint
-.ssh/config.d/profiles
+.ssh/52D7E419F7850F7129116F9842A38DFEAA0CF328.pub
+.ssh/A7A7C6469557D263092417043626F0C6196A28F6.pub
+.ssh/ABF71B6B6AFC3D2F88CB50E259A09A8DC53A52E1.pub
+.ssh/CA50F49FDBA8C9C5A789CC69E644CCC73CAA9D88.pub
+.ssh/EB804C0A0E49A6DB68CBD68A9EBA8B3578133BF7.pub
+.ssh/FB038B5761473DBEEC9AFDFBDDAB0B87CCB310CC.pub
+.ssh/bootstrap.pub
+.ssh/cabuk.pub
+.ssh/config.d
+.ssh/control
+.ssh/home.pub
+.ssh/router.pub
 .stack/hooks/ghc-install.sh
 .step
 .swiftpm
@@ -144,9 +175,10 @@ Library/Application Scripts/com.platinumgames.worldofdemons
 Library/Application Scripts/group.U5SR49N3PT.only.if.Amphetamine
 Library/Application Scripts/jp.konami.castlevania.ac
 Library/Application Scripts/stream.yattee.app
+Library/Application Support/jesseduffield
 Library/Application Support/pipx
 Library/Application Support/xbar
-Library/Autosave Information/*
+# Library/Autosave Information/*
 Library/Caches/cirrus
 Library/Caches/pip
 Library/Caches/pipx

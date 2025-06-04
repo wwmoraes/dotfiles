@@ -1,15 +1,6 @@
 {{- $environmentChoices := list "home" "work" -}}
 {{- $environment := promptChoiceOnce . "environment.name" "What environment is this host on" $environmentChoices -}}
 
-{{- $pinentry := lookPath "pinentry-tty" -}}
-{{- if eq .chezmoi.os "darwin" -}}
-	{{- $bin := "/usr/local/MacGPG2/libexec/pinentry-mac.app/Contents/MacOS/pinentry-mac" -}}
-	{{- $binInfo := lstat $bin -}}
-	{{- if and $binInfo (eq $binInfo.type "file") -}}
-			{{- $pinentry = $bin -}}
-	{{- end -}}
-{{- end -}}
-
 ## two-step bootstrapping as the config is parsed only once
 {{- $secrets := dict }}
 {{- if eq .chezmoi.config.secret.command "sops" }}
@@ -31,14 +22,6 @@ work = {{ eq $environment "work" }}
 node.enabled = false
 python.enabled = true
 
-{{- with $secrets.data.work.docker.auths }}
-
-[data.work.docker.config.auths]
-{{- range $_, $auth := splitList "," . }}
-"{{- $auth -}}" = {}
-{{- end }}
-{{- end }}
-
 [diff]
 pager = "delta"
 exclude = ["scripts"]
@@ -55,9 +38,6 @@ args = [
 
 [interpreters.fish]
 command = "fish"
-
-[pinentry]
-command = {{ $pinentry | quote }}
 
 [scriptEnv]
 # whether to apply MacOS defaults or not
