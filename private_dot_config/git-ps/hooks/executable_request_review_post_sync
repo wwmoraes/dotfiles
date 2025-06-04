@@ -25,37 +25,37 @@ azure_devops_handler() {
 	echo >&2 "$(date --utc +%FT%T.%3NZ) Azure DevOps detected"
 
 	if ! PULL_REQUEST_ID=$(az repos pr list \
-	  --detect \
-	  --output tsv \
-	  --query [0].pullRequestId \
-	  --source-branch "${SOURCE_BRANCH}" \
-	  --status active \
-	  --target-branch "${TARGET_BRANCH}" \
-	  --top 1 \
-	  ;); then
-	  echo >&2 "failed to get the state of PRs"
+		--detect \
+		--output tsv \
+		--query [0].pullRequestId \
+		--source-branch "${SOURCE_BRANCH}" \
+		--status active \
+		--target-branch "${TARGET_BRANCH}" \
+		--top 1 \
+		;); then
+		echo >&2 "failed to get the state of PRs"
 		exit 1
-  fi
+	fi
 
 	if [ -n "${PULL_REQUEST_ID}" ]; then
 		echo >&2 "updating PR"
 		az repos pr update \
 			--id "${PULL_REQUEST_ID}" \
-		  --description "${DESCRIPTION}" \
-		  --detect \
-		  --title "${TITLE}" \
-		  > /dev/null
+			--description "${DESCRIPTION}" \
+			--detect \
+			--title "${TITLE}" \
+			> /dev/null
 	else
 		echo >&2 "creating PR"
 		az repos pr create \
-		  --description "${DESCRIPTION}" \
-		  --detect \
-		  --draft \
-		  --open \
-		  --source-branch "${SOURCE_BRANCH}" \
-		  --target-branch "${TARGET_BRANCH}" \
-		  --title "${TITLE}" \
-		  > /dev/null
+			--description "${DESCRIPTION}" \
+			--detect \
+			--draft \
+			--open \
+			--source-branch "${SOURCE_BRANCH}" \
+			--target-branch "${TARGET_BRANCH}" \
+			--title "${TITLE}" \
+			> /dev/null
 	fi
 }
 

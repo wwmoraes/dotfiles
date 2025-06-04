@@ -19,7 +19,7 @@ git remote set-head "${REMOTE_NAME}" --auto > /dev/null
 : "${REMOTE_URL:?must be set}"
 
 github_handler() {
-  gh pr --repo "${REMOTE_URL}" checks "${SOURCE_BRANCH}"
+	gh pr --repo "${REMOTE_URL}" checks "${SOURCE_BRANCH}"
 }
 
 case "${REMOTE_URL}" in
