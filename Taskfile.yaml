@@ -9,6 +9,8 @@ tasks:
     cmds:
     - task: secrets
     - task: checksum
+  check:
+    cmd: lefthook run pre-commit
   validate-secrets:
     desc: Checks and reports invalid secret references in the ejson template.
     cmd: >-
