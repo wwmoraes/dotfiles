@@ -16,82 +16,91 @@ in
       confirmOnQuit = false;
       customCommands = [
         {
-          key = "b";
+          command = "git add --intent-to-add {{.SelectedFile.Name}}";
+          context = "files";
+          description = "Record intent to add new file";
+          key = "N";
+          output = "log";
+        }
+        {
           command = "${tigBin} blame -- {{.SelectedFile.Name}}";
           context = "files";
-          description = "blame file at tree";
+          description = "Blame file at tree";
+          key = "b";
           output = "terminal";
         }
         {
-          key = "b";
           command = "${tigBin} blame {{.SelectedSubCommit.Sha}} -- {{.SelectedCommitFile.Name}}";
           context = "commitFiles";
-          description = "blame file at revision";
+          description = "Blame file at revision";
+          key = "b";
           output = "terminal";
         }
         {
-          key = "B";
           command = "${tigBin} blame -- {{.SelectedCommitFile.Name}}";
           context = "commitFiles";
-          description = "blame file at tree";
+          description = "Blame file at tree";
+          key = "B";
           output = "terminal";
         }
         {
-          key = "D";
           command = "${tigBin} show {{.SelectedSubCommit.Sha}}";
           context = "subCommits";
           description = "Show commit diff";
+          key = "D";
           output = "terminal";
         }
         {
-          key = "D";
           command = "${tigBin} show {{.SelectedLocalBranch.Name}}";
           context = "localBranches";
           description = "Show branch diff";
+          key = "D";
           output = "terminal";
         }
         {
-          key = "D";
           command = "${tigBin} show {{.SelectedRemoteBranch.RemoteName}}/{{.SelectedRemoteBranch.Name}}";
           context = "remoteBranches";
           description = "Show branch diff";
+          key = "D";
           output = "terminal";
         }
         {
-          key = "h";
           command = "${tigBin} {{.SelectedSubCommit.Sha}} -- {{.SelectedCommitFile.Name}}";
           context = "commitFiles";
           description = "Show file commit history";
+          key = "h";
           output = "terminal";
         }
         {
-          key = "h";
           command = "${tigBin} -- {{.SelectedFile.Name}}";
           context = "files";
           description = "Show file commit history";
+          key = "h";
           output = "terminal";
         }
         {
-          key = "M";
           command = "git mergetool {{ .SelectedFile.Name }}";
           context = "files";
           description = "Open file in git merge tool";
+          key = "M";
           loadingText = "opening git mergetool";
           output = "terminal";
         }
         {
-          key = "B";
-          context = "global";
-          description = "push HEAD to user's remote trunk branch";
           command = "git backup";
+          context = "global";
+          description = "Backup HEAD to user's remote trunk";
+          key = "B";
           loadingText = "pushing...";
+          output = "logWithPty";
         }
         {
-          key = "<c-r>";
-          context = "global";
-          description = "restore HEAD from user's remote trunk branch";
           command = "git restore";
+          context = "global";
+          description = "Restore HEAD from user's remote trunk";
+          key = "<c-r>";
           loadingText = "pulling...";
+          output = "logWithPty";
           prompts = [
             {
               type = "confirm";
@@ -101,11 +110,12 @@ in
           ];
         }
         {
-          key = "Y";
+          command = "git commit --amend --all --no-edit && git push --force-with-lease";
           context = "global";
           description = "YOLO changes";
-          command = "git commit --amend --all --no-edit && git push --force-with-lease";
+          key = "Y";
           loadingText = "YOLO'ing...";
+          output = "logWithPty";
           prompts = [
             {
               type = "confirm";
@@ -115,8 +125,8 @@ in
           ];
         }
         {
-          key = "<c-c>";
           context = "global";
+          key = "<c-c>";
           prompts = [
             {
               type = "menu";
@@ -332,10 +342,10 @@ in
         openDirInEditor = "${hxBin} -w '{{dir}}'";
       };
       quitOnTopLevelReturn = false;
-      # services = {
-      #   "cbsp-abnamro@dev.azure.com" = "azuredevops:dev.azure.com";
-      #   "git.us.aegon.com" = "github:git.us.aegon.com";
-      # };
+      services = {
+        "cbsp-abnamro@dev.azure.com" = "azuredevops:dev.azure.com";
+        # "git.us.aegon.com" = "github:git.us.aegon.com";
+      };
     };
   };
 }
