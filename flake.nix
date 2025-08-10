@@ -190,6 +190,8 @@
           };
           nur = nur.overlays.default;
         };
+
+        templates = import ./templates;
       };
 
       perSystem =

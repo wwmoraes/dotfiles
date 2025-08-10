@@ -1,0 +1,10 @@
+name: Documentation
+on:
+  release:
+    types: [created]
+jobs:
+  go-proxy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: pull new module version
+      uses: andrewslotin/go-proxy-pull-action@master

@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+version: 2
+before:
+  hooks:
+  - make check
+binary_signs:
+- ids:
+  - hello
+builds:
+- id: hello
+  main: ./cmd/hello
+  binary: bin/hello
+  flags:
+  - -trimpath
+  ldflags:
+  - -s
+  - -w
+  - -buildid=
+  - -X main.version={{.Version}}
+  env:
+  - CGO_ENABLED=0
+  goos:
+  - linux
+  - darwin
+  - windows
+  goarch:
+  - amd64
+  - arm64
+  ignore:
+  - goos: darwin
+    goarch: amd64
+  - goos: windows
+    goarch: arm64
+changelog:
+  disable: true
+checksum:
+  name_template: checksums.txt
+gomod:
+  proxy: true
+  mod: readonly
+metadata:
+  mod_timestamp: "{{ .CommitTimestamp }}"
+nfpms:
+- id: hello
+  ids:
+  - hello
+  formats:
+  - apk
+  - archlinux
+  - deb
+  - rpm
+  vendor: William Artero
+  homepage: https://github.com/wwmoraes/hello
+  maintainer: William Artero <contact@artero.dev>
+  description: a fancy new golang project
+project_name: hello
+release:
+  github:
+    owner: wwmoraes
+    name: hello
+  prerelease: auto
+signs:
+- artifacts: all
+  ids:
+  - hello
+snapshot:
+  version_template: "{{- .RawVersion -}}+{{ .FullCommit }}"

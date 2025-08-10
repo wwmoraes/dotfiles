@@ -12,6 +12,10 @@
   programs.keep-sorted.enable = true;
   programs.mdformat = {
     enable = true;
+    excludes = [
+      "templates/meta/README.md"
+      "templates/meta/SECURITY.md"
+    ];
   };
   programs.nixf-diagnose.enable = true;
   programs.shellcheck-posix.enable = true;
@@ -24,6 +28,7 @@
       "*.asc"
       "secrets.yaml"
       "settings/common/darwin/programs/finicky/finicky.js"
+      "templates/golang/.golangci.yaml"
     ];
     configFile = builtins.toString ./.typos.toml;
   };
