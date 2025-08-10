@@ -46,7 +46,7 @@ endef
 .DEFAULT_GOAL := host/${HOSTNAME}
 
 .PHONY: all
-all: darwin/M1Cabuk darwin/NLLM4000559023
+all: host/M1Cabuk host/NLLM4000559023 host/vidar
 
 build: secrets.yaml
 	@git add -N hosts modules overlays scripts settings users
@@ -87,12 +87,14 @@ handle-backups:
 .PHONY: darwin/%
 darwin/%: secrets.yaml
 	@git add -N hosts modules overlays scripts settings users
-	nix build --no-link .#darwinConfigurations.$*.system
+	@mkdir -p .roots
+	nix build --out-link .roots/$* .#darwinConfigurations.$*.system
 
 .PHONY: nixos/%
 nixos/%: secrets.yaml
 	@git add -N hosts modules overlays scripts settings users
-	nix build --no-link .#nixosConfigurations.$*.config.system.build.toplevel
+	@mkdir -p .roots
+	nix build --out-link .roots/$* .#nixosConfigurations.$*.config.system.build.toplevel --builders 'ssh://root@$*'
 
 vidar:
 	nix run nixpkgs#nixos-rebuild -- switch \
@@ -141,3 +143,6 @@ macos-fix:
 	sudo rm -rfv /Library/Caches/com.apple.iconservices.store || true
 	killall cfprefsd
 	/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
+
+$(foreach HOST,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#darwinConfigurations),$(eval host/${HOST}: darwin/${HOST}))
+$(foreach HOST,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#nixosConfigurations),$(eval host/${HOST}: nixos/${HOST}))
