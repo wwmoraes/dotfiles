@@ -20,12 +20,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.system }}
     steps:
-    - name: checkout
-      uses: actions/checkout@v4
-    - name: direnv nix
-      uses: JRMurr/direnv-nix-action@v4.2.0
+    - uses: actions/checkout@v4
+    - uses: JRMurr/direnv-nix-action@v4.2.0
       with:
         install-nix: true
         cache-store: true
-    - name: run steps
-      run: om ci
+    - run: om ci run --no-link . -- --accept-flake-config
