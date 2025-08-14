@@ -42,6 +42,7 @@ let
     ];
     sandbox-fallback = false;
     # ssl-cert-file = "/opt/homebrew/etc/openssl@3/cert.pem";
+    warn-dirty = false;
   };
 in
 {
