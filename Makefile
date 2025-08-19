@@ -88,7 +88,7 @@ handle-backups:
 darwin/%: secrets.yaml
 	@git add -N hosts modules overlays scripts settings users
 	@mkdir -p .roots
-	nix build --out-link .roots/$* .#darwinConfigurations.$*.system
+	nix build --out-link .roots/$* .#darwinConfigurations.$*.config.system.build.toplevel
 
 .PHONY: nixos/%
 nixos/%: secrets.yaml
