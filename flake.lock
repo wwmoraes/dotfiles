@@ -275,6 +275,7 @@
         "nur": "nur",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
+        "systems": "systems",
         "treefmt-nix": "treefmt-nix",
         "unstable": "unstable"
       }
@@ -316,7 +317,9 @@
         "nur": [
           "nur"
         ],
-        "systems": "systems",
+        "systems": [
+          "systems"
+        ],
         "tinted-foot": "tinted-foot",
         "tinted-kitty": "tinted-kitty",
         "tinted-schemes": "tinted-schemes",

@@ -31,11 +31,13 @@
       url = "github:Mic92/sops-nix";
     };
     stylix = {
-      inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.nur.follows = "nur";
+      inputs.systems.follows = "systems";
       url = "github:danth/stylix/release-25.05";
     };
+    systems.url = "github:nix-systems/default";
     treefmt-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/treefmt-nix";
@@ -60,7 +62,7 @@
 
   outputs =
     inputs@{
-      self,
+      # keep-sorted start
       flake-parts,
       home-manager,
       # homebrew-cask,
@@ -69,10 +71,13 @@
       nix-homebrew,
       nixpkgs,
       nur,
+      self,
       sops-nix,
       stylix,
+      systems,
       treefmt-nix,
       unstable,
+      # keep-sorted end
       ...
     }:
     (flake-parts.lib.mkFlake { inherit inputs; } {
@@ -281,11 +286,6 @@
             };
         };
 
-      systems = [
-        "aarch64-darwin"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "x86_64-linux"
-      ];
+      systems = import systems;
     });
 }
