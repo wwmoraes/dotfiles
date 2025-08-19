@@ -1,6 +1,4 @@
 {
-  lib,
-  LocalHostName,
   config,
   ...
 }:
@@ -30,13 +28,12 @@ in
 
           ### using a graphical application that assigns you to the wheel group to be able
           ### to sudo is so retarded that I decided to risk myself :D
-          # Host_Alias WORK = ${lib.toLower LocalHostName}
           # Cmnd_Alias UNSAFE_WORK_CMDS = /usr/bin/su, /bin/cp *
           # Cmnd_Alias SAFE_WORK_CMDS = /usr/bin/true "", /usr/bin/renice *, /usr/sbin/taskpolicy *
 
-          # ${username} WORK = PASSWD: UNSAFE_WORK_CMDS
-          # ${username} WORK = NOPASSWD: SAFE_WORK_CMDS
-          # ${username} WORK = PASSWD: /bin/launchctl config user path *
+          # ${username} ALL = PASSWD: UNSAFE_WORK_CMDS
+          # ${username} ALL = NOPASSWD: SAFE_WORK_CMDS
+          # ${username} ALL = PASSWD: /bin/launchctl config user path *
 
           ### why wouldn't I be able to change the ownership of my own fucking files?
           # ${username} WORK = SETENV: /usr/sbin/chown -R ${username}\:${group} ${home}/*

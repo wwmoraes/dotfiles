@@ -1,5 +1,4 @@
 {
-  _module.args.LocalHostName = "M1Cabuk";
   networking = {
     computerName = " M1 Cabuk";
     domain = "home.arpa";
