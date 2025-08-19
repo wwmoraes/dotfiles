@@ -38,6 +38,13 @@
       url = "github:danth/stylix/release-25.05";
     };
     systems.url = "github:nix-systems/default";
+    templates = {
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+      url = "github:wwmoraes/templates";
+    };
     treefmt-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/treefmt-nix";
@@ -83,6 +90,7 @@
     (flake-parts.lib.mkFlake { inherit inputs; } {
       flake = rec {
         # getLanguage = name: (builtins.filter (entry: entry.name == name) darwinConfigurations.M1Cabuk.config.home-manager.users.william.programs.helix.languages.language);
+        inherit (inputs.templates) templates;
 
         darwinModules = {
           default =
@@ -111,6 +119,8 @@
                   stylix.overlays.enable = false;
                 }
               ];
+
+              nix.registry.templates.flake = inputs.templates;
 
               nixpkgs = {
                 overlays = [

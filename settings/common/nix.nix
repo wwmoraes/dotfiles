@@ -20,11 +20,6 @@
         type = "path";
         path = config.nixpkgs.flake.source;
       };
-      templates.to = lib.mkDefault {
-        owner = "wwmoraes";
-        repo = "templates";
-        type = "github";
-      };
     };
     settings = {
       require-sigs = true;
