@@ -14,10 +14,17 @@
 
   nix = {
     package = pkgs.nixVersions.git;
-    registry.nixpkgs.to = lib.mkDefault {
-      # # see nixpkgs.flake.setFlakeRegistry
-      type = "path";
-      path = config.nixpkgs.flake.source;
+    registry = {
+      nixpkgs.to = lib.mkDefault {
+        # # see nixpkgs.flake.setFlakeRegistry
+        type = "path";
+        path = config.nixpkgs.flake.source;
+      };
+      templates.to = lib.mkDefault {
+        owner = "wwmoraes";
+        repo = "templates";
+        type = "github";
+      };
     };
     settings = {
       require-sigs = true;
