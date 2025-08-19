@@ -76,17 +76,6 @@ in
 
   home-manager.sharedModules = [
     {
-      ## TODO get URLs from flake inputs
-      ## nix eval --json --file flake.nix --apply 'root: builtins.mapAttrs (_: v: v.url) root.inputs'
-      home.file.".nix-channels" = {
-        text = ''
-          https://github.com/nix-darwin/nix-darwin/archive/nix-darwin-25.05.tar.gz darwin
-          https://github.com/NixOS/nixpkgs/archive/395178e287fa9f63205b4d117d67241eef34866c.tar.gz unstable
-          https://github.com/NixOS/nixpkgs/archive/refs/tags/25.05.tar.gz nixpkgs
-          https://github.com/nix-community/NUR/archive/b30c245e2c44c7352a27485bfd5bc483df660f0e.tar.gz nur
-        '';
-      };
-
       programs.helix.extraPackages = lib.mkMerge [
         [
           pkgs.unstable.nil
