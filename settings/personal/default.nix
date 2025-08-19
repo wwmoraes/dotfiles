@@ -10,6 +10,7 @@
     ./homebrew.nix
     ./power.nix
     ./system.nix
+    ./time.nix
     # keep-sorted end
   ];
 }

@@ -1,0 +1,91 @@
+{
+  system.authorizationDB = {
+    ### Finder
+    ## For privileged file operations from within the Finder.
+    "com.apple.desktopservices" = "authenticate-session-owner-or-admin";
+    # For scripting-initiated privileged file operations from within the Finder.
+    "com.apple.desktopservices.scripted" = "authenticate-session-owner-or-admin";
+    ### System Preferences
+    ## Checked by the Admin framework when making changes to certain System Preferences.
+    "system.preferences" = "authenticate-session-owner-or-admin";
+    ## Checked when making changes to the Accessibility Preferences.
+    # "system.preferences.accessibility" = "authenticate-session-owner-or-admin";
+    ## Checked by the Admin framework when making changes to the Users & Groups preference pane.
+    # "system.preferences.accounts" = "authenticate-session-owner-or-admin";
+    ## Used by Password And Continuity PrefPane to request the user's password.
+    # "system.preferences.continuity" = "authenticate-session-owner-or-admin";
+    ## Checked by the Admin framework when making changes to the Date & Time preference pane.
+    # "system.preferences.datetime" = "authenticate-session-owner-or-admin";
+    ## Checked by the Admin framework when making changes to the Energy Saver preference pane.
+    # "system.preferences.energysaver" = "authenticate-session-owner-or-admin";
+    ## For changing the network location from the Apple menu.
+    # "system.preferences.location" = "authenticate-session-owner-or-admin";
+    ## Checked by the Admin framework when making changes to the Network preference pane.
+    # "system.preferences.network" = "authenticate-session-owner-or-admin";
+    ## Checked by the Admin framework when changing kernel boot params? Not sure how :P
+    # "system.preferences.nvram" = "authenticate-session-owner-or-admin";
+    ## Checked when making changes to the Parental Controls preference pane.
+    # "system.preferences.parental-controls" = "authenticate-session-owner-or-admin";
+    ## Checked by the Admin framework when making changes to the Printing preference pane.
+    # "system.preferences.printing" = "authenticate-session-owner-or-admin";
+    ## Checked by the Admin framework when making changes to the Security preference pane.
+    # "system.preferences.security" = "authenticate-session-owner-or-admin";
+    ## Checked by the Admin framework when making changes to the Security & Privacy preference pane.
+    ## Used by Bezel Services to gate IR remote pairing.
+    # "system.preferences.security.remote-pair" = "authenticate-session-owner-or-admin";
+    ## Checked by the Admin framework when making changes to the Sharing preference pane.
+    # "system.preferences.sharing" = "authenticate-session-owner-or-admin";
+    ## Checked by the Admin framework when making changes to the Software Update preference pane.
+    # "system.preferences.softwareupdate" = "authenticate-session-owner-or-admin";
+    ## Checked by the Admin framework when making changes to the Startup Disk preference pane.
+    # "system.preferences.startupdisk" = "authenticate-session-owner-or-admin";
+    ## Checked by the Admin framework when making changes to the Time Machine preference pane.
+    # "system.preferences.timemachine" = "authenticate-session-owner-or-admin";
+    ## For gating modifications to Adobe Version Cue preferences.
+    # "system.preferences.version-cue" = "authenticate-session-owner-or-admin";
+    ### App Store
+    ## Checked when user is installing software from the App Store.
+    # "system.install.app-store-software" = "authenticate-session-owner-or-admin";
+    ## Checked when user is installing new software.
+    # "system.install.app-store-software.standard-user" = "authenticate-session-owner-or-admin";
+    ### Apple software
+    ## Checked when user is installing Apple-provided software.
+    # "system.install.apple-software" = "authenticate-session-owner-or-admin";
+    ## Checked when user is installing new software.
+    # "system.install.apple-software.standard-user" = "authenticate-session-owner-or-admin";
+    ### Application Sandbox
+    ## Authorize an app-sandboxed application to install a symlink into /usr/local/bin.
+    "com.apple.app-sandbox.create-symlink" = "authenticate-session-owner-or-admin";
+    ## Authorize an app-sandboxed application to save (overwrite) a file in a privileged location.
+    "com.apple.app-sandbox.replace-file" = "authenticate-session-owner-or-admin";
+    ## Authorize an app-sandboxed application to change permissions on a privileged file.
+    "com.apple.app-sandbox.set-attributes" = "authenticate-session-owner-or-admin";
+    ### Instruments
+    ## allow Instruments to analyse a process
+    "com.apple.dt.instruments.process.analysis" = "authenticate-session-owner-or-admin";
+    ## allow Instruments to kill a process
+    "com.apple.dt.instruments.process.kill" = "authenticate-session-owner-or-admin";
+    ### Service Management
+    ## Used by the ServiceManagement framework to add a privileged helper tool to the system launchd.
+    "com.apple.ServiceManagement.blesshelper" = "authenticate-session-owner-or-admin";
+    ## Used by the ServiceManagement framework to make changes to the system launchd's set of daemons.
+    "com.apple.ServiceManagement.daemons.modify" = "authenticate-session-owner-or-admin";
+    ### Keychain Access
+    ## Used by the Security framework when you add an item to an unconfigured default keychain.
+    "system.keychain.create.loginkc" = "authenticate-session-owner-or-admin";
+    ## Used by Keychain Access when editing a system keychain.
+    "system.keychain.modify" = "authenticate-session-owner-or-admin";
+    ### Wi-Fi
+    "com.apple.wifi" = "authenticate-session-owner-or-admin";
+    ### Other
+    ## Checked when user is installing new software.
+    # "system.install.software" = "authenticate-session-owner-or-admin";
+    ## GUI sudo requests
+    "com.apple.security.sudo" = "authenticate-session-owner-or-admin";
+    ## uninstall applications
+    "com.apple.uninstalld.uninstall" = "authenticate-session-owner-or-admin";
+    ## Used by AuthorizationExecuteWithPrivileges() in programs requesting to run a
+    ## tool as root (e.g., some installers).
+    "system.privilege.admin" = "authenticate-session-owner-or-admin";
+  };
+}

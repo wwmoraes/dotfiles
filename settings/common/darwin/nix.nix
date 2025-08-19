@@ -41,7 +41,6 @@ let
       "flakes"
     ];
     sandbox-fallback = false;
-    # ssl-cert-file = "/opt/homebrew/etc/openssl@3/cert.pem";
     warn-dirty = false;
   };
 in
@@ -132,7 +131,7 @@ in
   };
 
   ## nuke the unconfigurable daemon settings since nix-darwin 25.05
-  system.activationScripts.nix-daemon.text = lib.mkForce "## no-op";
+  system.activationScripts.nix-daemon.text = lib.mkForce ":";
 
   ## single-user mode requires nix.enable = false, which is incompatible with
   ## this; thus we set it ourselves :D

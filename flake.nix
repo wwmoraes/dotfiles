@@ -140,6 +140,7 @@
               modules = [
                 ./hosts/M1Cabuk
                 ./settings/personal
+                ./settings/personal/darwin
                 ./users/william/personal
               ];
             };
@@ -147,6 +148,7 @@
               modules = [
                 ./hosts/NLLM4000559023
                 ./settings/work
+                ./settings/work/darwin
                 ./users/william/work
               ];
             };

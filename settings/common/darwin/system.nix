@@ -399,9 +399,6 @@ rec {
       "com.apple.TextInputMenu" = {
         visible = false;
       };
-      # "com.apple.TimeMachine" = {
-      #   DoNotOfferNewDisksForBackup = true;
-      # };
       # "com.apple.universalaccess" = {
       #   "com.apple.custommenu.apps" = [
       #     # "net.kovidgoyal.kitty"

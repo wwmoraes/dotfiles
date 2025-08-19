@@ -12,6 +12,7 @@
     ./nix-homebrew.nix
     ./nix.nix
     ./programs
+    ./security
     ./services
     ./sops.nix
     ./system.nix
