@@ -31,6 +31,11 @@
       ]
     ];
 
+    ignores = [
+      "!.env*"
+      "!*.env"
+    ];
+
     languages = lib.mkMerge [
       {
         language-server = {
