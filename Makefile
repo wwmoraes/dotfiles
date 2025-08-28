@@ -94,7 +94,7 @@ darwin/%: secrets.yaml
 nixos/%: secrets.yaml
 	@git add -N hosts modules overlays scripts settings users
 	@mkdir -p .roots
-	nix build --out-link .roots/$* .#nixosConfigurations.$*.config.system.build.toplevel --builders 'ssh://root@$*'
+	nix build --out-link .roots/$* .#nixosConfigurations.$*.config.system.build.toplevel
 
 vidar:
 	nix run nixpkgs#nixos-rebuild -- switch \
