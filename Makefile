@@ -105,8 +105,11 @@ vidar:
 		;
 
 secrets.yaml: secrets.yaml.gotmpl
-	@command -v op | grep -q . || { echo "1password not found, skipping secrets update"; exit; }
-	@op inject --force --in-file $< | sops encrypt --filename-override $@ --output $@
+ifeq ($(shell command -v op),)
+	@echo "1password not found, skipping secrets update"
+else
+	@op inject --force --in-file $< | ifne sops encrypt --filename-override $@ --output $@
+endif
 
 .PHONY: setup-card
 setup-card:
