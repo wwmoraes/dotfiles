@@ -7,6 +7,7 @@
     # keep-sorted start
     ./fish.nix
     ./homebrew.nix
+    ./swiftbar.nix
     # keep-sorted end
   ];
 }
