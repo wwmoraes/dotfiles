@@ -48,9 +48,7 @@ endef
 .PHONY: all
 all: host/M1Cabuk host/NLLM4000559023 host/vidar
 
-build: secrets.yaml
-	@git add -N hosts modules overlays scripts settings users
-	nix build --accept-flake-config --no-link .#darwinConfigurations.${HOSTNAME}.system
+build: host/${HOSTNAME}
 
 .PHONY: check
 check:
@@ -88,13 +86,13 @@ handle-backups:
 darwin/%: secrets.yaml
 	@git add -N hosts modules overlays scripts settings users
 	@mkdir -p .roots
-	nix build --out-link .roots/$* .#darwinConfigurations.$*.config.system.build.toplevel
+	nix build --accept-flake-config --out-link .roots/$* .#darwinConfigurations.$*.config.system.build.toplevel
 
 .PHONY: nixos/%
 nixos/%: secrets.yaml
 	@git add -N hosts modules overlays scripts settings users
 	@mkdir -p .roots
-	nix build --out-link .roots/$* .#nixosConfigurations.$*.config.system.build.toplevel
+	nix build --accept-flake-config --out-link .roots/$* .#nixosConfigurations.$*.config.system.build.toplevel
 
 vidar:
 	nix run nixpkgs#nixos-rebuild -- switch \
