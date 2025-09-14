@@ -139,8 +139,10 @@ in
       fetch = {
         all = true;
         fsckObjects = true;
+        negotiationAlgorithm = "consecutive";
         prune = true;
         pruneTags = true;
+        writeCommitGraph = true;
       };
       format = {
         coverFromDescription = "auto";
@@ -211,6 +213,7 @@ in
         autoSetupRemote = true;
         default = "simple";
         followTags = true;
+        negotiate = true;
         recurseSubmodules = "check";
       };
       rebase = {
