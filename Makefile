@@ -1,8 +1,11 @@
 MAKEFLAGS += --no-builtin-rules
 MAKEFLAGS += --no-builtin-variables
+.SHELLFLAGS := -euc
+export SHELL := $(shell which bash)
+
 .SUFFIXES:
 
-HOSTNAME ?= $(shell scutil --get LocalHostName)
+HOSTNAME ?= $(shell uname -n)
 
 define RM_RECURSIVE
 $(strip
@@ -124,14 +127,19 @@ setup-card:
 
 .PHONY: validate-secrets
 validate-secrets:
+ifeq ($(shell command -v op),)
+	@echo "1password CLI not found, skipping validation"
+else
 	@gron secrets.yaml.gotmpl \
 	| grep "op://" \
 	| sed 's/[";]//g' \
 	| xargs -P 0 -I% bash -c 'echo "%" | op inject > /dev/null || echo %'
+endif
 
 ## overkill solution when changing undocumented preferences goes awfully wrong
 .PHONY: macos-fix
 macos-fix:
+ifeq ($(shell uname -s),Darwin)
 	rm -rfv ~/Library/Application\ Scripts/com.apple.systempreferences.* || true
 	rm -rfv ~/Library/Caches/com.apple.preferencepanes.usercache || true
 	rm -rfv ~/Library/Caches/com.apple.systempreferences || true
@@ -144,6 +152,9 @@ macos-fix:
 	sudo rm -rfv /Library/Caches/com.apple.iconservices.store || true
 	killall cfprefsd
 	/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
+else
+	$(info this isn't a Darwin system, nothing to do)
+endif
 
 $(foreach HOST,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#darwinConfigurations),$(eval host/${HOST}: darwin/${HOST}))
 $(foreach HOST,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#nixosConfigurations),$(eval host/${HOST}: nixos/${HOST}))
