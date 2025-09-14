@@ -17,7 +17,7 @@
             DisableBashWrapper = true;
             MakePluginExecutable = false;
             NSNavLastRootDirectory = rootFolder;
-            PluginDebugMode = true;
+            PluginDebugMode = false;
             PluginDeveloperMode = true;
             PluginDirectory = rootFolder + "/plugins";
             StealthMode = true;
