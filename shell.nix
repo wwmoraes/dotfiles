@@ -18,6 +18,7 @@ mkShell {
     pkgs.gitleaks
     pkgs.gnumake # make
     pkgs.gron
+    pkgs.jd-diff-patch # jd
     pkgs.jq
     pkgs.moreutils # ifne, sponge
     pkgs.omnix # om

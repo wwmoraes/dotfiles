@@ -44,6 +44,14 @@ $(strip
 )
 endef
 
+define BACKUP_PATHS
+$(strip
+"${HOME}/.config"
+"${HOME}/.docker"
+"${HOME}/Library/Group Containers"
+)
+endef
+
 -include .make/*.mk
 
 .DEFAULT_GOAL := host/${HOSTNAME}
@@ -79,11 +87,23 @@ fix:
 install:
 	sudo darwin-rebuild switch --no-remote ${FLAGS} --flake .
 
-.PHONY: handle-backups
-handle-backups:
-	@fd --hidden --no-ignore --type f --extension bkp "" ~ \
-	| fzf -m --preview 'diff --text --unified {} "$$(dirname {})/$$(basename -s .bkp {})"' \
-	| ifne xargs -I% rm '%'
+.PHONY: rm-backups
+rm-backups:
+	@fd "" ${BACKUP_PATHS} --hidden --no-ignore --type f --extension bkp --exec echo {.} \
+	| fzf -m --preview 'diff --text --unified {} {}.bkp' \
+	| ifne xargs -I% rm '%.bkp'
+
+.PHONY: rm-json-backups
+rm-json-backups:
+	@fd "" ${BACKUP_PATHS} --hidden --no-ignore --type f --extension json.bkp --exec echo {.} \
+	| fzf -m --preview 'jd -set {} {}.bkp' \
+	| ifne xargs -I% rm '%.bkp'
+
+.PHONY: diff-json-backups
+diff-json-backups:
+	@fd "" ${BACKUP_PATHS} --hidden --no-ignore --type f --extension json.bkp --exec echo {.} \
+	| fzf --preview 'jd -set {} {}.bkp' \
+	| ifne xargs -I% jd -set '%' '%.bkp'
 
 .PHONY: darwin/%
 darwin/%: secrets.yaml
