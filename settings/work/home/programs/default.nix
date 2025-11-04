@@ -7,7 +7,6 @@
     # keep-sorted start
     ./aichat.nix
     ./azure-cli.nix
-    ./copilot.nix
     ./docker.nix
     ./gh.nix
     ./git.nix
