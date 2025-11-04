@@ -4,13 +4,16 @@
 }:
 {
   programs.ssh = {
+    extraOptionOverrides = {
+      CanonicalDomains = "home.arpa";
+      CanonicalizeHostname = "yes";
+      CanonicalizeMaxDots = "0";
+    };
+
     matchBlocks = {
       ## https://blog.stribik.technology/2015/01/04/secure-secure-shell.html
       "*.home.arpa" = {
         extraOptions = {
-          CanonicalizeHostname = "yes";
-          CanonicalDomains = "home.arpa";
-          CanonicalizeMaxDots = "0";
           ## ssh -Q cipher
           Ciphers = builtins.concatStringsSep "," [
             "chacha20-poly1305@openssh.com"
@@ -52,7 +55,12 @@
           "ZELLIJ"
         ];
       };
-
+      "ap ap.home.arpa" = {
+        user = "root";
+      };
+      "router router.home.arpa" = {
+        user = "root";
+      };
       "vidar vidar.home.arpa" = {
         remoteForwards = [
           {
@@ -65,10 +73,6 @@
             host.address = "${config.programs.gpg.homedir}/S.gpg-agent.extra";
           }
         ];
-      };
-
-      "router router.home.arpa" = {
-        user = "root";
       };
     };
   };
