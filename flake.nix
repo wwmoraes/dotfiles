@@ -2,6 +2,7 @@
   description = "wwmoraes' dotfiles on steroids";
 
   inputs = {
+    cocopilot.url = "github:wwmoraes/cocopilot";
     flake-parts.url = "github:hercules-ci/flake-parts";
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -73,6 +74,7 @@
   outputs =
     inputs@{
       # keep-sorted start
+      cocopilot,
       flake-parts,
       home-manager,
       # homebrew-cask,
@@ -127,6 +129,7 @@
 
               nixpkgs = {
                 overlays = [
+                  self.overlays.cocopilot
                   self.overlays.default
                   self.overlays.nur
                   self.overlays.unstable
@@ -205,6 +208,7 @@
         };
 
         overlays = (import ./overlays) // {
+          cocopilot = cocopilot.overlays.default;
           unstable = final: prev: {
             unstable = import unstable { inherit (prev) system; };
           };
@@ -221,6 +225,7 @@
           _module.args.pkgs = import inputs.nixpkgs {
             inherit system;
             overlays = [
+              self.overlays.cocopilot
               self.overlays.default
               self.overlays.nur
               self.overlays.unstable

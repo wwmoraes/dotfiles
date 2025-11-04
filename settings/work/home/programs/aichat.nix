@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   ...
 }:
@@ -8,6 +9,13 @@ in
 {
   home.packages = [
     pkgs.aichat
+    pkgs.cocopilot
+  ];
+
+  programs.fish.shellAliases = lib.mkMerge [
+    {
+      aichat = "env COPILOT_API_KEY=(${lib.getExe pkgs.cocopilot}) aichat";
+    }
   ];
 
   ## TODO set COPILOT_API_KEY, see https://github.com/sigoden/aichat/issues/1030
