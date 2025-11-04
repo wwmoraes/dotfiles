@@ -11,7 +11,6 @@
     ./bat.nix
     ./dircolors.nix
     ./direnv.nix
-    ./efm-langserver.nix
     ./exiftool.nix
     ./fzf.nix
     ./gh.nix

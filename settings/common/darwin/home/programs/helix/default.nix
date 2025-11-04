@@ -19,9 +19,9 @@
       [
         pkgs.awk-language-server
         pkgs.ctags-lsp
+        pkgs.golangci-lint-langserver
         pkgs.unstable.bash-language-server
         # pkgs.unstable.buf-language-server
-        pkgs.unstable.efm-langserver
         pkgs.unstable.lua-language-server
         pkgs.unstable.taplo
         pkgs.unstable.texlab
@@ -39,8 +39,16 @@
     languages = lib.mkMerge [
       {
         language-server = {
-          efm = {
-            command = "efm-langserver";
+          golangci-lint-lsp = {
+            command = "golangci-lint-langserver";
+            config.command = [
+              "golangci-lint"
+              "run"
+              "--output.text.path=/dev/null"
+              "--output.json.path=stdout"
+              "--show-stats=false"
+              "--issues-exit-code=1"
+            ];
           };
           regal = {
             command = "regal";
@@ -108,7 +116,14 @@
           ];
         };
         go = {
-          formatter.command = "goimports";
+          auto-format = true;
+          formatter = {
+            command = "golangci-lint";
+            args = [
+              "fmt"
+              "--stdin"
+            ];
+          };
           indent = {
             tab-width = 2;
             unit = "\t";
@@ -116,8 +131,7 @@
           language-servers = lib.mkMerge [
             [
               "gopls"
-              # "efm-langserver"
-              "golangci-lint-lsp" # broken; efm-langserver replaces it
+              "golangci-lint-lsp"
               "ctags-lsp"
             ]
           ];
