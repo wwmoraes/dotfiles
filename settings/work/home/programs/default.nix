@@ -14,7 +14,6 @@
     ./go.nix
     ./helix.nix
     ./kubectl.nix
-    ./llm.nix
     ./npm.nix
     ./python.nix
     # keep-sorted end
