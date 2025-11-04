@@ -4,6 +4,7 @@
 }:
 {
   homebrew.casks = [
+    # keep-sorted start
     "android-file-transfer"
     "app-cleaner" # # Nektony App Cleaner & Uninstaller
     "appcleaner"
@@ -21,6 +22,7 @@
     "netnewswire"
     "onyx"
     "plex-htpc"
+    "plexamp"
     "racket"
     "raindropio"
     "resilio-sync"
@@ -30,10 +32,12 @@
     "thingsmacsandboxhelper"
     "tiddly"
     "uninstallpkg"
+    # keep-sorted end
     (pkgs.lib.local.globalCask "yubico-yubikey-manager")
   ];
 
   homebrew.masApps = {
+    # keep-sorted start
     "Apple Configurator" = 1037126344;
     # "Be Focused Pro" = 961632517;
     "CCMenu" = 603117688;
@@ -42,6 +46,7 @@
     # "Just Press Record" = 1033342465;
     "Keynote" = 409183694;
     "Numbers" = 409203825;
+    "OmniOutliner" = 1142578772;
     # "OX Drive" = 818195014;
     "Parcel" = 639968404;
     # "Privacy Redirect" = 1578144015;
@@ -57,5 +62,6 @@
     "Xcode" = 497799835;
     "iMovie" = 408981434;
     # "uBlacklist for Safari" = 1547912640;
+    # keep-sorted end
   };
 }
