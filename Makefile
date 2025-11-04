@@ -84,8 +84,14 @@ fix:
 	tree -ifpug /nix | grep -- 'dr-xr-xr-x' | awk '{print $$8}' | xargs -I% chmod ug+s '%'
 
 .PHONY: install
-install:
+install: host/${HOSTNAME}
+## why? because "enterprise-grade" environments fuck up SSL and nixpkgs
+## somehow that is not really worth my time
+ifeq (${HOSTNAME},NLLM4000559023)
+	sudo .roots/NLLM4000559023/activate
+else
 	sudo darwin-rebuild switch --no-remote ${FLAGS} --flake .
+endif
 
 .PHONY: rm-backups
 rm-backups:
