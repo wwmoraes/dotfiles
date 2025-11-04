@@ -190,7 +190,7 @@ in
         prompt = false;
       };
       notes = {
-        displayRef = "refs/notes/*";
+        displayRef = "refs/notes/commits";
         rewriteRef = "refs/notes/commits";
         commits = {
           mergeStrategy = "cat_sort_uniq";
