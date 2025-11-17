@@ -3,10 +3,18 @@
   ...
 }:
 {
-  programs.git = {
+  programs.git = rec {
     userEmail = "git@artero.dev";
     userName = "William Artero";
     extraConfig = {
+      author = {
+        name = userEmail;
+        email = userEmail;
+      };
+      committer = {
+        name = userEmail;
+        email = userEmail;
+      };
       user = {
         handle = lib.mkDefault "wwmoraes";
       };
