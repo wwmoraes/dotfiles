@@ -32,8 +32,8 @@ in
     environment.infoPath = mkMerge [
       (mkBefore (map (s: s + "/share/info") cfg.profiles))
       (mkOrder 2000 [
-        "/usr/share/info"
         "/usr/local/share/info"
+        "/usr/share/info"
       ])
     ];
 

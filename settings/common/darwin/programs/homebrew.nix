@@ -8,11 +8,11 @@ let
   isSetString = str: lib.stringLength (toString str) > 0;
 in
 {
-  environment.infoPath = lib.mkAfter [
+  environment.infoPath = [
     (toString (/. + "${config.homebrew.brewPrefix or ""}/../share/info"))
   ];
 
-  environment.manPath = lib.mkAfter [
+  environment.manPath = [
     (toString (/. + "${config.homebrew.brewPrefix}/../share/man"))
   ];
 

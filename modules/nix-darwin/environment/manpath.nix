@@ -13,26 +13,6 @@ let
     ;
   cfg = config.environment;
   makeDrvManPath = lib.concatMapStringsSep ":" (p: if lib.isDerivation p then "${p}/man" else p);
-  readAbsPathsFromFile =
-    path:
-    let
-      splitLines = lib.splitString "\n";
-      removeComments = lib.filter (line: line != "" && !(lib.hasPrefix "#" line));
-      do = path: removeComments (splitLines (lib.readFile path));
-    in
-    lib.lists.optionals (lib.pathExists path) (do path);
-  readAbsPathsFromDir =
-    path:
-    let
-      inherit (builtins) readDir;
-      isRegular = _: type: type == "regular";
-      prefixWith = prefix: path: prefix + "/" + path;
-      prefixAllWith = prefix: map (prefixWith prefix);
-      listRegularFiles = attrs: lib.attrNames (lib.attrsets.filterAttrs isRegular attrs);
-      readDirRegularFiles = path: prefixAllWith path (listRegularFiles (readDir path));
-      do = path: lib.lists.flatten (map readAbsPathsFromFile (readDirRegularFiles path));
-    in
-    lib.lists.optionals (lib.pathExists path) (do path);
 in
 {
   meta.maintainers = [
@@ -52,8 +32,10 @@ in
   config = {
     environment.manPath = mkMerge [
       (mkBefore (map (s: s + "/share/man") cfg.profiles))
-      (mkOrder 2000 (readAbsPathsFromFile "/etc/manpaths"))
-      (mkOrder 1500 (readAbsPathsFromDir "/etc/manpaths.d"))
+      (mkOrder 2000 [
+        "/usr/local/share/man"
+        "/usr/share/man"
+      ])
     ];
 
     environment.variables = {
