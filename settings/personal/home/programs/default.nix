@@ -10,6 +10,7 @@
     ./git.nix
     ./llm.nix
     ./ollama.nix
+    ./slack.nix
     ./smartcat.nix
     ./ssh.nix
     ./talosctl.nix
