@@ -16,12 +16,12 @@ mkShell {
     pkgs.fzf
     pkgs.git
     pkgs.gitleaks
-    pkgs.gnumake # make
     pkgs.gron
     pkgs.jd-diff-patch # jd
     pkgs.jq
     pkgs.moreutils # ifne, sponge
     pkgs.omnix # om
+    pkgs.remake
     pkgs.tree
     pkgs.unstable.sops
     pkgs.uutils-coreutils-noprefix

@@ -57,33 +57,41 @@ endef
 .DEFAULT_GOAL := host/${HOSTNAME}
 
 .PHONY: all
+#: Build all hosts' activation scripts.
 all: host/M1Cabuk host/NLLM4000559023 host/vidar
 
+.PHONY: build
+#: Build current host's activation script.
 build: host/${HOSTNAME}
 
 .PHONY: check
+#: Validates repository source halthiness.
 check:
 	@gitleaks dir --redact --verbose --no-banner
 	@./.git/hooks/pre-commit
 
 .PHONY: clean
+#: Removes generated content.
 clean:
 	-rm -rf ${RM_RECURSIVE} 2> /dev/null
 	-rmdir --parents ${RMDIRS} 2> /dev/null
 
 .PHONY: configure
+#: Sets up repository for contribution.
 configure:
 	git config --local include.path ../.gitconfig
 	@rm .git/hooks/* || true
 	cog install-hook --all --overwrite
 
 .PHONY: fix
+#: Corrects nix store paths in single-user installations.
 fix:
 	tree -ifpug /nix | awk '$$2 != "william" {print $$8}' | xargs -I% sudo chown -R william:_developer '%'
 	sudo chmod ug+s /nix /nix/store /nix/var
 	tree -ifpug /nix | grep -- 'dr-xr-xr-x' | awk '{print $$8}' | xargs -I% chmod ug+s '%'
 
 .PHONY: install
+#: Applies the current host's settings.
 install: host/${HOSTNAME}
 ## why? because "enterprise-grade" environments fuck up SSL and nixpkgs
 ## somehow that is not really worth my time
@@ -94,35 +102,41 @@ else
 endif
 
 .PHONY: rm-backups
+#: Removes backup files interactively.
 rm-backups:
 	@fd "" ${BACKUP_PATHS} --hidden --no-ignore --type f --extension bkp --exec echo {.} \
 	| fzf -m --preview 'diff --text --unified {} {}.bkp' \
 	| ifne xargs -I% rm '%.bkp'
 
 .PHONY: rm-json-backups
+#: Removes JSON backup files interactively.
 rm-json-backups:
 	@fd "" ${BACKUP_PATHS} --hidden --no-ignore --type f --extension json.bkp --exec echo {.} \
 	| fzf -m --preview 'jd -set {} {}.bkp' \
 	| ifne xargs -I% rm '%.bkp'
 
 .PHONY: diff-json-backups
+#: Shows the difference between backed-up and current JSON files.
 diff-json-backups:
 	@fd "" ${BACKUP_PATHS} --hidden --no-ignore --type f --extension json.bkp --exec echo {.} \
 	| fzf --preview 'jd -set {} {}.bkp' \
 	| ifne xargs -I% jd -set '%' '%.bkp'
 
 .PHONY: darwin/%
+#: Applies the target host settings.
 darwin/%: secrets.yaml
 	@git add -N hosts modules overlays scripts settings users
 	@mkdir -p .roots
 	nix build --accept-flake-config --out-link .roots/$* .#darwinConfigurations.$*.config.system.build.toplevel
 
 .PHONY: nixos/%
+#: Applies the target host settings.
 nixos/%: secrets.yaml
 	@git add -N hosts modules overlays scripts settings users
 	@mkdir -p .roots
 	nix build --accept-flake-config --out-link .roots/$* .#nixosConfigurations.$*.config.system.build.toplevel
 
+#: Applies vidar's settings over SSH.
 vidar:
 	nix run nixpkgs#nixos-rebuild -- switch \
 		--build-host root@vidar.home.arpa \
@@ -150,6 +164,9 @@ setup-card:
 	nix run nixpkgs#yubikey-manager -- openpgp keys info aut
 	nix run nixpkgs#yubikey-manager -- openpgp keys info enc
 	nix run nixpkgs#yubikey-manager -- openpgp keys info sig
+	# enables retired key management slots (0x82-0x95)
+	# see https://github.com/OpenSC/OpenSC/issues/847#issuecomment-238119888
+	nix-shell -p yubico-piv-tool --command 'echo -n C10114C20100FE00 | yubico-piv-tool -k -a write-object --id 0x5FC10C -i -'
 
 .PHONY: validate-secrets
 validate-secrets:
@@ -182,5 +199,14 @@ else
 	$(info this isn't a Darwin system, nothing to do)
 endif
 
-$(foreach HOST,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#darwinConfigurations),$(eval host/${HOST}: darwin/${HOST}))
-$(foreach HOST,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#nixosConfigurations),$(eval host/${HOST}: nixos/${HOST}))
+define hostTarget
+$(eval
+#: Builds the target host's activation script.
+host/$(2): $(1)/$(2);
+)
+endef
+
+.PHONY: host/%
+
+$(foreach HOST,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#darwinConfigurations),$(call hostTarget,darwin,${HOST}))
+$(foreach HOST,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#nixosConfigurations),$(call hostTarget,nixos,${HOST}))
