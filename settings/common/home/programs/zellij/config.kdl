@@ -207,6 +207,6 @@ plugins {
 	}
 }
 
-on_force_close "quit"
+on_force_close "detach"
 
 default_shell "fish"
