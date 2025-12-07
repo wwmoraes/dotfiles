@@ -7,6 +7,7 @@
     # keep-sorted start
     ./aichat.nix
     ./cachix.nix
+    ./docker.nix
     ./git.nix
     ./llm.nix
     ./ollama.nix

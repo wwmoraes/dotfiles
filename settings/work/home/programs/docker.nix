@@ -1,9 +1,17 @@
 {
+  config,
   lib,
   ...
 }:
 {
   programs.docker = {
+    desktopSettings = {
+      FilesharingDirectories = [
+        "${config.home.homeDirectory}/workspace"
+        "/tmp"
+      ];
+    };
+
     settings = lib.mkMerge [
       {
         auths = {

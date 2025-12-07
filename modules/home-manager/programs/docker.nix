@@ -23,6 +23,11 @@ in
     programs.docker = {
       enable = mkEnableOption "Docker client to run containerized applications";
 
+      desktopSettings = mkOption {
+        default = { };
+        type = with types; attrsOf anything;
+      };
+
       package = mkPackageOption pkgs "docker-client" {
         nullable = true;
         default = "docker-client";
