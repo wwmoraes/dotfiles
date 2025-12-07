@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   ...
 }:
@@ -20,7 +21,7 @@
       };
     };
     signing = {
-      key = "32B4330B1B66828E4A969EEBEED994645D7C9BDE";
+      key = config.programs.gpg.settings.default-key;
     };
   };
 

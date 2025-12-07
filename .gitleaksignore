@@ -1,5 +1,0 @@
-## false positives
-settings/work/home/programs/git.nix:generic-api-key:29
-users/william/share/home/programs/git.nix:generic-api-key:15
-users/william/share/home/programs/gpg/default.nix:generic-api-key:11
-users/william/share/home/programs/gpg/default.nix:generic-api-key:14
