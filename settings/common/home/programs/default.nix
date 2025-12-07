@@ -12,6 +12,7 @@
     ./dircolors.nix
     ./direnv.nix
     ./exiftool.nix
+    ./fish-lsp.nix
     ./fzf.nix
     ./gh.nix
     ./go.nix

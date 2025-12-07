@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   ...
@@ -244,10 +243,6 @@ in
       ''
     ];
   };
-
-  programs.helix.extraPackages = lib.optionals config.programs.fish.enable [
-    pkgs.fish-lsp
-  ];
 
   xdg.configFile = builtins.listToAttrs (
     builtins.map (path: {
