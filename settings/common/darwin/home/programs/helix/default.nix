@@ -20,6 +20,7 @@
         pkgs.awk-language-server
         pkgs.ctags-lsp
         pkgs.golangci-lint-langserver
+        pkgs.markdown-oxide
         pkgs.unstable.bash-language-server
         # pkgs.unstable.buf-language-server
         pkgs.unstable.lua-language-server
