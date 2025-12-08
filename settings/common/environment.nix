@@ -16,6 +16,7 @@ in
   ];
 
   environment.systemPackages = [
+    # keep-sorted start
     pkgs.coreutils # # TODO lcoreutils program
     # pkgs.envsubst # # TODO envsubst program from gettext, the OG
     pkgs.expect # # TODO expect program
@@ -25,9 +26,11 @@ in
     pkgs.graphviz # # TODO graphviz program
     # pkgs.dot-language-server ## TODO graphviz program
     pkgs.moreutils # # TODO moreutils program
+    pkgs.nix-index
     pkgs.ripgrep # # TODO ripgrep program
     pkgs.tlrc # # TODO tlrc program
     pkgs.yazi # # TODO yazi program
+    # keep-sorted end
   ];
 
   environment.variables = {
