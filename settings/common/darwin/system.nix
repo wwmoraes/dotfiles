@@ -270,6 +270,27 @@ rec {
         ScheduleFrequency = 1;
       };
       "com.apple.spotlight" = {
+        "engagementCount-com.apple.Spotlight.suggestions" = 0;
+        EnabledPreferenceRules = [
+          "Custom.relatedContents"
+          "Domain.IMAGES"
+          "Domain.MOVIES"
+          "Domain.MUSIC"
+          "Domain.PDF"
+          "Domain.SOURCE"
+          "Domain.SPREADSHEETS"
+          "com.apple.AddressBook"
+          "com.apple.Photos"
+          "com.apple.VoiceMemos"
+          "com.apple.podcasts"
+          "com.apple.tips"
+          "com.surteesstudios.Bartender"
+          # "com.getdropbox.dropbox"
+          # "com.microsoft.rdc.macos"
+          # "com.synology.CloudStationUI"
+          # "euronewsuniversal"
+          # "net.whatsapp.WhatsApp"
+        ];
         orderedItems = [
           {
             enabled = 1;
