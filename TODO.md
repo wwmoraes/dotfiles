@@ -1,5 +1,12 @@
 # TODOs
 
+## Git
+
+- [ ] `git diff --word-diff=color`
+- [ ] `git blame -C -C -C`
+- [ ] git merge tool
+  - [ ] <https://www.sourcegear.com/diffmerge/index.html>
+
 ## Nix
 
 - [ ] modularise darwin-rebuild OR patch upstream

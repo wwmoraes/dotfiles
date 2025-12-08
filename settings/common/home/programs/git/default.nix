@@ -20,6 +20,7 @@ in
     aliases = import ./aliases.nix;
 
     attributes = [
+      "* text=auto" # fallback; this is best set on every repository
       "*.bash diff=bash"
       "*.css diff=css"
       "*.html diff=html"
@@ -153,6 +154,10 @@ in
         signOff = true;
         thread = "shallow";
         useAutoBase = true;
+      };
+      grep = {
+        lineNumber = true;
+        patternType = "perl";
       };
       gui = {
         pruneDuringFetch = true;

@@ -4,6 +4,8 @@
   authors = ''shortlog --summary --numbered --email --all'';
   backup = ''!git push --force-with-lease "$(git remote)" $(git branch --show-current):user/$(git config --get user.handle)/trunk'';
   restore = ''!git pull "$(git remote)" user/$(git config --get user.handle)/trunk:$(git branch --show-current)'';
+  reword = ''commit --allow-empty --amend --only'';
+  grep-history = ''!f() { PATTERN=$1; shift; git grep -e "$PATTERN" $(git rev-list --all) "$@"; }; f'';
   # c = "commit -am";
   # cat-deleted = ''!f() { git cat-file -p "$(git log --pretty=%H --diff-filter=AM -1 -- "$1"):$1"; }; f'';
   # co = "checkout";
