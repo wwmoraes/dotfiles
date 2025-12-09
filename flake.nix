@@ -97,48 +97,46 @@
         # getLanguage = name: (builtins.filter (entry: entry.name == name) darwinConfigurations.M1Cabuk.config.home-manager.users.william.programs.helix.languages.language);
         inherit (inputs.templates) templates;
 
-        darwinModules = {
-          default =
-            {
-              pkgs,
-              ...
-            }:
-            {
-              imports = [
-                nix-homebrew.darwinModules.nix-homebrew
-                (nixpkgs + /nixos/modules/programs/less.nix)
-                ./modules/nix-darwin
+        darwinModules.default =
+          {
+            pkgs,
+            ...
+          }:
+          {
+            imports = [
+              nix-homebrew.darwinModules.nix-homebrew
+              (nixpkgs + /nixos/modules/programs/less.nix)
+              ./modules/nix-darwin
+            ];
+
+            environment.systemPackages = [
+              self.packages.${pkgs.system}.darwin-rebuild
+              self.packages.${pkgs.system}.switch-home
+              self.packages.${pkgs.system}.switch-system
+            ];
+
+            home-manager.sharedModules = [
+              sops-nix.homeManagerModules.sops
+              stylix.homeModules.stylix
+              ./modules/home-manager
+              {
+                stylix.overlays.enable = false;
+              }
+            ];
+
+            nix.registry.templates.flake = inputs.templates;
+
+            nixpkgs = {
+              overlays = [
+                self.overlays.cocopilot
+                self.overlays.default
+                self.overlays.nur
+                self.overlays.unstable
               ];
-
-              environment.systemPackages = [
-                self.packages.${pkgs.system}.darwin-rebuild
-                self.packages.${pkgs.system}.switch-home
-                self.packages.${pkgs.system}.switch-system
-              ];
-
-              home-manager.sharedModules = [
-                sops-nix.homeManagerModules.sops
-                stylix.homeModules.stylix
-                ./modules/home-manager
-                {
-                  stylix.overlays.enable = false;
-                }
-              ];
-
-              nix.registry.templates.flake = inputs.templates;
-
-              nixpkgs = {
-                overlays = [
-                  self.overlays.cocopilot
-                  self.overlays.default
-                  self.overlays.nur
-                  self.overlays.unstable
-                ];
-              };
-
-              system.tools.darwin-rebuild.enable = false;
             };
-        };
+
+            system.tools.darwin-rebuild.enable = false;
+          };
 
         darwinConfigurations =
           let
@@ -175,10 +173,36 @@
             };
           };
 
-        nixosModules.default = {
-          imports = [
-          ];
-        };
+        nixosModules.default =
+          {
+            ...
+          }:
+          {
+            imports = [
+              (nixpkgs + /nixos/modules/programs/less.nix)
+            ];
+
+            home-manager.sharedModules = [
+              sops-nix.homeManagerModules.sops
+              stylix.homeModules.stylix
+              ./modules/home-manager
+              {
+                stylix.overlays.enable = false;
+              }
+            ];
+
+            nix.registry.templates.flake = inputs.templates;
+
+            nixpkgs = {
+              overlays = [
+                self.overlays.cocopilot
+                self.overlays.default
+                self.overlays.nur
+                self.overlays.unstable
+              ];
+            };
+          };
+
         nixosConfigurations = {
           vidar = nixpkgs.lib.nixosSystem rec {
             system = "aarch64-linux";
@@ -190,16 +214,6 @@
               stylix.nixosModules.stylix
               ./hosts/vidar
               ./settings/common
-              {
-                home-manager.sharedModules = [
-                  sops-nix.homeManagerModules.sops
-                  stylix.homeModules.stylix
-                  ./modules/home-manager
-                  {
-                    stylix.overlays.enable = false;
-                  }
-                ];
-              }
               # ./settings/personal
               ./users/william/share
               # ./users/william/personal

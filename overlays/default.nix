@@ -1,3 +1,23 @@
+let
+  mkLocal =
+    lib:
+    lib.makeExtensible (final: {
+      globalCask = name: {
+        inherit name;
+        args = {
+          appdir = "/Applications";
+        };
+      };
+      foldString = final.foldStringWith " ";
+      foldStringWith =
+        sep: str: lib.strings.concatMapStringsSep sep lib.trim (lib.splitString "\n" (lib.trim str));
+      listDirRegularPaths =
+        root:
+        map (lib.path.append root) (
+          builtins.attrNames (lib.filterAttrs (_: v: v == "regular") (builtins.readDir root))
+        );
+    });
+in
 {
   default =
     final: prev:
@@ -24,42 +44,12 @@
         };
       })
       ## helper functions
-      (
-        final: prev:
-        prev.lib.recursiveUpdate prev {
-          lib.local = rec {
-            globalCask = name: {
-              inherit name;
-              args = {
-                appdir = "/Applications";
-              };
-            };
-            unindent =
-              str:
-              let
-                indent = builtins.head (builtins.match "^[\n]*([[:space:]]*).*" str);
-              in
-              if indent == "" then
-                str
-              else
-                (prev.lib.concatLines (
-                  map (prev.lib.removePrefix indent) (prev.lib.splitString "\n" (prev.lib.trim str))
-                ));
-            unindentTrim = str: unindent (prev.lib.removePrefix "\n" (prev.lib.removeSuffix "\n" str));
-            foldString = foldStringWith " ";
-            foldStringWith =
-              sep: str:
-              prev.lib.strings.concatMapStringsSep sep prev.lib.trim (
-                prev.lib.splitString "\n" (prev.lib.trim str)
-              );
-            # listModules = root: map
-            #   (prev.lib.path.append root)
-            #   (prev.lib.attrNames (prev.lib.filterAttrs (name: type: type == "directory" || (type == "regular" && name != "default.nix" && prev.lib.hasSuffix ".nix" name)) (builtins.readDir root)));
-            # listDirRegularPaths = root: map (lib.path.append root) (builtins.attrNames (lib.filterAttrs (_: v: v == "regular") (builtins.readDir root)));
-            # readPathsFromFiles = files: lib.flatten (map readPathsFromFile files);
-            # readPathsFromFile = f: filter pathExists (map (p: /. + p) (filter (v: v != "") (lib.splitString "\n" (readFile f))));
-          };
-        }
-      )
+      (final: prev: {
+        lib = prev.lib.extend (
+          final: prev: {
+            local = mkLocal final;
+          }
+        );
+      })
     ] final;
 }

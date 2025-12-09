@@ -1,15 +1,8 @@
 {
   config,
-  lib,
+  pkgs,
   ...
 }:
-let
-  listDirRegularPaths =
-    root:
-    map (lib.path.append root) (
-      builtins.attrNames (lib.filterAttrs (_: v: v == "regular") (builtins.readDir root))
-    );
-in
 {
   home.sessionVariables = {
     PROJECTS_DIR = "${config.home.homeDirectory}/workspace";
@@ -32,6 +25,6 @@ in
         executable = true;
         source = path;
       };
-    }) (listDirRegularPaths ./completions)
+    }) (pkgs.lib.local.listDirRegularPaths ./completions)
   );
 }
