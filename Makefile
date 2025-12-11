@@ -127,14 +127,14 @@ diff-json-backups:
 darwin/%: secrets.yaml
 	@git add -N hosts modules overlays scripts settings users
 	@mkdir -p .roots
-	nix build --accept-flake-config --out-link .roots/$* .#darwinConfigurations.$*.config.system.build.toplevel
+	nix build --show-trace --accept-flake-config --out-link .roots/$* .#darwinConfigurations.$*.config.system.build.toplevel
 
 .PHONY: nixos/%
 #: Applies the target host settings.
 nixos/%: secrets.yaml
 	@git add -N hosts modules overlays scripts settings users
 	@mkdir -p .roots
-	nix build --accept-flake-config --out-link .roots/$* .#nixosConfigurations.$*.config.system.build.toplevel
+	nix build --show-trace --accept-flake-config --out-link .roots/$* .#nixosConfigurations.$*.config.system.build.toplevel
 
 #: Applies vidar's settings over SSH.
 vidar:
