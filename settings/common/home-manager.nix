@@ -19,11 +19,11 @@
 
               for fingerprint in $(${gpgBin} --options /dev/null --card-status 2> /dev/null | grep -B1 "card-no:" | grep "ssb>" | cut -d"/" -f2 | cut -d" " -f1); do
                 KEYGRIP=$(${gpgBin} --list-keys --with-keygrip --with-colons $fingerprint! | grep -A1 $fingerprint | grep '^grp:' | cut -d: -f10)
-                rm "$GNUPGHOME/private-keys-v1.d/$KEYGRIP.key" 2>/dev/null || true
+                run rm "$GNUPGHOME/private-keys-v1.d/$KEYGRIP.key" 2>/dev/null || true
               done
 
-              ${gpgconfBin} --kill gpg-agent || true
-              ${gpgBin} --card-status > /dev/null || true
+              run ${gpgconfBin} --kill gpg-agent || true
+              run ${gpgBin} --card-status > /dev/null || true
             ''
           );
         }

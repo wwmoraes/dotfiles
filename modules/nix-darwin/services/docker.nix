@@ -59,14 +59,14 @@ in
           home.activation.unlinkDockerDesktop = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
             ## replaces links with file copy otherwise Docker Desktop fails to start...
 
-            sed --in-place= ';' "${config.home.homeDirectory}/Library/Group Containers/group.com.docker/settings-store.json"
-            chmod u+w "${config.home.homeDirectory}/Library/Group Containers/group.com.docker/settings-store.json"
+            run sed --in-place= ';' "${config.home.homeDirectory}/Library/Group Containers/group.com.docker/settings-store.json"
+            run chmod u+w "${config.home.homeDirectory}/Library/Group Containers/group.com.docker/settings-store.json"
 
-            sed --in-place= ';' "${config.home.homeDirectory}/.docker/daemon.json"
-            chmod u+w "${config.home.homeDirectory}/.docker/daemon.json"
+            run sed --in-place= ';' "${config.home.homeDirectory}/.docker/daemon.json"
+            run chmod u+w "${config.home.homeDirectory}/.docker/daemon.json"
 
-            sed --in-place= ';' "${config.home.homeDirectory}/.docker/config.json"
-            chmod u+w "${config.home.homeDirectory}/.docker/config.json"
+            run sed --in-place= ';' "${config.home.homeDirectory}/.docker/config.json"
+            run chmod u+w "${config.home.homeDirectory}/.docker/config.json"
           '';
 
           ## TODO configure credentials for work

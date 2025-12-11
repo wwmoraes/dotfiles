@@ -7,13 +7,13 @@
           home.activation.developerGroupMembership = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
             if ! _=$(groups ${config.home.username} | xargs -n1 | grep -Fx _developer > /dev/null); then
               echo >&2 "adding user ${config.home.username} to group _developer"
-              sudo dscl . append /Groups/_developer GroupMembership "${config.home.username}"
+              run sudo dscl . append /Groups/_developer GroupMembership "${config.home.username}"
             fi
           '';
           home.activation.webdeveloperGroupMembership = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
             if ! _=$(groups ${config.home.username} | xargs -n1 | grep -Fx _webdeveloper > /dev/null); then
               echo >&2 "adding user ${config.home.username} to group _webdeveloper"
-              sudo dscl . append /Groups/_webdeveloper GroupMembership "${config.home.username}"
+              run sudo dscl . append /Groups/_webdeveloper GroupMembership "${config.home.username}"
             fi
           '';
           ## skipping this for now as the write replaces the group in the policy instead of adding
