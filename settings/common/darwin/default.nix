@@ -1,19 +1,19 @@
 {
   imports = [
     # keep-sorted start
-    # keep-sorted start
-
-    # keep-sorted end
-    ./environment.nix
     ./home
+    ./programs
+    ./security
+    ./services
+    # keep-sorted end
+
+    # keep-sorted start
+    ./environment.nix
     ./home-manager.nix
     ./homebrew.nix
     ./launchd.nix
     ./nix-homebrew.nix
     ./nix.nix
-    ./programs
-    ./security
-    ./services
     ./sops.nix
     ./system.nix
     ./users.nix
