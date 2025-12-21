@@ -23,6 +23,10 @@
           # sudo defaults write /tmp/system.preferences.plist group _developer
           # # shellcheck disable=SC2024
           # sudo security authorizationdb write system.preferences < /tmp/system.preferences.plist
+
+          # copy apps instead as Spotlight does NOT work with symlinks :(
+          targets.darwin.copyApps.enable = true;
+          targets.darwin.linkApps.enable = false;
         }
       )
     ];

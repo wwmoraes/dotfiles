@@ -17,6 +17,7 @@
       ];
     };
   };
+
   networking = {
     computerName = " M1 Cabuk";
     domain = "home.arpa";
