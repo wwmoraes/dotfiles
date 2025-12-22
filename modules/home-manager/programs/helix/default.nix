@@ -8,6 +8,10 @@ let
   cfg = config.programs.helix;
 in
 {
+  meta.maintainers = [
+    lib.maintainers.wwmoraes or "wwmoraes"
+  ];
+
   options.programs.helix = {
     languageSettings = mkOption {
       default = null;

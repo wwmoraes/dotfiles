@@ -1,7 +1,7 @@
 { lib, mkFormatterModule, ... }:
 {
   meta.maintainers = [
-    lib.maintainers.wwmoraes
+    lib.maintainers.wwmoraes or "wwmoraes"
   ];
 
   imports = [
