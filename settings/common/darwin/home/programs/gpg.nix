@@ -35,6 +35,8 @@
           SockPathName = lib.mkForce "${config.programs.gpg.homedir}/S.gpg-agent.ssh";
         };
       };
+      StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/${config.launchd.agents.gpg-agent.config.Label}.err.log";
+      StandardOutPath = "${config.home.homeDirectory}/Library/Logs/${config.launchd.agents.gpg-agent.config.Label}.out.log";
     };
     # "dev.artero.hidutil.YubiKey" = {
     #   config = {
