@@ -4,6 +4,10 @@
   pkgs,
   ...
 }:
+let
+  gpgconf = lib.getExe' config.programs.gpg.package "gpgconf";
+  gpg-agent = lib.getExe' config.programs.gpg.package "gpg-agent";
+in
 {
   services.gpg-agent = {
     pinentry = {
@@ -15,8 +19,9 @@
   launchd.agents = {
     gpg-agent.config = {
       ProgramArguments = lib.mkForce [
-        "${lib.getExe' config.programs.gpg.package "gpg-agent"}"
-        "--daemon" # upstream --supervised not supported in darwin
+        "/bin/sh"
+        "-c"
+        "${gpgconf} --kill gpg-agent; ${gpg-agent} --daemon" # upstream --supervised not supported in Darwin
       ];
       # configure as a one-off launch instead of daemon; mostly useful so the
       # retards from CISO @ work won't complain about an "unknown daemon" 🙄
