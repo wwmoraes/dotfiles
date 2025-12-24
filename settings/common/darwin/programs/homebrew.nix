@@ -29,6 +29,12 @@ in
         (lib.optionalString config.homebrew.caskArgs.no_quarantine "--no-quarantine")
       ]
     );
+    HOMEBREW_NO_ANALYTICS = "1";
+    HOMEBREW_NO_AUTO_UPDATE = "1";
+    HOMEBREW_NO_ENV_HINTS = "1";
+    HOMEBREW_NO_INSTALL_CLEANUP = "1";
+    HOMEBREW_NO_INSTALL_UPGRADE = "1";
+    HOMEBREW_NO_UPDATE_REPORT_NEW = "1";
     XDG_DATA_DIRS = lib.mkAfter [
       "/opt/homebrew/share"
     ];
