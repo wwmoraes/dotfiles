@@ -8,12 +8,10 @@
     pkgs.kubectl-neat
     (pkgs.kubectx.overrideAttrs (prev: {
       # TODO create wrapper derivations to fully leverage upstream cache
-      postInstall =
-        (prev.postInstall or "")
-        + ''
-          mv $out/bin/kubectx $out/bin/kubectl-ctx
-          mv $out/bin/kubens $out/bin/kubectl-ns
-        '';
+      postInstall = (prev.postInstall or "") + ''
+        mv $out/bin/kubectx $out/bin/kubectl-ctx
+        mv $out/bin/kubens $out/bin/kubectl-ns
+      '';
     }))
     # pkgs.kubernetes-helmPlugins.helm-diff
     # pkgs.kubernetes-helmPlugins.helm-git

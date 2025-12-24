@@ -9,6 +9,7 @@
 
     # keep-sorted start
     ./bat.nix
+    ./delta.nix
     ./dircolors.nix
     ./direnv.nix
     ./exiftool.nix

@@ -11,7 +11,7 @@
       "*.go diff=golang"
       "go.sum merge=golang-tidy"
     ];
-    extraConfig.merge = {
+    settings.merge = {
       golang-generate = {
         name = "golang generate driver";
         driver = "go generate ./...";
@@ -25,8 +25,10 @@
 
   programs.go = {
     enable = true;
-    goBin = ".go/bin";
-    goPath = ".go";
+    env = {
+      GOBIN = "${config.home.homeDirectory}/.go/bin";
+      GOPATH = "${config.home.homeDirectory}/.go";
+    };
   };
 
   home.sessionVariables = lib.mkIf config.programs.go.enable {

@@ -45,7 +45,7 @@ rec {
     # csrutil enable --without fs --without nvram --without debug
   */
   system.activationScripts.postActivation.text = ''
-    if ! _=$(/usr/sbin/DevToolsSecurity -status | grep -Fx "Developer mode is currently enabled." > /dev/null); then
+    if ! /usr/sbin/DevToolsSecurity -status | grep -Fx "Developer mode is currently enabled." > /dev/null; then
       printf >&2 "enabling developer mode...\n"
       /usr/sbin/DevToolsSecurity -enable
     fi
@@ -450,20 +450,20 @@ rec {
         NSUserKeyEquivalents = {
           "Enter Full Screen" = "@^f";
           "Return to Previous Size" = "";
-          Bottom = "^$\\U2193";
-          "Bottom &amp; Quarters" = "";
-          "Bottom &amp; Top" = "~^$\\U2193";
-          "Left &amp; Quarters" = "";
-          "Left &amp; Right" = "~^$\\U2190";
-          "Right &amp; Left" = "~^$\\U2192";
-          "Right &amp; Quarters" = "";
-          "Top &amp; Bottom" = "~^$\\U2191";
-          "Top &amp; Quarters" = "";
+          Bottom = "^$↓"; # U+2193
+          "Bottom & Quarters" = "";
+          "Bottom & Top" = "~^$↓"; # U+2193
+          "Left & Quarters" = "";
+          "Left & Right" = "~^$←"; # U+2190
+          "Right & Left" = "~^$→"; # U+2192
+          "Right & Quarters" = "";
+          "Top & Bottom" = "~^$↑"; # U+2191
+          "Top & Quarters" = "";
           Centre = "^$c";
           Fill = "^$f";
-          Left = "^$\\U2190";
-          Right = "^$\\U2192";
-          Top = "^$\\U2191";
+          Left = "^$←"; # U+2190
+          Right = "^$→"; # U+2192
+          Top = "^$↑"; # U+2191
         };
         QLPanelAnimationDuration = 0;
         WebKitDeveloperExtras = true;

@@ -136,6 +136,9 @@ nixos/%: secrets.yaml
 	@mkdir -p .roots
 	nix build --show-trace --accept-flake-config --out-link .roots/$* .#nixosConfigurations.$*.config.system.build.toplevel
 
+vm/%: secrets.yaml
+	nix build --show-trace --accept-flake-config --out-link .roots/$*-vm .#legacyPackages.$(shell nix eval --raw .#nixosConfigurations.$*.config.nixpkgs.stdenv.hostPlatform.system).$*-vm
+
 #: Applies vidar's settings over SSH.
 vidar:
 	nix run nixpkgs#nixos-rebuild -- switch \

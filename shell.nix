@@ -14,7 +14,6 @@ mkShell {
     pkgs.editorconfig-checker
     pkgs.fd
     pkgs.fzf
-    pkgs.git
     pkgs.gitleaks
     pkgs.gron
     pkgs.jd-diff-patch # jd

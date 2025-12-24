@@ -5,7 +5,7 @@
   ...
 }:
 let
-  deltaBin = lib.getExe config.programs.git.delta.package;
+  deltaBin = lib.getExe config.programs.delta.package;
   hxBin = lib.getExe config.programs.helix.package;
   tigBin = lib.getExe pkgs.tig;
 in
@@ -264,17 +264,19 @@ in
           "main"
         ];
         overrideGpg = true;
-        paging = {
-          colorArg = "always";
-          pager = pkgs.lib.local.foldString ''
-            ${deltaBin}
-            --dark
-            --paging=never
-            --line-numbers
-            --hyperlinks
-            --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
-          '';
-        };
+        pagers = [
+          {
+            colorArg = "always";
+            pager = pkgs.lib.local.foldString ''
+              ${deltaBin}
+              --dark
+              --paging=never
+              --line-numbers
+              --hyperlinks
+              --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+            '';
+          }
+        ];
         # skipHookPrefix = "fixup!";
       };
       gui = {

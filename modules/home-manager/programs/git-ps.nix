@@ -98,18 +98,17 @@ in
       cfg.package
     ];
 
-    xdg.configFile =
-      {
-        "git-ps/config.toml" = mkIf (cfg.settings != { }) {
-          source = format.generate "git-ps-config.toml" cfg.settings;
-        };
-      }
-      // (lib.concatMapAttrs (name: value: {
-        "git-ps/hooks/${name}" = mkIf (value != null) {
-          executable = true;
-          source = mkIf (builtins.isPath value) value;
-          text = mkIf (!builtins.isPath value) value;
-        };
-      }) cfg.hooks);
+    xdg.configFile = {
+      "git-ps/config.toml" = mkIf (cfg.settings != { }) {
+        source = format.generate "git-ps-config.toml" cfg.settings;
+      };
+    }
+    // (lib.concatMapAttrs (name: value: {
+      "git-ps/hooks/${name}" = mkIf (value != null) {
+        executable = true;
+        source = mkIf (builtins.isPath value) value;
+        text = mkIf (!builtins.isPath value) value;
+      };
+    }) cfg.hooks);
   };
 }

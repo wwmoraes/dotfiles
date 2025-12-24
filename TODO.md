@@ -4,6 +4,7 @@
 
 - [ ] `git diff --word-diff=color`
 - [ ] `git blame -C -C -C`
+- [ ] `env NIX_ABOUT_ON_WARN=true remake`
 - [ ] git merge tool
   - [ ] <https://www.sourcegear.com/diffmerge/index.html>
 

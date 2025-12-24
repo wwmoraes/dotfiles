@@ -1,9 +1,5 @@
 {
   programs.git = {
-    extraConfig = {
-      push = {
-        negotiate = true;
-      };
-    };
+    settings.push.negotiate = true;
   };
 }

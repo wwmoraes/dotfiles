@@ -14,10 +14,8 @@ in
     # pkgs.p4v # TODO test p4v
   ];
 
-  programs.git = rec {
+  programs.git = {
     enable = true;
-
-    aliases = import ./aliases.nix;
 
     attributes = [
       "* text=auto" # fallback; this is best set on every repository
@@ -32,24 +30,12 @@ in
       "*.tex diff=tex"
     ];
 
-    delta = {
-      enable = true;
-      options = {
-        dark = true;
-        light = false;
-        line-numbers = true;
-        navigate = true;
-        syntax-theme = "base16-stylix";
-        tabs = 2;
-      };
-      package = pkgs.delta;
-    };
-
-    extraConfig = {
+    settings = {
       advice = {
         detachedHead = false;
         skippedCherryPicks = false;
       };
+      alias = import ./aliases.nix;
       am = {
         threeWay = true;
       };
@@ -201,10 +187,10 @@ in
           mergeStrategy = "cat_sort_uniq";
         };
       };
-      pager = {
-        blame = lib.getExe delta.package;
-        diff = lib.getExe delta.package;
-      };
+      # pager = {
+      #   blame = lib.getExe config.programs.delta.package;
+      #   diff = lib.getExe config.programs.delta.package;
+      # };
       protocol = {
         ## faster git server communication.
         ## like a LOT faster. https://opensource.googleblog.com/2018/05/introducing-git-protocol-version-2.html

@@ -4,20 +4,18 @@
   ...
 }:
 {
-  programs.git = rec {
-    userEmail = "git@artero.dev";
-    userName = "William Artero";
-    extraConfig = {
+  programs.git = {
+    settings = {
       author = {
-        name = userEmail;
-        email = userEmail;
+        inherit (config.programs.git.settings.user) email name;
       };
       committer = {
-        name = userEmail;
-        email = userEmail;
+        inherit (config.programs.git.settings.user) email name;
       };
       user = {
+        email = "git@artero.dev";
         handle = lib.mkDefault "wwmoraes";
+        name = "William Artero";
       };
     };
     signing = {

@@ -1,12 +1,5 @@
 {
   system.defaults = {
-    alf = {
-      allowdownloadsignedenabled = 1;
-      allowsignedenabled = 1;
-      globalstate = 1;
-      loggingenabled = 1;
-      stealthenabled = 1;
-    };
     CustomUserPreferences = {
       bluetoothaudiod = {
         "AAC Bitrate" = 320;

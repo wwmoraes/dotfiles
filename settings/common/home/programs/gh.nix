@@ -12,12 +12,12 @@
     };
   };
 
-  programs.git.extraConfig.credential = builtins.listToAttrs (
+  programs.git.settings.credential = builtins.listToAttrs (
     map (
       host:
       lib.nameValuePair host {
         helper = lib.mkMerge [
-          config.programs.git.extraConfig.credential.helper
+          config.programs.git.settings.credential.helper
           (lib.mkAfter [
             "${lib.getExe config.programs.gh.package} auth git-credential"
           ])

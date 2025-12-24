@@ -50,5 +50,6 @@ in
         '';
       };
     };
+    keepTerminfo = false;
   };
 }

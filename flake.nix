@@ -6,7 +6,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
     };
     # homebrew-cask = {
     #   url = "github:homebrew/homebrew-cask";
@@ -18,10 +18,10 @@
     # };
     nix-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
     nur = {
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
@@ -36,7 +36,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nur.follows = "nur";
       inputs.systems.follows = "systems";
-      url = "github:danth/stylix/release-25.05";
+      url = "github:danth/stylix/release-25.11";
     };
     systems.url = "github:nix-systems/default";
     templates = {
@@ -110,9 +110,9 @@
             ];
 
             environment.systemPackages = [
-              self.packages.${pkgs.system}.darwin-rebuild
-              self.packages.${pkgs.system}.switch-home
-              self.packages.${pkgs.system}.switch-system
+              self.packages.${pkgs.stdenv.hostPlatform.system}.darwin-rebuild
+              self.packages.${pkgs.stdenv.hostPlatform.system}.switch-home
+              self.packages.${pkgs.stdenv.hostPlatform.system}.switch-system
             ];
 
             home-manager.sharedModules = [
@@ -224,7 +224,7 @@
         overlays = (import ./overlays) // {
           cocopilot = cocopilot.overlays.default;
           unstable = final: prev: {
-            unstable = import unstable { inherit (prev) system; };
+            unstable = import unstable { inherit (prev.stdenv.hostPlatform) system; };
           };
           nur = nur.overlays.default;
         };

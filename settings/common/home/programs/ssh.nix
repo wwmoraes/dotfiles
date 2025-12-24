@@ -5,14 +5,7 @@
 {
   programs.ssh = {
     enable = true;
-
-    addKeysToAgent = "no";
-    compression = true;
-    controlMaster = "auto";
-    controlPath = "~/.ssh/%r@%h:%p.sock";
-    controlPersist = "10m";
-    serverAliveCountMax = 10;
-    serverAliveInterval = 60;
+    enableDefaultConfig = false;
 
     extraOptionOverrides = {
       AddressFamily = "inet";
@@ -27,6 +20,18 @@
     };
 
     matchBlocks = {
+      "*" = {
+        addKeysToAgent = "no";
+        compression = true;
+        controlMaster = "auto";
+        controlPath = "~/.ssh/%r@%h:%p.sock";
+        controlPersist = "10m";
+        forwardAgent = false;
+        hashKnownHosts = false;
+        serverAliveCountMax = 10;
+        serverAliveInterval = 60;
+        userKnownHostsFile = "~/.ssh/known_hosts";
+      };
       "github.com bitbucket.org" = {
         user = "git";
       };

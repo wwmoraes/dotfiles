@@ -14,7 +14,7 @@
       "*.jpg diff=exif"
       "*.png diff=exif"
     ];
-    extraConfig.diff.exif = {
+    settings.diff.exif = {
       textConv = "exiftool -sort -x Directory";
       cachetextconv = true;
       binary = true;
