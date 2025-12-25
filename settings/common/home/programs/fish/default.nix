@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -15,6 +16,60 @@
   programs.fish = {
     enable = true;
     preferAbbrs = true;
+
+    # an attribute set isn't ideal in a modal input setup for a few reasons:
+    #
+    # 1) A user may want to set the same keys for multiple modes
+    # (default/visual/insert/replace/replace_one). A modes option with a list
+    # of modes would solve this.
+    #
+    # 2) A user may want to issue different commands in different modes for the
+    # same keys. This requires a way to set the same key combination with
+    # different properties (namely the mode), which also benefits to allow
+    # separating other options. A list at the top level solves both this and
+    # the previous requirements, namely:
+    #
+    # [
+    #   {
+    #     keys = "ctrl-z";
+    #     mode = null;
+    #     command = "fg";
+    #     silent = true;
+    #     repaint = true;
+    #   }
+    #   {
+    #     keys = "ctrl-z";
+    #     mode = "insert";
+    #     command = "fg 2>/dev/null";
+    #     silent = true;
+    #     repaint = true;
+    #   }
+    # ]
+    #
+    # This would result in:
+    #
+    # bind -s ctrl-z fg repaint
+    # bind -M insert -s ctrl-z 'fg 2>/dev/null' repaint
+    #
+    # The new submodule type could even support 1) to allow squashing those
+    # definitions in case they're the same for multiple modes.
+    #
+    ## TODO contribute a list-based fish bind setting
+    binds = {
+      "ctrl-z" = {
+        command = "fg 2>/dev/null";
+        repaint = true;
+        silent = true;
+      };
+      "ctrl-a" = {
+        command = ''echo $history[1] | nap shell/(date +"%s").fish'';
+        repaint = true;
+      };
+      "ctrl-down" = {
+        command = ''commandline --replace -- (nap list | fzf | ifne xargs nap)'';
+        repaint = true;
+      };
+    };
 
     shellAbbrs = lib.mkMerge [
       {
@@ -163,9 +218,22 @@
       fish_prompt = {
         body = builtins.readFile ./functions/fish_prompt.fish;
       };
-      fish_user_key_bindings = {
-        body = builtins.readFile ./functions/fish_user_key_bindings.fish;
-      };
+      fish_user_key_bindings = lib.mkMerge [
+        (lib.mkBefore ''
+          # Execute this once per mode that emacs bindings should be used in
+          fish_default_key_bindings -M insert
+
+          # Then execute the vi-bindings so they take precedence when there's a conflict.
+          # Without --no-erase fish_vi_key_bindings will default to
+          # resetting all bindings.
+          # The argument specifies the initial mode (insert, "default" or visual).
+          fish_vi_key_bindings --no-erase insert
+
+          bind -M insert ctrl-a '${config.programs.fish.binds."ctrl-a".command}' repaint
+          bind -M insert ctrl-down '${config.programs.fish.binds."ctrl-down".command}' repaint
+          bind -M insert ctrl-z '${config.programs.fish.binds."ctrl-z".command}' repaint
+        '')
+      ];
       fkill = {
         body = builtins.readFile ./functions/fkill.fish;
         description = "fuzzy kill processes";
