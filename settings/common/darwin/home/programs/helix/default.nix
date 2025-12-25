@@ -319,12 +319,6 @@
           # p = ":clipboard-paste-after";
           # y = ":clipboard-yank-join";
           A-q = ":reflow";
-          C-g = [
-            ":new"
-            ":insert-output lazygit"
-            ":redraw"
-            ":buffer-close"
-          ];
           S-tab = "move_parent_node_start";
           X = [
             "extend_line_up"
@@ -344,6 +338,12 @@
           };
           tab = "move_parent_node_end";
           "," = {
+            G = [
+              ":sh zellij run -c -n lazygit -- lazygit"
+            ];
+            E = [
+              ":sh zellij run -c -n yazi -- yazi"
+            ];
             "," = "keep_primary_selection";
             c = ":buffer-close";
             q = ":quit";
@@ -352,6 +352,18 @@
               "split_selection_on_newline"
               ":sort"
               "merge_selections"
+            ];
+            g = [
+              ":new"
+              ":insert-output lazygit"
+              ":redraw"
+              ":buffer-close"
+            ];
+            e = [
+              ":new"
+              ":insert-output yazi"
+              ":redraw"
+              ":buffer-close"
             ];
           };
           "[" = {
