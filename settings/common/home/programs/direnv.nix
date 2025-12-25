@@ -4,10 +4,14 @@
   ...
 }:
 {
-  programs.fish.interactiveShellInit = lib.mkIf config.programs.direnv.enable ''
-    ## reload direnv now, otherwise it only triggers on dir change
-    ${lib.getExe config.programs.direnv.package} reload 2> /dev/null; or true
-  '';
+  programs.fish.interactiveShellInit = lib.mkIf config.programs.direnv.enable (
+    lib.mkMerge [
+      (lib.mkBefore ''
+        # force a clean environment on load
+        eval (pushd /; ${lib.getExe config.programs.direnv.package} export fish; popd)
+      '')
+    ]
+  );
 
   programs.direnv = {
     enable = true;
