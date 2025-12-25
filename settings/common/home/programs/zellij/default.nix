@@ -33,12 +33,15 @@
 
     shellAbbrs = lib.mkMerge [
       {
-        ".f" = "zellij action new-tab -c ~/.local/share/dotfiles/ -l development -n dot";
-        zdev = "zellij action new-tab -l development -c";
-        zfm = "zellij run -i -n yazi -- direnv exec . yazi";
-        zhx = "zellij run -i -n helix -- direnv exec . hx -w .";
-        zlg = "zellij run -i -n lazygit -- direnv exec . lazygit";
-        zri = "zellij run -i";
+        ".f" = "zellij action new-tab -c ~/.local/share/dotfiles/ -n dotfiles";
+        ztab = "zellij action new-tab -c";
+        zifm = "zellij run -i -n yazi -- direnv exec . yazi";
+        zihx = "zellij run -i -n helix -- direnv exec . hx -w .";
+        zilg = "zellij run -i -n lazygit -- direnv exec . lazygit";
+        zfm = "zellij run -c -n yazi -- yazi";
+        zhx = "zellij run -c -n helix -- hx -w .";
+        zlg = "zellij run -c -n lazygit -- lazygit";
+        zi = "zellij run -i";
       }
     ];
   };
@@ -53,6 +56,5 @@
   ## TODO create some typings to generate KDL
   xdg.configFile = {
     "zellij/config.kdl".source = ./config.kdl;
-    "zellij/layouts/development.kdl".source = ./layouts/development.kdl;
   };
 }
