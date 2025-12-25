@@ -200,11 +200,6 @@
         description = "MacOS package management made easy";
         wraps = "pkgutil";
       };
-      projects = {
-        argumentNames = "cmd";
-        body = builtins.readFile ./functions/projects.fish;
-        description = "projects repository management";
-      };
       restart = {
         argumentNames = "name";
         body = builtins.readFile ./functions/restart.fish;

@@ -1,13 +1,8 @@
 {
-  config,
-  pkgs,
+  lib,
   ...
 }:
 {
-  home.sessionVariables = {
-    PROJECTS_DIR = "${config.home.homeDirectory}/workspace";
-  };
-
   programs.fish = {
     functions = {
       work = {
@@ -25,6 +20,6 @@
         executable = true;
         source = path;
       };
-    }) (pkgs.lib.local.listDirRegularPaths ./completions)
+    }) (lib.local.listDirRegularPaths ./completions)
   );
 }

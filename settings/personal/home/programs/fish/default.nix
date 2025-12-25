@@ -1,12 +1,4 @@
 {
-  config,
-  ...
-}:
-{
-  home.sessionVariables = {
-    PROJECTS_DIR = "${config.home.homeDirectory}/dev";
-  };
-
   programs.fish = {
     shellAliases = {
       brew = "op plugin run -- brew";
