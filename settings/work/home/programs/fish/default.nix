@@ -1,5 +1,5 @@
 {
-  lib,
+  pkgs,
   ...
 }:
 {
@@ -20,6 +20,6 @@
         executable = true;
         source = path;
       };
-    }) (lib.local.listDirRegularPaths ./completions)
+    }) (pkgs.lib.local.listDirRegularPaths ./completions)
   );
 }

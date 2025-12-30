@@ -252,8 +252,8 @@
       nix-prehash = {
         body = builtins.readFile ./functions/nix-prehash.fish;
       };
-      nixfmt = {
-        body = builtins.readFile ./functions/nixfmt.fish;
+      nixpp = {
+        body = builtins.readFile ./functions/nixpp.fish;
         description = "pretty print formatting of nix values";
       };
       pgpz = {

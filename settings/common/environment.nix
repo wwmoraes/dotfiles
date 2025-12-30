@@ -29,7 +29,6 @@ in
     pkgs.nix-index
     pkgs.ripgrep # # TODO ripgrep program
     pkgs.tlrc # # TODO tlrc program
-    pkgs.yazi # # TODO yazi program
     # keep-sorted end
   ];
 

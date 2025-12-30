@@ -4,6 +4,15 @@
   ...
 }:
 {
+  editorconfig.settings.".direnv/**" = {
+    charset = "unset";
+    indent_size = "unset";
+    indent_style = "unset";
+    insert_final_newline = "unset";
+    tab_width = "unset";
+    trim_trailing_whitespace = "unset";
+  };
+
   programs.fish.interactiveShellInit = lib.mkIf config.programs.direnv.enable (
     lib.mkMerge [
       (lib.mkBefore ''

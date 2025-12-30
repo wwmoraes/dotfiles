@@ -7,13 +7,13 @@
 {
 
   programs.git.settings = {
-    core = {
-      commentChar = "|";
-    };
+    core.commentChar = "|";
+
     # diff = {
     #   ## SSNS is so bloated that even the sane defaults aren't enough
     #   renameLimit = 16384;
     # };
+
     credential = {
       "https://dev.azure.com" = {
         helper = lib.mkMerge [

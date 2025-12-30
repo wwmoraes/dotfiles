@@ -10,7 +10,6 @@
     ./docker.nix
     ./gh.nix
     ./git.nix
-    ./go.nix
     ./helix.nix
     ./kubectl.nix
     ./npm.nix

@@ -10,6 +10,23 @@ let
   tigBin = lib.getExe pkgs.tig;
 in
 {
+  programs.helix = {
+    settings.keys.normal = {
+      ",".g.g = [
+        ":write-all"
+        ":insert-output lazygit >/dev/tty"
+        ":redraw"
+        ":reload-all"
+      ];
+      A-g = [
+        ":write-all"
+        ":insert-output lazygit >/dev/tty"
+        ":redraw"
+        ":reload-all"
+      ];
+    };
+  };
+
   programs.lazygit = {
     enable = true;
     settings = {
@@ -75,7 +92,7 @@ in
           command = "${tigBin} -- {{.SelectedFile.Name}}";
           context = "files";
           description = "Show file commit history";
-          key = "h";
+          key = "H";
           output = "terminal";
         }
         {

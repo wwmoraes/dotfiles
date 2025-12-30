@@ -1,47 +1,18 @@
 {
   config,
-  lib,
-  pkgs,
   ...
 }:
 {
-  programs.git = {
-    attributes = [
-      "*.gen.go merge=golang-generate"
-      "*.go diff=golang"
-      "go.sum merge=golang-tidy"
-    ];
-    settings.merge = {
-      golang-generate = {
-        name = "golang generate driver";
-        driver = "go generate ./...";
-      };
-      golang-tidy = {
-        name = "golang modules tidy driver";
-        driver = "go mod tidy";
-      };
-    };
-  };
+  home.sessionPath = [
+    config.programs.go.env.GOBIN
+  ];
 
   programs.go = {
     enable = true;
     env = {
+      CGO_ENABLED = "0";
       GOBIN = "${config.home.homeDirectory}/.go/bin";
       GOPATH = "${config.home.homeDirectory}/.go";
     };
   };
-
-  home.sessionVariables = lib.mkIf config.programs.go.enable {
-    CGO_ENABLED = "0";
-  };
-
-  programs.helix.extraPackages = lib.mkIf config.programs.go.enable [
-    pkgs.unstable.delve
-    pkgs.unstable.gopls
-    # pkgs.unstable.gotools
-  ];
-
-  home.sessionPath = lib.mkIf (config.programs.go.enable && config.programs.go.goBin != null) [
-    "${config.home.homeDirectory}/${config.programs.go.goBin}"
-  ];
 }

@@ -10,7 +10,6 @@ in
 {
   home.packages = [
     pkgs.libossp_uuid # uuid bin
-    pkgs.libplist
     # pkgs.p4v # TODO test p4v
   ];
 
@@ -19,11 +18,8 @@ in
 
     attributes = [
       "* text=auto" # fallback; this is best set on every repository
-      "*.bash diff=bash"
       "*.css diff=css"
       "*.html diff=html"
-      "*.md diff=markdown"
-      "*.plist diff=plist"
       "*.py diff=python"
       "*.rb diff=ruby"
       "*.rs diff=rust"
@@ -112,11 +108,6 @@ in
         mnemonicPrefix = true;
         renames = "copies";
         srcPrefix = "old/";
-        plist = {
-          textConv = "plistutil --sort --format xml --infile";
-          cachetextconv = true;
-          binary = true;
-        };
       };
       difftool = {
         guiDefault = "auto";
