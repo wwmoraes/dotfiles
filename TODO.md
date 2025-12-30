@@ -2,7 +2,6 @@
 
 ## Git
 
-- [ ] `git blame -C -C -C`
 - [ ] `env NIX_ABOUT_ON_WARN=true remake`
 - [ ] git merge tool
   - [ ] <https://www.sourcegear.com/diffmerge/index.html>
@@ -13,7 +12,6 @@
 - [ ] flake commands
   - [ ] yubikey card setup
   - [ ] pgp management
-  - [x] gpg card switch
 - [ ] LS_COLORS
   - <https://github.com/trapd00r/LS_COLORS/blob/master/README.markdown#installation>
   - <https://github.com/sharkdp/lscolors>
@@ -43,15 +41,6 @@
   - `gh gist edit a868388843ca3e649d17ba243b813830 ~/.config/pet/snippet.toml --filename pet-snippet.toml`
 - [ ] try nix-darwin's networking.wg-quick
 
-```fish
-## reload all environment variables
-exec env \
-  --unset __fish_home_manager_config_sourced \
-  --unset __HM_SESS_VARS_SOURCED \
-  --unset __NIX_DARWIN_SET_ENVIRONMENT_DONE \
-  fish
-```
-
 ## Helix
 
 - [ ] write-good diagnostics <https://github.com/btford/write-good>
@@ -65,10 +54,6 @@ exec env \
 - [ ] TODO tree support <https://github.com/Gruntfuggly/todo-tree>
 - [ ] haskell-language-server
 - [ ] typos-lsp
-
-## Fish
-
-- [ ] internalise projects new/update commands (currently uses a gist)
 
 ## Workflow
 
