@@ -25,6 +25,7 @@
     ./powerline-go.nix
     ./readline.nix
     ./ssh.nix
+    ./yazi.nix
     # keep-sorted end
   ];
 }
