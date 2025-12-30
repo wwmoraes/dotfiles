@@ -1,3 +1,8 @@
+advanced_mouse_actions false
+default_shell "fish"
+mouse_mode true
+on_force_close "detach"
+
 keybinds clear-defaults=true {
 	locked {
 		bind "Ctrl g" { SwitchToMode "Normal"; }
@@ -151,19 +156,20 @@ keybinds clear-defaults=true {
 		bind "§" { SwitchToMode "Normal"; }
 	}
 	shared_except "locked" {
-		bind "Ctrl g" { SwitchToMode "Locked"; }
-		bind "Ctrl q" { Quit; }
-		bind "Alt n" { NewPane; }
-		bind "Alt i" { MoveTab "Left"; }
-		bind "Alt o" { MoveTab "Right"; }
-		bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
-		bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
-		bind "Alt j" "Alt Down" { MoveFocus "Down"; }
-		bind "Alt k" "Alt Up" { MoveFocus "Up"; }
-		bind "Alt =" "Alt +" { Resize "Increase"; }
 		bind "Alt -" { Resize "Decrease"; }
+		bind "Alt =" "Alt +" { Resize "Increase"; }
 		bind "Alt [" { PreviousSwapLayout; }
 		bind "Alt ]" { NextSwapLayout; }
+		bind "Alt f" { ToggleFloatingPanes; }
+		bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
+		bind "Alt i" { MoveTab "Left"; }
+		bind "Alt j" "Alt Down" { MoveFocus "Down"; }
+		bind "Alt k" "Alt Up" { MoveFocus "Up"; }
+		bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
+		bind "Alt n" { NewPane; }
+		bind "Alt o" { MoveTab "Right"; }
+		bind "Ctrl g" { SwitchToMode "Locked"; }
+		bind "Ctrl q" { Quit; }
 	}
 	shared_except "normal" "locked" {
 		bind "Enter" "Esc" { SwitchToMode "Normal"; }
@@ -206,7 +212,3 @@ plugins {
 		cwd "/"
 	}
 }
-
-on_force_close "detach"
-
-default_shell "fish"
