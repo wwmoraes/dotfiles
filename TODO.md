@@ -2,7 +2,6 @@
 
 ## Git
 
-- [ ] `git diff --word-diff=color`
 - [ ] `git blame -C -C -C`
 - [ ] `env NIX_ABOUT_ON_WARN=true remake`
 - [ ] git merge tool
