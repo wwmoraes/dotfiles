@@ -18,6 +18,8 @@
     "mate-translate"
     "msty" # # AI/LLM
     "netnewswire"
+    "orion"
+    "oversight"
     "plex-htpc"
     "plexamp"
     "racket"
