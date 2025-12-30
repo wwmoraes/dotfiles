@@ -24,6 +24,7 @@
     ./nap.nix
     ./powerline-go.nix
     ./readline.nix
+    ./serpl.nix
     ./ssh.nix
     ./yazi.nix
     # keep-sorted end
