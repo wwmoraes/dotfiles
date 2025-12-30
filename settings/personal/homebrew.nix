@@ -36,6 +36,7 @@
 
   homebrew.masApps = {
     # keep-sorted start
+    "Agenda - Notes meets Calendar" = 1287445660;
     "Apple Configurator" = 1037126344;
     "CCMenu" = 603117688;
     "DoMarks" = 1518886084;
