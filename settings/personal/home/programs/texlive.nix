@@ -1,5 +1,0 @@
-{
-  programs.texlive = {
-    enable = true;
-  };
-}

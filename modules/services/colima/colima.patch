@@ -1,0 +1,13 @@
+diff --git c/cmd/start.go i/cmd/start.go
+index 89b1614..be8b6fb 100644
+--- c/cmd/start.go
++++ i/cmd/start.go
+@@ -398,6 +398,8 @@ func prepareConfig(cmd *cobra.Command) {
+ 	// set missing defaults in the current config
+ 	setConfigDefaults(&current)
+ 
++	startCmdArgs.DiskImage = current.DiskImage
++
+ 	// docker can only be set in config file
+ 	startCmdArgs.Docker = current.Docker
+ 	// provision scripts can only be set in config file

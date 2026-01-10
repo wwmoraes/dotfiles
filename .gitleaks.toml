@@ -2,5 +2,9 @@
 description = "upstream content"
 paths = ['''settings/common/home/programs/helix/default-languages\.toml''']
 
+[[allowlists]]
+description = "linux-builder meant for localhost"
+paths = ['''options/home-manager/targets/darwin/linux-builder/keys/ed25519''']
+
 [extend]
 useDefault = true

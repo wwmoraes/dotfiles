@@ -8,6 +8,7 @@
 
 ## Nix
 
+- [ ] <https://github.com/cpick/nix-rosetta-builder>
 - [ ] modularise darwin-rebuild OR patch upstream
 - [ ] flake commands
   - [ ] yubikey card setup
@@ -24,9 +25,12 @@
 - [ ] git-ps: wrap scripts with extra packages
 - [ ] git: global hooks
 - [ ] nix: refactor flake registry setup into a separate patch overlay
-- [ ] enable htop <https://home-manager.dev/manual/23.05/options.html#opt-programs.htop.enable>
-- [ ] try skim <https://home-manager.dev/manual/23.05/options.html#opt-programs.skim.enable>
-- [ ] try television <https://home-manager.dev/manual/25.05/options.xhtml#opt-programs.television.enable>
+- [ ] enable htop
+  <https://home-manager.dev/manual/23.05/options.html#opt-programs.htop.enable>
+- [ ] try skim
+  <https://home-manager.dev/manual/23.05/options.html#opt-programs.skim.enable>
+- [ ] try television
+  <https://home-manager.dev/manual/25.05/options.xhtml#opt-programs.television.enable>
 - [ ] configure talos
   - .talos/config
 - [ ] configure kubectl
@@ -41,6 +45,14 @@
   - `gh gist edit a868388843ca3e649d17ba243b813830 ~/.config/pet/snippet.toml --filename pet-snippet.toml`
 - [ ] try nix-darwin's networking.wg-quick
 
+### Containers
+
+- [] calibre container
+- [] deluge container
+- [] grafana agent/aloy container
+- [] qbittorrent container
+- [] whisparr container
+
 ## Helix
 
 - [ ] write-good diagnostics <https://github.com/btford/write-good>
@@ -50,7 +62,8 @@
 - [ ] prettify JSON
 - [ ] prettify YAML
 - [ ] licenser support <https://github.com/ymotongpoo/vsc-licenser>
-- [ ] readme pattern support <https://github.com/thomascsd/vscode-readme-pattern>
+- [ ] readme pattern support
+  <https://github.com/thomascsd/vscode-readme-pattern>
 - [ ] TODO tree support <https://github.com/Gruntfuggly/todo-tree>
 - [ ] haskell-language-server
 - [ ] typos-lsp

@@ -12,6 +12,10 @@ fpr = "fpr"
 
 [files]
 extend-exclude = [
+  # keep-sorted start
   "*.asc",
-  "settings/common/programs/finicky/finicky.js",
+  "CHANGELOG.md",
+  "modules/programs/finicky/finicky.js",
+  "secrets.yaml",
+  # keep-sorted end
 ]

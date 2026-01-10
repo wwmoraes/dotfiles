@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+set -eu
+
+rm .git/hooks/* 2>/dev/null || true
+cog install-hook --all --overwrite
+git config --local include.path ../.gitconfig

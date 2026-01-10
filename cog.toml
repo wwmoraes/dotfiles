@@ -1,9 +1,15 @@
 #:schema https://raw.githubusercontent.com/cocogitto/cocogitto/refs/heads/main/website/public/cog-schema.json
 
-branch_whitelist = ["main"]
+branch_whitelist = ["main", "trunk"]
 from_latest_tag = true
-post_bump_hooks = ["git push", "git push {{version}}"]
-pre_bump_hooks = ["./.git/hooks/pre-commit"]
+post_bump_hooks = [
+  "git push",
+  "git push v{{version}}",
+]
+pre_bump_hooks = [
+  "nix fmt",
+  "remake check",
+]
 tag_prefix = "v"
 
 [changelog]
@@ -15,51 +21,25 @@ remote = "github.com"
 repository = "dotsecrets"
 template = "remote"
 
-# [git_hooks]
-# fsmonitor-watchman.script = """lefthook run fsmonitor-watchman "$@""""
-# post-applypatch.script = """lefthook run post-applypatch "$@""""
-# post-checkout.script = """lefthook run post-checkout "$@""""
-# post-commit.script = """lefthook run post-commit "$@""""
-# post-index-change.script = """lefthook run post-index-change "@""""
-# post-merge.script = """lefthook run post-merge "$@""""
-# post-rewrite.script = """lefthook run post-rewrite "@""""
-# pre-applypatch.script = """lefthook run pre-applypatch "$@""""
-# pre-auto-gc.script = """lefthook run pre-auto-gc "@""""
-# pre-merge-commit.script = """lefthook run pre-merge-commit "$@""""
-# pre-rebase.script = """lefthook run pre-rebase "$@""""
-# sendemail-validate.script = """lefthook run sendemail-validate "@""""
-
-[git_hooks.applypatch-msg]
-script = """#!/usr/bin/env sh
-set -eu
-grep -q "^fixup! " "$1" || cog verify --file "$1"
-"""
-
-[git_hooks.pre-prepare-commit-msg]
-script = """#!/usr/bin/env sh
-set -eu
-git interpret-trailers --in-place --trailer signer --trailer patch-stack --trim-empty "$1"
-"""
-
-[git_hooks.commit-msg]
-script = """#!/usr/bin/env sh
-set -eu
-grep -q "^fixup! " "$1" || cog verify --file "$1"
-git interpret-trailers --in-place --trailer signer --trailer patch-stack --trim-empty "$1"
-"""
-
-[git_hooks.pre-commit]
-script = """#!/usr/bin/env sh
-set -eu
-nix flake check
-editorconfig-checker
-gitleaks git --pre-commit --redact --staged --verbose --no-banner --log-level warn
-"""
-
-[git_hooks.pre-push]
-script = """#!/usr/bin/env sh
-set -eu
-cog check
-test "$(git show HEAD:secrets.yaml | sops filestatus --input-type yaml /dev/stdin)" = '{"encrypted":true}'
-make all
-"""
+[git_hooks]
+applypatch-msg.path = ".meta/git/hooks/applypatch-msg.sh"
+commit-msg.path = ".meta/git/hooks/commit-msg.sh"
+# fsmonitor-watchman.path = ".meta/git/hooks/fsmonitor-watchman.sh"
+# p4-changelist.path = ".meta/git/hooks/p4-changelist.sh"
+# p4-post-changelist.path = ".meta/git/hooks/p4-post-changelist.sh"
+# p4-pre-submit.path = ".meta/git/hooks/p4-pre-submit.sh"
+# p4-prepare-changelist.path = ".meta/git/hooks/p4-prepare-changelist.sh"
+# post-applypatch.path = ".meta/git/hooks/post-applypatch.sh"
+post-checkout.path = ".meta/git/hooks/post-checkout.sh"
+# post-commit.path = ".meta/git/hooks/post-commit.sh"
+# post-index-change.path = ".meta/git/hooks/post-index-change.sh"
+# post-merge.path = ".meta/git/hooks/post-merge.sh"
+# post-rewrite.path = ".meta/git/hooks/post-rewrite.sh"
+pre-applypatch.path = ".meta/git/hooks/pre-applypatch.sh"
+# pre-auto-gc.path = ".meta/git/hooks/pre-auto-gc.sh"
+pre-commit.path = ".meta/git/hooks/pre-commit.sh"
+pre-merge-commit.path = ".meta/git/hooks/pre-merge-commit.sh"
+pre-prepare-commit-msg.path = ".meta/git/hooks/prepare-commit-msg.sh"
+pre-push.path = ".meta/git/hooks/pre-push.sh"
+# pre-rebase.path = ".meta/git/hooks/pre-rebase.sh"
+# sendemail-validate.path = ".meta/git/hooks/sendemail-validate.sh"

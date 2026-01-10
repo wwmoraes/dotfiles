@@ -33,7 +33,11 @@ indent_size = unset
 indent_style = unset
 tab_width = unset
 
+
 ## generated content
+[CHANGELOG.md]
+insert_final_newline = unset
+
 [flake.lock]
 generated_code = true
 indent_size = unset

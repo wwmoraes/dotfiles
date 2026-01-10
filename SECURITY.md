@@ -34,8 +34,8 @@ following responsible disclosure principles and these guidelines:
 - We will release the fix and publicly disclose the issue as soon as possible,
   but want to ensure we due properly due diligence before releasing
 - Please do not publicly blog or post about the security issue until after we
-  have updated the public repo so that other downstream users have an opportunity
-  to patch
+  have updated the public repo so that other downstream users have an
+  opportunity to patch
 
 ## Contact / Misc
 

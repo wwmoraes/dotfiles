@@ -1,7 +1,0 @@
-{
-  editorconfig.settings."*.fish" = {
-    indent_size = 4;
-    indent_style = "space";
-    tab_width = 4;
-  };
-}

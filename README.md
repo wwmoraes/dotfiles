@@ -46,9 +46,9 @@ nix run .
 ```
 
 Some enterprise environments use MITM proxies with poorly configured CAs on
-hosts, breaking tools like curl. In such cases its best to clone/download a
-copy of this repository and use its scripts to temporarily dump the certificates
-from the OS certificate store to get past the first setup. Make sure the host
+hosts, breaking tools like curl. In such cases its best to clone/download a copy
+of this repository and use its scripts to temporarily dump the certificates from
+the OS certificate store to get past the first setup. Make sure the host
 configuration contains your enterprise CAs so future runs work without this.
 Those can be found in `settings/work/security/pki/certificates`.
 

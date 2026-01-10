@@ -1,0 +1,23 @@
+{
+  flake.modules.homeManager.shell =
+    {
+      pkgs,
+      ...
+    }:
+    {
+      home.packages = [
+        pkgs.serpl
+      ];
+
+      programs.helix = {
+        settings.keys = {
+          normal.A-r = [
+            ":write-all"
+            ":insert-output serpl >/dev/tty"
+            ":redraw"
+            ":reload-all"
+          ];
+        };
+      };
+    };
+}

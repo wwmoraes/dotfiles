@@ -1,0 +1,18 @@
+{
+  inputs,
+  ...
+}:
+{
+  flake-file.inputs.cocopilot = {
+    inputs.flake-parts.follows = "flake-parts";
+    inputs.flake-utils.follows = "flake-utils";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.nur.follows = "nur";
+    inputs.systems.follows = "systems";
+    inputs.treefmt-nix.follows = "treefmt-nix";
+    inputs.unstable.follows = "unstable";
+    url = "github:wwmoraes/cocopilot";
+  };
+
+  flake.overlays.cocopilot = inputs.cocopilot.overlays.default;
+}

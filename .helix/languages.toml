@@ -1,0 +1,14 @@
+[language-server.nixd.nixpkgs]
+expr = "import (builtins.getFlake(toString ./.)).inputs.nixpkgs { }"
+
+[language-server.nixd.options.nixos]
+expr = "let flake = builtins.getFlake (toString ./.); in ((builtins.head (builtins.attrValues flake.nixosConfigurations)) or { options = {}; }).options"
+
+[language-server.nixd.options.darwin]
+expr = "let flake = builtins.getFlake (toString ./.); in ((builtins.head (builtins.attrValues flake.darwinConfigurations)) or { options = {}; }).options"
+
+[language-server.nixd.options.flake]
+expr = "let flake = builtins.getFlake (toString ./.); in flake.debug.options // flake.currentSystem.options"
+
+[language-server.nixd.options.home-manager]
+expr = "let flake = builtins.getFlake (toString ./.); in ((builtins.head (builtins.attrValues (flake.nixosConfigurations // flake.darwinConfigurations))) or { options.home-manager.users.type.getSubOptions = _: {}; }).options.home-manager.users.type.getSubOptions []"

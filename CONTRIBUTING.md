@@ -15,8 +15,8 @@ with the project.
    new environment variables, exposed ports, useful file locations and container
    parameters.
 1. Increase the version numbers in any examples files and the README.md to the
-   new version that this Pull Request would represent. The versioning scheme we use
-   is [SemVer](http://semver.org/).
+   new version that this Pull Request would represent. The versioning scheme we
+   use is [SemVer](http://semver.org/).
 1. You may merge the Pull Request in once you have the sign-off of two other
    developers, or if you do not have permission to do that, you may request the
    second reviewer to merge it for you.
@@ -48,12 +48,12 @@ community include:
 
 Examples of unacceptable behavior include:
 
-- The use of sexualized language or imagery, and sexual attention or
-  advances of any kind
+- The use of sexualized language or imagery, and sexual attention or advances of
+  any kind
 - Trolling, insulting or derogatory comments, and personal or political attacks
 - Public or private harassment
-- Publishing others' private information, such as a physical or email
-  address, without their explicit permission
+- Publishing others' private information, such as a physical or email address,
+  without their explicit permission
 - Other conduct which could reasonably be considered inappropriate in a
   professional setting
 
@@ -102,7 +102,8 @@ behavior was inappropriate. A public apology may be requested.
 
 ### 2. Warning
 
-**Community Impact**: A violation through a single incident or series of actions.
+**Community Impact**: A violation through a single incident or series of
+actions.
 
 **Consequence**: A warning with consequences for continued behavior. No
 interaction with the people involved, including unsolicited interaction with
@@ -134,7 +135,8 @@ project community.
 ## Attribution
 
 This Code of Conduct is adapted from the [Contributor Covenant][homepage],
-version 2.0, available at <https://www.contributor-covenant.org/version/2/0/code_of_conduct.html>.
+version 2.0, available at
+<https://www.contributor-covenant.org/version/2/0/code_of_conduct.html>.
 
 Community Impact Guidelines were inspired by Mozilla's
 [code of conduct enforcement ladder](https://github.com/mozilla/diversity).

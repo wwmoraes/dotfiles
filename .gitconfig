@@ -7,3 +7,7 @@
 # 	required = true
 # 	smudge = sops decrypt --filename-override '%f' /dev/stdin
 # 	clean = sops encrypt --filename-override '%f' /dev/stdin
+
+[merge "write-flake"]
+name = "flake-file write-flake"
+driver = "nix run .#write-flake"
