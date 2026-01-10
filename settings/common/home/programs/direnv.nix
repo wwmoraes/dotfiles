@@ -4,7 +4,7 @@
   ...
 }:
 {
-  editorconfig.settings.".direnv/**" = {
+  editorconfig.settings.".direnv/*" = {
     charset = "unset";
     indent_size = "unset";
     indent_style = "unset";
