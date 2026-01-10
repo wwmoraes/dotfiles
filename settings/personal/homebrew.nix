@@ -10,7 +10,6 @@
     "appcleaner"
     "calibre"
     "hakuneko"
-    "image2icon"
     "keybase"
     "launchcontrol"
     "macfuse" # # needed by resilio-sync
@@ -41,6 +40,7 @@
     "CCMenu" = 603117688;
     "DoMarks" = 1518886084;
     "GarageBand" = 682658836;
+    "Image2Icon" = 992115977;
     "Keynote" = 409183694;
     "Numbers" = 409203825;
     "OmniOutliner" = 1142578772;
