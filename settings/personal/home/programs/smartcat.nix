@@ -64,7 +64,7 @@ in
         };
         review = {
           api = "ollama";
-          default_model = "llama2-uncensored:7b-chat-q6_K";
+          default_model = "mistral:7b-instruct-v0.3-q5_K_M";
           messages = [
             {
               role = "system";
