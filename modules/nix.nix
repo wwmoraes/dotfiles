@@ -12,6 +12,9 @@
       "https://cache.nixos.org/"
       "https://hercules-ci.cachix.org/"
     ];
+    extra-experimental-features = [
+      "pipe-operators"
+    ];
     trusted-public-keys = [
       "wwmoraes.cachix.org-1:N38Kgu19R66Jr62aX5rS466waVzT5p/Paq1g6uFFVyM="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -59,6 +62,7 @@
           extra-experimental-features = [
             "flakes"
             "nix-command"
+            "pipe-operators"
           ];
           require-sigs = true;
           sandbox = true;

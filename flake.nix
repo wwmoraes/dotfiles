@@ -8,6 +8,7 @@
   nixConfig = {
     builders = "ssh://root@vidar aarch64-linux";
     builders-use-substitutes = true;
+    extra-experimental-features = [ "pipe-operators" ];
     substituters = [
       "https://wwmoraes.cachix.org/"
       "https://nix-community.cachix.org/"
