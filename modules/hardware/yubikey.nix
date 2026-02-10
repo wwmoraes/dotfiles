@@ -10,7 +10,7 @@
       ];
     };
 
-  flake.modules.homeManager.personal =
+  flake.modules.homeManager.gui'personal =
     {
       pkgs,
       ...
