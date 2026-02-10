@@ -74,14 +74,23 @@
                   };
                 }
                 {
-                  name = "check flake.lock";
+                  name = "lock";
                   run = "nix flake lock --no-update-lock-file";
                 }
                 {
                   name = "build";
-                  run = "nix build github:srid/devour-flake --no-link --show-trace --override-input flake .";
+                  run = builtins.concatStringsSep " " [
+                    "om ci run"
+                    "--extra-experimental-features flakes"
+                    "--extra-experimental-features nix-command"
+                    "--extra-experimental-features pipe-operators"
+                    "--no-link"
+                    "."
+                    "--"
+                    "--accept-flake-config"
+                    # "--print-build-logs"
+                  ];
                 }
-                # { run = "om ci run --no-link . -- --accept-flake-config"; }
               ];
             };
           };
