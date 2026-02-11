@@ -109,10 +109,10 @@ const suffixBGone = (suffix) => ({
  */
 const matchBGone = (re) => ({
 	match: ({ href }) => href.match(re),
-	url: (url) => url.href.
+	url: (url) => decodeURIComponent(url.href.
 		replace(re, "").
 		replace(/%25/g, "%").
-		replace( / /g, "%20"),
+		replace( / /g, "%20")),
 });
 
 /**
