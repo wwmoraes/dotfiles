@@ -51,7 +51,7 @@
       ];
 
       nix = {
-        package = pkgs.nixVersions.git;
+        package = pkgs.nixVersions.latest;
         settings = {
           accept-flake-config = true;
           allowed-users = [
