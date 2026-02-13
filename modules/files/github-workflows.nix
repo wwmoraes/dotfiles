@@ -34,7 +34,7 @@
           drv = generateYAML "github-integration-workflow.yaml" {
             name = "Integration";
             on.push.branches = [
-              "master"
+              "main"
               "trunk"
             ];
             jobs.integrate = {

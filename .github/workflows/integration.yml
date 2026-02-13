@@ -36,5 +36,5 @@ name: Integration
 'on':
   push:
     branches:
-    - master
+    - main
     - trunk
