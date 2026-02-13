@@ -32,7 +32,7 @@
         {
           path_ = ".github/workflows/integration.yml";
           drv = generateYAML "github-integration-workflow.yaml" {
-            name = "Integration V2";
+            name = "Integration";
             on.push.branches = [
               "master"
               "trunk"
