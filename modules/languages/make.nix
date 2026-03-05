@@ -1,7 +1,7 @@
 {
   flake.modules.homeManager.default = {
     editorconfig.settings = builtins.listToAttrs (
-      builtins.map
+      map
         (name: {
           inherit name;
           value = {

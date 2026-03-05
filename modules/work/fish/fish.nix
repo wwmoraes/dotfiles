@@ -16,8 +16,8 @@
       };
 
       xdg.configFile = builtins.listToAttrs (
-        builtins.map (path: {
-          name = "fish/completions/${builtins.baseNameOf path}";
+        map (path: {
+          name = "fish/completions/${baseNameOf path}";
           value = {
             executable = true;
             source = path;
