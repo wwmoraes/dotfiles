@@ -49,7 +49,7 @@
           # pkgs.unstable.gotools
         ];
 
-        languageSettings.go = {
+        properties.languages.go = {
           auto-format = true;
           formatter = {
             command = "golangci-lint";

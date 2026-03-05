@@ -28,7 +28,7 @@
     );
 
     programs.helix = {
-      languageSettings.git-config.file-types = [
+      properties.languages.git-config.file-types = [
         { glob = ".config/git/*"; }
         { glob = ".git/config"; }
         { glob = ".gitattributes"; }

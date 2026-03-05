@@ -7,7 +7,7 @@
     # ];
 
     programs.helix = {
-      languageSettings.rust.formatter.command = "rustfmt";
+      properties.languages.rust.formatter.command = "rustfmt";
     };
   };
 }

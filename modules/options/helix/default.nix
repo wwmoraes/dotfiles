@@ -14,11 +14,25 @@
         lib.maintainers.wwmoraes or "wwmoraes"
       ];
 
+      imports = [
+        (lib.mkRenamedOptionModule
+          [ "programs" "helix" "languageSettings" ]
+          [ "programs" "helix" "properties" "languages" ]
+        )
+      ];
+
       options.programs.helix = {
-        languageSettings = mkOption {
-          default = null;
-          apply = lib.filterAttrsRecursive (_: v: v != null);
-          type = with types; nullOr (attrsOf (submodule ./_settings.nix));
+        properties = {
+          grammars = mkOption {
+            default = { };
+            apply = lib.filterAttrsRecursive (_: v: v != null);
+            type = with types; attrs;
+          };
+          languages = mkOption {
+            default = null;
+            apply = lib.filterAttrsRecursive (_: v: v != null);
+            type = with types; nullOr (attrsOf (submodule ./_settings.nix));
+          };
         };
       };
 
@@ -35,14 +49,23 @@
           );
         in
         mkIf cfg.enable {
-          programs.helix.languages.language = lib.mapAttrsToList (
-            name: value:
-            value
-            // {
-              name = lib.mkOptionDefault name;
-              grammar = lib.mkOptionDefault name;
-            }
-          ) (dropNullAttrs config.programs.helix.languageSettings);
+          programs.helix.languages = {
+            grammar = lib.mapAttrsToList (
+              name: value:
+              value
+              // {
+                name = lib.mkOptionDefault name;
+              }
+            ) (dropNullAttrs config.programs.helix.properties.grammars);
+            language = lib.mapAttrsToList (
+              name: value:
+              value
+              // {
+                name = lib.mkOptionDefault name;
+                grammar = lib.mkOptionDefault name;
+              }
+            ) (dropNullAttrs config.programs.helix.properties.languages);
+          };
         };
     };
 }

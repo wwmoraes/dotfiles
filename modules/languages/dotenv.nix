@@ -6,7 +6,7 @@
         "!*.env"
       ];
 
-      languageSettings.env = {
+      properties.languages.env = {
         file-types = [
           { glob = ".*.env"; }
           { glob = ".env"; }

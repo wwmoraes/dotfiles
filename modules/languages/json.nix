@@ -34,7 +34,7 @@
           };
         };
 
-        languageSettings.json.file-types = [
+        properties.languages.json.file-types = [
           "json"
           "json.gotmpl"
           "webmanifest"

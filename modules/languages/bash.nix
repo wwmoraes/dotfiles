@@ -7,7 +7,7 @@
     };
 
     programs.helix = {
-      languageSettings.bash = {
+      properties.languages.bash = {
         file-types = [
           "bash"
           { glob = ".envrc"; }

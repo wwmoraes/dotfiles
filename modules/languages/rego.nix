@@ -10,7 +10,7 @@
           pkgs.regal
         ];
 
-        languageSettings.rego.language-servers = [
+        properties.languages.rego.language-servers = [
           "regal"
           "regols"
         ];

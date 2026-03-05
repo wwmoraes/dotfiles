@@ -39,7 +39,7 @@
       };
 
       programs.helix = {
-        languageSettings.nix = {
+        properties.languages.nix = {
           auto-format = true;
           formatter = {
             command = "nixfmt";

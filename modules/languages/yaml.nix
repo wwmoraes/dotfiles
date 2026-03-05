@@ -33,7 +33,7 @@
           };
         };
 
-        languageSettings.yaml.file-types = [
+        properties.languages.yaml.file-types = [
           "yaml"
           "yaml.gotmpl"
           "yml"
