@@ -4,12 +4,16 @@
   ...
 }:
 {
-  flake.modules.generic.william = {
-    users.users.william = {
-      name = "william";
-      home = lib.mkDefault "/home/william";
+  flake.modules.generic.william =
+    { config, ... }:
+    {
+      users.users.william = {
+        name = "william";
+        home = lib.mkDefault "/home/william";
+      };
+
+      sops.gnupg.home = config.home-manager.users.william.programs.gpg.homedir;
     };
-  };
 
   flake.modules.darwin.william = {
     users.users.william = {

@@ -3,6 +3,17 @@
   self,
   ...
 }:
+let
+  commonSopsSettings = {
+    age = {
+      sshKeyPaths = [ ];
+      generateKey = false;
+    };
+    gnupg = {
+      sshKeyPaths = [ ];
+    };
+  };
+in
 {
   flake-file.inputs.sops-nix = {
     inputs.nixpkgs.follows = "nixpkgs";
@@ -12,30 +23,22 @@
   flake.modules.generic.default = {
     home-manager.sharedModules = [
       inputs.sops-nix.homeManagerModules.sops
+      (
+        { config, name, ... }:
+        {
+          sops = commonSopsSettings // {
+            defaultSopsFile = self + /modules/users/${name}/secrets.yaml;
+            gnupg.home = config.programs.gpg.homedir;
+          };
+        }
+      )
     ];
 
     # TODO https://github.com/Mic92/sops-nix?tab=readme-ov-file#qubes-split-gpg-support
-    sops = {
-      age = {
-        sshKeyPaths = [ ];
-        generateKey = false;
-      };
+    sops = commonSopsSettings // {
       defaultSopsFile = self + /secrets.yaml;
-      gnupg = {
-        sshKeyPaths = [ ];
-      };
     };
   };
-
-  flake.modules.generic.william =
-    {
-      config,
-      ...
-    }:
-    {
-      # TODO this should point to the primary user; nixos doesn't have a prop for that
-      sops.gnupg.home = config.home-manager.users.william.programs.gpg.homedir;
-    };
 
   flake.modules.nixos.default = {
     imports = [

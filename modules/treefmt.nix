@@ -30,7 +30,6 @@
           "*.asc"
           "CHANGELOG.md"
           "modules/programs/finicky/finicky.js"
-          "secrets.yaml"
           # keep-sorted end
         ];
         configFile = toString ../.typos.toml;
@@ -40,7 +39,6 @@
         excludes = [
           # keep-sorted start
           ".github/workflows/integration.yml"
-          "secrets.yaml"
           # keep-sorted end
         ];
         settings = {
@@ -51,6 +49,13 @@
           };
         };
       };
+
+      settings.excludes = [
+        # keep-sorted start
+        "*/secrets.yaml"
+        "secrets.yaml"
+        # keep-sorted end
+      ];
     };
   };
 }
