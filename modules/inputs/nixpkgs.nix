@@ -32,6 +32,7 @@ in
         pkg:
         builtins.elem (lib.getName pkg) [
           # keep-sorted start
+          "crush"
           "slack"
           # keep-sorted end
         ];
