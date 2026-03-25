@@ -1,4 +1,18 @@
 {
+  flake.modules.darwin.development =
+    {
+      config,
+      ...
+    }:
+    {
+      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths =
+        config.users.users
+        |> builtins.attrValues
+        |> builtins.concatMap (user: [
+          "${user.home}/.lima"
+        ]);
+    };
+
   flake.modules.homeManager.development =
     {
       pkgs,

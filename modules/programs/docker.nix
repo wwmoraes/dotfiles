@@ -151,17 +151,30 @@
     };
   };
 
-  flake.modules.darwin.development = {
-    home-manager.sharedModules = [
-      {
-        programs.docker.desktopSettings = {
-          FilesharingDirectories = lib.mkDefault [
-            "/tmp"
-          ];
-        };
-      }
-    ];
-  };
+  flake.modules.darwin.development =
+    {
+      config,
+      ...
+    }:
+    {
+      home-manager.sharedModules = [
+        {
+          programs.docker.desktopSettings = {
+            FilesharingDirectories = lib.mkDefault [
+              "/tmp"
+            ];
+          };
+        }
+      ];
+
+      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths =
+        config.users.users
+        |> builtins.attrValues
+        |> builtins.concatMap (user: [
+          "${user.home}/.docker"
+          "${user.home}/.moby"
+        ]);
+    };
 
   flake.modules.homeManager.development =
     {

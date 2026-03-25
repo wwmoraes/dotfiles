@@ -122,5 +122,9 @@
       programs.fish.interactiveShellInit = ''
         brew shellenv fish 2>/dev/null | source || true
       '';
+
+      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths = [
+        (toString (/. + "${config.homebrew.brewPrefix}/.."))
+      ];
     };
 }

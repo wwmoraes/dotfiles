@@ -220,4 +220,23 @@
       ## nuke the unconfigurable daemon settings since nix-darwin 25.05
       system.activationScripts.nix-daemon.text = lib.mkForce ":";
     };
+
+  flake.modules.darwin.personal =
+    {
+      config,
+      ...
+    }:
+    {
+      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths = [
+        /nix
+      ]
+      ++ (
+        config.users.users
+        |> builtins.attrValues
+        |> builtins.concatMap (user: [
+          "${user.home}/.nix-defexpr"
+          "${user.home}/.nix-profile"
+        ])
+      );
+    };
 }

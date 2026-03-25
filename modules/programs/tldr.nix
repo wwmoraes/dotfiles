@@ -15,4 +15,18 @@
         package = pkgs.tlrc;
       };
     };
+
+  flake.modules.darwin.shell =
+    {
+      config,
+      ...
+    }:
+    {
+      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths =
+        config.users.users
+        |> builtins.attrValues
+        |> builtins.concatMap (user: [
+          "${user.home}/.tldrc"
+        ]);
+    };
 }

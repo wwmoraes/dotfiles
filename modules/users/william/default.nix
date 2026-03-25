@@ -15,11 +15,20 @@
       sops.gnupg.home = config.home-manager.users.william.programs.gpg.homedir;
     };
 
-  flake.modules.darwin.william = {
-    users.users.william = {
-      home = "/Users/william";
+  flake.modules.darwin.william =
+    {
+      config,
+      ...
+    }:
+    {
+      users.users.william = {
+        home = "/Users/william";
+      };
+      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths = [
+        "${config.users.users.william.home}/Cloud"
+        "${config.users.users.william.home}/dev"
+      ];
     };
-  };
 
   flake.modules.nixos.william =
     {
