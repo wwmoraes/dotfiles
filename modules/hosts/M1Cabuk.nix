@@ -12,6 +12,7 @@
 
     profiles = [
       # keep-sorted start
+      "ai"
       "default"
       "development"
       "entertainment"
