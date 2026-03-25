@@ -12,7 +12,6 @@
         pkgs.fd
         pkgs.moreutils
         pkgs.ripgrep
-        pkgs.tlrc
         # keep-sorted end
       ];
     };
