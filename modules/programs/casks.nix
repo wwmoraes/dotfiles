@@ -25,7 +25,6 @@
       "netnewswire"
       "oversight"
       "racket"
-      "raindropio"
       "soundsource"
       "suspicious-package"
       "tiddly"

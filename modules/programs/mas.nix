@@ -11,7 +11,6 @@
       "Keynote" = 409183694;
       "Numbers" = 409203825;
       "OmniOutliner" = 1142578772;
-      "Save to Raindrop.io" = 1549370672;
       "StopTheMadness" = 1376402589;
       "TestFlight" = 899247664;
       "WireGuard" = 1451685025;
