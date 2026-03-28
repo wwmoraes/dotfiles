@@ -72,11 +72,6 @@
           lib.mkMerge [
             (lib.optional hasApps "mas") # # used internally by brew masApps
             (lib.optional hasTaps "gh") # # used internally by brew taps
-            [
-              # keep-sorted start
-              "qcachegrind"
-              # keep-sorted end
-            ]
           ];
 
         caskArgs = {
