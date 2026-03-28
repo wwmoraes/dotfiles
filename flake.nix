@@ -106,7 +106,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/treefmt-nix";
     };
-    unstable.url = "github:NixOS/nixpkgs";
+    unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
 }

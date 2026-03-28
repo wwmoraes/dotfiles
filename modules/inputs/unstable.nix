@@ -3,7 +3,7 @@
   ...
 }:
 {
-  flake-file.inputs.unstable.url = "github:NixOS/nixpkgs";
+  flake-file.inputs.unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
   flake.overlays.unstable = final: prev: {
     unstable = import inputs.unstable { inherit (prev.stdenv.hostPlatform) system; };
