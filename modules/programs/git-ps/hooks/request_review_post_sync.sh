@@ -12,11 +12,12 @@ log() { echo >&2 "$(date --utc +%FT%T.%3NZ) $*"; }
 
 log "$(basename "$0") started"
 
+: "${REMOTE_NAME:=${3:-$(git remote 2> /dev/null)}}"
+
 git remote set-head "${REMOTE_NAME}" --auto > /dev/null
 
 : "${SOURCE_BRANCH:=${1:-$(git branch --show-current 2> /dev/null)}}"
 : "${TARGET_BRANCH:=${2:-$(git symbolic-ref "refs/remotes/${REMOTE_NAME}/HEAD" --short) 2> /dev/null}}"
-: "${REMOTE_NAME:=${3:-$(git remote 2> /dev/null)}}"
 : "${REMOTE_URL:=${4:-$(git remote get-url "${REMOTE_NAME}" 2> /dev/null)}}"
 
 : "${SOURCE_BRANCH:?must be set}"
@@ -25,7 +26,7 @@ git remote set-head "${REMOTE_NAME}" --auto > /dev/null
 : "${REMOTE_URL:?must be set}"
 
 : "${TITLE:=$(git log "${SOURCE_BRANCH}^..${SOURCE_BRANCH}" --pretty=format:%s 2> /dev/null)}"
-: "${DESCRIPTION=$(git request-pull "${TARGET_BRANCH}" "${REMOTE_URL}" 2>/dev/null)}"
+: "${DESCRIPTION=$(git request-pull "${TARGET_BRANCH}" "${REMOTE_URL}" 2>/dev/null | sed -z -E 's/(\S)\n(\S)/\1 \2/gm' | grep -v '<!--' | grep .)}"
 
 azure_devops_handler() {
 	log "Azure DevOps detected"
