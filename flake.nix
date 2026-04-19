@@ -6,7 +6,7 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   nixConfig = {
-    builders = "ssh://root@vidar aarch64-linux";
+    builders = "ssh://root@vidar aarch64-linux; ssh://root@nas x86_64-linux";
     builders-use-substitutes = true;
     extra-experimental-features = [ "pipe-operators" ];
     substituters = [

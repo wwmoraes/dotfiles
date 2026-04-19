@@ -14,7 +14,11 @@ NIX_SOURCES = $(sort $(shell git ls-files '*.nix'))
 
 .PHONY: all
 #: Build all hosts' activation scripts.
-all: host/M1Cabuk host/NLLM4000559023 host/vidar # vm/folkvangr
+all: host/M1Cabuk
+all: host/NLLM4000559023
+all: host/nas
+all: host/vidar
+# all: vm/folkvangr
 
 .PHONY: build
 #: Build current host's activation script.
@@ -42,8 +46,8 @@ else
 	sudo nixos-rebuild switch --no-remote ${FLAGS} --flake .
 endif
 
-#: Applies vidar's settings over SSH.
-install/vidar:
+#: Activates configuration over SSH.
+install/vidar::
 	nix run nixpkgs#nixos-rebuild -- switch \
 		--build-host root@vidar.home.arpa \
 		--fast \
@@ -77,6 +81,11 @@ pushcheck: all
 	nix build --show-trace --accept-flake-config --out-link $@ .#nixosConfigurations.$*.config.system.build.toplevel
 	@touch $@
 
+.roots/home/%: secrets.yaml ${NIX_SOURCES}
+	@mkdir -p $(dir $@)
+	nix build --show-trace --accept-flake-config --out-link $@ .#homeConfigurations."$(subst @,',$*)".activationPackage
+	@touch $@
+
 .roots/vm/%: secrets.yaml ${NIX_SOURCES}
 	@mkdir -p $(dir $@)
 	nix build --show-trace --accept-flake-config --out-link $@ .#legacyPackages.$(shell nix eval --raw .#nixosConfigurations.$*.pkgs.stdenv.hostPlatform.system).$*-image
@@ -96,6 +105,8 @@ host/$(2): .roots/$(1)/$(2);
 )
 endef
 
+.PHONY: install/%
+
 .PHONY: host/%
 $(foreach HOST,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#darwinConfigurations),$(call hostTarget,darwin,${HOST}))
 $(foreach HOST,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#nixosConfigurations),$(call hostTarget,nixos,${HOST}))
@@ -109,3 +120,33 @@ endef
 
 .PHONY: vm/%
 $(foreach HOST,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#nixosConfigurations),$(call vmTarget,${HOST}))
+
+define homeTarget
+$(eval
+#: Builds the target home's activation script.
+home/$(1)@$(2): .roots/home/$(1)@$(2);
+)
+endef
+
+define homeHostTarget
+$(eval
+#: Builds the target host's activation script.
+host/$(2): home/$(1)@$(2);
+)
+endef
+
+define installHomeTarget
+$(eval
+#: Activates configuration over SSH.
+install/$(2):: home/$(1)@$(2)
+install/$(2):: DRV=$$(shell readlink -f .roots/home/$(1)@$(2))
+install/$(2)::
+	nix-copy-closure --to $(1)@$(2) $${DRV}
+	ssh root@nas 'nix-env --profile /nix/var/nix/profiles/per-user/$(1)/home-manager --set "$${DRV}" && "$${DRV}/activate" --driver-version 1'
+)
+endef
+
+.PHONY: home/%
+$(foreach CONFIGNAME,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#homeConfigurations),$(call homeTarget,$(firstword $(subst ', ,${CONFIGNAME})),$(lastword $(subst ', ,${CONFIGNAME}))))
+$(foreach CONFIGNAME,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#homeConfigurations),$(call homeHostTarget,$(firstword $(subst ', ,${CONFIGNAME})),$(lastword $(subst ', ,${CONFIGNAME}))))
+$(foreach CONFIGNAME,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#homeConfigurations),$(call installHomeTarget,$(firstword $(subst ', ,${CONFIGNAME})),$(lastword $(subst ', ,${CONFIGNAME}))))

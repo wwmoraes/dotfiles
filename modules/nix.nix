@@ -4,7 +4,7 @@
 }:
 {
   flake-file.nixConfig = {
-    builders = "ssh://root@vidar aarch64-linux";
+    builders = "ssh://root@vidar aarch64-linux; ssh://root@nas x86_64-linux";
     builders-use-substitutes = true;
     substituters = [
       "https://wwmoraes.cachix.org/"
