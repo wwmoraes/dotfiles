@@ -56,6 +56,7 @@
         EnableInference = false;
         EnableIntegrationWithDefaultWslDistro = false;
         EnableIntegrityCheck = true;
+        EnableLogsTab = false;
         EnableSegmentDebug = false;
         EnableWasmShims = false;
         EnhancedContainerIsolation = false;
@@ -103,6 +104,7 @@
         ShowKubernetesSystemContainers = false;
         ShowPromotionalNotifications = false;
         ShowSurveyNotifications = false;
+        SilentModulesUpdate = false;
         SkipUpdateToWSLPrompt = false;
         SkipWSLMountPerfWarning = false;
         SocksProxyPort = 0;
@@ -111,6 +113,7 @@
         UpdateAvailableTime = 0;
         UpdateHostsFile = false;
         UpdateInstallTime = 0;
+        UpdateInstallerPid = 0;
         UseBackgroundIndexing = false;
         UseContainerdSnapshotter = false;
         UseCredentialHelper = true;
@@ -235,6 +238,7 @@
           ...
         }:
         {
+          programs.docker.settings.currentContext = "desktop-linux";
           programs.docker.desktopSettings.FilesharingDirectories = [
             "${config.home.homeDirectory}/workspace"
             "/tmp"

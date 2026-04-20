@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.development =
+  flake.modules.darwin.development'personal =
     {
       config,
       ...
@@ -13,7 +13,7 @@
         ]);
     };
 
-  flake.modules.homeManager.development =
+  flake.modules.homeManager.development'personal =
     {
       pkgs,
       ...
