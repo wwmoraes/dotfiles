@@ -1,8 +1,20 @@
+let
+  trim =
+    s:
+    let
+      res = builtins.match "^[ \t\r\n]*(.*[^ \t\r\n])[ \t\r\n]*" s;
+    in
+    if res == null then "" else builtins.head res;
+  escapeShellAlias = v: ''!f() { ${builtins.replaceStrings [ "\n" ] [ "; " ] (trim v)}; }; f'';
+in
 {
   flake.modules.homeManager.development = {
     programs.git.settings.alias = {
       # amend = "commit --amend --all --no-edit";
-      author = ''!f() { CONTENT=$(test -n "$1" && git log --author="$1" --pretty="%aN <%aE>" -1); echo "''${CONTENT:-$(git config user.name) <$(git config user.email)>}"; }; f'';
+      author = escapeShellAlias ''
+        CONTENT=$(test -n "$1" && git log --author="$1" --pretty="%aN <%aE>" -1)
+        echo "''${CONTENT:-$(git config user.name) <$(git config user.email)>}"
+      '';
       authors = ''shortlog --summary --numbered --email --all'';
       backup = ''!git push --force-with-lease "$(git remote)" $(git branch --show-current):user/$(git config --get user.handle)/trunk'';
       grep-history = ''!f() { PATTERN=$1; shift; git grep -e "$PATTERN" $(git rev-list --all) "$@"; }; f'';
@@ -84,6 +96,29 @@
       # update-head = ''!git remote set-head "$(git remote)" --auto'';
       # who-deleted = ''!f() { git show -s --pretty=medium $(git log --pretty=%H -1 --diff-filter=D -- "$1"); }; f'';
       yolo = "push --force";
+      ## ideas from https://piechowski.io/post/git-commands-before-reading-code/
+      most-changed = "most-changed-since 1 year ago";
+      most-changed-since = escapeShellAlias ''
+        git log --format=format: --name-only --since="$*" | sort | uniq -c | sort -nr | head -20
+      '';
+      who-built-this = "shortlog -sn --no-merges";
+      who-built-this-lately = "who-built-this-since 6 months ago";
+      who-built-this-since = escapeShellAlias ''
+        git shortlog -sn --no-merges --since="$*"
+      '';
+      bug-hotspots = escapeShellAlias ''
+        git log -i -E --grep="fix|bug|broken" --name-only --format="" | sort | uniq -c | sort -nr | head -20
+      '';
+      bug-hotspots-since = escapeShellAlias ''
+        git log -i -E --grep="fix|bug|broken" --name-only --format="" --since="$*" | sort | uniq -c | sort -nr | head -20
+      '';
+      commits-by-month = escapeShellAlias ''
+        git log --format='%ad' --date=format:'%Y-%m' | sort | uniq -c
+      '';
+      firefighting = "firefighting-since 1 year ago";
+      firefighting-since = escapeShellAlias ''
+        git log --oneline --since="$*" | grep -iE 'revert|hotfix|emergency|rollback'
+      '';
     };
   };
 }
