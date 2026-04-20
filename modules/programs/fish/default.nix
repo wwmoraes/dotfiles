@@ -30,10 +30,10 @@
         pkgs.expect
         pkgs.fishPlugins.sponge
         pkgs.fishPlugins.transient-fish
-        pkgs.fortune
+        # pkgs.fortune
         pkgs.fswatch
         pkgs.gawk
-        pkgs.neo-cowsay
+        # pkgs.neo-cowsay
         # keep-sorted end
       ];
 
@@ -231,11 +231,11 @@
             body = builtins.readFile ./functions/fconnect.fish;
             description = "fuzzy connect to a host";
           };
-          fish_greeting = {
-            body = ''
-              ${lib.getExe pkgs.fortune} | ${lib.getExe pkgs.neo-cowsay} -n -W 80 --random
-            '';
-          };
+          # fish_greeting = {
+          #   body = ''
+          #     ${lib.getExe pkgs.fortune} | ${lib.getExe pkgs.neo-cowsay} -n -W 80 --random
+          #   '';
+          # };
           fish_mode_prompt = {
             body = builtins.readFile ./functions/fish_mode_prompt.fish;
           };
