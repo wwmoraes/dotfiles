@@ -154,70 +154,75 @@
           ...
         }:
         {
-          launchd.agents =
-            let
-              gpg-agent = lib.getExe' config.programs.gpg.package "gpg-agent";
-              gpgconf = lib.getExe' config.programs.gpg.package "gpgconf";
-            in
-            {
-              gpg-agent = {
-                enable = true;
-                config = {
-                  ProgramArguments = lib.mkForce (
-                    [
-                      "/bin/sh"
-                      "-c"
-                      "${gpgconf} --kill gpg-agent; ${gpg-agent} --daemon" # upstream --supervised not supported in Darwin
-                    ]
-                    ++ lib.optional config.services.gpg-agent.verbose "--verbose"
-                  );
-                  # configure as a one-off launch instead of daemon; mostly useful so the
-                  # retards from CISO @ work won't complain about an "unknown daemon" 🙄
-                  KeepAlive = lib.mkForce false;
-                  Sockets = {
-                    Agent = {
-                      SockPassive = false;
-                      SockPathName = lib.mkForce "${config.programs.gpg.homedir}/S.gpg-agent";
-                    };
-                    Extra = {
-                      SockPassive = false;
-                      SockPathName = lib.mkForce "${config.programs.gpg.homedir}/S.gpg-agent.extra";
-                    };
-                    Ssh = {
-                      SockPassive = false;
-                      SockPathName = lib.mkForce "${config.programs.gpg.homedir}/S.gpg-agent.ssh";
-                    };
-                  };
-                  StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/${config.launchd.agents.gpg-agent.config.Label}.err.log";
-                  StandardOutPath = "${config.home.homeDirectory}/Library/Logs/${config.launchd.agents.gpg-agent.config.Label}.out.log";
+          launchd.agents = {
+            gpg-agent = {
+              enable = true;
+              config = {
+                ProgramArguments = lib.mkForce (
+                  [
+                    # "/bin/sh"
+                    # "-c"
+                    # "${gpgconf} --kill gpg-agent; exec ${gpg-agent} --daemon" # upstream --supervised not supported in Darwin
+                    # gpg-agent
+                    # "--daemon" # upstream --supervised not supported in Darwin
+                    (lib.getExe' config.programs.gpg.package "gpg-connect-agent")
+                  ]
+                  ++ lib.optional config.services.gpg-agent.verbose "--verbose"
+                  ++ [
+                    "/bye"
+                  ]
+                );
+                # configure as a one-off launch instead of daemon; mostly useful so the
+                # retards from CISO @ work won't complain about an "unknown daemon" 🙄
+                # KeepAlive = lib.mkForce false;
+                KeepAlive = lib.mkForce {
+                  SuccessfulExit = false;
+                  Crashed = true;
                 };
-              };
-              gpg-card-switch = {
-                enable = false;
-                config = {
-                  Label = "dev.artero.gpg-card-switch";
-                  LaunchEvents = {
-                    "com.apple.iokit.matching" = {
-                      "com.apple.device-attach" = {
-                        IOMatchStream = true;
-                        IOMatchLaunchStream = true;
-                        IOProviderClass = "IOUSBDevice";
-                        ## echo "ibase=16; 1050" | bc
-                        # idProduct = 1031; # 0x407
-                        idProduct = "*"; # 0x407
-                        idVendor = 4176; # 0x1050
-                      };
-                    };
+                Sockets = {
+                  Agent = {
+                    SockPassive = false;
+                    SockPathName = lib.mkForce "${config.programs.gpg.homedir}/S.gpg-agent";
                   };
-                  ProgramArguments = [
-                    ## TODO https://github.com/snosrap/xpc_set_event_stream_handler
-                    # "/usr/local/bin/xpc_set_event_stream_handler"
-                    "${lib.getExe pkgs.gnupg}"
-                    "--card-status"
-                  ];
+                  Extra = {
+                    SockPassive = false;
+                    SockPathName = lib.mkForce "${config.programs.gpg.homedir}/S.gpg-agent.extra";
+                  };
+                  Ssh = {
+                    SockPassive = false;
+                    SockPathName = lib.mkForce "${config.programs.gpg.homedir}/S.gpg-agent.ssh";
+                  };
                 };
+                StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/${config.launchd.agents.gpg-agent.config.Label}.err.log";
+                StandardOutPath = "${config.home.homeDirectory}/Library/Logs/${config.launchd.agents.gpg-agent.config.Label}.out.log";
               };
             };
+            gpg-card-switch = {
+              enable = false;
+              config = {
+                Label = "dev.artero.gpg-card-switch";
+                LaunchEvents = {
+                  "com.apple.iokit.matching" = {
+                    "com.apple.device-attach" = {
+                      IOMatchStream = true;
+                      IOMatchLaunchStream = true;
+                      IOProviderClass = "IOUSBDevice";
+                      ## echo "ibase=16; 1050" | bc
+                      # idProduct = 1031; # 0x407
+                      idProduct = "*"; # 0x407
+                      idVendor = 4176; # 0x1050
+                    };
+                  };
+                };
+                ProgramArguments = [
+                  ## TODO https://github.com/snosrap/xpc_set_event_stream_handler
+                  # "/usr/local/bin/xpc_set_event_stream_handler"
+                  "${lib.getExe pkgs.gnupg}"
+                  "--card-status"
+                ];
+              };
+            };
+          };
 
           services.gpg-agent.pinentry = {
             package = pkgs.pinentry_mac;

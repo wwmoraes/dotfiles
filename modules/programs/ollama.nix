@@ -34,7 +34,10 @@
                     OLLAMA_KEEP_ALIVE = "5m";
                     OLLAMA_KV_CACHE_TYPE = "q8_0";
                   };
-                  KeepAlive = false;
+                  KeepAlive = {
+                    SuccessfulExit = false;
+                    Crashed = true;
+                  };
                   Label = "com.ollama.ollama";
                   ProcessType = "Adaptive";
                   ProgramArguments = [

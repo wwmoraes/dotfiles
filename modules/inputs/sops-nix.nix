@@ -1,6 +1,7 @@
 {
   inputs,
   self,
+  lib,
   ...
 }:
 let
@@ -61,5 +62,14 @@ in
           home = config.home-manager.users.${config.system.primaryUser}.programs.gpg.homedir;
         };
       };
+
+      home-manager.sharedModules = [
+        {
+          launchd.agents.sops-nix.config.KeepAlive = lib.mkForce {
+            SuccessfulExit = false;
+            Crashed = true;
+          };
+        }
+      ];
     };
 }
