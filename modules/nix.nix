@@ -4,7 +4,7 @@
 }:
 {
   flake-file.nixConfig = {
-    builders = "ssh://root@vidar aarch64-linux; ssh://root@nas x86_64-linux";
+    builders = "ssh-ng://root@vidar aarch64-linux - - - big-parallel,kvm; ssh-ng://root@nas x86_64-linux - - - big-parallel,kvm";
     builders-use-substitutes = true;
     substituters = [
       "https://cache.nixos.org/"
@@ -223,6 +223,11 @@
       ...
     }:
     {
+      nix.settings = {
+        builders = "ssh-ng://root@vidar aarch64-linux - - - big-parallel,kvm; ssh-ng://root@nas x86_64-linux - - - big-parallel,kvm";
+        builders-use-substitutes = true;
+      };
+
       system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths = [
         /nix
       ]
