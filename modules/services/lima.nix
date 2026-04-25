@@ -22,7 +22,7 @@
       # TODO image from store
       # arch=aarch64 digest="sha256:9d8e0c98858d53866117d5c701a554a9d2434bedffec1c0ab7253691bfd2c70e" location="https://cloud-images.ubuntu.com/releases/oracular/release-20250305/ubuntu-24.10-server-cloudimg-arm64.img"
       services.lima = {
-        enable = true;
+        enable = false;
 
         baseConfig = {
           base = [
