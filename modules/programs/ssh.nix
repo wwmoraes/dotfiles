@@ -89,71 +89,38 @@ in
     };
   };
 
-  flake.modules.homeManager.personal =
-    {
-      config,
-      ...
-    }:
-    {
-      programs.ssh = {
-        extraOptionOverrides = {
-          AddressFamily = "inet"; # enable IPv6
-          CanonicalDomains = "home.arpa";
-          CanonicalizeHostname = "yes";
-          CanonicalizeMaxDots = "0";
-          Ciphers = builtins.concatStringsSep "," Ciphers;
-          HostKeyAlgorithms = builtins.concatStringsSep "," HostKeyAlgorithms;
-          IgnoreUnknown = builtins.concatStringsSep "," IgnoreUnknown;
-          KexAlgorithms = builtins.concatStringsSep "," KexAlgorithms;
-          MACs = builtins.concatStringsSep "," MACs;
-          PreferredAuthentications = "publickey";
-          Protocol = "2";
-          PubkeyAcceptedAlgorithms = builtins.concatStringsSep "," PubkeyAcceptedAlgorithms;
-          PubkeyAcceptedKeyTypes = builtins.concatStringsSep "," PubkeyAcceptedAlgorithms;
-          TCPKeepAlive = "yes";
-          UseKeychain = "no";
-          WarnWeakCrypto = "yes";
-        };
-
-        matchBlocks = {
-          "*.home.arpa" = {
-            sendEnv = [
-              "ZELLIJ"
-            ];
-          };
-          "ap ap.home.arpa" = {
-            user = "root";
-          };
-          "router router.home.arpa" = {
-            user = "root";
-          };
-          "vidar vidar.home.arpa" = {
-            extraOptions = {
-              HostKeyAlgorithms = "+ssh-rsa";
-              PubkeyAcceptedKeyTypes = "+ssh-rsa";
-            };
-            remoteForwards = [
-              {
-                bind.address = "/run/user/1001/gnupg/S.gpg-agent";
-                host.address = "${config.programs.gpg.homedir}/S.gpg-agent.extra";
-              }
-              {
-                # bind.address = "/root/.gnupg/S.gpg-agent";
-                bind.address = "/run/user/0/gnupg/S.gpg-agent";
-                host.address = "${config.programs.gpg.homedir}/S.gpg-agent.extra";
-              }
-            ];
-          };
-        };
-      };
-    };
-
-  flake.modules.homeManager.william'work = {
+  flake.modules.homeManager.personal = {
     programs.ssh = {
+      extraOptionOverrides = {
+        AddressFamily = "inet"; # enable IPv6
+        CanonicalDomains = "home.arpa";
+        CanonicalizeHostname = "yes";
+        CanonicalizeMaxDots = "0";
+        Ciphers = builtins.concatStringsSep "," Ciphers;
+        HostKeyAlgorithms = builtins.concatStringsSep "," HostKeyAlgorithms;
+        IgnoreUnknown = builtins.concatStringsSep "," IgnoreUnknown;
+        KexAlgorithms = builtins.concatStringsSep "," KexAlgorithms;
+        MACs = builtins.concatStringsSep "," MACs;
+        PreferredAuthentications = "publickey";
+        Protocol = "2";
+        PubkeyAcceptedAlgorithms = builtins.concatStringsSep "," PubkeyAcceptedAlgorithms;
+        PubkeyAcceptedKeyTypes = builtins.concatStringsSep "," PubkeyAcceptedAlgorithms;
+        TCPKeepAlive = "yes";
+        UseKeychain = "no";
+        WarnWeakCrypto = "yes";
+      };
+
       matchBlocks = {
-        "cocodev cocodev.pcs.nl.eu.abnamro.com" = {
-          hostname = "cocodev.pcs.nl.eu.abnamro.com";
-          user = "c82334";
+        "*.home.arpa" = {
+          sendEnv = [
+            "ZELLIJ"
+          ];
+        };
+        "ap ap.home.arpa" = {
+          user = "root";
+        };
+        "router router.home.arpa" = {
+          user = "root";
         };
       };
     };

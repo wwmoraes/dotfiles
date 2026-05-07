@@ -95,4 +95,29 @@
       };
     };
   };
+
+  flake.modules.homeManager.personal =
+    {
+      config,
+      ...
+    }:
+    {
+      programs.ssh.matchBlocks."vidar vidar.home.arpa" = {
+        extraOptions = {
+          HostKeyAlgorithms = "+ssh-rsa";
+          PubkeyAcceptedKeyTypes = "+ssh-rsa";
+        };
+        remoteForwards = [
+          {
+            bind.address = "/run/user/1001/gnupg/S.gpg-agent";
+            host.address = "${config.programs.gpg.homedir}/S.gpg-agent.extra";
+          }
+          {
+            # bind.address = "/root/.gnupg/S.gpg-agent";
+            bind.address = "/run/user/0/gnupg/S.gpg-agent";
+            host.address = "${config.programs.gpg.homedir}/S.gpg-agent.extra";
+          }
+        ];
+      };
+    };
 }
