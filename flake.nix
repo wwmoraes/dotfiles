@@ -59,12 +59,27 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager/release-25.11";
     };
+    homebrew-brew = {
+      flake = false;
+      url = "github:Homebrew/brew";
+    };
+    homebrew-cask = {
+      flake = false;
+      url = "github:homebrew/homebrew-cask";
+    };
+    homebrew-core = {
+      flake = false;
+      url = "github:homebrew/homebrew-core";
+    };
     import-tree.url = "github:vic/import-tree";
     nix-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
     };
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    nix-homebrew = {
+      inputs.brew-src.follows = "homebrew-brew";
+      url = "github:zhaofengli/nix-homebrew";
+    };
     nix-mineral = {
       flake = false;
       url = "github:cynicsketch/nix-mineral";
@@ -111,6 +126,10 @@
       url = "github:numtide/treefmt-nix";
     };
     unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    wwmoraes-tap = {
+      flake = false;
+      url = "github:wwmoraes/homebrew-tap";
+    };
   };
 
 }

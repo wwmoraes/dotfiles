@@ -1,22 +1,33 @@
 {
   inputs,
-  lib,
   ...
 }:
 {
-  flake-file.inputs.nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-  # flake-file.inputs.homebrew-cask = {
-  #   url = "github:homebrew/homebrew-cask";
-  #   flake = false;
-  # };
-  # flake-file.inputs.homebrew-core = {
-  #   url = "github:homebrew/homebrew-core";
-  #   flake = false;
-  # };
+  flake-file.inputs.nix-homebrew = {
+    url = "github:zhaofengli/nix-homebrew";
+    inputs.brew-src.follows = "homebrew-brew";
+  };
+  flake-file.inputs.homebrew-cask = {
+    url = "github:homebrew/homebrew-cask";
+    flake = false;
+  };
+  flake-file.inputs.homebrew-core = {
+    url = "github:homebrew/homebrew-core";
+    flake = false;
+  };
+  flake-file.inputs.wwmoraes-tap = {
+    url = "github:wwmoraes/homebrew-tap";
+    flake = false;
+  };
+  flake-file.inputs.homebrew-brew = {
+    url = "github:Homebrew/brew";
+    flake = false;
+  };
 
   flake.modules.darwin.default =
     {
       config,
+      lib,
       ...
     }:
     {
@@ -91,12 +102,6 @@
           upgrade = false;
           cleanup = "uninstall";
         };
-
-        taps = [
-          "homebrew/bundle"
-          "homebrew/services"
-          "wwmoraes/tap"
-        ];
       };
 
       nix-homebrew = {
@@ -105,11 +110,12 @@
         enableFishIntegration = false;
         enableRosetta = false;
         group = "staff";
-        # mutableTaps = false;
-        # taps = {
-        #   "homebrew/homebrew-core" = homebrew-core;
-        #   "homebrew/homebrew-cask" = homebrew-cask;
-        # };
+        mutableTaps = false;
+        taps = {
+          "homebrew/homebrew-core" = inputs.homebrew-core;
+          "homebrew/homebrew-cask" = inputs.homebrew-cask;
+          "wwmoraes/tap" = inputs.wwmoraes-tap;
+        };
         user = config.system.primaryUser;
       };
 
