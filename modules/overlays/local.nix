@@ -1,3 +1,7 @@
+{
+  self,
+  ...
+}:
 let
   mkLocal =
     lib:
@@ -16,10 +20,23 @@ let
         map (lib.path.append root) (
           builtins.attrNames (lib.filterAttrs (_: v: v == "regular") (builtins.readDir root))
         );
+      wrapText =
+        {
+          prefix ? "", # line comment prefix; also applies on block to indent lines
+          start ? "", # block comment start
+          end ? "", # block comment end
+          text,
+        }:
+        let
+          lines = builtins.filter builtins.isString (builtins.split "\n" text);
+          prepend = prefix: lines: map (line: "${prefix}${line}") lines;
+          optional = str: lib.optional (str != "") str;
+        in
+        builtins.concatStringsSep "\n" ((optional start) ++ (prepend prefix lines) ++ (optional end));
     });
 in
 {
-  flake.overlays.default =
+  flake.overlays.local =
     final: prev:
     with prev.lib;
     foldl' (flip extends) (_: prev) [
@@ -55,4 +72,10 @@ in
         );
       })
     ] final;
+
+  flake.modules.generic.default = {
+    nixpkgs.overlays = [
+      self.overlays.local
+    ];
+  };
 }

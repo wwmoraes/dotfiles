@@ -14,5 +14,9 @@
     url = "github:wwmoraes/cocopilot";
   };
 
-  flake.overlays.cocopilot = inputs.cocopilot.overlays.default;
+  flake.modules.generic.default = {
+    nixpkgs.overlays = [
+      inputs.cocopilot.overlays.default
+    ];
+  };
 }

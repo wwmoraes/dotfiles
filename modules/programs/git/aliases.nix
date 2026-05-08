@@ -5,7 +5,7 @@ let
       res = builtins.match "^[ \t\r\n]*(.*[^ \t\r\n])[ \t\r\n]*" s;
     in
     if res == null then "" else builtins.head res;
-  escapeShellAlias = v: ''!f() { ${builtins.replaceStrings [ "\n" ] [ "; " ] (trim v)}; }; f'';
+  escapeShellAlias = v: "!f() { ${builtins.replaceStrings [ "\n" ] [ "; " ] (trim v)}; }; f";
 in
 {
   flake.modules.homeManager.development = {
@@ -15,12 +15,12 @@ in
         CONTENT=$(test -n "$1" && git log --author="$1" --pretty="%aN <%aE>" -1)
         echo "''${CONTENT:-$(git config user.name) <$(git config user.email)>}"
       '';
-      authors = ''shortlog --summary --numbered --email --all'';
+      authors = "shortlog --summary --numbered --email --all";
       backup = ''!git push --force-with-lease "$(git remote)" $(git branch --show-current):user/$(git config --get user.handle)/trunk'';
       grep-history = ''!f() { PATTERN=$1; shift; git grep -e "$PATTERN" $(git rev-list --all) "$@"; }; f'';
       restore = ''!git pull "$(git remote)" user/$(git config --get user.handle)/trunk:$(git branch --show-current)'';
-      reword = ''commit --allow-empty --amend --only'';
-      word-diff = ''diff --word-diff=color'';
+      reword = "commit --allow-empty --amend --only";
+      word-diff = "diff --word-diff=color";
       # c = "commit -am";
       # cat-deleted = ''!f() { git cat-file -p "$(git log --pretty=%H --diff-filter=AM -1 -- "$1"):$1"; }; f'';
       # co = "checkout";

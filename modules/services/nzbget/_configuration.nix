@@ -1,13 +1,7 @@
 {
-  lib,
-  ...
-}:
-{
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "unrar"
-    ];
+  nixpkgs.config.allowUnfreePackages = [
+    "unrar"
+  ];
 
   services.nzbget = {
     enable = true;

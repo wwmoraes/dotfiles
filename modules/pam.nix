@@ -14,12 +14,10 @@
         # watchIdAuth = true;
         text = lib.mkMerge [
           (lib.mkAfter (
-            lib.optionalString
-              (
-                (config.environment.etc ? u2f_mappings)
-                && (builtins.stringLength config.environment.etc.u2f_mappings.text) > 0
-              )
-              ''auth       sufficient     ${pkgs.pam_u2f}/lib/security/pam_u2f.so authfile=/etc/u2f_mappings cue''
+            lib.optionalString (
+              (config.environment.etc ? u2f_mappings)
+              && (builtins.stringLength config.environment.etc.u2f_mappings.text) > 0
+            ) "auth       sufficient     ${pkgs.pam_u2f}/lib/security/pam_u2f.so authfile=/etc/u2f_mappings cue"
           ))
         ];
       };

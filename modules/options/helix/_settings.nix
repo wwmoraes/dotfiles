@@ -20,7 +20,7 @@ in
       default = null;
     };
     formatter = mkOption {
-      description = ''The formatter for the language, it will take precedence over the lsp when defined. The formatter must be able to take the original file as input from stdin and write the formatted file to stdout. The filename of the current buffer can be passed as argument by using the %{buffer_name} expansion variable.'';
+      description = "The formatter for the language, it will take precedence over the lsp when defined. The formatter must be able to take the original file as input from stdin and write the formatted file to stdout. The filename of the current buffer can be passed as argument by using the %{buffer_name} expansion variable.";
       default = null;
       type = nullOr (submodule {
         options = {
@@ -120,7 +120,7 @@ in
         type = nullOr (either (submodule blockAttrs) (listOf (either str (submodule blockAttrs))));
       };
     indent = mkOption {
-      description = ''The indent to use. Has sub keys unit () and tab-width ()'';
+      description = "The indent to use. Has sub keys unit () and tab-width ()";
       default = null;
       type = nullOr (submodule {
         options = {

@@ -19,5 +19,9 @@
     };
   };
 
-  flake.overlays.nur = inputs.nur.overlays.default;
+  flake.modules.generic.default = {
+    nixpkgs.overlays = [
+      inputs.nur.overlays.default
+    ];
+  };
 }

@@ -9,13 +9,13 @@ in
   options = with types; {
     location = mkOption {
       type = package;
-      description = '''';
+      description = "";
     };
     digest = mkOption {
       type = nullOr str;
       default = null;
-      defaultText = '''';
-      description = '''';
+      defaultText = "";
+      description = "";
     };
   };
 }

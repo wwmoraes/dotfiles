@@ -90,7 +90,7 @@
             repaint = true;
           };
           "ctrl-down" = {
-            command = ''commandline --replace -- (nap list | fzf | ifne xargs nap)'';
+            command = "commandline --replace -- (nap list | fzf | ifne xargs nap)";
             repaint = true;
           };
         };

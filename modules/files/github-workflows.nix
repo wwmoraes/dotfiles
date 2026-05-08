@@ -58,8 +58,8 @@
                   ];
                 };
               };
-              runs-on = ''''${{ matrix.os }}'';
-              name = ''''${{ matrix.system }}'';
+              runs-on = "\${{ matrix.os }}";
+              name = "\${{ matrix.system }}";
               steps = [
                 {
                   name = "checkout";

@@ -3,6 +3,10 @@
   ...
 }:
 {
+  nixpkgs.config.allowUnfreePackages = [
+    "crush"
+  ];
+
   flake.modules.homeManager.ai'personal =
     {
       pkgs,

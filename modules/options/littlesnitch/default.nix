@@ -1,27 +1,4 @@
 {
-  flake.overlays.littlesnitch =
-    final: prev:
-    prev.lib.optionalAttrs prev.stdenv.hostPlatform.isDarwin {
-      littlesnitch-cli = prev.stdenv.mkDerivation {
-        pname = "littlesnitch-cli";
-        version = "1.0.0";
-        phases = [
-          "\${preInstallPhases[*]:-}"
-          "installPhase"
-          "installCheckPhase"
-          "\${postPhases[*]:-}"
-        ];
-        installPhase = ''
-          runHook preInstall
-
-          mkdir -p $out/bin
-          ln -sf ${prev.lib.escapeShellArg "/Applications/Little Snitch.app/Contents/Components/littlesnitch"} $out/bin/littlesnitch
-
-          runHook postInstall
-        '';
-      };
-    };
-
   flake.modules.darwin.default =
     {
       config,

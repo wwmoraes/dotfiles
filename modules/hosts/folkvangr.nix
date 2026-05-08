@@ -14,7 +14,7 @@
       # keep-sorted start
       "default"
       "gpg"
-      "hardening"
+      # "hardening"
       "media-server"
       "nas"
       "shell"

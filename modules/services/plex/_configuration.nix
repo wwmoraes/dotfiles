@@ -1,13 +1,7 @@
 {
-  lib,
-  ...
-}:
-{
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "plexmediaserver"
-    ];
+  nixpkgs.config.allowUnfreePackages = [
+    "plexmediaserver"
+  ];
 
   services.plex = {
     enable = true;

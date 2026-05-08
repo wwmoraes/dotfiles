@@ -69,7 +69,7 @@
       flake = false;
       url = "github:cynicsketch/nix-mineral";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-25.11";
     nixpkgs-lib.follows = "nixpkgs";
     nur = {
       inputs = {
