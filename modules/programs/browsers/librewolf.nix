@@ -13,7 +13,7 @@
         ]);
     };
 
-  flake.modules.homeManager.gui = {
+  flake.modules.homeManager.gui'disabled = {
     programs.librewolf = {
       enable = true;
       profiles.default = { };
