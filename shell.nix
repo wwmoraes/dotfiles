@@ -22,6 +22,7 @@ mkShell {
     pkgs.omnix # om
     pkgs.remake
     pkgs.tree
+    pkgs.unstable.nix-output-monitor
     pkgs.unstable.sops
     pkgs.uutils-coreutils-noprefix
     pkgs.yq-go

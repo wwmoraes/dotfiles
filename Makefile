@@ -73,22 +73,22 @@ pushcheck: all
 
 .roots/darwin/%: secrets.yaml ${NIX_SOURCES}
 	@mkdir -p $(dir $@)
-	nix build --show-trace --accept-flake-config --out-link $@ .#darwinConfigurations.$*.config.system.build.toplevel
+	nom build --show-trace --accept-flake-config --out-link $@ .#darwinConfigurations.$*.config.system.build.toplevel
 	@touch $@
 
 .roots/nixos/%: secrets.yaml ${NIX_SOURCES}
 	@mkdir -p $(dir $@)
-	nix build --show-trace --accept-flake-config --out-link $@ .#nixosConfigurations.$*.config.system.build.toplevel
+	nom build --show-trace --accept-flake-config --out-link $@ .#nixosConfigurations.$*.config.system.build.toplevel
 	@touch $@
 
 .roots/home/%: secrets.yaml ${NIX_SOURCES}
 	@mkdir -p $(dir $@)
-	nix build --show-trace --accept-flake-config --out-link $@ .#homeConfigurations."$(subst @,',$*)".activationPackage
+	nom build --show-trace --accept-flake-config --out-link $@ .#homeConfigurations."$(subst @,',$*)".activationPackage
 	@touch $@
 
 .roots/vm/%: secrets.yaml ${NIX_SOURCES}
 	@mkdir -p $(dir $@)
-	nix build --show-trace --accept-flake-config --out-link $@ .#legacyPackages.$(shell nix eval --raw .#nixosConfigurations.$*.pkgs.stdenv.hostPlatform.system).$*-image
+	nom build --show-trace --accept-flake-config --out-link $@ .#legacyPackages.$(shell nix eval --raw .#nixosConfigurations.$*.pkgs.stdenv.hostPlatform.system).$*-image
 	@touch $@
 
 secrets.yaml: secrets.yaml.gotmpl
