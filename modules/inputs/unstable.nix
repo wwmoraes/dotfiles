@@ -14,5 +14,10 @@
     nixpkgs.overlays = [
       self.overlays.unstable
     ];
+
+    nix.registry.unstable.to = {
+      type = "path";
+      path = inputs.unstable;
+    };
   };
 }
