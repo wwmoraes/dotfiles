@@ -151,6 +151,10 @@
             local = true;
             port = 6178;
           };
+          lfs.ssh = {
+            autoMultiplex = false;
+            sshTransfer = "negotiate";
+          };
           log = {
             date = "relative";
           };
