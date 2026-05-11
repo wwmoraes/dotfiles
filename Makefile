@@ -7,6 +7,7 @@ export SHELL := $(shell which bash)
 
 HOSTNAME ?= $(shell uname -n)
 NIX_SOURCES = $(sort $(shell git ls-files '*.nix'))
+WORK_HOSTNAME := NLLM4000559023
 
 -include .make/*.mk
 
@@ -14,11 +15,7 @@ NIX_SOURCES = $(sort $(shell git ls-files '*.nix'))
 
 .PHONY: all
 #: Build all hosts' activation scripts.
-all: host/M1Cabuk
 all: host/NLLM4000559023
-all: host/nas
-all: host/vidar
-# all: vm/folkvangr
 
 .PHONY: build
 #: Build current host's activation script.
@@ -46,14 +43,6 @@ else
 	sudo nixos-rebuild switch --no-remote ${FLAGS} --flake .
 endif
 
-#: Activates configuration over SSH.
-install/vidar::
-	nix run nixpkgs#nixos-rebuild -- switch \
-		--build-host root@vidar.home.arpa \
-		--fast \
-		--flake .#vidar \
-		--target-host root@vidar.home.arpa \
-		;
 
 .PHONY: pushcheck
 pushcheck: all
@@ -71,25 +60,6 @@ pushcheck: all
 	@mkdir -p $(@D)
 	@touch $@
 
-.roots/darwin/%: secrets.yaml ${NIX_SOURCES}
-	@mkdir -p $(dir $@)
-	nom build --show-trace --accept-flake-config --out-link $@ .#darwinConfigurations.$*.config.system.build.toplevel
-	@touch $@
-
-.roots/nixos/%: secrets.yaml ${NIX_SOURCES}
-	@mkdir -p $(dir $@)
-	nom build --show-trace --accept-flake-config --out-link $@ .#nixosConfigurations.$*.config.system.build.toplevel
-	@touch $@
-
-.roots/home/%: secrets.yaml ${NIX_SOURCES}
-	@mkdir -p $(dir $@)
-	nom build --show-trace --accept-flake-config --out-link $@ .#homeConfigurations."$(subst @,',$*)".activationPackage
-	@touch $@
-
-.roots/vm/%: secrets.yaml ${NIX_SOURCES}
-	@mkdir -p $(dir $@)
-	nom build --show-trace --accept-flake-config --out-link $@ .#legacyPackages.$(shell nix eval --raw .#nixosConfigurations.$*.pkgs.stdenv.hostPlatform.system).$*-image
-	@touch $@
 
 secrets.yaml: secrets.yaml.gotmpl
 ifeq ($(shell command -v op),)
@@ -98,55 +68,3 @@ else
 	@op inject --force --in-file $< | ifne sops encrypt --filename-override $@ --output $@
 endif
 
-define hostTarget
-$(eval
-#: Builds the target host's activation script.
-host/$(2): .roots/$(1)/$(2);
-)
-endef
-
-.PHONY: install/%
-
-.PHONY: host/%
-$(foreach HOST,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#darwinConfigurations),$(call hostTarget,darwin,${HOST}))
-$(foreach HOST,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#nixosConfigurations),$(call hostTarget,nixos,${HOST}))
-
-define vmTarget
-$(eval
-#: Builds the target VM's activation script.
-vm/$(1): .roots/vm/$(1);
-)
-endef
-
-.PHONY: vm/%
-$(foreach HOST,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#nixosConfigurations),$(call vmTarget,${HOST}))
-
-define homeTarget
-$(eval
-#: Builds the target home's activation script.
-home/$(1)@$(2): .roots/home/$(1)@$(2);
-)
-endef
-
-define homeHostTarget
-$(eval
-#: Builds the target host's activation script.
-host/$(2): home/$(1)@$(2);
-)
-endef
-
-define installHomeTarget
-$(eval
-#: Activates configuration over SSH.
-install/$(2):: home/$(1)@$(2)
-install/$(2):: DRV=$$(shell readlink -f .roots/home/$(1)@$(2))
-install/$(2)::
-	nix-copy-closure --to $(1)@$(2) $${DRV}
-	ssh root@nas 'nix-env --profile /nix/var/nix/profiles/per-user/$(1)/home-manager --set "$${DRV}" && "$${DRV}/activate" --driver-version 1'
-)
-endef
-
-.PHONY: home/%
-$(foreach CONFIGNAME,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#homeConfigurations),$(call homeTarget,$(firstword $(subst ', ,${CONFIGNAME})),$(lastword $(subst ', ,${CONFIGNAME}))))
-$(foreach CONFIGNAME,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#homeConfigurations),$(call homeHostTarget,$(firstword $(subst ', ,${CONFIGNAME})),$(lastword $(subst ', ,${CONFIGNAME}))))
-$(foreach CONFIGNAME,$(shell nix eval --raw --apply 'v: builtins.toString (builtins.attrNames v)' .#homeConfigurations),$(call installHomeTarget,$(firstword $(subst ', ,${CONFIGNAME})),$(lastword $(subst ', ,${CONFIGNAME}))))

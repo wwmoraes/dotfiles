@@ -1,4 +1,4 @@
-ifeq (${HOSTNAME},NLLM4000559023)
+ifeq (${HOSTNAME},${WORK_HOSTNAME})
 # Fetches the latest visudo derivation from the binary cache.
 #
 # In practice this isn't needed as nix does check the substituters first before
@@ -13,13 +13,26 @@ ifeq (${HOSTNAME},NLLM4000559023)
 #
 # This brute-force option restores the store path from the binary cache
 # directly, which nix detects and skips the source build.
-work-fetch-visudo: OUT=$(shell nix eval --raw .#darwinConfigurations.${HOSTNAME}.pkgs.nur.repos.wwmoraes.visudo.outPath)
-work-fetch-visudo: NARHASH=$(firstword $(subst -, ,$(notdir ${OUT})))
-work-fetch-visudo:
+work-visudo: OUT=$(shell nix eval --raw .#darwinConfigurations.${WORK_HOSTNAME}.pkgs.nur.repos.wwmoraes.visudo.outPath)
+work-visudo: NARHASH=$(firstword $(subst -, ,$(notdir ${OUT})))
+#: Out-of-band visudo package handling. Necessary in dumb corporate environments. Pulls package from cache. Builds when ran on any other host.
+work-visudo:
 	curl -fsSLo - https://wwmoraes.cachix.org/${NARHASH}.narinfo \
 	| grep '^URL:' \
 	| cut -d' ' -f2 \
 	| xargs -I% curl -fsSLo - https://wwmoraes.cachix.org/% \
 	| zstdcat \
 	| nix-store --restore '${OUT}'
+else
+ifneq ($(shell which op),)
+OP = op plugin run --
+else
+OP =
+endif
+
+work-visudo: OUT=$(shell nix eval --raw .#darwinConfigurations.${WORK_HOSTNAME}.pkgs.nur.repos.wwmoraes.visudo.outPath)
+work-visudo: NARHASH=$(firstword $(subst -, ,$(notdir ${OUT})))
+#: Out-of-band visudo package handling. Necessary in dumb corporate environments. Builds and pushes to cache. Pulls when ran in the work host.
+work-visudo:
+	nom build --no-link --accept-flake-config --print-out-paths .#darwinConfigurations.${WORK_HOSTNAME}.pkgs.nur.repos.wwmoraes.visudo | ${OP} cachix push wwmoraes
 endif
