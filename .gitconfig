@@ -11,3 +11,6 @@
 [merge "write-flake"]
 name = "flake-file write-flake"
 driver = "nix run .#write-flake"
+
+[user]
+backupBranch = trunk

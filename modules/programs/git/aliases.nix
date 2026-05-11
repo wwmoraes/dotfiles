@@ -16,7 +16,16 @@ in
         echo "''${CONTENT:-$(git config user.name) <$(git config user.email)>}"
       '';
       authors = "shortlog --summary --numbered --email --all";
-      backup = ''!git push --force-with-lease "$(git remote)" $(git branch --show-current):user/$(git config --get user.handle)/trunk'';
+      backup = escapeShellAlias ''
+        : "''${GIT_USER_BACKUP_BRANCH:=$(git config --get user.backupBranch)}"
+        : "''${GIT_USER_BACKUP_BRANCH:=$(git config --get user.handle | xargs -I% echo user/%/trunk)}"
+        : "''${GIT_USER_BACKUP_BRANCH:?configure either user.handle or user.backupBranch to use this command}"
+        : "''${GIT_REMOTE:=$(git remote 2> /dev/null)}"
+        : "''${GIT_REMOTE:?no remote detected; check if this repository have one set}"
+        : "''${GIT_BRANCH:=$(git branch --show-current 2> /dev/null)}"
+        : "''${GIT_BRANCH:?no branch detected; run this in a git repository that is not with in an active rebase}"
+        git push --force-with-lease "''${GIT_REMOTE}" ''${GIT_BRANCH}:''${GIT_USER_BACKUP_BRANCH}
+      '';
       grep-history = ''!f() { PATTERN=$1; shift; git grep -e "$PATTERN" $(git rev-list --all) "$@"; }; f'';
       restore = ''!git pull "$(git remote)" user/$(git config --get user.handle)/trunk:$(git branch --show-current)'';
       reword = "commit --allow-empty --amend --only";
