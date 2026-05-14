@@ -73,6 +73,10 @@
       url = "github:homebrew/homebrew-core";
     };
     import-tree.url = "github:vic/import-tree";
+    lanzaboote = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/lanzaboote/v1.0.0";
+    };
     nix-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";

@@ -19,9 +19,16 @@
     };
   };
 
-  flake.modules.generic.default = {
+  flake.modules.darwin.default = {
     nixpkgs.overlays = [
       inputs.nur.overlays.default
+    ];
+  };
+
+  flake.modules.nixos.default = {
+    nixpkgs.overlays = [
+      inputs.nur.overlays.default
+      (final: prev: prev.nur.repos.wwmoraes.overlays.r8127 final prev)
     ];
   };
 }

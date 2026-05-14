@@ -28,6 +28,7 @@
         excludes = [
           # keep-sorted start
           "*.asc"
+          "*.patch"
           "CHANGELOG.md"
           "modules/programs/finicky/finicky.js"
           # keep-sorted end

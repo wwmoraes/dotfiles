@@ -7,6 +7,7 @@ extend-ignore-re = []
 automaticEmojiSubstitutionEnablediMessage = "automaticEmojiSubstitutionEnablediMessage"
 ## GPG's fingerprint colon format
 fpr = "fpr"
+hda = "hda" # hard-drive A
 
 [default.extend-words]
 

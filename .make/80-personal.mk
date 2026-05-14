@@ -7,6 +7,15 @@ all: host/vidar
 .PHONY: install/%
 
 #: Activates configuration over SSH.
+install/folkvangr::
+	nix run nixpkgs#nixos-rebuild -- switch \
+		--build-host root@folkvangr.home.arpa \
+		--fast \
+		--flake .#folkvangr \
+		--target-host root@folkvangr.home.arpa \
+		;
+
+#: Activates configuration over SSH.
 install/vidar::
 	nix run nixpkgs#nixos-rebuild -- switch \
 		--build-host root@vidar.home.arpa \
