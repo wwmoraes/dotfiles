@@ -68,7 +68,6 @@
       services.openssh = {
         enable = true;
         settings = {
-          AcceptEnv = "ZELLIJ";
           MaxSessions = 20;
           MaxStartups = "10:20:50";
           StreamLocalBindUnlink = true;

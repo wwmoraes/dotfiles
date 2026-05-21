@@ -111,11 +111,6 @@ in
       };
 
       matchBlocks = {
-        "*.home.arpa" = {
-          sendEnv = [
-            "ZELLIJ"
-          ];
-        };
         "ap ap.home.arpa" = {
           user = "root";
         };

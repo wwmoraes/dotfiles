@@ -1,4 +1,37 @@
 {
+  lib,
+  ...
+}:
+{
+  flake.modules.generic.shell =
+    {
+      config,
+      ...
+    }:
+    {
+      home-manager.sharedModules = [
+        {
+          programs.ssh = {
+            matchBlocks = lib.optionalAttrs (config.networking.domain != null) {
+              "*.${config.networking.domain}" = {
+                sendEnv = [
+                  "ZELLIJ"
+                ];
+              };
+            };
+          };
+        }
+      ];
+    };
+
+  flake.modules.nixos.shell = {
+    security.sudo.extraConfig = ''
+      Defaults:root,%wheel env_keep+=ZELLIJ
+    '';
+
+    services.openssh.settings.AcceptEnv = "ZELLIJ";
+  };
+
   flake.modules.homeManager.shell =
     {
       config,
