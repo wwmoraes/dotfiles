@@ -3,7 +3,7 @@
   ...
 }:
 {
-  flake.modules.darwin.work = {
+  flake.modules.darwin.personal'disabled = {
     services.docker = {
       enable = true;
 
@@ -154,7 +154,7 @@
     };
   };
 
-  flake.modules.darwin.development =
+  flake.modules.darwin.development'disabled =
     {
       config,
       ...
@@ -179,7 +179,7 @@
         ]);
     };
 
-  flake.modules.homeManager.development =
+  flake.modules.homeManager.development'disabled =
     {
       config,
       pkgs,

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.shell =
+  flake.modules.homeManager.shell'personal =
     {
       config,
       pkgs,
@@ -16,7 +16,7 @@
       };
     };
 
-  flake.modules.darwin.shell =
+  flake.modules.darwin.shell'personal =
     {
       config,
       ...

@@ -1,12 +1,7 @@
 {
-  flake.modules.homeManager.ai = {
-    programs.aichat = {
-      enable = true;
-    };
-  };
-
   flake.modules.homeManager.ai'personal = {
     programs.aichat = {
+      enable = true;
       settings = {
         model = "ollama:deepseek-r1:latest";
         clients = [
@@ -26,7 +21,7 @@
     };
   };
 
-  flake.modules.homeManager.ai'work =
+  flake.modules.homeManager.ai'work'disabled =
     {
       lib,
       pkgs,

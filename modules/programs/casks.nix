@@ -2,10 +2,6 @@
   flake.modules.darwin.default = {
     homebrew.casks = [
       # keep-sorted start
-      "anytype"
-      "automatic-mouse-mover"
-      "bartender"
-      "flux-app"
       # keep-sorted end
     ];
   };
@@ -14,9 +10,12 @@
     homebrew.casks = [
       # keep-sorted start
       "android-file-transfer"
+      "anytype"
       "app-cleaner" # # Nektony App Cleaner & Uninstaller
       "appcleaner"
+      # "bartender"
       "calibre"
+      "flux-app"
       "hakuneko"
       "keybase"
       "launchcontrol"

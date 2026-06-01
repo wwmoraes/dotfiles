@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.default =
+  flake.modules.darwin.personal =
     {
       pkgs,
       ...

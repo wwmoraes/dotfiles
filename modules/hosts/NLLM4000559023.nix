@@ -12,7 +12,7 @@
 
     profiles = [
       # keep-sorted start
-      "ai"
+      # "ai"
       "default"
       "development"
       "gpg"

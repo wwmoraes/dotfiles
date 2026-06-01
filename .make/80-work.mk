@@ -23,6 +23,7 @@ work-visudo:
 	| xargs -I% curl -fsSLo - https://wwmoraes.cachix.org/% \
 	| zstdcat \
 	| nix-store --restore '${OUT}'
+	; nix-store --repair-path '${OUT}'
 else
 ifneq ($(shell which op),)
 OP = op plugin run --

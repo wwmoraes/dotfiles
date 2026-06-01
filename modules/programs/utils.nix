@@ -1,5 +1,5 @@
 {
-  flake.modules.generic.default =
+  flake.modules.generic.shell'personal =
     {
       pkgs,
       ...

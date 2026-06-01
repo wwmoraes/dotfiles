@@ -26,6 +26,7 @@ mkShell {
     pkgs.unstable.sops
     pkgs.uutils-coreutils-noprefix
     pkgs.yq-go
+    pkgs.zstd
     # keep-sorted end
   ];
 }

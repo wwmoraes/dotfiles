@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.development = {
+  flake.modules.darwin.development'personal = {
     homebrew.casks = [
       "sqlitestudio"
     ];

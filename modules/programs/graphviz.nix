@@ -1,5 +1,5 @@
 {
-  flake.modules.generic.default =
+  flake.modules.generic.development'personal =
     {
       pkgs,
       lib,

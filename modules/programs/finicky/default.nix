@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.gui = {
+  flake.modules.darwin.gui'personal = {
     home-manager.sharedModules = [
       {
         home.file.".finicky.js" = {

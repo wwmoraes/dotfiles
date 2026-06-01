@@ -66,14 +66,7 @@
 
       nix.settings.builders-use-substitutes = true;
 
-      targets.darwin.linux-builder = {
-        enable = false;
-        config = {
-        };
-      };
-
       programs = {
-        docker.enable = true;
         fish.enable = true;
         go.enable = true;
         git = {
@@ -173,4 +166,12 @@
         };
       };
     };
+
+  flake.modules.homeManager.william'personal = {
+    targets.darwin.linux-builder = {
+      enable = false;
+      config = {
+      };
+    };
+  };
 }

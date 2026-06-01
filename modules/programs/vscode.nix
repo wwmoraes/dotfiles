@@ -3,7 +3,7 @@
     "vscode"
   ];
 
-  flake.modules.homeManager.work =
+  flake.modules.homeManager.work'disabled =
     {
       pkgs,
       ...

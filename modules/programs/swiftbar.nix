@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.gui = {
+  flake.modules.darwin.gui'personal = {
     homebrew.casks = [
       "swiftbar"
     ];
@@ -13,9 +13,7 @@
         {
           targets.darwin.defaults."com.ameba.SwiftBar" =
             let
-              rootFolder = builtins.toString (
-                /. + config.home.homeDirectory + "/Library/Application Support/SwiftBar"
-              );
+              rootFolder = toString (/. + config.home.homeDirectory + "/Library/Application Support/SwiftBar");
             in
             {
               DisableBashWrapper = true;
