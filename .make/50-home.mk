@@ -12,14 +12,14 @@ ifneq (${HOSTNAME},${WORK_HOSTNAME})
 define homeTarget
 $(eval
 #: Builds the target home's activation script.
-home/$(1)@$(2): .roots/home/$(1)@$(2);
+home/$(1)@$(2): .roots/home/$(1)@$(2)
 )
 endef
 
 define homeHostTarget
 $(eval
 #: Builds the target host's activation script.
-host/$(2): home/$(1)@$(2);
+host/$(2): home/$(1)@$(2)
 )
 endef
 
@@ -27,10 +27,10 @@ define installHomeTarget
 $(eval
 #: Activates configuration over SSH.
 install/$(2):: home/$(1)@$(2)
-install/$(2):: DRV=$$(shell readlink -f .roots/home/$(1)@$(2))
 install/$(2)::
-	nix-copy-closure --to $(1)@$(2) $${DRV}
-	ssh root@nas 'nix-env --profile /nix/var/nix/profiles/per-user/$(1)/home-manager --set "$${DRV}" && "$${DRV}/activate" --driver-version 1'
+	export DRV=$$(shell readlink -f .roots/home/$(1)@$(2)); \
+	nix-copy-closure --to $(1)@$(2) $$$${DRV}; \
+	ssh $(1)@$(2) 'nix-env --profile /nix/var/nix/profiles/per-user/$(1)/home-manager --set '$$$${DRV}' && '$$$${DRV}/activate" --driver-version 1"
 )
 endef
 
