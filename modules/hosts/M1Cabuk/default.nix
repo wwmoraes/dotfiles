@@ -3,20 +3,22 @@
   ...
 }:
 {
-  configurations.darwin.NLLM4000559023 = {
+  configurations.darwin.M1Cabuk = {
     contexts = [
       # keep-sorted start
-      "work"
+      "personal"
       # keep-sorted end
     ];
 
     profiles = [
       # keep-sorted start
-      # "ai"
+      "ai"
       "default"
       "development"
+      "entertainment"
       "gpg"
       "gui"
+      "messaging"
       "shell"
       "terminal"
       # keep-sorted end
@@ -32,9 +34,6 @@
 
     users.william = [ ];
 
-    module = {
-      imports = [ ];
-      nixpkgs.hostPlatform = "aarch64-darwin";
-    };
+    module = ./_configuration.nix;
   };
 }

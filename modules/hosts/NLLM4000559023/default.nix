@@ -3,22 +3,20 @@
   ...
 }:
 {
-  configurations.darwin.M1Cabuk = {
+  configurations.darwin.NLLM4000559023 = {
     contexts = [
       # keep-sorted start
-      "personal"
+      "work"
       # keep-sorted end
     ];
 
     profiles = [
       # keep-sorted start
-      "ai"
+      # "ai"
       "default"
       "development"
-      "entertainment"
       "gpg"
       "gui"
-      "messaging"
       "shell"
       "terminal"
       # keep-sorted end
@@ -34,17 +32,6 @@
 
     users.william = [ ];
 
-    module = {
-      imports = [ ];
-
-      networking = {
-        computerName = " M1 Cabuk";
-        domain = "home.arpa";
-        hostName = "M1Cabuk";
-        localHostName = "M1Cabuk";
-      };
-
-      nixpkgs.hostPlatform = "aarch64-darwin";
-    };
+    module = ./_configuration.nix;
   };
 }
