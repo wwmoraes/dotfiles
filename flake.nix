@@ -89,6 +89,10 @@
       flake = false;
       url = "github:cynicsketch/nix-mineral";
     };
+    nixos-hardware = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:NixOS/nixos-hardware";
+    };
     nixpkgs.url = "github:NixOS/nixpkgs/release-25.11";
     nixpkgs-lib.follows = "nixpkgs";
     nur = {
