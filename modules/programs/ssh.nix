@@ -93,7 +93,6 @@ in
     programs.ssh = {
       extraOptionOverrides = {
         AddressFamily = "inet"; # enable IPv6
-        CanonicalDomains = "home.arpa";
         CanonicalizeHostname = "yes";
         CanonicalizeMaxDots = "0";
         Ciphers = builtins.concatStringsSep "," Ciphers;

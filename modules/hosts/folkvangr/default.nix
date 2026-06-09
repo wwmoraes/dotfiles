@@ -35,36 +35,4 @@
 
     module = ./_configuration.nix;
   };
-
-  flake.modules.homeManager.personal =
-    {
-      config,
-      ...
-    }:
-    {
-      programs.ssh.matchBlocks."folkvangr folkvangr.home.arpa" = {
-        extraOptions = {
-          HostKeyAlgorithms = "+ssh-rsa";
-          PubkeyAcceptedKeyTypes = "+ssh-rsa";
-        };
-        remoteForwards = [
-          {
-            bind.address = "/run/user/0/gnupg/S.gpg-agent";
-            host.address = "${config.programs.gpg.homedir}/S.gpg-agent.extra";
-          }
-          {
-            bind.address = "/run/user/1001/gnupg/S.gpg-agent";
-            host.address = "${config.programs.gpg.homedir}/S.gpg-agent.extra";
-          }
-          {
-            bind.address = "/root/.gnupg/S.gpg-agent";
-            host.address = "${config.programs.gpg.homedir}/S.gpg-agent.extra";
-          }
-          {
-            bind.address = "/home/william/.gnupg/S.gpg-agent";
-            host.address = "${config.programs.gpg.homedir}/S.gpg-agent.extra";
-          }
-        ];
-      };
-    };
 }
