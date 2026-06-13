@@ -1,4 +1,8 @@
 {
+  lib,
+  ...
+}:
+{
   flake.modules.darwin.default =
     {
       config,
@@ -15,6 +19,7 @@
             enable = true;
             target = "~darwin-common";
             text = ''
+              Defaults env_delete += "LD_PRELOAD LD_LIBRARY_PATH LD_AUDIT PYTHONPATH RUBYLIB PERL5LIB"
               ${username} ALL = PASSWD: /bin/rm -rf /Library/Developer/CommandLineTools
               ${username} ALL = PASSWD: /usr/bin/xcode-select --install
               ${username} ALL = PASSWD: /usr/bin/xcodebuild -license accept
@@ -108,4 +113,21 @@
         };
       };
     };
+
+  # TODO further harden sudo https://www.systemshardening.com/articles/linux/sudo-hardening/
+  flake.modules.nixos.default = {
+    security.sudo.extraConfig = lib.mkBefore ''
+      Defaults env_reset
+      Defaults env_delete += "LD_PRELOAD LD_LIBRARY_PATH LD_AUDIT PYTHONPATH RUBYLIB PERL5LIB"
+      Defaults env_keep += "CHARSET LANG LANGUAGE LC_ALL LC_COLLATE LC_CTYPE"
+      Defaults env_keep += "LC_MESSAGES LC_MONETARY LC_NUMERIC LC_TIME"
+      Defaults env_keep += "LSCOLORS"
+      Defaults env_keep += "SSH_AUTH_SOCK"
+      Defaults env_keep += "TZ"
+      Defaults env_keep += "EDITOR VISUAL"
+      Defaults env_keep += "HOME MAIL"
+      Defaults requiretty
+      Defaults use_pty
+    '';
+  };
 }
