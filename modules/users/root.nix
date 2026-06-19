@@ -21,8 +21,14 @@
       ...
     }:
     {
+      # sops.secrets.rootHashedPassword = {
+      #   neededForUsers = true;
+      #   key = "hashedPasswords/root";
+      # };
+
       users.users.root = {
         hashedPassword = "$y$j9T$mHDXOLhUUNq3c91YRRcLX0$u9h/E52hXlYlrZg7.aaXy4QBazH3PLOCxyEiPLMNtT/";
+        # hashedPasswordFile = config.sops.secrets.rootHashedPassword.path;
         openssh.authorizedKeys.keys = [
           "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDEQfDq8il7eWmG9om/Oqlkd842nSpb/W2A44Yp2RDSHDFKddjSGxpB3phN1eQieymqJMFofdHahdLoxXIItJH5D0ixT/dKCNduZosN1fpJu6pcPaMZ8lxzxMKcNswZ3j9Hitk9lMX/x/Y3h9uBv/nHbpPxxGmxJM7bze9RVYAcEZIvrFib2VFp62k7DHMgQzOUm+s4moa2uvc3JXKtjYdqVq+pdryubYn1BRxkBDc5TH9WIIEKAkDUV+kYIslFs4orlWZXd2yKKqGXM+5pK5ybiEo2mGiooXr1hBXSvGPbpeWNmHqEl8AKY3MRgwbt/eqVk9YkGZh/w0Go5Cus1KHdNccApkt1ItX30+caDRgpDN47pPtMs7onNvPoYEaG0CgGOQa9SjcXd0GSi6X2HVA9FLnkT3rsUTrkwOz9pEAkBqYTPfVoKnfhmfInZt/7JiKAbGSw93O6du5pvQkDpG7aRtfCIoRK642ClG2yqqSPv7uoQi2EWMHSFnCSmW+uIL5Lj2DUdeKoB01KtgZYXAGKJseAvP8FXiQfBh8PHXwNaQQ0fBeI5DOXpIJXvjV9XdnkeA1T+W+m3r7QzhR6K4lOBx8gNXJ7p5x8+JZ5B0FbN0Qnbg7t15cUWJyD8xMABca1JyuBpt/jO0F/chyzqI8sDp201Hd67lJxPaN3x09ZrQ== openpgp:0x78133BF7"
           "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/gOwc6RLeXcdlEjiduZsm5wJmTDAsN7fAs2suNavqeXESIVshRsih478c43h18tKyFYZACgHmEk2tJg0NO+VDWFaeQPfc+BUQyhlbCNgC+U6dH1ciTuFntzjv9Hbc21EdImkD+fVaVCkbf4EC3BgtkDkOUuE3R2GSg5CxpvJ2OBWBrb0tbpK4+NqRzfI4U0/q1441ZbJqusDuQoVEEdP9XuOgbhostdx8pASJHnTJiasfgFsZa+p7Va1BJ2KjHTw2cE9ENEwKrJ06IVbmEzbi8M9MOAqQ8lhUUxXUhIBLi+vDZh0hmGSSz8xVUipAJa/DQF2mG05ktJIDywktxpLvSNcFo7ahenoiMoeSqz1UEyH/ZGMO+1IYHPYlmG2SRzXPL1Wjs0qkYB1K/B4xBSMZvCZK+v7KXtyj/s8TvR6izG8fMdTaIWRycQe6TQAzWlxLSXT+iahkuxMF9fQckkLrWn4ye4uaicyfhzqV55fMDu2QuBdV8tRmAgyDFzQIcGwkVe4oy8YQ+u+lOu902WyI8wASEPvX6MAshHyHEciTsCdT3/ETTh94mQnx8ffg0ZSsxy0uiKVEKuqbkYgE+Nzp5qqGgdSBjVj+PhuepWJ7v4TTAsKKbWEAuLjnvOzOEWycOuzsQsgXBErnHB2boqtgoNZZVDgx8pmG2oyBpb5SnQ== openpgp:0xC53A52E1"
