@@ -52,7 +52,6 @@
 
   nixpkgs.hostPlatform = "aarch64-linux";
 
-  programs.dconf.enable = true; # needed by home-manager somehow
   programs.fish.enable = true;
   services = {
     fstrim.enable = true;

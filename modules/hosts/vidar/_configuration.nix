@@ -47,7 +47,6 @@
   nixpkgs.hostPlatform = "aarch64-linux";
 
   programs = {
-    dconf.enable = true; # needed by home-manager somehow
     fish.enable = true;
   };
   services = {

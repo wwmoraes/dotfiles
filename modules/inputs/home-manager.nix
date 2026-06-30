@@ -31,6 +31,11 @@
     imports = [
       inputs.home-manager.nixosModules.home-manager
     ];
+
+    # dconf needed by home-manager somehow. Solves:
+    # error: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name ca.desrt.dconf was not provided by any .service files
+    # https://github.com/nix-community/home-manager/issues/3113
+    programs.dconf.enable = true;
   };
 
   flake.modules.darwin.default =
