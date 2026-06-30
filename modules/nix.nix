@@ -28,6 +28,7 @@
     {
       environment.systemPackages = [
         # keep-sorted start
+        pkgs.git
         pkgs.nix-index
         pkgs.nix-init
         pkgs.nixos-rebuild
