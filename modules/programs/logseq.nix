@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.gui'personal =
+  flake.modules.darwin.gui'personal'disabled =
     {
       config,
       ...
