@@ -23,4 +23,13 @@ install/vidar::
 		--flake .#vidar \
 		--target-host root@vidar.home.arpa \
 		;
+
+#: Activates configuration over SSH.
+install/hlin::
+	nix run nixpkgs#nixos-rebuild -- switch \
+		--build-host root@hlin.home.arpa \
+		--fast \
+		--flake .#hlin \
+		--target-host root@hlin.home.arpa \
+		;
 endif
