@@ -7,7 +7,6 @@ export SHELL := $(shell which bash)
 
 HOSTNAME ?= $(shell uname -n)
 NIX_SOURCES = $(sort $(shell git ls-files '*.nix'))
-WORK_HOSTNAME := NLLM4000559023
 
 -include .make/*.mk
 
@@ -33,16 +32,11 @@ clean:
 .PHONY: install
 #: Applies the current host's settings.
 install: host/${HOSTNAME}
-## why? because "enterprise-grade" environments fuck up SSL and nixpkgs somehow
-## and it's not really worth my time to fix such edge-case
-ifeq (${HOSTNAME},NLLM4000559023)
-	sudo .roots/darwin/NLLM4000559023/activate
-else ifeq ($(shell uname -s),Darwin)
+ifeq ($(shell uname -s),Darwin)
 	sudo darwin-rebuild switch --no-remote ${FLAGS} --flake .
 else
 	sudo nixos-rebuild switch --no-remote ${FLAGS} --flake .
 endif
-
 
 .PHONY: pushcheck
 pushcheck: all

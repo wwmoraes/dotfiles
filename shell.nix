@@ -18,6 +18,7 @@ mkShell {
     pkgs.gron
     pkgs.jd-diff-patch # jd
     pkgs.jq
+    pkgs.just
     pkgs.moreutils # ifne, sponge
     pkgs.omnix # om
     pkgs.remake

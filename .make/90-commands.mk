@@ -9,13 +9,6 @@ $(strip
 )
 endef
 
-.PHONY: fix
-#: Corrects nix store paths in single-user installations.
-fix:
-	tree -ifpug /nix | awk '$$2 != "william" {print $$8}' | xargs -I% sudo chown -R william:_developer '%'
-	sudo chmod ug+s /nix /nix/store /nix/var
-	tree -ifpug /nix | grep -- 'dr-xr-xr-x' | awk '{print $$8}' | xargs -I% chmod ug+s '%'
-
 .PHONY: rm-backups
 #: Removes backup files interactively.
 rm-backups:
@@ -36,22 +29,6 @@ diff-json-backups:
 	@fd "" ${BACKUP_PATHS} --hidden --no-ignore --type f --extension json.bkp --exec echo {.} \
 	| fzf --preview 'jd -set {} {}.bkp' \
 	| ifne xargs -I% jd -set '%' '%.bkp'
-
-.PHONY: setup-card
-setup-card:
-	# op run --env-file=scripts/gpg-card-setup.env -- sh scripts/gpg-card-setup.sh
-	nix run nixpkgs#yubikey-manager -- openpgp keys set-touch --force att cached
-	nix run nixpkgs#yubikey-manager -- openpgp keys set-touch --force aut cached
-	nix run nixpkgs#yubikey-manager -- openpgp keys set-touch --force enc cached
-	nix run nixpkgs#yubikey-manager -- openpgp keys set-touch --force sig cached
-	nix run nixpkgs#yubikey-manager -- openpgp info
-	nix run nixpkgs#yubikey-manager -- openpgp keys info att
-	nix run nixpkgs#yubikey-manager -- openpgp keys info aut
-	nix run nixpkgs#yubikey-manager -- openpgp keys info enc
-	nix run nixpkgs#yubikey-manager -- openpgp keys info sig
-	# enables retired key management slots (0x82-0x95)
-	# see https://github.com/OpenSC/OpenSC/issues/847#issuecomment-238119888
-	nix-shell -p yubico-piv-tool --command 'echo -n C10114C20100FE00 | yubico-piv-tool -k -a write-object --id 0x5FC10C -i -'
 
 ## overkill solution when changing undocumented preferences goes awfully wrong
 .PHONY: macos-fix
@@ -83,4 +60,3 @@ else
 	| sed 's/[";]//g' \
 	| xargs -P 0 -I% bash -c 'echo "%" | op inject > /dev/null || echo %'
 endif
-
