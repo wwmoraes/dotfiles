@@ -29,6 +29,9 @@ check: files .make/checksums/check
 clean:
 	-rm -rf .roots 2> /dev/null
 
+dist:
+	git archive --prefix=dotfiles/ --output=.tmp/dotfiles-HEAD.tar.gz HEAD
+
 .PHONY: install
 #: Applies the current host's settings.
 install: host/${HOSTNAME}
@@ -61,4 +64,3 @@ ifeq ($(shell command -v op),)
 else
 	@op inject --force --in-file $< | ifne sops encrypt --filename-override $@ --output $@
 endif
-
