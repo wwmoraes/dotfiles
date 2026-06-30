@@ -11,9 +11,16 @@
         pkgs.fira-code-symbols
         pkgs.montserrat
         pkgs.nerd-fonts.fira-code
+        pkgs.nerd-fonts.fira-mono
         pkgs.powerline-fonts
         pkgs.powerline-symbols
         pkgs.source-code-pro
+        pkgs.cozette
+        pkgs.tamzen
+        # pkgs.anakron
+        # pkgs.gohufont
+        # pkgs.termsyn
+        # pkgs.spleen
       ];
     };
 
@@ -35,6 +42,8 @@
       ...
     }:
     {
+      console.font = "ter-powerline-v16b";
+
       environment.systemPackages = [
         pkgs.fontconfig
       ];
