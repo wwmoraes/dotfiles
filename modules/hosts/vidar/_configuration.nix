@@ -25,6 +25,7 @@
     "/" = {
       device = lib.mkForce "/dev/disk/by-label/NIXOS_SD";
       fsType = "ext4";
+      options = [ "noatime" ];
     };
     "/boot/firmware" = {
       device = "/dev/disk/by-label/FIRMWARE";
@@ -49,19 +50,16 @@
     dconf.enable = true; # needed by home-manager somehow
     fish.enable = true;
   };
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      MaxSessions = 20;
-      MaxStartups = "10:20:50";
-      StreamLocalBindUnlink = true;
+  services = {
+    fstrim.enable = true;
+    openssh = {
+      enable = true;
+      settings = {
+        MaxSessions = 20;
+        MaxStartups = "10:20:50";
+        StreamLocalBindUnlink = true;
+      };
     };
-    # extraConfig = ''
-    #   StreamLocalBindUnlink yes
-    #   MaxSessions 20
-    #   MaxStartups 10:20:50
-    # '';
   };
 
   users.mutableUsers = false;

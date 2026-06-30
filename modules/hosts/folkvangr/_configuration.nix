@@ -25,17 +25,18 @@
     "console=tty0"
   ];
 
-  # fileSystems = {
-  #   "/" = {
-  #     device = "/dev/disk/by-label/nixos";
-  #     fsType = "ext4";
-  #   };
+  fileSystems = {
+    "/" = {
+      #     device = "/dev/disk/by-label/nixos";
+      #     fsType = "ext4";
+      options = [ "noatime" ];
+    };
 
-  #   "/boot" = {
-  #     device = "/dev/disk/by-label/ESP";
-  #     fsType = "vfat";
-  #   };
-  # };
+    #   "/boot" = {
+    #     device = "/dev/disk/by-label/ESP";
+    #     fsType = "vfat";
+    #   };
+  };
 
   networking = {
     hostName = "folkvangr";
@@ -53,13 +54,15 @@
 
   programs.dconf.enable = true; # needed by home-manager somehow
   programs.fish.enable = true;
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      MaxSessions = 20;
-      MaxStartups = "10:20:50";
-      StreamLocalBindUnlink = true;
+  services = {
+    fstrim.enable = true;
+    openssh = {
+      enable = true;
+      settings = {
+        MaxSessions = 20;
+        MaxStartups = "10:20:50";
+        StreamLocalBindUnlink = true;
+      };
     };
   };
 
