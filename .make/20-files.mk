@@ -1,6 +1,6 @@
 define FILES_SOURCES
 $(sort $(strip
-$(shell git grep --name-only --untracked 'files.files' -- '*.nix')
+$(shell git grep --name-only --untracked 'files.file' -- '*.nix')
 ))
 endef
 define FILES_OUTPUTS

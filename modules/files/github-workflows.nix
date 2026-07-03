@@ -28,10 +28,9 @@
       generateYAML = name: content: withHeaderText (pkgs.writers.writeYAML name content);
     in
     {
-      files.files = [
-        {
-          path_ = ".github/workflows/integration.yml";
-          drv = generateYAML "github-integration-workflow.yaml" {
+      files.file.".github/workflows/integration.yml".source =
+        generateYAML "github-integration-workflow.yaml"
+          {
             name = "Integration";
             on.push.branches = [
               "main"
@@ -94,7 +93,5 @@
               ];
             };
           };
-        }
-      ];
     };
 }

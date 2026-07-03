@@ -42,7 +42,10 @@
       url = "github:wwmoraes/cocopilot";
     };
     disko.url = "github:nix-community/disko";
-    files.url = "github:mightyiam/files";
+    files = {
+      flake = false;
+      url = "github:mightyiam/files";
+    };
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
       inputs.nixpkgs-lib.follows = "nixpkgs-lib";

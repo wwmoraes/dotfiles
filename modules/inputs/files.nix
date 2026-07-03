@@ -3,10 +3,13 @@
   ...
 }:
 {
-  flake-file.inputs.files.url = "github:mightyiam/files";
+  flake-file.inputs.files = {
+    url = "github:mightyiam/files";
+    flake = false;
+  };
 
   imports = [
-    inputs.files.flakeModules.default
+    (inputs.files + "/flake-module.nix")
   ];
 
   perSystem =
