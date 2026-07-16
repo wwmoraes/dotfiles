@@ -231,11 +231,9 @@
             body = builtins.readFile ./functions/fconnect.fish;
             description = "fuzzy connect to a host";
           };
-          # fish_greeting = {
-          #   body = ''
-          #     ${lib.getExe pkgs.fortune} | ${lib.getExe pkgs.neo-cowsay} -n -W 80 --random
-          #   '';
-          # };
+          fish_greeting = {
+            body = "";
+          };
           fish_mode_prompt = {
             body = builtins.readFile ./functions/fish_mode_prompt.fish;
           };
