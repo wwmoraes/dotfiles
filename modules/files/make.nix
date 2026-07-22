@@ -19,7 +19,7 @@
             .roots/home/%: secrets.yaml ''${NIX_SOURCES}
             	@mkdir -p $(dir $@)
             	nom build --show-trace --accept-flake-config --out-link $@ .#homeConfigurations."$(subst @,',$*)".activationPackage
-            	@touch $@
+            	@touch -h $@
           '')
           (
             builtins.attrNames self.homeConfigurations
@@ -57,7 +57,7 @@
             .roots/darwin/%: secrets.yaml ''${NIX_SOURCES}
             	@mkdir -p $(dir $@)
             	nom build --show-trace --accept-flake-config --out-link $@ .#darwinConfigurations.$*.config.system.build.toplevel
-            	@touch $@
+            	@touch -h $@
           '')
           (
             builtins.attrNames self.darwinConfigurations
@@ -80,7 +80,7 @@
             .roots/nixos/%: secrets.yaml $(NIX_SOURCES)
             	@mkdir -p $(dir $@)
             	nom build --show-trace --accept-flake-config --out-link $@ .#nixosConfigurations.$*.config.system.build.toplevel
-            	@touch $@
+            	@touch -h $@
           '')
           (
             builtins.attrNames self.nixosConfigurations
@@ -104,7 +104,7 @@
                 .roots/vm/${name}: secrets.yaml $(NIX_SOURCES)
                 	@mkdir -p $(dir $@)
                 	nom build --show-trace --accept-flake-config --out-link $@ .#legacyPackages.${host.pkgs.stdenv.hostPlatform.system}.${name}-image
-                	@touch $@
+                	@touch -h $@
               ''
             )
             |> builtins.attrValues

@@ -26,7 +26,7 @@ vm/folkvangr: .roots/vm/folkvangr
 .roots/vm/folkvangr: secrets.yaml $(NIX_SOURCES)
 	@mkdir -p $(dir $@)
 	nom build --show-trace --accept-flake-config --out-link $@ .#legacyPackages.aarch64-linux.folkvangr-image
-	@touch $@
+	@touch -h $@
 
 .PHONY: vm/hlin
 #: Builds host's VM activation script.
@@ -35,7 +35,7 @@ vm/hlin: .roots/vm/hlin
 .roots/vm/hlin: secrets.yaml $(NIX_SOURCES)
 	@mkdir -p $(dir $@)
 	nom build --show-trace --accept-flake-config --out-link $@ .#legacyPackages.x86_64-linux.hlin-image
-	@touch $@
+	@touch -h $@
 
 .PHONY: vm/vidar
 #: Builds host's VM activation script.
@@ -44,9 +44,9 @@ vm/vidar: .roots/vm/vidar
 .roots/vm/vidar: secrets.yaml $(NIX_SOURCES)
 	@mkdir -p $(dir $@)
 	nom build --show-trace --accept-flake-config --out-link $@ .#legacyPackages.aarch64-linux.vidar-image
-	@touch $@
+	@touch -h $@
 
 .roots/nixos/%: secrets.yaml $(NIX_SOURCES)
 	@mkdir -p $(dir $@)
 	nom build --show-trace --accept-flake-config --out-link $@ .#nixosConfigurations.$*.config.system.build.toplevel
-	@touch $@
+	@touch -h $@

@@ -16,4 +16,4 @@ host/NLLM4000559023: .roots/darwin/NLLM4000559023
 .roots/darwin/%: secrets.yaml ${NIX_SOURCES}
 	@mkdir -p $(dir $@)
 	nom build --show-trace --accept-flake-config --out-link $@ .#darwinConfigurations.$*.config.system.build.toplevel
-	@touch $@
+	@touch -h $@

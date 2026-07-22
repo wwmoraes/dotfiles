@@ -17,4 +17,4 @@ install/nas::
 .roots/home/%: secrets.yaml ${NIX_SOURCES}
 	@mkdir -p $(dir $@)
 	nom build --show-trace --accept-flake-config --out-link $@ .#homeConfigurations."$(subst @,',$*)".activationPackage
-	@touch $@
+	@touch -h $@
