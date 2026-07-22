@@ -18,15 +18,11 @@
 
   flake.modules.darwin.shell'personal =
     {
-      config,
       ...
     }:
     {
-      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths =
-        config.users.users
-        |> builtins.attrValues
-        |> builtins.concatMap (user: [
-          "${user.home}/.tldrc"
-        ]);
+      system.defaults.timemachine.perUser.home.SkipPaths = [
+        ".tldrc"
+      ];
     };
 }

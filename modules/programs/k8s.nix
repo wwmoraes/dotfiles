@@ -1,17 +1,13 @@
 {
   flake.modules.darwin.development'personal =
     {
-      config,
       ...
     }:
     {
-      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths =
-        config.users.users
-        |> builtins.attrValues
-        |> builtins.concatMap (user: [
-          "${user.home}/.kube"
-          "${user.home}/.minikube"
-        ]);
+      system.defaults.timemachine.perUser.home.SkipPaths = [
+        ".kube"
+        ".minikube"
+      ];
     };
 
   flake.modules.homeManager.development'personal'disabled =

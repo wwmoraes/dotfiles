@@ -229,16 +229,15 @@
         builders-use-substitutes = true;
       };
 
-      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths = [
-        /nix
-      ]
-      ++ (
-        config.users.users
-        |> builtins.attrValues
-        |> builtins.concatMap (user: [
-          "${user.home}/.nix-defexpr"
-          "${user.home}/.nix-profile"
-        ])
-      );
+      system.defaults.timemachine = {
+        SkipPaths = [
+          /nix
+        ];
+
+        perUser.home.SkipPaths = [
+          ".nix-defexpr"
+          ".nix-profile"
+        ];
+      };
     };
 }

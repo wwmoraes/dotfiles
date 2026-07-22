@@ -1,16 +1,12 @@
 {
   flake.modules.darwin.default =
     {
-      config,
       ...
     }:
     {
-      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths =
-        config.users.users
-        |> builtins.attrValues
-        |> builtins.concatMap (user: [
-          "${user.home}/.config/helix/runtime/grammars"
-        ]);
+      system.defaults.timemachine.perUser.home.SkipPaths = [
+        ".config/helix/runtime/grammars"
+      ];
     };
 
   flake.modules.homeManager.default =

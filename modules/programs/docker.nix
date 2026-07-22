@@ -156,7 +156,6 @@
 
   flake.modules.darwin.development'disabled =
     {
-      config,
       ...
     }:
     {
@@ -170,13 +169,10 @@
         }
       ];
 
-      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths =
-        config.users.users
-        |> builtins.attrValues
-        |> builtins.concatMap (user: [
-          "${user.home}/.docker"
-          "${user.home}/.moby"
-        ]);
+      system.defaults.timemachine.perUser.home.SkipPaths = [
+        ".docker"
+        ".moby"
+      ];
     };
 
   flake.modules.homeManager.development'disabled =

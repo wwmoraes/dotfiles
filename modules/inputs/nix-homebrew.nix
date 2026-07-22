@@ -124,7 +124,7 @@
         brew shellenv fish 2>/dev/null | source || true
       '';
 
-      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths = [
+      system.defaults.timemachine.SkipPaths = [
         (toString (/. + "${config.homebrew.brewPrefix}/.."))
       ];
     };

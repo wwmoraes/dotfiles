@@ -1,40 +1,38 @@
 {
   flake.modules.darwin.default =
     {
-      config,
       ...
     }:
     {
-      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths = [
-        /Applications
-        /private
-      ]
-      ++ (
-        config.users.users
-        |> builtins.attrValues
-        |> builtins.concatMap (user: [
-          "${user.home}/.Trash"
-          "${user.home}/.cache"
-          "${user.home}/.local"
-          "${user.home}/Applications"
-          "${user.home}/Desktop"
-          "${user.home}/Downloads"
-          "${user.home}/Library/Caches"
-          "${user.home}/Library/CloudStorage"
-          "${user.home}/Library/Containers"
-          "${user.home}/Library/Daemon Containers"
-          "${user.home}/Library/Developer"
-          "${user.home}/Library/Group Containers"
-          "${user.home}/Library/HTTPStorages"
-          "${user.home}/Library/IntelligencePlatform"
-          "${user.home}/Library/Logs"
-          "${user.home}/Library/Mail"
-          "${user.home}/Library/Messages"
-          "${user.home}/Library/Metadata"
-          "${user.home}/Library/Mobile Documents"
-          "${user.home}/Library/Safari"
-        ])
-      );
+      system.defaults.timemachine = {
+        perUser.home.SkipPaths = [
+          ".Trash"
+          ".cache"
+          ".local"
+          "Applications"
+          "Desktop"
+          "Downloads"
+          "Library/Caches"
+          "Library/CloudStorage"
+          "Library/Containers"
+          "Library/Daemon Containers"
+          "Library/Developer"
+          "Library/Group Containers"
+          "Library/HTTPStorages"
+          "Library/IntelligencePlatform"
+          "Library/Logs"
+          "Library/Mail"
+          "Library/Messages"
+          "Library/Metadata"
+          "Library/Mobile Documents"
+          "Library/Safari"
+        ];
+
+        SkipPaths = [
+          /Applications
+          /private
+        ];
+      };
     };
 
   flake.modules.darwin.personal = {

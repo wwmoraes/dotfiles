@@ -1,17 +1,13 @@
 {
   flake.modules.darwin.default =
     {
-      config,
       ...
     }:
     {
-      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths =
-        config.users.users
-        |> builtins.attrValues
-        |> builtins.concatMap (user: [
-          "${user.home}/.cargo"
-          "${user.home}/.rustup"
-        ]);
+      system.defaults.timemachine.perUser.home.SkipPaths = [
+        ".cargo"
+        ".rustup"
+      ];
     };
 
   flake.modules.homeManager.default = {

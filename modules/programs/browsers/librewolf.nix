@@ -1,16 +1,12 @@
 {
   flake.modules.darwin.gui'personal =
     {
-      config,
       ...
     }:
     {
-      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths =
-        config.users.users
-        |> builtins.attrValues
-        |> builtins.concatMap (user: [
-          "${user.home}/.librewolf"
-        ]);
+      system.defaults.timemachine.perUser.home.SkipPaths = [
+        ".librewolf"
+      ];
     };
 
   flake.modules.homeManager.gui'disabled = {

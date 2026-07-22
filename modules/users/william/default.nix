@@ -24,7 +24,7 @@
       users.users.william = {
         home = "/Users/william";
       };
-      system.defaults.CustomSystemPreferences."/Library/Preferences/com.apple.TimeMachine".SkipPaths = [
+      system.defaults.timemachine.SkipPaths = [
         "${config.users.users.william.home}/Cloud"
         "${config.users.users.william.home}/dev"
       ];
