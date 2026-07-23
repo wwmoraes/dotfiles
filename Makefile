@@ -36,9 +36,9 @@ dist:
 #: Applies the current host's settings.
 install: host/${HOSTNAME}
 ifeq ($(shell uname -s),Darwin)
-	sudo darwin-rebuild switch --no-remote ${FLAGS} --flake .
+	sudo darwin-rebuild switch ${FLAGS} --flake .
 else
-	sudo nixos-rebuild switch --no-remote ${FLAGS} --flake .
+	sudo nixos-rebuild switch ${FLAGS} --flake .
 endif
 
 .PHONY: pushcheck

@@ -1,5 +1,5 @@
 {
-  config,
+  # config,
   ...
 }:
 {
@@ -18,6 +18,7 @@
       "gpg"
       "gui"
       "shell"
+      "single-user"
       "terminal"
       # keep-sorted end
     ];
@@ -26,9 +27,9 @@
     #   development
     # ];
 
-    systemModules = with config.flake.modules; [
-      darwin.single-user
-    ];
+    # systemModules = with config.flake.modules; [
+    #   darwin.single-user
+    # ];
 
     users.william = [ ];
 

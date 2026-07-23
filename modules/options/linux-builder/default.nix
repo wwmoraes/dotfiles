@@ -119,7 +119,6 @@
           };
         };
 
-        nix.distributedBuilds = true;
         nix.buildMachines = [
           {
             hostName = "linux-builder";

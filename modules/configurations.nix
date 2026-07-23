@@ -143,7 +143,9 @@ let
         users,
       }:
       let
-        usernames = builtins.attrNames users;
+        usernames = builtins.filter (username: (builtins.substring 0 1 username) != "_") (
+          builtins.attrNames users
+        );
         systemModuleNames =
           usernames
           ++ contexts

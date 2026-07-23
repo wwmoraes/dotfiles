@@ -1,5 +1,4 @@
 {
-  config,
   ...
 }:
 {
@@ -21,6 +20,7 @@
       "messaging"
       "shell"
       "terminal"
+      "multi-user"
       # keep-sorted end
     ];
 
@@ -28,9 +28,10 @@
     #   development
     # ];
 
-    systemModules = with config.flake.modules; [
-      darwin.single-user
-    ];
+    # systemModules = with config.flake.modules; [
+    #   darwin.single-user
+    #   darwin.multi-user
+    # ];
 
     users.william = [ ];
 
