@@ -23,11 +23,11 @@
     {
       # sops.secrets.rootHashedPassword = {
       #   neededForUsers = true;
-      #   key = "hashedPasswords/root";
+      #   key = "users/root/hashedPassword";
       # };
 
       users.users.root = {
-        hashedPassword = "$y$j9T$mHDXOLhUUNq3c91YRRcLX0$u9h/E52hXlYlrZg7.aaXy4QBazH3PLOCxyEiPLMNtT/";
+        hashedPassword = "$y$jCT$ovI6RPxdYEPAMvKOmdPrh/$i0ElWKMAUm9HMpRXyrcKgJQ2sByYvQZTIEOMTWlzRK2";
         # hashedPasswordFile = config.sops.secrets.rootHashedPassword.path;
         openssh.authorizedKeys.keys = [
           "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDEQfDq8il7eWmG9om/Oqlkd842nSpb/W2A44Yp2RDSHDFKddjSGxpB3phN1eQieymqJMFofdHahdLoxXIItJH5D0ixT/dKCNduZosN1fpJu6pcPaMZ8lxzxMKcNswZ3j9Hitk9lMX/x/Y3h9uBv/nHbpPxxGmxJM7bze9RVYAcEZIvrFib2VFp62k7DHMgQzOUm+s4moa2uvc3JXKtjYdqVq+pdryubYn1BRxkBDc5TH9WIIEKAkDUV+kYIslFs4orlWZXd2yKKqGXM+5pK5ybiEo2mGiooXr1hBXSvGPbpeWNmHqEl8AKY3MRgwbt/eqVk9YkGZh/w0Go5Cus1KHdNccApkt1ItX30+caDRgpDN47pPtMs7onNvPoYEaG0CgGOQa9SjcXd0GSi6X2HVA9FLnkT3rsUTrkwOz9pEAkBqYTPfVoKnfhmfInZt/7JiKAbGSw93O6du5pvQkDpG7aRtfCIoRK642ClG2yqqSPv7uoQi2EWMHSFnCSmW+uIL5Lj2DUdeKoB01KtgZYXAGKJseAvP8FXiQfBh8PHXwNaQQ0fBeI5DOXpIJXvjV9XdnkeA1T+W+m3r7QzhR6K4lOBx8gNXJ7p5x8+JZ5B0FbN0Qnbg7t15cUWJyD8xMABca1JyuBpt/jO0F/chyzqI8sDp201Hd67lJxPaN3x09ZrQ== openpgp:0x78133BF7"
