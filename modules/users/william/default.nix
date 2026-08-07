@@ -158,6 +158,7 @@
             William Artero <git@artero.dev>
             William Artero <git@artero.dev> <github@artero.dev>
             William Artero <git@artero.dev> <william.artero@dafiti.com.br>
+            William Artero <git@artero.dev> <william.moraes.artero@nl.abnamro.com>
             William Artero <git@artero.dev> <william.moraesartero@messagebird.com>
             William Artero <git@artero.dev> <william@artero.dev>
             William Artero <git@artero.dev> <william@dft-sp-wkn623.dafiti.local>
