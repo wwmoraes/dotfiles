@@ -80,7 +80,7 @@
             verbose = true;
           };
           core = {
-            commentChar = lib.mkDefault "auto";
+            commentChar = "|";
             editor = "hx";
             ## git's simple IPC does not provide stdin and stdout, which causes tools that
             ## poorly handle their absence to crash; a notable example is yamllint

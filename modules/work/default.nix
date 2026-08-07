@@ -22,8 +22,6 @@
       # security add-internet-password -a C82334 -s p-nexus-3.development.nl.eu.abnamro.com -r htps -P 18447 -l "Docker Credentials" -w 'SECRET'
       # programs.docker.enable = true;
       programs.git.settings = {
-        core.commentChar = "|";
-
         # diff = {
         #   ## SSNS is so bloated that even the sane defaults aren't enough
         #   renameLimit = 16384;
