@@ -11,5 +11,12 @@
       "iMovie" = 408981434;
       # keep-sorted end
     };
+
+    system.defaults.timemachine = {
+      SkipPaths = [
+        "/Library/Application Support/GarageBand"
+        "/Library/Application Support/Logic"
+      ];
+    };
   };
 }

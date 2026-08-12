@@ -29,7 +29,14 @@
         ];
 
         SkipPaths = [
+          "/Library/Fonts/Nix Fonts"
           /Applications
+          /Library/Caches
+          /Library/Developer
+          /Library/Documentation
+          /Library/Logs
+          /System/Applications
+          /System/Library/Caches
           /private
         ];
       };
