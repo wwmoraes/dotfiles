@@ -173,12 +173,4 @@
         };
       };
     };
-
-  flake.modules.homeManager.william'personal = {
-    targets.darwin.linux-builder = {
-      enable = false;
-      config = {
-      };
-    };
-  };
 }
