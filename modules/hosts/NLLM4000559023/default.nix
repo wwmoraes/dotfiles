@@ -1,8 +1,4 @@
 {
-  # config,
-  ...
-}:
-{
   configurations.darwin.NLLM4000559023 = {
     contexts = [
       # keep-sorted start

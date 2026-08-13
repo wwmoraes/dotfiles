@@ -1,13 +1,9 @@
 {
-  flake.modules.darwin.default =
-    {
-      ...
-    }:
-    {
-      system.defaults.timemachine.perUser.home.SkipPaths = [
-        ".config/helix/runtime/grammars"
-      ];
-    };
+  flake.modules.darwin.default = {
+    system.defaults.timemachine.perUser.home.SkipPaths = [
+      ".config/helix/runtime/grammars"
+    ];
+  };
 
   flake.modules.homeManager.default =
     {

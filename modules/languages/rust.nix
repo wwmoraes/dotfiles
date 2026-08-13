@@ -1,14 +1,10 @@
 {
-  flake.modules.darwin.default =
-    {
-      ...
-    }:
-    {
-      system.defaults.timemachine.perUser.home.SkipPaths = [
-        ".cargo"
-        ".rustup"
-      ];
-    };
+  flake.modules.darwin.default = {
+    system.defaults.timemachine.perUser.home.SkipPaths = [
+      ".cargo"
+      ".rustup"
+    ];
+  };
 
   flake.modules.homeManager.default = {
     # home.sessionPath = lib.mkMerge [

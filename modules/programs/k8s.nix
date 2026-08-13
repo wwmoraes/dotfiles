@@ -1,14 +1,10 @@
 {
-  flake.modules.darwin.development'personal =
-    {
-      ...
-    }:
-    {
-      system.defaults.timemachine.perUser.home.SkipPaths = [
-        ".kube"
-        ".minikube"
-      ];
-    };
+  flake.modules.darwin.development'personal = {
+    system.defaults.timemachine.perUser.home.SkipPaths = [
+      ".kube"
+      ".minikube"
+    ];
+  };
 
   flake.modules.homeManager.development'personal'disabled =
     {

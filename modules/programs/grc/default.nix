@@ -1,13 +1,9 @@
 {
-  flake.modules.darwin.shell'personal =
-    {
-      ...
-    }:
-    {
-      system.defaults.timemachine.perUser.home.SkipPaths = [
-        ".grc"
-      ];
-    };
+  flake.modules.darwin.shell'personal = {
+    system.defaults.timemachine.perUser.home.SkipPaths = [
+      ".grc"
+    ];
+  };
 
   flake.modules.homeManager.shell'personal =
     {

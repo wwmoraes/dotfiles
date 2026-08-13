@@ -1,46 +1,42 @@
 {
-  flake.modules.darwin.default =
-    {
-      ...
-    }:
-    {
-      system.defaults.timemachine = {
-        perUser.home.SkipPaths = [
-          ".Trash"
-          ".cache"
-          ".local"
-          "Applications"
-          "Desktop"
-          "Downloads"
-          "Library/Caches"
-          "Library/CloudStorage"
-          "Library/Containers"
-          "Library/Daemon Containers"
-          "Library/Developer"
-          "Library/Group Containers"
-          "Library/HTTPStorages"
-          "Library/IntelligencePlatform"
-          "Library/Logs"
-          "Library/Mail"
-          "Library/Messages"
-          "Library/Metadata"
-          "Library/Mobile Documents"
-          "Library/Safari"
-        ];
+  flake.modules.darwin.default = {
+    system.defaults.timemachine = {
+      perUser.home.SkipPaths = [
+        ".Trash"
+        ".cache"
+        ".local"
+        "Applications"
+        "Desktop"
+        "Downloads"
+        "Library/Caches"
+        "Library/CloudStorage"
+        "Library/Containers"
+        "Library/Daemon Containers"
+        "Library/Developer"
+        "Library/Group Containers"
+        "Library/HTTPStorages"
+        "Library/IntelligencePlatform"
+        "Library/Logs"
+        "Library/Mail"
+        "Library/Messages"
+        "Library/Metadata"
+        "Library/Mobile Documents"
+        "Library/Safari"
+      ];
 
-        SkipPaths = [
-          "/Library/Fonts/Nix Fonts"
-          /Applications
-          /Library/Caches
-          /Library/Developer
-          /Library/Documentation
-          /Library/Logs
-          /System/Applications
-          /System/Library/Caches
-          /private
-        ];
-      };
+      SkipPaths = [
+        "/Library/Fonts/Nix Fonts"
+        /Applications
+        /Library/Caches
+        /Library/Developer
+        /Library/Documentation
+        /Library/Logs
+        /System/Applications
+        /System/Library/Caches
+        /private
+      ];
     };
+  };
 
   flake.modules.darwin.personal = {
     /*

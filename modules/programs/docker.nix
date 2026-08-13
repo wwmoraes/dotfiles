@@ -154,26 +154,22 @@
     };
   };
 
-  flake.modules.darwin.development'disabled =
-    {
-      ...
-    }:
-    {
-      home-manager.sharedModules = [
-        {
-          programs.docker.desktopSettings = {
-            FilesharingDirectories = lib.mkDefault [
-              "/tmp"
-            ];
-          };
-        }
-      ];
+  flake.modules.darwin.development'disabled = {
+    home-manager.sharedModules = [
+      {
+        programs.docker.desktopSettings = {
+          FilesharingDirectories = lib.mkDefault [
+            "/tmp"
+          ];
+        };
+      }
+    ];
 
-      system.defaults.timemachine.perUser.home.SkipPaths = [
-        ".docker"
-        ".moby"
-      ];
-    };
+    system.defaults.timemachine.perUser.home.SkipPaths = [
+      ".docker"
+      ".moby"
+    ];
+  };
 
   flake.modules.homeManager.development'disabled =
     {

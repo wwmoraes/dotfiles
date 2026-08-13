@@ -1,13 +1,9 @@
 {
-  flake.modules.darwin.gui'personal =
-    {
-      ...
-    }:
-    {
-      system.defaults.timemachine.perUser.home.SkipPaths = [
-        ".librewolf"
-      ];
-    };
+  flake.modules.darwin.gui'personal = {
+    system.defaults.timemachine.perUser.home.SkipPaths = [
+      ".librewolf"
+    ];
+  };
 
   flake.modules.homeManager.gui'disabled = {
     programs.librewolf = {

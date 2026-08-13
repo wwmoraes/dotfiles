@@ -16,13 +16,9 @@
       };
     };
 
-  flake.modules.darwin.shell'personal =
-    {
-      ...
-    }:
-    {
-      system.defaults.timemachine.perUser.home.SkipPaths = [
-        ".tldrc"
-      ];
-    };
+  flake.modules.darwin.shell'personal = {
+    system.defaults.timemachine.perUser.home.SkipPaths = [
+      ".tldrc"
+    ];
+  };
 }

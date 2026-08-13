@@ -150,7 +150,7 @@
                 '';
               };
               StrictModes = lib.mkOption {
-                type = lib.types.nullOr (lib.types.bool);
+                type = lib.types.nullOr lib.types.bool;
                 default = true;
                 description = ''
                   Whether sshd should check file modes and ownership of directories

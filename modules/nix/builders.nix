@@ -35,7 +35,7 @@ let
           (toString machine.speedFactor)
           (
             let
-              res = (machine.supportedFeatures ++ machine.mandatoryFeatures);
+              res = machine.supportedFeatures ++ machine.mandatoryFeatures;
             in
             if (res == [ ]) then "-" else (concatStringsSep "," res)
           )
@@ -78,43 +78,39 @@ in
       };
     };
 
-  flake.modules.darwin.personal =
-    {
-      ...
-    }:
-    {
-      # nix.linux-builder.enable = true;
-      # nix.linux-builder.systems = lib.intersectLists lib.platforms.linux (
-      #   lib.platforms.aarch64 ++ lib.platforms.x86_64
-      # );
+  flake.modules.darwin.personal = {
+    # nix.linux-builder.enable = true;
+    # nix.linux-builder.systems = lib.intersectLists lib.platforms.linux (
+    #   lib.platforms.aarch64 ++ lib.platforms.x86_64
+    # );
 
-      nix.buildMachines = [
-        {
-          hostName = "vidar";
-          maxJobs = 4;
-          protocol = "ssh-ng";
-          sshUser = "root";
-          supportedFeatures = [
-            "benchmark"
-            "big-parallel"
-            "kvm"
-            "nixos-test"
-          ];
-          system = "aarch64-linux";
-        }
-        {
-          hostName = "nas";
-          maxJobs = 4;
-          protocol = "ssh-ng";
-          sshUser = "root";
-          supportedFeatures = [
-            "benchmark"
-            "big-parallel"
-            "kvm"
-            "nixos-test"
-          ];
-          system = "x86_64-linux";
-        }
-      ];
-    };
+    nix.buildMachines = [
+      {
+        hostName = "vidar";
+        maxJobs = 4;
+        protocol = "ssh-ng";
+        sshUser = "root";
+        supportedFeatures = [
+          "benchmark"
+          "big-parallel"
+          "kvm"
+          "nixos-test"
+        ];
+        system = "aarch64-linux";
+      }
+      {
+        hostName = "nas";
+        maxJobs = 4;
+        protocol = "ssh-ng";
+        sshUser = "root";
+        supportedFeatures = [
+          "benchmark"
+          "big-parallel"
+          "kvm"
+          "nixos-test"
+        ];
+        system = "x86_64-linux";
+      }
+    ];
+  };
 }

@@ -1,7 +1,4 @@
 {
-  ...
-}:
-{
   configurations.darwin.M1Cabuk = {
     contexts = [
       # keep-sorted start
@@ -18,9 +15,9 @@
       "gpg"
       "gui"
       "messaging"
+      "multi-user"
       "shell"
       "terminal"
-      "multi-user"
       # keep-sorted end
     ];
 

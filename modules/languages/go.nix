@@ -3,15 +3,13 @@
   ...
 }:
 {
-  flake.modules.darwin.default =
-    _:
-    {
-      system.defaults.timemachine.perUser.home.SkipPaths = [
-        ".dlv"
-        ".go"
-        "go"
-      ];
-    };
+  flake.modules.darwin.default = {
+    system.defaults.timemachine.perUser.home.SkipPaths = [
+      ".dlv"
+      ".go"
+      "go"
+    ];
+  };
 
   flake.modules.homeManager.default =
     {

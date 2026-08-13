@@ -1,13 +1,9 @@
 {
-  flake.modules.darwin.gui'personal =
-    {
-      ...
-    }:
-    {
-      system.defaults.timemachine.perUser.home.SkipPaths = [
-        "Zotero"
-      ];
-    };
+  flake.modules.darwin.gui'personal = {
+    system.defaults.timemachine.perUser.home.SkipPaths = [
+      "Zotero"
+    ];
+  };
 
   flake.modules.homeManager.gui'personal =
     {
