@@ -3,10 +3,12 @@
     nix.settings = {
       allowed-users = [
         "root"
+        "william"
         "@wheel"
       ];
       trusted-users = [
         "root"
+        "william"
         "@wheel"
       ];
     };

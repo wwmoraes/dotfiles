@@ -89,3 +89,10 @@ setup-yubikey:
 	# see https://github.com/OpenSC/OpenSC/issues/847#issuecomment-238119888
 	echo "enabling retired key management slots"
 	echo -n C10114C20100FE00 | yubico-piv-tool -k -a write-object --id 0x5FC10C -i -
+
+[group('darwin')]
+[doc('Restarts the nix-daemon on multi-user installations.')]
+restart-nix-daemon:
+	#!/usr/bin/env bash
+	sudo launchctl stop org.nixos.nix-daemon
+	sudo launchctl start org.nixos.nix-daemon

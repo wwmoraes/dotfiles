@@ -33,6 +33,7 @@
       inputs = {
         flake-parts.follows = "flake-parts";
         flake-utils.follows = "flake-utils";
+        gomod2nix.follows = "gomod2nix";
         nixpkgs.follows = "nixpkgs";
         nur.follows = "nur";
         systems.follows = "systems";
@@ -41,9 +42,19 @@
       };
       url = "github:wwmoraes/cocopilot";
     };
-    disko.url = "github:nix-community/disko";
+    disko = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/disko";
+    };
     files = {
       flake = false;
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        treefmt-nix.follows = "treefmt-nix";
+      };
       url = "github:mightyiam/files";
     };
     flake-file.url = "github:vic/flake-file";
@@ -59,9 +70,16 @@
       flake = false;
       url = "github:GNOME/gnome-shell";
     };
+    gomod2nix = {
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+      url = "github:nix-community/gomod2nix";
+    };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
     };
     homebrew-brew = {
       flake = false;
@@ -82,7 +100,7 @@
     };
     nix-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
     };
     nix-homebrew = {
       inputs.brew-src.follows = "homebrew-brew";
@@ -96,7 +114,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:NixOS/nixos-hardware";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/release-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-26.05?shallow=1";
     nixpkgs-lib.follows = "nixpkgs";
     nur = {
       inputs = {
@@ -117,7 +135,7 @@
         nur.follows = "nur";
         systems.follows = "systems";
       };
-      url = "github:danth/stylix/release-25.11";
+      url = "github:danth/stylix/release-26.05";
     };
     systems.url = "github:nix-systems/default";
     templates = {

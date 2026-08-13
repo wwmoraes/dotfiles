@@ -60,9 +60,10 @@
   };
 
   flake.modules.homeManager.william'work = {
-    programs.ssh.matchBlocks."cocodev cocodev.pcs.nl.eu.abnamro.com" = {
-      hostname = "cocodev.pcs.nl.eu.abnamro.com";
-      user = "c82334";
+    programs.ssh.settings.cocodev = {
+      header = "Host cocodev cocodev.pcs.nl.eu.abnamro.com";
+      Hostname = "cocodev.pcs.nl.eu.abnamro.com";
+      User = "c82334";
     };
   };
 }

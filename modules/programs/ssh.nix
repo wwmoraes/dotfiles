@@ -65,31 +65,38 @@ in
     };
   };
 
-  flake.modules.homeManager.default = {
-    programs.ssh = {
-      enable = true;
-      enableDefaultConfig = false;
-      matchBlocks = {
-        "*" = {
-          addKeysToAgent = "no";
-          compression = true;
-          controlMaster = "auto";
-          controlPath = "~/.ssh/%r@%h:%p.sock";
-          controlPersist = "10m";
-          forwardAgent = false;
-          hashKnownHosts = false;
-          serverAliveCountMax = 10;
-          serverAliveInterval = 60;
-          userKnownHostsFile = "~/.ssh/known_hosts";
-        };
-        "github.com bitbucket.org" = {
-          user = "git";
+  flake.modules.homeManager.default =
+    {
+      lib,
+      ...
+    }:
+    {
+      programs.ssh = {
+        enable = true;
+        enableDefaultConfig = false;
+        settings = {
+          all = {
+            header = "Host *";
+            AddKeysToAgent = "no";
+            Compression = true;
+            ControlMaster = "auto";
+            ControlPath = "~/.ssh/%r@%h:%p.sock";
+            ControlPersist = "10m";
+            ForwardAgent = false;
+            HashKnownHosts = false;
+            ServerAliveCountMax = 10;
+            ServerAliveInterval = 60;
+            UserKnownHostsFile = "~/.ssh/known_hosts";
+          };
+          git = lib.hm.dag.entryAfter [ "all" ] {
+            header = "Host github.com bitbucket.org";
+            User = "git";
+          };
         };
       };
     };
-  };
 
-  flake.modules.homeManager.personal = {
+  flake.modules.homeManager.personal = _: {
     programs.ssh = {
       extraOptionOverrides = {
         AddressFamily = "inet"; # enable IPv6
@@ -107,15 +114,6 @@ in
         TCPKeepAlive = "yes";
         UseKeychain = "no";
         WarnWeakCrypto = "yes";
-      };
-
-      matchBlocks = {
-        "ap ap.home.arpa" = {
-          user = "root";
-        };
-        "router router.home.arpa" = {
-          user = "root";
-        };
       };
     };
   };

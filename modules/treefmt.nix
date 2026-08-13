@@ -3,7 +3,7 @@
   ...
 }:
 {
-  perSystem = {
+  perSystem = { pkgs, ... }: {
     treefmt = {
       imports = builtins.attrValues self.modules.treefmt;
 
@@ -22,7 +22,10 @@
       programs.shellcheck-posix.enable = true;
       programs.shellcheck-bash.enable = true;
       programs.statix.enable = true;
-      programs.nixfmt.enable = true;
+      programs.nixfmt = {
+        enable = true;
+        package = pkgs.nixfmt;
+      };
       programs.typos = {
         enable = true;
         excludes = [

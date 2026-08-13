@@ -1,5 +1,9 @@
 {
-  services.cgit."git.home.arpa" = {
+  config,
+  ...
+}:
+{
+  services.cgit."git.${config.networking.domain}" = {
     enable = true;
     group = "git";
     user = "git";

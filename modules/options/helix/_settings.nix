@@ -91,13 +91,13 @@ in
       type = nullOr (either str (listOf str));
       default = null;
       description = ''The tokens to use as a comment token, either a single token "//" or an array ["//", "///", "//!"] (the first token will be used for commenting).'';
-      apply = x: if builtins.isNull x then null else lib.toList x;
+      apply = x: if isNull x then null else lib.toList x;
     };
     comment-tokens = mkOption {
       type = nullOr (either str (listOf str));
       default = null;
       description = ''The tokens to use as a comment token, either a single token "//" or an array ["//", "///", "//!"] (the first token will be used for commenting). Also configurable as comment-token for backwards compatibility.'';
-      apply = x: if builtins.isNull x then null else lib.toList x;
+      apply = x: if isNull x then null else lib.toList x;
     };
     block-comment-tokens =
       let

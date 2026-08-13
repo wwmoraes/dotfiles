@@ -120,7 +120,7 @@
               .PHONY: install/${name}
               #: Activates configuration over SSH.
               install/${name}::
-              	nix run nixpkgs#nixos-rebuild -- switch --build-host root@${host.config.networking.fqdn} --fast --flake .#${name} --target-host root@${host.config.networking.fqdn}
+              	nix run nixpkgs#nixos-rebuild -- switch --build-host root@${host.config.networking.fqdn} --no-reexec --flake .#${name} --target-host root@${host.config.networking.fqdn}
             ''
           )
           |> builtins.attrValues
