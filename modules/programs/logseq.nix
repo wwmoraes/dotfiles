@@ -5,7 +5,7 @@
     ];
   };
 
-  flake.modules.homeManager.gui'personal =
+  flake.modules.homeManager.gui'personal'disabled =
     {
       pkgs,
       ...
