@@ -43,7 +43,6 @@
     networkmanager.enable = true;
     useDHCP = lib.mkDefault true;
     wireless.iwd = {
-      enable = true;
       settings = {
         General.Country = "NL";
       };

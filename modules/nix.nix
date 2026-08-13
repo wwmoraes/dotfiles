@@ -6,7 +6,6 @@
   flake.modules.generic.default = {
     nix = {
       settings = {
-        accept-flake-config = true;
         require-sigs = true;
         sandbox = true;
         sandbox-fallback = false;

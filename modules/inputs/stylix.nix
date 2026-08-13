@@ -10,7 +10,7 @@
     inputs.nixpkgs.follows = "nixpkgs";
     inputs.nur.follows = "nur";
     inputs.systems.follows = "systems";
-    url = "github:danth/stylix/release-25.11";
+    url = "github:danth/stylix/release-26.05";
   };
 
   flake.modules.generic.default = {

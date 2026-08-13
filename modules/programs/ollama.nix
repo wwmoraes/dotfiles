@@ -5,11 +5,11 @@
       ...
     }:
     let
-      inherit (config.homebrew) brewPrefix;
+      inherit (config.homebrew) prefix;
     in
     {
       homebrew.casks = [
-        "ollama"
+        "ollama-app"
       ];
 
       home-manager.sharedModules = [
@@ -41,7 +41,7 @@
                   Label = "com.ollama.ollama";
                   ProcessType = "Adaptive";
                   ProgramArguments = [
-                    "${brewPrefix}/ollama"
+                    "${prefix}/ollama"
                     "serve"
                   ];
                   RunAtLoad = false;

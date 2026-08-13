@@ -9,9 +9,21 @@
       home-manager.users.root = {
         programs.fish.enable = true;
         services.gpg-agent.enable = lib.mkForce false;
-        systemd.user.sessionVariables = {
-          inherit (config.home-manager.users.root.home.sessionVariables) GNUPGHOME;
-        };
+        systemd.user.sessionVariables =
+          lib.optionalAttrs (config.home-manager.users.root.home.sessionVariables ? GNUPGHOME)
+            {
+              inherit (config.home-manager.users.root.home.sessionVariables) GNUPGHOME;
+            };
+      };
+    };
+
+  flake.modules.darwin.root =
+    {
+      ...
+    }:
+    {
+      users.users.root = {
+        home = "/var/root";
       };
     };
 

@@ -188,13 +188,6 @@
           __fish_seen_subcommand_of = {
             body = builtins.readFile ./functions/__fish_seen_subcommand_of.fish;
           };
-          __fish_store_last_status = {
-            body = ''
-              set -g __fish_last_status $status
-            '';
-            description = "stores the status of the last command before hooks execute";
-            onEvent = "fish_postexec";
-          };
           __fish_unique_values = {
             body = builtins.readFile ./functions/__fish_unique_values.fish;
             description = "removes duplicate values, keeping its first occurrence in order";
@@ -236,9 +229,6 @@
           };
           fish_mode_prompt = {
             body = builtins.readFile ./functions/fish_mode_prompt.fish;
-          };
-          fish_prompt = {
-            body = builtins.readFile ./functions/fish_prompt.fish;
           };
           fish_user_key_bindings = lib.mkMerge [
             (lib.mkBefore ''

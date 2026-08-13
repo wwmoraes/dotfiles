@@ -165,7 +165,7 @@ if [[ ${action} =~ ^switch|activate|rollback|check$ && $(id -u) -ne 0 ]]; then
 	exit 1
 fi
 
-flakeFlags=(--extra-experimental-features nix-command --extra-experimental-features flakes)
+flakeFlags=(--extra-experimental-features nix-command --extra-experimental-features flakes --accept-flake-config)
 
 # Use /etc/nix-darwin/flake.nix if it exists. It can be a symlink to the
 # actual flake.

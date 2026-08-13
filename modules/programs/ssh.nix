@@ -46,77 +46,83 @@ let
   ];
 in
 {
-  flake.modules.generic.personal = {
-    programs.ssh = {
-      ciphers = Ciphers;
-      hostKeyAlgorithms = HostKeyAlgorithms;
-      kexAlgorithms = KexAlgorithms;
-      macs = MACs;
-      pubkeyAcceptedKeyTypes = PubkeyAcceptedAlgorithms;
-      extraConfig = ''
-        IgnoreUnknown ${builtins.concatStringsSep "," IgnoreUnknown}
-        WarnWeakCrypto yes
-      '';
+  flake.modules.generic.personal =
+    {
+      ...
+    }:
+    {
+      programs.ssh = {
+        ciphers = Ciphers;
+        hostKeyAlgorithms = HostKeyAlgorithms;
+        kexAlgorithms = KexAlgorithms;
+        macs = MACs;
+        pubkeyAcceptedKeyTypes = PubkeyAcceptedAlgorithms;
+        extraConfig = ''
+          IgnoreUnknown ${builtins.concatStringsSep "," IgnoreUnknown}
+          WarnWeakCrypto yes
+        '';
+      };
+
+      services.openssh.settings = {
+        inherit Ciphers KexAlgorithms;
+        Macs = MACs;
+      };
     };
 
-    services.openssh.settings = {
-      inherit Ciphers KexAlgorithms;
-      Macs = MACs;
-    };
-  };
-
-  flake.modules.homeManager.default = {
-    programs.ssh = {
-      enable = true;
-      enableDefaultConfig = false;
-      matchBlocks = {
-        "*" = {
-          addKeysToAgent = "no";
-          compression = true;
-          controlMaster = "auto";
-          controlPath = "~/.ssh/%r@%h:%p.sock";
-          controlPersist = "10m";
-          forwardAgent = false;
-          hashKnownHosts = false;
-          serverAliveCountMax = 10;
-          serverAliveInterval = 60;
-          userKnownHostsFile = "~/.ssh/known_hosts";
-        };
-        "github.com bitbucket.org" = {
-          user = "git";
+  flake.modules.homeManager.default =
+    {
+      lib,
+      ...
+    }:
+    {
+      programs.ssh = {
+        enable = true;
+        enableDefaultConfig = false;
+        settings = {
+          all = {
+            header = "Host *";
+            AddKeysToAgent = "no";
+            Compression = true;
+            ControlMaster = "auto";
+            ControlPath = "~/.ssh/%r@%h:%p.sock";
+            ControlPersist = "10m";
+            ForwardAgent = false;
+            HashKnownHosts = false;
+            ServerAliveCountMax = 10;
+            ServerAliveInterval = 60;
+            UserKnownHostsFile = "~/.ssh/known_hosts";
+          };
+          git = lib.hm.dag.entryAfter [ "all" ] {
+            header = "Host github.com bitbucket.org";
+            User = "git";
+          };
         };
       };
     };
-  };
 
-  flake.modules.homeManager.personal = {
-    programs.ssh = {
-      extraOptionOverrides = {
-        AddressFamily = "inet"; # enable IPv6
-        CanonicalizeHostname = "yes";
-        CanonicalizeMaxDots = "0";
-        Ciphers = builtins.concatStringsSep "," Ciphers;
-        HostKeyAlgorithms = builtins.concatStringsSep "," HostKeyAlgorithms;
-        IgnoreUnknown = builtins.concatStringsSep "," IgnoreUnknown;
-        KexAlgorithms = builtins.concatStringsSep "," KexAlgorithms;
-        MACs = builtins.concatStringsSep "," MACs;
-        PreferredAuthentications = "publickey";
-        Protocol = "2";
-        PubkeyAcceptedAlgorithms = builtins.concatStringsSep "," PubkeyAcceptedAlgorithms;
-        PubkeyAcceptedKeyTypes = builtins.concatStringsSep "," PubkeyAcceptedAlgorithms;
-        TCPKeepAlive = "yes";
-        UseKeychain = "no";
-        WarnWeakCrypto = "yes";
-      };
-
-      matchBlocks = {
-        "ap ap.home.arpa" = {
-          user = "root";
-        };
-        "router router.home.arpa" = {
-          user = "root";
+  flake.modules.homeManager.personal =
+    {
+      ...
+    }:
+    {
+      programs.ssh = {
+        extraOptionOverrides = {
+          AddressFamily = "inet"; # enable IPv6
+          CanonicalizeHostname = "yes";
+          CanonicalizeMaxDots = "0";
+          Ciphers = builtins.concatStringsSep "," Ciphers;
+          HostKeyAlgorithms = builtins.concatStringsSep "," HostKeyAlgorithms;
+          IgnoreUnknown = builtins.concatStringsSep "," IgnoreUnknown;
+          KexAlgorithms = builtins.concatStringsSep "," KexAlgorithms;
+          MACs = builtins.concatStringsSep "," MACs;
+          PreferredAuthentications = "publickey";
+          Protocol = "2";
+          PubkeyAcceptedAlgorithms = builtins.concatStringsSep "," PubkeyAcceptedAlgorithms;
+          PubkeyAcceptedKeyTypes = builtins.concatStringsSep "," PubkeyAcceptedAlgorithms;
+          TCPKeepAlive = "yes";
+          UseKeychain = "no";
+          WarnWeakCrypto = "yes";
         };
       };
     };
-  };
 }

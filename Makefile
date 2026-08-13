@@ -64,3 +64,7 @@ ifeq ($(shell command -v op),)
 else
 	@op inject --force --in-file $< | ifne sops encrypt --filename-override $@ --output $@
 endif
+
+restart-nix-daemon:
+	sudo launchctl stop org.nixos.nix-daemon
+	sudo launchctl start org.nixos.nix-daemon

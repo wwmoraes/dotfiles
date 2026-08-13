@@ -12,13 +12,20 @@
       home-manager.sharedModules = [
         {
           programs.ssh = {
-            matchBlocks = lib.optionalAttrs (config.networking.domain != null) {
-              "*.${config.networking.domain}" = {
-                sendEnv = [
+            settings = lib.optionalAttrs (config.networking.domain != null) {
+              ${config.networking.domain} = {
+                SendEnv = [
                   "ZELLIJ"
                 ];
               };
             };
+            # matchBlocks = lib.optionalAttrs (config.networking.domain != null) {
+            #   "*.${config.networking.domain}" = {
+            #     sendEnv = [
+            #       "ZELLIJ"
+            #     ];
+            #   };
+            # };
           };
         }
       ];
@@ -29,7 +36,9 @@
       Defaults:root,%wheel env_keep+=ZELLIJ
     '';
 
-    services.openssh.settings.AcceptEnv = "ZELLIJ";
+    services.openssh.settings.AcceptEnv = [
+      "ZELLIJ"
+    ];
   };
 
   flake.modules.homeManager.shell =

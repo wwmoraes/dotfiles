@@ -36,16 +36,16 @@
       ];
 
       environment.infoPath = [
-        (toString (/. + "${config.homebrew.brewPrefix or ""}/../share/info"))
+        (toString (/. + "${config.homebrew.prefix or ""}/../share/info"))
       ];
 
       environment.manPath = [
-        (toString (/. + "${config.homebrew.brewPrefix}/../share/man"))
+        (toString (/. + "${config.homebrew.prefix}/../share/man"))
       ];
 
       environment.systemPath = lib.mkOrder 1100 [
-        config.homebrew.brewPrefix
-        (toString (/. + "${config.homebrew.brewPrefix}/../sbin"))
+        config.homebrew.prefix
+        (toString (/. + "${config.homebrew.prefix}/../sbin"))
       ];
 
       environment.variables =
@@ -68,7 +68,7 @@
           HOMEBREW_NO_UPDATE_REPORT_NEW = "1";
           # xdg.systemDirs does NOT support darwin for whatever reason...
           XDG_DATA_DIRS = lib.mkAfter [
-            (toString (/. + "${config.homebrew.brewPrefix}/../share"))
+            (toString (/. + "${config.homebrew.prefix}/../share"))
           ];
         };
 
@@ -88,19 +88,18 @@
         caskArgs = {
           appdir = "~/Applications";
           # keyboard_layoutdir = "~/Library/Keyboard Layouts";
-          no_quarantine = true;
+          no_quarantine = false;
         };
 
         global = {
           autoUpdate = true;
           brewfile = true;
-          lockfiles = false;
         };
 
         onActivation = {
           autoUpdate = false;
           upgrade = false;
-          cleanup = "uninstall";
+          cleanup = "none";
         };
       };
 
@@ -116,6 +115,11 @@
           "homebrew/homebrew-cask" = inputs.homebrew-cask;
           "wwmoraes/tap" = inputs.wwmoraes-tap;
         };
+        trust = {
+          taps = [
+            "wwmoraes/tap"
+          ];
+        };
         user = config.system.primaryUser;
       };
 
@@ -125,7 +129,7 @@
       '';
 
       system.defaults.timemachine.SkipPaths = [
-        (toString (/. + "${config.homebrew.brewPrefix}/.."))
+        (toString (/. + "${config.homebrew.prefix}/.."))
       ];
     };
 }

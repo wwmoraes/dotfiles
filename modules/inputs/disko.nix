@@ -5,7 +5,10 @@
 }:
 {
   flake-file = {
-    inputs.disko.url = "github:nix-community/disko";
+    inputs.disko = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/disko";
+    };
   };
 
   flake.modules.nixos.default = {
