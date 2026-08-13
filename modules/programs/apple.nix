@@ -6,6 +6,7 @@
       "GarageBand" = 682658836;
       "Keynote" = 361285480;
       "Numbers" = 361304891;
+      "Pages" = 361309726;
       "TestFlight" = 899247664;
       "Xcode" = 497799835;
       "iMovie" = 408981434;
