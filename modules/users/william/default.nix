@@ -21,13 +21,19 @@
       ...
     }:
     {
-      users.users.william = {
-        home = "/Users/william";
+      programs = {
+        _1password-gui.enable = true;
+        _1password.enable = true;
       };
+
       system.defaults.timemachine.SkipPaths = [
         "${config.users.users.william.home}/Cloud"
         "${config.users.users.william.home}/dev"
       ];
+
+      users.users.william = {
+        home = "/Users/william";
+      };
     };
 
   flake.modules.nixos.william =
@@ -73,6 +79,8 @@
       nix.settings.builders-use-substitutes = true;
 
       programs = {
+        age.enable = true;
+        bat.enable = true;
         fish.enable = true;
         go.enable = true;
         git = {
@@ -110,6 +118,7 @@
             trusted-key = default-key;
           };
         };
+        nap.enable = true;
       };
 
       stylix = {

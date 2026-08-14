@@ -1,39 +1,41 @@
 {
+  lib,
+  ...
+}:
+{
   nixpkgs.config.allowUnfreePackages = [
+    "1password"
     "1password-cli"
   ];
 
-  flake.modules.darwin.personal =
+  flake.modules.generic.default =
     {
-      pkgs,
+      config,
       ...
     }:
+    let
+      shellAliases = lib.genAttrs [
+        "brew"
+        "cachix"
+        "gh"
+      ] (name: "op plugin run -- " + name);
+    in
     {
-      homebrew.casks = [
-        (pkgs.lib.local.globalCask "1password")
-      ];
+      environment.shellAliases = shellAliases;
 
-      homebrew.masApps = {
-        "1Password for Safari" = 1569813296;
+      home-manager.sharedModules = lib.optional config.programs._1password.enable {
+        home.shellAliases = shellAliases;
       };
     };
 
-  flake.modules.homeManager.gui'personal =
+  flake.modules.darwin.default =
     {
-      pkgs,
+      config,
       ...
     }:
     {
-      home.packages = [
-        pkgs._1password-cli
-      ];
-
-      programs.fish.shellAliases = {
-        brew = "op plugin run -- brew";
-        cachix = "op plugin run -- cachix";
-        doctl = "op plugin run -- doctl";
-        gh = "op plugin run -- gh";
-        pulumi = "op plugin run -- pulumi";
+      homebrew.masApps = lib.optionalAttrs config.programs._1password-gui.enable {
+        "1Password for Safari" = 1569813296;
       };
     };
 }

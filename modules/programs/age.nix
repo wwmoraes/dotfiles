@@ -1,18 +1,17 @@
 {
   flake.modules.homeManager.personal =
     {
+      config,
       lib,
       pkgs,
       ...
     }:
     {
-      home.packages = [
-        pkgs.age
-        (pkgs.writeShellScriptBin "decrypt-personal" ''
+      home.packages = lib.optional config.programs.age.enable (
+        pkgs.writeShellScriptBin "decrypt-personal" ''
           op read 'op://Personal/age/secret key' | ${lib.getExe pkgs.age} -- --decrypt --identity - --output "$(dirname "$1")/$(basename -s .age "$1")" "$1"
-        '')
-      ];
-
+        ''
+      );
     };
 
   # done this way since my work environment doesn't allow Nix; this is
@@ -20,6 +19,7 @@
   # payslips to then send to my personal email
   flake.modules.homeManager.work =
     {
+      config,
       pkgs,
       ...
     }:
@@ -29,7 +29,7 @@
         source = pkgs.writeShellScriptBin "age-encrypt-personal" ''
           DIR=''$(dirname "$1")
           docker run --rm -it \
-            -v ~/.config/age:/etc/age \
+            -v ${config.xdg.configHome}/age:/etc/age \
             -v "$DIR:$DIR" \
             p-nexus-3.development.nl.eu.abnamro.com:18445/jauderho/age \
             age \

@@ -1,10 +1,7 @@
 {
-  flake.modules.homeManager.shell = {
+  flake.modules.homeManager.default = {
     programs.bat = {
-      enable = true;
-      config = {
-        tabs = "2";
-      };
+      config.tabs = "2";
     };
   };
 }
