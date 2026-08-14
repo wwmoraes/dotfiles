@@ -19,6 +19,7 @@
   # payslips to then send to my personal email
   flake.modules.homeManager.work =
     {
+      config,
       pkgs,
       ...
     }:
@@ -29,7 +30,7 @@
           FILE=''$(realpath "$1")
           DIR=''$(dirname "$FILE")
           docker run --rm -it \
-            -v ~/.config/age:/etc/age \
+            -v ${config.xdg.configHome}/age:/etc/age \
             -v "$DIR:$DIR" \
             p-nexus-3.development.nl.eu.abnamro.com:18445/jauderho/age \
             age \

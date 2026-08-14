@@ -7,7 +7,6 @@
     }:
     {
       programs.kitty = {
-        enable = true;
         darwinLaunchOptions = [
           "--single-instance"
         ];

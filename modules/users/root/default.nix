@@ -17,12 +17,6 @@
       };
     };
 
-  flake.modules.darwin.root = {
-    users.users.root = {
-      home = "/var/root";
-    };
-  };
-
   flake.modules.nixos.root =
     {
       config,

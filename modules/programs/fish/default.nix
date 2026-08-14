@@ -7,7 +7,6 @@
     {
       programs.fish = {
         babelfishPackage = pkgs.babelfish;
-        enable = true;
         useBabelfish = true;
         vendor = {
           completions.enable = true;
@@ -38,7 +37,6 @@
       ];
 
       programs.fish = {
-        enable = true;
         preferAbbrs = true;
 
         # an attribute set isn't ideal in a modal input setup for a few reasons:

@@ -1,28 +1,44 @@
 {
-  configurations.nixos.vidar = {
-    contexts = [
-      # keep-sorted start
-      "personal"
-      # keep-sorted end
-    ];
+  configurations.nixos.vidar =
+    {
+      getHomeModulesByName,
+      getSystemModulesByName,
+      ...
+    }:
+    {
+      systemModules = getSystemModulesByName [
+        # keep-sorted start
+        "default"
+        "gpg"
+        "personal"
+        "root"
+        "shell"
+        "shell'personal"
+        "william"
+        # keep-sorted end
+      ];
 
-    profiles = [
-      # keep-sorted start
-      "default"
-      "gpg"
-      "shell"
-      # keep-sorted end
-    ];
+      homeModules = getHomeModulesByName [
+        # keep-sorted start
+        "default"
+        "personal"
+        # keep-sorted end
+      ];
 
-    users = {
-      root = [ ];
-      william = [ ];
+      userModules = {
+        root = getHomeModulesByName [
+          # keep-sorted start
+          # keep-sorted end
+        ];
+        william = getHomeModulesByName [
+          # keep-sorted start
+          "gpg"
+          "shell"
+          "shell'personal"
+          # keep-sorted end
+        ];
+      };
+
+      module = ./_configuration.nix;
     };
-
-    systemModules = [
-      # inputs.nixos-hardware.nixosModules.raspberry-pi-3
-    ];
-
-    module = ./_configuration.nix;
-  };
 }

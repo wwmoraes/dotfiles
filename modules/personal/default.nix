@@ -1,5 +1,5 @@
 {
-  flake.modules.generic.personal = {
+  flake.modules.generic.home = {
     time.timeZone = "Europe/Amsterdam";
   };
 

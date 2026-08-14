@@ -1,7 +1,6 @@
 {
   flake.modules.homeManager.development = {
     programs.git-ps = {
-      enable = true;
       hooks = {
         integrate_post_push = ./hooks/integrate_post_push.sh;
         integrate_verify = ./hooks/integrate_verify.sh;

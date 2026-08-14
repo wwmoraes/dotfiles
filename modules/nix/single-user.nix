@@ -63,9 +63,14 @@
               };
             };
 
-            nix.extraOptions = ''
-              !include ${config.sops.templates.nixGithubAccessToken.path}
-            '';
+            nix = {
+              # we need to force as home-manager reflects nix-darwin, which is disabled
+              # due to its lack of support for single-user setups.
+              enable = lib.mkForce true;
+              extraOptions = ''
+                !include ${config.sops.templates.nixGithubAccessToken.path}
+              '';
+            };
 
             sops = {
               secrets.githubToken.key = "nix/accessTokens/github.com";

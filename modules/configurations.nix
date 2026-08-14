@@ -67,27 +67,13 @@
   config,
   inputs,
   lib,
+  self,
   ...
 }:
 let
-  configuration.options = with lib.types; {
-    module = lib.mkOption {
-      type = deferredModule;
-      description = ''
-        A lazy module with settings to add to the system when creating it.
-        This can contain any configuration documented by the target class
-        (nixos/darwin).
-      '';
-    };
-    systemModules = lib.mkOption {
-      type = listOf deferredModule;
-      default = [ ];
-      description = ''
-        Extra modules to apply to the system. This is a convenience shortcut
-        equivalent to adding these same modules to `module.imports`.
-      '';
-    };
-    homeModules = lib.mkOption {
+  inherit (lib) mkOption types;
+  configuration.options = with types; {
+    homeModules = mkOption {
       type = listOf deferredModule;
       default = [ ];
       description = ''
@@ -96,108 +82,191 @@ let
         `home-manager.sharedModules` inside a `module.imports`.
       '';
     };
-    users = lib.mkOption {
+    module = mkOption {
+      type = nullOr deferredModule;
+      default = null;
+      description = ''
+        A lazy module with settings to add to the system when creating it.
+        This can contain any configuration documented by the target system class
+        (nixos/darwin).
+      '';
+    };
+    systemModules = mkOption {
+      type = listOf deferredModule;
+      default = [ ];
+      description = ''
+        Extra modules to apply to the system. This is a convenience shortcut
+        equivalent to adding these same modules to `module.imports`.
+      '';
+    };
+    userModules = mkOption {
       type = attrsOf (listOf deferredModule);
       default = { };
       description = ''
         Set of users and modules to apply to them specifically.
       '';
     };
-    profiles = lib.mkOption {
-      type = listOf str;
-      default = [ ];
-      description = ''
-        Set of terms to match flake modules to apply. It's used for generic,
-        system-specific and user modules.
-      '';
-    };
-    contexts = lib.mkOption {
-      type = listOf str;
-      default = [ ];
-      description = ''
-        Set of terms to match flake modules to apply. It's used for generic,
-        system-specific and user modules.
-      '';
-    };
   };
 
-  # getNamedModules :: [a :: str] -> [b :: AttrSet str module] -> [c :: module]
-  getNamedModules = tags: attrsList: (lib.flatten (lib.map (tag: lib.catAttrs tag attrsList) tags));
-  # gengenPrimedProductStrings :: [a :: str] -> [b :: str] -> [c :: str]
-  genPrimedProductStrings =
-    prefixes: suffixes:
-    lib.mapCartesianProduct ({ prefix, suffix }: "${prefix}'${suffix}") {
-      prefix = prefixes;
-      suffix = suffixes;
+  # getSystemModulesByNameForClass :: String -> [String] -> [AttrSet]
+  getSystemModulesByNameForClass =
+    class: names:
+    assert
+      builtins.isString class
+      -> builtins.stringLength class > 0 || throw "class must be a non-empty string";
+    assert builtins.isList names || throw "names must be a list";
+    builtins.concatMap (
+      name:
+      assert
+        builtins.isString name -> builtins.stringLength name > 0 || throw "name must be a non-empty string";
+      builtins.catAttrs name [
+        config.flake.modules.generic
+        config.flake.modules.${class}
+        (if builtins.hasAttr "${class}Modules" self then self."${class}Modules" else { })
+      ]
+    ) names;
+  # getHomeModulesByName :: [String] -> [AttrSet]
+  getHomeModulesByName = builtins.concatMap (
+    name:
+    assert
+      builtins.isString name -> builtins.stringLength name > 0 || throw "name must be a non-empty string";
+    builtins.catAttrs name [
+      config.flake.modules.homeManager
+    ]
+  );
+  # systemSubmoduleForClass :: String -> [AttrSet]
+  systemSubmoduleForClass =
+    class:
+    assert
+      builtins.isString class
+      -> builtins.stringLength class > 0 || throw "class must be a non-empty string";
+    lib.types.submoduleWith {
+      modules = [
+        {
+          _module.args = {
+            inherit getHomeModulesByName;
+            getSystemModulesByName = getSystemModulesByNameForClass class;
+          };
+        }
+        configuration
+      ];
+      shorthandOnlyDefinesConfig = true;
     };
-  mkSystemWith =
-    class: systemFn:
+  # defaultHome is a functor-enabled attribute set with two levels: class then
+  # username. It returns an absolute home path suggestion for the target user
+  # in the target class system.
+  defaultHome =
+    let
+      tryGetWithPrefix =
+        prefix: self: username:
+        assert builtins.isString prefix || throw "prefix must be a string";
+        assert builtins.isAttrs self || throw "self must be an attribute set";
+        assert
+          builtins.isString username
+          -> builtins.stringLength username > 0 || throw "username must be a non-empty string";
+        if builtins.hasAttr username self then self.${username} else "${prefix}/${username}";
+    in
+    {
+      darwin = {
+        root = "/var/root";
+        __functor = tryGetWithPrefix "/Users";
+      };
+      nixos = {
+        root = "/root";
+        __functor = tryGetWithPrefix "/home";
+      };
+    };
+  # mkAllSystemsWith generates system configurations for the target class using
+  # the provided mkSystem function.
+  #
+  # mkAllSystemsWith :: AttrSet -> AttrSet
+  mkAllSystemsWith =
+    {
+      class,
+      mkSystem,
+    }:
+    assert
+      builtins.isString class
+      -> builtins.stringLength class > 0 || throw "class must be a non-empty string";
+    assert
+      builtins.isFunction mkSystem
+      || throw "systemFn must be a function that generates a system derivation";
     lib.flip lib.mapAttrs config.configurations.${class} (
-      hostname:
-      {
-        contexts,
-        homeModules,
-        module,
-        systemModules,
-        profiles,
-        users,
-      }:
-      let
-        usernames = builtins.filter (username: (builtins.substring 0 1 username) != "_") (
-          builtins.attrNames users
-        );
-        systemModuleNames =
-          usernames
-          ++ contexts
-          ++ profiles
-          ++ (genPrimedProductStrings profiles contexts)
-          ++ (genPrimedProductStrings usernames contexts)
-          ++ (genPrimedProductStrings usernames profiles);
-        shareHomeModuleNames = contexts ++ profiles ++ (genPrimedProductStrings profiles contexts);
-        perUserModuleNames = lib.genAttrs usernames (
-          username:
-          [ username ]
-          ++ (genPrimedProductStrings [ username ] contexts)
-          ++ (genPrimedProductStrings [ username ] profiles)
-        );
-      in
-      systemFn {
-        modules =
-          systemModules
-          ++ [
-            module
-            {
-              home-manager.sharedModules =
-                homeModules
-                ++ (getNamedModules shareHomeModuleNames [
-                  config.flake.modules.homeManager
-                ]);
-            }
-          ]
-          ++ (lib.mapAttrsToList (username: userModules: {
-            home-manager.users.${username}.imports =
-              userModules
-              ++ (getNamedModules perUserModuleNames.${username} [
-                config.flake.modules.homeManager
-              ]);
-          }) users)
-          ++ (getNamedModules systemModuleNames [
-            config.flake.modules.generic
-            config.flake.modules.${class}
-          ]);
+      _:
+      mkSystemWith {
+        inherit class mkSystem;
       }
     );
+  mkSystemWith =
+    {
+      class,
+      mkSystem,
+    }:
+    {
+      homeModules,
+      module,
+      systemModules,
+      userModules,
+    }:
+    mkSystem {
+      modules = builtins.concatLists [
+        # common system configuration
+        systemModules
+        # per-user system configuration (allows setting user name, home, etc)
+        (builtins.attrNames userModules |> getSystemModulesByNameForClass class)
+        [
+          # specific system configuration
+          module
+          # per-user system defaults
+          {
+            users.users = lib.genAttrs (builtins.attrNames userModules) (username: {
+              name = lib.mkDefault username;
+              home = lib.mkDefault (defaultHome.${class} username);
+            });
+          }
+          # common home configuration
+          {
+            home-manager.sharedModules = homeModules;
+          }
+        ]
+        # per-user home configuration
+        (lib.flip lib.mapAttrsToList userModules (
+          username: modules: { config, ... }: {
+            home-manager.users.${username} = {
+              imports = modules;
+              home.username = config.users.users.${username}.name;
+            };
+          }
+        ))
+      ];
+    };
 in
 {
-  options.configurations.darwin = lib.mkOption {
-    type = with lib.types; lazyAttrsOf (submodule configuration);
-  };
-  options.configurations.nixos = lib.mkOption {
-    type = with lib.types; lazyAttrsOf (submodule configuration);
+  options.configurations = {
+    darwin = lib.mkOption {
+      description = ''
+        Darwin host module configuration. Provides methods to get system and home
+        modules.
+      '';
+      type = with lib.types; lazyAttrsOf (systemSubmoduleForClass "darwin");
+    };
+    nixos = lib.mkOption {
+      description = ''
+        NixOS host module configuration. Provides methods to get system and home
+        modules.
+      '';
+      type = with lib.types; lazyAttrsOf (systemSubmoduleForClass "nixos");
+    };
   };
 
   config.flake = {
-    darwinConfigurations = mkSystemWith "darwin" inputs.nix-darwin.lib.darwinSystem;
-    nixosConfigurations = mkSystemWith "nixos" inputs.nixpkgs.lib.nixosSystem;
+    darwinConfigurations = mkAllSystemsWith {
+      class = "darwin";
+      mkSystem = inputs.nix-darwin.lib.darwinSystem;
+    };
+    nixosConfigurations = mkAllSystemsWith {
+      class = "nixos";
+      mkSystem = inputs.nixpkgs.lib.nixosSystem;
+    };
   };
 }

@@ -1,7 +1,6 @@
 {
-  flake.modules.homeManager.development = {
+  flake.modules.homeManager.default = {
     programs.delta = {
-      enable = true;
       enableGitIntegration = true;
       options = {
         dark = true;

@@ -32,19 +32,8 @@
         '')
       ];
 
-      programs.fzf =
-        let
-          batBin = lib.getExe config.programs.bat.package;
-          fdBin = lib.getExe config.programs.fd.package;
-          treeBin = lib.getExe pkgs.tree;
-        in
+      programs.fzf = lib.mkMerge [
         {
-          enable = true;
-          changeDirWidgetCommand = "${fdBin} --type d";
-          changeDirWidgetOptions = [
-            "--preview '${treeBin} -C {} | head -200'"
-          ];
-          defaultCommand = "${fdBin} --unrestricted --type f";
           defaultOptions = [
             "--bind ctrl-b:preview-page-up"
             "--bind ctrl-d:preview-down"
@@ -53,14 +42,31 @@
             "--height=50%"
             "--layout=reverse"
           ];
-          fileWidgetCommand = "${fdBin} --hidden --exclude .git --type f";
-          fileWidgetOptions = [
-            "--preview '${batBin} --force-colorization --style=-header-filename {}'"
-          ];
           historyWidgetOptions = [
             "--sort"
             "--exact"
           ];
-        };
+        }
+        (lib.optionalAttrs config.programs.tree.enable {
+          changeDirWidgetOptions = [
+            "--preview '${lib.getExe config.programs.tree.package} -C {} | head -200'"
+          ];
+        })
+        (lib.optionalAttrs config.programs.bat.enable {
+          fileWidgetOptions = [
+            "--preview '${lib.getExe config.programs.bat.package} --force-colorization --style=-header-filename {}'"
+          ];
+        })
+        (lib.optionalAttrs config.programs.fd.enable (
+          let
+            fdBin = lib.getExe config.programs.fd.package;
+          in
+          {
+            changeDirWidgetCommand = "${fdBin} --type d";
+            defaultCommand = "${fdBin} --unrestricted --type f";
+            fileWidgetCommand = "${fdBin} --hidden --exclude .git --type f";
+          }
+        ))
+      ];
     };
 }

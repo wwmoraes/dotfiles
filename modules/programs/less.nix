@@ -1,16 +1,14 @@
 {
-  flake.modules.generic.default = {
-    environment.variables = {
-      ## needed if using the obsolete termcap variables
-      # GROFF_NO_SGR = 1;
-      MANPAGER = "less";
-      PAGER = "less";
-    };
+  flake.modules.generic.default = { config, lib, ... }: {
+    config = lib.mkIf config.programs.less.enable {
+      environment.variables = {
+        ## needed if using the obsolete termcap variables
+        # GROFF_NO_SGR = 1;
+        MANPAGER = "less";
+        PAGER = "less";
+      };
 
-    programs.less = {
-      enable = true;
-
-      envVariables = {
+      programs.less.envVariables = {
         # LESS = "-isRM +Gg";
         LESS = "-isRMSFX --tilde --tabs=2";
         ## obsolete way of coloring man pages; replaced by terminfo

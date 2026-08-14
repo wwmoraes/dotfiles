@@ -1,34 +1,49 @@
 {
-  configurations.darwin.NLLM4000559023 = {
-    contexts = [
-      # keep-sorted start
-      "work"
-      # keep-sorted end
-    ];
+  configurations.darwin.NLLM4000559023 =
+    {
+      getHomeModulesByName,
+      getSystemModulesByName,
+      ...
+    }:
+    {
+      systemModules = getSystemModulesByName [
+        # keep-sorted start
+        "default"
+        "development"
+        "development'work"
+        "gpg"
+        "gui"
+        "gui'work"
+        "shell"
+        "shell'work"
+        "single-user"
+        "william"
+        "work"
+        # keep-sorted end
+      ];
 
-    profiles = [
-      # keep-sorted start
-      # "ai"
-      "default"
-      "development"
-      "gpg"
-      "gui"
-      "shell"
-      "single-user"
-      "terminal"
-      # keep-sorted end
-    ];
+      homeModules = getHomeModulesByName [
+        # keep-sorted start
+        "default"
+        "work"
+        # keep-sorted end
+      ];
 
-    # commonHomeModules = with config.flake.modules.homeManager; [
-    #   development
-    # ];
+      userModules.william = getHomeModulesByName [
+        # keep-sorted start
+        "development"
+        "development'work"
+        "gpg"
+        "gui"
+        "gui'work"
+        "shell"
+        "shell'work"
+        "william"
+        "william'development"
+        "william'work"
+        # keep-sorted end
+      ];
 
-    # systemModules = with config.flake.modules; [
-    #   darwin.single-user
-    # ];
-
-    users.william = [ ];
-
-    module = ./_configuration.nix;
-  };
+      module = ./_configuration.nix;
+    };
 }

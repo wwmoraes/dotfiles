@@ -1,7 +1,6 @@
 {
   flake.modules.homeManager.shell = {
     programs.readline = {
-      enable = true;
       bindings = {
         # Use the text that has already been typed as the prefix for searching through
         # commands (basically more intelligent Up/Down behavior)

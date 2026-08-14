@@ -16,8 +16,6 @@
       ];
 
       programs.git = {
-        enable = true;
-
         attributes = [
           "* text=auto" # fallback; this is best set on every repository
           "*.css diff=css"

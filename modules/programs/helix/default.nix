@@ -21,13 +21,12 @@
       ...
     }:
     {
-      home.sessionVariables = {
+      home.sessionVariables = lib.optionalAttrs config.programs.helix.enable {
         SUDO_EDITOR = lib.getExe config.programs.helix.package;
         VISUAL = "hx";
       };
 
       programs.helix = {
-        enable = true;
         defaultEditor = true;
 
         extraPackages = lib.mkMerge [

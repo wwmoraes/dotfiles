@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.development =
+  flake.modules.homeManager.default =
     {
       config,
       lib,
@@ -29,7 +29,6 @@
       };
 
       programs.lazygit = {
-        enable = true;
         settings = {
           confirmOnQuit = false;
           customCommands = [
@@ -301,7 +300,6 @@
             authorColors = {
               "*" = "#8a2be2";
               "GitHub Actions" = "#edf3fb";
-              "William Artero" = "#2cbdff";
             };
             branchColorPatterns = {
               "user/.+/trunk" = "#EB4511";
@@ -362,11 +360,12 @@
             openDirInEditor = "${hxBin} -w '{{dir}}'";
           };
           quitOnTopLevelReturn = false;
-          services = {
-            "cbsp-abnamro@dev.azure.com" = "azuredevops:dev.azure.com";
-            # "git.us.aegon.com" = "github:git.us.aegon.com";
-          };
         };
       };
     };
+
+  flake.modules.homeManager.work = {
+    programs.lazygit.settings.services."cbsp-abnamro@dev.azure.com" = "azuredevops:dev.azure.com";
+    # programs.lazygit.settings.services."git.us.aegon.com" = "github:git.us.aegon.com";
+  };
 }

@@ -1,7 +1,6 @@
 {
-  flake.modules.homeManager.shell = {
+  flake.modules.homeManager.default = {
     programs.powerline-go = {
-      enable = true;
       modules = [
         "user"
         "host"

@@ -11,8 +11,6 @@
     }:
     {
       programs.gh = {
-        gitCredentialHelper.enable = false;
-        enable = true;
         settings = {
           git_protocol = "ssh";
         };

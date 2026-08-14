@@ -3,10 +3,8 @@
   ...
 }:
 {
-  flake.modules.darwin.personal'disabled = {
+  flake.modules.darwin.personal = {
     services.docker = {
-      enable = true;
-
       desktopSettings = {
         AcceptCanaryUpdates = false;
         ActiveOrganizationName = "";
@@ -154,7 +152,7 @@
     };
   };
 
-  flake.modules.darwin.development'disabled = {
+  flake.modules.darwin.development = { config, ... }: {
     home-manager.sharedModules = [
       {
         programs.docker.desktopSettings = {
@@ -165,15 +163,14 @@
       }
     ];
 
-    system.defaults.timemachine.perUser.home.SkipPaths = [
+    system.defaults.timemachine.perUser.home.SkipPaths = lib.optionals config.services.docker.enable [
       ".docker"
       ".moby"
     ];
   };
 
-  flake.modules.homeManager.development'disabled =
+  flake.modules.homeManager.development =
     {
-      config,
       pkgs,
       ...
     }:
@@ -182,24 +179,21 @@
       #   DOCKER_HOST = lib.mkDefault "unix://${config.home.homeDirectory}/.docker/run/docker.sock";
       # };
 
-      programs.docker = {
-        settings = {
-          auths."https://index.docker.io/v1/" = { };
-          aliases.builder = "buildx";
-          credsStore = "osxkeychain";
-          currentContext = lib.mkDefault "default";
-          experimental = "disabled";
-          features.hooks = "false";
-          plugins = {
-            "-x-cli-hints".enabled = "false";
-            "debug".hooks = "exec";
-            "scout".hooks = "pull,buildx build";
-          };
+      programs.docker.settings = {
+        auths."https://index.docker.io/v1/" = { };
+        aliases.builder = "buildx";
+        credsStore = "osxkeychain";
+        currentContext = lib.mkDefault "default";
+        experimental = "disabled";
+        features.hooks = "false";
+        plugins = {
+          "-x-cli-hints".enabled = "false";
+          "debug".hooks = "exec";
+          "scout".hooks = "pull,buildx build";
         };
-
       };
 
-      programs.helix.extraPackages = lib.optionals config.programs.docker.enable [
+      programs.helix.extraPackages = [
         pkgs.unstable.docker-compose-language-service
         pkgs.unstable.dockerfile-language-server
       ];
@@ -207,36 +201,26 @@
 
   flake.modules.darwin.development'personal = {
     home-manager.sharedModules = [
-      (
-        {
-          config,
-          ...
-        }:
-        {
-          programs.docker.desktopSettings.FilesharingDirectories = [
-            "${config.home.homeDirectory}/dev"
-            "/tmp"
-          ];
-        }
-      )
+      ({ config, ... }: {
+        programs.docker.desktopSettings.FilesharingDirectories = [
+          "${config.home.homeDirectory}/dev"
+          "/tmp"
+        ];
+      })
     ];
   };
 
   flake.modules.darwin.development'work = {
     home-manager.sharedModules = [
-      (
-        {
-          config,
-          ...
-        }:
-        {
-          programs.docker.settings.currentContext = "desktop-linux";
-          programs.docker.desktopSettings.FilesharingDirectories = [
+      ({ config, ... }: {
+        programs.docker = {
+          settings.currentContext = "desktop-linux";
+          desktopSettings.FilesharingDirectories = [
             "${config.home.homeDirectory}/workspace"
             "/tmp"
           ];
-        }
-      )
+        };
+      })
     ];
   };
 

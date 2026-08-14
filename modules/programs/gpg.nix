@@ -129,7 +129,6 @@
       };
 
       services.gpg-agent = {
-        enable = true;
         defaultCacheTtl = 300;
         defaultCacheTtlSsh = 300;
         enableScDaemon = true;
@@ -156,7 +155,7 @@
         {
           launchd.agents = {
             gpg-agent = {
-              enable = true;
+              enable = lib.mkDefault config.services.gpg-agent.enable;
               config = {
                 ProgramArguments = lib.mkForce (
                   [
@@ -217,7 +216,7 @@
                 ProgramArguments = [
                   ## TODO https://github.com/snosrap/xpc_set_event_stream_handler
                   # "/usr/local/bin/xpc_set_event_stream_handler"
-                  "${lib.getExe pkgs.gnupg}"
+                  "${lib.getExe config.programs.gpg.package}"
                   "--card-status"
                 ];
               };

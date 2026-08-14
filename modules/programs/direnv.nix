@@ -1,8 +1,6 @@
 {
-  flake.modules.generic.shell = {
+  flake.modules.generic.default = {
     programs.direnv = {
-      enable = true;
-      nix-direnv.enable = true;
       silent = true;
       settings.global = {
         hide_env_diff = true;
@@ -12,7 +10,7 @@
     };
   };
 
-  flake.modules.homeManager.shell =
+  flake.modules.homeManager.default =
     {
       config,
       lib,
@@ -29,8 +27,6 @@
       };
 
       programs.direnv = {
-        enable = true;
-        nix-direnv.enable = true;
         silent = true;
         config.global = {
           hide_env_diff = true;

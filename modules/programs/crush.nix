@@ -14,7 +14,6 @@
     }:
     {
       programs.crush = {
-        enable = true;
         settings = {
           lsp = {
             go = {

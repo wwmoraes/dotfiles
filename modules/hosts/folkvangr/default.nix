@@ -1,38 +1,48 @@
 {
-  self,
-  ...
-}:
-{
-  configurations.nixos.folkvangr = {
-    contexts = [
-      # keep-sorted start
-      "personal"
-      # keep-sorted end
-    ];
+  configurations.nixos.folkvangr =
+    {
+      getHomeModulesByName,
+      getSystemModulesByName,
+      ...
+    }:
+    {
+      systemModules = getSystemModulesByName [
+        # keep-sorted start
+        "default"
+        "home"
+        "minisforum-ms-r1"
+        "personal"
+        "root"
+        "secure-boot"
+        "shell"
+        "shell'personal"
+        "william"
+        # "gpg"
+        # "hardening"
+        # "media-server"
+        # "nas"
+        # keep-sorted end
+      ];
 
-    profiles = [
-      # keep-sorted start
-      "default"
-      "secure-boot"
-      # "gpg"
-      # "hardening"
-      # "media-server"
-      # "nas"
-      "shell"
-      # keep-sorted end
-    ];
+      homeModules = getHomeModulesByName [
+        # keep-sorted start
+        "default"
+        "home"
+        "personal"
+        # keep-sorted end
+      ];
 
-    users = {
-      root = [ ];
-      william = [ ];
+      userModules = {
+        root = getHomeModulesByName [
+        ];
+        william = getHomeModulesByName [
+          # keep-sorted start
+          "shell"
+          "shell'personal"
+          # keep-sorted end
+        ];
+      };
+
+      module = ./_configuration.nix;
     };
-
-    systemModules = [
-      # keep-sorted start
-      self.nixosModules.minisforum-ms-r1
-      # keep-sorted end
-    ];
-
-    module = ./_configuration.nix;
-  };
 }
