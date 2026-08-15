@@ -58,7 +58,11 @@ in
         macs = MACs;
         pubkeyAcceptedKeyTypes = PubkeyAcceptedAlgorithms;
         extraConfig = ''
+          ControlMaster auto
+          ControlPath %d/.ssh/%r@%h:%p.sock
+          ControlPersist 10m
           IgnoreUnknown ${builtins.concatStringsSep "," IgnoreUnknown}
+          UserKnownHostsFile %d/.ssh/known_hosts
           WarnWeakCrypto yes
         '';
       };
