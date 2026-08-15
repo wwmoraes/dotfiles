@@ -14,12 +14,7 @@
     };
   };
 
-  flake.modules.darwin.multi-user = {
-    ids.gids.nixbld = 350;
-    nix.enable = true;
-  };
-
-  flake.modules.darwin.personal = {
+  flake.modules.darwin.default = {
     system.defaults.timemachine = {
       SkipPaths = [
         /nix
