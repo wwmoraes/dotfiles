@@ -1,18 +1,17 @@
 {
   flake.modules.homeManager.personal =
     {
+      config,
       lib,
       pkgs,
       ...
     }:
     {
-      home.packages = [
-        pkgs.age
-        (pkgs.writeShellScriptBin "decrypt-personal" ''
-          op read 'op://Personal/age/secret key' | ${lib.getExe pkgs.age} -- --decrypt --identity - --output "$(dirname "$1")/$(basename -s .age "$1")" "$1"
-        '')
-      ];
-
+      home.packages = lib.optional config.programs.age.enable (
+        pkgs.writeShellScriptBin "decrypt-personal" ''
+          op read 'op://Personal/age/secret key' | ${lib.getExe pkgs.age} --decrypt --identity - --output "$(dirname "$1")/$(basename -s .age "$1")" "$1"
+        ''
+      );
     };
 
   # done this way since my work environment doesn't allow Nix; this is
@@ -27,7 +26,8 @@
       home.file.".local/bin/encrypt-personal" = {
         executable = true;
         source = pkgs.writeShellScriptBin "age-encrypt-personal" ''
-          DIR=''$(dirname "$1")
+          FILE=''$(realpath "$1")
+          DIR=''$(dirname "$FILE")
           docker run --rm -it \
             -v ~/.config/age:/etc/age \
             -v "$DIR:$DIR" \
@@ -36,8 +36,8 @@
             --encrypt \
             --recipients-file /etc/age/recipients/personal \
             --armor \
-            --output "$1.age" \
-            "$1"
+            --output "$FILE.age" \
+            "$FILE"
         '';
       };
 
