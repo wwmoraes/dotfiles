@@ -7,6 +7,21 @@
     # less worth than forwarding to the "real" admin socket.
     launchd.daemons.nix-daemon.environment.SSH_AUTH_SOCK =
       lib.mkDefault config.home-manager.users.william.launchd.agents.gpg-agent.config.Sockets.Ssh.SockPathName;
-    nix.enable = true;
+    nix = {
+      enable = true;
+      extraOptions = ''
+        !include ${config.sops.templates.nixGithubAccessToken.path}
+      '';
+    };
+
+    sops = {
+      secrets.githubToken.key = "nix/accessTokens/github.com";
+      templates.nixGithubAccessToken = {
+        name = "nix-github-access-token.conf";
+        content = ''
+          access-tokens = github.com=${config.sops.placeholder.githubToken}
+        '';
+      };
+    };
   };
 }
