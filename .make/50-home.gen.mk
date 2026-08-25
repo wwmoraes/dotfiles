@@ -3,6 +3,9 @@
 
 host/nas: home/root@nas
 
+.roots/root@nas: .roots/home/root@nas
+	ln -sf $(realpath $<) $@
+
 .PHONY: home/root@nas
 #: Builds the target home's activation script.
 home/root@nas: .roots/home/root@nas

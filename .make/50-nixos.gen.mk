@@ -3,17 +3,26 @@
 
 all: host/folkvangr
 
+.roots/folkvangr: .roots/nixos/folkvangr
+	ln -sf $(realpath $<) $@
+
 .PHONY: host/folkvangr
 #: Builds host's NixOS activation script.
 host/folkvangr: .roots/nixos/folkvangr
 
 all: host/hlin
 
+.roots/hlin: .roots/nixos/hlin
+	ln -sf $(realpath $<) $@
+
 .PHONY: host/hlin
 #: Builds host's NixOS activation script.
 host/hlin: .roots/nixos/hlin
 
 all: host/vidar
+
+.roots/vidar: .roots/nixos/vidar
+	ln -sf $(realpath $<) $@
 
 .PHONY: host/vidar
 #: Builds host's NixOS activation script.

@@ -29,6 +29,9 @@
             ''
               host/${hostname}: home/${username}@${hostname}
 
+              .roots/${username}@${hostname}: .roots/home/${username}@${hostname}
+              	ln -sf $(realpath $<) $@
+
               .PHONY: home/${username}@${hostname}
               #: Builds the target home's activation script.
               home/${username}@${hostname}: .roots/home/${username}@${hostname}
@@ -60,6 +63,9 @@
           |> map (name: ''
             all: host/${name}
 
+            .roots/${name}: .roots/darwin/${name}
+            	ln -sf $(realpath $<) $@
+
             .PHONY: host/${name}
             #: Builds host's nix-darwin activation script.
             host/${name}: .roots/darwin/${name}
@@ -82,6 +88,9 @@
           builtins.attrNames self.nixosConfigurations
           |> map (name: ''
             all: host/${name}
+
+            .roots/${name}: .roots/nixos/${name}
+            	ln -sf $(realpath $<) $@
 
             .PHONY: host/${name}
             #: Builds host's NixOS activation script.

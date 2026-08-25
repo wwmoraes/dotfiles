@@ -3,11 +3,17 @@
 
 all: host/M1Cabuk
 
+.roots/M1Cabuk: .roots/darwin/M1Cabuk
+	ln -sf $(realpath $<) $@
+
 .PHONY: host/M1Cabuk
 #: Builds host's nix-darwin activation script.
 host/M1Cabuk: .roots/darwin/M1Cabuk
 
 all: host/NLLM4000559023
+
+.roots/NLLM4000559023: .roots/darwin/NLLM4000559023
+	ln -sf $(realpath $<) $@
 
 .PHONY: host/NLLM4000559023
 #: Builds host's nix-darwin activation script.

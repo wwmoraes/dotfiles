@@ -96,3 +96,15 @@ restart-nix-daemon:
 	#!/usr/bin/env bash
 	sudo launchctl stop org.nixos.nix-daemon
 	sudo launchctl start org.nixos.nix-daemon
+
+[group('nix')]
+[doc('Compares the system last applied packages with the current repository definitions.')]
+diff-packages:
+	remake .roots/{{ HOSTNAME }}
+	nix run nixpkgs#dix -- /run/current-system .roots/{{ HOSTNAME }}
+
+[group('nix')]
+[doc('Compares the system last applied derivation with the current repository definitions.')]
+diff-derivations:
+	remake .roots/{{ HOSTNAME }}
+	nix run nixpkgs#nix-diff -- /run/current-system .roots/{{ HOSTNAME }}
