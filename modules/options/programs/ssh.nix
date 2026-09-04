@@ -5,7 +5,9 @@
 let
   mkOptionalListSetting =
     sep: name: values:
-    lib.optional (values != null) "${name} ${builtins.concatStringsSep sep values}";
+    lib.optional (
+      builtins.isList values && builtins.length values > 0
+    ) "${name} ${builtins.concatStringsSep sep values}";
 in
 {
   flake.modules.darwin.default =
