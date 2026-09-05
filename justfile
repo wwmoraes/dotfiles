@@ -1,15 +1,19 @@
 # https://just.systems
 
 set quiet
+set lazy
 
+COLUMNS := env("COLUMNS", shell("stty -a | tr ';' '\\n' | grep columns | xargs | cut -d' ' -f2"))
 HOSTNAME := shell("uname -n")
 WORK_HOSTNAME := "NLLM4000559023"
 OP := if shell("which op") != "" { "op plugin run --" } else { "" }
 
 _default:
-	echo "Make targets:"
+	#!/usr/bin/env nix-shell
+	#! nix-shell -i bash --packages boxes
+	echo "Make targets" | boxes --design ansi --size {{ COLUMNS }} --align c
 	remake --tasks
-	echo "Imperative tasks:"
+	echo "Imperative tasks" | boxes --design ansi --size {{ COLUMNS }} --align c
 	just --list --list-heading '' --list-prefix ''
 
 [group('nix')]
