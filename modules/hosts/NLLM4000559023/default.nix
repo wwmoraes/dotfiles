@@ -16,7 +16,6 @@
         "gui'work"
         "shell"
         "shell'work"
-        "single-user"
         "william"
         "work"
         # keep-sorted end

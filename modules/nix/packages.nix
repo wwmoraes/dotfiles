@@ -5,6 +5,7 @@
 {
   flake.modules.generic.default =
     {
+      config,
       pkgs,
       ...
     }:
@@ -21,6 +22,7 @@
 
       home-manager.sharedModules = [
         {
+          nix.package = lib.mkDefault config.nix.package;
           programs.helix.extraPackages = lib.mkMerge [
             [
               pkgs.unstable.nil
