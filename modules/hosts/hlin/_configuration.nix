@@ -20,7 +20,10 @@
 
   networking = {
     hostName = "hlin";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi.backend = "iwd";
+    };
     useDHCP = lib.mkDefault true;
     wireless.iwd = {
       enable = true;
