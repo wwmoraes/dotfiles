@@ -10,15 +10,6 @@ all: host/M1Cabuk
 #: Builds host's nix-darwin activation script.
 host/M1Cabuk: .roots/darwin/M1Cabuk
 
-all: host/NLLM4000559023
-
-.roots/NLLM4000559023: .roots/darwin/NLLM4000559023
-	ln -sf $(realpath $<) $@
-
-.PHONY: host/NLLM4000559023
-#: Builds host's nix-darwin activation script.
-host/NLLM4000559023: .roots/darwin/NLLM4000559023
-
 .roots/darwin/%: secrets.yaml ${NIX_SOURCES}
 	@mkdir -p $(dir $@)
 	nom build --show-trace --accept-flake-config --out-link $@ .#darwinConfigurations.$*.config.system.build.toplevel
