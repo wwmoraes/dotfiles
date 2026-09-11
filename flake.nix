@@ -112,7 +112,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:NixOS/nixos-hardware";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/release-26.05?shallow=1";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-26.05";
     nixpkgs-lib.follows = "nixpkgs";
     nur = {
       inputs = {
