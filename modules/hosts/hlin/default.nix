@@ -1,5 +1,5 @@
 {
-  configurations.nixos.hlin =
+  hosts.nixos.hlin =
     {
       getHomeModulesByName,
       getSystemModulesByName,

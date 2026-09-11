@@ -1,5 +1,5 @@
 {
-  configurations.nixos.folkvangr =
+  hosts.nixos.folkvangr =
     {
       getHomeModulesByName,
       getSystemModulesByName,

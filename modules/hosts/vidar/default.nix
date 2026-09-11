@@ -1,5 +1,5 @@
 {
-  configurations.nixos.vidar =
+  hosts.nixos.vidar =
     {
       getHomeModulesByName,
       getSystemModulesByName,

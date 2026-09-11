@@ -1,5 +1,5 @@
 {
-  configurations.darwin.M1Cabuk =
+  hosts.darwin.M1Cabuk =
     {
       getHomeModulesByName,
       getSystemModulesByName,
