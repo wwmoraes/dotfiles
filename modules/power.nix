@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.default = {
+  flake.modules.darwin.personal = {
     /*
       TODO extra settings to turn into declarative options
       ## Remove the sleep image file to save disk space
@@ -17,27 +17,6 @@
       };
     };
 
-    system.pmset = {
-      all = {
-        autorestart = 1;
-        displaysleep = 2;
-        hibernatemode = 0;
-        highstandbythreshold = 50;
-        lidwake = 1;
-        standbydelay = 86400;
-        standbydelayhigh = 3600;
-        standbydelaylow = 900;
-      };
-      battery = {
-        sleep = 5;
-      };
-      charger = {
-        sleep = 0;
-      };
-    };
-  };
-
-  flake.modules.darwin.personal = {
     power = {
       restartAfterFreeze = true;
       # restartAfterPowerFailure = true;
@@ -46,6 +25,26 @@
         computer = "never";
         display = 2;
         harddisk = 10;
+      };
+    };
+
+    system.pmset = {
+      all = {
+        autorestart = 1;
+        hibernatemode = 0;
+        highstandbythreshold = 50;
+        lidwake = 1;
+        standbydelay = 86400;
+        standbydelayhigh = 3600;
+        standbydelaylow = 900;
+      };
+      battery = {
+        displaysleep = 2;
+        sleep = 5;
+      };
+      charger = {
+        displaysleep = 30;
+        sleep = 60;
       };
     };
   };
