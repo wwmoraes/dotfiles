@@ -1,8 +1,11 @@
 {
+  lib,
+  ...
+}:
+{
   flake.modules.generic.root =
     {
       config,
-      lib,
       ...
     }:
     {
@@ -16,6 +19,14 @@
             };
       };
     };
+
+  flake.modules.darwin.root = {
+    users.groups = lib.genAttrs [ "admin" "wheel" ] (_: {
+      members = [
+        "root"
+      ];
+    });
+  };
 
   flake.modules.nixos.root =
     {

@@ -1,6 +1,13 @@
 {
+  lib,
+  ...
+}:
+{
   flake.modules.generic.william =
-    { config, ... }:
+    {
+      config,
+      ...
+    }:
     {
       users.users.william = {
         description = "William Artero";
@@ -15,6 +22,12 @@
       ...
     }:
     {
+      users.groups = lib.genAttrs [ "admin" "wheel" ] (_: {
+        members = [
+          "william"
+        ];
+      });
+
       system.defaults.timemachine.SkipPaths = [
         "${config.users.users.william.home}/Cloud"
         "${config.users.users.william.home}/dev"
@@ -33,10 +46,11 @@
       # };
 
       users.users.william = {
-        isNormalUser = true;
         extraGroups = [
           "wheel"
         ];
+
+        isNormalUser = true;
         hashedPassword = "$y$jCT$LdkAFrLz10bguoptU7hs8.$FKokUbYUs4UrOZ1dZQtOLrY/eH6zhHvx3NRBrqo7I15";
         # hashedPasswordFile = config.sops.secrets.williamHashedPassword.path;
         shell = config.programs.fish.package;
