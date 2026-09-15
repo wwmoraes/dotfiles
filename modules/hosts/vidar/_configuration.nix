@@ -8,8 +8,26 @@
   ];
 
   boot = {
+    # PL011 (UART0); assigned to bluetooth by default; fully-featured and
+    # stable. Available as /dev/ttyAMA0
+    #
+    # requires "dtoverlay=disable-bt" in /boot/firmware/config.txt
+    # remove any console assignment from /boot/firmware/cmdline.txt
+    # disable hciuart and bluetooth systemd services as well
+    #
+    # Mini UART (UART1); GPIO 14 and 15, disabled by default; simpler but
+    # frequency-dependant; locks CPU for a stable baud rate. Available at
+    # /dev/ttyS0
+    #
+    # requires "enable_uart=1" in /boot/firmware/config.txt
+    # requires "console=serial0,115200" in /boot/firmware/cmdline.txt
+    # TODO: u-boot requires enable_uart=1; find alternatives
+    # TODO: use declarative RPi config
+    # see https://wiki.nixos.org/wiki/NixOS_on_ARM/Raspberry_Pi#Declarative_config.txt
+    # see https://github.com/NixOS/nixos-hardware/blob/master/raspberry-pi/3/default.nix
     kernelParams = [
-      "console=ttyS1,115200n8"
+      # "console=ttyAMA0,115200n8"
+      "console=ttyS0,115200n8"
       "console=tty0"
     ];
     loader = {
