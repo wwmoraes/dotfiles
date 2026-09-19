@@ -13,7 +13,7 @@
         "minisforum-ms-r1"
         "personal"
         "root"
-        "secure-boot"
+        # "secure-boot"
         "shell"
         "shell'personal"
         "william"

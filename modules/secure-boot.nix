@@ -19,7 +19,10 @@
         pkiBundle = "/var/lib/sbctl";
       };
 
-      boot.loader.systemd-boot.enable = lib.mkForce false;
+      boot.loader = {
+        efi.canTouchEfiVariables = true;
+        systemd-boot.enable = lib.mkForce false;
+      };
 
       environment.systemPackages = [
         pkgs.sbctl

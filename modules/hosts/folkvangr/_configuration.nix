@@ -14,8 +14,11 @@
   #   r8127
   # ];
 
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 20; # less swapping
+  };
+
   boot.loader = {
-    efi.canTouchEfiVariables = true;
     grub.enable = false;
     systemd-boot.enable = true;
   };
@@ -26,16 +29,14 @@
   ];
 
   fileSystems = {
-    "/" = {
-      #     device = "/dev/disk/by-label/nixos";
-      #     fsType = "ext4";
-      options = [ "noatime" ];
-    };
-
-    #   "/boot" = {
-    #     device = "/dev/disk/by-label/ESP";
-    #     fsType = "vfat";
-    #   };
+    "/".neededForBoot = true;
+    "/etc".neededForBoot = true;
+    "/home".neededForBoot = true;
+    "/nix".neededForBoot = true;
+    "/root".neededForBoot = true;
+    "/srv".neededForBoot = true;
+    "/var/lib".neededForBoot = true;
+    "/var/log".neededForBoot = true;
   };
 
   networking = {
@@ -52,7 +53,9 @@
   nixpkgs.hostPlatform = "aarch64-linux";
 
   programs.fish.enable = true;
+
   services = {
+    btrfs.autoScrub.enable = true;
     fstrim.enable = true;
     openssh = {
       enable = true;
@@ -63,6 +66,17 @@
       };
     };
   };
+
+  swapDevices = [
+    {
+      device = "/run/swap/default";
+      size = 64 * 1024;
+      randomEncryption = {
+        enable = true;
+        allowDiscards = true;
+      };
+    }
+  ];
 
   users.mutableUsers = false;
 
