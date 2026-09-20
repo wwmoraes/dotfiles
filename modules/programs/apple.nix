@@ -1,5 +1,9 @@
 {
-  flake.modules.darwin.personal = {
+  flake.modules.darwin.personal = { pkgs, ... }: {
+    environment.systemPackages = with pkgs; [
+      airdrop-cli
+    ];
+
     homebrew.masApps = {
       # keep-sorted start
       "Apple Configurator" = 1037126344;
