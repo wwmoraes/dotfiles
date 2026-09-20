@@ -1,24 +1,37 @@
-define FILES_SOURCES
-$(sort $(strip
-$(shell git grep --name-only --untracked 'files.file' -- '*.nix')
-))
-endef
-define FILES_OUTPUTS
-$(sort $(strip
-.github/workflows/integration.yml
-))
-endef
-
 .PHONY: files
 #: Re-generates files managed by nix.
-files: flake.nix ${FILES_OUTPUTS}
+files:
 
-${FILES_OUTPUTS} &: $(filter-out ${FILES_OUTPUTS},${FILES_SOURCES})
-	@git add -N $^
+define writeFilesTarget
+$(1) &: $(2)
 	nix run .#write-files
-	@touch ${FILES_OUTPUTS}
+	@touch $(1)
+endef
 
-flake.nix: $(filter-out flake.nix,$(shell git grep --name-only --untracked 'flake-file' -- '*.nix'))
-	@git add -N $^
+define writeFlakeTarget
+$(1) &: $(2)
 	nix run .#write-flake
-	@touch $@
+	@touch $(1)
+endef
+
+.PHONY: .make/*.d
+dep: .make/write-files.d
+dep: .make/write-flake.d
+#: (re)generates dependency files
+dep: ; @true
+
+.make/write-files.d: SOURCES=$(strip $(shell git ls-files -- ':(attr:generates write-files)'))
+.make/write-files.d: OUTPUTS=$(strip $(shell git ls-files -- ':(attr:generated write-files)'))
+.make/write-files.d:
+	$(file >$@)
+	$(file >>$@,files: ${OUTPUTS})
+	$(file >>$@,$(call writeFilesTarget,${OUTPUTS},${SOURCES}))
+	@echo $@ generated
+
+.make/write-flake.d: SOURCES=$(strip $(shell git ls-files -- ':(attr:generates write-flake)'))
+.make/write-flake.d: OUTPUTS=$(strip $(shell git ls-files -- ':(attr:generated write-flake)'))
+.make/write-flake.d:
+	$(file >$@)
+	$(file >>$@,files: ${OUTPUTS})
+	$(file >>$@,$(call writeFlakeTarget,${OUTPUTS},${SOURCES}))
+	@echo $@ generated

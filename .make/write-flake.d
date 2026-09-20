@@ -1,0 +1,4 @@
+files: flake.nix
+flake.nix &: modules/inputs/cocopilot.nix modules/inputs/disko.nix modules/inputs/files.nix modules/inputs/flake-file.nix modules/inputs/flake-inputs.nix modules/inputs/flake-parts.nix modules/inputs/gnome-shell.nix modules/inputs/gomod2nix.nix modules/inputs/home-manager.nix modules/inputs/import-tree.nix modules/inputs/lanzaboote.nix modules/inputs/nix-darwin.nix modules/inputs/nix-homebrew.nix modules/inputs/nix-mineral.nix modules/inputs/nixos-hardware.nix modules/inputs/nixpkgs.nix modules/inputs/nur.nix modules/inputs/sops-nix.nix modules/inputs/stylix.nix modules/inputs/systems.nix modules/inputs/templates.nix modules/inputs/tinted-theming.nix modules/inputs/treefmt-nix.nix modules/inputs/unstable.nix modules/nix.nix modules/nix/builders.nix modules/nix/features.nix modules/nix/multi-user.nix modules/nix/packages.nix modules/nix/substituters.nix modules/nix/users.nix
+	nix run .#write-flake
+	@touch flake.nix

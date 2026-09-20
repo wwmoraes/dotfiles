@@ -9,6 +9,7 @@ HOSTNAME ?= $(shell uname -n)
 NIX_SOURCES = $(sort $(shell git ls-files '*.nix'))
 
 -include .make/*.mk
+-include .make/*.d
 
 .DEFAULT_GOAL := host/${HOSTNAME}
 

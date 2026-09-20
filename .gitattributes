@@ -1,7 +1,10 @@
-## filtering SOPS is a security risk when used with sops-nix as nix copies the
-## file from the repo to the store, which is decrypted by the smudge filter
-# secrets.yaml filter=sops
-
-.github/workflows/integration.yml merge=write-file
-flake.nix merge=write-flake
+.github/workflows/integration.yml merge=write-files generated write-files
+.make/*.d generated dep
+.make/*.gen.mk merge=write-files generated write-files
+flake.nix merge=write-flake generated write-flake
+modules/files/github-workflows.nix generates write-files
+modules/files/make.nix generates write-files
+modules/inputs/*.nix generates write-flake
+modules/nix.nix generates write-flake
+modules/nix/*.nix generates write-flake
 secrets.yaml diff=sops-yaml

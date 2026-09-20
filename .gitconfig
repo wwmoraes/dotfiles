@@ -1,15 +1,13 @@
 [diff "sops-yaml"]
-	textconv = yq 'sort_keys(..) | del(.sops.lastmodified) | del(.sops.mac)'
-	cachetextconv = true
-# 	textconv = sops decrypt
+textconv = yq 'sort_keys(..) | del(.sops.lastmodified) | del(.sops.mac)'
+cachetextconv = true
 
-# [filter "sops"]
-# 	required = true
-# 	smudge = sops decrypt --filename-override '%f' /dev/stdin
-# 	clean = sops encrypt --filename-override '%f' /dev/stdin
+[merge "write-files"]
+name = "generate files using mightyiam/files"
+driver = "nix run .#write-files"
 
 [merge "write-flake"]
-name = "flake-file write-flake"
+name = "generate flake file using vic/flake-file"
 driver = "nix run .#write-flake"
 
 [user]
