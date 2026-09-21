@@ -41,6 +41,7 @@
       git-ps.enable = true;
       git.enable = true;
       go.enable = true;
+      grc.enable = true;
       helix.enable = true;
       jq.enable = true;
       kitty.enable = true;
