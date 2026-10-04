@@ -7,7 +7,7 @@ all: host/M1Cabuk
 	ln -sf $(realpath $<) $@
 
 .PHONY: host/M1Cabuk
-#: Builds host's nix-darwin activation script.
+#: Builds host's Darwin activation script.
 host/M1Cabuk: .roots/darwin/M1Cabuk
 
 .roots/darwin/%: secrets.yaml ${NIX_SOURCES}

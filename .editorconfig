@@ -34,7 +34,7 @@ indent_style = unset
 tab_width = unset
 
 ## generated content
-[modules/files/make.nix]
+[modules/files/make/*.nix]
 generated_code = true
 indent_size = unset
 indent_style = unset

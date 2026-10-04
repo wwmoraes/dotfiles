@@ -5,17 +5,17 @@ export SHELL := $(shell which bash)
 
 .SUFFIXES:
 
-HOSTNAME ?= $(shell uname -n)
 NIX_SOURCES = $(sort $(shell git ls-files '*.nix'))
 
 -include .make/*.mk
 -include .make/*.d
+-include .make/*.local
 
 .DEFAULT_GOAL := host/${HOSTNAME}
 
 .PHONY: all
 #: Build all hosts' activation scripts.
-all: host/NLLM4000559023
+all: host/M1Cabuk
 
 .PHONY: build
 #: Build current host's activation script.
@@ -36,10 +36,12 @@ dist:
 .PHONY: install
 #: Applies the current host's settings.
 install: host/${HOSTNAME}
-ifeq ($(shell uname -s),Darwin)
+ifeq (${IS_DARWIN},1)
 	sudo darwin-rebuild switch ${FLAGS} --flake .
-else
+else ifeq (${IS_NIXOS},1)
 	sudo nixos-rebuild switch ${FLAGS} --flake .
+else
+	$(error unsupported OS, aborting install)
 endif
 
 .PHONY: pushcheck

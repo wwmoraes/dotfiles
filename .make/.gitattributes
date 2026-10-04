@@ -1,0 +1,5 @@
+*.d generated dep
+*.gen.mk merge=write-files generated write-files
+*-darwin.gen.mk files=make-darwin
+*-nixos.gen.mk files=make-nixos
+*-home.gen.mk files=make-home

@@ -3,35 +3,47 @@
 files:
 
 define writeFilesTarget
-$(1) &: $(2)
+$(1) &:
 	nix run .#write-files
 	@touch $(1)
 endef
 
 define writeFlakeTarget
-$(1) &: $(2)
+$(1):
 	nix run .#write-flake
 	@touch $(1)
 endef
 
-.PHONY: .make/*.d
-dep: .make/write-files.d
-dep: .make/write-flake.d
-#: (re)generates dependency files
-dep: ; @true
+dep:: .make/write-files.d
 
-.make/write-files.d: SOURCES=$(strip $(shell git ls-files -- ':(attr:generates write-files)'))
-.make/write-files.d: OUTPUTS=$(strip $(shell git ls-files -- ':(attr:generated write-files)'))
+.make/write-files.d: FILES_ATTRS = $(strip $(shell git ls-files -- ':(attr:generates write-files)' | xargs git check-attr files | cut -d' ' -f3))
+.make/write-files.d: OUTPUTS = $(strip $(shell git ls-files -- ':(attr:generated write-files)'))
 .make/write-files.d:
 	$(file >$@)
-	$(file >>$@,files: ${OUTPUTS})
-	$(file >>$@,$(call writeFilesTarget,${OUTPUTS},${SOURCES}))
+	$(file >>$@,# add write-files outputs to the porcelain files target)
+	$(foreach OUTPUT,${OUTPUTS},$(file >>$@,files: ${OUTPUT}))
+	$(file >>$@,)
+	$(file >>$@,# files' dependencies)
+	$(foreach ATTR,${FILES_ATTRS},$(foreach SOURCE,$(strip $(shell git ls-files -- ':(attr:generates write-files files=${ATTR})')),$(file >>$@,$(strip $(shell git ls-files -- ':(attr:generated write-files files=${ATTR})')): ${SOURCE})))
+	$(file >>$@,)
+	$(file >>$@,# files' recipe)
+	$(file >>$@,$(call writeFilesTarget,${OUTPUTS}))
+	@touch $@
 	@echo $@ generated
 
-.make/write-flake.d: SOURCES=$(strip $(shell git ls-files -- ':(attr:generates write-flake)'))
-.make/write-flake.d: OUTPUTS=$(strip $(shell git ls-files -- ':(attr:generated write-flake)'))
+dep:: .make/write-flake.d
+
+.make/write-flake.d: SOURCES = $(strip $(shell git ls-files -- ':(attr:generates write-flake)'))
+.make/write-flake.d: OUTPUTS = $(strip $(shell git ls-files -- ':(attr:generated write-flake)'))
 .make/write-flake.d:
 	$(file >$@)
-	$(file >>$@,files: ${OUTPUTS})
-	$(file >>$@,$(call writeFlakeTarget,${OUTPUTS},${SOURCES}))
+	$(file >>$@,# add write-flake outputs to the porcelain files target)
+	$(foreach OUTPUT,${OUTPUTS},$(file >>$@,files: ${OUTPUT}))
+	$(file >>$@,)
+	$(file >>$@,# flake dependencies)
+	$(foreach SOURCE,${SOURCES},$(file >>$@,${OUTPUTS}: ${SOURCE}))
+	$(file >>$@,)
+	$(file >>$@,# flake recipe)
+	$(file >>$@,$(call writeFlakeTarget,${OUTPUTS}))
+	@touch $@
 	@echo $@ generated

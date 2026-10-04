@@ -1,9 +1,5 @@
-.github/workflows/integration.yml merge=write-files generated write-files
-.make/*.d generated dep
-.make/*.gen.mk merge=write-files generated write-files
+.github/workflows/integration.yml merge=write-files generated write-files files=github-workflow
 flake.nix merge=write-flake generated write-flake
-modules/files/github-workflows.nix generates write-files
-modules/files/make.nix generates write-files
 modules/inputs/*.nix generates write-flake
 modules/nix.nix generates write-flake
 modules/nix/*.nix generates write-flake

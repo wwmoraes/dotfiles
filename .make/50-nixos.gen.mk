@@ -1,6 +1,11 @@
 # DO-NOT-EDIT. This file was auto-generated using github:mightyiam/files.
 # Use `nix run .#write-files` to regenerate it.
 
+.PHONY: install/folkvangr
+#: Activates configuration over SSH.
+install/folkvangr::
+	nix run nixpkgs#nixos-rebuild -- switch --build-host root@folkvangr.home.arpa --no-reexec --flake .#folkvangr --target-host root@folkvangr.home.arpa
+
 all: host/folkvangr
 
 .roots/folkvangr: .roots/nixos/folkvangr
@@ -9,24 +14,6 @@ all: host/folkvangr
 .PHONY: host/folkvangr
 #: Builds host's NixOS activation script.
 host/folkvangr: .roots/nixos/folkvangr
-
-all: host/hlin
-
-.roots/hlin: .roots/nixos/hlin
-	ln -sf $(realpath $<) $@
-
-.PHONY: host/hlin
-#: Builds host's NixOS activation script.
-host/hlin: .roots/nixos/hlin
-
-all: host/vidar
-
-.roots/vidar: .roots/nixos/vidar
-	ln -sf $(realpath $<) $@
-
-.PHONY: host/vidar
-#: Builds host's NixOS activation script.
-host/vidar: .roots/nixos/vidar
 
 .PHONY: vm/folkvangr
 #: Builds host's VM activation script.
@@ -37,6 +24,20 @@ vm/folkvangr: .roots/vm/folkvangr
 	nom build --show-trace --accept-flake-config --out-link $@ .#legacyPackages.aarch64-linux.folkvangr-image
 	@touch -h $@
 
+.PHONY: install/hlin
+#: Activates configuration over SSH.
+install/hlin::
+	nix run nixpkgs#nixos-rebuild -- switch --build-host root@hlin.home.arpa --no-reexec --flake .#hlin --target-host root@hlin.home.arpa
+
+all: host/hlin
+
+.roots/hlin: .roots/nixos/hlin
+	ln -sf $(realpath $<) $@
+
+.PHONY: host/hlin
+#: Builds host's NixOS activation script.
+host/hlin: .roots/nixos/hlin
+
 .PHONY: vm/hlin
 #: Builds host's VM activation script.
 vm/hlin: .roots/vm/hlin
@@ -45,6 +46,20 @@ vm/hlin: .roots/vm/hlin
 	@mkdir -p $(dir $@)
 	nom build --show-trace --accept-flake-config --out-link $@ .#legacyPackages.x86_64-linux.hlin-image
 	@touch -h $@
+
+.PHONY: install/vidar
+#: Activates configuration over SSH.
+install/vidar::
+	nix run nixpkgs#nixos-rebuild -- switch --build-host root@vidar.home.arpa --no-reexec --flake .#vidar --target-host root@vidar.home.arpa
+
+all: host/vidar
+
+.roots/vidar: .roots/nixos/vidar
+	ln -sf $(realpath $<) $@
+
+.PHONY: host/vidar
+#: Builds host's NixOS activation script.
+host/vidar: .roots/nixos/vidar
 
 .PHONY: vm/vidar
 #: Builds host's VM activation script.

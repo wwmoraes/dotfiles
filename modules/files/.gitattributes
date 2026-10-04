@@ -1,0 +1,4 @@
+github-workflows.nix generates write-files files=github-workflow
+make/darwin.nix generates write-files files=make-darwin
+make/nixos.nix generates write-files files=make-nixos
+make/home.nix generates write-files files=make-home
