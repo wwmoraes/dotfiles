@@ -49,11 +49,10 @@
       };
 
       config = mkIf cfg.enable {
-        home.packages =
-          mkIf (cfg.package != null) [
-            cfg.package
-          ]
-          ++ lib.optional config.programs.fish.enable pkgs.fishPlugins.grc;
+        home.packages = lib.flatten [
+          (lib.optional (cfg.package != null) cfg.package)
+          (lib.optional config.programs.fish.enable pkgs.fishPlugins.grc)
+        ];
       };
     };
 }
