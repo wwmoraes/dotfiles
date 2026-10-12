@@ -11,6 +11,7 @@
   flake.modules.generic.default =
     {
       config,
+      pkgs,
       ...
     }:
     let
@@ -21,6 +22,8 @@
       ] (name: "op plugin run -- " + name);
     in
     {
+      programs._1password-gui.package = pkgs.unstable._1password-gui;
+
       environment.shellAliases = shellAliases;
 
       home-manager.sharedModules = lib.optional config.programs._1password.enable {
