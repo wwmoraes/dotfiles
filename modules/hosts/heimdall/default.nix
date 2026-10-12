@@ -1,5 +1,5 @@
 {
-  hosts.nixos.vidar =
+  hosts.nixos.heimdall =
     {
       getHomeModulesByName,
       getSystemModulesByName,
@@ -9,30 +9,34 @@
       systemModules = getSystemModulesByName [
         # keep-sorted start
         "default"
-        "gpg"
+        "home"
+        "minisforum-ms-r1"
         "personal"
         "root"
+        # "secure-boot"
         "shell"
         "shell'personal"
         "william"
+        # "gpg"
+        # "hardening"
+        # "media-server"
+        # "nas"
         # keep-sorted end
       ];
 
       homeModules = getHomeModulesByName [
         # keep-sorted start
         "default"
+        "home"
         "personal"
         # keep-sorted end
       ];
 
       userModules = {
         root = getHomeModulesByName [
-          # keep-sorted start
-          # keep-sorted end
         ];
         william = getHomeModulesByName [
           # keep-sorted start
-          "gpg"
           "shell"
           "shell'personal"
           # keep-sorted end

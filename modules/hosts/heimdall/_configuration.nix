@@ -40,7 +40,7 @@
   };
 
   networking = {
-    hostName = "folkvangr";
+    hostName = "heimdall";
     networkmanager.enable = true;
     useDHCP = lib.mkDefault true;
     wireless.iwd = {

@@ -16,7 +16,7 @@
 
     nix.buildMachines = [
       {
-        hostName = "vidar";
+        hostName = "hermod";
         maxJobs = 4;
         protocol = "ssh-ng";
         sshUser = "root";
@@ -29,7 +29,7 @@
         system = "aarch64-linux";
       }
       {
-        hostName = "nas";
+        hostName = "mimir";
         maxJobs = 4;
         protocol = "ssh-ng";
         sshUser = "root";

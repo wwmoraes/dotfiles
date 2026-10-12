@@ -15,7 +15,7 @@ in
     ];
   };
 
-  flake.modules.nixos.nas =
+  flake.modules.nixos.__nas =
     {
       pkgs,
       ...

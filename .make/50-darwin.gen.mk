@@ -1,14 +1,14 @@
 # DO-NOT-EDIT. This file was auto-generated using github:mightyiam/files.
 # Use `nix run .#write-files` to regenerate it.
 
-all: host/M1Cabuk
+all: host/thor
 
-.roots/M1Cabuk: .roots/darwin/M1Cabuk
+.roots/thor: .roots/darwin/thor
 	ln -sf $(realpath $<) $@
 
-.PHONY: host/M1Cabuk
+.PHONY: host/thor
 #: Builds host's Darwin activation script.
-host/M1Cabuk: .roots/darwin/M1Cabuk
+host/thor: .roots/darwin/thor
 
 .roots/darwin/%: secrets.yaml ${NIX_SOURCES}
 	@mkdir -p $(dir $@)

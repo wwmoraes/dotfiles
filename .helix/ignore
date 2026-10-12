@@ -1,0 +1,3 @@
+.make/*.d
+.make/*.gen.mk
+.make/*.local

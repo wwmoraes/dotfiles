@@ -6,7 +6,7 @@
   services.resilio = {
     # https://help.resilio.com/hc/en-us/articles/206178884-Running-Sync-in-configuration-mode
     enable = true;
-    deviceName = "NAS";
+    deviceName = "Mimir";
     directoryRoot = "/srv/resilio";
     enableWebUI = true;
     storagePath = "/var/lib/resilio";

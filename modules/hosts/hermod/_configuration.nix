@@ -52,7 +52,7 @@
   };
 
   networking = {
-    hostName = "vidar";
+    hostName = "hermod";
     networkmanager.enable = true;
     useDHCP = lib.mkDefault true;
     wireless.iwd = {
